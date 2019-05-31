@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Engines">
+      <UniqueIdentifier>{d71117a9-ca0c-4ee5-99dc-a94b81e9f170}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\EdDoc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="smtDocument.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="smtmImp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="smtModule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="smtPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sumatrapdf\src\ChmDoc.h">
+      <Filter>Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sumatrapdf\src\DjVuEngine.h">
+      <Filter>Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sumatrapdf\src\EbookDoc.h">
+      <Filter>Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sumatrapdf\src\EbookFormatter.h">
+      <Filter>Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sumatrapdf\src\ImagesEngine.h">
+      <Filter>Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sumatrapdf\src\MobiDoc.h">
+      <Filter>Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sumatrapdf\src\PdfCreator.h">
+      <Filter>Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sumatrapdf\src\utils\PalmDbReader.h">
+      <Filter>Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sumatrapdf\src\mui\MiniMui.h">
+      <Filter>Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sumatrapdf\src\mui\TextRender.h">
+      <Filter>Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sumatrapdf\src\PsEngine.h">
+      <Filter>Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\GdipStart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineOverride.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="smtDocument.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="smtModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="smtPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\ChmDoc.cpp">
+      <Filter>Engines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\DjVuEngine.cpp">
+      <Filter>Engines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\EbookDoc.cpp">
+      <Filter>Engines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\EbookFormatter.cpp">
+      <Filter>Engines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\ImagesEngine.cpp">
+      <Filter>Engines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\MobiDoc.cpp">
+      <Filter>Engines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\MuPDF_Exports.cpp">
+      <Filter>Engines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\PdfCreator.cpp">
+      <Filter>Engines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\utils\PalmDbReader.cpp">
+      <Filter>Engines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\mui\MiniMui.cpp">
+      <Filter>Engines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\mui\TextRender.cpp">
+      <Filter>Engines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\PsEngine.cpp">
+      <Filter>Engines</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm\GdipStart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineOverride.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HtmlFmtOverride.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PdfEngineOverride.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EdSmt.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EdSmt.def">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

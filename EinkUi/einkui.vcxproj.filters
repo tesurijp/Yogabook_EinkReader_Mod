@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="AllocatorPacket">
+      <UniqueIdentifier>{0f817862-11ae-48a3-b84a-694c3e72b0a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AllocatorPacket\DataMgr">
+      <UniqueIdentifier>{ccc68b43-564f-4e8d-81ba-869976c95490}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AllocatorPacket\FactMgr">
+      <UniqueIdentifier>{b3697068-136d-404a-b7c1-664e329ab032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AllocatorPacket\ObjectAllocator">
+      <UniqueIdentifier>{a692f2f3-cff6-475b-a610-f702080d56d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Element">
+      <UniqueIdentifier>{ba522327-fa0d-4287-89e5-ebf0e9c304c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphy">
+      <UniqueIdentifier>{287972b0-246d-4f4d-a4b9-16d76a76bcf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Comm">
+      <UniqueIdentifier>{4ac3c0a2-2ef2-46d1-86a6-056980f9b59b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Message">
+      <UniqueIdentifier>{52ea2d2b-23a4-4199-9ce7-3e6a3b8002d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XuiSystem">
+      <UniqueIdentifier>{ad2fc078-f75d-40a3-9d53-8d1deabf03ff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="Einkui.def">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\EResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\cmmBaseObj.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\cmmstruct.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\cmmPath.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BpTree.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\ConfigX.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="ImeContext.h">
+      <Filter>XuiSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadAbort.h">
+      <Filter>XuiSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\ElementImp.h">
+      <Filter>Element</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\CommonHeader.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\Motion.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="Allocator\XelDataMgr.h">
+      <Filter>AllocatorPacket\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Allocator\XelFactoryMgr.h">
+      <Filter>AllocatorPacket\FactMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Allocator\XelAllocator.h">
+      <Filter>AllocatorPacket\ObjectAllocator</Filter>
+    </ClInclude>
+    <ClInclude Include="XsBmpList.h">
+      <Filter>AllocatorPacket</Filter>
+    </ClInclude>
+    <ClInclude Include="XsBrushList.h">
+      <Filter>AllocatorPacket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\XUIx.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="XleIteratorImp.h">
+      <Filter>Element</Filter>
+    </ClInclude>
+    <ClInclude Include="XleMgrImp.h">
+      <Filter>XuiSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="XsSysElement.h">
+      <Filter>XuiSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="XsThreadBlock.h">
+      <Filter>XuiSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="XsWgtContext.h">
+      <Filter>XuiSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="XsWidgetImp.h">
+      <Filter>XuiSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="XsMsgQueue.h">
+      <Filter>Message</Filter>
+    </ClInclude>
+    <ClInclude Include="XsMsgImp.h">
+      <Filter>Message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\CfgIface.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\ConfigFile.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphy\XgBitArray.h">
+      <Filter>Graphy</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphy\XgD2DBitmap.h">
+      <Filter>Graphy</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphy\XgD2DBrush.h">
+      <Filter>Graphy</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphy\XgTextBitmapImp.h">
+      <Filter>Graphy</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphy\XgD2DEngine4Eink.h">
+      <Filter>Graphy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\EiUpdate.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Einkui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="einkuiImp.h">
+      <Filter>XuiSystem</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm\cmmPath.cpp">
+      <Filter>Comm</Filter>
+    </ClCompile>
+    <ClCompile Include="ImeContext.cpp">
+      <Filter>XuiSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadAbort.cpp">
+      <Filter>XuiSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Allocator\XelDataMgr.cpp">
+      <Filter>AllocatorPacket\DataMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Allocator\XelFactoryMgr.cpp">
+      <Filter>AllocatorPacket\FactMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Allocator\XelAllocator.cpp">
+      <Filter>AllocatorPacket\ObjectAllocator</Filter>
+    </ClCompile>
+    <ClCompile Include="XsBmpList.cpp">
+      <Filter>AllocatorPacket</Filter>
+    </ClCompile>
+    <ClCompile Include="XsBrushList.cpp">
+      <Filter>AllocatorPacket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm\XUIx.cpp">
+      <Filter>Comm</Filter>
+    </ClCompile>
+    <ClCompile Include="XleIteratorImp.cpp">
+      <Filter>Element</Filter>
+    </ClCompile>
+    <ClCompile Include="XleMgrImp.cpp">
+      <Filter>XuiSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="XsSysElement.cpp">
+      <Filter>XuiSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="XsThreadBlock.cpp">
+      <Filter>XuiSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="XsWgtContext.cpp">
+      <Filter>XuiSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="XsWidgetImp.cpp">
+      <Filter>XuiSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="XsMsgQueue.cpp">
+      <Filter>Message</Filter>
+    </ClCompile>
+    <ClCompile Include="XsMsgImp.cpp">
+      <Filter>Message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm\ConfigFile.cpp">
+      <Filter>Comm</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphy\XgBitArray.cpp">
+      <Filter>Graphy</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphy\XgD2DBitmap.cpp">
+      <Filter>Graphy</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphy\XgD2DBrush.cpp">
+      <Filter>Graphy</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphy\XgTextBitmapImp.cpp">
+      <Filter>Graphy</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphy\XgD2DEngine4Eink.cpp">
+      <Filter>Graphy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm\EiUpdate.cpp">
+      <Filter>Comm</Filter>
+    </ClCompile>
+    <ClCompile Include="einkuiImp.cpp">
+      <Filter>XuiSystem</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="einkui.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

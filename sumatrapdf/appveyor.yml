@@ -1,0 +1,32 @@
+# docs: http://www.appveyor.com/docs/appveyor-yml
+# software installed on build machines: http://www.appveyor.com/docs/installed-software
+
+version: 3.1.{build}
+
+os: Visual Studio 2015
+
+branches:
+  only:
+    - master
+
+# set env var when running in appveyor so that we can distinguish
+# from running locally
+environment:
+  inappveyor: 1
+
+skip_tags: true
+
+build_script:
+  - scripts\appveyor-build.bat
+
+test_script:
+  - rel\test_util.exe
+  - rel64\test_util.exe
+
+artifacts:
+  - path: rel\SumatraPDF.exe
+  - path: rel\Installer.exe
+  - path: rel\SumatraPDF.pdb.lzsa
+  - path: rel64\SumatraPDF.exe
+  - path: rel64\Installer.exe
+  - path: rel64\SumatraPDF.pdb.lzsa

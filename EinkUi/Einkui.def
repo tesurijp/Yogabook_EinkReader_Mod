@@ -1,0 +1,8 @@
+LIBRARY "Einkui"
+
+EXPORTS
+		EinkuiGetSystem
+		EinkuiStart
+		EGUID_EMGR_DROP_TEST
+		CfCreateConfig
+		CfCreateStableConfig

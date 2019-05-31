@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Button">
+      <UniqueIdentifier>{6a8d075d-e686-47f0-98f1-51508b889c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Comm">
+      <UniqueIdentifier>{34b8ef6b-eb27-4243-9b5e-df1e78ddd578}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CtlFactImp">
+      <UniqueIdentifier>{de22eed6-e86c-4dea-8bbe-07cf0a5d3a34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Element">
+      <UniqueIdentifier>{42b8dec4-2967-4bdd-89a2-d5659cd8ec31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Picture">
+      <UniqueIdentifier>{6b1432d8-ee45-45d7-b725-4aea8847cdf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StaticText">
+      <UniqueIdentifier>{0bebcbf8-c1cb-444b-86ab-ca9bda94e5ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="List">
+      <UniqueIdentifier>{02b84797-a6b6-4ccd-a08f-da084e90e029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ScrollBar">
+      <UniqueIdentifier>{db7eedfa-483c-4b96-9f46-1aa876563437}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CtlFactImp\mapList">
+      <UniqueIdentifier>{5d9b7c07-a9fd-4970-aa2c-6e54ce02f63d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Edit">
+      <UniqueIdentifier>{a5b11bfd-f0bd-4686-9f29-110e11d82fb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="SliderBar">
+      <UniqueIdentifier>{a4cb7f26-78b0-4bb6-a9d3-609b088396df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SliderButton">
+      <UniqueIdentifier>{5e52ee4e-2faa-4a13-b4ee-f12db92c5a73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SlideButton">
+      <UniqueIdentifier>{42431c97-a653-4667-9414-d20432cc4e40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImageButton">
+      <UniqueIdentifier>{b6da36f7-55eb-48ca-ae20-6fc58e12d13f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WhirlAngle">
+      <UniqueIdentifier>{34c1cda9-d020-4682-9c7d-0dea8e3e4354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpinButton">
+      <UniqueIdentifier>{63834aef-2ce2-4617-8f6e-fabd5509761f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SelectFrame">
+      <UniqueIdentifier>{e180ded9-a1ce-4a66-af7c-04f427a8ab44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BiSliderBar">
+      <UniqueIdentifier>{861d1f7b-2d6f-454d-92ae-ab3362dabcd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ComboBox">
+      <UniqueIdentifier>{fb93ae31-db09-4ded-8947-7416e0a4b9c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Animator">
+      <UniqueIdentifier>{d5c279e4-d5e2-4cc0-8da0-684af6dbb06b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{847be18d-b3a1-4f29-894c-1ad9c4801c48}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="ECtl.def">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\cmmPath.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\cmmstruct.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\ElementImp.h">
+      <Filter>Element</Filter>
+    </ClInclude>
+    <ClInclude Include="EvButtonImp.h">
+      <Filter>Button</Filter>
+    </ClInclude>
+    <ClInclude Include="EvPictureFrameImp.h">
+      <Filter>Picture</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryImp.h">
+      <Filter>CtlFactImp</Filter>
+    </ClInclude>
+    <ClInclude Include="EvEditImp.h">
+      <Filter>Edit</Filter>
+    </ClInclude>
+    <ClInclude Include="EvListImp.h">
+      <Filter>List</Filter>
+    </ClInclude>
+    <ClInclude Include="EvScrollBarImp.h">
+      <Filter>ScrollBar</Filter>
+    </ClInclude>
+    <ClInclude Include="EvStaticTextImp.h">
+      <Filter>StaticText</Filter>
+    </ClInclude>
+    <ClInclude Include="mapDefine.h">
+      <Filter>CtlFactImp\mapList</Filter>
+    </ClInclude>
+    <ClInclude Include="mapList.h">
+      <Filter>CtlFactImp\mapList</Filter>
+    </ClInclude>
+    <ClInclude Include="EvSliderBarImp.h">
+      <Filter>SliderBar</Filter>
+    </ClInclude>
+    <ClInclude Include="EvSliderButtonImp.h">
+      <Filter>SliderButton</Filter>
+    </ClInclude>
+    <ClInclude Include="EvPpButtonImp.h">
+      <Filter>SlideButton</Filter>
+    </ClInclude>
+    <ClInclude Include="EvLabelImp.h">
+      <Filter>Edit</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EvMenuItemImp.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="EvPopupMenuImp.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="EvMenuButtonImp.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="EvMenuBarImp.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="EvImageButtonImp.h">
+      <Filter>ImageButton</Filter>
+    </ClInclude>
+    <ClInclude Include="EvComboBoxImp.h">
+      <Filter>ComboBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ToolBarDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EvWhirlAngle.h">
+      <Filter>WhirlAngle</Filter>
+    </ClInclude>
+    <ClInclude Include="EvSpinButtonImp.h">
+      <Filter>SpinButton</Filter>
+    </ClInclude>
+    <ClInclude Include="EvCheckButtonImp.h">
+      <Filter>Button</Filter>
+    </ClInclude>
+    <ClInclude Include="EvRadioButtonGroupImp.h">
+      <Filter>Button</Filter>
+    </ClInclude>
+    <ClInclude Include="EvBiSliderBarImp.h">
+      <Filter>BiSliderBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\XUIx.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="XSelectFrame.h">
+      <Filter>SelectFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="XSelectFrameMacro.h">
+      <Filter>SelectFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="XSelectPoint.h">
+      <Filter>SelectFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\XCtl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\CfgIface.h">
+      <Filter>Comm</Filter>
+    </ClInclude>
+    <ClInclude Include="EvAnimatorImp.h">
+      <Filter>Animator</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm\cmmPath.cpp">
+      <Filter>Comm</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EvButtonImp.cpp">
+      <Filter>Button</Filter>
+    </ClCompile>
+    <ClCompile Include="EvPictureFrameImp.cpp">
+      <Filter>Picture</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryImp.cpp">
+      <Filter>CtlFactImp</Filter>
+    </ClCompile>
+    <ClCompile Include="EvEditImp.cpp">
+      <Filter>Edit</Filter>
+    </ClCompile>
+    <ClCompile Include="EvListImp.cpp">
+      <Filter>List</Filter>
+    </ClCompile>
+    <ClCompile Include="EvScrollBarImp.cpp">
+      <Filter>ScrollBar</Filter>
+    </ClCompile>
+    <ClCompile Include="EvStaticTextImp.cpp">
+      <Filter>StaticText</Filter>
+    </ClCompile>
+    <ClCompile Include="mapList.cpp">
+      <Filter>CtlFactImp\mapList</Filter>
+    </ClCompile>
+    <ClCompile Include="EvSliderBarImp.cpp">
+      <Filter>SliderBar</Filter>
+    </ClCompile>
+    <ClCompile Include="EvSliderButtonImp.cpp">
+      <Filter>SliderButton</Filter>
+    </ClCompile>
+    <ClCompile Include="EvPpButtonImp.cpp">
+      <Filter>SlideButton</Filter>
+    </ClCompile>
+    <ClCompile Include="EvLabelImp.cpp">
+      <Filter>Edit</Filter>
+    </ClCompile>
+    <ClCompile Include="EvMenuItemImp.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="EvPopupMenuImp.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="EvMenuButtonImp.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="EvMenuBarImp.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="EvImageButtonImp.cpp">
+      <Filter>ImageButton</Filter>
+    </ClCompile>
+    <ClCompile Include="EvWhirlAngle.cpp">
+      <Filter>WhirlAngle</Filter>
+    </ClCompile>
+    <ClCompile Include="EvSpinButtonImp.cpp">
+      <Filter>SpinButton</Filter>
+    </ClCompile>
+    <ClCompile Include="EvCheckButtonImp.cpp">
+      <Filter>Button</Filter>
+    </ClCompile>
+    <ClCompile Include="EvRadioButtonGroupImp.cpp">
+      <Filter>Button</Filter>
+    </ClCompile>
+    <ClCompile Include="EvBiSliderBarImp.cpp">
+      <Filter>BiSliderBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm\XUIx.cpp">
+      <Filter>Comm</Filter>
+    </ClCompile>
+    <ClCompile Include="XSelectFrame.cpp">
+      <Filter>SelectFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="XSelectPoint.cpp">
+      <Filter>SelectFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="EvComboBoxImp.cpp">
+      <Filter>ComboBox</Filter>
+    </ClCompile>
+    <ClCompile Include="EvAnimatorImp.cpp">
+      <Filter>Animator</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ECtl.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
