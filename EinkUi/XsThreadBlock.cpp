@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -10,7 +10,7 @@
 
 
 
-//Ôö¼ÓÒ»¸ö×èµã£¬·µ»ØÎ¨Ò»µÄ×èµãID
+//å¢åŠ ä¸€ä¸ªé˜»ç‚¹ï¼Œè¿”å›å”¯ä¸€çš„é˜»ç‚¹ID
 ULONG CXuiThreadBlock::AddBlock()
 {
 	ULONG luVlue;
@@ -24,7 +24,7 @@ ULONG CXuiThreadBlock::AddBlock()
 	return luVlue;
 }
 
-//»ñµÃ×èµãµÄ×´¿ö£¬·µ»ØERESULT_BLOCK±íÊ¾´Ë×èµãÉĞÎ´Íê³É£¬ÆäËûÖµ±íÊ¾ÒÑ¾­Íê³É;
+//è·å¾—é˜»ç‚¹çš„çŠ¶å†µï¼Œè¿”å›ERESULT_BLOCKè¡¨ç¤ºæ­¤é˜»ç‚¹å°šæœªå®Œæˆï¼Œå…¶ä»–å€¼è¡¨ç¤ºå·²ç»å®Œæˆ;
 ERESULT CXuiThreadBlock::ReadBlockState(ULONG nuID)
 {
 	ERESULT luResult;
@@ -36,7 +36,7 @@ ERESULT CXuiThreadBlock::ReadBlockState(ULONG nuID)
 	return luResult;
 }
 
-//Éè¶¨×èµãµÄ×´¿ö
+//è®¾å®šé˜»ç‚¹çš„çŠ¶å†µ
 void CXuiThreadBlock::SetBlockState(ULONG nuID,ERESULT nuState)
 {
 	moAccLock.Enter();
@@ -44,7 +44,7 @@ void CXuiThreadBlock::SetBlockState(ULONG nuID,ERESULT nuState)
 	moAccLock.Leave();
 }
 
-//É¾³ıÒ»¸ö×èµã
+//åˆ é™¤ä¸€ä¸ªé˜»ç‚¹
 void CXuiThreadBlock::RemoveBlock(ULONG nuID)
 {
 	moAccLock.Enter();
@@ -74,7 +74,7 @@ bool CXuiModalStack::GetTopModel(CXuiModalState& rState)
 	return lbOK;
 }
 
-// ·µ»ØµÄÊÇ´æÈëµÄBlockID
+// è¿”å›çš„æ˜¯å­˜å…¥çš„BlockID
 void CXuiModalStack::RemoveModal(IEinkuiIterator* npModelElement)
 {
 	int liIndex;
@@ -88,7 +88,7 @@ void CXuiModalStack::RemoveModal(IEinkuiIterator* npModelElement)
 	moAccLock.Leave();
 }
 
-// ·µ»ØµÄÊÇ´æÈëµÄBlockID
+// è¿”å›çš„æ˜¯å­˜å…¥çš„BlockID
 ULONG CXuiModalStack::GetBlockIDOfModal(IEinkuiIterator* npModelElement)
 {
 	int liIndex;

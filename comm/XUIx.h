@@ -1,10 +1,10 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
 #pragma once
 /*	FileName:	XuiX.h
-	Comment:	±¾ÎÄ¼şÌá¹©¶ÔXuiÏµÍ³µ÷ÓÃµÄ¼ò±ã·â×°
+	Comment:	æœ¬æ–‡ä»¶æä¾›å¯¹Xuiç³»ç»Ÿè°ƒç”¨çš„ç®€ä¾¿å°è£…
 	History:
 			Ax Created Nov.16,2011
 			Pangxie modified to support Eink UI
@@ -14,7 +14,7 @@
 
 
 
-// ÏÂÃæµÄÀàÓÃÓÚÌá¹©±ã½İµÄ·ÃÎÊXUIÏûÏ¢ÏµÍ³µÄ·½·¨£¬°üÀ¨·¢ËÍÏûÏ¢£¬ºÍ´ÓÏûÏ¢»ñÈ¡Êı¾İ
+// ä¸‹é¢çš„ç±»ç”¨äºæä¾›ä¾¿æ·çš„è®¿é—®XUIæ¶ˆæ¯ç³»ç»Ÿçš„æ–¹æ³•ï¼ŒåŒ…æ‹¬å‘é€æ¶ˆæ¯ï¼Œå’Œä»æ¶ˆæ¯è·å–æ•°æ®
 class CExMessage{
 private:
 	static IXelManager* gpElementManager;
@@ -26,40 +26,40 @@ public:
 	static void* DataInvalid;
 
 
-	// PostÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒÖ±½Ó·¢ËÍĞ¯´øµÄ²ÎÊı£¬×¢Òâ£¬Èç¹û²ÎÊıÊÇÒ»¸öÖ¸Õë£¬ÔòÖ»»á¸´ÖÆ´«µİÖ¸Õë£¨Ò»¸öµØÖ·£©±¾Éí£¬¶ø²»»á¸´ÖÆ´«µİÖ¸ÕëÖ¸ÏòµÄÄÚÈİ£¬Post·¢ËÍÏûÏ¢ĞèÒª×¢ÒâÕâ¸öÎÊÌâ£¬·ÀÖ¹µØÖ·µ½ÏûÏ¢½ÓÊÕÕß³öÎŞ·¨·ÃÎÊ¡£
-	// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid;		nuFastÏûÏ¢µÄÓÅÏÈ¼¶£¬EMSG_POST_NORMAL,EMSG_POST_FAST,EMSG_POST_REVERSE
+	// Postæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”ç›´æ¥å‘é€æºå¸¦çš„å‚æ•°ï¼Œæ³¨æ„ï¼Œå¦‚æœå‚æ•°æ˜¯ä¸€ä¸ªæŒ‡é’ˆï¼Œåˆ™åªä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆï¼ˆä¸€ä¸ªåœ°å€ï¼‰æœ¬èº«ï¼Œè€Œä¸ä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆæŒ‡å‘çš„å†…å®¹ï¼ŒPostå‘é€æ¶ˆæ¯éœ€è¦æ³¨æ„è¿™ä¸ªé—®é¢˜ï¼Œé˜²æ­¢åœ°å€åˆ°æ¶ˆæ¯æ¥æ”¶è€…å‡ºæ— æ³•è®¿é—®ã€‚
+	// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid;		nuFastæ¶ˆæ¯çš„ä¼˜å…ˆçº§ï¼ŒEMSG_POST_NORMAL,EMSG_POST_FAST,EMSG_POST_REVERSE
 	template<typename DataType>
 	static ERESULT PostMessage(IEinkuiIterator* npReceiver,IEinkuiIterator* npSender,ULONG nuMsgID,const DataType& rDataToPost,ULONG nuFast=EMSG_POSTTYPE_NORMAL);
 
-	// SendÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒÖ±½Ó·¢ËÍĞ¯´øµÄ²ÎÊı£¬×¢Òâ£¬Èç¹û²ÎÊıÊÇÒ»¸öÖ¸Õë£¬ÔòÖ»»á¸´ÖÆ´«µİÖ¸Õë£¨Ò»¸öµØÖ·£©±¾Éí£¬¶ø²»»á¸´ÖÆ´«µİÖ¸ÕëÖ¸ÏòµÄÄÚÈİ£¬SendÄ£Ê½·¢ËÍÏûÏ¢Ê±£¬Õâ²»»áµ¼ÖÂÌØÊâÎÊÌâ
-	// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid
+	// Sendæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”ç›´æ¥å‘é€æºå¸¦çš„å‚æ•°ï¼Œæ³¨æ„ï¼Œå¦‚æœå‚æ•°æ˜¯ä¸€ä¸ªæŒ‡é’ˆï¼Œåˆ™åªä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆï¼ˆä¸€ä¸ªåœ°å€ï¼‰æœ¬èº«ï¼Œè€Œä¸ä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆæŒ‡å‘çš„å†…å®¹ï¼ŒSendæ¨¡å¼å‘é€æ¶ˆæ¯æ—¶ï¼Œè¿™ä¸ä¼šå¯¼è‡´ç‰¹æ®Šé—®é¢˜
+	// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid
 	template<typename DataType>
 	static ERESULT SendMessage(IEinkuiIterator* npReceiver,IEinkuiIterator* npSender,ULONG nuMsgID,const DataType& rDateForSend,void* npBufferForReceive=NULL,int niBytesOfBuffer=0);
 
-	// PostÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒĞ¯´øÒ»¸ö×Ö·û´®£¬×¢Òâ£¬×Ö·û´®Ò»¶¨Òª´øÓĞ\0½áÎ²
-	// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid;		nuFastÏûÏ¢µÄÓÅÏÈ¼¶£¬EMSG_POST_NORMAL,EMSG_POST_FAST,EMSG_POST_REVERSE
+	// Postæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”æºå¸¦ä¸€ä¸ªå­—ç¬¦ä¸²ï¼Œæ³¨æ„ï¼Œå­—ç¬¦ä¸²ä¸€å®šè¦å¸¦æœ‰\0ç»“å°¾
+	// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid;		nuFastæ¶ˆæ¯çš„ä¼˜å…ˆçº§ï¼ŒEMSG_POST_NORMAL,EMSG_POST_FAST,EMSG_POST_REVERSE
 	static ERESULT PostMessageWithText(IEinkuiIterator* npReceiver,IEinkuiIterator* npSender,ULONG nuMsgID,const wchar_t* nswText,ULONG nuFast=EMSG_POSTTYPE_NORMAL);
 
-	// SendÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒĞ¯´øÒ»¸ö×Ö·û´®£¬×¢Òâ£¬×Ö·û´®Ò»¶¨Òª´øÓĞ\0½áÎ²
-	// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid
+	// Sendæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”æºå¸¦ä¸€ä¸ªå­—ç¬¦ä¸²ï¼Œæ³¨æ„ï¼Œå­—ç¬¦ä¸²ä¸€å®šè¦å¸¦æœ‰\0ç»“å°¾
+	// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid
 	static ERESULT SendMessageWithText(IEinkuiIterator* npReceiver,IEinkuiIterator* npSender,ULONG nuMsgID,const wchar_t* nswText,void* npBufferForReceive=NULL,int niBytesOfBuffer=0);
 
-	// PostÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒĞ¯´ø»º³åÇøÊı¾İ
-	// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid;		nuFastÏûÏ¢µÄÓÅÏÈ¼¶£¬EMSG_POST_NORMAL,EMSG_POST_FAST,EMSG_POST_REVERSE
+	// Postæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”æºå¸¦ç¼“å†²åŒºæ•°æ®
+	// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid;		nuFastæ¶ˆæ¯çš„ä¼˜å…ˆçº§ï¼ŒEMSG_POST_NORMAL,EMSG_POST_FAST,EMSG_POST_REVERSE
 	static ERESULT PostMessageWithBuffer(IEinkuiIterator* npReceiver,IEinkuiIterator* npSender,ULONG nuMsgID,const void* npBuffer,int niBytes,ULONG nuFast=EMSG_POSTTYPE_NORMAL);
 
-	// Ã»ÓĞ±ØÒªÌá¹©SendÄ£Ê½·¢ËÍ»º³åÇøÊı¾İµÄ·½·¨£¬Ö±½Ó·¢ËÍµØÖ·¹ıÈ¥¾ÍºÃÁË¡£ÒòÎª£¬µ±ÏûÏ¢´¦ÀíÊ±£¬ÄÚ´æ²»»áÊ§Ğ§
+	// æ²¡æœ‰å¿…è¦æä¾›Sendæ¨¡å¼å‘é€ç¼“å†²åŒºæ•°æ®çš„æ–¹æ³•ï¼Œç›´æ¥å‘é€åœ°å€è¿‡å»å°±å¥½äº†ã€‚å› ä¸ºï¼Œå½“æ¶ˆæ¯å¤„ç†æ—¶ï¼Œå†…å­˜ä¸ä¼šå¤±æ•ˆ
 	//ERESULT SendMessageWithBuffer(...);
 
-	// »ñÈ¡ÊäÈë²ÎÊı£¬³É¹¦»ñµÃ½«·µ»ØERESULT_SUCCESS
+	// è·å–è¾“å…¥å‚æ•°ï¼ŒæˆåŠŸè·å¾—å°†è¿”å›ERESULT_SUCCESS
 	template<typename DataType>
 	static ERESULT GetInputData(IEinkuiMessage* npMsg,DataType& rVariable);
 
-	// »ñÈ¡ÊäÈë²ÎÊı£¬³É¹¦»ñµÃ½«·µ»ØERESULT_SUCCESS£¬Èç¹ûµÃµ½µÄÖµÓërInvalidValueÏàÍ¬£¬½«·µ»ØERESULT_WRONG_PARAMETERS
+	// è·å–è¾“å…¥å‚æ•°ï¼ŒæˆåŠŸè·å¾—å°†è¿”å›ERESULT_SUCCESSï¼Œå¦‚æœå¾—åˆ°çš„å€¼ä¸rInvalidValueç›¸åŒï¼Œå°†è¿”å›ERESULT_WRONG_PARAMETERS
 	template<typename DataType>
 	static ERESULT GetInputData(IEinkuiMessage* npMsg,DataType& rVariable,const DataType& rInvalidValue);
 
-	// »ñÈ¡ÊäÈë²ÎÊı£¬µ±ÊäÈë²ÎÊıÊÇÒ»¸ö½á¹¹ÌåÊ±£¬Ò²¿ÉÒÔÖ±½Ó»ñÈ¡·ÃÎÊËüµÄÖ¸Õë£»Ê§°Ü·µ»ØNULL
+	// è·å–è¾“å…¥å‚æ•°ï¼Œå½“è¾“å…¥å‚æ•°æ˜¯ä¸€ä¸ªç»“æ„ä½“æ—¶ï¼Œä¹Ÿå¯ä»¥ç›´æ¥è·å–è®¿é—®å®ƒçš„æŒ‡é’ˆï¼›å¤±è´¥è¿”å›NULL
 	template<typename DataType>
 	static ERESULT GetInputDataBuffer(IEinkuiMessage* npMsg,DataType*& rBufferPointer);
 };
@@ -88,7 +88,7 @@ IEinkuiMessage* CExMessage::MakeUpMessage(IEinkuiIterator* npSender,bool nbSend,
 	{
 		bool lbVolatile;
 
-		// Èç¹ûÊäÈëÊı¾İÁ¿×ã¹»´ó£¬²¢ÇÒ»º³åÇø²»³åÍ»£¬¾Í²»¸´ÖÆÊäÈë»º³åÇøÁË
+		// å¦‚æœè¾“å…¥æ•°æ®é‡è¶³å¤Ÿå¤§ï¼Œå¹¶ä¸”ç¼“å†²åŒºä¸å†²çªï¼Œå°±ä¸å¤åˆ¶è¾“å…¥ç¼“å†²åŒºäº†
 		if(nbSend == false || niInBytes < 64 || npInBuffer == NULL || ( npOutBuffer != NULL &&
 			((UCHAR*)npInBuffer+niInBytes) >= (UCHAR*)npOutBuffer &&
 			(UCHAR*)npInBuffer			   < ((UCHAR*)npOutBuffer+niOutBytes)) )
@@ -105,8 +105,8 @@ IEinkuiMessage* CExMessage::MakeUpMessage(IEinkuiIterator* npSender,bool nbSend,
 }
 
 
-// PostÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒÖ±½Ó·¢ËÍĞ¯´øµÄ²ÎÊı£¬×¢Òâ£¬Èç¹û²ÎÊıÊÇÒ»¸öÖ¸Õë£¬ÔòÖ»»á¸´ÖÆ´«µİÖ¸Õë£¨Ò»¸öµØÖ·£©±¾Éí£¬¶ø²»»á¸´ÖÆ´«µİÖ¸ÕëÖ¸ÏòµÄÄÚÈİ£¬Post·¢ËÍÏûÏ¢ĞèÒª×¢ÒâÕâ¸öÎÊÌâ£¬·ÀÖ¹µØÖ·µ½ÏûÏ¢½ÓÊÕÕß³öÎŞ·¨·ÃÎÊ¡£
-// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid;		nuFastÏûÏ¢µÄÓÅÏÈ¼¶£¬EMSG_POST_NORMAL,EMSG_POST_FAST,EMSG_POST_REVERSE
+// Postæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”ç›´æ¥å‘é€æºå¸¦çš„å‚æ•°ï¼Œæ³¨æ„ï¼Œå¦‚æœå‚æ•°æ˜¯ä¸€ä¸ªæŒ‡é’ˆï¼Œåˆ™åªä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆï¼ˆä¸€ä¸ªåœ°å€ï¼‰æœ¬èº«ï¼Œè€Œä¸ä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆæŒ‡å‘çš„å†…å®¹ï¼ŒPostå‘é€æ¶ˆæ¯éœ€è¦æ³¨æ„è¿™ä¸ªé—®é¢˜ï¼Œé˜²æ­¢åœ°å€åˆ°æ¶ˆæ¯æ¥æ”¶è€…å‡ºæ— æ³•è®¿é—®ã€‚
+// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid;		nuFastæ¶ˆæ¯çš„ä¼˜å…ˆçº§ï¼ŒEMSG_POST_NORMAL,EMSG_POST_FAST,EMSG_POST_REVERSE
 template<typename DataType>
 ERESULT CExMessage::PostMessage(IEinkuiIterator* npReceiver,IEinkuiIterator* npSender,ULONG nuMsgID,const DataType& rDataToPost,ULONG nuFast)
 {
@@ -128,8 +128,8 @@ ERESULT CExMessage::PostMessage(IEinkuiIterator* npReceiver,IEinkuiIterator* npS
 	return luResult;
 }
 
-// SendÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒÖ±½Ó·¢ËÍĞ¯´øµÄ²ÎÊı£¬×¢Òâ£¬Èç¹û²ÎÊıÊÇÒ»¸öÖ¸Õë£¬ÔòÖ»»á¸´ÖÆ´«µİÖ¸Õë£¨Ò»¸öµØÖ·£©±¾Éí£¬¶ø²»»á¸´ÖÆ´«µİÖ¸ÕëÖ¸ÏòµÄÄÚÈİ£¬SendÄ£Ê½·¢ËÍÏûÏ¢Ê±£¬Õâ²»»áµ¼ÖÂÌØÊâÎÊÌâ
-// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid
+// Sendæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”ç›´æ¥å‘é€æºå¸¦çš„å‚æ•°ï¼Œæ³¨æ„ï¼Œå¦‚æœå‚æ•°æ˜¯ä¸€ä¸ªæŒ‡é’ˆï¼Œåˆ™åªä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆï¼ˆä¸€ä¸ªåœ°å€ï¼‰æœ¬èº«ï¼Œè€Œä¸ä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆæŒ‡å‘çš„å†…å®¹ï¼ŒSendæ¨¡å¼å‘é€æ¶ˆæ¯æ—¶ï¼Œè¿™ä¸ä¼šå¯¼è‡´ç‰¹æ®Šé—®é¢˜
+// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid
 template<typename DataType>
 ERESULT CExMessage::SendMessage(IEinkuiIterator* npReceiver,IEinkuiIterator* npSender,ULONG nuMsgID,const DataType& rDateForSend,void* npBufferForReceive,int niBytesOfBuffer)
 {
@@ -151,7 +151,7 @@ ERESULT CExMessage::SendMessage(IEinkuiIterator* npReceiver,IEinkuiIterator* npS
 	return luResult;
 }
 
-// »ñÈ¡ÊäÈë²ÎÊı£¬³É¹¦»ñµÃ½«·µ»ØERESULT_SUCCESS
+// è·å–è¾“å…¥å‚æ•°ï¼ŒæˆåŠŸè·å¾—å°†è¿”å›ERESULT_SUCCESS
 template<typename DataType>
 ERESULT CExMessage::GetInputData(IEinkuiMessage* npMsg,DataType& rVariable)
 {
@@ -163,7 +163,7 @@ ERESULT CExMessage::GetInputData(IEinkuiMessage* npMsg,DataType& rVariable)
 	return ERESULT_SUCCESS;
 }
 
-// »ñÈ¡ÊäÈë²ÎÊı£¬³É¹¦»ñµÃ½«·µ»ØERESULT_SUCCESS£¬Èç¹ûµÃµ½µÄÖµÓërInvalidValueÏàÍ¬£¬½«·µ»ØERESULT_WRONG_PARAMETERS
+// è·å–è¾“å…¥å‚æ•°ï¼ŒæˆåŠŸè·å¾—å°†è¿”å›ERESULT_SUCCESSï¼Œå¦‚æœå¾—åˆ°çš„å€¼ä¸rInvalidValueç›¸åŒï¼Œå°†è¿”å›ERESULT_WRONG_PARAMETERS
 template<typename DataType>
 ERESULT CExMessage::GetInputData(IEinkuiMessage* npMsg,DataType& rVariable,const DataType& rInvalidValue) 
 {
@@ -175,7 +175,7 @@ ERESULT CExMessage::GetInputData(IEinkuiMessage* npMsg,DataType& rVariable,const
 	return ERESULT_SUCCESS;
 }
 
-// »ñÈ¡ÊäÈë²ÎÊı£¬µ±ÊäÈë²ÎÊıÊÇÒ»¸ö½á¹¹ÌåÊ±£¬Ò²¿ÉÒÔÖ±½Ó»ñÈ¡·ÃÎÊËüµÄÖ¸Õë£»Ê§°Ü·µ»ØNULL
+// è·å–è¾“å…¥å‚æ•°ï¼Œå½“è¾“å…¥å‚æ•°æ˜¯ä¸€ä¸ªç»“æ„ä½“æ—¶ï¼Œä¹Ÿå¯ä»¥ç›´æ¥è·å–è®¿é—®å®ƒçš„æŒ‡é’ˆï¼›å¤±è´¥è¿”å›NULL
 template<typename DataType>
 ERESULT CExMessage::GetInputDataBuffer(IEinkuiMessage* npMsg,DataType*& rBufferPointer){
 	if(npMsg->GetInputDataSize() != sizeof(*rBufferPointer) || npMsg->GetInputData()==NULL)
@@ -189,7 +189,7 @@ ERESULT CExMessage::GetInputDataBuffer(IEinkuiMessage* npMsg,DataType*& rBufferP
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÓÃÓÚÏÔÊ¾WindowsµÄÏûÏ¢¶Ô»°¿ò
+// ç”¨äºæ˜¾ç¤ºWindowsçš„æ¶ˆæ¯å¯¹è¯æ¡†
 DECLARE_BUILTIN_NAME(CExWinPromptBox)
 class CExWinPromptBox : public cmmBaseObject<CExWinPromptBox,IBaseObject,GET_BUILTIN_NAME(CExWinPromptBox)>
 {
@@ -197,13 +197,13 @@ public:
 	//CExWinPromptBox(){}
 	//~CExWinPromptBox(){}
 
-	// ÏÔÊ¾WindowsµÄMessageBox£¬²ÎÊıÍ¬WindowsµÄÍêÈ«Ò»ÖÂ£»ÓÃ·¨Èç£ºCExWinPromptBox::MessageBox(L"¹ş¹ş¹ş",L"Ax",MB_OK);
+	// æ˜¾ç¤ºWindowsçš„MessageBoxï¼Œå‚æ•°åŒWindowsçš„å®Œå…¨ä¸€è‡´ï¼›ç”¨æ³•å¦‚ï¼šCExWinPromptBox::MessageBox(L"å“ˆå“ˆå“ˆ",L"Ax",MB_OK);
 	static int MessageBox(const wchar_t* nswText,const wchar_t* nswTitle,UINT nuType);
 
-	// ÏÔÊ¾WindowsµÄMessageBoxEx£¬²ÎÊıÍ¬WindowsµÄÍêÈ«Ò»ÖÂ£»
+	// æ˜¾ç¤ºWindowsçš„MessageBoxExï¼Œå‚æ•°åŒWindowsçš„å®Œå…¨ä¸€è‡´ï¼›
 	static int MessageBoxEx(const wchar_t* nswText,const wchar_t* nswTitle,UINT nuType,WORD nsuLanguage);
 
-	// ÉèÖÃÊó±ê¹â±ê
+	// è®¾ç½®é¼ æ ‡å…‰æ ‡
 	static HCURSOR SetCursor(HCURSOR nhCursor);
 
 protected:
@@ -225,43 +225,43 @@ protected:
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÓÃÓÚ¸¡µãÊı¸¨ÖúÔËËã
+// ç”¨äºæµ®ç‚¹æ•°è¾…åŠ©è¿ç®—
 class CExFloat
 {
 public:
-	// È¥µô¸¡µãÊıµÄĞ¡ÊıÎ»£¬²ÉÓÃ4Éá5Èë
+	// å»æ‰æµ®ç‚¹æ•°çš„å°æ•°ä½ï¼Œé‡‡ç”¨4èˆ5å…¥
 	static __inline FLOAT Round(FLOAT Org){
 		return (FLOAT)floor(Org+0.49999f);
 	}
 
-	// ½«¸¡µãÊıµÄÈ¡ÖµÎª×î½Ó½üµÄ¡®.5¡¯Öµ£¬Èç1.3 -> 1.5 , 2.9 -> 2.5
+	// å°†æµ®ç‚¹æ•°çš„å–å€¼ä¸ºæœ€æ¥è¿‘çš„â€˜.5â€™å€¼ï¼Œå¦‚1.3 -> 1.5 , 2.9 -> 2.5
 	static __inline FLOAT HalfPixel(FLOAT Org){
 		return (FLOAT)floor(Org)+0.5f;
 	}
 
-	// ½«¸¡µãÊıÈ¡ÖµÎª×îĞ¡ÕûÊı¼õÈ¥0.4999£¬Èç1.3 -> 0.5 , 2.9 -> 1.5
+	// å°†æµ®ç‚¹æ•°å–å€¼ä¸ºæœ€å°æ•´æ•°å‡å»0.4999ï¼Œå¦‚1.3 -> 0.5 , 2.9 -> 1.5
 	static __inline FLOAT UnderHalf(FLOAT Org){
 		return (FLOAT)floor(Org)-0.49999f;
 	}
 
-	// ÅĞ¶ÏÁ½¸ö¸¡µãÊıÊÇ·ñÏàµÈ
+	// åˆ¤æ–­ä¸¤ä¸ªæµ®ç‚¹æ•°æ˜¯å¦ç›¸ç­‰
 	static __inline bool Equal(FLOAT X1,FLOAT X2,FLOAT Allow=0.0001f){
 		if(fabs(X1 - X2)<Allow)
 			return true;
 		return false;
 	}
 
-	// È¡×îĞ¡µÄ´óÓÚµÈÓÚÊäÈë¸¡µãÊıµÄÕûÊıÖµ
+	// å–æœ€å°çš„å¤§äºç­‰äºè¾“å…¥æµ®ç‚¹æ•°çš„æ•´æ•°å€¼
 	static __inline FLOAT Ceil(FLOAT Org){
 		return (FLOAT)ceil(Org);
 	}
 
-	// È¡×î´óµÄĞ¡ÓÚµÈÓÚÊäÈë¸¡µãÊıµÄÕûÊıÖµ
+	// å–æœ€å¤§çš„å°äºç­‰äºè¾“å…¥æµ®ç‚¹æ•°çš„æ•´æ•°å€¼
 	static __inline FLOAT Floor(FLOAT Org){
 		return (FLOAT)floor(Org);
 	}
 
-	// ½«¸¡µãÊı×ª»»ÎªÕûĞÍÊı£¬½«Ö´ĞĞËÄÉáÎåÈë
+	// å°†æµ®ç‚¹æ•°è½¬æ¢ä¸ºæ•´å‹æ•°ï¼Œå°†æ‰§è¡Œå››èˆäº”å…¥
 	static __inline LONG ToLong(FLOAT Org){
 		return static_cast<LONG>(Round(Org));
 	}
@@ -273,7 +273,7 @@ public:
 #define LW_REAL_EPSILON        1.192092896e-07F        /* FLT_EPSILON */
 
 //////////////////////////////////////////////////////////////////////////
-// ¾ØĞÎÔËËã
+// çŸ©å½¢è¿ç®—
 class CExRect
 {
 public:
@@ -284,7 +284,7 @@ public:
 		return (nfWidth >= -LW_REAL_EPSILON && nfWidth <= LW_REAL_EPSILON) || (nfHeight >= -LW_REAL_EPSILON && nfHeight <= LW_REAL_EPSILON);
 	}
 
-	// Çó½»¼¯ Sets CRect equal to the intersection of two rectangles.
+	// æ±‚äº¤é›† Sets CRect equal to the intersection of two rectangles.
 	static __inline bool  Intersect(IN const D2D1_RECT_F& ndRectOne, IN const D2D1_RECT_F& ndRectTwo, OUT D2D1_RECT_F& ndIntersectRect)
 	{
 		
@@ -302,7 +302,7 @@ public:
 
 	}
 
-	// Çó²¢¼¯ Sets CRect equal to the union of two rectangles.
+	// æ±‚å¹¶é›† Sets CRect equal to the union of two rectangles.
 	static __inline bool Union(IN const D2D1_RECT_F& ndRectOne, IN const D2D1_RECT_F& ndRectTwo, OUT D2D1_RECT_F& ndUnionRect)
 	{
 		float lfRight = max(ndRectOne.right, ndRectTwo.right);
@@ -318,7 +318,7 @@ public:
 		return !CExRect::IsEmptyArea(ndUnionRect.right - ndUnionRect.left, ndUnionRect.top - ndUnionRect.bottom);
 	}
 
-	// µ÷Õû¾ØĞÎ£¬Ê¹Æä¶¥µãĞòÁĞ»¯
+	// è°ƒæ•´çŸ©å½¢ï¼Œä½¿å…¶é¡¶ç‚¹åºåˆ—åŒ–
 	static __inline D2D1_RECT_F GetNormalizedRectangle(float x1, float y1, float x2, float y2)
 	{
 		if (x2 < x1)
@@ -337,13 +337,13 @@ public:
 		return D2D1::RectF(x1, y1, x2, y2);
 	}
 
-	// µ÷Õû¾ØĞÎ£¬Ê¹Æä¶¥µãĞòÁĞ»¯
+	// è°ƒæ•´çŸ©å½¢ï¼Œä½¿å…¶é¡¶ç‚¹åºåˆ—åŒ–
 	static __inline D2D1_RECT_F GetNormalizedRectangle(const D2D1_RECT_F& ndRect)
 	{
 		return CExRect::GetNormalizedRectangle(ndRect.left, ndRect.top, ndRect.right, ndRect.bottom);
 	}
 
-	// ¼ì²âµ±Ç°µãÊÇ·ñÂäÔÚ¾ØĞÎÇøÓò	
+	// æ£€æµ‹å½“å‰ç‚¹æ˜¯å¦è½åœ¨çŸ©å½¢åŒºåŸŸ	
 	static __inline bool PtInRect(IN const D2D1_POINT_2F& ndPoint, IN const D2D1_RECT_F& ndRect)
 	{
 		D2D1_RECT_F ldRect = CExRect::GetNormalizedRectangle(ndRect);
@@ -355,19 +355,19 @@ public:
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÓÃÓÚ¶à±ßĞÎÌî³äËã·¨Ïà¹ØµÄº¯Êı
+// ç”¨äºå¤šè¾¹å½¢å¡«å……ç®—æ³•ç›¸å…³çš„å‡½æ•°
 class CExFill{
 
 public:
 
-	// ÅĞ¶ÏµãÊÇ·ñÔÚ¶à±ßĞÎÄÚ
+	// åˆ¤æ–­ç‚¹æ˜¯å¦åœ¨å¤šè¾¹å½¢å†…
 	static __inline bool PtInPolygon (
-		D2D1_POINT_2F ndfPoint,			// ´ı¼ì²âµÄµã
-		D2D1_POINT_2F* npPolygonPoint,	// ¶à±ßĞÎµÄ¸÷¸ö¶¥µã×ø±ê£¨Ê×Î²µã¿ÉÒÔ²»Ò»ÖÂ£©
-		int niCount						// ¶à±ßĞÎ¶¥µã¸öÊı
+		D2D1_POINT_2F ndfPoint,			// å¾…æ£€æµ‹çš„ç‚¹
+		D2D1_POINT_2F* npPolygonPoint,	// å¤šè¾¹å½¢çš„å„ä¸ªé¡¶ç‚¹åæ ‡ï¼ˆé¦–å°¾ç‚¹å¯ä»¥ä¸ä¸€è‡´ï¼‰
+		int niCount						// å¤šè¾¹å½¢é¡¶ç‚¹ä¸ªæ•°
 		)
 	{
-		// ·½·¨£ºÇó½âÍ¨¹ı¸ÃµãµÄË®Æ½ÏßÓë¶à±ßĞÎ¸÷±ßµÄ½»µã
+		// æ–¹æ³•ï¼šæ±‚è§£é€šè¿‡è¯¥ç‚¹çš„æ°´å¹³çº¿ä¸å¤šè¾¹å½¢å„è¾¹çš„äº¤ç‚¹
 
 		int liCross = 0;
 
@@ -376,54 +376,54 @@ public:
 			D2D1_POINT_2F p1 = npPolygonPoint[liLoop];
 			D2D1_POINT_2F p2 = npPolygonPoint[(liLoop + 1) % niCount];
 
-			// Çó½â y=ndfPoint.y Óë p1p2 µÄ½»µã
+			// æ±‚è§£ y=ndfPoint.y ä¸ p1p2 çš„äº¤ç‚¹
 
-			// Èç¹ûÆ½ĞĞÔò¼ÌĞø
+			// å¦‚æœå¹³è¡Œåˆ™ç»§ç»­
 			if ( p1.y == p2.y )		
 				continue;
 
-			// ½»µãÊÇ·ñÔÚp1p2ÑÓ³¤ÏßÉÏ
+			// äº¤ç‚¹æ˜¯å¦åœ¨p1p2å»¶é•¿çº¿ä¸Š
 			if ( ndfPoint.y < min(p1.y, p2.y) )		
 				continue;
 
-			// ½»µãÊÇ·ñÔÚp1p2ÑÓ³¤ÏßÉÏ
+			// äº¤ç‚¹æ˜¯å¦åœ¨p1p2å»¶é•¿çº¿ä¸Š
 			if ( ndfPoint.y >= max(p1.y, p2.y) )	
 				continue;
 
-			// Çó½»µãµÄ X ×ø±ê 
-			// »ù±¾Ë¼ÏëÊÇ£ºÏàËÆÈı½ÇĞÎ£¬ÀûÓÃ±ßµÄ±ÈÀı¹ØÏµ£¬Çó³öX±ß³¤¶È¡£¼Ì¶øÇó³öX×ø±ê
+			// æ±‚äº¤ç‚¹çš„ X åæ ‡ 
+			// åŸºæœ¬æ€æƒ³æ˜¯ï¼šç›¸ä¼¼ä¸‰è§’å½¢ï¼Œåˆ©ç”¨è¾¹çš„æ¯”ä¾‹å…³ç³»ï¼Œæ±‚å‡ºXè¾¹é•¿åº¦ã€‚ç»§è€Œæ±‚å‡ºXåæ ‡
 
 			float lfCrossCoordX = (float)(ndfPoint.y - p1.y) * (float)(p2.x - p1.x) / (float)(p2.y - p1.y) + p1.x;
 			if ( lfCrossCoordX > ndfPoint.x )
-				liCross++; // Ö»Í³¼Æµ¥±ß½»µã
+				liCross++; // åªç»Ÿè®¡å•è¾¹äº¤ç‚¹
 
 		}
 
-		// µ¥±ß½»µãÎªÅ¼ÊıÊ±£¬ÔòËµÃ÷µãÔÚ¶à±ßĞÎÖ®Íâ
+		// å•è¾¹äº¤ç‚¹ä¸ºå¶æ•°æ—¶ï¼Œåˆ™è¯´æ˜ç‚¹åœ¨å¤šè¾¹å½¢ä¹‹å¤–
 		return (liCross % 2 == 1);
 	}
 
 
-	// ÅĞ¶ÏµãÊÇ·ñÔÚÍÖÔ²ÄÚ
+	// åˆ¤æ–­ç‚¹æ˜¯å¦åœ¨æ¤­åœ†å†…
 	static __inline bool PtInEllipse(
-		D2D1_POINT_2F ndfPoint,			// ´ı¼ì²âµÄµã
-		D2D1_RECT_F	ndfRect				// ÍÖÔ²ËùÎ§³ÉµÄ×îĞ¡¾ØĞÎ
+		D2D1_POINT_2F ndfPoint,			// å¾…æ£€æµ‹çš„ç‚¹
+		D2D1_RECT_F	ndfRect				// æ¤­åœ†æ‰€å›´æˆçš„æœ€å°çŸ©å½¢
 		)
 	{
-		// ·½·¨£º
-		// ¸ø¶¨ÍÖÔ²f(x,y)= x^2/a^2 + y^2/b^2=1, Èç¹û£ºf(x1,y1) <1£¬ËµÃ÷x1,y1ÔÚÍÖÔ²ÄÚ²¿
+		// æ–¹æ³•ï¼š
+		// ç»™å®šæ¤­åœ†f(x,y)= x^2/a^2 + y^2/b^2=1, å¦‚æœï¼šf(x1,y1) <1ï¼Œè¯´æ˜x1,y1åœ¨æ¤­åœ†å†…éƒ¨
 
-		// ¼ÆËãÍÖÔ²³¤¶ÌÖá
+		// è®¡ç®—æ¤­åœ†é•¿çŸ­è½´
 		float lfShortAxis = (ndfRect.right-ndfRect.left)/2;
 		float lfLongAxis = (ndfRect.bottom - ndfRect.top)/2;
 
-		// ÍÖÔ²Ô²ĞÄ
+		// æ¤­åœ†åœ†å¿ƒ
 		D2D1_POINT_2F ldfCenterPoint = D2D1::Point2F(lfShortAxis + ndfRect.left, lfLongAxis + ndfRect.top); 
 
-		// ¼ÆËã´ı¼ì²âµÄµãÏà¶ÔÓÚÍÖÔ²ÖĞĞÄµÄ×ø±ê
+		// è®¡ç®—å¾…æ£€æµ‹çš„ç‚¹ç›¸å¯¹äºæ¤­åœ†ä¸­å¿ƒçš„åæ ‡
 		D2D1_POINT_2F ldfCheckPoint = D2D1::Point2F(ldfCenterPoint.x - ndfPoint.x, ldfCenterPoint.y - ndfPoint.y);
 
-		// ¼ÆËãÍÖÔ²º¯ÊıÖµ
+		// è®¡ç®—æ¤­åœ†å‡½æ•°å€¼
 		float lfResult = (ldfCheckPoint.x * ldfCheckPoint.x)/(lfShortAxis*lfShortAxis)+
 			(ldfCheckPoint.y*ldfCheckPoint.y)/(lfLongAxis*lfLongAxis);
 
@@ -432,23 +432,23 @@ public:
 	}
 
 
-	// ÅĞ¶ÏµãÊÇ·ñÔÚÏß¶ÎÉÏ
+	// åˆ¤æ–­ç‚¹æ˜¯å¦åœ¨çº¿æ®µä¸Š
 	static __inline bool PtOnLine(
-		D2D1_POINT_2F ndfPoint,			// ´ı¼ì²âµÄµã
-		D2D1_POINT_2F ndfStartPoint,	// Ö±ÏßÆğµã
-		D2D1_POINT_2F ndfEndPoint		// Ö±ÏßÖÕµã
+		D2D1_POINT_2F ndfPoint,			// å¾…æ£€æµ‹çš„ç‚¹
+		D2D1_POINT_2F ndfStartPoint,	// ç›´çº¿èµ·ç‚¹
+		D2D1_POINT_2F ndfEndPoint		// ç›´çº¿ç»ˆç‚¹
 		)
 	{
-		// ·½·¨£º
-		// 1£¬ÓÃ²î³Ë¼ÆËã£¬Îó²î»áÒıÆğºÜ´óµÄÆ«²î£»
-		// 2£¬ÓÉÓÚ²î³Ë·¨µÄÆ«²îÌ«´ó£¬Ëì¸ÄÓÃ²â¾àÀëµÄ·½·¨
+		// æ–¹æ³•ï¼š
+		// 1ï¼Œç”¨å·®ä¹˜è®¡ç®—ï¼Œè¯¯å·®ä¼šå¼•èµ·å¾ˆå¤§çš„åå·®ï¼›
+		// 2ï¼Œç”±äºå·®ä¹˜æ³•çš„åå·®å¤ªå¤§ï¼Œé‚æ”¹ç”¨æµ‹è·ç¦»çš„æ–¹æ³•
 
-		// ¼ÆËãÏß¶Î³¤¶È
+		// è®¡ç®—çº¿æ®µé•¿åº¦
 		float lfLineSegDistance = (FLOAT)sqrt((ndfEndPoint.x-ndfStartPoint.x)*(ndfEndPoint.x-ndfStartPoint.x) +
 			(ndfEndPoint.y-ndfStartPoint.y)*(ndfEndPoint.y-ndfStartPoint.y)
 			);
 
-		// ¼ÆËãµãµ½Ïß¶ÎÁ½¶ËµÄ¾àÀë
+		// è®¡ç®—ç‚¹åˆ°çº¿æ®µä¸¤ç«¯çš„è·ç¦»
 		float lfDistToStart = (FLOAT)sqrt((ndfPoint.x-ndfStartPoint.x)*(ndfPoint.x-ndfStartPoint.x) +
 			(ndfPoint.y-ndfStartPoint.y)*(ndfPoint.y-ndfStartPoint.y)
 			);
@@ -457,22 +457,22 @@ public:
 			(ndfPoint.y-ndfEndPoint.y)*(ndfPoint.y-ndfEndPoint.y)
 			);
 
-		// Çó²îÖµ
+		// æ±‚å·®å€¼
 		float lfDist = lfDistToStart + lfDistToEnd - lfLineSegDistance;
 			
-		// Îó²î¾ÀÕıÎª0.1
+		// è¯¯å·®çº æ­£ä¸º0.1
 		lfDist = lfDist - 0.1f;
 
 		return lfDist < LW_REAL_EPSILON;
 
-		// ²î³Ë·¨£¬Ìõ¼ş£¨´ø¼ì²âµÄµã¿Ï¶¨ÔÚÏß¶Î×öÎ§³ÉµÄ¾ØĞÎÄÚ£©
+		// å·®ä¹˜æ³•ï¼Œæ¡ä»¶ï¼ˆå¸¦æ£€æµ‹çš„ç‚¹è‚¯å®šåœ¨çº¿æ®µåšå›´æˆçš„çŸ©å½¢å†…ï¼‰
 		//{
-		//	// Éú³ÉÁ½¸öÊ¸Á¿Ïß¶Î
+		//	// ç”Ÿæˆä¸¤ä¸ªçŸ¢é‡çº¿æ®µ
 		//	D2D1_POINT_2F ldfVector1 = D2D1::Point2F(ndfEndPoint.x - ndfStartPoint.x, ndfEndPoint.y - ndfStartPoint.y);
 		//	D2D1_POINT_2F ldfVector2 = D2D1::Point2F(ndfPoint.x - ndfStartPoint.x, ndfPoint.y - ndfStartPoint.y);
 		//
-		//	// ¼ÆËã²î³Ë£¬ÅĞ¶ÏµãÊÇ·ñÔÚÖ±Ïß¶ÎËùÔÚµÄÖ±ÏßÉÏ
-		//	// ¹«Ê½£º V1(x1, y1) X V2(x2, y2) = x1y2 ¨C y1x2
+		//	// è®¡ç®—å·®ä¹˜ï¼Œåˆ¤æ–­ç‚¹æ˜¯å¦åœ¨ç›´çº¿æ®µæ‰€åœ¨çš„ç›´çº¿ä¸Š
+		//	// å…¬å¼ï¼š V1(x1, y1) X V2(x2, y2) = x1y2 â€“ y1x2
 		//	float lfCrossProduct = ldfVector1.x * ldfVector2.y - ldfVector1.y * ldfVector2.x;
 
 		//	return (lfCrossProduct >= -LW_REAL_EPSILON && lfCrossProduct <= LW_REAL_EPSILON);
@@ -486,28 +486,28 @@ public:
 
 
 //////////////////////////////////////////////////////////////////////////
-//ÓÃÓÚ×ø±êµÄ×ª»»
+//ç”¨äºåæ ‡çš„è½¬æ¢
 class CExPoint
 {
 public:
-	//ÓÃÓÚ¼ÆËã±»·Å´óÍ¼ÉÏµÄ×ø±ê¶ÔÓ¦ÓÚÔ­Í¼µÄ×ø±ê
-	//rdSrcSizeÔ­Í¼´óĞ¡
-	//rdDestSizeµ±Ç°µÄÏÔÊ¾´óĞ¡
-	//rdPointÒª×ª»»µÄ×ø±ê
-	//nuMethodÊ¹ÓÃµÄ·Å´ó·½Ê½£º1¡¢ESPB_DRAWBMP_EXTEND£¨ÑÓÕ¹Ïß·½Ê½£© 2¡¢ÆäËüÖµ±íÊ¾Ö±½ÓËõ·Å 
-	//rdExtendLineÈç¹ûÊ¹ÓÃµÄÊÇESPB_DRAWBMP_EXTEND·Å´ó·½Ê½£¬ĞèÒª¸ø³öÑÓÕ¹Ïß×ø±ê
+	//ç”¨äºè®¡ç®—è¢«æ”¾å¤§å›¾ä¸Šçš„åæ ‡å¯¹åº”äºåŸå›¾çš„åæ ‡
+	//rdSrcSizeåŸå›¾å¤§å°
+	//rdDestSizeå½“å‰çš„æ˜¾ç¤ºå¤§å°
+	//rdPointè¦è½¬æ¢çš„åæ ‡
+	//nuMethodä½¿ç”¨çš„æ”¾å¤§æ–¹å¼ï¼š1ã€ESPB_DRAWBMP_EXTENDï¼ˆå»¶å±•çº¿æ–¹å¼ï¼‰ 2ã€å…¶å®ƒå€¼è¡¨ç¤ºç›´æ¥ç¼©æ”¾ 
+	//rdExtendLineå¦‚æœä½¿ç”¨çš„æ˜¯ESPB_DRAWBMP_EXTENDæ”¾å¤§æ–¹å¼ï¼Œéœ€è¦ç»™å‡ºå»¶å±•çº¿åæ ‡
 	static D2D1_POINT_2F BigToOldPoint(D2D1_SIZE_F& rdSrcSize,D2D1_SIZE_F& rdDestSize,D2D1_POINT_2F& rdPoint,ULONG nuMethod,D2D1_POINT_2F& rdExtendLine);
 };
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÓÃÓÚ×¢²áÏµÍ³Ä¬ÈÏ¿ì½İ¼ü
+// ç”¨äºæ³¨å†Œç³»ç»Ÿé»˜è®¤å¿«æ·é”®
 class CExHotkey
 {
 public:
 	static bool RegisterHotKey(
-		IEinkuiIterator* npFocusOn,	// ¹Ø×¢´Ë¶ÔÏóºÍËüµÄ×Ó¶ÔÏó£¬NULL±íÊ¾¸ù¶ÔÏó
-		IEinkuiIterator* npReceiver,	// ÓÃÀ´½ÓÊÕ¿ì½İ¼üµÄ¶ÔÏó
-		ULONG nuSysHotkeyID		// ÏµÍ³Ä¬ÈÏµÄID£¬¼ûlwUIÎÄ¼şIXelManager¶¨ÒåÄ©Î²µÄÏµÍ³Ä¬ÈÏ¿ì½İ¼üID±í
+		IEinkuiIterator* npFocusOn,	// å…³æ³¨æ­¤å¯¹è±¡å’Œå®ƒçš„å­å¯¹è±¡ï¼ŒNULLè¡¨ç¤ºæ ¹å¯¹è±¡
+		IEinkuiIterator* npReceiver,	// ç”¨æ¥æ¥æ”¶å¿«æ·é”®çš„å¯¹è±¡
+		ULONG nuSysHotkeyID		// ç³»ç»Ÿé»˜è®¤çš„IDï¼Œè§lwUIæ–‡ä»¶IXelManagerå®šä¹‰æœ«å°¾çš„ç³»ç»Ÿé»˜è®¤å¿«æ·é”®IDè¡¨
 		);
 };

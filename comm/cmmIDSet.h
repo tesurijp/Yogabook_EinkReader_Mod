@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -20,19 +20,19 @@ public:
 };
 
 template<typename DataType>
-class CIdsPaireNodeCriterion	// Ä¬ÈÏµÄÅĞ¶Ï×¼Ôò
+class CIdsPaireNodeCriterion	// é»˜è®¤çš„åˆ¤æ–­å‡†åˆ™
 {
 public:
-	bool operator () (const CIdsPaireNode<DataType>& Obj1,const CIdsPaireNode<DataType>& Obj2)const // Ò»¶¨ÒªÓÃÄÚÁªº¯Êı
+	bool operator () (const CIdsPaireNode<DataType>& Obj1,const CIdsPaireNode<DataType>& Obj2)const // ä¸€å®šè¦ç”¨å†…è”å‡½æ•°
 	{
-		// µ±¶ÔÏóOb1Ğ¡ÓÚ¶ÔÏóObj2Ê±£¬·µ»ØTrue£¬·ñÔò·µ»Øfalse
+		// å½“å¯¹è±¡Ob1å°äºå¯¹è±¡Obj2æ—¶ï¼Œè¿”å›Trueï¼Œå¦åˆ™è¿”å›false
 		return (Obj1.ID < Obj2.ID);
 	}
 };
 
 
-// IDµÄÉú³ÉËã·¨£¬½öÉú³ÉÀëÉ¢µÄÖµ£¬²»¿¼ÂÇ³åÍ»
-class CIdsIDGenerator	// Ä¬ÈÏµÄÅĞ¶Ï×¼Ôò
+// IDçš„ç”Ÿæˆç®—æ³•ï¼Œä»…ç”Ÿæˆç¦»æ•£çš„å€¼ï¼Œä¸è€ƒè™‘å†²çª
+class CIdsIDGenerator	// é»˜è®¤çš„åˆ¤æ–­å‡†åˆ™
 {
 public:
 	CIdsIDGenerator(){
@@ -51,12 +51,12 @@ public:
 };
 
 //////////////////////////////////////////////////////////////////////////
-// ID¼¯£¬ÓÃÓÚ×Ô¶¯·ÖÅäÎ¨Ò»ID£¬²¢±£´æÓëÖ®¶ÔÓ¦µÄÊı¾İ£¬¿ÉÒÔÖ¸¶¨×Ô¼ºµÄID·ÖÅäËã·¨£¬Ò²¿ÉÒÔÊ¹ÓÃÄ¬ÈÏµÄ
+// IDé›†ï¼Œç”¨äºè‡ªåŠ¨åˆ†é…å”¯ä¸€IDï¼Œå¹¶ä¿å­˜ä¸ä¹‹å¯¹åº”çš„æ•°æ®ï¼Œå¯ä»¥æŒ‡å®šè‡ªå·±çš„IDåˆ†é…ç®—æ³•ï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨é»˜è®¤çš„
 template<typename DataType,class IDGenerator=CIdsIDGenerator,int InitSize=16,int Increment=16>
 class cmmIDSet
 {
 public:
-	// ±£´æÒ»ÏîÄÚÈİ£¬·µ»ØĞÂ·ÖÅäµÄID£¬·µ»Ø0±íÊ¾Ê§°Ü
+	// ä¿å­˜ä¸€é¡¹å†…å®¹ï¼Œè¿”å›æ–°åˆ†é…çš„IDï¼Œè¿”å›0è¡¨ç¤ºå¤±è´¥
 	ULONG SaveItem(const DataType& UserData){
 		int liIndex;
 		int i;
@@ -86,7 +86,7 @@ public:
 		return 0;
 	}
 
-	// ±£´æÒ»ÏîÄÚÈİ£¬Ö¸¶¨Ê¹ÓÃµÄID£¬Èç¹û¸ÃIDÒÑ¾­´æÔÚ£¬·µ»Ø0Ê§°Ü£¬·ñÔò·µ»Ø´«ÈëµÄID
+	// ä¿å­˜ä¸€é¡¹å†…å®¹ï¼ŒæŒ‡å®šä½¿ç”¨çš„IDï¼Œå¦‚æœè¯¥IDå·²ç»å­˜åœ¨ï¼Œè¿”å›0å¤±è´¥ï¼Œå¦åˆ™è¿”å›ä¼ å…¥çš„ID
 	ULONG SaveItem(const DataType& UserData,ULONG nuID){
 		CIdsPaireNode<DataType> loNode;
 
@@ -101,7 +101,7 @@ public:
 		return false;
 	}
 
-	// ĞŞ¸ÄÒ»ÏîÄÚÈİ
+	// ä¿®æ”¹ä¸€é¡¹å†…å®¹
 	bool UpdateItem(ULONG nuID,const DataType& UserData){
 		int liIndex;
 		CIdsPaireNode<DataType> loNode;
@@ -118,7 +118,7 @@ public:
 		return true;
 	}
 
-	// É¾³ıÒ»ÏîÄÚÈİ
+	// åˆ é™¤ä¸€é¡¹å†…å®¹
 	bool DeleteItem(ULONG nuID){
 		CIdsPaireNode<DataType> loNode;
 
@@ -127,7 +127,7 @@ public:
 		return moSet.Remove(loNode);
 	};
 
-	// »ñµÃÒ»ÏîÄÚÈİ
+	// è·å¾—ä¸€é¡¹å†…å®¹
 	DataType& GetItem(ULONG nuID,DataType& Default)	{
 		int liIndex;
 		CIdsPaireNode<DataType> loNode;
@@ -142,7 +142,7 @@ public:
 		return moSet[liIndex].mdUserData;
 	}
 
-	// »ñµÃÒ»ÏîÄÚÈİ
+	// è·å¾—ä¸€é¡¹å†…å®¹
 	const DataType& GetItem(ULONG nuID,const DataType& Default)	{
 		DataType ldBridge = Default;
 		return GetItem(nuID,ldBridge);
@@ -152,12 +152,12 @@ public:
 		moSet.Clear();
 	}
 
-	//»ñÈ¡Êı¾İÊıÁ¿
+	//è·å–æ•°æ®æ•°é‡
 	int Size(void){
 		return moSet.Size();
 	}
 
-	//¸ù¾İË÷Òı·µ»Ø¶ÔÏó
+	//æ ¹æ®ç´¢å¼•è¿”å›å¯¹è±¡
 	DataType& GetItemByIndex(LONG nlIndex,DataType& Default){
 		if(nlIndex < 0 || nlIndex > Size())
 			return Default;
@@ -165,20 +165,20 @@ public:
 		return moSet[nlIndex].mdUserData;
 	}
 
-	//¸ù¾İË÷Òı·µ»Ø¶ÔÏó
+	//æ ¹æ®ç´¢å¼•è¿”å›å¯¹è±¡
 	const DataType& GetItemByIndex(LONG nlIndex,const DataType& Default){
 		DataType ldBridge = Default;
 
 		return GetItemByIndex(nlIndex,ldBridge);
 	}
 
-	//¸ù¾İÊı¾İ»ñÈ¡¸ÃÊı¾İ¶ÔÓ¦µÄID
+	//æ ¹æ®æ•°æ®è·å–è¯¥æ•°æ®å¯¹åº”çš„ID
 	ULONG GetIdByItem(DataType UserData,ULONG Default){
 		int liIndex=0;
 		for (liIndex=0;liIndex<Size();liIndex++)
 		{
 			if(moSet[liIndex].mdUserData == UserData)
-				break;	//ÕÒµ½ÁË
+				break;	//æ‰¾åˆ°äº†
 		}
 
 		if(liIndex > 0 && liIndex < Size())

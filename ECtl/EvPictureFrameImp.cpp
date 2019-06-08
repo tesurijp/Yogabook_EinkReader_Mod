@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -19,7 +19,7 @@ CEvPictureFrame::CEvPictureFrame()
 {
 	mlMaxFrame = mlCurrentIndex = 0;
 	mdFrameSize.width = mdFrameSize.height = 0.0f;
-	mulMethod = ESPB_DRAWBMP_LINEAR;	//Ëõ·Å·½Ê½
+	mulMethod = ESPB_DRAWBMP_LINEAR;	//ç¼©æ”¾æ–¹å¼
 	mfBeginPos = 0.0f;
 	mbIsAutoPlay = false;
 	mbIsPlayLoop = false;
@@ -30,15 +30,15 @@ CEvPictureFrame::~CEvPictureFrame()
 
 }
 
-// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓĞÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+// é”€æ¯å…ƒç´ ï¼Œç”¨äºé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+// ä»è€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€Œåå†å°†è‡ªå·±ä»å…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 ERESULT CEvPictureFrame::OnElementDestroy()
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
 
 	do
 	{
-		CXuiElement::OnElementDestroy();	//µ÷ÓÃ»ùÀà
+		CXuiElement::OnElementDestroy();	//è°ƒç”¨åŸºç±»
 
 		lResult = ERESULT_SUCCESS;
 
@@ -48,21 +48,21 @@ ERESULT CEvPictureFrame::OnElementDestroy()
 }
 
 ULONG CEvPictureFrame::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-		//×°ÔØÒ»Ğ©±ØÒªµÄÅäÖÃ×ÊÔ´
+		//è£…è½½ä¸€äº›å¿…è¦çš„é…ç½®èµ„æº
 		LoadResource();
 
 		leResult = ERESULT_SUCCESS;
@@ -73,7 +73,7 @@ ULONG CEvPictureFrame::InitOnCreate(
 }
 
 
-//×°ÔØÅäÖÃ×ÊÔ´
+//è£…è½½é…ç½®èµ„æº
 ERESULT CEvPictureFrame::LoadResource()
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -82,7 +82,7 @@ ERESULT CEvPictureFrame::LoadResource()
 
 	do 
 	{
-		//»ñÈ¡Ö¡ĞÅÏ¢
+		//è·å–å¸§ä¿¡æ¯
 		mlMaxFrame = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_PIC_FRAME_COUNT,1);
 		mbIsAutoPlay = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_PIC_AUTO_PLAY, 0)==0?false:true;
 		mbIsPlayLoop = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_PIC_PLAY_LOOP, 0) == 0 ? false : true;
@@ -92,7 +92,7 @@ ERESULT CEvPictureFrame::LoadResource()
 
 		if (mbIsAutoPlay != false && mlMaxFrame > 1)
 		{
-			//ËµÃ÷Òª×Ô¶¯²¥·Å¶¯»­
+			//è¯´æ˜è¦è‡ªåŠ¨æ’­æ”¾åŠ¨ç”»
 			mpIterator->SetTimer(TF_ID_PIC_TIMER_ID_PLAY, MAXULONG64 , mlPlayTimerElapse, NULL);
 		}
 
@@ -103,7 +103,7 @@ ERESULT CEvPictureFrame::LoadResource()
 	return leResult;
 }
 
-//ÖØĞÂ¼ÆËãÖ¡´óĞ¡,nbResizeÎªÕæ²ÅÖØĞÂÉèÖÃ´óĞ¡
+//é‡æ–°è®¡ç®—å¸§å¤§å°,nbResizeä¸ºçœŸæ‰é‡æ–°è®¾ç½®å¤§å°
 bool CEvPictureFrame::Resize(bool nbResize)
 {
 	bool lbret = false;
@@ -113,7 +113,7 @@ bool CEvPictureFrame::Resize(bool nbResize)
 		if (mlMaxFrame <= 0 || mpBgBitmap == NULL)
 			break;
 
-		//¼ÆËãÃ¿Ö¡´óĞ¡
+		//è®¡ç®—æ¯å¸§å¤§å°
 		UINT luiWidth = mpBgBitmap->GetWidth();
 		UINT luiHeight = mpBgBitmap->GetHeight();
 		mlCurrentIndex = 0;
@@ -123,21 +123,21 @@ bool CEvPictureFrame::Resize(bool nbResize)
 
 		if (nbResize != false)
 		{
-			//¶ÁÈ¡²Î¿¼³ß´çÉèÖÃ
+			//è¯»å–å‚è€ƒå°ºå¯¸è®¾ç½®
 			LONG llWidth = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ELEMENT_WIDTH,0);
 			LONG llHeight = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ELEMENT_HEIGHT,0);
 
 			if (llWidth == 0 || llHeight == 0)
-				mpIterator->SetSize(mdFrameSize.width,mdFrameSize.height); //Èç¹ûÃ»ÓĞÉèÖÃ²Î¿¼³ß´ç£¬¾ÍÒÔ¼ÆËã³öÀ´µÄÎª×¼
+				mpIterator->SetSize(mdFrameSize.width,mdFrameSize.height); //å¦‚æœæ²¡æœ‰è®¾ç½®å‚è€ƒå°ºå¯¸ï¼Œå°±ä»¥è®¡ç®—å‡ºæ¥çš„ä¸ºå‡†
 			else
 				mpIterator->SetSize((FLOAT)llWidth,(FLOAT)llHeight);
 
 		}
 
 		if((mpBgBitmap->GetExtnedLineX() != 0 && mpBgBitmap->GetExtnedLineY() != 0)/* && ((mpIterator->GetSizeX() - mdFrameSize.width > 1) || mpIterator->GetSizeY() - mdFrameSize.height > 1)*/)
-			mulMethod = ESPB_DRAWBMP_EXTEND;	//Èç¹ûÉèÖÃÁËÑÓÕ¹Ïß²¢ÇÒ²Î¿¼³ß´ç´óÓÚÊµ¼Ê³ß´ç£¬ÄÇ¾ÍÊ¹ÓÃÑÓÕ¹·½Ê½
+			mulMethod = ESPB_DRAWBMP_EXTEND;	//å¦‚æœè®¾ç½®äº†å»¶å±•çº¿å¹¶ä¸”å‚è€ƒå°ºå¯¸å¤§äºå®é™…å°ºå¯¸ï¼Œé‚£å°±ä½¿ç”¨å»¶å±•æ–¹å¼
 
-		mfBeginPos = mdFrameSize.width * mlCurrentIndex;	//»æÖÆÊ±µÄX×ø±êÆğÊ¼µã
+		mfBeginPos = mdFrameSize.width * mlCurrentIndex;	//ç»˜åˆ¶æ—¶çš„Xåæ ‡èµ·å§‹ç‚¹
 
 		lbret = true;
 
@@ -146,11 +146,11 @@ bool CEvPictureFrame::Resize(bool nbResize)
 	return lbret;
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvPictureFrame::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -162,7 +162,7 @@ ERESULT CEvPictureFrame::ParseMessage(IEinkuiMessage* npMsg)
 		{
 		case EACT_PICTUREFRAME_SET_INDEX:	
 			{
-				//ÇĞ»»ÏÔÊ¾Ö¡
+				//åˆ‡æ¢æ˜¾ç¤ºå¸§
 				if(npMsg->GetInputDataSize() != sizeof(LONG))
 				{
 					luResult = ERESULT_WRONG_PARAMETERS;
@@ -177,7 +177,7 @@ ERESULT CEvPictureFrame::ParseMessage(IEinkuiMessage* npMsg)
 			}
 		case EACT_PICTUREFRAME_CHANGE_PIC:	
 			{
-				//¸ü»»ÏÔÊ¾Í¼Æ¬,Ïà¶ÔÂ·¾¶
+				//æ›´æ¢æ˜¾ç¤ºå›¾ç‰‡,ç›¸å¯¹è·¯å¾„
 				wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
 
 				luResult = OnChangePic(lpValue,false);
@@ -186,7 +186,7 @@ ERESULT CEvPictureFrame::ParseMessage(IEinkuiMessage* npMsg)
 			}
 		case EACT_PICTUREFRAME_CHANGE_PIC_FULLPATH:	
 			{
-				//¸ü»»ÏÔÊ¾Í¼Æ¬,È«Â·¾¶
+				//æ›´æ¢æ˜¾ç¤ºå›¾ç‰‡,å…¨è·¯å¾„
 				wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
 
 				luResult = OnChangePic(lpValue,true);
@@ -200,7 +200,7 @@ ERESULT CEvPictureFrame::ParseMessage(IEinkuiMessage* npMsg)
 
 		if(luResult == ERESULT_NOT_SET)
 		{
-			luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+			luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 		}
 
 	} while (false);
@@ -208,7 +208,7 @@ ERESULT CEvPictureFrame::ParseMessage(IEinkuiMessage* npMsg)
 	return luResult;
 }
 
-//»æÖÆ
+//ç»˜åˆ¶
 ERESULT CEvPictureFrame::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -233,7 +233,7 @@ ERESULT CEvPictureFrame::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	return lResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvPictureFrame::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -252,7 +252,7 @@ ERESULT CEvPictureFrame::OnElementCreate(IEinkuiIterator* npIterator)
 	return lResult;
 }
 
-//ÇĞ»»ÏÔÊ¾Ö¡,µÚÒ»Ö¡Îª1
+//åˆ‡æ¢æ˜¾ç¤ºå¸§,ç¬¬ä¸€å¸§ä¸º1
 ERESULT CEvPictureFrame::OnChangeIndex(LONG nlIndex)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -264,7 +264,7 @@ ERESULT CEvPictureFrame::OnChangeIndex(LONG nlIndex)
 
 		mlCurrentIndex = nlIndex - 1;
 
-		mfBeginPos = mdFrameSize.width * mlCurrentIndex;	//»æÖÆÊ±µÄX×ø±êÆğÊ¼µã
+		mfBeginPos = mdFrameSize.width * mlCurrentIndex;	//ç»˜åˆ¶æ—¶çš„Xåæ ‡èµ·å§‹ç‚¹
 
 		EinkuiGetSystem()->UpdateView();
 
@@ -275,7 +275,7 @@ ERESULT CEvPictureFrame::OnChangeIndex(LONG nlIndex)
 	return lResult;
 }
 
-//¸ü»»ÏÔÊ¾Í¼Æ¬
+//æ›´æ¢æ˜¾ç¤ºå›¾ç‰‡
 ERESULT CEvPictureFrame::OnChangePic(wchar_t* npswPicPath,bool nbIsFullPath)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -285,12 +285,12 @@ ERESULT CEvPictureFrame::OnChangePic(wchar_t* npswPicPath,bool nbIsFullPath)
 		if(npswPicPath == NULL || npswPicPath[0] == UNICODE_NULL)
 			break;
 
-		CMM_SAFE_RELEASE(mpBgBitmap);	//È¥³ıÔ­À´µÄÍ¼Æ¬
+		CMM_SAFE_RELEASE(mpBgBitmap);	//å»é™¤åŸæ¥çš„å›¾ç‰‡
 
 		mpBgBitmap = EinkuiGetSystem()->GetAllocator()->LoadImageFile(npswPicPath,nbIsFullPath);
 		BREAK_ON_NULL(mpBgBitmap);
 
-		mlMaxFrame = 1;	//Ä¿Ç°Ö»Ö§³ÖÇĞ»»ÎªÒ»Ö¡µÄÍ¼
+		mlMaxFrame = 1;	//ç›®å‰åªæ”¯æŒåˆ‡æ¢ä¸ºä¸€å¸§çš„å›¾
 
 		Resize(false);
 
@@ -303,7 +303,7 @@ ERESULT CEvPictureFrame::OnChangePic(wchar_t* npswPicPath,bool nbIsFullPath)
 	return leResult;
 }
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CEvPictureFrame::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -312,12 +312,12 @@ ERESULT CEvPictureFrame::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	{
 		BREAK_ON_NULL(mpBgBitmap);
 
-		float lfX = mpIterator->GetSizeX() * mlCurrentIndex;  	//´ÓÄÄ¸öÎ»ÖÃ¿ªÊ¼ÏÔÊ¾
+		float lfX = mpIterator->GetSizeX() * mlCurrentIndex;  	//ä»å“ªä¸ªä½ç½®å¼€å§‹æ˜¾ç¤º
 
 		if(rPoint.x < 0.0f || (UINT)rPoint.x >= mpIterator->GetSizeX() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpIterator->GetSizeY())
 			break;
 
-		//????Í¨¹ıÏñËØAlphaÖµ¼ì²â
+		//????é€šè¿‡åƒç´ Alphaå€¼æ£€æµ‹
 
 		luResult = ERESULT_MOUSE_OWNERSHIP;
 
@@ -326,20 +326,20 @@ ERESULT CEvPictureFrame::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	return luResult;
 }
 
-//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òş²Ø¡¿·¢Éú¸Ä±ä
+//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 ERESULT CEvPictureFrame::OnElementShow(bool nbIsShow)
 {
 	if (mbIsAutoPlay != false)
 	{
-		//Èç¹ûÊÇ×Ô¶¯²¥·Å¶¯»­µÄÔªËØ
+		//å¦‚æœæ˜¯è‡ªåŠ¨æ’­æ”¾åŠ¨ç”»çš„å…ƒç´ 
 		if (nbIsShow == false)
 		{
-			//Èç¹û½øÈëÒş²Ø×´Ì¬£¬¾Í¹Øµô¶¨Ê±Æ÷
+			//å¦‚æœè¿›å…¥éšè—çŠ¶æ€ï¼Œå°±å…³æ‰å®šæ—¶å™¨
 			mpIterator->KillTimer(TF_ID_PIC_TIMER_ID_PLAY);
 		}
 		else
 		{
-			//¿ªÊ¼¶¯»­£¬²¢ÇÒÏÔÊ¾µÚ1Ö¡
+			//å¼€å§‹åŠ¨ç”»ï¼Œå¹¶ä¸”æ˜¾ç¤ºç¬¬1å¸§
 			mpIterator->SetTimer(TF_ID_PIC_TIMER_ID_PLAY, MAXULONG64, mlPlayTimerElapse, NULL);
 			mlCurrentIndex = 1;
 		}
@@ -349,14 +349,14 @@ ERESULT CEvPictureFrame::OnElementShow(bool nbIsShow)
 	return ERESULT_SUCCESS;
 }
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CEvPictureFrame::OnTimer(PSTEMS_TIMER npStatus)
 {
 	do
 	{
 		if (npStatus->TimerID == TF_ID_PIC_TIMER_ID_PLAY)
 		{
-			//²¥·Å¶¯»­
+			//æ’­æ”¾åŠ¨ç”»
 
 			if (mlCurrentIndex < mlMaxFrame - 1)
 			{
@@ -364,9 +364,9 @@ void CEvPictureFrame::OnTimer(PSTEMS_TIMER npStatus)
 			}
 			else
 			{
-				mlCurrentIndex = 1;	//³¬¹ı×î´óÒ³ºó£¬·µ»ØµÚÒ»Ö¡ÏÔÊ¾
+				mlCurrentIndex = 1;	//è¶…è¿‡æœ€å¤§é¡µåï¼Œè¿”å›ç¬¬ä¸€å¸§æ˜¾ç¤º
 				if (mbIsPlayLoop == false)
-					mpIterator->KillTimer(TF_ID_PIC_TIMER_ID_PLAY); //Èç¹ûÊÇ·ÇÑ­»·£¬¾ÍÖ»²¥·ÅÒ»´Î
+					mpIterator->KillTimer(TF_ID_PIC_TIMER_ID_PLAY); //å¦‚æœæ˜¯éå¾ªç¯ï¼Œå°±åªæ’­æ”¾ä¸€æ¬¡
 			}
 			OnChangeIndex(mlCurrentIndex);
 

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -9,43 +9,43 @@
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÓÃÓÚ¸¡µãÊı¸¨ÖúÔËËã
+// ç”¨äºæµ®ç‚¹æ•°è¾…åŠ©è¿ç®—
 class CExFloat
 {
 public:
-	// È¥µô¸¡µãÊıµÄĞ¡ÊıÎ»£¬²ÉÓÃ4Éá5Èë
+	// å»æ‰æµ®ç‚¹æ•°çš„å°æ•°ä½ï¼Œé‡‡ç”¨4èˆ5å…¥
 	static __inline FLOAT Round(FLOAT Org){
 		return (FLOAT)floor(Org+0.49999f);
 	}
 
-	// ½«¸¡µãÊıµÄÈ¡ÖµÎª×î½Ó½üµÄ¡®.5¡¯Öµ£¬Èç1.3 -> 1.5 , 2.9 -> 2.5
+	// å°†æµ®ç‚¹æ•°çš„å–å€¼ä¸ºæœ€æ¥è¿‘çš„â€˜.5â€™å€¼ï¼Œå¦‚1.3 -> 1.5 , 2.9 -> 2.5
 	static __inline FLOAT HalfPixel(FLOAT Org){
 		return (FLOAT)floor(Org)+0.5f;
 	}
 
-	// ½«¸¡µãÊıÈ¡ÖµÎª×îĞ¡ÕûÊı¼õÈ¥0.4999£¬Èç1.3 -> 0.5 , 2.9 -> 1.5
+	// å°†æµ®ç‚¹æ•°å–å€¼ä¸ºæœ€å°æ•´æ•°å‡å»0.4999ï¼Œå¦‚1.3 -> 0.5 , 2.9 -> 1.5
 	static __inline FLOAT UnderHalf(FLOAT Org){
 		return (FLOAT)floor(Org)-0.49999f;
 	}
 
-	// ÅĞ¶ÏÁ½¸ö¸¡µãÊıÊÇ·ñÏàµÈ
+	// åˆ¤æ–­ä¸¤ä¸ªæµ®ç‚¹æ•°æ˜¯å¦ç›¸ç­‰
 	static __inline bool Equal(FLOAT X1,FLOAT X2,FLOAT Allow=0.0001f){
 		if(fabs(X1 - X2)<Allow)
 			return true;
 		return false;
 	}
 
-	// È¡×îĞ¡µÄ´óÓÚµÈÓÚÊäÈë¸¡µãÊıµÄÕûÊıÖµ
+	// å–æœ€å°çš„å¤§äºç­‰äºè¾“å…¥æµ®ç‚¹æ•°çš„æ•´æ•°å€¼
 	static __inline FLOAT Ceil(FLOAT Org){
 		return (FLOAT)ceil(Org);
 	}
 
-	// È¡×î´óµÄĞ¡ÓÚµÈÓÚÊäÈë¸¡µãÊıµÄÕûÊıÖµ
+	// å–æœ€å¤§çš„å°äºç­‰äºè¾“å…¥æµ®ç‚¹æ•°çš„æ•´æ•°å€¼
 	static __inline FLOAT Floor(FLOAT Org){
 		return (FLOAT)floor(Org);
 	}
 
-	// ½«¸¡µãÊı×ª»»ÎªÕûĞÍÊı£¬½«Ö´ĞĞËÄÉáÎåÈë
+	// å°†æµ®ç‚¹æ•°è½¬æ¢ä¸ºæ•´å‹æ•°ï¼Œå°†æ‰§è¡Œå››èˆäº”å…¥
 	static __inline LONG ToLong(FLOAT Org){
 		return static_cast<LONG>(Round(Org));
 	}
@@ -57,7 +57,7 @@ public:
 #define LW_REAL_EPSILON        1.192092896e-07F        /* FLT_EPSILON */
 
 //////////////////////////////////////////////////////////////////////////
-// ¾ØĞÎÔËËã
+// çŸ©å½¢è¿ç®—
 class CExRect
 {
 public:
@@ -68,7 +68,7 @@ public:
 		return (nfWidth >= -LW_REAL_EPSILON && nfWidth <= LW_REAL_EPSILON) || (nfHeight >= -LW_REAL_EPSILON && nfHeight <= LW_REAL_EPSILON);
 	}
 
-	// Çó½»¼¯ Sets CRect equal to the intersection of two rectangles.
+	// æ±‚äº¤é›† Sets CRect equal to the intersection of two rectangles.
 	static __inline bool  Intersect(IN const D2D1_RECT_F& ndRectOne, IN const D2D1_RECT_F& ndRectTwo, OUT D2D1_RECT_F& ndIntersectRect)
 	{
 		
@@ -86,7 +86,7 @@ public:
 
 	}
 
-	// Çó²¢¼¯ Sets CRect equal to the union of two rectangles.
+	// æ±‚å¹¶é›† Sets CRect equal to the union of two rectangles.
 	static __inline bool Union(IN const D2D1_RECT_F& ndRectOne, IN const D2D1_RECT_F& ndRectTwo, OUT D2D1_RECT_F& ndUnionRect)
 	{
 		float lfRight = max(ndRectOne.right, ndRectTwo.right);
@@ -102,7 +102,7 @@ public:
 		return !CExRect::IsEmptyArea(ndUnionRect.right - ndUnionRect.left, ndUnionRect.top - ndUnionRect.bottom);
 	}
 
-	// µ÷Õû¾ØĞÎ£¬Ê¹Æä¶¥µãĞòÁĞ»¯
+	// è°ƒæ•´çŸ©å½¢ï¼Œä½¿å…¶é¡¶ç‚¹åºåˆ—åŒ–
 	static __inline D2D1_RECT_F GetNormalizedRectangle(float x1, float y1, float x2, float y2)
 	{
 		if (x2 < x1)
@@ -121,13 +121,13 @@ public:
 		return D2D1::RectF(x1, y1, x2, y2);
 	}
 
-	// µ÷Õû¾ØĞÎ£¬Ê¹Æä¶¥µãĞòÁĞ»¯
+	// è°ƒæ•´çŸ©å½¢ï¼Œä½¿å…¶é¡¶ç‚¹åºåˆ—åŒ–
 	static __inline D2D1_RECT_F GetNormalizedRectangle(const D2D1_RECT_F& ndRect)
 	{
 		return CExRect::GetNormalizedRectangle(ndRect.left, ndRect.top, ndRect.right, ndRect.bottom);
 	}
 
-	// ¼ì²âµ±Ç°µãÊÇ·ñÂäÔÚ¾ØĞÎÇøÓò	
+	// æ£€æµ‹å½“å‰ç‚¹æ˜¯å¦è½åœ¨çŸ©å½¢åŒºåŸŸ	
 	static __inline bool PtInRect(IN const D2D1_POINT_2F& ndPoint, IN const D2D1_RECT_F& ndRect)
 	{
 		D2D1_RECT_F ldRect = CExRect::GetNormalizedRectangle(ndRect);

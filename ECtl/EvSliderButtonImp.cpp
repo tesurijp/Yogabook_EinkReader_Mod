@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -28,16 +28,16 @@ CEvSliderButton::~CEvSliderButton()
 
 
 ULONG CEvSliderButton::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CEvButton::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -48,11 +48,11 @@ ULONG CEvSliderButton::InitOnCreate(
 	} while (false);
 	return leResult;
 }
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvSliderButton::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 	switch (npMsg->GetMessageID())
 	{
@@ -90,14 +90,14 @@ ERESULT CEvSliderButton::ParseMessage(IEinkuiMessage* npMsg)
 
 	return luResult;
 }
-//ÔªËØÍÏ×§
+//å…ƒç´ æ‹–æ‹½
 ERESULT CEvSliderButton::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 {
 	//
 	if(mnMoveStyle == ES_SLIDER_BUTTON_STYLE_VER)
 	{		
 		FLOAT lfy = npInfo->Offset.y + mDragStartPoint.y;		
-		//¼ÆËãÎ»ÖÃ£¬²»ÄÜ³¬³ö·¶Î§
+		//è®¡ç®—ä½ç½®ï¼Œä¸èƒ½è¶…å‡ºèŒƒå›´
 		if(lfy < mRectSlider.top)
 			lfy = mRectSlider.top;
 		FLOAT lfMaxY = mRectSlider.top + ((mRectSlider.bottom - mRectSlider.top) - mpIterator->GetSizeY());
@@ -109,7 +109,7 @@ ERESULT CEvSliderButton::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 	else if(mnMoveStyle == ES_SLIDER_BUTTON_STYLE_HOR)
 	{
 		FLOAT lfx = npInfo->Offset.x + mDragStartPoint.x;		
-		//¼ÆËãÎ»ÖÃ£¬²»ÄÜ³¬³ö·¶Î§
+		//è®¡ç®—ä½ç½®ï¼Œä¸èƒ½è¶…å‡ºèŒƒå›´
 		if(lfx < mRectSlider.left)
 			lfx = mRectSlider.left;
 		//int n = mpIterator->GetSizeX();
@@ -121,14 +121,14 @@ ERESULT CEvSliderButton::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 	else if(mnMoveStyle == ES_SLIDER_BUTTON_STYLE_ANYWAY)
 	{
 		FLOAT lfy = npInfo->Offset.y + mDragStartPoint.y;		
-		//¼ÆËãÎ»ÖÃ£¬²»ÄÜ³¬³öY·¶Î§
+		//è®¡ç®—ä½ç½®ï¼Œä¸èƒ½è¶…å‡ºYèŒƒå›´
 		if(lfy < mRectSlider.top)
 			lfy = mRectSlider.top;
 		if(lfy > ((mRectSlider.bottom - mRectSlider.top) - mpIterator->GetSizeY()) )
 			lfy = ((mRectSlider.bottom - mRectSlider.top) - mpIterator->GetSizeY());
 
 		FLOAT lfx = npInfo->Offset.x + mDragStartPoint.x;		
-		//¼ÆËãÎ»ÖÃ£¬²»ÄÜ³¬³öX·¶Î§
+		//è®¡ç®—ä½ç½®ï¼Œä¸èƒ½è¶…å‡ºXèŒƒå›´
 		if(lfx < mRectSlider.left)
 			lfx = mRectSlider.left;
 		if(lfx > ((mRectSlider.right - mRectSlider.left) - mpIterator->GetSizeX()) )
@@ -148,7 +148,7 @@ ERESULT CEvSliderButton::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 	return ERESULT_SUCCESS;
 }
 
-//ÍÏ×§¿ªÊ¼
+//æ‹–æ‹½å¼€å§‹
 ERESULT CEvSliderButton::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 {
 	mDragStartPoint.x = mpIterator->GetPositionX();
@@ -158,14 +158,14 @@ ERESULT CEvSliderButton::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 	return ERESULT_SUCCESS;
 }
 
-//ÍÏ×§½áÊø
+//æ‹–æ‹½ç»“æŸ
 ERESULT CEvSliderButton::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 {
 	CExMessage::SendMessage(mpIterator->GetParent(),mpIterator,EACT_SLIDERBUTTON_DRAG_END,CExMessage::DataInvalid);
 	return ERESULT_SUCCESS;
 }
 
-//ÔªËØEnbale
+//å…ƒç´ Enbale
 ERESULT CEvSliderButton::OnElementEnable(bool nbIsEnable)
 {
 	if (nbIsEnable)

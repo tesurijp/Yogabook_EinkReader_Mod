@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -8,7 +8,7 @@
 
 
 
-// äÖÈ¾×´Ì¬
+// æ¸²æŸ“çŠ¶æ€
 class CErdState{
 public:
 	CErdState(){
@@ -69,7 +69,7 @@ typedef struct _EI_LINE_DIFF {
 
 
 //////////////////////////////////////////////////////////////////////////
-// D2D Í¼ĞÎÒıÇæ
+// D2D å›¾å½¢å¼•æ“
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -78,55 +78,55 @@ class CXD2dEngine: public cmmBaseObject<CXD2dEngine,IEinkuiPaintBoard, GET_BUILT
 {
 
 //////////////////////////////////////////////////////////////////////////
-// ÒıÇæ³õÊ¼»¯²¿·Ö
+// å¼•æ“åˆå§‹åŒ–éƒ¨åˆ†
 //////////////////////////////////////////////////////////////////////////
 public:
 
-	// Ä¬ÈÏ¹¹Ôìº¯Êı
+	// é»˜è®¤æ„é€ å‡½æ•°
 	CXD2dEngine();
-	// Ä¬ÈÏÎö¹¹º¯Êı
+	// é»˜è®¤ææ„å‡½æ•°
 	~CXD2dEngine();
 
-	// ×Ô¶¨Òå³õÊ¼»¯º¯Êı
+	// è‡ªå®šä¹‰åˆå§‹åŒ–å‡½æ•°
 	DEFINE_CUMSTOMIZE_CREATE(CXD2dEngine,(ULONG Width,ULONG Height),(Width, Height))
 	ULONG InitOnCreate(ULONG Width, ULONG Height);
 
-	// ½¨Á¢Éè±¸ÎŞ¹Ø×ÊÔ´
+	// å»ºç«‹è®¾å¤‡æ— å…³èµ„æº
 	virtual ERESULT CreateIndependentResource();
 
-	// ½¨Á¢Éè±¸Ïà¹Ø×ÊÔ´
+	// å»ºç«‹è®¾å¤‡ç›¸å…³èµ„æº
 	virtual ERESULT CreateDeviceResource();
 
-	// ÊÍ·ÅÈ«²¿×ÊÔ´
+	// é‡Šæ”¾å…¨éƒ¨èµ„æº
 	virtual void ReleaseDeviceResource(bool nbBroadcastToElement=true);
 
-	// ÇåÀí»­°å
+	// æ¸…ç†ç”»æ¿
 	virtual void Clear();
 
-	// Ìá½»µ½ÆÁÄ»
+	// æäº¤åˆ°å±å¹•
 	virtual HRESULT Present(
-		IN bool nbRefresh = false	// ±ØĞëÌá½»È«ÆÁ
+		IN bool nbRefresh = false	// å¿…é¡»æäº¤å…¨å±
 		);
 
-	//// ½¨Á¢D3d×ÊÔ´
+	//// å»ºç«‹D3dèµ„æº
 	//ERESULT CreateD3dResource();
 
-	// ½¨Á¢D2d×ÊÔ´
+	// å»ºç«‹D2dèµ„æº
 	ERESULT CreateD2dResource();
 
-	//»ñÈ¡µ±Ç°»­°åÍ¼Ïñ£¬»ñÈ¡µÄHBITMAP¶ÔÏó£¬ÓÉµ÷ÓÃÕßÀ´ÊÍ·Å
+	//è·å–å½“å‰ç”»æ¿å›¾åƒï¼Œè·å–çš„HBITMAPå¯¹è±¡ï¼Œç”±è°ƒç”¨è€…æ¥é‡Šæ”¾
 	virtual HBITMAP GetCurrentBitmap(LONG nlWidth,LONG nlHeight);
 //////////////////////////////////////////////////////////////////////////
-// ´´½¨»æÍ¼×ÊÔ´£¬ÊµÏÖIXuiPaintResouceµÄ½Ó¿Ú
+// åˆ›å»ºç»˜å›¾èµ„æºï¼Œå®ç°IXuiPaintResouceçš„æ¥å£
 //////////////////////////////////////////////////////////////////////////
 public:
-	// ´´½¨½¥±ä»­Ë¢
+	// åˆ›å»ºæ¸å˜ç”»åˆ·
 	virtual IEinkuiBrush* __stdcall CreateBrush(
 		XuiBrushType niBrushType,
 		D2D1_COLOR_F noColor
 		);
 
-	// ½¥±ä»­Ë¢Ê±£¬ĞèÒª´«Èë¶à¸öÑÕÉ«µã
+	// æ¸å˜ç”»åˆ·æ—¶ï¼Œéœ€è¦ä¼ å…¥å¤šä¸ªé¢œè‰²ç‚¹
 	virtual IEinkuiBrush* __stdcall CreateBrush(
 		XuiBrushType niBrushType, 
 		D2D1_GRADIENT_STOP* npGradientStop, ULONG nuCount, 
@@ -135,91 +135,91 @@ public:
 
 
 //////////////////////////////////////////////////////////////////////////
-// ĞèÒªÊµÏÖµÄÍ¼ĞÎÒıÇæ»ùÀà½Ó¿Ú
+// éœ€è¦å®ç°çš„å›¾å½¢å¼•æ“åŸºç±»æ¥å£
 //////////////////////////////////////////////////////////////////////////
 
-// ·â×°Î»Í¼µÄ»æÖÆ²Ù×÷
+// å°è£…ä½å›¾çš„ç»˜åˆ¶æ“ä½œ
 public:
 
-	// »æÖÆÒ»¸öÍ¼Ïñµ½»æÍ¼°å
-	// ĞèÒªÖ¸¶¨Ä¿±êºÍÔ´ÇøÓò£»½öÔÚEMSG_PAINT/EMSG_RENDER_ENHANCERÏûÏ¢´¦ÀíÆÚ¼äÓĞĞ§
+	// ç»˜åˆ¶ä¸€ä¸ªå›¾åƒåˆ°ç»˜å›¾æ¿
+	// éœ€è¦æŒ‡å®šç›®æ ‡å’ŒæºåŒºåŸŸï¼›ä»…åœ¨EMSG_PAINT/EMSG_RENDER_ENHANCERæ¶ˆæ¯å¤„ç†æœŸé—´æœ‰æ•ˆ
 	virtual ERESULT __stdcall DrawBitmap(
-		IN const D2D1_RECT_F& rDestRect,	// Ä¿±êÇøÓò
-		IN const D2D1_RECT_F& rSrcRect,	// Î»Í¼µÄ²ÉÑùÇøÓò
-		IN IEinkuiBitmap* npBitmap,		// ´ı»æÖÆµÄÎ»Í¼
-		IN ULONG nuMethod,			// ²ÉÑù·½·¨£¬¼ûÏÂÎÄ¶¨Òå
+		IN const D2D1_RECT_F& rDestRect,	// ç›®æ ‡åŒºåŸŸ
+		IN const D2D1_RECT_F& rSrcRect,	// ä½å›¾çš„é‡‡æ ·åŒºåŸŸ
+		IN IEinkuiBitmap* npBitmap,		// å¾…ç»˜åˆ¶çš„ä½å›¾
+		IN ULONG nuMethod,			// é‡‡æ ·æ–¹æ³•ï¼Œè§ä¸‹æ–‡å®šä¹‰
 		IN float nfAlpha = 1.0f		
 		);
 
-	// »æÖÆÒ»¸öÍ¼Ïñµ½»æÍ¼°å
-	// ½öÖ¸¶¨Ä¿±êÇøÓò£¬²ÉÑùÇøÓòÊÇÕû¸öÎ»Í¼£»½öÔÚEMSG_PAINT/EMSG_RENDER_ENHANCERÏûÏ¢´¦ÀíÆÚ¼äÓĞĞ§
+	// ç»˜åˆ¶ä¸€ä¸ªå›¾åƒåˆ°ç»˜å›¾æ¿
+	// ä»…æŒ‡å®šç›®æ ‡åŒºåŸŸï¼Œé‡‡æ ·åŒºåŸŸæ˜¯æ•´ä¸ªä½å›¾ï¼›ä»…åœ¨EMSG_PAINT/EMSG_RENDER_ENHANCERæ¶ˆæ¯å¤„ç†æœŸé—´æœ‰æ•ˆ
 	virtual ERESULT __stdcall DrawBitmap(
-		IN const D2D1_RECT_F& rDestRect,	// Ä¿±êÇøÓò
-		IN IEinkuiBitmap* npBitmap,		// ´ı»æÖÆµÄÎ»Í¼
-		IN ULONG nuMethod,			// ²ÉÑù·½·¨£¬¼ûÏÂÎÄ¶¨Òå
+		IN const D2D1_RECT_F& rDestRect,	// ç›®æ ‡åŒºåŸŸ
+		IN IEinkuiBitmap* npBitmap,		// å¾…ç»˜åˆ¶çš„ä½å›¾
+		IN ULONG nuMethod,			// é‡‡æ ·æ–¹æ³•ï¼Œè§ä¸‹æ–‡å®šä¹‰
 		IN float nfAlpha = 1.0f			
 		);
 
-	// »æÖÆÒ»·ùÍ¼Ïñµ½»æÍ¼°å
-	// ÍêÈ«°´ÕÕÍ¼ÏñµÄ´óĞ¡»æÖÆµ½Ä¿±ê£»½öÔÚEMSG_PAINT/EMSG_RENDER_ENHANCERÏûÏ¢´¦ÀíÆÚ¼äÓĞĞ§
+	// ç»˜åˆ¶ä¸€å¹…å›¾åƒåˆ°ç»˜å›¾æ¿
+	// å®Œå…¨æŒ‰ç…§å›¾åƒçš„å¤§å°ç»˜åˆ¶åˆ°ç›®æ ‡ï¼›ä»…åœ¨EMSG_PAINT/EMSG_RENDER_ENHANCERæ¶ˆæ¯å¤„ç†æœŸé—´æœ‰æ•ˆ
 	virtual ERESULT __stdcall DrawBitmap(
-		IN const D2D1_POINT_2F& rDestLeftTop,	// Ä¿±êÇøÓòµÄ×óÉÏ½Ç
-		IN IEinkuiBitmap* npBitmap,			// ´ı»æÖÆµÄÎ»Í¼
+		IN const D2D1_POINT_2F& rDestLeftTop,	// ç›®æ ‡åŒºåŸŸçš„å·¦ä¸Šè§’
+		IN IEinkuiBitmap* npBitmap,			// å¾…ç»˜åˆ¶çš„ä½å›¾
 		IN float nfAlpha = 1.0f			
 		);
 
 
-// ·â×°»­µã»­ÏßµÄ²Ù×÷½Ó¿Ú
+// å°è£…ç”»ç‚¹ç”»çº¿çš„æ“ä½œæ¥å£
 public:
 
-	// »­µãÏßº¯Êı
+	// ç”»ç‚¹çº¿å‡½æ•°
 	virtual ERESULT __stdcall DrawLine(
-		IN const D2D1_POINT_2F&	noStartPoint,	// ÆğÊ¼µã
-		IN const D2D1_POINT_2F& noEndPoint,		// ½áÊøµã
+		IN const D2D1_POINT_2F&	noStartPoint,	// èµ·å§‹ç‚¹
+		IN const D2D1_POINT_2F& noEndPoint,		// ç»“æŸç‚¹
 		IN IEinkuiBrush* npBrush
 		);
 
-	// »­¶à±ßĞÎ
+	// ç”»å¤šè¾¹å½¢
 	virtual ERESULT __stdcall DrawPlogon(
-		IN const D2D1_POINT_2F*	noPointArray,	// ¶¥µãÁĞ±í
+		IN const D2D1_POINT_2F*	noPointArray,	// é¡¶ç‚¹åˆ—è¡¨
 		IN INT	niCount,
 		IN IEinkuiBrush* npBrush 
 		);
 
-	// Ìî³ä¶à±ßĞÎ
+	// å¡«å……å¤šè¾¹å½¢
 	virtual ERESULT __stdcall FillPlogon(
-		IN const D2D1_POINT_2F*	noPointArray,	// ¶¥µãÁĞ±í
+		IN const D2D1_POINT_2F*	noPointArray,	// é¡¶ç‚¹åˆ—è¡¨
 		IN INT	niCount,
 		IN IEinkuiBrush* npBrush 
 		);
 
-	// »­ÍÖÔ²
+	// ç”»æ¤­åœ†
 	virtual ERESULT __stdcall DrawEllipse(
 		IN const D2D1_RECT_F& noRect,			
 		IN IEinkuiBrush* npBrush
 		);
 
-	// Ìî³äÍÖÔ²
+	// å¡«å……æ¤­åœ†
 	virtual ERESULT __stdcall FillEllipse(
 		IN const D2D1_RECT_F& noRect,			
 		IN IEinkuiBrush* npBrush
 		);
 
 
-	// »­¾ØĞÎ
+	// ç”»çŸ©å½¢
 	virtual ERESULT __stdcall DrawRect(
 		IN const D2D1_RECT_F& noRect,
 		IN IEinkuiBrush* npBrush
 		);
 
-	// Ìî³ä¾ØĞÎ
+	// å¡«å……çŸ©å½¢
 	virtual ERESULT __stdcall FillRect(
 		IN const D2D1_RECT_F& noRect,
 		IN IEinkuiBrush* npBrush
 		);
 
 
-	// »­Ô²½Ç¾ØĞÎ
+	// ç”»åœ†è§’çŸ©å½¢
 	virtual ERESULT __stdcall DrawRoundRect(
 		IN const D2D1_RECT_F& noRect,
 		FLOAT radiusX,
@@ -228,7 +228,7 @@ public:
 		);
 
 
-	// Ìî³äÔ²½Ç¾ØĞÎ
+	// å¡«å……åœ†è§’çŸ©å½¢
 	virtual ERESULT __stdcall FillRoundRect(
 		IN const D2D1_RECT_F& noRect,
 		FLOAT radiusX,
@@ -236,107 +236,107 @@ public:
 		IN IEinkuiBrush* npBrush
 		);	
 
-	// ??ÒÔÏÂ½Ó¿ÚĞèÒªÈ·ÈÏ
+	// ??ä»¥ä¸‹æ¥å£éœ€è¦ç¡®è®¤
 
-	// »ñµÃDirect2DµÄRenderTarget£¬²»ÓÃÊÍ·Å£¬Ö»ÄÜ¹»ÔÚ»ñµÃ±¾IXuiPaintBoard½Ó¿ÚµÄÏûÏ¢ÏìÓ¦ÆÚ¼äÊ¹ÓÃ·µ»ØµÄRenderTarget½Ó¿Ú£¬²»Òª³¤ÆÚ±£´æ´Ë´¦·µ»ØµÄ½Ó¿Ú£¬ÒÔÃâÊ§Ğ§Ôì³ÉÎ´Öª´íÎó
-	// ½öÓ¦¸ÃÔÚEMSG_PAINT/EMSG_RENDER_ENHANCERÏûÏ¢´¦ÀíÆÚ¼äÖ´ĞĞ»æÖÆ¶¯×÷£¬²»ÄÜÔÚPrepareÏûÏ¢ÆÚ¼ä»æÖÆ£¬ÒÔÃâÆÆ»µäÖÈ¾ÒıÇæµÄÎÈ¶¨
+	// è·å¾—Direct2Dçš„RenderTargetï¼Œä¸ç”¨é‡Šæ”¾ï¼Œåªèƒ½å¤Ÿåœ¨è·å¾—æœ¬IXuiPaintBoardæ¥å£çš„æ¶ˆæ¯å“åº”æœŸé—´ä½¿ç”¨è¿”å›çš„RenderTargetæ¥å£ï¼Œä¸è¦é•¿æœŸä¿å­˜æ­¤å¤„è¿”å›çš„æ¥å£ï¼Œä»¥å…å¤±æ•ˆé€ æˆæœªçŸ¥é”™è¯¯
+	// ä»…åº”è¯¥åœ¨EMSG_PAINT/EMSG_RENDER_ENHANCERæ¶ˆæ¯å¤„ç†æœŸé—´æ‰§è¡Œç»˜åˆ¶åŠ¨ä½œï¼Œä¸èƒ½åœ¨Prepareæ¶ˆæ¯æœŸé—´ç»˜åˆ¶ï¼Œä»¥å…ç ´åæ¸²æŸ“å¼•æ“çš„ç¨³å®š
 	virtual ID2D1RenderTarget* __stdcall GetD2dRenderTarget(void);
 
-	// »ñµÃDirect2DµÄ¹¤³§½Ó¿Ú£¬²»ÓÃÊÍ·Å£¬Ö»ÄÜ¹»ÔÚ»ñµÃ±¾IXuiPaintBoard½Ó¿ÚµÄÏûÏ¢ÏìÓ¦ÆÚ¼äÊ¹ÓÃ·µ»ØµÄRenderTarget½Ó¿Ú£¬²»Òª³¤ÆÚ±£´æ´Ë´¦·µ»ØµÄ½Ó¿Ú£¬ÒÔÃâÊ§Ğ§Ôì³ÉÎ´Öª´íÎó
+	// è·å¾—Direct2Dçš„å·¥å‚æ¥å£ï¼Œä¸ç”¨é‡Šæ”¾ï¼Œåªèƒ½å¤Ÿåœ¨è·å¾—æœ¬IXuiPaintBoardæ¥å£çš„æ¶ˆæ¯å“åº”æœŸé—´ä½¿ç”¨è¿”å›çš„RenderTargetæ¥å£ï¼Œä¸è¦é•¿æœŸä¿å­˜æ­¤å¤„è¿”å›çš„æ¥å£ï¼Œä»¥å…å¤±æ•ˆé€ æˆæœªçŸ¥é”™è¯¯
 	virtual ID2D1Factory* __stdcall GetD2dFactory(void);
 
-	// »ñµÃWIC¹¤³§£¬²»ÓÃÊÍ·Å£¬Ö»ÄÜ¹»ÔÚ»ñµÃ±¾IXuiPaintBoard½Ó¿ÚµÄÏûÏ¢ÏìÓ¦ÆÚ¼äÊ¹ÓÃ·µ»ØµÄRenderTarget½Ó¿Ú£¬²»Òª³¤ÆÚ±£´æ´Ë´¦·µ»ØµÄ½Ó¿Ú£¬ÒÔÃâÊ§Ğ§Ôì³ÉÎ´Öª´íÎó
+	// è·å¾—WICå·¥å‚ï¼Œä¸ç”¨é‡Šæ”¾ï¼Œåªèƒ½å¤Ÿåœ¨è·å¾—æœ¬IXuiPaintBoardæ¥å£çš„æ¶ˆæ¯å“åº”æœŸé—´ä½¿ç”¨è¿”å›çš„RenderTargetæ¥å£ï¼Œä¸è¦é•¿æœŸä¿å­˜æ­¤å¤„è¿”å›çš„æ¥å£ï¼Œä»¥å…å¤±æ•ˆé€ æˆæœªçŸ¥é”™è¯¯
 	virtual IWICImagingFactory* __stdcall GetWICFactory(void);
 
-	// »ñµÃDirect Write¹¤³§£¬²»ÓÃÊÍ·Å£¬Ö»ÄÜ¹»ÔÚ»ñµÃ±¾IXuiPaintBoard½Ó¿ÚµÄÏûÏ¢ÏìÓ¦ÆÚ¼äÊ¹ÓÃ·µ»ØµÄRenderTarget½Ó¿Ú£¬²»Òª³¤ÆÚ±£´æ´Ë´¦·µ»ØµÄ½Ó¿Ú£¬ÒÔÃâÊ§Ğ§Ôì³ÉÎ´Öª´íÎó
+	// è·å¾—Direct Writeå·¥å‚ï¼Œä¸ç”¨é‡Šæ”¾ï¼Œåªèƒ½å¤Ÿåœ¨è·å¾—æœ¬IXuiPaintBoardæ¥å£çš„æ¶ˆæ¯å“åº”æœŸé—´ä½¿ç”¨è¿”å›çš„RenderTargetæ¥å£ï¼Œä¸è¦é•¿æœŸä¿å­˜æ­¤å¤„è¿”å›çš„æ¥å£ï¼Œä»¥å…å¤±æ•ˆé€ æˆæœªçŸ¥é”™è¯¯
 	virtual IDWriteFactory* __stdcall GetDWriteFactory(void);
 
 
-	// »ñµÃµ±Ç°µÄD2d»æÖÆÓÃ£¬¾Ö²¿×ø±êµ½ÊÀ½ç×ø±êµÄ×ª»»¾ØÕó
+	// è·å¾—å½“å‰çš„D2dç»˜åˆ¶ç”¨ï¼Œå±€éƒ¨åæ ‡åˆ°ä¸–ç•Œåæ ‡çš„è½¬æ¢çŸ©é˜µ
 	virtual const D2D1::Matrix3x2F& __stdcall GetCurrent2DWorldMatrix(void);
 
-	// »ñµÃµ±Ç°¿ÉÊÓÇøÉèÖÃ£¬¿ÉÊÓÇøÓÃÊÀ½ç×ø±êÃèÊö£¬Èç¹ûD2dTarget±»ÇĞ»»£¬½«¸ø³öµÄÊÇÇĞ»»ºóµÄTarget¶ÔÓ¦µÄÊÀ½ç×ø±ê
-	// ·µ»ØERESULT_SUCCESSµ±Ç°´æÔÚ¿ÉÊÓÇøÉèÖÃ£¬²¢ÇÒ³É¹¦È¡µÃ£¬ERESULT_UNSUCCESS²»´æÔÚ¿ÉÊÓÇøÉèÖÃ£¬ÆäËûÖµ±íÊ¾´íÎó
+	// è·å¾—å½“å‰å¯è§†åŒºè®¾ç½®ï¼Œå¯è§†åŒºç”¨ä¸–ç•Œåæ ‡æè¿°ï¼Œå¦‚æœD2dTargetè¢«åˆ‡æ¢ï¼Œå°†ç»™å‡ºçš„æ˜¯åˆ‡æ¢åçš„Targetå¯¹åº”çš„ä¸–ç•Œåæ ‡
+	// è¿”å›ERESULT_SUCCESSå½“å‰å­˜åœ¨å¯è§†åŒºè®¾ç½®ï¼Œå¹¶ä¸”æˆåŠŸå–å¾—ï¼ŒERESULT_UNSUCCESSä¸å­˜åœ¨å¯è§†åŒºè®¾ç½®ï¼Œå…¶ä»–å€¼è¡¨ç¤ºé”™è¯¯
 	virtual ERESULT __stdcall GetVisibleRegion(
 		OUT D2D1_RECT_F* npRegion
 		);
 
-	// ¶ÔÓÚÖ±½Ó·ÃÎÊD3dºÍD2d¶ÔÏóµÄÔªËØ£¬Ê¹ÓÃ±¾½Ó¿ÚÏòÏµÍ³»ã±¨Éè±¸´íÎó£¬ÏµÍ³·µ»ØERESULT_SUCCESS±íÊ¾¿ÉÒÔ¼ÌĞøÖ´ĞĞ£¬·µ»ØÖµÂú×ãºêERESULT_FAILEDÔòÖĞÖ¹¼ÌĞøÖ´ĞĞ
+	// å¯¹äºç›´æ¥è®¿é—®D3då’ŒD2då¯¹è±¡çš„å…ƒç´ ï¼Œä½¿ç”¨æœ¬æ¥å£å‘ç³»ç»Ÿæ±‡æŠ¥è®¾å¤‡é”™è¯¯ï¼Œç³»ç»Ÿè¿”å›ERESULT_SUCCESSè¡¨ç¤ºå¯ä»¥ç»§ç»­æ‰§è¡Œï¼Œè¿”å›å€¼æ»¡è¶³å®ERESULT_FAILEDåˆ™ä¸­æ­¢ç»§ç»­æ‰§è¡Œ
 	virtual ERESULT __stdcall CheckDeviceResult(
 		IN HRESULT nhrDeviceResult
 		);
 
 
-	// »ñµÃµ±Ç°µÄTickCount
+	// è·å¾—å½“å‰çš„TickCount
 	virtual ULONG __stdcall GetCurrentTickCount();
 
-	// »ñµÃµ±Ç°Ö¡ÂÊ
+	// è·å¾—å½“å‰å¸§ç‡
 	virtual ULONG __stdcall GetCurrentFps(void);
 
-	// »ñµÃµ±Ç°µÄäÖÈ¾ĞòÁĞºÅ£¬»æÖÆĞòÁĞºÅÊÇÓÃÀ´Ğ­µ÷ºÍ¼ÆËãµ±Ç°µÄäÖÈ¾´ÎÊı£¬Ã¿Ö´ĞĞÒ»´ÎäÖÈ¾¸ÃĞòºÅ¼ÓÒ»£¬Ä³Ğ©Çé¿öÏÂ£¬ÔªËØ¿ÉÒÔ»á±»ÒªÇó»æÖÆ2´Î£¬¼ÆÊı´ïµ½×î´óÖµºó»á´Ó0¿ªÊ¼
+	// è·å¾—å½“å‰çš„æ¸²æŸ“åºåˆ—å·ï¼Œç»˜åˆ¶åºåˆ—å·æ˜¯ç”¨æ¥åè°ƒå’Œè®¡ç®—å½“å‰çš„æ¸²æŸ“æ¬¡æ•°ï¼Œæ¯æ‰§è¡Œä¸€æ¬¡æ¸²æŸ“è¯¥åºå·åŠ ä¸€ï¼ŒæŸäº›æƒ…å†µä¸‹ï¼Œå…ƒç´ å¯ä»¥ä¼šè¢«è¦æ±‚ç»˜åˆ¶2æ¬¡ï¼Œè®¡æ•°è¾¾åˆ°æœ€å¤§å€¼åä¼šä»0å¼€å§‹
 	virtual ULONG __stdcall GetRenderNumber(void);
 
 
 //////////////////////////////////////////////////////////////////////////
-// ¸¨Öú¹¦ÄÜº¯Êı
+// è¾…åŠ©åŠŸèƒ½å‡½æ•°
 //////////////////////////////////////////////////////////////////////////
 public:
 
 
-	// Ö´ĞĞ»æÖÆÈÎÎñ
+	// æ‰§è¡Œç»˜åˆ¶ä»»åŠ¡
 	ERESULT DoRender(
-		IN ULONG nuCrtTick,	// µ±Ç°µÄTickCount
-		IN bool nbRefresh=false,	// ±ØĞëÌá½»È«ÆÁ
-		IN IEinkuiIterator* npToCapture=NULL	// ´ËÖµ±»ÉèÖÃÓÃÓÚ×¥È¡¸ÃÔªËØÓë×ÓÔªËØµÄÍ¼Ïñ£¬²¢²»»áÓ°ÏìÆÁÄ»ÏÔÊ¾
+		IN ULONG nuCrtTick,	// å½“å‰çš„TickCount
+		IN bool nbRefresh=false,	// å¿…é¡»æäº¤å…¨å±
+		IN IEinkuiIterator* npToCapture=NULL	// æ­¤å€¼è¢«è®¾ç½®ç”¨äºæŠ“å–è¯¥å…ƒç´ ä¸å­å…ƒç´ çš„å›¾åƒï¼Œå¹¶ä¸ä¼šå½±å“å±å¹•æ˜¾ç¤º
 		);
 
-	// Ö´ĞĞÅÄÕÕÈÎÎñ
+	// æ‰§è¡Œæ‹ç…§ä»»åŠ¡
 	IEinkuiBitmap* TakeSnapshot(
 		IEinkuiIterator* npToShot,
-		const D2D1_RECT_F& crSourceRegion,	// ²ÉÑùÇøÓò£¬Ä¿±êÔªËØµÄ¾Ö²¿×ø±êÏµ
-		const D2D_SIZE_F& crBriefSize,		// ËõÂÔÍ¼³ß´ç£¬¿ìÕÕµÄ½á¹ûÊÇÒ»¸±ËõÂÔÍ¼
+		const D2D1_RECT_F& crSourceRegion,	// é‡‡æ ·åŒºåŸŸï¼Œç›®æ ‡å…ƒç´ çš„å±€éƒ¨åæ ‡ç³»
+		const D2D_SIZE_F& crBriefSize,		// ç¼©ç•¥å›¾å°ºå¯¸ï¼Œå¿«ç…§çš„ç»“æœæ˜¯ä¸€å‰¯ç¼©ç•¥å›¾
 		const FLOAT* ColorRGBA = NULL
 	);
 
-	// ¹©Windows´°¿Ú¹ı³Ìµ÷ÓÃ£¬±£´æ´°¿Ú×îĞ¡»¯ĞÅÏ¢
+	// ä¾›Windowsçª—å£è¿‡ç¨‹è°ƒç”¨ï¼Œä¿å­˜çª—å£æœ€å°åŒ–ä¿¡æ¯
 	void StopPainting(bool nbMin);
 
-	// ÖØÉè»­°å´óĞ¡
+	// é‡è®¾ç”»æ¿å¤§å°
 	void ResetPaintboard(void);
 
-	// »ñµÃÖ÷´°¿ÚµÄ´óĞ¡
+	// è·å¾—ä¸»çª—å£çš„å¤§å°
 	void GetPaintboardSize(
-		OUT EI_SIZE* npSize	// »ñÈ¡»­°å´óĞ¡
+		OUT EI_SIZE* npSize	// è·å–ç”»æ¿å¤§å°
 		);
 
-	// ·¢ËÍPrepare PaintÇ°Ô¤´¦Àí
+	// å‘é€Prepare Paintå‰é¢„å¤„ç†
 	ERESULT __stdcall EnterForPrepare(IEinkuiIterator* npRecipient);
 
-	// ·¢ËÍPrepare Paintºó´¦Àí
+	// å‘é€Prepare Paintåå¤„ç†
 	ERESULT __stdcall LeaveForPrepare(IEinkuiIterator* npRecipient);
 
-	// ·¢ËÍPaintÇ°Ô¤´¦Àí
+	// å‘é€Paintå‰é¢„å¤„ç†
 	ERESULT __stdcall EnterForPaint(IEinkuiIterator* npRecipient);
 
-	// ·¢ËÍPaintºó´¦Àí
+	// å‘é€Paintåå¤„ç†
 	ERESULT __stdcall LeaveForPaint(IEinkuiIterator* npRecipient);
 
-	// ·¢ËÍCaptureÇ°Ô¤´¦Àí
+	// å‘é€Captureå‰é¢„å¤„ç†
 	ERESULT __stdcall EnterForCapture(IEinkuiIterator* npRecipient);
 
-	// ·¢ËÍCaptureºó´¦Àí
+	// å‘é€Captureåå¤„ç†
 	ERESULT __stdcall LeaveForCapture(IEinkuiIterator* npRecipient);
 
-	// ·¢ËÍEMSG_DISCARD_DEVICE_RESOURCEÇ°Ô¤´¦Àí
+	// å‘é€EMSG_DISCARD_DEVICE_RESOURCEå‰é¢„å¤„ç†
 	ERESULT __stdcall EnterForDiscardDeviceRes(IEinkuiIterator* npRecipient);
 
-	// ·¢ËÍEMSG_DISCARD_DEVICE_RESOURCEºó´¦Àí
+	// å‘é€EMSG_DISCARD_DEVICE_RESOURCEåå¤„ç†
 	ERESULT __stdcall LeaveForDiscardDeviceRes(IEinkuiIterator* npRecipient);
 
-	// Éè¶¨×Ô»æº¯Êı£¬Éè¶¨ºóXuiÏµÍ³²»ÔÚµ÷ÓÃEink»æÖÆ£¬½ö½ö½«rgb32µÄ»º³åÇøÌá¹©¸ø´Ë´¦Éè¶¨µÄ»Øµ÷º¯Êı
+	// è®¾å®šè‡ªç»˜å‡½æ•°ï¼Œè®¾å®šåXuiç³»ç»Ÿä¸åœ¨è°ƒç”¨Einkç»˜åˆ¶ï¼Œä»…ä»…å°†rgb32çš„ç¼“å†²åŒºæä¾›ç»™æ­¤å¤„è®¾å®šçš„å›è°ƒå‡½æ•°
 	void SetCustomDraw(PXUI_CUSTOM_DRAW_CALLBACK CustomDraw);
 
-	// ÖØÖÃEink»º´æ
+	// é‡ç½®Einkç¼“å­˜
 	void ClearEinkBuffer(bool nbClear) {
 		InterlockedExchange(&mlResetEinkBuf, (LONG)nbClear);
 	}
@@ -345,14 +345,14 @@ public:
 
 private:
 	void DrawEink(
-		IN bool nbRefresh = false	// ±ØĞëÌá½»È«ÆÁ
+		IN bool nbRefresh = false	// å¿…é¡»æäº¤å…¨å±
 	);
 
-	// ÖØĞÂ¶¨Î»
+	// é‡æ–°å®šä½
 	void RelocationPainboard(void);
 
 //////////////////////////////////////////////////////////////////////////
-// ¶¨ÒåÓë»æÍ¼ÓĞ¹ØµÄÉè±¸Ïà¹Ø»òÉè±¸ÎŞ¹Ø×ÊÔ´
+// å®šä¹‰ä¸ç»˜å›¾æœ‰å…³çš„è®¾å¤‡ç›¸å…³æˆ–è®¾å¤‡æ— å…³èµ„æº
 //////////////////////////////////////////////////////////////////////////
 public:
 	CXelManager* mpElementManager;
@@ -367,21 +367,21 @@ public:
 	LPVOID mpEinkUpdatingContext;
 
 	//////////////////////////////////////////////////////////////////////////fs
-	// Éè±¸ÎŞ¹Ø×ÊÔ´
+	// è®¾å¤‡æ— å…³èµ„æº
 	ID2D1Factory* mpD2dFactory;
 	IWICImagingFactory* mpWicFactory;
 	IDWriteFactory* mpWriteFactory;
 	IDWriteTextFormat* mpDbgTextFormat;
 
 	//////////////////////////////////////////////////////////////////////////
-	// Éè±¸Ïà¹Ø×ÊÔ´
-	ID2D1RenderTarget* mpTarget2D;		// Direct2DµÄäÖÈ¾Ä¿±ê
+	// è®¾å¤‡ç›¸å…³èµ„æº
+	ID2D1RenderTarget* mpTarget2D;		// Direct2Dçš„æ¸²æŸ“ç›®æ ‡
 	ID2D1Bitmap* mpTargetBitmap;
 	ID2D1SolidColorBrush* mpDbgTextBrush;
 	ID2D1SolidColorBrush* mpFogBrush;
 
-	// »æÖÆÉÏÏÂÎÄ
-	volatile LONG mlRenderStep;	//»æÖÆ½×¶Î
+	// ç»˜åˆ¶ä¸Šä¸‹æ–‡
+	volatile LONG mlRenderStep;	//ç»˜åˆ¶é˜¶æ®µ
 	IEinkuiMessage* mpMessage;
 	ULONG muCrtTick;
 	TRrdStateStack moRenderState;
@@ -393,22 +393,22 @@ public:
 	D2D1::Matrix3x2F mdScalMatrixToCapture;
 	D2D1_COLOR_F mdBackColor;
 
-	// Ä£Ì¬¶Ô»°¿òÉÁË¸¿ØÖÆ
+	// æ¨¡æ€å¯¹è¯æ¡†é—ªçƒæ§åˆ¶
 	IEinkuiIterator* mpModalTrunk;
 	ULONG muFlashModalTick;
 
-	// Layered Window ÓÃ
-	HBITMAP mhForeBmp;			// Ç°Ì¨»æÍ¼°åÓÃµÄGDIÎ»Í¼¶ÔÏó£¬ÓÃÓÚLayered window Ä£Ê½
-	HDC mhForeDc;				// ÓÃÓÚLayered window Ä£Ê½ÏÂ£¬¹©µ÷ÓÃUpdateLayeredWindowÊ±Ê¹ÓÃ
-	HBITMAP mhOldForeBmp;			// ±£´æÉÏÃæ»»³öµÄÄ¬ÈÏÎ»Í¼
-	UCHAR* mpForeBuffer;			// Ç°Ì¨ÓÃ»æÍ¼Î»Í¼µÄ»º³åÇø£¬ÓÃÓÚLayered window Ä£Ê½
+	// Layered Window ç”¨
+	HBITMAP mhForeBmp;			// å‰å°ç»˜å›¾æ¿ç”¨çš„GDIä½å›¾å¯¹è±¡ï¼Œç”¨äºLayered window æ¨¡å¼
+	HDC mhForeDc;				// ç”¨äºLayered window æ¨¡å¼ä¸‹ï¼Œä¾›è°ƒç”¨UpdateLayeredWindowæ—¶ä½¿ç”¨
+	HBITMAP mhOldForeBmp;			// ä¿å­˜ä¸Šé¢æ¢å‡ºçš„é»˜è®¤ä½å›¾
+	UCHAR* mpForeBuffer;			// å‰å°ç”¨ç»˜å›¾ä½å›¾çš„ç¼“å†²åŒºï¼Œç”¨äºLayered window æ¨¡å¼
 	PEI_BUFFER mpEinkBuf;
 	CEiUpdate moEiUpdate;
 	LONG mlResetEinkBuf;
 
 
 
-	// Í³¼ÆÖ¡ÂÊ
+	// ç»Ÿè®¡å¸§ç‡
 	volatile ULONG muRenderCount;
 	volatile ULONG muLastTick;
 	volatile FLOAT mfFpsIndx;

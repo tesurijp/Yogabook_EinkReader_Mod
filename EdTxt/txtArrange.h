@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -20,7 +20,7 @@ typedef cmmVector<ST_PAGE_CONTROL, 1, 1024> PageControl_Vector;
 typedef void(__stdcall *PEDDOC_THREAD_CALLBACK)(LONG threadNumber, uint32 loadingStep,PST_PAGE_CONTROL pageCtl,void* context);
 
 
-// ÅÅ°æÏß³ÌÀà
+// æŽ’ç‰ˆçº¿ç¨‹ç±»
 class CTxdArrangeThread {
 public:
 	LONG mThreadNumber;
@@ -84,7 +84,7 @@ public:
 			if (IsDebuggerPresent() != FALSE)
 				WaitForSingleObject(mFocusPageLoaded,INFINITE);
 			else
-				WaitForSingleObject(mFocusPageLoaded, 10 * 1000);	// 10Ãë³¬Ê±
+				WaitForSingleObject(mFocusPageLoaded, 10 * 1000);	// 10ç§’è¶…æ—¶
 		}
 	}
 
@@ -94,7 +94,7 @@ public:
 
 		InterlockedExchange(&mExitFlag, 1);
 		if (WaitForSingleObject(mThreadHandle, 10 * 1000) == WAIT_TIMEOUT)
-			::TerminateThread(mThreadHandle, -1);	// Ö±½ÓÖÐÖ¹
+			::TerminateThread(mThreadHandle, -1);	// ç›´æŽ¥ä¸­æ­¢
 	}
 
 private:
@@ -169,7 +169,7 @@ private:
 
 	ED_ERR ArrangePages(int32 pageRequired,uint32 stringBase, uint32 stringEnd);
 
-	uint32 FillCharsToPage(uint32 stringBase, uint32 stringEnd, uint32 clusterBase, uint32 clusterSize);// clusterSize £º 32/1
+	uint32 FillCharsToPage(uint32 stringBase, uint32 stringEnd, uint32 clusterBase, uint32 clusterSize);// clusterSize ï¼š 32/1
 
 };
 

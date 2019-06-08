@@ -1,4 +1,4 @@
-/* Copyright 2019 - present Lenovo */
+ï»¿/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
 #include "stdafx.h"
 #include "EiAppCenter.h"
@@ -26,7 +26,7 @@ CEiAppCenter::CEiAppCenter()
 
 CEiAppCenter::~CEiAppCenter()
 {
-	//Í£Ö¹ÏûÏ¢Í¨µÀ
+	//åœæ­¢æ¶ˆæ¯é€šé“
 	moAppListener.Stop();
 
 	UnmapViewOfFile(mpServerMappedBase);
@@ -38,11 +38,11 @@ CEiAppCenter::~CEiAppCenter()
 	SAFE_CLOSE_HANDLE(mhServerFileMap);
 	SAFE_CLOSE_HANDLE(mhServerFile);
 
-	//É¾³ı×Ô¼ºµÄÎÄ¼ş
+	//åˆ é™¤è‡ªå·±çš„æ–‡ä»¶
 	DeleteFile(mdRegAppInfo.mszAppFilePath);
 }
 
-//»ñÈ¡GUID×Ö·û´®
+//è·å–GUIDå­—ç¬¦ä¸²
 void CEiAppCenter::GetGUIDString(const wchar_t* npszBuffer,int niLen)
 {
 	GUID ldGuid;
@@ -56,7 +56,7 @@ void CEiAppCenter::GetGUIDString(const wchar_t* npszBuffer,int niLen)
 	StringFromGUID2(ldGuid, (LPOLESTR)npszBuffer,niLen);
 }
 
-//´ò¿ª×Ô¼ºµÄÄÚ´æÓ³ÉäÎÄ¼ş
+//æ‰“å¼€è‡ªå·±çš„å†…å­˜æ˜ å°„æ–‡ä»¶
 bool CEiAppCenter::OpenJasonFile(const wchar_t* nszFileName)
 {
 	bool lbResult = false;
@@ -66,8 +66,8 @@ bool CEiAppCenter::OpenJasonFile(const wchar_t* nszFileName)
 	try
 	{
 
-		// Ó³ÉäÎÄ¼ş½øÄÚ´æ
-		//ĞèÒªÉèÖÃÈ¨ÏŞ£¬·ñÔò·şÎñ´´½¨µÄ¶ÔÏó£¬ÆÕÍ¨½ø³ÌÎŞ·¨´ò¿ª
+		// æ˜ å°„æ–‡ä»¶è¿›å†…å­˜
+		//éœ€è¦è®¾ç½®æƒé™ï¼Œå¦åˆ™æœåŠ¡åˆ›å»ºçš„å¯¹è±¡ï¼Œæ™®é€šè¿›ç¨‹æ— æ³•æ‰“å¼€
 		SECURITY_DESCRIPTOR lsd;
 		InitializeSecurityDescriptor(&lsd, SECURITY_DESCRIPTOR_REVISION);
 		SetSecurityDescriptorDacl(&lsd, TRUE, (PACL)NULL, FALSE);
@@ -80,7 +80,7 @@ bool CEiAppCenter::OpenJasonFile(const wchar_t* nszFileName)
 		if (mhFile == INVALID_HANDLE_VALUE)
 			THROW_INVALID;
 
-		//Ö¸¶¨ÎÄ¼ş´óĞ¡
+		//æŒ‡å®šæ–‡ä»¶å¤§å°
 		mhFileMap = CreateFileMapping(mhFile, NULL, PAGE_READWRITE, 0, EAC_FILE_SIZE, NULL);
 		if (mhFileMap == INVALID_HANDLE_VALUE)
 			THROW_INVALID;
@@ -100,7 +100,7 @@ bool CEiAppCenter::OpenJasonFile(const wchar_t* nszFileName)
 	return lbResult;
 }
 
-//´ò¿ª·şÎñµÄÄÚ´æÓ³ÉäÎÄ¼ş
+//æ‰“å¼€æœåŠ¡çš„å†…å­˜æ˜ å°„æ–‡ä»¶
 bool CEiAppCenter::OpenServerJasonFile(const wchar_t* nszFileName)
 {
 	bool lbResult = false;
@@ -109,14 +109,14 @@ bool CEiAppCenter::OpenServerJasonFile(const wchar_t* nszFileName)
 
 	try
 	{
-		// Ó³ÉäÎÄ¼ş½øÄÚ´æ
+		// æ˜ å°„æ–‡ä»¶è¿›å†…å­˜
 		mhServerFile = CreateFile(nszFileName, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, NULL, NULL);
 		if (mhServerFile == INVALID_HANDLE_VALUE)
 			THROW_INVALID;
 
 		muServerFileLength = GetFileSize(mhServerFile, &luLengthHi);
 
-		//Ö¸¶¨ÎÄ¼ş´óĞ¡
+		//æŒ‡å®šæ–‡ä»¶å¤§å°
 		mhServerFileMap = CreateFileMapping(mhServerFile, NULL, PAGE_READWRITE, 0, muServerFileLength, NULL);
 		if (mhServerFileMap == INVALID_HANDLE_VALUE)
 			THROW_INVALID;
@@ -134,15 +134,15 @@ bool CEiAppCenter::OpenServerJasonFile(const wchar_t* nszFileName)
 	return lbResult;
 }
 
-// ³õÊ¼»¯Ö´ĞĞÌå
+// åˆå§‹åŒ–æ‰§è¡Œä½“
 ULONG CEiAppCenter::Initialize(TRSP_SYSTEM_INFO_DATA& rSystemInfoData)
 {
 	ULONG luResult;
 	
 
-	// ³õÊ¼»¯
-	// ´ò¿ªApp¼àÌı
-	//Éú³ÉÎ¨Ò»×Ö·û´®
+	// åˆå§‹åŒ–
+	// æ‰“å¼€Appç›‘å¬
+	//ç”Ÿæˆå”¯ä¸€å­—ç¬¦ä¸²
 	wchar_t lszTempBuffer[MAX_PATH] = { 0 };
 	GetGUIDString(lszTempBuffer, MAX_PATH);
 	swprintf_s(mdRegAppInfo.mszAppMutex, APP_NAME_MAX, L"Global\\%s", lszTempBuffer);
@@ -150,24 +150,24 @@ ULONG CEiAppCenter::Initialize(TRSP_SYSTEM_INFO_DATA& rSystemInfoData)
 	GetGUIDString(lszTempBuffer, MAX_PATH);
 	swprintf_s(mdRegAppInfo.mszAppSemaphore, APP_NAME_MAX, L"Global\\%s", lszTempBuffer);
 
-	//Éú³ÉÄÚ´æÓ³ÉäÎÄ¼şÃû
+	//ç”Ÿæˆå†…å­˜æ˜ å°„æ–‡ä»¶å
 	GetGUIDString(lszTempBuffer, MAX_PATH);
-	//»ñÈ¡TEMPÄ¿Â¼Â·¾¶
+	//è·å–TEMPç›®å½•è·¯å¾„
 	wchar_t lszTempPath[MAX_PATH] = { 0 };
 	SHGetSpecialFolderPath(NULL, lszTempPath, CSIDL_COMMON_APPDATA, FALSE);
 
 	swprintf_s(mdRegAppInfo.mszAppFilePath, MAX_PATH, L"%s\\EinkSrv\\%s.eink", lszTempPath,lszTempBuffer);
 	OpenJasonFile(mdRegAppInfo.mszAppFilePath);
 
-	//´ò¿ªºÍServerÍ¨Ñ¶ÓÃµÄÎÄ¼ş
+	//æ‰“å¼€å’ŒServeré€šè®¯ç”¨çš„æ–‡ä»¶
 	swprintf_s(lszTempPath, MAX_PATH, L"%s\\EinkSrv\\FC80C0D8-FC99-4772-BCB0-ACC862F34AAC.eink", lszTempPath);
 	OpenServerJasonFile(lszTempPath);
 
 	luResult = moAppListener.CreateListener(
 		mdRegAppInfo.mszAppMutex,
 		mdRegAppInfo.mszAppSemaphore,
-		(LPVOID)mpMappedBase,				// ÄÚ´æÓ³ÉäÎÄ¼şµÄµÚÒ»¶Î
-		muFileLength,			// µÚÒ»¶ÎµÄ³¤¶È
+		(LPVOID)mpMappedBase,				// å†…å­˜æ˜ å°„æ–‡ä»¶çš„ç¬¬ä¸€æ®µ
+		muFileLength,			// ç¬¬ä¸€æ®µçš„é•¿åº¦
 		AppCenterCallBack,
 		this
 	);
@@ -175,7 +175,7 @@ ULONG CEiAppCenter::Initialize(TRSP_SYSTEM_INFO_DATA& rSystemInfoData)
 	if (luResult != ERROR_SUCCESS)
 		return luResult;
 
-	// ´ò¿ª¶ÔHostµÄÏûÏ¢Á¬½Ó
+	// æ‰“å¼€å¯¹Hostçš„æ¶ˆæ¯è¿æ¥
 	luResult = moConnectToHost.CreateConnector(
 		L"Global\\LN_EI_HOST_MUTEX",
 		L"Global\\LN_EI_HOST_SEMAPHORE", \
@@ -186,9 +186,9 @@ ULONG CEiAppCenter::Initialize(TRSP_SYSTEM_INFO_DATA& rSystemInfoData)
 	if (luResult != ERROR_SUCCESS)
 		return luResult;
 
-	// ×¢²áApp
+	// æ³¨å†ŒApp
 	CEiSvrMsgItem loMsg;
-	loMsg.Data.Item.AppId = muAppID = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+	loMsg.Data.Item.AppId = muAppID = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 	loMsg.Data.Item.MsgId = EMHOSTID_REG_APP;
 	ULONG luMsgBufSize = (ULONG)sizeof(REG_APP_INFO);
 	memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &mdRegAppInfo, luMsgBufSize);
@@ -198,22 +198,22 @@ ULONG CEiAppCenter::Initialize(TRSP_SYSTEM_INFO_DATA& rSystemInfoData)
 	if (luResult != ERROR_SUCCESS)
 		return luResult;
 
-	//»ñÈ¡µ½ÏÔÊ¾Éè±¸ĞÅÏ¢
+	//è·å–åˆ°æ˜¾ç¤ºè®¾å¤‡ä¿¡æ¯
 	memcpy_s(&rSystemInfoData, sizeof(TRSP_SYSTEM_INFO_DATA), loMsg.Data.Item.MsgBuf, sizeof(TRSP_SYSTEM_INFO_DATA));
 
 	return luResult;
 }
 
-// ÊÍ·Å
+// é‡Šæ”¾
 void CEiAppCenter::Release(void)
 {
-	// ¹Ø±ÕËùÓĞ¶ÔAppµÄÁ¬½Ó
+	// å…³é—­æ‰€æœ‰å¯¹Appçš„è¿æ¥
 	
-	// ¹Ø±ÕServiceµÄ¼àÌı
+	// å…³é—­Serviceçš„ç›‘å¬
 	moAppListener.Stop();
 }
 
-// »Øµ÷Èë¿Úº¯Êı
+// å›è°ƒå…¥å£å‡½æ•°
 void __stdcall CEiAppCenter::AppCenterCallBack(CEiSvrMsgItem& nrMsg, void* npContext)
 {
 	CEiAppCenter* lpThis = (CEiAppCenter*)npContext;
@@ -221,7 +221,7 @@ void __stdcall CEiAppCenter::AppCenterCallBack(CEiSvrMsgItem& nrMsg, void* npCon
 	lpThis->AppDispatch(nrMsg);
 }
 
-// Ö÷·Ö·¢º¯Êı
+// ä¸»åˆ†å‘å‡½æ•°
 void CEiAppCenter::AppDispatch(CEiSvrMsgItem& nrMsg)
 {
 	switch (nrMsg.Data.Item.MsgId)
@@ -230,58 +230,58 @@ void CEiAppCenter::AppDispatch(CEiSvrMsgItem& nrMsg)
 		MsgBack(nrMsg);
 		break;
 	case EMAPPID_FINGER_MOVE:
-		//ÊÖÖ¸ÊäÈëÏûÏ¢
+		//æ‰‹æŒ‡è¾“å…¥æ¶ˆæ¯
 		InputMsg(nrMsg);
 		break;
 	case EMAPPID_RE_DRAW:
-		//·şÎñÒªÇóAPPÈ«ÆÁÖØ»æ
+		//æœåŠ¡è¦æ±‚APPå…¨å±é‡ç»˜
 		ReDraw(nrMsg);
 		break;
 	case EMAPPID_ACTIVATE:
-		//ËµÃ÷ZÖá·¢Éú±ä»¯
+		//è¯´æ˜Zè½´å‘ç”Ÿå˜åŒ–
 		ZOrderChange(nrMsg);
 		break;
 	case EMAPPID_ORIENTATION_CHANGED:
-		//·şÎñÍ¨ÖªEINKÆÁÄ»·¢Éú±ä»¯
+		//æœåŠ¡é€šçŸ¥EINKå±å¹•å‘ç”Ÿå˜åŒ–
 		EinkScreenOrientationChange(nrMsg);
 		break;
 	case EMAPPID_LATTOP_CHANGED:
-		//»úÆ÷ĞÎÌ¬·¢Éú±ä»¯
+		//æœºå™¨å½¢æ€å‘ç”Ÿå˜åŒ–
 		LaptopModeChange(nrMsg);
 		break;
 	case EMAPPID_EVENT:
-		//·şÎñÊÂ¼ş
+		//æœåŠ¡äº‹ä»¶
 		ServiceMsg(nrMsg);
 		break;
 	case EMAPPID_HOMEBAR_CHANGED:
-		//homebar×´Ì¬·¢Éú±ä»¯
+		//homebarçŠ¶æ€å‘ç”Ÿå˜åŒ–
 		HomebarChanged(nrMsg);
 		break;
 	case EMAPPID_KEYBOARD_CHANGED:
 		KeyboardStyleChangeComplete(nrMsg);
 		break;
 	case EMAPPID_RESET_TP_AREA:
-		//ĞèÒªÓ¦ÓÃÖØĞÂÉèÖÃtp area
+		//éœ€è¦åº”ç”¨é‡æ–°è®¾ç½®tp area
 		ResetTPArea(nrMsg);
 		break;
 	case EMAPPID_PRIVACY_STATUS_CHANGED:
-		//ÒşË½¿ª¹Ø×´Ì¬·¢Éú±ä»¯
+		//éšç§å¼€å…³çŠ¶æ€å‘ç”Ÿå˜åŒ–
 		PrivacyStatusChanged(nrMsg);
 		break;
-	// Ìí¼Ó¸ü¶àÏìÓ¦º¯Êıµ÷ÓÃ
+	// æ·»åŠ æ›´å¤šå“åº”å‡½æ•°è°ƒç”¨
 	default:
 		break;
 	}
 }
 
-// ·¢ËÍÏûÏ¢¸øService£¬²¢µÈ´ı
+// å‘é€æ¶ˆæ¯ç»™Serviceï¼Œå¹¶ç­‰å¾…
 ULONG CEiAppCenter::PostMessageToService(CEiSvrMsgItem& nrMsg)
 {
 	moConnectToHost.PostMsg(nrMsg);
 	return ERROR_SUCCESS;
 }
 
-// ·¢ËÍÏûÏ¢¸øService£¬²»µÈ´ı
+// å‘é€æ¶ˆæ¯ç»™Serviceï¼Œä¸ç­‰å¾…
 ULONG CEiAppCenter::SendMessageToService(CEiSvrMsgItem& nrMsg)
 {
 	ULONG luResult = ERROR_NOT_READY;
@@ -295,7 +295,7 @@ ULONG CEiAppCenter::SendMessageToService(CEiSvrMsgItem& nrMsg)
 
 	PostMessageToService(nrMsg);
 
-	DWORD ldwObject = WaitForSingleObject(nrMsg.Data.Item.WaitHandle, 1000*30);	// µÈ´ı´óÔ¼30Ãë
+	DWORD ldwObject = WaitForSingleObject(nrMsg.Data.Item.WaitHandle, 1000*30);	// ç­‰å¾…å¤§çº¦30ç§’
 	if (ldwObject == WAIT_OBJECT_0)
 	{
 		luResult = nrMsg.Data.Item.Result;
@@ -309,7 +309,7 @@ ULONG CEiAppCenter::SendMessageToService(CEiSvrMsgItem& nrMsg)
 	return luResult;
 }
 
-// ³·»ØÒ»ÀàÏûÏ¢£¬½«¶ÓÁĞÖĞ´ËÀàÏûÏ¢È«²¿³·»Ø
+// æ’¤å›ä¸€ç±»æ¶ˆæ¯ï¼Œå°†é˜Ÿåˆ—ä¸­æ­¤ç±»æ¶ˆæ¯å…¨éƒ¨æ’¤å›
 void CEiAppCenter::RecallMessage(const CEiSvrMsgItem& nrMsg)
 {
 	moConnectToHost.Recall(nrMsg);
@@ -317,32 +317,32 @@ void CEiAppCenter::RecallMessage(const CEiSvrMsgItem& nrMsg)
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÒÔÏÂÎª¾ßÌåÇëÇóµÄÏìÓ¦º¯Êı
+// ä»¥ä¸‹ä¸ºå…·ä½“è¯·æ±‚çš„å“åº”å‡½æ•°
 
-// ×¢²áÒ»¸öApp
+// æ³¨å†Œä¸€ä¸ªApp
 void CEiAppCenter::MsgBack(CEiSvrMsgItem& nrMsg)
 {
-	// Ö»ÓĞ»Øµ½±¾½ø³Ì²ÅÄÜ·ÃÎÊ¶ÔÓ¦µÄÄÚ´æ
+	// åªæœ‰å›åˆ°æœ¬è¿›ç¨‹æ‰èƒ½è®¿é—®å¯¹åº”çš„å†…å­˜
 	CEiSvrMsgItem* lpOrgMsg = nrMsg.Data.Item.OrgItem;
 	
 	if (lpOrgMsg == NULL || lpOrgMsg->Data.Item.WaitHandle == NULL)
 		return;
 
-	// ¸´ÖÆ·µ»ØÖµ
+	// å¤åˆ¶è¿”å›å€¼
 	lpOrgMsg->Data.Item.Result = nrMsg.Data.Item.Result;
 
-	// ¸´ÖÆ·µ»ØÊı¾İ
+	// å¤åˆ¶è¿”å›æ•°æ®
 	if (nrMsg.Data.Item.BufSize > 0)
 	{
 		RtlCopyMemory(lpOrgMsg->Data.Item.MsgBuf, nrMsg.Data.Item.MsgBuf, nrMsg.Data.Item.BufSize);
 		lpOrgMsg->Data.Item.BufSize = nrMsg.Data.Item.BufSize;
 	}
 
-	// ÊÍ·Å·¢ËÍ¶ËµÄµÈ´ı
+	// é‡Šæ”¾å‘é€ç«¯çš„ç­‰å¾…
 	SetEvent(lpOrgMsg->Data.Item.WaitHandle);
 }
 
-//·µ»ØÖµÎªµØÖ·ÆğÊ¼µØÖ·£¬rulBufferSizeÎªBuffer´óĞ¡
+//è¿”å›å€¼ä¸ºåœ°å€èµ·å§‹åœ°å€ï¼ŒrulBufferSizeä¸ºBufferå¤§å°
 BYTE* CEiAppCenter::GetBufferBase(ULONG& rulBufferSize)
 {
 	BYTE* lpRetBuffer = NULL;
@@ -385,7 +385,7 @@ void SendWinMsgWithData(
 	SendMessageCallback(hWnd, Msg, wParam,(LPARAM)lpData, WinMsgMemFreeCallback, (ULONG_PTR)lpData);
 }
 
-// ÊÖÖ¸ÊäÈëÏûÏ¢
+// æ‰‹æŒ‡è¾“å…¥æ¶ˆæ¯
 void CEiAppCenter::InputMsg(CEiSvrMsgItem& nrMsg)
 {
 	do 
@@ -395,7 +395,7 @@ void CEiAppCenter::InputMsg(CEiSvrMsgItem& nrMsg)
 		PEI_TOUCHINPUT_POINT lpInput = (PEI_TOUCHINPUT_POINT)nrMsg.Data.Item.MsgBuf;
 		BREAK_ON_NULL(lpInput);
 
-		//ÖØÖÃÏµÍ³sleep¼ÆÊ±
+		//é‡ç½®ç³»ç»Ÿsleepè®¡æ—¶
 		SetThreadExecutionState(ES_DISPLAY_REQUIRED | ES_SYSTEM_REQUIRED);
 
 		SendWinMsgWithData(mhWnd, WM_EI_TOUCH, 1,lpInput,sizeof(EI_TOUCHINPUT_POINT));
@@ -403,13 +403,13 @@ void CEiAppCenter::InputMsg(CEiSvrMsgItem& nrMsg)
 	} while (false);
 }
 
-//ÉèÖÃ½ÓÊÕwindowsÏûÏ¢µÄ´°¿Ú¾ä±ú
+//è®¾ç½®æ¥æ”¶windowsæ¶ˆæ¯çš„çª—å£å¥æŸ„
 void CEiAppCenter::SetHwnd(HWND nHwnd)
 {
 	mhWnd = nHwnd;
 }
 
-// È«ÆÁÖØ»æ
+// å…¨å±é‡ç»˜
 void CEiAppCenter::ReDraw(CEiSvrMsgItem& nrMsg)
 {
 	do
@@ -421,7 +421,7 @@ void CEiAppCenter::ReDraw(CEiSvrMsgItem& nrMsg)
 	} while (false);
 }
 
-// ZÖá·¢Éú±ä»¯
+// Zè½´å‘ç”Ÿå˜åŒ–
 void CEiAppCenter::ZOrderChange(CEiSvrMsgItem& nrMsg)
 {
 	do
@@ -436,7 +436,7 @@ void CEiAppCenter::ZOrderChange(CEiSvrMsgItem& nrMsg)
 	} while (false);
 }
 
-// EinkÆÁÄ»·½Ïò·¢Éú±ä»¯
+// Einkå±å¹•æ–¹å‘å‘ç”Ÿå˜åŒ–
 void CEiAppCenter::EinkScreenOrientationChange(CEiSvrMsgItem& nrMsg)
 {
 	do
@@ -451,7 +451,7 @@ void CEiAppCenter::EinkScreenOrientationChange(CEiSvrMsgItem& nrMsg)
 	} while (false);
 }
 
-// »úÆ÷ĞÎÌ¬·¢Éú±ä»¯
+// æœºå™¨å½¢æ€å‘ç”Ÿå˜åŒ–
 void CEiAppCenter::LaptopModeChange(CEiSvrMsgItem& nrMsg)
 {
 	do
@@ -466,7 +466,7 @@ void CEiAppCenter::LaptopModeChange(CEiSvrMsgItem& nrMsg)
 	} while (false);
 }
 
-// ·şÎñÍ¨ÖªÊÂ¼ş
+// æœåŠ¡é€šçŸ¥äº‹ä»¶
 void CEiAppCenter::ServiceMsg(CEiSvrMsgItem& nrMsg)
 {
 	do
@@ -481,7 +481,7 @@ void CEiAppCenter::ServiceMsg(CEiSvrMsgItem& nrMsg)
 	} while (false);
 }
 
-// homebar×´Ì¬·¢Éú±ä»¯
+// homebarçŠ¶æ€å‘ç”Ÿå˜åŒ–
 void CEiAppCenter::HomebarChanged(CEiSvrMsgItem& nrMsg)
 {
 	do
@@ -496,7 +496,7 @@ void CEiAppCenter::HomebarChanged(CEiSvrMsgItem& nrMsg)
 	} while (false);
 }
 
-// ¼üÅÌÑùÊ½ÇĞ»»Íê³É
+// é”®ç›˜æ ·å¼åˆ‡æ¢å®Œæˆ
 void CEiAppCenter::KeyboardStyleChangeComplete(CEiSvrMsgItem& nrMsg)
 {
 	do
@@ -511,7 +511,7 @@ void CEiAppCenter::KeyboardStyleChangeComplete(CEiSvrMsgItem& nrMsg)
 	} while (false);
 }
 
-// ÖØĞÂÉèÖÃtp area
+// é‡æ–°è®¾ç½®tp area
 void CEiAppCenter::ResetTPArea(CEiSvrMsgItem& nrMsg)
 {
 	do
@@ -523,7 +523,7 @@ void CEiAppCenter::ResetTPArea(CEiSvrMsgItem& nrMsg)
 	} while (false);
 }
 
-//ÒşË½¿ª¹Ø×´Ì¬·¢Éú±ä»¯
+//éšç§å¼€å…³çŠ¶æ€å‘ç”Ÿå˜åŒ–
 void CEiAppCenter::PrivacyStatusChanged(CEiSvrMsgItem& nrMsg)
 {
 	do

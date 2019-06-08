@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -22,7 +22,7 @@ CTipFrame::~CTipFrame(void)
 {
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CTipFrame::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -44,9 +44,9 @@ ERESULT CTipFrame::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 ULONG CTipFrame::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -54,7 +54,7 @@ ULONG CTipFrame::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -62,7 +62,7 @@ ULONG CTipFrame::InitOnCreate(
 		
 		
 
-		//»ñÈ¡¶ÔÏñ¾ä±ú
+		//è·å–å¯¹åƒå¥æŸ„
 		mpIterBtClose = mpIterator->GetSubElementByID(TIP_F_BT_CLOSE);
 		BREAK_ON_NULL(mpIterBtClose);
 
@@ -87,11 +87,11 @@ ULONG CTipFrame::InitOnCreate(
 
 	CMM_SAFE_RELEASE(lpSubKey);
 
-	// ÏòÏµÍ³×¢²áĞèÒªÊÕµ½µÄÏûÏ¢
+	// å‘ç³»ç»Ÿæ³¨å†Œéœ€è¦æ”¶åˆ°çš„æ¶ˆæ¯
 	return leResult;
 }
 
-//°´Å¥µ¥»÷ÊÂ¼ş
+//æŒ‰é’®å•å‡»äº‹ä»¶
 ERESULT CTipFrame::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -118,7 +118,7 @@ ERESULT CTipFrame::OnCtlButtonClick(IEinkuiIterator* npSender)
 }
 
 
-//ÏûÏ¢´¦Àíº¯Êı
+//æ¶ˆæ¯å¤„ç†å‡½æ•°
 ERESULT CTipFrame::ParseMessage(IEinkuiMessage* npMsg)
 {
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
@@ -127,7 +127,7 @@ ERESULT CTipFrame::ParseMessage(IEinkuiMessage* npMsg)
 	{
 	case EMSG_MODAL_ENTER:
 	{
-		//// ´´½¨Òªµ¯³öµÄ¶Ô»°¿ò
+		//// åˆ›å»ºè¦å¼¹å‡ºçš„å¯¹è¯æ¡†
 		//mpIterator->SetVisible(true);
 		luResult = ERESULT_SUCCESS;
 		break;
@@ -139,13 +139,13 @@ ERESULT CTipFrame::ParseMessage(IEinkuiMessage* npMsg)
 
 	if (luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CTipFrame::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
@@ -174,23 +174,23 @@ void CTipFrame::ExitModal()
 
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CTipFrame::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	CExMessage::SendMessage(mpIterBtClose, mpIterator, EACT_BUTTON_SET_ACTION_RECT, nNewSize);
 	mpIterPicBack->SetSize(nNewSize);
 
-	//×óÓÒÁ½¸öÍ¼Æ¬
+	//å·¦å³ä¸¤ä¸ªå›¾ç‰‡
 	FLOAT lfY = (nNewSize.height - mpIterPicLeft->GetSizeY()) / 2;
 	mpIterPicLeft->SetPosition(mpIterPicLeft->GetPositionX(), lfY);
 	mpIterPicRight->SetPosition(nNewSize.width-mpIterPicRight->GetSizeX() - 40.0f, lfY);
 
-	//ÖĞ¼äÍ¼Æ¬
+	//ä¸­é—´å›¾ç‰‡
 	FLOAT lfX = (nNewSize.width - mpIterPicPic->GetSizeY()) / 2;
 	lfY = (nNewSize.height - mpIterPicPic->GetSizeY()) / 2 + 40;
 	mpIterPicPic->SetPosition(lfX, lfY);
 
-	//ÖĞ¼äÎÄ×Ö
+	//ä¸­é—´æ–‡å­—
 	lfX = (nNewSize.width - mpIterText->GetSizeY()) / 2;
 	lfY = (nNewSize.height - mpIterText->GetSizeY()) / 2 - 40;
 	mpIterText->SetPosition(lfX, lfY);
@@ -198,7 +198,7 @@ ERESULT CTipFrame::OnElementResized(D2D1_SIZE_F nNewSize)
 	return ERESULT_SUCCESS;
 }
 
-//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òş²Ø¡¿·¢Éú¸Ä±ä
+//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 ERESULT CTipFrame::OnElementShow(bool nbIsShow)
 {
 	//EiSetHomebarStatus(nbIsShow == false ? GI_HOMEBAR_SHOW : GI_HOMEBAR_HIDE);

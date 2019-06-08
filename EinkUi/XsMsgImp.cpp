@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -20,7 +20,7 @@ DEFINE_BUILTIN_NAME(CXuiMessage)
 
 CXuiMessage::CXuiMessage()
 {
-	// ¶Ô³ÉÔ±±äÁ¿×öÒ»Ğ©±ØÒªµÄ³õÊ¼»¯
+	// å¯¹æˆå‘˜å˜é‡åšä¸€äº›å¿…è¦çš„åˆå§‹åŒ–
 	muMsgID = 0;
 	miInputDataSize = 0;
 	miOutputDataSize = 0;
@@ -42,7 +42,7 @@ void CXuiMessage::FreeInputBuffer()
 	if(mpInputData == NULL && miInputDataSize==0)
 		return;
 
-	// ¸ù¾İÏûÏ¢±êÖ¾Î»ÅĞ¶ÏÊÇ·ñĞèÒªÊÍ·Å»º³åÇø
+	// æ ¹æ®æ¶ˆæ¯æ ‡å¿—ä½åˆ¤æ–­æ˜¯å¦éœ€è¦é‡Šæ”¾ç¼“å†²åŒº
 	if (cmmBaseObject::TestFlag(ELMSG_FLAG_INPUT_ALLOCATED) != false && mpInputData != NULL && mpInputData != mbufInputBuffer)
 		delete mpInputData;
 
@@ -53,7 +53,7 @@ void CXuiMessage::FreeInputBuffer()
 	//cmmBaseObject<CXuiMessage,IEinkuiMessage,GET_BUILTIN_NAME(CXuiMessage)>::SetFlags(ELMSG_FLAG_INPUT_COPIED,false);
 }
 
-// ÖØÓÃ±¾½á¹¹
+// é‡ç”¨æœ¬ç»“æ„
 void CXuiMessage::Reuse()
 {
 
@@ -72,31 +72,31 @@ void CXuiMessage::Reuse()
 }
 
 
-// ÊÍ·Å¶ÔÏó
+// é‡Šæ”¾å¯¹è±¡
 int __stdcall CXuiMessage::Release(void)
 {
 	static CXuiMessage* glMsg = NULL;
 	if (glMsg == this)
 		glMsg->Release();
 	int liCount = cmmBaseObject<CXuiMessage,IEinkuiMessage,GET_BUILTIN_NAME(CXuiMessage)>::Release();
-	// Èç¹û·µ»ØÖµÊÇ1£¬Ôò±íÊ¾£¬³ıÔªËØ¹ÜÀíÆ÷µÄÒ»´ÎÒıÓÃÍâ£¬ÒÑ¾­Ã»ÓĞ±ğÈËÒıÓÃÕâ¸öÔªËØÁË£¬¾ÍÍ¨ÖªÔªËØ¹ÜÀíÆ÷×¼±¸ÊÍ·Å
+	// å¦‚æœè¿”å›å€¼æ˜¯1ï¼Œåˆ™è¡¨ç¤ºï¼Œé™¤å…ƒç´ ç®¡ç†å™¨çš„ä¸€æ¬¡å¼•ç”¨å¤–ï¼Œå·²ç»æ²¡æœ‰åˆ«äººå¼•ç”¨è¿™ä¸ªå…ƒç´ äº†ï¼Œå°±é€šçŸ¥å…ƒç´ ç®¡ç†å™¨å‡†å¤‡é‡Šæ”¾
 	if(liCount == 1)
 	{
-		// Í¨ÖªÔªËØ¹ÜÀíÆ÷
+		// é€šçŸ¥å…ƒç´ ç®¡ç†å™¨
 		CEinkuiSystem::gpXuiSystem->GetElementManagerObject()->ReleaseMessage(this);
 	}
 
 	return liCount;
 }
 
-// »ñµÃÏûÏ¢µÄ½ÓÊÕÄ¿±êµÄIterator½Ó¿Ú
+// è·å¾—æ¶ˆæ¯çš„æ¥æ”¶ç›®æ ‡çš„Iteratoræ¥å£
 IEinkuiIterator* __stdcall CXuiMessage::GetDestination(void)
 {
 	return mpMsgDestItr;
 
 }
 
-// ÉèÖÃÏûÏ¢µÄ½ÓÊÜÄ¿±ê
+// è®¾ç½®æ¶ˆæ¯çš„æ¥å—ç›®æ ‡
 ERESULT __stdcall CXuiMessage::SetDestination(IEinkuiIterator* npMsgDestItr)
 {
 	if (npMsgDestItr != NULL)
@@ -111,51 +111,51 @@ ERESULT __stdcall CXuiMessage::SetDestination(IEinkuiIterator* npMsgDestItr)
 
 }
 
-// »ñµÃÏûÏ¢ID
+// è·å¾—æ¶ˆæ¯ID
 ULONG __stdcall CXuiMessage::GetMessageID(void)
 {
 	return muMsgID;
 }
 
-// ÉèÖÃÏûÏ¢ID
+// è®¾ç½®æ¶ˆæ¯ID
 ERESULT __stdcall CXuiMessage::SetMessageID(ULONG nuMsgID)
 {
-	// ÎŞĞëÅĞ¶ÏÏûÏ¢IDµÄÓĞĞ§ĞÔ
+	// æ— é¡»åˆ¤æ–­æ¶ˆæ¯IDçš„æœ‰æ•ˆæ€§
 	muMsgID = nuMsgID;
 	return ERESULT_SUCCESS;
 }
 
-// »ñµÃ·µ»ØÖµ
+// è·å¾—è¿”å›å€¼
 ERESULT __stdcall CXuiMessage::GetResult(void)
 {
 	return muResult;
 }
 
-// ÉèÖÃ·µ»ØÖµ
+// è®¾ç½®è¿”å›å€¼
 ERESULT __stdcall CXuiMessage::SetResult(ERESULT nuResult)
 {
 	muResult = nuResult;
 	return ERESULT_SUCCESS;
 }
 
-// ÉèÖÃÏûÏ¢·¢ËÍÕß£¬µ±ÏûÏ¢±»ÓÃÓÚ´Ó¿Ø¼şÏò¿Ø¼şÊ¹ÓÃÕß·¢ËÍÊÂ¼ş£¨¿Ø¼ş²úÉúµÄÏûÏ¢£©Ê±£¬ĞèÒªÉèÖÃÏûÏ¢µÄ·¢ËÍÕß£»Iterator½Ó¿ÚÌá¹©µÄPostMessageToParent·½·¨»á×Ô¶¯ÉèÖÃ·¢ËÍÕß
+// è®¾ç½®æ¶ˆæ¯å‘é€è€…ï¼Œå½“æ¶ˆæ¯è¢«ç”¨äºä»æ§ä»¶å‘æ§ä»¶ä½¿ç”¨è€…å‘é€äº‹ä»¶ï¼ˆæ§ä»¶äº§ç”Ÿçš„æ¶ˆæ¯ï¼‰æ—¶ï¼Œéœ€è¦è®¾ç½®æ¶ˆæ¯çš„å‘é€è€…ï¼›Iteratoræ¥å£æä¾›çš„PostMessageToParentæ–¹æ³•ä¼šè‡ªåŠ¨è®¾ç½®å‘é€è€…
 void __stdcall CXuiMessage::SetMessageSender(IEinkuiIterator* npSender)
 {
 	mpSender = npSender;
 }
 
-// »ñµÃÏûÏ¢µÄ·¢ËÍÕß
+// è·å¾—æ¶ˆæ¯çš„å‘é€è€…
 IEinkuiIterator* __stdcall CXuiMessage::GetMessageSender(void)
 {
 	return mpSender;
 }
 
 
-// ÉèÖÃInputÊı¾İ£»Èç¹ûÏûÏ¢ÊÇ±»PostµÄ£¬nbVolatile±ØĞëÎªture£»Èç¹ûÏûÏ¢ÊÇ±»Send¸øÄ¿±êµÄ£¬½«°´ÕÕ²ÎÊınbVolatile¾ö¶¨ÊÇ·ñ¸´ÖÆÊäÈë»º³å
+// è®¾ç½®Inputæ•°æ®ï¼›å¦‚æœæ¶ˆæ¯æ˜¯è¢«Postçš„ï¼ŒnbVolatileå¿…é¡»ä¸ºtureï¼›å¦‚æœæ¶ˆæ¯æ˜¯è¢«Sendç»™ç›®æ ‡çš„ï¼Œå°†æŒ‰ç…§å‚æ•°nbVolatileå†³å®šæ˜¯å¦å¤åˆ¶è¾“å…¥ç¼“å†²
 ERESULT __stdcall CXuiMessage::SetInputData(
 	const void* npBuffer,
 	int niSize,
-	bool nbVolatile	// true:´Ë»º³åÇøÊÇÒ×Ê§µÄ£¬ĞèÒª¸´ÖÆÊı¾İµ½ÄÚ²¿»º³å; false ´Ë»º³åÇøÊÇ·ÇÒ×Ê§µÄ£¬ÔÚÏûÏ¢·¢ËÍºÍ·µ»ØµÄ¹ı³ÌÖĞÓĞĞ§
+	bool nbVolatile	// true:æ­¤ç¼“å†²åŒºæ˜¯æ˜“å¤±çš„ï¼Œéœ€è¦å¤åˆ¶æ•°æ®åˆ°å†…éƒ¨ç¼“å†²; false æ­¤ç¼“å†²åŒºæ˜¯éæ˜“å¤±çš„ï¼Œåœ¨æ¶ˆæ¯å‘é€å’Œè¿”å›çš„è¿‡ç¨‹ä¸­æœ‰æ•ˆ
 	)
 {
 	ERESULT luResult;
@@ -181,21 +181,21 @@ ERESULT __stdcall CXuiMessage::SetInputData(
 	return ERESULT_SUCCESS;
 }
 
-// »ñµÃInputÊı¾İÖ¸Õë£¬×¢Òâ£¬»ñµÃµÄÖ¸Õë½öÔÚ³ÖÓĞÏûÏ¢£¬²¢ÇÒÃ»ÓĞ·¢Éú¸Ä±äÊ±ÓĞĞ§£¬Ò»µ©½«ÏûÏ¢·¢ËÍ³öÈ¥£¬»òÕßµ÷ÓÃÁËÏûÏ¢µÄÉè¶¨ÖµµÄ·½·¨£¬¶¼½«µ¼ÖÂ¸ÃÖ¸ÕëÊ§Ğ§
-// ×¢Òâ£¬´Ë·½·¨»ñµÃµÄÖ¸Õë²¢²»Ò»¶¨Í¬Ç°Ò»´Îµ÷ÓÃSetInputDataÉè¶¨µÄÖ¸ÕëÏàÍ¬
+// è·å¾—Inputæ•°æ®æŒ‡é’ˆï¼Œæ³¨æ„ï¼Œè·å¾—çš„æŒ‡é’ˆä»…åœ¨æŒæœ‰æ¶ˆæ¯ï¼Œå¹¶ä¸”æ²¡æœ‰å‘ç”Ÿæ”¹å˜æ—¶æœ‰æ•ˆï¼Œä¸€æ—¦å°†æ¶ˆæ¯å‘é€å‡ºå»ï¼Œæˆ–è€…è°ƒç”¨äº†æ¶ˆæ¯çš„è®¾å®šå€¼çš„æ–¹æ³•ï¼Œéƒ½å°†å¯¼è‡´è¯¥æŒ‡é’ˆå¤±æ•ˆ
+// æ³¨æ„ï¼Œæ­¤æ–¹æ³•è·å¾—çš„æŒ‡é’ˆå¹¶ä¸ä¸€å®šåŒå‰ä¸€æ¬¡è°ƒç”¨SetInputDataè®¾å®šçš„æŒ‡é’ˆç›¸åŒ
 const void* __stdcall CXuiMessage::GetInputData(void)
 {	
 	return mpInputData;
 }
 
-// »ñµÃÊäÈë»º³åÇøµÄ´óĞ¡
+// è·å¾—è¾“å…¥ç¼“å†²åŒºçš„å¤§å°
 int __stdcall CXuiMessage::GetInputDataSize(void)
 {
 	return miInputDataSize;
 }
 
-// ÉèÖÃOutput»º³åÇø£¬´ó¶àÊıµÄÏûÏ¢ÎŞĞèOutput Buffer£¬Èç¹ûĞèÒªÏûÏ¢·µ»Ø´óÁ¿Êı¾İµÄ£¬Ó¦¸ÃSendÕâÌõÏûÏ¢£¬¶ø²»ÊÇPostËü£»Èç¹ûÈ·ÊµĞèÒªPostÕâÌõÏûÏ¢£¬ÄÇÃ´Çë²Î¿¼ÏÂÃæµÄÉèÖÃ·´À¡ÏûÏ¢µÄ·½·¨;
-// Èç¹ûÑ¡ÔñPostÕâÌõÏûÏ¢£¬ÇëÇ§Íò±£Ö¤Éè¶¨µÄOutput»º³åÇø²»±»ĞŞ¸ÄºÍÊÍ·Å£¬ÒÔÃâÏûÏ¢µÄ½ÓÊÜ·½¶Ô¸Ã»º³åÇø·ÃÎÊ²úÉú´íÎó¡£
+// è®¾ç½®Outputç¼“å†²åŒºï¼Œå¤§å¤šæ•°çš„æ¶ˆæ¯æ— éœ€Output Bufferï¼Œå¦‚æœéœ€è¦æ¶ˆæ¯è¿”å›å¤§é‡æ•°æ®çš„ï¼Œåº”è¯¥Sendè¿™æ¡æ¶ˆæ¯ï¼Œè€Œä¸æ˜¯Postå®ƒï¼›å¦‚æœç¡®å®éœ€è¦Postè¿™æ¡æ¶ˆæ¯ï¼Œé‚£ä¹ˆè¯·å‚è€ƒä¸‹é¢çš„è®¾ç½®åé¦ˆæ¶ˆæ¯çš„æ–¹æ³•;
+// å¦‚æœé€‰æ‹©Postè¿™æ¡æ¶ˆæ¯ï¼Œè¯·åƒä¸‡ä¿è¯è®¾å®šçš„Outputç¼“å†²åŒºä¸è¢«ä¿®æ”¹å’Œé‡Šæ”¾ï¼Œä»¥å…æ¶ˆæ¯çš„æ¥å—æ–¹å¯¹è¯¥ç¼“å†²åŒºè®¿é—®äº§ç”Ÿé”™è¯¯ã€‚
 ERESULT __stdcall CXuiMessage::SetOutputBuffer(void* npBuffer,int niSize)
 {
 	if (niSize <= 0)
@@ -211,41 +211,41 @@ ERESULT __stdcall CXuiMessage::SetOutputBuffer(void* npBuffer,int niSize)
 
 }
 
-// »ñµÃOutput»º³åÇøÖ¸Õë£¬×¢Òâ£¬»ñµÃµÄÖ¸Õë½öÔÚ³ÖÓĞ¸ÃÏûÏ¢Ê±ÓĞĞ§£»
+// è·å¾—Outputç¼“å†²åŒºæŒ‡é’ˆï¼Œæ³¨æ„ï¼Œè·å¾—çš„æŒ‡é’ˆä»…åœ¨æŒæœ‰è¯¥æ¶ˆæ¯æ—¶æœ‰æ•ˆï¼›
 void* __stdcall CXuiMessage::GetOutputBuffer(void)
 {
 	return mpMsgOutputBuffer;
 }
 
-// »ñµÃOutput»º³åÇøµÄ´óĞ¡
+// è·å¾—Outputç¼“å†²åŒºçš„å¤§å°
 int __stdcall CXuiMessage::GetOutputBufferSize(void)
 {
 	return miOutputBufferSize;
 }
 
-// ÉèÖÃÌîÈëOutput»º³åÇøµÄÊı¾İ´óĞ¡
+// è®¾ç½®å¡«å…¥Outputç¼“å†²åŒºçš„æ•°æ®å¤§å°
 void CXuiMessage::SetOutputDataSize(int niSize)
 {
 	miOutputDataSize = niSize;
 }
 
-// »ñµÃOutput»º³åÇøµÄÊı¾İ´óĞ¡
+// è·å¾—Outputç¼“å†²åŒºçš„æ•°æ®å¤§å°
 int CXuiMessage::GetOutputDataSize(void)
 {
 	return miOutputDataSize;
 }
 
-// ÉèÖÃ·´À¡ÏûÏ¢£¬µ±ÏûÏ¢±»Ä¿±ê¶ÔÏó´¦ÀíÍê±Ïºó£¬ÏµÍ³½«×Ô¶¯Éú³ÉÒ»¸öĞÂµÄÏûÏ¢·µ»Ø¸ø·¢ËÍÕß£¬Õâ¸öĞÂµÄÏûÏ¢½Ğ×ö·´À¡ÏûÏ¢
+// è®¾ç½®åé¦ˆæ¶ˆæ¯ï¼Œå½“æ¶ˆæ¯è¢«ç›®æ ‡å¯¹è±¡å¤„ç†å®Œæ¯•åï¼Œç³»ç»Ÿå°†è‡ªåŠ¨ç”Ÿæˆä¸€ä¸ªæ–°çš„æ¶ˆæ¯è¿”å›ç»™å‘é€è€…ï¼Œè¿™ä¸ªæ–°çš„æ¶ˆæ¯å«åšåé¦ˆæ¶ˆæ¯
 ERESULT __stdcall CXuiMessage::SetResponseMessage(
-	IN IEinkuiIterator* npReceiver,	// ½ÓÊÜ·´À¡ÏûÏ¢µÄÄ¿±ê
-	IN void* npContext	// ÉèÖÃÉÏÏÂÎÄ£¬¹©µ÷ÓÃÕßÉèÖÃºÍÊ¹ÓÃ£¬µ±¸ÃÏûÏ¢±»·´À¡Ê±£¬´«µİ¸ø½ÓÊÕÕß
+	IN IEinkuiIterator* npReceiver,	// æ¥å—åé¦ˆæ¶ˆæ¯çš„ç›®æ ‡
+	IN void* npContext	// è®¾ç½®ä¸Šä¸‹æ–‡ï¼Œä¾›è°ƒç”¨è€…è®¾ç½®å’Œä½¿ç”¨ï¼Œå½“è¯¥æ¶ˆæ¯è¢«åé¦ˆæ—¶ï¼Œä¼ é€’ç»™æ¥æ”¶è€…
 	)
 {
-	return ERESULT_UNSUCCESSFUL;//???ÉĞÎ´ÊµÏÖ
+	return ERESULT_UNSUCCESSFUL;//???å°šæœªå®ç°
 }
 
 
-// ¸´ÖÆÓÃ»§Ìá¹©µÄÊäÈëÊı¾İ
+// å¤åˆ¶ç”¨æˆ·æä¾›çš„è¾“å…¥æ•°æ®
 ERESULT CXuiMessage::CopyInputData(
 	const void* npBuffer,
 	int niSize
@@ -280,7 +280,7 @@ ERESULT CXuiMessage::CopyInputData(
 	return luResult;
 }
 
-// ÏûÏ¢½ÓÊÕÕßÓÃÓÚÈ·¶¨µ±Ç°ÏûÏ¢ÊÇ·ñ±»Send¶øÀ´£¬·µ»Øtrue,the message was sent from source element; false, the message was posted by the sender;
+// æ¶ˆæ¯æ¥æ”¶è€…ç”¨äºç¡®å®šå½“å‰æ¶ˆæ¯æ˜¯å¦è¢«Sendè€Œæ¥ï¼Œè¿”å›true,the message was sent from source element; false, the message was posted by the sender;
 bool __stdcall CXuiMessage::IsSent(void)
 {
 	return cmmBaseObject::TestFlag(ELMSG_FLAG_SEND);

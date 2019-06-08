@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -16,8 +16,8 @@ class CEleMgrProxy;
 
 struct _STES_START_UP {
 	D2D1_SIZE_F Dpi;
-	const wchar_t* ModulePathName;		// System WidgetµÄÊµÏÖÄ£¿éµÄÎÄ¼şÂ·¾¶Ãû
-	const wchar_t* HomeTempleteName;	// System WidgetµÄHome PageµÄtemplete keyµÄÃû×Ö
+	const wchar_t* ModulePathName;		// System Widgetçš„å®ç°æ¨¡å—çš„æ–‡ä»¶è·¯å¾„å
+	const wchar_t* HomeTempleteName;	// System Widgetçš„Home Pageçš„templete keyçš„åå­—
 	const wchar_t* ClassesRegPath;
 	const wchar_t* WindowTitle;
 	HANDLE WaitingCaller;
@@ -29,26 +29,26 @@ typedef _STES_START_UP STES_START_UP,* PSTES_START_UP;
 
 
 
-// ¶¨Ê±Æ÷
+// å®šæ—¶å™¨
 struct _STES_TIMER{
 	ULONG muID;
 	ULONG muBaseTick;	// the tickcount when timer was set
 	ULONG muRecentTick;	// the tickcount when the timer was kicked recently
 	ULONG muEndTick;	// 1/1000 second same as windows' tickcount
 	ULONG muDuration;	// 1/1000 second
-	ULONG muRepeat;		// ĞèÒªÖØ¸´´¥·¢µÄ´ÎÊı£¬MAXULONG32±íÊ¾ÓÀÔ¶ÖØ¸´
-	ULONG muKicked;		// ÒÑ¾­´¥·¢µÄ´ÎÊı
-	void* mpContext;	// ÓÃ»§Ö¸¶¨µÄÉÏÏÂÎÄ
-	CXuiIterator* mpIterator;	// ¶¨Ê±Æ÷µÄÉêÇëÕß
+	ULONG muRepeat;		// éœ€è¦é‡å¤è§¦å‘çš„æ¬¡æ•°ï¼ŒMAXULONG32è¡¨ç¤ºæ°¸è¿œé‡å¤
+	ULONG muKicked;		// å·²ç»è§¦å‘çš„æ¬¡æ•°
+	void* mpContext;	// ç”¨æˆ·æŒ‡å®šçš„ä¸Šä¸‹æ–‡
+	CXuiIterator* mpIterator;	// å®šæ—¶å™¨çš„ç”³è¯·è€…
 };
 typedef _STES_TIMER STES_TIMER,* PSTES_TIMER;
 
-class CEsTimerCriterion	// Ä¬ÈÏµÄÅĞ¶Ï×¼Ôò
+class CEsTimerCriterion	// é»˜è®¤çš„åˆ¤æ–­å‡†åˆ™
 {
 public:
-	bool operator () (const PSTES_TIMER Obj1,const PSTES_TIMER Obj2)const // Ò»¶¨ÒªÓÃÄÚÁªº¯Êı
+	bool operator () (const PSTES_TIMER Obj1,const PSTES_TIMER Obj2)const // ä¸€å®šè¦ç”¨å†…è”å‡½æ•°
 	{
-		// µ±¶ÔÏóOb1Ğ¡ÓÚ¶ÔÏóObj2Ê±£¬·µ»ØTrue£¬·ñÔò·µ»Øfalse
+		// å½“å¯¹è±¡Ob1å°äºå¯¹è±¡Obj2æ—¶ï¼Œè¿”å›Trueï¼Œå¦åˆ™è¿”å›false
 		return (Obj1->muEndTick <Obj2->muEndTick || Obj1->muEndTick == Obj2->muEndTick && Obj1 < Obj2);
 	}
 };
@@ -67,41 +67,41 @@ public:
 	}
 };
 
-class CEsThreadNodeCriterion	// Ä¬ÈÏµÄÅĞ¶Ï×¼Ôò
+class CEsThreadNodeCriterion	// é»˜è®¤çš„åˆ¤æ–­å‡†åˆ™
 {
 public:
-	bool operator () (const CEsThreadNode& Obj1,const CEsThreadNode& Obj2)const // Ò»¶¨ÒªÓÃÄÚÁªº¯Êı
+	bool operator () (const CEsThreadNode& Obj1,const CEsThreadNode& Obj2)const // ä¸€å®šè¦ç”¨å†…è”å‡½æ•°
 	{
-		// µ±¶ÔÏóOb1Ğ¡ÓÚ¶ÔÏóObj2Ê±£¬·µ»ØTrue£¬·ñÔò·µ»Øfalse
+		// å½“å¯¹è±¡Ob1å°äºå¯¹è±¡Obj2æ—¶ï¼Œè¿”å›Trueï¼Œå¦åˆ™è¿”å›false
 		return (Obj1.muThreadID < Obj2.muThreadID);
 	}
 };
 
-// °´ÕÕIDÅÅĞòµÄÏß³Ì¶ÓÁĞ
+// æŒ‰ç…§IDæ’åºçš„çº¿ç¨‹é˜Ÿåˆ—
 typedef cmmSequence<CEsThreadNode,CEsThreadNodeCriterion> TEsThreadSequence;
 
-// ¶¨Ê±Æ÷ID
-#define ELMGR_TIMERID_RENDER 1	// »æÖÆ
-#define ELMGR_TIMERID_LAZY 2	// ÂıË¢ĞÂ
+// å®šæ—¶å™¨ID
+#define ELMGR_TIMERID_RENDER 1	// ç»˜åˆ¶
+#define ELMGR_TIMERID_LAZY 2	// æ…¢åˆ·æ–°
 
 
-// Windows User Ïß³Ì»Øµ÷ÓÃWindowsÏûÏ¢Ãû³Æ
+// Windows User çº¿ç¨‹å›è°ƒç”¨Windowsæ¶ˆæ¯åç§°
 #define ES_WINUI_CUSTOM_MSG L"{7F139C67-035E-43D7-A18C-D4ADCEF08B2E}"
 
-// Windows User Ïß³Ì»Øµ÷²ÎÊı
+// Windows User çº¿ç¨‹å›è°ƒå‚æ•°
 typedef struct _STES_WINTHREAD_CALLBACK{
 	ULONG Signature;			// must be 'WgCc'
 	ULONG Size;					// size of this struct
 	ULONG BlockID;
 	//HANDLE WaitEvent;
-	IBaseObject* Applicant;		// »Øµ÷¶ÔÏó
-	PXUI_CALLBACK ProcedureToCall;	//»Øµ÷¹ı³Ì£¬¹ı³ÌµÄ·µ»ØÖµ½«»á·µ»Ø¸øµ÷ÓÃÕß
-	ULONG Flag;			// ´«µİ¸ø»Øµ÷º¯ÊıµÄ²ÎÊı
-	LPVOID ConText;		// ´«µİ¸ø»Øµ÷º¯ÊıµÄ²ÎÊı
+	IBaseObject* Applicant;		// å›è°ƒå¯¹è±¡
+	PXUI_CALLBACK ProcedureToCall;	//å›è°ƒè¿‡ç¨‹ï¼Œè¿‡ç¨‹çš„è¿”å›å€¼å°†ä¼šè¿”å›ç»™è°ƒç”¨è€…
+	ULONG Flag;			// ä¼ é€’ç»™å›è°ƒå‡½æ•°çš„å‚æ•°
+	LPVOID ConText;		// ä¼ é€’ç»™å›è°ƒå‡½æ•°çš„å‚æ•°
 }STES_WINTHREAD_CALLBACK,* PSTES_WINTHREAD_CALLBACK;
 
 
-// WindowsÏûÏ¢²¶»ñ¶ÔÏó
+// Windowsæ¶ˆæ¯æ•è·å¯¹è±¡
 class CEsWsgCapture{
 public:
 	UINT muiWsgID;
@@ -116,17 +116,17 @@ public:
 	}
 };
 
-class CEsWsgCaptureCriterion	// Ä¬ÈÏµÄÅĞ¶Ï×¼Ôò
+class CEsWsgCaptureCriterion	// é»˜è®¤çš„åˆ¤æ–­å‡†åˆ™
 {
 public:
-	bool operator () (const CEsWsgCapture& Obj1,const CEsWsgCapture& Obj2)const // Ò»¶¨ÒªÓÃÄÚÁªº¯Êı
+	bool operator () (const CEsWsgCapture& Obj1,const CEsWsgCapture& Obj2)const // ä¸€å®šè¦ç”¨å†…è”å‡½æ•°
 	{
-		// µ±¶ÔÏóOb1Ğ¡ÓÚ¶ÔÏóObj2Ê±£¬·µ»ØTrue£¬·ñÔò·µ»Øfalse
+		// å½“å¯¹è±¡Ob1å°äºå¯¹è±¡Obj2æ—¶ï¼Œè¿”å›Trueï¼Œå¦åˆ™è¿”å›false
 		return (Obj1.muiWsgID < Obj2.muiWsgID);
 	}
 };
 
-// °´ÕÕIDÅÅĞòµÄÏß³Ì¶ÓÁĞ
+// æŒ‰ç…§IDæ’åºçš„çº¿ç¨‹é˜Ÿåˆ—
 typedef cmmMultiSequence<CEsWsgCapture,CEsWsgCaptureCriterion> TEsWsgCaptor;
 
 
@@ -145,37 +145,37 @@ public:
 		eRenderStop=5
 	};
 
-	// »ñµÃÎ¨Ò»¶ÔÏó
+	// è·å¾—å”¯ä¸€å¯¹è±¡
 	static CEinkuiSystem* GetUniqueObject(void);
 
-	// ·µ»ØÔªËØ¹ÜÀí
-	virtual IXelManager* __stdcall  GetElementManager(void);	// ¾ø¶Ô²»»áÊ§°Ü£¬ÎŞĞèÅĞ¶Ï·µ»ØÖµÊÇ·ñÎªNULL
+	// è¿”å›å…ƒç´ ç®¡ç†
+	virtual IXelManager* __stdcall  GetElementManager(void);	// ç»å¯¹ä¸ä¼šå¤±è´¥ï¼Œæ— éœ€åˆ¤æ–­è¿”å›å€¼æ˜¯å¦ä¸ºNULL
 
-	// »ñµÃµ±Ç°Î¢¼ş½Ó¿Ú£¬ÎŞĞèÊÍ·Å;Èç¹ûÄ³¸öÏß³ÌÃ»ÓĞÊ¹ÓÃCreateWidgetWorkThread½¨Á¢£¬ÄÇÃ´ÔÚÕâÑùµÄÏß³ÌÖĞµ÷ÓÃGetCurrentWidget½«µ¼ÖÂÒì³£·¢Éú
-	virtual IXsWidget* __stdcall GetCurrentWidget(void);	// ¾ø¶Ô²»»áÊ§°Ü£¬ÎŞĞèÅĞ¶Ï·µ»ØÖµÊÇ·ñÎªNULL
+	// è·å¾—å½“å‰å¾®ä»¶æ¥å£ï¼Œæ— éœ€é‡Šæ”¾;å¦‚æœæŸä¸ªçº¿ç¨‹æ²¡æœ‰ä½¿ç”¨CreateWidgetWorkThreadå»ºç«‹ï¼Œé‚£ä¹ˆåœ¨è¿™æ ·çš„çº¿ç¨‹ä¸­è°ƒç”¨GetCurrentWidgetå°†å¯¼è‡´å¼‚å¸¸å‘ç”Ÿ
+	virtual IXsWidget* __stdcall GetCurrentWidget(void);	// ç»å¯¹ä¸ä¼šå¤±è´¥ï¼Œæ— éœ€åˆ¤æ–­è¿”å›å€¼æ˜¯å¦ä¸ºNULL
 
-	// »ñµÃ·ÖÅäÆ÷£¬·ÖÅäÆ÷±»ÓÃÓÚ½¨Á¢¹«¹²»ò·¢²¼µÄElement¶ÔÏó£¬·µ»ØµÄ¶ÔÏóÎŞĞèÊÍ·Å
+	// è·å¾—åˆ†é…å™¨ï¼Œåˆ†é…å™¨è¢«ç”¨äºå»ºç«‹å…¬å…±æˆ–å‘å¸ƒçš„Elementå¯¹è±¡ï¼Œè¿”å›çš„å¯¹è±¡æ— éœ€é‡Šæ”¾
 	virtual IXelAllocator* __stdcall GetAllocator(void);
 
-	// »ñµÃµ±Ç°µÄ½çÃæÓïÑÔÃèÊö×Ö·û´®£¬Èç£º¼òÌåÖĞÎÄ'chn'
+	// è·å¾—å½“å‰çš„ç•Œé¢è¯­è¨€æè¿°å­—ç¬¦ä¸²ï¼Œå¦‚ï¼šç®€ä½“ä¸­æ–‡'chn'
 	virtual const wchar_t* __stdcall GetCurrentLanguage(void);
 
-	// »ñµÃÏµÍ³µÄDPIÉèÖÃ
+	// è·å¾—ç³»ç»Ÿçš„DPIè®¾ç½®
 	virtual FLOAT __stdcall GetDpiX(void);
 	virtual FLOAT __stdcall GetDpiY(void);
 
-	// ÆôÓÃ»­°å£¬µ±Ö÷³ÌĞò×°ÔØÍê³Éºó£¬µ÷ÓÃÕâ¸öº¯ÊıÆôÓÃ»­°å£»ÔÚ´ËÖ®Ç°»­°å²¢²»»á»æÖÆ³öÊµ¼ÊÍ¼Ïñ£¬ÒÔ±ÜÃâÆô¶¯²»ÍêÕûÊ±£¬EinkÆÁÄ»¶à´ÎÉÁ¶¯
+	// å¯ç”¨ç”»æ¿ï¼Œå½“ä¸»ç¨‹åºè£…è½½å®Œæˆåï¼Œè°ƒç”¨è¿™ä¸ªå‡½æ•°å¯ç”¨ç”»æ¿ï¼›åœ¨æ­¤ä¹‹å‰ç”»æ¿å¹¶ä¸ä¼šç»˜åˆ¶å‡ºå®é™…å›¾åƒï¼Œä»¥é¿å…å¯åŠ¨ä¸å®Œæ•´æ—¶ï¼ŒEinkå±å¹•å¤šæ¬¡é—ªåŠ¨
 	virtual ERESULT __stdcall EnablePaintboard(void);
 
-	// ÖØÖÃ»­°å£¬µ±ÆÁÄ»Ğı×ª·¢ÉúÊ±£¬µ÷ÓÃ±¾º¯Êı´ÙÊ¹ÏµÍ³ÖØÖÃ»­°å
+	// é‡ç½®ç”»æ¿ï¼Œå½“å±å¹•æ—‹è½¬å‘ç”Ÿæ—¶ï¼Œè°ƒç”¨æœ¬å‡½æ•°ä¿ƒä½¿ç³»ç»Ÿé‡ç½®ç”»æ¿
 	virtual void __stdcall ResetPaintboard(void);
 
-	// »ñµÃÖ÷´°¿ÚµÄ´óĞ¡
+	// è·å¾—ä¸»çª—å£çš„å¤§å°
 	virtual void __stdcall GetPaintboardSize(
-		OUT EI_SIZE* npSize	// »ñÈ¡»­°å´óĞ¡
+		OUT EI_SIZE* npSize	// è·å–ç”»æ¿å¤§å°
 	);
 
-	// ÉèÖÃ±¾³ÌĞòÔÚEink PanelÉÏµÄÏÔÊ¾Î»ÖÃ£¬Ö»ÓÃÓÚ×Ô»æ³ÌĞò
+	// è®¾ç½®æœ¬ç¨‹åºåœ¨Eink Panelä¸Šçš„æ˜¾ç¤ºä½ç½®ï¼Œåªç”¨äºè‡ªç»˜ç¨‹åº
 	virtual void __stdcall SetPositionInPanel(
 		ULONG nuX,
 		ULONG nuY
@@ -183,51 +183,51 @@ public:
 
 
 
-	// »ñÈ¡EinkÏµÍ³²ÎÊı
+	// è·å–Einkç³»ç»Ÿå‚æ•°
 	virtual PEI_SYSTEM_INFO __stdcall GetEinkSystemInfo(void) {
 		return &mdEinkInfo;	
 	}
 
-	// »ñµÃWindows´°¿Ú
+	// è·å¾—Windowsçª—å£
 	virtual HWND __stdcall GetMainWindow(void){
 		return mhMainWnd;
 	}
 
-	// ÏÔÊ¾»òÕßÒş²ØWindowsÍ¨Ñ¶´°¿Ú
+	// æ˜¾ç¤ºæˆ–è€…éšè—Windowsé€šè®¯çª—å£
 	virtual void __stdcall ShowMainWindow(bool nbShown=true);
 
-	// Æô¶¯Xui
+	// å¯åŠ¨Xui
 	int Startup(
 		STES_START_UP& nrStart
 	);
 
-	// ÔËĞĞÒ»¸öĞÂµÄWidget
+	// è¿è¡Œä¸€ä¸ªæ–°çš„Widget
 	virtual ERESULT __stdcall LaunchWidget(
-		IN const wchar_t* nswModulePathName,	// ¸ÃWidgetµÄÄ£¿éÎÄ¼şµÄÂ·¾¶Ãû£¬¼´ÊµÏÖ´ËWidgetµÄDLLÃû³Æ
-		IN const wchar_t* nswHomeTempleteName,	// ¸ÃWidgetµÄHomePageµÄTemplete KeyµÄÃû×Ö£¬Õâ¸öKey±ØĞëÔÚProFile µÄRootÏÂ
-		IN const wchar_t* nswInstanceName,		// ±¾´ÎÔËĞĞµÄÊµÀıÃû£¬ÊµÀıÃû²»ÄÜÏàÍ¬£¬Èç¹û´æÔÚÏàÍ¬µÄÊµÀıÃû£¬ÏµÍ³½«»á·µ»ØÊ§°Ü
-		IN IEinkuiIterator* npFrame,	// ÓÃÓÚ¶¨Î»ºÍÏÔÊ¾´ı×°ÔØWidgetµÄFrame Element
-		IN ICfKey* npInstConfig,	// WidgetÊµÀı×¨ÊôÅäÖÃ
-		OUT IXsWidget** nppWidget	// ¿ÉÒÔ²»ÌîĞ´£¬ÓÃÓÚ·µ»ØĞÂ½¨Á¢µÄWidget½Ó¿Ú£¬·µ»ØµÄ½Ó¿ÚĞèÒªÊÍ·Å
+		IN const wchar_t* nswModulePathName,	// è¯¥Widgetçš„æ¨¡å—æ–‡ä»¶çš„è·¯å¾„åï¼Œå³å®ç°æ­¤Widgetçš„DLLåç§°
+		IN const wchar_t* nswHomeTempleteName,	// è¯¥Widgetçš„HomePageçš„Templete Keyçš„åå­—ï¼Œè¿™ä¸ªKeyå¿…é¡»åœ¨ProFile çš„Rootä¸‹
+		IN const wchar_t* nswInstanceName,		// æœ¬æ¬¡è¿è¡Œçš„å®ä¾‹åï¼Œå®ä¾‹åä¸èƒ½ç›¸åŒï¼Œå¦‚æœå­˜åœ¨ç›¸åŒçš„å®ä¾‹åï¼Œç³»ç»Ÿå°†ä¼šè¿”å›å¤±è´¥
+		IN IEinkuiIterator* npFrame,	// ç”¨äºå®šä½å’Œæ˜¾ç¤ºå¾…è£…è½½Widgetçš„Frame Element
+		IN ICfKey* npInstConfig,	// Widgetå®ä¾‹ä¸“å±é…ç½®
+		OUT IXsWidget** nppWidget	// å¯ä»¥ä¸å¡«å†™ï¼Œç”¨äºè¿”å›æ–°å»ºç«‹çš„Widgetæ¥å£ï¼Œè¿”å›çš„æ¥å£éœ€è¦é‡Šæ”¾
 		);
 
-	// »ñµÃµ±Ç°ÏµÍ³ÖĞµÄÄ³¸öWidget½Ó¿Ú£¬Èç¹û·µ»ØNULL±íÊ¾´Ë±àºÅÖ®ºóÃ»ÓĞWidgetÁË
-	// ´Ëº¯ÊıÖ»ÄÜ±»System Widgetµ÷ÓÃ
+	// è·å¾—å½“å‰ç³»ç»Ÿä¸­çš„æŸä¸ªWidgetæ¥å£ï¼Œå¦‚æœè¿”å›NULLè¡¨ç¤ºæ­¤ç¼–å·ä¹‹åæ²¡æœ‰Widgetäº†
+	// æ­¤å‡½æ•°åªèƒ½è¢«System Widgetè°ƒç”¨
 	virtual IXsWidget* __stdcall ObtainWidget(
-		IN int niNumber		// ´Ó0¿ªÊ¼±àºÅµÃWidegt£¬±àºÅÃ»ÓĞÒâÒå£¬Ö»ÊÇWidgetµÄ´æ´¢Î»ÖÃ
+		IN int niNumber		// ä»0å¼€å§‹ç¼–å·å¾—Widegtï¼Œç¼–å·æ²¡æœ‰æ„ä¹‰ï¼Œåªæ˜¯Widgetçš„å­˜å‚¨ä½ç½®
 		);
 
-	// »ñµÃÏµÍ³Widget
+	// è·å¾—ç³»ç»ŸWidget
 	virtual IXsWidget* __stdcall GetSystemWidget(void);
 
-	// WidgetÑ¹Õ»£¬¹©CXelManagerµ÷ÓÃ£¬µ±·Ö·¢Ò»ÌõÏûÏ¢µ½Ä¿±êElementÊ±µ÷ÓÃ£¬±íÊ¾ÇĞ»»µ½ĞÂµÄWidget×´Ì¬
+	// Widgetå‹æ ˆï¼Œä¾›CXelManagerè°ƒç”¨ï¼Œå½“åˆ†å‘ä¸€æ¡æ¶ˆæ¯åˆ°ç›®æ ‡Elementæ—¶è°ƒç”¨ï¼Œè¡¨ç¤ºåˆ‡æ¢åˆ°æ–°çš„WidgetçŠ¶æ€
 	void PushWidget(IXsWidget* npWidget);
 
-	// WidgetÍËÕ»£¬¹©ElementManagerÔÚÍê³ÉÒ»¸öElementµÄÏûÏ¢ÊÇµ÷ÓÃ£¬»Ö¸´µ½Ö®Ç°µÄWidget×´Ì¬
+	// Widgeté€€æ ˆï¼Œä¾›ElementManageråœ¨å®Œæˆä¸€ä¸ªElementçš„æ¶ˆæ¯æ˜¯è°ƒç”¨ï¼Œæ¢å¤åˆ°ä¹‹å‰çš„WidgetçŠ¶æ€
 	void PopWidget(void);
 
-	// Æô¶¯Ò»¸öĞÂÏß³Ì£¬ËùÓĞµÄWidget¶¼Ó¦¸ÃÊ¹ÓÃÕâ¸öº¯Êı½¨Á¢×Ô¼ºµÄ¶îÍâÏß³Ì£»·µ»ØÖµ¼´WindowsÏß³Ì¾ä±ú£¬¿ÉÒÔÓÃÓÚµ÷ÓÃSuspendThread/ResumeThread/GetExitCodeThread
-	// ×îÖÕ£¬·µ»ØµÄ¾ä±ú±ØĞëµ÷ÓÃCloseHandle¹Ø±Õ£»º¯ÊıµÄÊäÈë²ÎÊıÍ¬Windows API CreateThreadÒ»ÖÂ
+	// å¯åŠ¨ä¸€ä¸ªæ–°çº¿ç¨‹ï¼Œæ‰€æœ‰çš„Widgetéƒ½åº”è¯¥ä½¿ç”¨è¿™ä¸ªå‡½æ•°å»ºç«‹è‡ªå·±çš„é¢å¤–çº¿ç¨‹ï¼›è¿”å›å€¼å³Windowsçº¿ç¨‹å¥æŸ„ï¼Œå¯ä»¥ç”¨äºè°ƒç”¨SuspendThread/ResumeThread/GetExitCodeThread
+	// æœ€ç»ˆï¼Œè¿”å›çš„å¥æŸ„å¿…é¡»è°ƒç”¨CloseHandleå…³é—­ï¼›å‡½æ•°çš„è¾“å…¥å‚æ•°åŒWindows API CreateThreadä¸€è‡´
 	virtual HANDLE __stdcall CreateWidgetWorkThread(
 		LPSECURITY_ATTRIBUTES lpThreadAttributes,
 		SIZE_T dwStackSize,
@@ -237,94 +237,94 @@ public:
 		LPDWORD lpThreadId
 		);
 
-	// ÍË³öWidget¹¤×÷Ïß³Ì£»µ±£¬´«Èë¸øCreateWidgetWorkThreadµÄÏß³ÌÖ÷º¯ÊıÍË³öÊ±£¬ÏµÍ³»á×Ô¶¯µ÷ÓÃÖÕÖ¹Ïß³Ì²Ù×÷
+	// é€€å‡ºWidgetå·¥ä½œçº¿ç¨‹ï¼›å½“ï¼Œä¼ å…¥ç»™CreateWidgetWorkThreadçš„çº¿ç¨‹ä¸»å‡½æ•°é€€å‡ºæ—¶ï¼Œç³»ç»Ÿä¼šè‡ªåŠ¨è°ƒç”¨ç»ˆæ­¢çº¿ç¨‹æ“ä½œ
 	virtual void __stdcall ExitWidgetWorkThread(DWORD dwExitCode);
 
-	// ´ò¿ªÒ»¸öConfigÎÄ¼ş£»ÓÃÓÚ´ò¿ªÒ»¸öconfigÎÄ¼ş£¬Ä¿Ç°Ó¦ÓÃÔÚFactory½Ó¿ÚÊµÏÖÖĞ£¬ÓÃÓÚ´ò¿ªÒ»¸öConponent¶ÔÓ¦µÄProfile
+	// æ‰“å¼€ä¸€ä¸ªConfigæ–‡ä»¶ï¼›ç”¨äºæ‰“å¼€ä¸€ä¸ªconfigæ–‡ä»¶ï¼Œç›®å‰åº”ç”¨åœ¨Factoryæ¥å£å®ç°ä¸­ï¼Œç”¨äºæ‰“å¼€ä¸€ä¸ªConponentå¯¹åº”çš„Profile
 	virtual IConfigFile* __stdcall OpenConfigFile(
-		IN const wchar_t* nszPathName,				// ÎÄ¼şµÄÍêÕûÂ·¾¶Ãû
-		IN ULONG nuCreationDisposition=CF_OPEN_EXISTING	// Í¬CreateFile APIÀàËÆ£¬µ«½ö°üÀ¨CF_CREATE_ALWAYS¡¢CF_CREATE_NEW¡¢CF_OPEN_ALWAYS¡¢CF_OPEN_EXISTING£¬¶¨Òå¼ûCfgIface.h
+		IN const wchar_t* nszPathName,				// æ–‡ä»¶çš„å®Œæ•´è·¯å¾„å
+		IN ULONG nuCreationDisposition=CF_OPEN_EXISTING	// åŒCreateFile APIç±»ä¼¼ï¼Œä½†ä»…åŒ…æ‹¬CF_CREATE_ALWAYSã€CF_CREATE_NEWã€CF_OPEN_ALWAYSã€CF_OPEN_EXISTINGï¼Œå®šä¹‰è§CfgIface.h
 		);
 
-	// ¸øÄ³¸öElement¼°ÆäËùÓĞchildrenÅÄÕÕ
+	// ç»™æŸä¸ªElementåŠå…¶æ‰€æœ‰childrenæ‹ç…§
 	virtual IEinkuiBitmap* __stdcall TakeSnapshot(
 		IEinkuiIterator* npToShot,
-		const D2D1_RECT_F& crSourceRegion,	// ²ÉÑùÇøÓò£¬Ä¿±êÔªËØµÄ¾Ö²¿×ø±êÏµ
-		const D2D_SIZE_F& crBriefSize,		// ËõÂÔÍ¼³ß´ç£¬¿ìÕÕµÄ½á¹ûÊÇÒ»¸±ËõÂÔÍ¼
+		const D2D1_RECT_F& crSourceRegion,	// é‡‡æ ·åŒºåŸŸï¼Œç›®æ ‡å…ƒç´ çš„å±€éƒ¨åæ ‡ç³»
+		const D2D_SIZE_F& crBriefSize,		// ç¼©ç•¥å›¾å°ºå¯¸ï¼Œå¿«ç…§çš„ç»“æœæ˜¯ä¸€å‰¯ç¼©ç•¥å›¾
 		const FLOAT* ColorRGBA=NULL
 		);
 
-	// ÉêÇëÖØĞÂ»æÖÆÒÔ¸üĞÂÕû¸öÊÓÍ¼£¬IdealifeµÄÄ£Ê½ÊÇÕû¸öÊÓÍ¼ÖØ»æ£¬Ö»Òªµ÷ÓÃÒ»´Î¾Í»á¸üĞÂÕû¸öÊä³öÊÓÍ¼£»
-	// ÖØ¸´µ÷ÓÃ±¾º¯Êı²¢²»»áµ¼ÖÂÖØ¸´µÄ»æÖÆ£»
+	// ç”³è¯·é‡æ–°ç»˜åˆ¶ä»¥æ›´æ–°æ•´ä¸ªè§†å›¾ï¼ŒIdealifeçš„æ¨¡å¼æ˜¯æ•´ä¸ªè§†å›¾é‡ç»˜ï¼Œåªè¦è°ƒç”¨ä¸€æ¬¡å°±ä¼šæ›´æ–°æ•´ä¸ªè¾“å‡ºè§†å›¾ï¼›
+	// é‡å¤è°ƒç”¨æœ¬å‡½æ•°å¹¶ä¸ä¼šå¯¼è‡´é‡å¤çš„ç»˜åˆ¶ï¼›
 	virtual void __stdcall UpdateView(
-		IN bool nbRefresh = false	// ±ØĞëÌá½»È«ÆÁ
+		IN bool nbRefresh = false	// å¿…é¡»æäº¤å…¨å±
 		);
 
-	// ÉèÖÃEink»æÖÆ»Øµ÷£¬Ã¿µ±UIÏµÍ³ÏòEink·şÎñÌá½»Ê±µ÷ÓÃÖ¸¶¨µÄ»Øµ÷º¯Êı
+	// è®¾ç½®Einkç»˜åˆ¶å›è°ƒï¼Œæ¯å½“UIç³»ç»Ÿå‘EinkæœåŠ¡æäº¤æ—¶è°ƒç”¨æŒ‡å®šçš„å›è°ƒå‡½æ•°
 	virtual ERESULT __stdcall SetEinkUpdatingCallBack(
 		IN PXUI_EINKUPDATING_CALLBACK npFunction,
 		IN PVOID npContext
 	);
 
-	// ÖØÖÃEink»º´æ£»±¾¿âµÄ¹¤×÷Ô­ÀíÊÇÍ¨¹ıEink»º´æÖĞµÄÒÅÁôÄÚÈİÀ´±È¶Ô´ıÏÔÊ¾ÄÚÈİ£¬Ö»½«²»Í¬µÄ²¿·Ö·¢¸øEink£»Èç¹ûEinkÆÁÄ»ĞèÒªÈ«²¿ÖØ»æ
-	//    ¾ÍĞèÒªÖØÖÃEink»º´æ£¬Ê¹µÃÈ«²¿ÄÚÈİ»æÖÆµ½Eink£»Ö÷ÒªÓÃÓÚAppÖØĞÂ»î¶¯EinkÆÁÄ»µÄÇé¿ö
+	// é‡ç½®Einkç¼“å­˜ï¼›æœ¬åº“çš„å·¥ä½œåŸç†æ˜¯é€šè¿‡Einkç¼“å­˜ä¸­çš„é—ç•™å†…å®¹æ¥æ¯”å¯¹å¾…æ˜¾ç¤ºå†…å®¹ï¼Œåªå°†ä¸åŒçš„éƒ¨åˆ†å‘ç»™Einkï¼›å¦‚æœEinkå±å¹•éœ€è¦å…¨éƒ¨é‡ç»˜
+	//    å°±éœ€è¦é‡ç½®Einkç¼“å­˜ï¼Œä½¿å¾—å…¨éƒ¨å†…å®¹ç»˜åˆ¶åˆ°Einkï¼›ä¸»è¦ç”¨äºAppé‡æ–°æ´»åŠ¨Einkå±å¹•çš„æƒ…å†µ
 	virtual void __stdcall ClearEinkBuffer(void);
 
-	// »ñµÃDirect2DµÄ¹¤³§½Ó¿Ú£¬²»ÓÃÊÍ·Å£¬Ö»ÄÜ¹»ÔÚ»ñµÃ±¾IXuiPaintBoard½Ó¿ÚµÄÏûÏ¢ÏìÓ¦ÆÚ¼äÊ¹ÓÃ·µ»ØµÄRenderTarget½Ó¿Ú£¬²»Òª³¤ÆÚ±£´æ´Ë´¦·µ»ØµÄ½Ó¿Ú£¬ÒÔÃâÊ§Ğ§Ôì³ÉÎ´Öª´íÎó
-	// Í¨¹ıµ÷ÓÃCXuiGraphyÀàµÄÍ¬Ãûº¯ÊıÊµÏÖ£¬Í¬ÆäÍêÈ«ÏàÍ¬
+	// è·å¾—Direct2Dçš„å·¥å‚æ¥å£ï¼Œä¸ç”¨é‡Šæ”¾ï¼Œåªèƒ½å¤Ÿåœ¨è·å¾—æœ¬IXuiPaintBoardæ¥å£çš„æ¶ˆæ¯å“åº”æœŸé—´ä½¿ç”¨è¿”å›çš„RenderTargetæ¥å£ï¼Œä¸è¦é•¿æœŸä¿å­˜æ­¤å¤„è¿”å›çš„æ¥å£ï¼Œä»¥å…å¤±æ•ˆé€ æˆæœªçŸ¥é”™è¯¯
+	// é€šè¿‡è°ƒç”¨CXuiGraphyç±»çš„åŒåå‡½æ•°å®ç°ï¼ŒåŒå…¶å®Œå…¨ç›¸åŒ
 	virtual ID2D1Factory* __stdcall GetD2dFactory(void);
 
-	// »ñµÃWIC¹¤³§£¬²»ÓÃÊÍ·Å£¬Ö»ÄÜ¹»ÔÚ»ñµÃ±¾IXuiPaintBoard½Ó¿ÚµÄÏûÏ¢ÏìÓ¦ÆÚ¼äÊ¹ÓÃ·µ»ØµÄRenderTarget½Ó¿Ú£¬²»Òª³¤ÆÚ±£´æ´Ë´¦·µ»ØµÄ½Ó¿Ú£¬ÒÔÃâÊ§Ğ§Ôì³ÉÎ´Öª´íÎó
-	// Í¨¹ıµ÷ÓÃCXuiGraphyÀàµÄÍ¬Ãûº¯ÊıÊµÏÖ£¬Í¬ÆäÍêÈ«ÏàÍ¬
+	// è·å¾—WICå·¥å‚ï¼Œä¸ç”¨é‡Šæ”¾ï¼Œåªèƒ½å¤Ÿåœ¨è·å¾—æœ¬IXuiPaintBoardæ¥å£çš„æ¶ˆæ¯å“åº”æœŸé—´ä½¿ç”¨è¿”å›çš„RenderTargetæ¥å£ï¼Œä¸è¦é•¿æœŸä¿å­˜æ­¤å¤„è¿”å›çš„æ¥å£ï¼Œä»¥å…å¤±æ•ˆé€ æˆæœªçŸ¥é”™è¯¯
+	// é€šè¿‡è°ƒç”¨CXuiGraphyç±»çš„åŒåå‡½æ•°å®ç°ï¼ŒåŒå…¶å®Œå…¨ç›¸åŒ
 	virtual IWICImagingFactory* __stdcall GetWICFactory(void);
 
-	// »ñµÃDirect Write¹¤³§£¬²»ÓÃÊÍ·Å£¬Ö»ÄÜ¹»ÔÚ»ñµÃ±¾IXuiPaintBoard½Ó¿ÚµÄÏûÏ¢ÏìÓ¦ÆÚ¼äÊ¹ÓÃ·µ»ØµÄRenderTarget½Ó¿Ú£¬²»Òª³¤ÆÚ±£´æ´Ë´¦·µ»ØµÄ½Ó¿Ú£¬ÒÔÃâÊ§Ğ§Ôì³ÉÎ´Öª´íÎó
-	// Í¨¹ıµ÷ÓÃCXuiGraphyÀàµÄÍ¬Ãûº¯ÊıÊµÏÖ£¬Í¬ÆäÍêÈ«ÏàÍ¬
+	// è·å¾—Direct Writeå·¥å‚ï¼Œä¸ç”¨é‡Šæ”¾ï¼Œåªèƒ½å¤Ÿåœ¨è·å¾—æœ¬IXuiPaintBoardæ¥å£çš„æ¶ˆæ¯å“åº”æœŸé—´ä½¿ç”¨è¿”å›çš„RenderTargetæ¥å£ï¼Œä¸è¦é•¿æœŸä¿å­˜æ­¤å¤„è¿”å›çš„æ¥å£ï¼Œä»¥å…å¤±æ•ˆé€ æˆæœªçŸ¥é”™è¯¯
+	// é€šè¿‡è°ƒç”¨CXuiGraphyç±»çš„åŒåå‡½æ•°å®ç°ï¼ŒåŒå…¶å®Œå…¨ç›¸åŒ
 	virtual IDWriteFactory* __stdcall GetDWriteFactory(void);
 
-	// ÉêÇëÊ¹ÓÃWindows½»»¥Ïß³Ì»Øµ÷£¬Èç¹ûWidget¿ª·¢ÖĞĞèÒªµ÷ÓÃWindowsµÄ½çÃæÄ£¿é£¬ÏÔÊ¾¶îÍâµÄWindows½çÃæ»òÕß×öÓëWindows½çÃæÏà¹ØµÄ±ØĞëÔÚWindows½»»¥Ïß³ÌÖĞÖ´ĞĞµÄ¹¦ÄÜ£¬
-	// ½«¸Ã¹¦ÄÜ´úÂëÒÆÖ²µ½×Ô¼ºElement»òÕßÆäËûÊä³öIBaseObjectµÄÀàµÄÒ»¸ö¶ÀÁ¢º¯ÊıÖĞ£¬Í¨¹ıµ÷ÓÃ±¾·½·¨£¬¿ÉÒÔÊ¹µÃWindows½çÃæÏß³ÌÖ÷¶¯»Øµ÷Éè¶¨µÄ¶ÀÁ¢º¯Êı£¬¶ø¸Ãº¯ÊıµÄ·µ»ØÖµÒ²½«
-	// Í¨¹ı±¾º¯ÊıÖ±½Ó·µ»Ø¸ø±¾·½·¨µÄµ÷ÓÃÕß¡£Íê³ÉÉÏÊö¹¦ÄÜµÄ¹ı³ÌÖĞ£¬±¾´¦µÄ´úÂë½«×èÈûÔÚ´Ë·½·¨ÖĞ£¬²¢ÇÒÈ·±£Õû¸ö½çÃæÕı³£Ë¢ĞĞ£¬µ«£¬Xui±¾ÉíµÄ½çÃæ½«²»ÔÙÏàÓ¦¡£
+	// ç”³è¯·ä½¿ç”¨Windowsäº¤äº’çº¿ç¨‹å›è°ƒï¼Œå¦‚æœWidgetå¼€å‘ä¸­éœ€è¦è°ƒç”¨Windowsçš„ç•Œé¢æ¨¡å—ï¼Œæ˜¾ç¤ºé¢å¤–çš„Windowsç•Œé¢æˆ–è€…åšä¸Windowsç•Œé¢ç›¸å…³çš„å¿…é¡»åœ¨Windowsäº¤äº’çº¿ç¨‹ä¸­æ‰§è¡Œçš„åŠŸèƒ½ï¼Œ
+	// å°†è¯¥åŠŸèƒ½ä»£ç ç§»æ¤åˆ°è‡ªå·±Elementæˆ–è€…å…¶ä»–è¾“å‡ºIBaseObjectçš„ç±»çš„ä¸€ä¸ªç‹¬ç«‹å‡½æ•°ä¸­ï¼Œé€šè¿‡è°ƒç”¨æœ¬æ–¹æ³•ï¼Œå¯ä»¥ä½¿å¾—Windowsç•Œé¢çº¿ç¨‹ä¸»åŠ¨å›è°ƒè®¾å®šçš„ç‹¬ç«‹å‡½æ•°ï¼Œè€Œè¯¥å‡½æ•°çš„è¿”å›å€¼ä¹Ÿå°†
+	// é€šè¿‡æœ¬å‡½æ•°ç›´æ¥è¿”å›ç»™æœ¬æ–¹æ³•çš„è°ƒç”¨è€…ã€‚å®Œæˆä¸Šè¿°åŠŸèƒ½çš„è¿‡ç¨‹ä¸­ï¼Œæœ¬å¤„çš„ä»£ç å°†é˜»å¡åœ¨æ­¤æ–¹æ³•ä¸­ï¼Œå¹¶ä¸”ç¡®ä¿æ•´ä¸ªç•Œé¢æ­£å¸¸åˆ·è¡Œï¼Œä½†ï¼ŒXuiæœ¬èº«çš„ç•Œé¢å°†ä¸å†ç›¸åº”ã€‚
 	virtual ERESULT __stdcall CallBackByWinUiThread(
-		IBaseObject* npApplicant,		// »Øµ÷¶ÔÏó£¬²¢²»Ò»¶¨ÒªÇóÊÇµ÷ÓÃ±¾·½·¨µÄ¶ÔÏó±¾Éí£¬Ò²¿ÉÒÔÊÇ±ğµÄ¶ÔÏóÖ¸Õë
-		PXUI_CALLBACK npProcedureToCall,	//»Øµ÷¹ı³Ì£¬¹ı³ÌµÄ·µ»ØÖµ½«»á·µ»Ø¸øµ÷ÓÃÕß
-		ULONG nuFlag,			// ´«µİ¸ø»Øµ÷º¯ÊıµÄ²ÎÊı
-		LPVOID npConText,		// ´«µİ¸ø»Øµ÷º¯ÊıµÄ²ÎÊı
-		bool nbStall=false		// µÈ´ı·µ»ØÆÚ¼äÊÇ·ñĞèÒª´¦ÀíºóĞøµÄXUIÏûÏ¢£¬Èç¹ûnbStalÉèÎªture³ÌĞò½«Ö±½ÓµÈ´ı·µ»Ø£¬¶ø²»´¦ÀíXUIÏûÏ¢Ñ­»·
-		// Ê¹ÓÃ´Ë·½·¨¿ÉÒÔ±ÜÃâµ÷ÓÃ±¾·½·¨ÆÚ¼ä£¬ÔÙ´ÎÖØÈëµ÷ÓÃ
+		IBaseObject* npApplicant,		// å›è°ƒå¯¹è±¡ï¼Œå¹¶ä¸ä¸€å®šè¦æ±‚æ˜¯è°ƒç”¨æœ¬æ–¹æ³•çš„å¯¹è±¡æœ¬èº«ï¼Œä¹Ÿå¯ä»¥æ˜¯åˆ«çš„å¯¹è±¡æŒ‡é’ˆ
+		PXUI_CALLBACK npProcedureToCall,	//å›è°ƒè¿‡ç¨‹ï¼Œè¿‡ç¨‹çš„è¿”å›å€¼å°†ä¼šè¿”å›ç»™è°ƒç”¨è€…
+		ULONG nuFlag,			// ä¼ é€’ç»™å›è°ƒå‡½æ•°çš„å‚æ•°
+		LPVOID npConText,		// ä¼ é€’ç»™å›è°ƒå‡½æ•°çš„å‚æ•°
+		bool nbStall=false		// ç­‰å¾…è¿”å›æœŸé—´æ˜¯å¦éœ€è¦å¤„ç†åç»­çš„XUIæ¶ˆæ¯ï¼Œå¦‚æœnbStalè®¾ä¸ºtureç¨‹åºå°†ç›´æ¥ç­‰å¾…è¿”å›ï¼Œè€Œä¸å¤„ç†XUIæ¶ˆæ¯å¾ªç¯
+		// ä½¿ç”¨æ­¤æ–¹æ³•å¯ä»¥é¿å…è°ƒç”¨æœ¬æ–¹æ³•æœŸé—´ï¼Œå†æ¬¡é‡å…¥è°ƒç”¨
 		);
 
-	// ×¢²áWindowsÏûÏ¢À¹½Ø£¬Í¨¹ı±¾¹¦ÄÜ¿ÉÒÔÔÚXUIÏµÍ³´¦ÀíWindowsÏûÏ¢Ö®Ç°½ØÈ¡¹Ø×¢µÄWindowsÏûÏ¢
-	// ´¦Àí½ØÈ¡µÄWindowsÏûÏ¢µÄ¹ı³ÌÒª¾¡¿ÉÄÜ¶ÌÔİ¡£
-	// ·µ»ØERESULT_WINMSG_SENDTO_NEXT£¬XUI½«ÏûÏ¢´«µİ¸øÏÂÒ»¸öÀ¹½ØÕß£¬»òÕß½»ÓÉXUIÏµÍ³½âÊÍ´¦Àí£»·µ»ØÆäËûÖµ½«ÖÕÖ¹¸ÃWindowsÏûÏ¢µÄ´«µİ¹ı³ÌÒÔ¼°XUI¶Ô¸ÃÏûÏ¢µÄ´¦Àí
+	// æ³¨å†ŒWindowsæ¶ˆæ¯æ‹¦æˆªï¼Œé€šè¿‡æœ¬åŠŸèƒ½å¯ä»¥åœ¨XUIç³»ç»Ÿå¤„ç†Windowsæ¶ˆæ¯ä¹‹å‰æˆªå–å…³æ³¨çš„Windowsæ¶ˆæ¯
+	// å¤„ç†æˆªå–çš„Windowsæ¶ˆæ¯çš„è¿‡ç¨‹è¦å°½å¯èƒ½çŸ­æš‚ã€‚
+	// è¿”å›ERESULT_WINMSG_SENDTO_NEXTï¼ŒXUIå°†æ¶ˆæ¯ä¼ é€’ç»™ä¸‹ä¸€ä¸ªæ‹¦æˆªè€…ï¼Œæˆ–è€…äº¤ç”±XUIç³»ç»Ÿè§£é‡Šå¤„ç†ï¼›è¿”å›å…¶ä»–å€¼å°†ç»ˆæ­¢è¯¥Windowsæ¶ˆæ¯çš„ä¼ é€’è¿‡ç¨‹ä»¥åŠXUIå¯¹è¯¥æ¶ˆæ¯çš„å¤„ç†
 	virtual ERESULT __stdcall CaptureWindowsMessage(
-		IN UINT nuiWinMsgID,	// Ï£Íû²©»ñµÄWindowsÏûÏ¢µÄID
-		IN IXsElement* npApplicant,	//ÉêÇë»Øµ÷µÄ¶ÔÏó
-		IN PWINMSG_CALLBACK npProcedure	//½«WindowsÏûÏ¢·¢ËÍ¸ø´Ëº¯Êı
+		IN UINT nuiWinMsgID,	// å¸Œæœ›åšè·çš„Windowsæ¶ˆæ¯çš„ID
+		IN IXsElement* npApplicant,	//ç”³è¯·å›è°ƒçš„å¯¹è±¡
+		IN PWINMSG_CALLBACK npProcedure	//å°†Windowsæ¶ˆæ¯å‘é€ç»™æ­¤å‡½æ•°
 		);
 
-	// ²úÉúÒ»¸öÃüÁî£¬´Ë·½·¨Í¨³£ÎªSystemWidgetµÄ²Ëµ¥Ä£¿éµ÷ÓÃ£¬ÓÃÀ´Ä£ÄâÒ»´ÎÓÃ»§°´ÏÂ×éºÏ¼üĞĞÎª£¬¸ÃÃüÁî½«»á±»·¢ËÍÖÁµ±Ç°µÄ¼üÅÌ½¹µãÒÔÉÏµÄ¾ßÓĞEITR_STYLE_COMMANDµÄ¶ÔÏó
+	// äº§ç”Ÿä¸€ä¸ªå‘½ä»¤ï¼Œæ­¤æ–¹æ³•é€šå¸¸ä¸ºSystemWidgetçš„èœå•æ¨¡å—è°ƒç”¨ï¼Œç”¨æ¥æ¨¡æ‹Ÿä¸€æ¬¡ç”¨æˆ·æŒ‰ä¸‹ç»„åˆé”®è¡Œä¸ºï¼Œè¯¥å‘½ä»¤å°†ä¼šè¢«å‘é€è‡³å½“å‰çš„é”®ç›˜ç„¦ç‚¹ä»¥ä¸Šçš„å…·æœ‰EITR_STYLE_COMMANDçš„å¯¹è±¡
 	virtual ERESULT __stdcall GenerateCommand(
 		nes_command::ESCOMMAND neCmd
 		);
 
-	// ÉèÖÃÄ³Ò³³ÉÎªÄ£Ì¬¶Ô»°·½Ê½£¬¼´ÓÃ»§±ØĞëÍê³É¸Ã¶Ô»°£¬´ËÊ±½çÃæÉÏµÄÆäËû²¿·Ö¶¼ÎŞ·¨Ê¹ÓÃ¡£
-	// XUIµÄÄ£Ì¬¶Ô»°·½Ê½ÊÇÈ«¾ÖµÄ£¬´¦ÓÚÄ£Ì¬¶Ô»°ÏÂ£¬ËùÓĞµÄWidget£¨°üÀ¨System Widget)¶¼²»ÄÜÏìÓ¦ÓÃ»§ÊäÈë£»ËùÓĞ£¬¾¡¿ÉÄÜ±ÜÃâÊ¹ÓÃÄ£Ê½¶Ô»°£¬³ı·ÇËüÊÇ±ØĞëµÄ¡£
-	// Ê¹ÓÃ·½·¨ÊÇ£¬Ê×ÏÈ´´½¨Ä£Ê½¶Ô»°µÄÖ÷¶ÔÏó£¨Ä¬ÈÏÒş²Ø)£¬È»ºóµ÷ÓÃ±¾º¯Êı½øÈëÄ£Ì¬¶Ô»°·½Ê½£¬´ËÊ±¸ÃÄ£Ì¬¶Ô»°ÔªËØ¶ÔÏó½«»áÊÕµ½Ò»ÌõEMSG_MODAL_ENTERÏûÏ¢£¬Ëü´¦ÀíÏà¹ØÊÂÎñºó½«×Ô¼ºÏÔÊ¾³öÀ´£»
-	// µ±¸ÃÄ£Ì¬¶Ô»°¶ÔÏóÅĞ¶ÏÓÃ»§Íê³ÉÁË¶Ô»°ºó£¬Òş²Ø×Ô¼º£¬¶øºóExitModalÍË³öÄ£Ì¬¶Ô»°·½Ê½
-	// ×¢Òâ£¬Ä£Ì¬¶Ô»°·½Ê½ÊÇ¿ÉÒÔÖØµş½øÈëµÄ£¬ÔÚÄ£Ì¬¶Ô»°ÏÂ£¬¿ÉÒÔ´ò¿ª×ÓÄ£Ì¬¶Ô»°£¬¶øºóÒ»²ã²ãÍË³ö
+	// è®¾ç½®æŸé¡µæˆä¸ºæ¨¡æ€å¯¹è¯æ–¹å¼ï¼Œå³ç”¨æˆ·å¿…é¡»å®Œæˆè¯¥å¯¹è¯ï¼Œæ­¤æ—¶ç•Œé¢ä¸Šçš„å…¶ä»–éƒ¨åˆ†éƒ½æ— æ³•ä½¿ç”¨ã€‚
+	// XUIçš„æ¨¡æ€å¯¹è¯æ–¹å¼æ˜¯å…¨å±€çš„ï¼Œå¤„äºæ¨¡æ€å¯¹è¯ä¸‹ï¼Œæ‰€æœ‰çš„Widgetï¼ˆåŒ…æ‹¬System Widget)éƒ½ä¸èƒ½å“åº”ç”¨æˆ·è¾“å…¥ï¼›æ‰€æœ‰ï¼Œå°½å¯èƒ½é¿å…ä½¿ç”¨æ¨¡å¼å¯¹è¯ï¼Œé™¤éå®ƒæ˜¯å¿…é¡»çš„ã€‚
+	// ä½¿ç”¨æ–¹æ³•æ˜¯ï¼Œé¦–å…ˆåˆ›å»ºæ¨¡å¼å¯¹è¯çš„ä¸»å¯¹è±¡ï¼ˆé»˜è®¤éšè—)ï¼Œç„¶åè°ƒç”¨æœ¬å‡½æ•°è¿›å…¥æ¨¡æ€å¯¹è¯æ–¹å¼ï¼Œæ­¤æ—¶è¯¥æ¨¡æ€å¯¹è¯å…ƒç´ å¯¹è±¡å°†ä¼šæ”¶åˆ°ä¸€æ¡EMSG_MODAL_ENTERæ¶ˆæ¯ï¼Œå®ƒå¤„ç†ç›¸å…³äº‹åŠ¡åå°†è‡ªå·±æ˜¾ç¤ºå‡ºæ¥ï¼›
+	// å½“è¯¥æ¨¡æ€å¯¹è¯å¯¹è±¡åˆ¤æ–­ç”¨æˆ·å®Œæˆäº†å¯¹è¯åï¼Œéšè—è‡ªå·±ï¼Œè€ŒåExitModalé€€å‡ºæ¨¡æ€å¯¹è¯æ–¹å¼
+	// æ³¨æ„ï¼Œæ¨¡æ€å¯¹è¯æ–¹å¼æ˜¯å¯ä»¥é‡å è¿›å…¥çš„ï¼Œåœ¨æ¨¡æ€å¯¹è¯ä¸‹ï¼Œå¯ä»¥æ‰“å¼€å­æ¨¡æ€å¯¹è¯ï¼Œè€Œåä¸€å±‚å±‚é€€å‡º
 	virtual ERESULT __stdcall DoModal(
-		IEinkuiIterator* npModalElement		// ´ËÔªËØÊÇÄ£Ì¬¶Ô»°µÄÖ÷¶ÔÏó
+		IEinkuiIterator* npModalElement		// æ­¤å…ƒç´ æ˜¯æ¨¡æ€å¯¹è¯çš„ä¸»å¯¹è±¡
 		);
 
 
-	// ÍË³öÄ£Ì¬¶Ô»°·½Ê½
+	// é€€å‡ºæ¨¡æ€å¯¹è¯æ–¹å¼
 	virtual void __stdcall ExitModal(
-		IEinkuiIterator* npModalElement,	// ´ËÔªËØÊÇÄ£Ì¬¶Ô»°µÄÖ÷¶ÔÏó
+		IEinkuiIterator* npModalElement,	// æ­¤å…ƒç´ æ˜¯æ¨¡æ€å¯¹è¯çš„ä¸»å¯¹è±¡
 		ERESULT nuResult
 		);
 
-	// Ö÷´°¿ÚµÄWindowsÏûÏ¢¹ı³Ìº¯Êı
+	// ä¸»çª—å£çš„Windowsæ¶ˆæ¯è¿‡ç¨‹å‡½æ•°
 	static LRESULT CALLBACK MainWindowProc(
 		HWND hWnd,
 		UINT message,
@@ -332,59 +332,59 @@ public:
 		LPARAM lParam
 		);
 
-	// XUI½çÃæ½»»¥Ïß³Ì
+	// XUIç•Œé¢äº¤äº’çº¿ç¨‹
 	static ULONG WINAPI OperationThread(PSTES_START_UP npStartup);
 
-	// Widget¹¤×÷Ïß³ÌµÄÈë¿Ú
+	// Widgetå·¥ä½œçº¿ç¨‹çš„å…¥å£
 	static ULONG WINAPI WidgetWorkThread(LPVOID Context);
 
-	// Õì²âÏß³Ì
+	// ä¾¦æµ‹çº¿ç¨‹
 	static ULONG WINAPI DetermineThread(LPVOID Context);
 
 
-	// ÉêÇë¶¨Ê±Æ÷£¬¶ÔÓÚÓÀ¾Ã´¥·¢µÄ¶¨Ê±Æ÷£¬ĞèÒª×¢Ïú
+	// ç”³è¯·å®šæ—¶å™¨ï¼Œå¯¹äºæ°¸ä¹…è§¦å‘çš„å®šæ—¶å™¨ï¼Œéœ€è¦æ³¨é”€
 	ERESULT SetTimer(
-		IN CXuiIterator* npIterator,// ÉêÇëÕß
-		IN ULONG nuID,	  // ¶¨Ê±Æ÷ID
-		IN ULONG nuRepeat,// ĞèÒªÖØ¸´´¥·¢µÄ´ÎÊı£¬MAXULONG32±íÊ¾ÓÀÔ¶ÖØ¸´
-		IN ULONG nuDuration,	// ´¥·¢ÖÜÆÚ
-		IN void* npContext//ÉÏÏÂÎÄ£¬½«Ëæ×Å¶¨Ê±Æ÷ÏûÏ¢·¢ËÍ¸øÉêÇëÕß
+		IN CXuiIterator* npIterator,// ç”³è¯·è€…
+		IN ULONG nuID,	  // å®šæ—¶å™¨ID
+		IN ULONG nuRepeat,// éœ€è¦é‡å¤è§¦å‘çš„æ¬¡æ•°ï¼ŒMAXULONG32è¡¨ç¤ºæ°¸è¿œé‡å¤
+		IN ULONG nuDuration,	// è§¦å‘å‘¨æœŸ
+		IN void* npContext//ä¸Šä¸‹æ–‡ï¼Œå°†éšç€å®šæ—¶å™¨æ¶ˆæ¯å‘é€ç»™ç”³è¯·è€…
 		);
 
-	// Ïú»Ù¶¨Ê±Æ÷
+	// é”€æ¯å®šæ—¶å™¨
 	ERESULT KillTimer(
-		IN CXuiIterator* npIterator,// ÉêÇëÕß
-		IN ULONG nuID	  // ¶¨Ê±Æ÷ID
+		IN CXuiIterator* npIterator,// ç”³è¯·è€…
+		IN ULONG nuID	  // å®šæ—¶å™¨ID
 		);
 
-	// È·ÈÏµ±Ç°Ïß³ÌÊÇ·ñÊÇ²Ù×÷Ïß³Ì
+	// ç¡®è®¤å½“å‰çº¿ç¨‹æ˜¯å¦æ˜¯æ“ä½œçº¿ç¨‹
 	bool IsRunningInOperationThread(void);
 
-	// È·ÈÏµ±Ç°Ïß³ÌÊÇ·ñÊÇWindows½çÃæÏß³Ì
+	// ç¡®è®¤å½“å‰çº¿ç¨‹æ˜¯å¦æ˜¯Windowsç•Œé¢çº¿ç¨‹
 	bool IsRunningInWindowsUiThread(void);
 
-	// ¼ì²é²¢ÇÒÖ´ĞĞWindowsÏß³ÌµÄCallbackÇëÇó£¬±¾º¯ÊıÖ»ÄÜ±»Ö´ĞĞÓëWindowsÏß³ÌÖĞµÄ»á×èÈû×¡WindowsÏß³ÌµÄµØ·½µ÷ÓÃ
+	// æ£€æŸ¥å¹¶ä¸”æ‰§è¡ŒWindowsçº¿ç¨‹çš„Callbackè¯·æ±‚ï¼Œæœ¬å‡½æ•°åªèƒ½è¢«æ‰§è¡Œä¸Windowsçº¿ç¨‹ä¸­çš„ä¼šé˜»å¡ä½Windowsçº¿ç¨‹çš„åœ°æ–¹è°ƒç”¨
 	// returns false if we got wm_quit message
 	bool RunWindowsUICallback(void);
 
-	// »ñµÃÔªËØ¹ÜÀíÆ÷¶ÔÏó
+	// è·å¾—å…ƒç´ ç®¡ç†å™¨å¯¹è±¡
 	CXelManager* GetElementManagerObject(void){
 		return mpElementManager;
 	}
 
-	// »ñµÃImeÉÏÏÂÎÄ¶ÔÏó
+	// è·å¾—Imeä¸Šä¸‹æ–‡å¯¹è±¡
 	CXsImeContext* GetImeContext(void){
 		return mpImeContext;
 	}
 
-	// »ñµÃäÖÈ¾½×¶Î
+	// è·å¾—æ¸²æŸ“é˜¶æ®µ
 	CEinkuiSystem::ERENDER_STEP GetRenderStep(void);
 
 	bool IsOptLocked(void){
 		return mbLocked;
 	}
 
-	// ÍË³öÕû¸öXUIÏµÍ³
+	// é€€å‡ºæ•´ä¸ªXUIç³»ç»Ÿ
 	virtual void __stdcall ExitXui(void);
 
 	virtual void __stdcall SystemTest(ULONG nuValue);
@@ -398,21 +398,21 @@ public:
 		return moAllBrushes;
 	}
 
-	// »ñµÃ×îÇ°ÃæµÄÄ£Ì¬´°¿Ú
+	// è·å¾—æœ€å‰é¢çš„æ¨¡æ€çª—å£
 	IEinkuiIterator* GetTopModalElement(void);
 
-	//// ÉèÖÃÉÁË¸DomodalµÄ´°¿Ú
+	//// è®¾ç½®é—ªçƒDomodalçš„çª—å£
 	//void FlashModalElement(IEinkuiIterator* npDodal);
-	//±¾´Î²Ù×÷ÊÇ·ñÊÇTOUCH²Ù×÷
+	//æœ¬æ¬¡æ“ä½œæ˜¯å¦æ˜¯TOUCHæ“ä½œ
 	virtual bool __stdcall IsTouch(void);
 public:
-	// ´´½¨½¥±ä»­Ë¢
+	// åˆ›å»ºæ¸å˜ç”»åˆ·
 	virtual IEinkuiBrush* __stdcall CreateBrush(
 		XuiBrushType niBrushType,
 		D2D1_COLOR_F noColor
 		);
 
-	// ½¥±ä»­Ë¢Ê±£¬ĞèÒª´«Èë¶à¸öÑÕÉ«µã
+	// æ¸å˜ç”»åˆ·æ—¶ï¼Œéœ€è¦ä¼ å…¥å¤šä¸ªé¢œè‰²ç‚¹
 	virtual IEinkuiBrush* __stdcall CreateBrush(
 		XuiBrushType niBrushType, 
 		D2D1_GRADIENT_STOP* npGradientStop, ULONG nuCount, 
@@ -421,17 +421,17 @@ public:
 
 
 public:
-	// Î¨Ò»ÊµÀı
+	// å”¯ä¸€å®ä¾‹
 	static CEinkuiSystem* gpXuiSystem;
 
 
 protected:
-	// ÄÚ²¿±äÁ¿
-	// Í¼ĞÎÒıÇæ½Ó¿Ú
+	// å†…éƒ¨å˜é‡
+	// å›¾å½¢å¼•æ“æ¥å£
 	CXD2dEngine* mpXuiGraphics;
-	// »æÍ¼×ÊÔ´»ùÀàÖ¸Õë
+	// ç»˜å›¾èµ„æºåŸºç±»æŒ‡é’ˆ
 	IEinkuiPaintResouce* mpPaintResource;
-	// EINKÉè±¸ĞÅÏ¢
+	// EINKè®¾å¤‡ä¿¡æ¯
 	EI_SYSTEM_INFO mdEinkInfo;
 	ULONG muAutoRotate;
 
@@ -448,47 +448,47 @@ protected:
 
 	CXelManager* mpElementManager;
 
-	// ¶¨Ê±Æ÷
+	// å®šæ—¶å™¨
 	TEsTimerSequence moTimers;
 	CExclusiveAccess moTimerListLock;
 	STEMG_LAZY_UPDATE mdLazyUpdate;
 
-	// widget¿ØÖÆ
+	// widgetæ§åˆ¶
 	//TEsWidgetStack moWidgetContext;
-	CXsWgtContext moWidgetContext;	// ²Ù×÷Ïß³ÌµÄWidgetÖ´ĞĞÕ»
-	TEsWidgetVector moAllWidgets;	// È«²¿Widget
-	TEsThreadSequence moWidgetWorkThreads;	// È«²¿¹¤×÷Ïß³Ì
-	ULONG muOperationThreadID;	// ²Ù×÷Ïß³Ì
+	CXsWgtContext moWidgetContext;	// æ“ä½œçº¿ç¨‹çš„Widgetæ‰§è¡Œæ ˆ
+	TEsWidgetVector moAllWidgets;	// å…¨éƒ¨Widget
+	TEsThreadSequence moWidgetWorkThreads;	// å…¨éƒ¨å·¥ä½œçº¿ç¨‹
+	ULONG muOperationThreadID;	// æ“ä½œçº¿ç¨‹
 	CExclusiveAccess moWidgetLock;
 
-	// ²Ù×÷Ïß³Ì¾ä±ú
+	// æ“ä½œçº¿ç¨‹å¥æŸ„
 	HANDLE mhOperationThread;
 	bool mbThreadKilled;
 	bool mbFirstRun;
-	bool mbLocked;	// ÏÖÔÚ¼òµ¥µØÓÃÒ»¸ö±äÁ¿À´±íÊ¾£¬µ±Windows½»»¥Ïß³Ì·¢ÏÖ¸Ã±äÁ¿±»ÉèÖÃÊ±£¬¼´¼Ù¶¨²Ù×÷Ïß³Ì±»½»»¥Ïß³ÌËø¶¨ÔÚÏÈ¡£½«À´ĞŞ¸Ä£¬µ±ÆäËûÏß³ÌÅĞ¶ÏÊ±¾Í¿ÉÄÜ³ö´íÁË
+	bool mbLocked;	// ç°åœ¨ç®€å•åœ°ç”¨ä¸€ä¸ªå˜é‡æ¥è¡¨ç¤ºï¼Œå½“Windowsäº¤äº’çº¿ç¨‹å‘ç°è¯¥å˜é‡è¢«è®¾ç½®æ—¶ï¼Œå³å‡å®šæ“ä½œçº¿ç¨‹è¢«äº¤äº’çº¿ç¨‹é”å®šåœ¨å…ˆã€‚å°†æ¥ä¿®æ”¹ï¼Œå½“å…¶ä»–çº¿ç¨‹åˆ¤æ–­æ—¶å°±å¯èƒ½å‡ºé”™äº†
 
-	// ÔËĞĞÕì²â
+	// è¿è¡Œä¾¦æµ‹
 	HANDLE mhExitDetermine;
 
-	// ·ÖÅäÆ÷
+	// åˆ†é…å™¨
 	CXelAllocator* mpAllocator;
 
-	// »æÖÆ¿ØÖÆ
+	// ç»˜åˆ¶æ§åˆ¶
 	volatile LONG miDisableRender;
 	volatile LONG miToRender;
 	volatile LONG miDiscardRenderMessage;
 	volatile LONG miRefreshEink;
-	volatile ULONG muRenderTick;		// ×î½üÒ»´ÎäÖÈ¾µÄTickCount
-	volatile LONG miLostToRender;	// ÒòÎªÃ»ÓĞ»æÖÆÒªÇó£¬Àë×î½üÒ»´Î»æÖÆÈ±Ê§µÄÖ¡Êı
-	//ULONG muAutoRenderInterval;	// ×Ô¶¯»æÖÆ¼ä¸ô
-	volatile LONG miMissedMouseTest;	// ×î½üÒ»´Î»æÖÆºó¶øÃ»ÓĞÊÕµ½Êó±êÏûÏ¢µÄ¶¨Ê±Æ÷´ïµ½´ÎÊı£¬Ò»¶¨ÊıÁ¿ºó¾ÍĞèÒª¼ì²âÊó±ê
-	//ULONG muRecentRenderTick;	// ×î½üÒ»´Î»æÖÆµÄÊ±¼äµã
-	//ULONG muNextRenderTick;		// ÏÂÒ»´Î»æÖÆµÄÊ±¼äµã
+	volatile ULONG muRenderTick;		// æœ€è¿‘ä¸€æ¬¡æ¸²æŸ“çš„TickCount
+	volatile LONG miLostToRender;	// å› ä¸ºæ²¡æœ‰ç»˜åˆ¶è¦æ±‚ï¼Œç¦»æœ€è¿‘ä¸€æ¬¡ç»˜åˆ¶ç¼ºå¤±çš„å¸§æ•°
+	//ULONG muAutoRenderInterval;	// è‡ªåŠ¨ç»˜åˆ¶é—´éš”
+	volatile LONG miMissedMouseTest;	// æœ€è¿‘ä¸€æ¬¡ç»˜åˆ¶åè€Œæ²¡æœ‰æ”¶åˆ°é¼ æ ‡æ¶ˆæ¯çš„å®šæ—¶å™¨è¾¾åˆ°æ¬¡æ•°ï¼Œä¸€å®šæ•°é‡åå°±éœ€è¦æ£€æµ‹é¼ æ ‡
+	//ULONG muRecentRenderTick;	// æœ€è¿‘ä¸€æ¬¡ç»˜åˆ¶çš„æ—¶é—´ç‚¹
+	//ULONG muNextRenderTick;		// ä¸‹ä¸€æ¬¡ç»˜åˆ¶çš„æ—¶é—´ç‚¹
 
-	// Windows Ïß³Ì»Øµ÷¿ØÖÆ
-	ULONG muWinThreadID;	// Windows½»»¥Ïß³Ì
-	UINT muiCustomWinMsg;// WinUI×Ô¶¨ÒåÏûÏ¢
-	CXsWgtContext moWinWgtContext;	// Windows½»»¥Ïß³ÌÏß³ÌµÄWidgetÖ´ĞĞÕ»
+	// Windows çº¿ç¨‹å›è°ƒæ§åˆ¶
+	ULONG muWinThreadID;	// Windowsäº¤äº’çº¿ç¨‹
+	UINT muiCustomWinMsg;// WinUIè‡ªå®šä¹‰æ¶ˆæ¯
+	CXsWgtContext moWinWgtContext;	// Windowsäº¤äº’çº¿ç¨‹çº¿ç¨‹çš„Widgetæ‰§è¡Œæ ˆ
 	CExclusiveAccess moWinThreadLock;
 	LONG mlWinCallBack;
 	//ULONG muWinUiCallBackID;
@@ -496,19 +496,19 @@ protected:
 	CXuiThreadBlock moThreadBlock;
 	CXuiModalStack moModalStack;
 
-	// Windows ÏûÏ¢²¶»ñ
+	// Windows æ¶ˆæ¯æ•è·
 	TEsWsgCaptor moCaptors;
 	CExclusiveAccess moCaptorLock;
 
-	// Êó±ê
+	// é¼ æ ‡
 	USHORT msuWinCap;
 	// IME
 	CXsImeContext* mpImeContext;
 
-	//ÊÇ·ñ×Ô¶¯Èí¼üÅÌµÄ¶ÔÏó
+	//æ˜¯å¦è‡ªåŠ¨è½¯é”®ç›˜çš„å¯¹è±¡
 	bool mbIsTouch;
 
-	//±£´æÈÎÎñÀ¸Ô¤ÀÀÍ¼Ïñ£¬µ±³ÌĞò×îĞ¡»¯»òÒş²ØÊ±Ê¹ÓÃ
+	//ä¿å­˜ä»»åŠ¡æ é¢„è§ˆå›¾åƒï¼Œå½“ç¨‹åºæœ€å°åŒ–æˆ–éšè—æ—¶ä½¿ç”¨
 	HBITMAP mpSmallPreView;
 	HBITMAP mpBigPreView;
 
@@ -517,72 +517,72 @@ protected:
 
 	DEFINE_CUMSTOMIZE_CREATE(CEinkuiSystem,(),())
 
-	// ³õÊ¼»¯º¯Êı£¬¿ÉÒÔÊµÏÖ¸÷ÖÖ²»Í¬²ÎÊıµÄ³õÊ¼»¯º¯Êı£¬×¢Òâ£¬ÅÉÉúÀàÖØÔØInitOnCreateº¯Êıºó£¬Ò»¶¨Òªµ÷ÓÃ»ùÀàµÄInitOnCreateº¯Êı
-	// ·µ»Ø0±íÊ¾³É¹¦£»·µ»ØÖµ×î¸ßÎ»Îª1±íÊ¾·¢ÉúÑÏÖØ´íÎó£¬Ó¦¸ÃÖÕÖ¹³õÊ¼»¯¹ı³Ì£¬·µ»ØµÄ¾ÍÊÇ´íÎóÂë£»·µ»ØÆäËûÖµ±íÊ¾ÆäËû·Ç´íÎó·µ»ØÂë
+	// åˆå§‹åŒ–å‡½æ•°ï¼Œå¯ä»¥å®ç°å„ç§ä¸åŒå‚æ•°çš„åˆå§‹åŒ–å‡½æ•°ï¼Œæ³¨æ„ï¼Œæ´¾ç”Ÿç±»é‡è½½InitOnCreateå‡½æ•°åï¼Œä¸€å®šè¦è°ƒç”¨åŸºç±»çš„InitOnCreateå‡½æ•°
+	// è¿”å›0è¡¨ç¤ºæˆåŠŸï¼›è¿”å›å€¼æœ€é«˜ä½ä¸º1è¡¨ç¤ºå‘ç”Ÿä¸¥é‡é”™è¯¯ï¼Œåº”è¯¥ç»ˆæ­¢åˆå§‹åŒ–è¿‡ç¨‹ï¼Œè¿”å›çš„å°±æ˜¯é”™è¯¯ç ï¼›è¿”å›å…¶ä»–å€¼è¡¨ç¤ºå…¶ä»–éé”™è¯¯è¿”å›ç 
 	ULONG InitOnCreate(void);
 
-	// ×¢²áËùÓĞ¹«¹²ÏûÏ¢
+	// æ³¨å†Œæ‰€æœ‰å…¬å…±æ¶ˆæ¯
 	bool RegisterCommonWindowsMessage(void);
 
-	// ½¨Á¢´°¿Ú
+	// å»ºç«‹çª—å£
 	ERESULT CreateMainWnd(
-		IN int niX,		// Ö÷´°¿ÚÔÚÆÁÄ»ÉÏµÄ×óÉÏ½ÇX×ø±ê
-		IN int niY,		// Ö÷´°¿ÚÔÚÆÁÄ»ÉÏµÄ×óÉÏ½ÇY×ø±ê
-		IN int niWidth,		// Ö÷´°¿ÚÔÚÆÁÄ»ÉÏµÄ¿í¶È
-		IN int niHeight,	// Ö÷´°¿ÚÔÚÆÁÄ»ÉÏµÄ¸ß¶È
-		IN const wchar_t* nswWndTittle		// Ö÷´°¿Ú±êÌâ
+		IN int niX,		// ä¸»çª—å£åœ¨å±å¹•ä¸Šçš„å·¦ä¸Šè§’Xåæ ‡
+		IN int niY,		// ä¸»çª—å£åœ¨å±å¹•ä¸Šçš„å·¦ä¸Šè§’Yåæ ‡
+		IN int niWidth,		// ä¸»çª—å£åœ¨å±å¹•ä¸Šçš„å®½åº¦
+		IN int niHeight,	// ä¸»çª—å£åœ¨å±å¹•ä¸Šçš„é«˜åº¦
+		IN const wchar_t* nswWndTittle		// ä¸»çª—å£æ ‡é¢˜
 		);
 
-	// Windows½çÃæÏß³Ì£¬Ö÷Ñ­»·
+	// Windowsç•Œé¢çº¿ç¨‹ï¼Œä¸»å¾ªç¯
 	int HostThreadLoop();
 
-	// Æô¶¯»æÖÆ¶¨Ê±Æ÷
+	// å¯åŠ¨ç»˜åˆ¶å®šæ—¶å™¨
 	void EnableRender(void);
 
-	// ÖÕÖ¹»æÖÆ¶¨Ê±Æ÷
+	// ç»ˆæ­¢ç»˜åˆ¶å®šæ—¶å™¨
 	void DisableRender(void);
 
 
-	// ´¦ÀíWindows WM_CREATEÏûÏ¢
+	// å¤„ç†Windows WM_CREATEæ¶ˆæ¯
 	LRESULT WsgOnCreate(HWND nhWindow);
 
-	// ²éÕÒ»òÕßÉ¾³ıÒ»¸ö¶¨Ê±Æ÷£¬¹©¶¨Ê±Æ÷´¦Àíº¯ÊıÄÚ²¿µ÷ÓÃ
+	// æŸ¥æ‰¾æˆ–è€…åˆ é™¤ä¸€ä¸ªå®šæ—¶å™¨ï¼Œä¾›å®šæ—¶å™¨å¤„ç†å‡½æ•°å†…éƒ¨è°ƒç”¨
 	bool FindTimer(
-		IN CXuiIterator* npIterator,// ÉêÇëÕß
-		IN ULONG nuID,	  // ¶¨Ê±Æ÷ID£¬²»ÄÜÎª0
-		IN bool nbDelete=false	// ÊÇ·ñÉ¾³ı
+		IN CXuiIterator* npIterator,// ç”³è¯·è€…
+		IN ULONG nuID,	  // å®šæ—¶å™¨IDï¼Œä¸èƒ½ä¸º0
+		IN bool nbDelete=false	// æ˜¯å¦åˆ é™¤
 		);
 
-	// ´Ó¶¨Ê±Æ÷¶ÓÁĞÖĞÈ¡×î½üÒ»¸ö¿ÉÄÜ¼¤·¢µÄÊ±¼ä¼ä¸ô£¬tick£¨ºÁÃë£©Îªµ¥Î»
+	// ä»å®šæ—¶å™¨é˜Ÿåˆ—ä¸­å–æœ€è¿‘ä¸€ä¸ªå¯èƒ½æ¿€å‘çš„æ—¶é—´é—´éš”ï¼Œtickï¼ˆæ¯«ç§’ï¼‰ä¸ºå•ä½
 	ULONG GetTickCountToKickTimer(ULONG nuCrtTick);
 
-	// ¶¨Ê±Æ÷¼¤·¢²âÊÔ
+	// å®šæ—¶å™¨æ¿€å‘æµ‹è¯•
 	void KickTimers(ULONG nuCrtTick);
 
-	// Æô¶¯²Ù×÷Ïß³Ì
+	// å¯åŠ¨æ“ä½œçº¿ç¨‹
 	ERESULT ExecuteOperationThread(PSTES_START_UP npCreate);
 
 	ERESULT ExecuteDetermineThread(LPVOID Context);
 
-	// ÓÃÓÚ½ÓÊÕËùÓĞ·¢ËÍ¸øÏµÍ³µÄÏûÏ¢
+	// ç”¨äºæ¥æ”¶æ‰€æœ‰å‘é€ç»™ç³»ç»Ÿçš„æ¶ˆæ¯
 	ERESULT SystemMessageReceiver(IEinkuiMessage* npMsg);
 
-	// ¶¨Ê±Æ÷ÏûÏ¢
+	// å®šæ—¶å™¨æ¶ˆæ¯
 	ERESULT OnMsgTimer(const PSTEMS_TIMER npTimerInput);
 
-	// ¼ì²é²Ù×÷Ïß³ÌÔËĞĞ×´Ì¬
+	// æ£€æŸ¥æ“ä½œçº¿ç¨‹è¿è¡ŒçŠ¶æ€
 	void DetermineOPRunming(void);
 
-	// »Øµ÷ÉêÇëÕßµÄº¯Êı£¬³É¹¦ºó¸ø²Ù×÷Ïß³Ì·¢ËÍ»Ö¸´ÏûÏ¢
+	// å›è°ƒç”³è¯·è€…çš„å‡½æ•°ï¼ŒæˆåŠŸåç»™æ“ä½œçº¿ç¨‹å‘é€æ¢å¤æ¶ˆæ¯
 	void CallClientProcedure(PSTES_WINTHREAD_CALLBACK npToCall);
 
-	// ²Ù×÷Ïß³ÌÏûÏ¢´¦ÀíÑ­»·
+	// æ“ä½œçº¿ç¨‹æ¶ˆæ¯å¤„ç†å¾ªç¯
 	ERESULT OpThreadMessageLoop(ULONG nuBlockID);
 
-	// ÂıË¢ĞÂ·¢ËÍÔ¤´¦Àí
+	// æ…¢åˆ·æ–°å‘é€é¢„å¤„ç†
 	ERESULT __stdcall EnterForLazyUpdate(IEinkuiIterator* npRecipient);
 
-	// ÂıË¢ĞÂ·¢ËÍºó´¦Àí
+	// æ…¢åˆ·æ–°å‘é€åå¤„ç†
 	ERESULT __stdcall LeaveForLazyUpdate(IEinkuiIterator* npRecipient);
 
 	ERESULT DoCapture(
@@ -593,22 +593,22 @@ protected:
 		HRESULT& rWinResult
 		);
 
-	// ÊÕµ½Windows MouseÏûÏ¢
+	// æ”¶åˆ°Windows Mouseæ¶ˆæ¯
 	void OnWinMouse(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-	// ÊÕµ½Eink TouchÏûÏ¢
+	// æ”¶åˆ°Eink Touchæ¶ˆæ¯
 	void OnEinkTouch(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 
-	// ÉèÖÃwindowsÊó±ê²¶»ñ
+	// è®¾ç½®windowsé¼ æ ‡æ•è·
 	void SetWinMouseCapture(USHORT nsuFlag);
 
-	// ÊÍ·ÅwindowsÊó±ê²¶»ñ
+	// é‡Šæ”¾windowsé¼ æ ‡æ•è·
 	void ReleaseWinMouseCapture(USHORT nsuFlag);
 
 	void WsgOnGetMinMaxInfo(MINMAXINFO *pMinMaxInfo);
 
-	//void WsgOnSettingChanged();	discarded by ax mar.03,2013 È¥µô×Ô¶¯³ß´ç¸Ä±äµÄ¹¦ÄÜ
+	//void WsgOnSettingChanged();	discarded by ax mar.03,2013 å»æ‰è‡ªåŠ¨å°ºå¯¸æ”¹å˜çš„åŠŸèƒ½
 
 	//ERESULT __stdcall CorrectMainWindowSize(ULONG nuFlag,LPVOID npContext);
 
@@ -618,13 +618,13 @@ protected:
 
 	void EndXui(void);
 
-	// Ö÷´°¿ÚµÄWindowsÏûÏ¢¹ı³Ìº¯Êı
+	// ä¸»çª—å£çš„Windowsæ¶ˆæ¯è¿‡ç¨‹å‡½æ•°
 	LRESULT MessageFromXuiToWindowUi(
 		WPARAM wParam,
 		LPARAM lParam
 		);
 
-	// ÏµÍ³»æÖÆ¹ı³Ì
+	// ç³»ç»Ÿç»˜åˆ¶è¿‡ç¨‹
 	void RenderProcedule(ULONG nuCrtTick);
 
 };
@@ -635,7 +635,7 @@ protected:
 
 
 
-// Æô¶¯¹¤×÷Ïß³ÌÓÃÉÏÏÂÎÄ²ÎÊı
+// å¯åŠ¨å·¥ä½œçº¿ç¨‹ç”¨ä¸Šä¸‹æ–‡å‚æ•°
 struct _STES_CREATE_THREAD{
 	IXsWidget* Widget;
 	LPTHREAD_START_ROUTINE ThreadProc;

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -23,7 +23,7 @@ CZoomControlToolbarTxt::~CZoomControlToolbarTxt(void)
 {
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CZoomControlToolbarTxt::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -45,9 +45,9 @@ ERESULT CZoomControlToolbarTxt::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 ULONG CZoomControlToolbarTxt::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -55,13 +55,13 @@ ULONG CZoomControlToolbarTxt::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
 
-		//»ñÈ¡¶ÔÏñ¾ä±ú
+		//è·å–å¯¹åƒå¥æŸ„
 		
 		mpIterBtAdd = mpIterator->GetSubElementByID(ZCT_BT_ADD);
 		BREAK_ON_NULL(mpIterBtAdd);
@@ -77,7 +77,7 @@ ULONG CZoomControlToolbarTxt::InitOnCreate(
 
 	CMM_SAFE_RELEASE(lpSubKey);
 
-	// ÏòÏµÍ³×¢²áĞèÒªÊÕµ½µÄÏûÏ¢
+	// å‘ç³»ç»Ÿæ³¨å†Œéœ€è¦æ”¶åˆ°çš„æ¶ˆæ¯
 	return leResult;
 }
 
@@ -86,7 +86,7 @@ void CZoomControlToolbarTxt::SetFontsize(DWORD ldwFontSizeIndex)
 	mdwFontSizeIndex = ldwFontSizeIndex;
 }
 
-//°´Å¥µ¥»÷ÊÂ¼ş
+//æŒ‰é’®å•å‡»äº‹ä»¶
 ERESULT CZoomControlToolbarTxt::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 
@@ -99,14 +99,14 @@ ERESULT CZoomControlToolbarTxt::OnCtlButtonClick(IEinkuiIterator* npSender)
 		{
 		case ZCT_BT_ADD:
 		{
-			//·Å´ó
+			//æ”¾å¤§
 			SetLevel(true);
 
 			break;
 		}
 		case ZCT_BT_SUB:
 		{
-			//ËõĞ¡
+			//ç¼©å°
 			SetLevel(false);
 
 			break;
@@ -123,7 +123,7 @@ ERESULT CZoomControlToolbarTxt::OnCtlButtonClick(IEinkuiIterator* npSender)
 	return lResult;
 }
 
-//³õÊ¼»¯×Ô¼º
+//åˆå§‹åŒ–è‡ªå·±
 void CZoomControlToolbarTxt::initData(void)
 {
 	//mpIterBtSub->SetEnable(mdwFontSizeIndex <= 0?false:true);
@@ -131,16 +131,16 @@ void CZoomControlToolbarTxt::initData(void)
 	//mpIterBtAdd->SetEnable(mdwFontSizeIndex >= ZCT_FONTSIZE_LEVEL-1 ? false : true);
 }
 
-//ÉèÖÃ·Å´ó¼¶±ğ
+//è®¾ç½®æ”¾å¤§çº§åˆ«
 void CZoomControlToolbarTxt::SetLevel(bool nbIsAdd)
 {
 	do
 	{
 		if (nbIsAdd == false)
 		{
-			//½µµÍ
+			//é™ä½
 			if (mdwFontSizeIndex <= 0)
-				break; //ÒÑ¾­ÊÇ×îµÍÁË
+				break; //å·²ç»æ˜¯æœ€ä½äº†
 
 			--mdwFontSizeIndex;
 			/*if (--mdwFontSizeIndex <= 0)
@@ -150,9 +150,9 @@ void CZoomControlToolbarTxt::SetLevel(bool nbIsAdd)
 		}
 		else
 		{
-			//Ôö¼Ó
+			//å¢åŠ 
 			if (mdwFontSizeIndex >= ZCT_FONTSIZE_LEVEL - 1)
-				break; //ÒÑ¾­ÊÇ×î¸ßÁË
+				break; //å·²ç»æ˜¯æœ€é«˜äº†
 
 			++mdwFontSizeIndex;
 			/*if (++mdwFontSizeIndex >= ZCT_FONTSIZE_LEVEL - 1)
@@ -166,7 +166,7 @@ void CZoomControlToolbarTxt::SetLevel(bool nbIsAdd)
 	} while (false);
 }
 
-//ÏûÏ¢´¦Àíº¯Êı
+//æ¶ˆæ¯å¤„ç†å‡½æ•°
 ERESULT CZoomControlToolbarTxt::ParseMessage(IEinkuiMessage* npMsg)
 {
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
@@ -175,7 +175,7 @@ ERESULT CZoomControlToolbarTxt::ParseMessage(IEinkuiMessage* npMsg)
 	{
 	case EMSG_MODAL_ENTER:
 	{
-		//// ´´½¨Òªµ¯³öµÄ¶Ô»°¿ò
+		//// åˆ›å»ºè¦å¼¹å‡ºçš„å¯¹è¯æ¡†
 		//mpIterator->SetVisible(true);
 		luResult = ERESULT_SUCCESS;
 		break;
@@ -187,13 +187,13 @@ ERESULT CZoomControlToolbarTxt::ParseMessage(IEinkuiMessage* npMsg)
 
 	if (luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CZoomControlToolbarTxt::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
@@ -201,7 +201,7 @@ void CZoomControlToolbarTxt::OnTimer(
 
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CZoomControlToolbarTxt::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	
@@ -209,7 +209,7 @@ ERESULT CZoomControlToolbarTxt::OnElementResized(D2D1_SIZE_F nNewSize)
 }
 
 
-//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òş²Ø¡¿·¢Éú¸Ä±ä
+//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 ERESULT CZoomControlToolbarTxt::OnElementShow(bool nbIsShow)
 {
 	//EiSetHomebarStatus(nbIsShow == false ? GI_HOMEBAR_SHOW : GI_HOMEBAR_HIDE);

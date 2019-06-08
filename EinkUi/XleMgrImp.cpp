@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -22,7 +22,7 @@ CXelManager::CXelManager()
 {
 	moIteratorRoot.gpElementManager = this;
 	moIteratorRoot.mpElement = &moElementRoot;
-	moIteratorRoot.mpParent = &moIteratorRoot;	// ¸¸ÔªËØµÈÓÚ×ÔÉí
+	moIteratorRoot.mpParent = &moIteratorRoot;	// çˆ¶å…ƒç´ ç­‰äºè‡ªèº«
 
 	moIteratorVerification.Insert(&moIteratorRoot);
 
@@ -56,7 +56,7 @@ CXelManager::CXelManager()
 
 CXelManager::~CXelManager()
 {
-	// ??? ÊÍ·Åµü´úÆ÷Ê÷
+	// ??? é‡Šæ”¾è¿­ä»£å™¨æ ‘
 	if (mpDesktopIterator != NULL)
 		mpDesktopIterator->KRelease();
 
@@ -69,7 +69,7 @@ CXelManager::~CXelManager()
 	}
 }
 
-// ÉèÖÃ¸ùÔªËØµÄWidgetÊôĞÔ£¬¼´System Widget
+// è®¾ç½®æ ¹å…ƒç´ çš„Widgetå±æ€§ï¼Œå³System Widget
 void CXelManager::SetRootWidget(IXsWidget* npWidget)
 {
 	moIteratorLock.Enter();
@@ -84,25 +84,25 @@ ULONG CXelManager::InitOnCreate(void)
 	if(mhMessageInserted == NULL)
 		return ERESULT_UNSUCCESSFUL;
 
-	// ÔÊĞí¸ù¶ÔÏó½ÓÊÜÏûÏ¢
+	// å…è®¸æ ¹å¯¹è±¡æ¥å—æ¶ˆæ¯
 	moIteratorRoot.SetFlags(EITR_FLAG_INIT);
 
 	return ERESULT_SUCCESS;
 }
 
-// µÈ´ıÏûÏ¢ÆìÓï£¬ÄÚ²¿½«µ÷ÓÃWaitForSingleObjectµÈ´ıÆìÓï£¬·µ»ØÖµÍ¬WaitForSingleObjectÒ»ÖÂ
+// ç­‰å¾…æ¶ˆæ¯æ——è¯­ï¼Œå†…éƒ¨å°†è°ƒç”¨WaitForSingleObjectç­‰å¾…æ——è¯­ï¼Œè¿”å›å€¼åŒWaitForSingleObjectä¸€è‡´
 ULONG CXelManager::WaitMessageReach(ULONG nuMilliseconds)
 {
 	return WaitForSingleObject(mhMessageInserted,nuMilliseconds);
 }
 
 
-// ÏòÏµÍ³¹ÜÀíÆ÷×¢²áÒ»¸öElement£¬·µ»Øµü´úÆ÷¶ÔÏó£»Ê§°Ü·µ»ØNULL
-// ³É¹¦·µ»ØµÄ½Ó¿Ú¶ÔÏó£¬²»Ê¹ÓÃÊ±ĞèÒªÊÍ·Å
+// å‘ç³»ç»Ÿç®¡ç†å™¨æ³¨å†Œä¸€ä¸ªElementï¼Œè¿”å›è¿­ä»£å™¨å¯¹è±¡ï¼›å¤±è´¥è¿”å›NULL
+// æˆåŠŸè¿”å›çš„æ¥å£å¯¹è±¡ï¼Œä¸ä½¿ç”¨æ—¶éœ€è¦é‡Šæ”¾
 IEinkuiIterator* __stdcall CXelManager::RegisterElement(
-	IN IEinkuiIterator* npParent,	// ¸¸ÔªËØµÄµü´úÆ÷
-	IN IXsElement* npElement,	// ´ı×¢²áµÄ×ÓÔªËØ
-	IN ULONG nuEID	// ±¾ÔªËØµÄEID£¬ÔÚÍ¬Ò»¸ö¸¸ÔªËØÏÂ£¬¸÷×ÓÔªËØµÄEID±ØĞëÎ¨Ò»£¬Èç¹û²»¹ØĞÄEID£¬ÇëÉèÖÃ=0£¬ÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å…ƒç´ çš„è¿­ä»£å™¨
+	IN IXsElement* npElement,	// å¾…æ³¨å†Œçš„å­å…ƒç´ 
+	IN ULONG nuEID	// æœ¬å…ƒç´ çš„EIDï¼Œåœ¨åŒä¸€ä¸ªçˆ¶å…ƒç´ ä¸‹ï¼Œå„å­å…ƒç´ çš„EIDå¿…é¡»å”¯ä¸€ï¼Œå¦‚æœä¸å…³å¿ƒEIDï¼Œè¯·è®¾ç½®=0ï¼Œç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	CXuiIterator* lpNewItr=NULL;
@@ -114,7 +114,7 @@ IEinkuiIterator* __stdcall CXelManager::RegisterElement(
 
 	do 
 	{
-		// ¼ì²é¸¸µü´úÆ÷ÊÇ·ñºÏ·¨
+		// æ£€æŸ¥çˆ¶è¿­ä»£å™¨æ˜¯å¦åˆæ³•
 		if(moIteratorVerification.Find(npParent)== moIteratorVerification.End())
 			break;
 
@@ -132,16 +132,16 @@ IEinkuiIterator* __stdcall CXelManager::RegisterElement(
 
 		CXuiIterator* lpFarther = dynamic_cast<CXuiIterator*>(npParent);
 
-		// ÏÈ²åÈëÎ²²¿
+		// å…ˆæ’å…¥å°¾éƒ¨
 		if(ERESULT_FAILED(lpFarther->AddSubElement(lpNewItr)))
 			break;
 
-		// ¼ÓÈëÑéÖ¤¿â
+		// åŠ å…¥éªŒè¯åº“
 		moIteratorVerification.Insert(lpNewItr);
 
-		// ¼ì²éÊÇ²»ÊÇWidgetµÄhomepage
+		// æ£€æŸ¥æ˜¯ä¸æ˜¯Widgetçš„homepage
 		if(lpCrtWidget->GetHomePage() == NULL)
-		{	// ÊÇµ±Ç°Widget×¢²áµÄµÚÒ»¸öElement£¬ÄÇÒ»¶¨ÊÇhomepage
+		{	// æ˜¯å½“å‰Widgetæ³¨å†Œçš„ç¬¬ä¸€ä¸ªElementï¼Œé‚£ä¸€å®šæ˜¯homepage
 			CXsWidget* lpWidgetObj = dynamic_cast<CXsWidget*>(lpCrtWidget);
 			lpWidgetObj->SetHomePage(lpNewItr);
 			lpNewItr->SetWidgetHomeFlag(true);
@@ -151,20 +151,20 @@ IEinkuiIterator* __stdcall CXelManager::RegisterElement(
 
 		lpReturn = dynamic_cast<IEinkuiIterator*>(lpNewItr);
 
-		// ·¢ËÍ±»½¨Á¢ÏûÏ¢
+		// å‘é€è¢«å»ºç«‹æ¶ˆæ¯
 		luResult = CExMessage::PostMessage(lpNewItr,NULL,EMSG_CREATE,lpReturn,EMSG_POSTTYPE_REVERSE);
 
 		LockIterators();
 
-		// ²»³É¹¦
+		// ä¸æˆåŠŸ
 		if(luResult!=ERESULT_SUCCESS)
 			lpReturn = NULL;
 		else
 		{
-			// ¼ì²éÊÇ²»ÊÇµÚÒ»¸ö¿Í»§Element£¬ÉèÖÃÎª×ÀÃæ
+			// æ£€æŸ¥æ˜¯ä¸æ˜¯ç¬¬ä¸€ä¸ªå®¢æˆ·Elementï¼Œè®¾ç½®ä¸ºæ¡Œé¢
 			if(mpDesktopIterator == NULL)
 			{
-				//Trace_Point(27373);//±£´æDeskTop Page
+				//Trace_Point(27373);//ä¿å­˜DeskTop Page
 				mpDesktopIterator = dynamic_cast<CXuiIterator*>(lpReturn);
 				mpDesktopIterator->KAddRefer();
 			}
@@ -178,17 +178,17 @@ IEinkuiIterator* __stdcall CXelManager::RegisterElement(
 	return lpReturn;
 }
 
-// ÏòÏµÍ³¹ÜÀíÆ÷×¢ÏúÒ»¸öElement£¬´Ë¹¦ÄÜ½öÓ¦¸Ã±»´ı×¢ÏúElement×ÔÉí»òÕßXUIÏµÍ³µ÷ÓÃ£»Õâ¸ö·½·¨ÒÑ¾­·ÏÆú
+// å‘ç³»ç»Ÿç®¡ç†å™¨æ³¨é”€ä¸€ä¸ªElementï¼Œæ­¤åŠŸèƒ½ä»…åº”è¯¥è¢«å¾…æ³¨é”€Elementè‡ªèº«æˆ–è€…XUIç³»ç»Ÿè°ƒç”¨ï¼›è¿™ä¸ªæ–¹æ³•å·²ç»åºŸå¼ƒ
 ERESULT __stdcall CXelManager::UnregisterElement(
-	IN IEinkuiIterator* npElementIterator	// ¸ÃÔªËØ¶ÔÓ¦µÄµü´úÆ÷
+	IN IEinkuiIterator* npElementIterator	// è¯¥å…ƒç´ å¯¹åº”çš„è¿­ä»£å™¨
 	)
 {
 	return  ERESULT_UNSUCCESSFUL;
 }
 
-// Ïú»ÙÔªËØ
+// é”€æ¯å…ƒç´ 
 ERESULT CXelManager::DestroyElement(
-	IN IEinkuiIterator* npElementIterator	// ¸ÃÔªËØ¶ÔÓ¦µÄµü´úÆ÷
+	IN IEinkuiIterator* npElementIterator	// è¯¥å…ƒç´ å¯¹åº”çš„è¿­ä»£å™¨
 	)
 {
 	CXuiIterator* lpFartherObj;
@@ -197,24 +197,24 @@ ERESULT CXelManager::DestroyElement(
 	if(npElementIterator == NULL || npElementIterator->IsKindOf(GET_BUILTIN_NAME(CXuiIterator))==false)
 		return ERESULT_ITERATOR_INVALID;
 
-	// Ê×ÏÈ»ñÈ¡¸¸½Úµã
+	// é¦–å…ˆè·å–çˆ¶èŠ‚ç‚¹
 	lpFartherObj = dynamic_cast<CXuiIterator*>(npElementIterator->GetParent());
 	lpToDestroy = dynamic_cast<CXuiIterator*>(npElementIterator);
 
-	// ½«±¾½Úµã×ÔÉí´Ó¸¸¶ÔÏóÉÏÒÆ³ı
+	// å°†æœ¬èŠ‚ç‚¹è‡ªèº«ä»çˆ¶å¯¹è±¡ä¸Šç§»é™¤
 	if(lpFartherObj != NULL)
 		lpFartherObj->RemoveSubElement((CXuiIterator*)npElementIterator);
 
-	// Ïú»Ù±¾ÔªËØºÍ×ÓÔªËØ
+	// é”€æ¯æœ¬å…ƒç´ å’Œå­å…ƒç´ 
 	DestroyElementSubTree(npElementIterator);
 
-	//  ÔÚDestroyElementSubTreeÄÚ²¿ÊÍ·Åµ±Ç°µÄnpElementIterator
+	//  åœ¨DestroyElementSubTreeå†…éƒ¨é‡Šæ”¾å½“å‰çš„npElementIterator
 
 	return ERESULT_SUCCESS;
 }
 
 
-// µİ¹éÏú»ÙÄ³¸öÔªËØ£¬Ê×ÏÈÏú»Ù¸¸ÔªËØ£¬ºóÏú»Ù×ÓÔªËØ
+// é€’å½’é”€æ¯æŸä¸ªå…ƒç´ ï¼Œé¦–å…ˆé”€æ¯çˆ¶å…ƒç´ ï¼Œåé”€æ¯å­å…ƒç´ 
 void CXelManager::DestroyElementSubTree(IEinkuiIterator* npToDestroy)
 {
 	ERESULT luResult= ERESULT_SUCCESS;
@@ -225,18 +225,18 @@ void CXelManager::DestroyElementSubTree(IEinkuiIterator* npToDestroy)
 	if(lpToDestroy == NULL)
 		return;
 
-	// ¸øÄ¿±ê·¢ËÍÏú»ÙÏûÏ¢
+	// ç»™ç›®æ ‡å‘é€é”€æ¯æ¶ˆæ¯
 	if(CExMessage::SendMessage(lpToDestroy,NULL,EMSG_DESTROY,CExMessage::DataInvalid)==ERESULT_ITERATOR_INVALID)
 		return;
 
-	// IteratorÊÇ·ñÓĞĞ§
+	// Iteratoræ˜¯å¦æœ‰æ•ˆ
 	if(luResult == ERESULT_SUCCESS)
 	{
-		//// µİ¹éµ÷ÓÃ,×¢ÏúËùÓĞ×ÓÔªËØ
+		//// é€’å½’è°ƒç”¨,æ³¨é”€æ‰€æœ‰å­å…ƒç´ 
 
-		// Modified by Archims Jul.8,2012 Ô­À´µÄËã·¨ÓĞÖî¶àµÄÎÊÌâ
-		// µ«ĞÂµÄ·½·¨Èİ´íĞÔÈÔÈ»²»¸ß£¬Èç¹û´íÎóÊÍ·ÅµÄ¶ÔÏóÊÇµ±Ç°½¹µã£¬ÈÔÈ»»áµ¼ÖÂUIÏµÍ³±ÀÀ£
-		// fixed by ax ÓĞ¿ÉÄÜÒÑ¾­½â¾öÁËÕâ¸öÎÊÌâ£¬ÏÖÔÚ»¹Ã»ÓĞ×ö¸ü¶àµÄÑéÖ¤·ÖÎö
+		// Modified by Archims Jul.8,2012 åŸæ¥çš„ç®—æ³•æœ‰è¯¸å¤šçš„é—®é¢˜
+		// ä½†æ–°çš„æ–¹æ³•å®¹é”™æ€§ä»ç„¶ä¸é«˜ï¼Œå¦‚æœé”™è¯¯é‡Šæ”¾çš„å¯¹è±¡æ˜¯å½“å‰ç„¦ç‚¹ï¼Œä»ç„¶ä¼šå¯¼è‡´UIç³»ç»Ÿå´©æºƒ
+		// fixed by ax æœ‰å¯èƒ½å·²ç»è§£å†³äº†è¿™ä¸ªé—®é¢˜ï¼Œç°åœ¨è¿˜æ²¡æœ‰åšæ›´å¤šçš„éªŒè¯åˆ†æ
 		do
 		{
 			LockIterators();
@@ -247,7 +247,7 @@ void CXelManager::DestroyElementSubTree(IEinkuiIterator* npToDestroy)
 			catch (...)
 			{
 				lpSubElement = NULL;
-				lpToDestroy = NULL;	//²»ÖªµÀ·¢ÉúÁËÊ²Ã´£¬¾Í²»Òª¼ÌĞøÊ¹ÓÃÕâ¸ö±äÁ¿ÁË
+				lpToDestroy = NULL;	//ä¸çŸ¥é“å‘ç”Ÿäº†ä»€ä¹ˆï¼Œå°±ä¸è¦ç»§ç»­ä½¿ç”¨è¿™ä¸ªå˜é‡äº†
 			}
 			UnlockIterators();
 
@@ -265,41 +265,41 @@ void CXelManager::DestroyElementSubTree(IEinkuiIterator* npToDestroy)
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	// ÏÂÃæµÄ´úÂë×öÈçÏÂĞŞ¸Ä£¬Ö±½Ó´ÓÑéÖ¤¿âÖĞÉ¾³ı£»Ô´´úÂë´æÔÚÑÏÖØ´íÎó£¬Èç¹ûÔÙ´Î½µµÍÒıÓÃ²¢Ã»ÓĞÉ¾³ı¶ÔÏó£¬Ôò¶ÔÏó½«Ã»ÓĞ»ú»á´ÓÑéÖ¤¿âÖĞÉ¾³ıÁË
+	// ä¸‹é¢çš„ä»£ç åšå¦‚ä¸‹ä¿®æ”¹ï¼Œç›´æ¥ä»éªŒè¯åº“ä¸­åˆ é™¤ï¼›æºä»£ç å­˜åœ¨ä¸¥é‡é”™è¯¯ï¼Œå¦‚æœå†æ¬¡é™ä½å¼•ç”¨å¹¶æ²¡æœ‰åˆ é™¤å¯¹è±¡ï¼Œåˆ™å¯¹è±¡å°†æ²¡æœ‰æœºä¼šä»éªŒè¯åº“ä¸­åˆ é™¤äº†
 	//int EleRef = 0;
-	//// É¾³ı×ÔÉí
+	//// åˆ é™¤è‡ªèº«
 	//if(lpToDestroy != NULL)
 	//{
 	//	lpToDestroy->SetAsDeleted();
-	//	EleRef = lpToDestroy->KRelease();	// µ±Iterator±»ÊÍ·ÅÊ±£¬½«»áÊÍ·ÅElement¶ÔÏó£¬Ò²½«ÊÍ·Å¶Ô¸¸½ÚµãµÄÒıÓÃ
+	//	EleRef = lpToDestroy->KRelease();	// å½“Iteratorè¢«é‡Šæ”¾æ—¶ï¼Œå°†ä¼šé‡Šæ”¾Elementå¯¹è±¡ï¼Œä¹Ÿå°†é‡Šæ”¾å¯¹çˆ¶èŠ‚ç‚¹çš„å¼•ç”¨
 	//}
 
 	//if (EleRef == 0)
 	//{
 	//	LockIterators();
-	//	// ´ÓÑéÖ¤¿âÖĞÒÆ³ı
+	//	// ä»éªŒè¯åº“ä¸­ç§»é™¤
 	//	moIteratorVerification.Remove(lpToDestroy);
 	//	UnlockIterators();
 	//}
-	// É¾³ı×ÔÉí
+	// åˆ é™¤è‡ªèº«
 	if (lpToDestroy != NULL)
 	{
 		LockIterators();
-		// ´ÓÑéÖ¤¿âÖĞÒÆ³ı
+		// ä»éªŒè¯åº“ä¸­ç§»é™¤
 		moIteratorVerification.Remove(lpToDestroy);
 		UnlockIterators();
 
 		lpToDestroy->SetAsDeleted();
-		lpToDestroy->KRelease();	// µ±Iterator±»ÊÍ·ÅÊ±£¬½«»áÊÍ·ÅElement¶ÔÏó£¬Ò²½«ÊÍ·Å¶Ô¸¸½ÚµãµÄÒıÓÃ
+		lpToDestroy->KRelease();	// å½“Iteratorè¢«é‡Šæ”¾æ—¶ï¼Œå°†ä¼šé‡Šæ”¾Elementå¯¹è±¡ï¼Œä¹Ÿå°†é‡Šæ”¾å¯¹çˆ¶èŠ‚ç‚¹çš„å¼•ç”¨
 	}
 
 }
 
 
-// Æô¶¯Ò»¸öIteratorµÄÏûÏ¢½ÓÊÕ
+// å¯åŠ¨ä¸€ä¸ªIteratorçš„æ¶ˆæ¯æ¥æ”¶
 void CXelManager::StartMessageReceiver(IEinkuiIterator* npIterator)
 {
-	// ÕÒµ½×Ô¼ºµÄCreate¶øºóÈ¥Ö´ĞĞ£»ÄÇÃ´ÎªÊ²Ã´²»µÈµ½ÏÖÔÚ²Å·¢ËÍCreate£¬¶øÒªÔÚ´ËÖ®Ç°¾Í·¢ËÍÒ»ÌõÉĞ²»Ö´ĞĞµÄÏûÏ¢ÄØ£¬ÊÇÎªÁË·ÀÖ¹±¾º¯Êı²»±»µ÷ÓÃ¶øÂ©µôCreateÏûÏ¢
+	// æ‰¾åˆ°è‡ªå·±çš„Createè€Œåå»æ‰§è¡Œï¼›é‚£ä¹ˆä¸ºä»€ä¹ˆä¸ç­‰åˆ°ç°åœ¨æ‰å‘é€Createï¼Œè€Œè¦åœ¨æ­¤ä¹‹å‰å°±å‘é€ä¸€æ¡å°šä¸æ‰§è¡Œçš„æ¶ˆæ¯å‘¢ï¼Œæ˜¯ä¸ºäº†é˜²æ­¢æœ¬å‡½æ•°ä¸è¢«è°ƒç”¨è€Œæ¼æ‰Createæ¶ˆæ¯
 	IEinkuiMessage* lpMsg;
 
 	lpMsg = moNormalMessages.GetMessage(EMSG_CREATE,npIterator);
@@ -310,9 +310,9 @@ void CXelManager::StartMessageReceiver(IEinkuiIterator* npIterator)
 }
 
 
-// ÑéÖ¤Ò»¸öIteratorÊÇ·ñÓĞĞ§£¬·µ»ØERESULT_SUCCESSÓĞĞ§£¬·µ»ØERESULT_ITERATOR_INVALIDÎŞĞ§
+// éªŒè¯ä¸€ä¸ªIteratoræ˜¯å¦æœ‰æ•ˆï¼Œè¿”å›ERESULT_SUCCESSæœ‰æ•ˆï¼Œè¿”å›ERESULT_ITERATOR_INVALIDæ— æ•ˆ
 ERESULT __stdcall CXelManager::VerifyIterator(
-	IN IEinkuiIterator* npIterator	// µü´úÆ÷
+	IN IEinkuiIterator* npIterator	// è¿­ä»£å™¨
 	)
 {
 	ERESULT luResult;
@@ -327,8 +327,8 @@ ERESULT __stdcall CXelManager::VerifyIterator(
 }
 
 
-// ÔÚ¶ÔÏó¹ÜÀíÆ÷ÖĞ²éÕÒÒ»¸öElement£¬·µ»Ø¸ÃElementµÄµü´úÆ÷¶ÔÏó£»Ê§°Ü·µ»ØNULL
-// ³É¹¦·µ»ØµÄ½Ó¿Ú¶ÔÏó£¬²»Ê¹ÓÃÊ±ĞèÒªÊÍ·Å£» Èç¹û¾­³£ĞèÒªÍ¨¹ıÔªËØ»ñµÃËüµÄ×¢²áµü´úÆ÷£¬Çë±£´æµü´úÆ÷µÄÖ¸Õë£¬ÒòÎªµ÷ÓÃ±¾·½·¨Ê¹ÓÃÈ«Ê÷±éÀú²éÕÒ»ñÈ¡µü´úÆ÷¶ÔÏó£¬ºÄÊ±½Ï´ó£»
+// åœ¨å¯¹è±¡ç®¡ç†å™¨ä¸­æŸ¥æ‰¾ä¸€ä¸ªElementï¼Œè¿”å›è¯¥Elementçš„è¿­ä»£å™¨å¯¹è±¡ï¼›å¤±è´¥è¿”å›NULL
+// æˆåŠŸè¿”å›çš„æ¥å£å¯¹è±¡ï¼Œä¸ä½¿ç”¨æ—¶éœ€è¦é‡Šæ”¾ï¼› å¦‚æœç»å¸¸éœ€è¦é€šè¿‡å…ƒç´ è·å¾—å®ƒçš„æ³¨å†Œè¿­ä»£å™¨ï¼Œè¯·ä¿å­˜è¿­ä»£å™¨çš„æŒ‡é’ˆï¼Œå› ä¸ºè°ƒç”¨æœ¬æ–¹æ³•ä½¿ç”¨å…¨æ ‘éå†æŸ¥æ‰¾è·å–è¿­ä»£å™¨å¯¹è±¡ï¼Œè€—æ—¶è¾ƒå¤§ï¼›
 IEinkuiIterator* __stdcall CXelManager::FindElement(
 	IN IXsElement* npElement
 	)
@@ -342,35 +342,35 @@ IEinkuiIterator* __stdcall CXelManager::FindElement(
 	return lpItrObj;
 }
 
-// »ñµÃ¸ùÔªËØ£»Èç¹ûÊÇÎªÁË¸ø¶ÔÏó¹ÜÀíÆ÷·¢ËÍÏûÏ¢£¬Ò²¿ÉÒÔÖ±½ÓÊ¹ÓÃNULLÖ¸Õë±íÊ¾¶ÔÏó¹ÜÀíÆ÷
-// ³É¹¦·µ»ØµÄ½Ó¿Ú¶ÔÏó£¬²»Ê¹ÓÃÊ±ĞèÒªÊÍ·Å
+// è·å¾—æ ¹å…ƒç´ ï¼›å¦‚æœæ˜¯ä¸ºäº†ç»™å¯¹è±¡ç®¡ç†å™¨å‘é€æ¶ˆæ¯ï¼Œä¹Ÿå¯ä»¥ç›´æ¥ä½¿ç”¨NULLæŒ‡é’ˆè¡¨ç¤ºå¯¹è±¡ç®¡ç†å™¨
+// æˆåŠŸè¿”å›çš„æ¥å£å¯¹è±¡ï¼Œä¸ä½¿ç”¨æ—¶éœ€è¦é‡Šæ”¾
 IEinkuiIterator* __stdcall CXelManager::GetRootElement(void)
 {
 	return &moIteratorRoot;
 }
 
-// »ñµÃ²Ëµ¥Ò³£¬ËùÓĞµÄ²Ëµ¥¶¼½¨Á¢ÔÚÕâ¸öÒ³
+// è·å¾—èœå•é¡µï¼Œæ‰€æœ‰çš„èœå•éƒ½å»ºç«‹åœ¨è¿™ä¸ªé¡µ
 IEinkuiIterator* __stdcall CXelManager::GetMenuPage(void)
 {
 	return NULL;
 }
 
-// »ñµÃToolTipÆ½Ãæ£¬Õâ¸ö×î¸ßµÄÒ³
+// è·å¾—ToolTipå¹³é¢ï¼Œè¿™ä¸ªæœ€é«˜çš„é¡µ
 IEinkuiIterator* __stdcall CXelManager::GetToolTipPage(void)
 {
 	return NULL;
 }
 
 
-// »ñµÃ×ÀÃæÔªËØ£»×ÀÃæÔªËØÔÚÆô¶¯XUIÒıÇæÊ±Ö¸¶¨£¬×ÀÃæÔªËØÊµÏÖ¾ßÌåÓ¦ÓÃµÄÈ«¾Ö¹¦ÄÜ£¬Èç£ºIdealifeµÄÈ«¾ÖÓ¦ÓÃÓÉ"Idealife"ÔªËØÀàµÄÊµÀıÌá¹©£¬
-// Í¨¹ı¸øËü·¢IdealifeµÄÓ¦ÓÃÏûÏ¢Ö´ĞĞIdealifeµÄÏµÍ³µ÷ÓÃ
-// ³É¹¦·µ»ØµÄ½Ó¿Ú¶ÔÏó£¬²»Ê¹ÓÃÊ±ĞèÒªÊÍ·Å
+// è·å¾—æ¡Œé¢å…ƒç´ ï¼›æ¡Œé¢å…ƒç´ åœ¨å¯åŠ¨XUIå¼•æ“æ—¶æŒ‡å®šï¼Œæ¡Œé¢å…ƒç´ å®ç°å…·ä½“åº”ç”¨çš„å…¨å±€åŠŸèƒ½ï¼Œå¦‚ï¼šIdealifeçš„å…¨å±€åº”ç”¨ç”±"Idealife"å…ƒç´ ç±»çš„å®ä¾‹æä¾›ï¼Œ
+// é€šè¿‡ç»™å®ƒå‘Idealifeçš„åº”ç”¨æ¶ˆæ¯æ‰§è¡ŒIdealifeçš„ç³»ç»Ÿè°ƒç”¨
+// æˆåŠŸè¿”å›çš„æ¥å£å¯¹è±¡ï¼Œä¸ä½¿ç”¨æ—¶éœ€è¦é‡Šæ”¾
 IEinkuiIterator* __stdcall CXelManager::GetDesktop(void)
 {
 	return mpDesktopIterator;
 }
 
-// ÖØĞÂÉè¶¨¸¸ÔªËØ£¬nbZTop==trueÉèÖÃÓÚZoder¶¥²ã£¬falseÉèÖÃÔÚµ×²ã
+// é‡æ–°è®¾å®šçˆ¶å…ƒç´ ï¼ŒnbZTop==trueè®¾ç½®äºZoderé¡¶å±‚ï¼Œfalseè®¾ç½®åœ¨åº•å±‚
 ERESULT __stdcall CXelManager::SetParentElement(IEinkuiIterator* npParent,IEinkuiIterator* npChild,bool nbZTop)
 {
 	CXuiIterator* lpMoveTo;
@@ -378,7 +378,7 @@ ERESULT __stdcall CXelManager::SetParentElement(IEinkuiIterator* npParent,IEinku
 	CXuiIterator* lpChild;
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
 
-	// ¼ì²éÊÇ·ñ´¦ÓÚ²Ù×÷Ïß³Ì
+	// æ£€æŸ¥æ˜¯å¦å¤„äºæ“ä½œçº¿ç¨‹
 	if(CEinkuiSystem::gpXuiSystem->IsRunningInOperationThread()==false)
 		return ERESULT_WRONG_THREAD;
 
@@ -396,21 +396,21 @@ ERESULT __stdcall CXelManager::SetParentElement(IEinkuiIterator* npParent,IEinku
 	
 	do 
 	{
-		// ¼ì²éÄÜ·ñ´Óµ±Ç°¸¸¶ÔÏóÒÆ³ı
-		// Èç¹û×Ó¶ÔÏóÊÇ¸¸¶ÔÏóµÄÔöĞ§Æ÷£¬²»ÄÜÒÆ¶¯
+		// æ£€æŸ¥èƒ½å¦ä»å½“å‰çˆ¶å¯¹è±¡ç§»é™¤
+		// å¦‚æœå­å¯¹è±¡æ˜¯çˆ¶å¯¹è±¡çš„å¢æ•ˆå™¨ï¼Œä¸èƒ½ç§»åŠ¨
 		if(lpMoveFrom->GetEnhancer() == npChild)
 		{
 			luResult = ERESULT_ACCESS_CONFLICT;
 			break;
 		}
 
-		// ´Ó¸¸¶ÔÏóÒÆ³ı
+		// ä»çˆ¶å¯¹è±¡ç§»é™¤
 		lpMoveFrom->RemoveSubElement(lpChild);
 
-		// ²åÈëĞÂµÄ¸¸¶ÔÏó£¬ÈÏÔôÎª¸¸ÁË
+		// æ’å…¥æ–°çš„çˆ¶å¯¹è±¡ï¼Œè®¤è´¼ä¸ºçˆ¶äº†
 		lpMoveTo->AddSubElement(lpChild);
 
-		// Íê³É
+		// å®Œæˆ
 		luResult = ERESULT_SUCCESS;
 	} while (false);
 
@@ -422,8 +422,8 @@ ERESULT __stdcall CXelManager::SetParentElement(IEinkuiIterator* npParent,IEinku
 	return luResult;
 }
 
-// ·ÖÅäÒ»¸öÏûÏ¢
-// ·µ»ØµÄÏûÏ¢£¬´¦ÀíÍê±ÏĞèÒªÊÍ·Å
+// åˆ†é…ä¸€ä¸ªæ¶ˆæ¯
+// è¿”å›çš„æ¶ˆæ¯ï¼Œå¤„ç†å®Œæ¯•éœ€è¦é‡Šæ”¾
 IEinkuiMessage* __stdcall CXelManager:: AllocateMessage(void)
 {
 	CXuiMessage* lpMsg = NULL;
@@ -435,7 +435,7 @@ IEinkuiMessage* __stdcall CXelManager:: AllocateMessage(void)
 		if(moFreeMessagePool.Size() > 0)
 		{
 			//if(Trace_Count(2,5)<5)
-				//Trace_Point(29417);// ´Ó¿ÕÏĞ³Ø·ÖÅäÏûÏ¢
+				//Trace_Point(29417);// ä»ç©ºé—²æ± åˆ†é…æ¶ˆæ¯
 
 			IEinkuiMessage* lpMsgIntf = moFreeMessagePool.Top();
 			moFreeMessagePool.Pop();
@@ -455,7 +455,7 @@ IEinkuiMessage* __stdcall CXelManager:: AllocateMessage(void)
 	if(lpMsg == NULL)
 	{
 		//if(Trace_Count(3,5)<5)
-			//Trace_Point(24675);// ĞÂ·ÖÅäÏûÏ¢
+			//Trace_Point(24675);// æ–°åˆ†é…æ¶ˆæ¯
 		lpMsg = CXuiMessage::CreateInstance();
 		lpMsg->AddRefer();
 
@@ -487,15 +487,15 @@ IEinkuiMessage* __stdcall CXelManager:: AllocateMessage(void)
 	return lpMsg;
 }
 
-// ·ÖÅäÒ»¸öÏûÏ¢£¬³õÊ¼»¯Ïà¹Ø²ÎÊı
-// ·µ»ØµÄÏûÏ¢£¬´¦ÀíÍê±ÏĞèÒªÊÍ·Å
+// åˆ†é…ä¸€ä¸ªæ¶ˆæ¯ï¼Œåˆå§‹åŒ–ç›¸å…³å‚æ•°
+// è¿”å›çš„æ¶ˆæ¯ï¼Œå¤„ç†å®Œæ¯•éœ€è¦é‡Šæ”¾
 IEinkuiMessage* __stdcall CXelManager::AllocateMessage(
-	IN ULONG nuMsgID,	// ÏûÏ¢±àÂë
-	IN const void* npInputBuffer,	// ÊäÈëÊı¾İµÄ»º³åÇø
-	IN int niInputSize,	// ÊäÈëÊı¾İµÄ´óĞ¡
-	OUT void* npOutputBuffer,	// Êä³ö»º³åÇø(·µ»Ø»º³åÇø)
-	IN int niOutputSize,	// Êä³ö»º³åÇø´óĞ¡
-	IN bool nbInputVolatile	// ÊäÈë»º³åÇøÊÇ·ñÊÇÒ×Ê§µÄ£¬²Î¼ûIXuiMessage::SetInputData»ñµÃ¸ü¶àĞÅÏ¢
+	IN ULONG nuMsgID,	// æ¶ˆæ¯ç¼–ç 
+	IN const void* npInputBuffer,	// è¾“å…¥æ•°æ®çš„ç¼“å†²åŒº
+	IN int niInputSize,	// è¾“å…¥æ•°æ®çš„å¤§å°
+	OUT void* npOutputBuffer,	// è¾“å‡ºç¼“å†²åŒº(è¿”å›ç¼“å†²åŒº)
+	IN int niOutputSize,	// è¾“å‡ºç¼“å†²åŒºå¤§å°
+	IN bool nbInputVolatile	// è¾“å…¥ç¼“å†²åŒºæ˜¯å¦æ˜¯æ˜“å¤±çš„ï¼Œå‚è§IXuiMessage::SetInputDataè·å¾—æ›´å¤šä¿¡æ¯
 	)
 {
 	IEinkuiMessage* lpMsgIntf = AllocateMessage();
@@ -514,7 +514,7 @@ IEinkuiMessage* __stdcall CXelManager::AllocateMessage(
 	return lpMsg;
 }
 
-// ¹©ÏûÏ¢¶ÔÏó±¾Éíµ÷ÓÃ£¬ÊÍ·Å¿ØÖÆ
+// ä¾›æ¶ˆæ¯å¯¹è±¡æœ¬èº«è°ƒç”¨ï¼Œé‡Šæ”¾æ§åˆ¶
 void CXelManager::ReleaseMessage(IEinkuiMessage* npMsg)
 {
 	moFreeMessageLock.Enter();
@@ -524,7 +524,7 @@ void CXelManager::ReleaseMessage(IEinkuiMessage* npMsg)
 		if(moFreeMessagePool.Size() < ELMGR_MAX_FREE_MESSAGE)
 		{
 			//if(Trace_Count(4,5)<5)
-				//Trace_Point(31609);// ±£´æµ½¿ÕÏĞ³Ø
+				//Trace_Point(31609);// ä¿å­˜åˆ°ç©ºé—²æ± 
 
 			CXuiMessage* lpMsg = dynamic_cast<CXuiMessage*>(npMsg);
 
@@ -542,7 +542,7 @@ void CXelManager::ReleaseMessage(IEinkuiMessage* npMsg)
 	if(npMsg != NULL)
 	{
 		//if(Trace_Count(5,5)<5)
-			//Trace_Point(31092);// ÊÍ·ÅÏûÏ¢
+			//Trace_Point(31092);// é‡Šæ”¾æ¶ˆæ¯
 
 		npMsg->Release();
 		InterlockedDecrement(&mlMsgAllocated);
@@ -550,9 +550,9 @@ void CXelManager::ReleaseMessage(IEinkuiMessage* npMsg)
 }
 
 
-// ¸øÖ¸¶¨ÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍÄ£Ê½ÊÇSend
+// ç»™æŒ‡å®šå…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€æ¨¡å¼æ˜¯Send
 ERESULT __stdcall CXelManager::SendMessage(
-	IEinkuiIterator* npDestElement,	// ½ÓÊÕÏûÏ¢µÄÄ¿±êÔªËØ
+	IEinkuiIterator* npDestElement,	// æ¥æ”¶æ¶ˆæ¯çš„ç›®æ ‡å…ƒç´ 
 	IEinkuiMessage* npMsg
 	)
 {
@@ -569,10 +569,10 @@ ERESULT __stdcall CXelManager::SendMessage(
 	if(npDestElement==NULL)
 		npDestElement = &moIteratorRoot;
 
-	// ¼ì²éÊÇ²»ÊÇÍ¬Ò»¸öÏß³Ì£¬Èç¹û²»ÊÇÍ¬Ò»¸öÏß³ÌÔòĞèÒªÏß³ÌÍ¬²½
+	// æ£€æŸ¥æ˜¯ä¸æ˜¯åŒä¸€ä¸ªçº¿ç¨‹ï¼Œå¦‚æœä¸æ˜¯åŒä¸€ä¸ªçº¿ç¨‹åˆ™éœ€è¦çº¿ç¨‹åŒæ­¥
 	if(CEinkuiSystem::gpXuiSystem->IsRunningInOperationThread()==false)
 	{
-		// ÅĞ¶ÏXUIÏµÍ³ÊÇ·ñÒÑ¾­×¼±¸ÍË³ö£¬´¦ÓÚÏú»Ù¹ı³ÌÖĞÊ±£¬²»ÔÚ½ÓÊÕÆäËûÏß³ÌµÄÏûÏ¢
+		// åˆ¤æ–­XUIç³»ç»Ÿæ˜¯å¦å·²ç»å‡†å¤‡é€€å‡ºï¼Œå¤„äºé”€æ¯è¿‡ç¨‹ä¸­æ—¶ï¼Œä¸åœ¨æ¥æ”¶å…¶ä»–çº¿ç¨‹çš„æ¶ˆæ¯
 		if(mbExitXui != false && npMsg->GetMessageID() != EMSG_QUIT_XUI)
 			return ERESULT_UNEXPECTED_CALL;
 		
@@ -587,7 +587,7 @@ ERESULT __stdcall CXelManager::SendMessage(
 
 	if(lpMsgObj->mhCompleteEvent != NULL)
 	{
-		// ÏûÏ¢Ñ¹Èë¶ÓÁĞÍ·²¿
+		// æ¶ˆæ¯å‹å…¥é˜Ÿåˆ—å¤´éƒ¨
 
 		if(moFastMessages.Push_Front(npMsg)!=false)
 			luResult = ERESULT_SUCCESS;
@@ -600,8 +600,8 @@ ERESULT __stdcall CXelManager::SendMessage(
 
 			while(WaitForSingleObject(lpMsgObj->mhCompleteEvent,10) == WAIT_TIMEOUT)
 			{
-				// Îª·ÀÖ¹windows UIÏß³ÌÖĞµ÷ÓÃ±¾º¯ÊıÏòXui·¢ËÍÏûÏ¢µÄÊ±ºò£¬Í¬Ê±Óöµ½Xui Operation ThreadÖĞµ÷ÓÃWinUiCallBack£¬´Ó¶ø³öÏÖËÀËø£¬
-				// ÔÙ´ÎÖ´ĞĞWindows UI Callback£¬½Ó´¥ËÀËøÌõ¼ş
+				// ä¸ºé˜²æ­¢windows UIçº¿ç¨‹ä¸­è°ƒç”¨æœ¬å‡½æ•°å‘Xuiå‘é€æ¶ˆæ¯çš„æ—¶å€™ï¼ŒåŒæ—¶é‡åˆ°Xui Operation Threadä¸­è°ƒç”¨WinUiCallBackï¼Œä»è€Œå‡ºç°æ­»é”ï¼Œ
+				// å†æ¬¡æ‰§è¡ŒWindows UI Callbackï¼Œæ¥è§¦æ­»é”æ¡ä»¶
 				if(CEinkuiSystem::gpXuiSystem->RunWindowsUICallback()==false)	// must quit
 				{
 					luResult = ERESULT_TIMEOUT;
@@ -622,11 +622,11 @@ ERESULT __stdcall CXelManager::SendMessage(
 }
 
 
-// ¸øÖ¸¶¨ÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍÄ£Ê½ÊÇPost
+// ç»™æŒ‡å®šå…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€æ¨¡å¼æ˜¯Post
 ERESULT __stdcall CXelManager::PostMessage(
-	IEinkuiIterator* npDestElement,	// ½ÓÊÕÏûÏ¢µÄÄ¿±êÔªËØ
+	IEinkuiIterator* npDestElement,	// æ¥æ”¶æ¶ˆæ¯çš„ç›®æ ‡å…ƒç´ 
 	IEinkuiMessage* npMsg,
-	IN ULONG nuPostType	// ÏûÏ¢µÄÓÅÏÈ¼¶£¬EMSG_POST_FAST,EMSG_POST_REVERSE
+	IN ULONG nuPostType	// æ¶ˆæ¯çš„ä¼˜å…ˆçº§ï¼ŒEMSG_POST_FAST,EMSG_POST_REVERSE
 	)
 {
 	ERESULT luResult= ERESULT_UNSUCCESSFUL;
@@ -644,7 +644,7 @@ ERESULT __stdcall CXelManager::PostMessage(
 
 	if(CEinkuiSystem::gpXuiSystem->IsRunningInOperationThread()==false)
 	{
-		// ÅĞ¶ÏXUIÏµÍ³ÊÇ·ñÒÑ¾­×¼±¸ÍË³ö£¬´¦ÓÚÏú»Ù¹ı³ÌÖĞÊ±£¬²»ÔÚ½ÓÊÕÆäËûÏß³ÌµÄÏûÏ¢
+		// åˆ¤æ–­XUIç³»ç»Ÿæ˜¯å¦å·²ç»å‡†å¤‡é€€å‡ºï¼Œå¤„äºé”€æ¯è¿‡ç¨‹ä¸­æ—¶ï¼Œä¸åœ¨æ¥æ”¶å…¶ä»–çº¿ç¨‹çš„æ¶ˆæ¯
 		if(mbExitXui != false && npMsg->GetMessageID() != EMSG_QUIT_XUI)
 			return ERESULT_UNEXPECTED_CALL;
 	}
@@ -656,24 +656,24 @@ ERESULT __stdcall CXelManager::PostMessage(
 	switch(nuPostType)
 	{
 	case EMSG_POSTTYPE_FAST:
-		// Ñ¹Ëõ¿ìËÙ¶ÓÁĞÎ²²¿
+		// å‹ç¼©å¿«é€Ÿé˜Ÿåˆ—å°¾éƒ¨
 		luResult = moFastMessages.Push_Back(npMsg)?ERESULT_SUCCESS:ERESULT_INSUFFICIENT_RESOURCES;
 		break;
 	case EMSG_POSTTYPE_REVERSE:
-		// Ñ¹ÈëÆÕÍ¨ÈÎÎñ¶ÓÁĞÍ·²¿
+		// å‹å…¥æ™®é€šä»»åŠ¡é˜Ÿåˆ—å¤´éƒ¨
 		luResult = moNormalMessages.Push_Front(npMsg)?ERESULT_SUCCESS:ERESULT_INSUFFICIENT_RESOURCES;
 		break;
 	case EMSG_POSTTYPE_NORMAL:
 	case EMSG_POSTTYPE_REDUCE:
-		// Ñ¹ÈëÆÕÍ¨ÈÎÎñ¶ÓÁĞÎ²²¿
+		// å‹å…¥æ™®é€šä»»åŠ¡é˜Ÿåˆ—å°¾éƒ¨
 		luResult = moNormalMessages.Push_Back(npMsg)?ERESULT_SUCCESS:ERESULT_INSUFFICIENT_RESOURCES;
 		break;
 	case EMSG_POSTTYPE_QUIT:
-		// Ñ¹Èë¿ìËÙ¶ÓÁĞÍ·²¿
+		// å‹å…¥å¿«é€Ÿé˜Ÿåˆ—å¤´éƒ¨
 		luResult = moFastMessages.Push_Front(npMsg)?ERESULT_SUCCESS:ERESULT_INSUFFICIENT_RESOURCES;
 		break;
 	//case EMSG_POSTTYPE_REDUCE:
-	//	// Ñ¹Èë¼òÔ¼ÈÎÎñ¶ÓÁĞÎ²²¿£¬²¢¼ì²éÖØ¸´µÄÏûÏ¢
+	//	// å‹å…¥ç®€çº¦ä»»åŠ¡é˜Ÿåˆ—å°¾éƒ¨ï¼Œå¹¶æ£€æŸ¥é‡å¤çš„æ¶ˆæ¯
 	//	{
 	//		luResult = /*moReduceMessages*/moNormalMessages.Push_Back(npMsg)?ERESULT_SUCCESS:ERESULT_INSUFFICIENT_RESOURCES;
 	//	}
@@ -688,20 +688,20 @@ ERESULT __stdcall CXelManager::PostMessage(
 	return luResult;
 }
 
-// ¼òµ¥µØ¸øÖ¸¶¨ÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍÄ£Ê½ÊÇSend£»´Ëº¯ÊıµÄ·µ»Ø³É¹¦¾ÍÊÇÏûÏ¢´¦ÀíµÄ·µ»ØÖµ£¬´íÎóµÄÔ­Òò¾Í²»Ò»¶¨ÊÇÏûÏ¢´¦ÀíµÄ·µ»ØÖµ£¬¿ÉÄÜÊÇÏûÏ¢·¢ËÍÊ§°Ü
+// ç®€å•åœ°ç»™æŒ‡å®šå…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€æ¨¡å¼æ˜¯Sendï¼›æ­¤å‡½æ•°çš„è¿”å›æˆåŠŸå°±æ˜¯æ¶ˆæ¯å¤„ç†çš„è¿”å›å€¼ï¼Œé”™è¯¯çš„åŸå› å°±ä¸ä¸€å®šæ˜¯æ¶ˆæ¯å¤„ç†çš„è¿”å›å€¼ï¼Œå¯èƒ½æ˜¯æ¶ˆæ¯å‘é€å¤±è´¥
 ERESULT __stdcall CXelManager::SimpleSendMessage(
-	IEinkuiIterator* npDestElement,	// ½ÓÊÕÏûÏ¢µÄÄ¿±êÔªËØ
-	IN ULONG nuMsgID,	// ÏûÏ¢±àÂë
-	IN const void* npInputBuffer,	// ÊäÈëÊı¾İµÄ»º³åÇø
-	IN int niInputSize,	// ÊäÈëÊı¾İµÄ´óĞ¡
-	OUT void* npOutputBuffer,	// Êä³ö»º³åÇø(·µ»Ø»º³åÇø)
-	IN int niOutputSize	// Êä³ö»º³åÇø´óĞ¡
+	IEinkuiIterator* npDestElement,	// æ¥æ”¶æ¶ˆæ¯çš„ç›®æ ‡å…ƒç´ 
+	IN ULONG nuMsgID,	// æ¶ˆæ¯ç¼–ç 
+	IN const void* npInputBuffer,	// è¾“å…¥æ•°æ®çš„ç¼“å†²åŒº
+	IN int niInputSize,	// è¾“å…¥æ•°æ®çš„å¤§å°
+	OUT void* npOutputBuffer,	// è¾“å‡ºç¼“å†²åŒº(è¿”å›ç¼“å†²åŒº)
+	IN int niOutputSize	// è¾“å‡ºç¼“å†²åŒºå¤§å°
 	)
 {
 	IEinkuiMessage* lpMsgIntf;
 	bool lbVolatile;
 	
-	// Èç¹ûÊäÈëÊı¾İÁ¿×ã¹»´ó£¬²¢ÇÒ»º³åÇø²»³åÍ»£¬¾Í²»¸´ÖÆÊäÈë»º³åÇøÁË
+	// å¦‚æœè¾“å…¥æ•°æ®é‡è¶³å¤Ÿå¤§ï¼Œå¹¶ä¸”ç¼“å†²åŒºä¸å†²çªï¼Œå°±ä¸å¤åˆ¶è¾“å…¥ç¼“å†²åŒºäº†
 	if(niInputSize < 64 || npInputBuffer == NULL || ( npOutputBuffer != NULL &&
 		((UCHAR*)npInputBuffer+niInputSize) >= (UCHAR*)npOutputBuffer &&
 		 (UCHAR*)npInputBuffer				< ((UCHAR*)npOutputBuffer+niOutputSize)) )
@@ -722,13 +722,13 @@ ERESULT __stdcall CXelManager::SimpleSendMessage(
 	return luResult;
 }
 
-// ¼òµ¥µØ¸øÖ¸¶¨ÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍÄ£Ê½ÊÇPost£»ÎŞ·¨»ñµÃÏûÏ¢´¦ÀíµÄ·µ»ØÖµ£»´Ëº¯ÊıµÄ·µ»ØÖµ½ö±íÊ¾ÏûÏ¢ÊÇ·ñ±»³É¹¦ÌîÈëÏûÏ¢¶ÓÁĞ
+// ç®€å•åœ°ç»™æŒ‡å®šå…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€æ¨¡å¼æ˜¯Postï¼›æ— æ³•è·å¾—æ¶ˆæ¯å¤„ç†çš„è¿”å›å€¼ï¼›æ­¤å‡½æ•°çš„è¿”å›å€¼ä»…è¡¨ç¤ºæ¶ˆæ¯æ˜¯å¦è¢«æˆåŠŸå¡«å…¥æ¶ˆæ¯é˜Ÿåˆ—
 ERESULT __stdcall CXelManager::SimplePostMessage(
-	IEinkuiIterator* npDestElement,	// ½ÓÊÕÏûÏ¢µÄÄ¿±êÔªËØ
-	IN ULONG nuMsgID,	// ÏûÏ¢±àÂë
-	IN const void* npInputBuffer,	// ÊäÈëÊı¾İµÄ»º³åÇø
-	IN int niInputSize,	// ÊäÈëÊı¾İµÄ´óĞ¡
-	IN ULONG nuPostType	// ÏûÏ¢µÄÓÅÏÈ¼¶£¬EMSG_POST_FAST,EMSG_POST_REVERSE
+	IEinkuiIterator* npDestElement,	// æ¥æ”¶æ¶ˆæ¯çš„ç›®æ ‡å…ƒç´ 
+	IN ULONG nuMsgID,	// æ¶ˆæ¯ç¼–ç 
+	IN const void* npInputBuffer,	// è¾“å…¥æ•°æ®çš„ç¼“å†²åŒº
+	IN int niInputSize,	// è¾“å…¥æ•°æ®çš„å¤§å°
+	IN ULONG nuPostType	// æ¶ˆæ¯çš„ä¼˜å…ˆçº§ï¼ŒEMSG_POST_FAST,EMSG_POST_REVERSE
 	)
 {
 	IEinkuiMessage* lpMsgIntf = AllocateMessage(nuMsgID,npInputBuffer,niInputSize,NULL,0);
@@ -745,15 +745,15 @@ ERESULT __stdcall CXelManager::SimplePostMessage(
 
 
 
-// ´ÓÏûÏ¢¶ÓÁĞÌáÈ¡Ò»ÌõÏûÏ¢£¬²¢ÇÒ·Ö·¢´¦Àí
+// ä»æ¶ˆæ¯é˜Ÿåˆ—æå–ä¸€æ¡æ¶ˆæ¯ï¼Œå¹¶ä¸”åˆ†å‘å¤„ç†
 ERESULT CXelManager::ProcessNextMessage(
-	IEinkuiMessage* npMsg	//²»Îª¿Õ£¬±íÊ¾Ö±½Ó´¦ÀíÕâÌõÏûÏ¢£¬¶ø²»´ÓÏûÏ¢¶ÓÁĞ¶ÁÈ¡
+	IEinkuiMessage* npMsg	//ä¸ä¸ºç©ºï¼Œè¡¨ç¤ºç›´æ¥å¤„ç†è¿™æ¡æ¶ˆæ¯ï¼Œè€Œä¸ä»æ¶ˆæ¯é˜Ÿåˆ—è¯»å–
 	)
 {
 	IEinkuiMessage* lpMsg;
 	CXuiMessage* lpMsgObj;
 
-	// È¡Ò»ÌõÏûÏ¢
+	// å–ä¸€æ¡æ¶ˆæ¯
 	if(npMsg == NULL)
 	{
 		lpMsg = moFastMessages.GetMessage();
@@ -775,7 +775,7 @@ ERESULT CXelManager::ProcessNextMessage(
 	if (lpMsgObj == NULL)
 		return ERESULT_MESSAGE_EXCEPTION;
 
-	// ·ÖÎöÄ¿±ê
+	// åˆ†æç›®æ ‡
 	IEinkuiIterator* lpIterator = lpMsgObj->GetDestination();
 
 	ERESULT luResult = VerifyIterator(lpIterator);
@@ -790,7 +790,7 @@ ERESULT CXelManager::ProcessNextMessage(
 	if (lpItrObj->IsDeleted() != false)
 		return ERESULT_ITERATOR_INVALID;
 
-	// ¼ì²éÄ¿±êÊÇ·ñ±»Hook£¬×¢Òâ£¬HookµÄ×ª·¢ÏûÏ¢±¾Éí²»ÄÜ±»Hook×ª·¢
+	// æ£€æŸ¥ç›®æ ‡æ˜¯å¦è¢«Hookï¼Œæ³¨æ„ï¼ŒHookçš„è½¬å‘æ¶ˆæ¯æœ¬èº«ä¸èƒ½è¢«Hookè½¬å‘
 	IEinkuiIterator* lpHooker = lpItrObj->GetHooker();
 	if(lpHooker != NULL)
 	{
@@ -804,7 +804,7 @@ ERESULT CXelManager::ProcessNextMessage(
 			return luResult;
 	}
 
-	// ·¢ËÍµ½Ä¿±ê¶ÔÏó
+	// å‘é€åˆ°ç›®æ ‡å¯¹è±¡
 	CEinkuiSystem::gpXuiSystem->PushWidget(lpItrObj->mpWidget);
 
 	ULONG luMsgID = lpMsg->GetMessageID();
@@ -817,7 +817,7 @@ ERESULT CXelManager::ProcessNextMessage(
 	}
 	catch(CThreadAbort())
 	{
-		// ×èËÀÁË£¬ÄÇÃ´¾Í½ûÓÃÕâ¸öWidget
+		// é˜»æ­»äº†ï¼Œé‚£ä¹ˆå°±ç¦ç”¨è¿™ä¸ªWidget
 		luResult = ERESULT_STALLED_THREAD;
 	}
 	catch(...)
@@ -829,39 +829,39 @@ ERESULT CXelManager::ProcessNextMessage(
 
 	//if(luMsgID == EMSG_CREATE && luResult == ERESULT_SUCCESS)
 	//{
-	//	//Trace_StringW(6350,lpItrObj->mpElement->GetType());//ÊÕµ½CreateÏûÏ¢
+	//	//Trace_StringW(6350,lpItrObj->mpElement->GetType());//æ”¶åˆ°Createæ¶ˆæ¯
 	//}
 
 	CEinkuiSystem::gpXuiSystem->PopWidget();
 
-	// ÅĞ¶ÏÊÇ·ñÓĞµÈ´ıÊÂ¼ş
+	// åˆ¤æ–­æ˜¯å¦æœ‰ç­‰å¾…äº‹ä»¶
 	if(lpMsgObj->mhCompleteEvent != NULL)
 		SetEvent(lpMsgObj->mhCompleteEvent);
 
-	// ÏûÏ¢´¦ÀíÍê±Ï£¬¾ÍÊÍ·ÅËü
+	// æ¶ˆæ¯å¤„ç†å®Œæ¯•ï¼Œå°±é‡Šæ”¾å®ƒ
 	lpMsg->Release();
 
 	return luResult;
 }
 
-// Ëø¶¨XUIÔªËØÊ÷
+// é”å®šXUIå…ƒç´ æ ‘
 void CXelManager::LockIterators(void)
 {
 	moIteratorLock.Enter();
 }
 
-// ½â³ıËø¶¨XUIÔªËØÊ÷
+// è§£é™¤é”å®šXUIå…ƒç´ æ ‘
 void CXelManager::UnlockIterators(void)
 {
 	moIteratorLock.Leave();
 }
 
-// Ã¶¾ÙÈ«²¿ÔªËØ£¬Ã¿µ±·¢ÏÖÒ»¸öElementÊ±µ÷ÓÃÃ¶¾ÙÇëÇóÕßÌá¹©µÄElementEnterº¯Êı£»µ±Ò»¸öÔªËØÃ»ÓĞ×ÓÔªËØÊ±£¬½«µ÷ÓÃÌá¹©µÄElementLeave
+// æšä¸¾å…¨éƒ¨å…ƒç´ ï¼Œæ¯å½“å‘ç°ä¸€ä¸ªElementæ—¶è°ƒç”¨æšä¸¾è¯·æ±‚è€…æä¾›çš„ElementEnterå‡½æ•°ï¼›å½“ä¸€ä¸ªå…ƒç´ æ²¡æœ‰å­å…ƒç´ æ—¶ï¼Œå°†è°ƒç”¨æä¾›çš„ElementLeave
 ERESULT __stdcall CXelManager::EnumAllElement(
-	bool nbReverse,				// ·´Ïò£¬Ö¸µÄÊÇÃ¶¾Ù×Ó½ÚµãÊ±£¬°´ÕÕZorderµÄË³ĞòÃ¶¾Ù£¬»òÕß°´ÕÕZorderµÄÄæĞòÃ¶¾Ù
-	IBaseObject* npApplicant,	// ·¢Æğ¶ÔÏó
-	ERESULT (__stdcall IBaseObject::*ElementEnter)(IEinkuiIterator* npRecipient),//Èç¹û·µ»ØERESULT_ENUM_CHILD¼ÌĞøÃ¶¾Ù£»·µ»ØERESULT_STOP_ENUM_CHILD»òÈÎÒâÆäËûÖµ½«Í£Ö¹Ã¶¾Ù´ËÔªËØµÄ´ËÔªËØµÄ×ÓÔªËØ
-	ERESULT (__stdcall IBaseObject::*ElementLeave)(IEinkuiIterator* npRecipient) //·µ»ØÖµÎŞÒâÒå
+	bool nbReverse,				// åå‘ï¼ŒæŒ‡çš„æ˜¯æšä¸¾å­èŠ‚ç‚¹æ—¶ï¼ŒæŒ‰ç…§Zorderçš„é¡ºåºæšä¸¾ï¼Œæˆ–è€…æŒ‰ç…§Zorderçš„é€†åºæšä¸¾
+	IBaseObject* npApplicant,	// å‘èµ·å¯¹è±¡
+	ERESULT (__stdcall IBaseObject::*ElementEnter)(IEinkuiIterator* npRecipient),//å¦‚æœè¿”å›ERESULT_ENUM_CHILDç»§ç»­æšä¸¾ï¼›è¿”å›ERESULT_STOP_ENUM_CHILDæˆ–ä»»æ„å…¶ä»–å€¼å°†åœæ­¢æšä¸¾æ­¤å…ƒç´ çš„æ­¤å…ƒç´ çš„å­å…ƒç´ 
+	ERESULT (__stdcall IBaseObject::*ElementLeave)(IEinkuiIterator* npRecipient) //è¿”å›å€¼æ— æ„ä¹‰
 	)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -876,7 +876,7 @@ ERESULT __stdcall CXelManager::EnumAllElement(
 	if(ElementEnter == NULL || ElementLeave == NULL || npApplicant == NULL)
 		return ERESULT_WRONG_PARAMETERS;
 
-	//if(Trace_Count(/*EnumEle*/1,3)<3) Trace_Point(27454);//¿ªÊ¼Ã¶¾ÙËùÓĞÔªËØ
+	//if(Trace_Count(/*EnumEle*/1,3)<3) Trace_Point(27454);//å¼€å§‹æšä¸¾æ‰€æœ‰å…ƒç´ 
 	liIndex = (nbReverse!=false)?lpParents->GetSubElementCount():-1;
 
 	while(ERESULT_SUCCEEDED(luResult))
@@ -886,7 +886,7 @@ ERESULT __stdcall CXelManager::EnumAllElement(
 
 		if(lpCrtItr != NULL)
 		{
-			//if(Trace_CountRead(/*EnumEle*/1)<3) Trace_PVOID(23278,lpCrtItr);// »Øµ÷Enterº¯Êı
+			//if(Trace_CountRead(/*EnumEle*/1)<3) Trace_PVOID(23278,lpCrtItr);// å›è°ƒEnterå‡½æ•°
 			luResult = (npApplicant->*ElementEnter)(lpCrtItr);
 
 			loIndexStack.Push(liIndex);
@@ -894,7 +894,7 @@ ERESULT __stdcall CXelManager::EnumAllElement(
 
 			if(luResult != ERESULT_ENUM_CHILD)
 			{
-				liIndex = -2; // ÆÈÊ¹´¦Àí×ÓÔªËØÊ±×Ô¶¯ÖÕÖ¹
+				liIndex = -2; // è¿«ä½¿å¤„ç†å­å…ƒç´ æ—¶è‡ªåŠ¨ç»ˆæ­¢
 				//Trace_CountClear(/*EnumEle*/1);
 			}
 			else
@@ -903,24 +903,24 @@ ERESULT __stdcall CXelManager::EnumAllElement(
 		}
 		else
 		{
-			// »ØËİÉÏÒ»²ã
+			// å›æº¯ä¸Šä¸€å±‚
 			if(loIndexStack.Size() <= 0)
-				break;		// ÒÑ¾­ÔÚ¸ù²¿£¬Ã»ÓĞÉÏÒ»²ãÁË
+				break;		// å·²ç»åœ¨æ ¹éƒ¨ï¼Œæ²¡æœ‰ä¸Šä¸€å±‚äº†
 
 			liIndex = loIndexStack.Top();
 			loIndexStack.Pop();
 
-			//if(Trace_CountRead(/*EnumEle*/1)<3) Trace_PVOID(26454,lpParents);// »Øµ÷ÍË³öº¯Êı
+			//if(Trace_CountRead(/*EnumEle*/1)<3) Trace_PVOID(26454,lpParents);// å›è°ƒé€€å‡ºå‡½æ•°
 			luResult = (npApplicant->*ElementLeave)(lpParents);
 			if(ERESULT_SUCCEEDED(luResult)==false || luResult == ERESULT_EXIT_ENUM)
 				break;
 
-			// ¾ø¶Ô²»¿ÉÄÜÎª¿Õ£¬Èç¹ûlpParentsÊÇ¸ù½ÚµãµÄµÚÒ»¼¶×Ó½Úµã£¬ÄÇÃ´¾ÍÓ¦¸ÃÔÚÇ°Ãæif(loIndexStack.Size() <= 0)ÍË³öÁË
+			// ç»å¯¹ä¸å¯èƒ½ä¸ºç©ºï¼Œå¦‚æœlpParentsæ˜¯æ ¹èŠ‚ç‚¹çš„ç¬¬ä¸€çº§å­èŠ‚ç‚¹ï¼Œé‚£ä¹ˆå°±åº”è¯¥åœ¨å‰é¢if(loIndexStack.Size() <= 0)é€€å‡ºäº†
 			CMMASSERT(lpParents->mpParent != NULL);
 
-			// ¼ì²é¸Õ²ÅµÄ¸ù½ÚµãÎ»ÖÃÊÇ·ñÆ¯ÒÆ, ???ĞèÒªµ÷ÊÔÒ»´Î
+			// æ£€æŸ¥åˆšæ‰çš„æ ¹èŠ‚ç‚¹ä½ç½®æ˜¯å¦æ¼‚ç§», ???éœ€è¦è°ƒè¯•ä¸€æ¬¡
 			lpCrtItr = dynamic_cast<CXuiIterator*>(lpParents->mpParent->GetSubElementByZOder(liIndex));
-			if(lpCrtItr != lpParents)	// ¸Õ²ÅµÄ¸¸½Úµã¸Ä±äÁËÎ»ÖÃ
+			if(lpCrtItr != lpParents)	// åˆšæ‰çš„çˆ¶èŠ‚ç‚¹æ”¹å˜äº†ä½ç½®
 			{
 				int i=-1;
 				do 
@@ -937,7 +937,7 @@ ERESULT __stdcall CXelManager::EnumAllElement(
 			lpParents = lpParents->mpParent;
 
 			if(luResult == ERESULT_REDO_ENUM)
-				liIndex -= liDirection;	//Èç¹ûÄ¿±êÒªÇóÔÙ´ÎÃ¶¾Ù£¬ÄÇÃ´¾ÍÔ¤ÏÈ½«µ±Ç°Ë÷ÒıÍËÎ»£¬»Øµ½Ñ­»·Ç°ÃæµÄ´úÂë¾Í»á»Ö¸´Îªµ±Ç°Ä¿±ê
+				liIndex -= liDirection;	//å¦‚æœç›®æ ‡è¦æ±‚å†æ¬¡æšä¸¾ï¼Œé‚£ä¹ˆå°±é¢„å…ˆå°†å½“å‰ç´¢å¼•é€€ä½ï¼Œå›åˆ°å¾ªç¯å‰é¢çš„ä»£ç å°±ä¼šæ¢å¤ä¸ºå½“å‰ç›®æ ‡
 
 		}
 	}
@@ -949,7 +949,7 @@ ERESULT __stdcall CXelManager::EnumAllElement(
 
 
 
-// ´¦ÀíÊó±êÊäÈë×ª·¢
+// å¤„ç†é¼ æ ‡è¾“å…¥è½¬å‘
 ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInput)
 {
 	CElMouseFootPrint loMouseFoot;
@@ -962,7 +962,7 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 		return ERESULT_UNSUCCESSFUL;
 
 	//////////////////////////////////////////////////////////////////////////
-	// ×¼±¸Êó±êÎ»ÖÃ
+	// å‡†å¤‡é¼ æ ‡ä½ç½®
 	loMouseFoot.TickCount = GetTickCount();
 	if(npMouseInput != NULL)
 	{
@@ -970,17 +970,17 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 		loMouseFoot.Point.y = (FLOAT)HISHORT(npMouseInput->lParam) - mdTopLeftInPanel.y;
 		luWsgID = npMouseInput->WinMsgID; 
 
-		// ±£´æÊó±êºÛ¼£
+		// ä¿å­˜é¼ æ ‡ç—•è¿¹
 		loMouseFoot.KeyFlag = LOWORD(npMouseInput->wParam);
 		if(moMouseTrace.Back().Point.x !=loMouseFoot.Point.x || moMouseTrace.Back().Point.y != loMouseFoot.Point.y)
 			moMouseTrace.Push_Back(loMouseFoot);
 
-		if(moMouseTrace.Size() > ELMSG_MAX_MOUSE_TRACK)	// Êó±ê¼ÇÂ¼Êı¹ı´ó£¬¾ÍÒÆ³ı
+		if(moMouseTrace.Size() > ELMSG_MAX_MOUSE_TRACK)	// é¼ æ ‡è®°å½•æ•°è¿‡å¤§ï¼Œå°±ç§»é™¤
 			moMouseTrace.Pop_Front();
 	}
 	else
 	{
-		// Èç¹ûÃ»ÓĞÊó±êºÛ¼££¬Ö±½ÓÍË³ö
+		// å¦‚æœæ²¡æœ‰é¼ æ ‡ç—•è¿¹ï¼Œç›´æ¥é€€å‡º
 		if(moMouseTrace.Size() ==0)
 			return ERESULT_SUCCESS;
 
@@ -990,16 +990,16 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 	}
 
 
-	// »ñµÃÊó±ê½¹µã£¬ÏÂÃæ×¢ÒâÒªÊÍ·Å
+	// è·å¾—é¼ æ ‡ç„¦ç‚¹ï¼Œä¸‹é¢æ³¨æ„è¦é‡Šæ”¾
 	lpCrtMouseFocus = InnerGetMouseFocus();
 
 	//////////////////////////////////////////////////////////////////////////
-	// ÊÇ·ñ´¦ÓÚÍÏ×§×´Ì¬
+	// æ˜¯å¦å¤„äºæ‹–æ‹½çŠ¶æ€
 	if(mbDragging != false && lpCrtMouseFocus != NULL)
 	{
 		bool lbLBReleased;
 
-		// äÖÈ¾ºóÖØÊ°Êó±êÎ»ÖÃ£¬²»ÓÃ´¦ÀíÍÏ×§×´Ì¬
+		// æ¸²æŸ“åé‡æ‹¾é¼ æ ‡ä½ç½®ï¼Œä¸ç”¨å¤„ç†æ‹–æ‹½çŠ¶æ€
 		if(npMouseInput == NULL)
 		{
 			if(lpCrtMouseFocus != NULL)
@@ -1023,10 +1023,10 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 		}
 			
 
-		// ÊÇÍÏ×§ĞĞÎªÂğ£¿
+		// æ˜¯æ‹–æ‹½è¡Œä¸ºå—ï¼Ÿ
 		if(luWsgID == WM_MOUSEMOVE || lbLBReleased!=false/*luWsgID == WM_LBUTTONUP*/)
 		{
-			// ¼ÆËãÍÏ×§¾àÀë
+			// è®¡ç®—æ‹–æ‹½è·ç¦»
 			STMS_DRAGGING_ELE ldDragged;
 
 			ldDragged.DragOn = mpDragMsgReceiver;
@@ -1036,16 +1036,16 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 
 			if(ldDragged.Offset.x >= 1.0f || ldDragged.Offset.x <= -1.0f || ldDragged.Offset.y >= 1.0f || ldDragged.Offset.y <= -1.0f)
 			{
-				// ¼ÆËã¾Ö²¿×ø±ê
+				// è®¡ç®—å±€éƒ¨åæ ‡
 				if(mpDragMsgReceiver->WorldToLocal(loMouseFoot.Point,ldDragged.CurrentPos) != false)
 				{
 					CExMessage::SendMessage(mpDragMsgReceiver,NULL,EMSG_DRAGGING_ELEMENT,ldDragged);					
 				}
-				// else ³ö´í£¬ÎŞ·¨¼ÆËã¾Ö²¿×ø±ê£¬Ôò²»·¢ËÍÍÏ×§ÏûÏ¢
+				// else å‡ºé”™ï¼Œæ— æ³•è®¡ç®—å±€éƒ¨åæ ‡ï¼Œåˆ™ä¸å‘é€æ‹–æ‹½æ¶ˆæ¯
 			}
 		}
 
-		// ÊÇ·ñ½áÊøÍÏ×§×´Ì¬
+		// æ˜¯å¦ç»“æŸæ‹–æ‹½çŠ¶æ€
 		if(lbLBReleased != false)
 		{
 			STMS_DRAGGING_ELE ldDragged;
@@ -1055,7 +1055,7 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 			ldDragged.ActKey = muKeyWithDragging;
 			ldDragged.KeyFlag = LOWORD(npMouseInput->wParam);
 
-			// ¼ÆËã¾Ö²¿×ø±ê
+			// è®¡ç®—å±€éƒ¨åæ ‡
 			mpDragMsgReceiver->WorldToLocal(loMouseFoot.Point,ldDragged.CurrentPos);
 
 			mbDragging = false;	
@@ -1063,14 +1063,14 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 			//Trace_ULONG(10252,muKeyWithDragging);//EMSG_DRAG_END
 			CExMessage::SendMessage(mpDragMsgReceiver,NULL,EMSG_DRAG_END,ldDragged);
 
-			// ÏÂÃæĞèÒª¼ÌĞø¼ì²âÊó±ê£¬±êÊ¶¸Õ²ÅÓĞÍÏ×§ĞĞÎª£¬±ÜÃâ½«Button UpÏûÏ¢·¢¸øĞÂµÄÊó±êÂäµã;
-			// Í¬Ê±¼ÌĞø¼ì²âÊó±êÓÃÓÚÅĞ¶ÏÊÇ·ñÖ´ĞĞDrag&DropµÄDrop downĞĞÎª
+			// ä¸‹é¢éœ€è¦ç»§ç»­æ£€æµ‹é¼ æ ‡ï¼Œæ ‡è¯†åˆšæ‰æœ‰æ‹–æ‹½è¡Œä¸ºï¼Œé¿å…å°†Button Upæ¶ˆæ¯å‘ç»™æ–°çš„é¼ æ ‡è½ç‚¹;
+			// åŒæ—¶ç»§ç»­æ£€æµ‹é¼ æ ‡ç”¨äºåˆ¤æ–­æ˜¯å¦æ‰§è¡ŒDrag&Dropçš„Drop downè¡Œä¸º
 			lbStopDrag = true;
 		}
 		else
-		if(mbXuiDragDrop == false && luWsgID != WM_MOUSEWHEEL)	// Èç¹ûÃ»ÓĞ½áÊøÍÏ×§,²»´¦ÓÚDrag&Drop×´Ì¬²¢ÇÒ²»ÊÇMouse WheelÏûÏ¢
+		if(mbXuiDragDrop == false && luWsgID != WM_MOUSEWHEEL)	// å¦‚æœæ²¡æœ‰ç»“æŸæ‹–æ‹½,ä¸å¤„äºDrag&DropçŠ¶æ€å¹¶ä¸”ä¸æ˜¯Mouse Wheelæ¶ˆæ¯
 		{
-			// ÄÇÃ´¾Í²»ÔÙ¼ÌĞøÊó±ê¼ì²âÁË
+			// é‚£ä¹ˆå°±ä¸å†ç»§ç»­é¼ æ ‡æ£€æµ‹äº†
 			if(lpCrtMouseFocus != NULL)
 				lpCrtMouseFocus->KRelease();
 			return ERESULT_SUCCESS;
@@ -1078,7 +1078,7 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	//Trace_float(20125,loMouseFoot.Point.x);// ¼ì²âÊó±êÂäµã
+	//Trace_float(20125,loMouseFoot.Point.x);// æ£€æµ‹é¼ æ ‡è½ç‚¹
 	//Trace_float(22462,loMouseFoot.Point.y);
 	if(luWsgID != WM_MOUSELEAVE)
 	{
@@ -1087,7 +1087,7 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 		mpMouseMoveOn = NULL;
 		mlMouseMoveOnLevel = -1;
 
-		// ÌîÈë³õÊ¼Î»ÖÃ
+		// å¡«å…¥åˆå§‹ä½ç½®
 		moPointToTest.Clear();
 		CElMouseTestState loState;
 		loState.Point = loMouseFoot.Point;
@@ -1096,12 +1096,12 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 		loState.mlCrtLevel = 0;
 		moPointToTest.Push(loState);
 
-		// ¼ì²éÈ«²¿¶ÔÏó£¬Ä¿Ç°Êó±ê¼ì²âÃ»ÓĞÖ§³ÖÇ¶Ì×µÄ»æÖÆ²ã
+		// æ£€æŸ¥å…¨éƒ¨å¯¹è±¡ï¼Œç›®å‰é¼ æ ‡æ£€æµ‹æ²¡æœ‰æ”¯æŒåµŒå¥—çš„ç»˜åˆ¶å±‚
 		mbTopDrawTest = false;
 		EnumAllElement(true,this,
 			(ERESULT (__stdcall IBaseObject::*)(IEinkuiIterator* npRecipient))&CXelManager::EnterForMouseTest,
 			(ERESULT (__stdcall IBaseObject::*)(IEinkuiIterator* npRecipient))&CXelManager::LeaveForMouseTest
-			);	// ²»±ØÅĞ¶Ï·µ»ØÖµ
+			);	// ä¸å¿…åˆ¤æ–­è¿”å›å€¼
 	}
 	else
 	{
@@ -1111,13 +1111,13 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// ¹ıÂËµôËø¶¨ÇøÓò
+	// è¿‡æ»¤æ‰é”å®šåŒºåŸŸ
 	lpModal = CEinkuiSystem::gpXuiSystem->GetTopModalElement();
 	if(mpMouseMoveOn != NULL && lpModal != NULL && lpModal->IsVisible()!= false)
 	{
 		if(mpMouseMoveOn->FindAncestor(lpModal)==false)
 		{
-			//// Èç¹ûÊÇÊó±ê°´¼üÏûÏ¢£¬Õâ¼¤·¢Ä£Ì¬´°¿ÚÉÁË¸
+			//// å¦‚æœæ˜¯é¼ æ ‡æŒ‰é”®æ¶ˆæ¯ï¼Œè¿™æ¿€å‘æ¨¡æ€çª—å£é—ªçƒ
 			//if(luWsgID == WM_LBUTTONDOWN || luWsgID == WM_RBUTTONDOWN || luWsgID == WM_MBUTTONDOWN)
 			//{
 			//	CEinkuiSystem::gpXuiSystem->FlashModalElement(lpModal);
@@ -1127,20 +1127,20 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	// ÊÇ·ñ´¦ÓÚDrag&drop×´Ì¬
+	// æ˜¯å¦å¤„äºDrag&dropçŠ¶æ€
 	if(mbXuiDragDrop != false)
 	{
 		if(lbStopDrag == false)
 		{
-			// Ñ¯ÎÊÊÇ·ñÖ§³ÖDrop
+			// è¯¢é—®æ˜¯å¦æ”¯æŒDrop
 			DropDetect(mpMouseMoveOn);
 
-			// ²»ÓÃÏòÏÂ¼ÌĞøÖ´ĞĞÁË
+			// ä¸ç”¨å‘ä¸‹ç»§ç»­æ‰§è¡Œäº†
 			return ERESULT_SUCCESS;
 		}
 		else
 		{
-			// ÅĞ¶ÏÊÇ·ñÖ´ĞĞDrop down²Ù×÷
+			// åˆ¤æ–­æ˜¯å¦æ‰§è¡ŒDrop downæ“ä½œ
 			TryDropDown(mpMouseMoveOn);
 		}
 	}
@@ -1153,7 +1153,7 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	// ÊÇ·ñ±ä»»Êó±ê½¹µã
+	// æ˜¯å¦å˜æ¢é¼ æ ‡ç„¦ç‚¹
 	if(mpMouseMoveOn != lpCrtMouseFocus)
 	{
 		if(lpCrtMouseFocus != NULL)
@@ -1177,11 +1177,11 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 
 			ChangeMouseFocus(mpMouseMoveOn);
 
-			// ¸ÕÇĞ»»µ½ĞÂÔªËØ£¬ÏÂ´Î½øÈë½«Ì½²âĞü¸¡
+			// åˆšåˆ‡æ¢åˆ°æ–°å…ƒç´ ï¼Œä¸‹æ¬¡è¿›å…¥å°†æ¢æµ‹æ‚¬æµ®
 			mbHoverTest = true;
 		}
 		
-		// Èç¹ûµ±Ç°µÄÇé¿öÊÇ£ºÊÍ·ÅÁËÊó±êÍÏ×§Í¬Ê±±ä»»ÁË½¹µã£¬ÄÇÃ´¾Í²»Ó¦¸Ã°ÑÊó±ê°´Å¥Ì§ÆğÏûÏ¢·¢ËÍµ½ĞÂµÄ½¹µã
+		// å¦‚æœå½“å‰çš„æƒ…å†µæ˜¯ï¼šé‡Šæ”¾äº†é¼ æ ‡æ‹–æ‹½åŒæ—¶å˜æ¢äº†ç„¦ç‚¹ï¼Œé‚£ä¹ˆå°±ä¸åº”è¯¥æŠŠé¼ æ ‡æŒ‰é’®æŠ¬èµ·æ¶ˆæ¯å‘é€åˆ°æ–°çš„ç„¦ç‚¹
 		if(lbStopDrag != false)
 		{
 			if(lpCrtMouseFocus != NULL)
@@ -1191,16 +1191,16 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 
 		if(mpTipOwner != NULL)
 		{
-			//´ÙÊ¹TipÏÔÊ¾³¬Ê±
+			//ä¿ƒä½¿Tipæ˜¾ç¤ºè¶…æ—¶
 			muTickOnTipShow = 0;
 			mpTipOwner->KRelease();
 			mpTipOwner = NULL;
 		}
 	}
 	else
-	if(mbHoverTest !=false && luWsgID == MAXULONG32 && lpCrtMouseFocus != NULL)	// µ«±¾º¯ÊıÊÇÏµÍ³ÖØ»æºóµ÷ÓÃÊ±£¬²ÅĞèÒªÌ½²âĞü¸¡
+	if(mbHoverTest !=false && luWsgID == MAXULONG32 && lpCrtMouseFocus != NULL)	// ä½†æœ¬å‡½æ•°æ˜¯ç³»ç»Ÿé‡ç»˜åè°ƒç”¨æ—¶ï¼Œæ‰éœ€è¦æ¢æµ‹æ‚¬æµ®
 	{
-		// Ì½²âĞü¸¡
+		// æ¢æµ‹æ‚¬æµ®
 		ULONG luTotal = 0;
 
 		if(moMouseTrace.Back().Point.x >= loMouseFoot.Point.x-1.0f && moMouseTrace.Back().Point.x <= loMouseFoot.Point.x+1.0f &&
@@ -1209,10 +1209,10 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 		{
 			CExMessage::SendMessage(lpCrtMouseFocus,NULL,EMSG_MOUSE_HOVER,CExMessage::DataInvalid);
 
-			// ×î½üÒ»´ÎTipÏÔÊ¾Õß²»ÊÇ´ËÔªËØ
+			// æœ€è¿‘ä¸€æ¬¡Tipæ˜¾ç¤ºè€…ä¸æ˜¯æ­¤å…ƒç´ 
 			if(mpTipOwner != lpCrtMouseFocus)
 			{
-				// ÅĞ¶ÏÊÇ·ñÓĞTip
+				// åˆ¤æ–­æ˜¯å¦æœ‰Tip
 				const wchar_t* lswTipText = lpCrtMouseFocus->GetToolTip();
 				if(lswTipText != NULL)
 				{
@@ -1234,27 +1234,27 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 		}
 	}
 
-	// ÊÍ·ÅÏÈÇ°µÄÊó±ê½¹µã
+	// é‡Šæ”¾å…ˆå‰çš„é¼ æ ‡ç„¦ç‚¹
 	if(lpCrtMouseFocus != NULL)
 		lpCrtMouseFocus->KRelease();
 
-	// ¼ì²éTipÏÔÊ¾ÊÇ·ñµ½ÆÚ
+	// æ£€æŸ¥Tipæ˜¾ç¤ºæ˜¯å¦åˆ°æœŸ
 	if(mbTipHide == false && ((loMouseFoot.TickCount - muTickOnTipShow) >= ELMGR_TIP_DURATION || npMouseInput!=NULL))
 	{
 		mbTipHide = true;
 		CExMessage::SendMessage(GetDesktop(),NULL,EMSG_SWGT_HIDE_TIP,CExMessage::DataInvalid);
 	}
 
-	//  Èç¹û½ö½öÊÇ»æÖÆºó¼ì²âÊó±êÎ»ÖÃ£¬ÄÇ¾Í¿ÉÒÔÍË³öÁË
+	//  å¦‚æœä»…ä»…æ˜¯ç»˜åˆ¶åæ£€æµ‹é¼ æ ‡ä½ç½®ï¼Œé‚£å°±å¯ä»¥é€€å‡ºäº†
 	if(npMouseInput == NULL)
 		return ERESULT_SUCCESS;
 
-	// Ö´ĞĞWindowsÊó±ê¿ØÖÆ
+	// æ‰§è¡ŒWindowsé¼ æ ‡æ§åˆ¶
 
-	// ÖØĞÂ»ñµÃÊó±ê
+	// é‡æ–°è·å¾—é¼ æ ‡
 	lpCrtMouseFocus = InnerGetMouseFocus();
 
-	// Èç¹ûµ±Ç°Ã»ÓĞÊó±ê½¹µã£¬ÄÇÃ´¾Í¼ì²âÒ»ÏÂ»î¶¯´°¿ÚÊÇ·ñ¸Ä±ä£¬¾ÍÍË³öÁË
+	// å¦‚æœå½“å‰æ²¡æœ‰é¼ æ ‡ç„¦ç‚¹ï¼Œé‚£ä¹ˆå°±æ£€æµ‹ä¸€ä¸‹æ´»åŠ¨çª—å£æ˜¯å¦æ”¹å˜ï¼Œå°±é€€å‡ºäº†
 	if(lpCrtMouseFocus == NULL)
 	{
 		if(luWsgID == WM_LBUTTONDOWN || luWsgID == WM_RBUTTONDOWN || luWsgID == WM_MBUTTONDOWN)
@@ -1263,23 +1263,23 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 		return ERESULT_SUCCESS;
 	}
 
-	// ½«Êó±êĞĞÎª·­ÒëÎª×Ô¼ºµÄÏûÏ¢¸ñÊ½
+	// å°†é¼ æ ‡è¡Œä¸ºç¿»è¯‘ä¸ºè‡ªå·±çš„æ¶ˆæ¯æ ¼å¼
 	switch(luWsgID)
 	{
 	case WM_LBUTTONDOWN:
 		{
-			// ÓĞ¿ÉÄÜ»¹Òª¸Ä±ä´°¿Ú²ãµş£¬ĞèÒª¸Ä±ä¼üÅÌ½¹µã
+			// æœ‰å¯èƒ½è¿˜è¦æ”¹å˜çª—å£å±‚å ï¼Œéœ€è¦æ”¹å˜é”®ç›˜ç„¦ç‚¹
 			BringFocusedPopupToTop(lpCrtMouseFocus);
 
-			// ÅĞ¶Ïµ±Ç°Ä¿±êÊÇ²»ÊÇÒ»¸ö¿ÉÍÏ×§µÄ´°¿Ú£¬¾ö¶¨ÊÇ·ñ½øÈëÍÏ×§×´Ì¬
+			// åˆ¤æ–­å½“å‰ç›®æ ‡æ˜¯ä¸æ˜¯ä¸€ä¸ªå¯æ‹–æ‹½çš„çª—å£ï¼Œå†³å®šæ˜¯å¦è¿›å…¥æ‹–æ‹½çŠ¶æ€
 			DetectMouseDragBegin(lpCrtMouseFocus,MK_LBUTTON,LOWORD(npMouseInput->wParam),loMouseFoot.Point);
 
 			SendMouseButtonPressed(lpCrtMouseFocus,true,MK_LBUTTON,LOWORD(npMouseInput->wParam),loMouseFoot.TickCount,mdPointRelative);
 
-			// ÉèÖÃ¼üÅÌ½¹µã
+			// è®¾ç½®é”®ç›˜ç„¦ç‚¹
 			DetectKeyboardFocus(lpCrtMouseFocus);
 
-			// ÉèÖÃ»îÔ¾´°¿Ú
+			// è®¾ç½®æ´»è·ƒçª—å£
 			ChangeActiveElement(lpCrtMouseFocus);
 		}
 		break;
@@ -1295,18 +1295,18 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 		break;
 	case WM_RBUTTONDOWN:
 		{
-			// ÓĞ¿ÉÄÜ»¹Òª¸Ä±ä´°¿Ú²ãµş£¬ĞèÒª¸Ä±ä¼üÅÌ½¹µã
+			// æœ‰å¯èƒ½è¿˜è¦æ”¹å˜çª—å£å±‚å ï¼Œéœ€è¦æ”¹å˜é”®ç›˜ç„¦ç‚¹
 			BringFocusedPopupToTop(lpCrtMouseFocus);
 
-			// ÅĞ¶Ïµ±Ç°Ä¿±êÊÇ²»ÊÇÒ»¸ö¿ÉÍÏ×§µÄ´°¿Ú£¬¾ö¶¨ÊÇ·ñ½øÈëÍÏ×§×´Ì¬
+			// åˆ¤æ–­å½“å‰ç›®æ ‡æ˜¯ä¸æ˜¯ä¸€ä¸ªå¯æ‹–æ‹½çš„çª—å£ï¼Œå†³å®šæ˜¯å¦è¿›å…¥æ‹–æ‹½çŠ¶æ€
 			DetectMouseDragBegin(lpCrtMouseFocus,MK_RBUTTON,LOWORD(npMouseInput->wParam),loMouseFoot.Point);
 
 			SendMouseButtonPressed(lpCrtMouseFocus,true,MK_RBUTTON,LOWORD(npMouseInput->wParam),loMouseFoot.TickCount,mdPointRelative);
 
-			// ÉèÖÃ¼üÅÌ½¹µã
+			// è®¾ç½®é”®ç›˜ç„¦ç‚¹
 			DetectKeyboardFocus(lpCrtMouseFocus);
 
-			// ÉèÖÃ»îÔ¾´°¿Ú
+			// è®¾ç½®æ´»è·ƒçª—å£
 			ChangeActiveElement(lpCrtMouseFocus);
 		}
 		break;
@@ -1322,18 +1322,18 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 		break;
 	case WM_MBUTTONDOWN:
 		{
-			// ÓĞ¿ÉÄÜ»¹Òª¸Ä±ä´°¿Ú²ãµş£¬ĞèÒª¸Ä±ä¼üÅÌ½¹µã
+			// æœ‰å¯èƒ½è¿˜è¦æ”¹å˜çª—å£å±‚å ï¼Œéœ€è¦æ”¹å˜é”®ç›˜ç„¦ç‚¹
 			BringFocusedPopupToTop(lpCrtMouseFocus);
 
-			// ÅĞ¶Ïµ±Ç°Ä¿±êÊÇ²»ÊÇÒ»¸ö¿ÉÍÏ×§µÄ´°¿Ú£¬¾ö¶¨ÊÇ·ñ½øÈëÍÏ×§×´Ì¬
+			// åˆ¤æ–­å½“å‰ç›®æ ‡æ˜¯ä¸æ˜¯ä¸€ä¸ªå¯æ‹–æ‹½çš„çª—å£ï¼Œå†³å®šæ˜¯å¦è¿›å…¥æ‹–æ‹½çŠ¶æ€
 			DetectMouseDragBegin(lpCrtMouseFocus,MK_MBUTTON,LOWORD(npMouseInput->wParam),loMouseFoot.Point);
 
 			SendMouseButtonPressed(lpCrtMouseFocus,true,MK_MBUTTON,LOWORD(npMouseInput->wParam),loMouseFoot.TickCount,mdPointRelative);
 
-			// ÉèÖÃ¼üÅÌ½¹µã
+			// è®¾ç½®é”®ç›˜ç„¦ç‚¹
 			DetectKeyboardFocus(lpCrtMouseFocus);
 
-			// ÉèÖÃ»îÔ¾´°¿Ú
+			// è®¾ç½®æ´»è·ƒçª—å£
 			ChangeActiveElement(lpCrtMouseFocus);
 		}
 		break;
@@ -1405,7 +1405,7 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 			CExMessage::SendMessage(lpCrtMouseFocus,NULL,EMSG_MOUSE_MOVING,ldMouse);
 		}
 		break;
-	case WM_MOUSEWHEEL:	// Mouse wheel ÏûÏ¢Ğ¯´øµÄpointÎ»ÖÃÊÇÆÁÄ»×ø±ê£¬µ±·ÇÈ«ÆÁ´°¿Ú³ÌĞòµÄÊ±ºò£¬ĞèÒªÌØÊâ´¦Àí£¬Ä¿Ç°Õâ¸öÎÊÌâ»¹Ã»ÓĞ´¦Àí£¬Çë¿ª·¢ĞÂ°æµÄÊ±ºò×¢Òâ??? Ax Nov.7,2012
+	case WM_MOUSEWHEEL:	// Mouse wheel æ¶ˆæ¯æºå¸¦çš„pointä½ç½®æ˜¯å±å¹•åæ ‡ï¼Œå½“éå…¨å±çª—å£ç¨‹åºçš„æ—¶å€™ï¼Œéœ€è¦ç‰¹æ®Šå¤„ç†ï¼Œç›®å‰è¿™ä¸ªé—®é¢˜è¿˜æ²¡æœ‰å¤„ç†ï¼Œè¯·å¼€å‘æ–°ç‰ˆçš„æ—¶å€™æ³¨æ„??? Ax Nov.7,2012
 		{
 			STEMS_MOUSE_WHEEL ldMouse;
 
@@ -1425,10 +1425,10 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 
 	if(lpCrtMouseFocus != NULL)
 	{
-		// ´¦ÀíÓëwindowsÊó±ê¸ú×Ù£¬Èç¹ûÃ»ÓĞ¿ªÊ¼¸ú×Ù£¬Ôò¸ú×ÙwindowsµÄÊó±ê
+		// å¤„ç†ä¸windowsé¼ æ ‡è·Ÿè¸ªï¼Œå¦‚æœæ²¡æœ‰å¼€å§‹è·Ÿè¸ªï¼Œåˆ™è·Ÿè¸ªwindowsçš„é¼ æ ‡
 		if(mbTrackMouse == false)
 		{
-			//¹Ø±ÕÁËTrack mouse µÄ²Ù×÷ ax
+			//å…³é—­äº†Track mouse çš„æ“ä½œ ax
 			//TRACKMOUSEEVENT TrackMouse;
 			//TrackMouse.cbSize = sizeof(TrackMouse);
 			//TrackMouse.dwFlags = TME_LEAVE;
@@ -1447,14 +1447,14 @@ ERESULT CXelManager::OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInp
 
 
 
-// ĞŞ¸Ä´Ë´úÂë£¬½«´¥ÆÁÏûÏ¢°´ÕÕÊó±êÏûÏ¢×ª·¢£¬´¥ÆÁÂß¼­Î´ÍêÕû£¬Ax.2017.08.16
-// ´¦ÀíÊó±êÊäÈë×ª·¢
+// ä¿®æ”¹æ­¤ä»£ç ï¼Œå°†è§¦å±æ¶ˆæ¯æŒ‰ç…§é¼ æ ‡æ¶ˆæ¯è½¬å‘ï¼Œè§¦å±é€»è¾‘æœªå®Œæ•´ï¼ŒAx.2017.08.16
+// å¤„ç†é¼ æ ‡è¾“å…¥è½¬å‘
 // ERESULT CXelManager::OnMsgEinkTouchForward(const PSTEMS_TOUCH npMouseInput)
 // {
 // 	return ERESULT_SUCCESS;
 // }
 
-// Ñ¯ÎÊÊÇ·ñÖ§³ÖDrop
+// è¯¢é—®æ˜¯å¦æ”¯æŒDrop
 void CXelManager::DropDetect(CXuiIterator* npToDetect)
 {
 	 CElMouseFootPrint loMouseFoot;
@@ -1462,16 +1462,16 @@ void CXelManager::DropDetect(CXuiIterator* npToDetect)
 		 return;
 
 	 if(mpRecentAskedDrop != NULL && mpRecentAskedDrop->CheckStyle(EITR_STYLE_XUIDRAGDROP)==false && npToDetect == mpRecentAskedDrop)
-		 return;	// ²»¾ßÓĞÕâ¸öÊôĞÔµÄ£¬²¢ÇÒÒÑ¾­¼ÇÂ¼ÁË
+		 return;	// ä¸å…·æœ‰è¿™ä¸ªå±æ€§çš„ï¼Œå¹¶ä¸”å·²ç»è®°å½•äº†
 
 	 if(mpRecentAskedDrop != NULL && mpRecentAskedDrop->CheckStyle(EITR_STYLE_XUIDRAGDROP)!=false && npToDetect != mpRecentAskedDrop)
 	 {
-		 // ¸øÀë¿ªµÄ¶ÔÏó·¢ËÍDrop leaveÏûÏ¢
+		 // ç»™ç¦»å¼€çš„å¯¹è±¡å‘é€Drop leaveæ¶ˆæ¯
 		 CExMessage::SendMessage(mpRecentAskedDrop,NULL,EMSG_DRAGDROP_LEAVE,CExMessage::DataInvalid);
 	 
 	 }
 
-	 // ¸úĞÂ×î½ü·ÃÎÊ¼ÇÂ¼
+	 // è·Ÿæ–°æœ€è¿‘è®¿é—®è®°å½•
 	 if(npToDetect != mpRecentAskedDrop)
 	 {
 		 if(mpRecentAskedDrop != NULL)
@@ -1479,7 +1479,7 @@ void CXelManager::DropDetect(CXuiIterator* npToDetect)
 		 mpRecentAskedDrop = npToDetect;
 		 mpRecentAskedDrop->KAddRefer();
 
-		 // ¸øĞÂ¶ÔÏó·¢ËÍ½øÈëÏûÏ¢
+		 // ç»™æ–°å¯¹è±¡å‘é€è¿›å…¥æ¶ˆæ¯
 		 if(npToDetect->CheckStyle(EITR_STYLE_XUIDRAGDROP)!=false)
 		 {
 			 CExMessage::SendMessage(mpRecentAskedDrop,NULL,EMSG_DRAGDROP_ENTER,CExMessage::DataInvalid);
@@ -1488,12 +1488,12 @@ void CXelManager::DropDetect(CXuiIterator* npToDetect)
 
 	 if(npToDetect->CheckStyle(EITR_STYLE_XUIDRAGDROP)!=false)
 	 {
-		 // ¼ÆËã¾Ö²¿×ø±ê
+		 // è®¡ç®—å±€éƒ¨åæ ‡
 		loMouseFoot = moMouseTrace.Back();
 		npToDetect->WorldToLocal(loMouseFoot.Point,mdDrgdrpRequest.CurrentPos);
 		mdDrgdrpRequest.KeyFlag = loMouseFoot.KeyFlag;
 
-		// Ñ¯ÎÊÊÇ·ñ½ÓÊÜDrop
+		// è¯¢é—®æ˜¯å¦æ¥å—Drop
 		 ERESULT luResult = CExMessage::SendMessage(npToDetect,NULL,EMSG_XUI_DROP_TEST,mdDrgdrpRequest);
 		 if(luResult == ERESULT_EDRAGDROP_ACCEPT)
 		 {
@@ -1505,7 +1505,7 @@ void CXelManager::DropDetect(CXuiIterator* npToDetect)
 	 }
 }
 
-// Ö´ĞĞDrop down
+// æ‰§è¡ŒDrop down
 void CXelManager::TryDropDown(CXuiIterator* npToTry)
 {
 	if(npToTry != NULL && npToTry == mpLastAccepter && mpDraggingElement != NULL)
@@ -1516,7 +1516,7 @@ void CXelManager::TryDropDown(CXuiIterator* npToTry)
 
 		do 
 		{
-			// ¼ÆËã¾Ö²¿×ø±ê
+			// è®¡ç®—å±€éƒ¨åæ ‡
 			loMouseFoot = moMouseTrace.Back();
 			npToTry->WorldToLocal(loMouseFoot.Point,mdDrgdrpRequest.CurrentPos);
 			mdDrgdrpRequest.KeyFlag = loMouseFoot.KeyFlag;
@@ -1531,7 +1531,7 @@ void CXelManager::TryDropDown(CXuiIterator* npToTry)
 
 			if(lpMsg->GetOutputDataSize() == sizeof(mdDrgdrpRequest))
 			{
-				//·ÀÖ¹¸Ã²ÎÊı±»ĞŞ¸Ä
+				//é˜²æ­¢è¯¥å‚æ•°è¢«ä¿®æ”¹
 				mdDrgdrpRequest.Host = mpDraggingElement;
 			}
 			CMM_SAFE_RELEASE(lpMsg);
@@ -1564,7 +1564,7 @@ void CXelManager::TryDropDown(CXuiIterator* npToTry)
 }
 
 
-// ·¢ËÍÊó±ê°´¼üÏûÏ¢
+// å‘é€é¼ æ ‡æŒ‰é”®æ¶ˆæ¯
 void CXelManager::SendMouseButtonPressed(IEinkuiIterator* npFocus,bool nbPressed,ULONG nuActKey,ULONG nuKeyFlag,ULONG nuTickCount,const D2D1_POINT_2F& rPosition)
 {
 	STEMS_MOUSE_BUTTON ldMouse;
@@ -1578,7 +1578,7 @@ void CXelManager::SendMouseButtonPressed(IEinkuiIterator* npFocus,bool nbPressed
 	SimpleSendMessage(npFocus,EMSG_MOUSE_BUTTON,&ldMouse,sizeof(ldMouse),NULL,0);
 }
 
-// ·¢ËÍÊó±ê°´¼üË«»÷ÏûÏ¢
+// å‘é€é¼ æ ‡æŒ‰é”®åŒå‡»æ¶ˆæ¯
 void CXelManager::SendMouseButtonDbClick(IEinkuiIterator* npFocus,ULONG nuActKey,ULONG nuKeyFlag,ULONG nuTickCount,const D2D1_POINT_2F& rPosition)
 {
 	STEMS_MOUSE_BUTTON ldMouse;
@@ -1593,23 +1593,23 @@ void CXelManager::SendMouseButtonDbClick(IEinkuiIterator* npFocus,ULONG nuActKey
 }
 
 
-// ¼ì²éÊÇ·ñÆô¶¯ÍÏ×§²¢ÇÒ·¢ËÍ¿ªÊ¼ÍÏ×§ÏûÏ¢
+// æ£€æŸ¥æ˜¯å¦å¯åŠ¨æ‹–æ‹½å¹¶ä¸”å‘é€å¼€å§‹æ‹–æ‹½æ¶ˆæ¯
 void CXelManager::DetectMouseDragBegin(CXuiIterator* npFocus,ULONG nuActKey,ULONG nuKeyFlag,const D2D1_POINT_2F& rPosition)
 {
 	if(mbDragging != false)
 		return;
 
-	// µ±Ç°½¹µãÊÇ·ñÖ§³ÖÍÏ×§
+	// å½“å‰ç„¦ç‚¹æ˜¯å¦æ”¯æŒæ‹–æ‹½
 	if(npFocus->CheckStyle(EITR_STYLE_DRAG)==false)
 	{
-		// ²»Ö§³Ö£¬ÄÇÃ´ÅĞ¶ÏÊÇ·ñÓĞ¸¸´°¿ÚÉèÖÃÁËÈ«ÍÏ×§
+		// ä¸æ”¯æŒï¼Œé‚£ä¹ˆåˆ¤æ–­æ˜¯å¦æœ‰çˆ¶çª—å£è®¾ç½®äº†å…¨æ‹–æ‹½
 		CXuiIterator* lpItrObj = (CXuiIterator*)npFocus->GetParent();
 
 		if(mpDragMsgReceiver != NULL)
 			mpDragMsgReceiver->KRelease();
 		mpDragMsgReceiver = NULL;
 
-		// Ã»ÓĞµ½´ï¸ù½Úµã
+		// æ²¡æœ‰åˆ°è¾¾æ ¹èŠ‚ç‚¹
 		while(lpItrObj != (CXuiIterator*)lpItrObj->GetParent())
 		{
 			if(lpItrObj->CheckStyle(EITR_STYLE_ALL_DRAG)!=false)
@@ -1638,15 +1638,15 @@ void CXelManager::DetectMouseDragBegin(CXuiIterator* npFocus,ULONG nuActKey,ULON
 	IEinkuiMessage* lpMsg;
 	ERESULT luResult;
 
-	// ·¢ËÍÍÏ×§¿ªÊ¼ÏûÏ¢
+	// å‘é€æ‹–æ‹½å¼€å§‹æ¶ˆæ¯
 	ldDragged.Offset.x = 0.0f;
 	ldDragged.Offset.y = 0.0f;
 	ldDragged.ActKey = nuActKey;
 	ldDragged.KeyFlag = nuKeyFlag;
 	ldDragged.DragOn = npFocus;
 
-	// ¼ÆËã¾Ö²¿×ø±ê£¬Ä¬ÈÏÇé¿öÏÂ£¬ÊÀ½ç×ª»»µÄÄæÕóÒÑ¾­×ª»»ÁË
-	if(npFocus->WorldToLocal(rPosition,ldDragged.CurrentPos) == false) //³ö´í£¬ÎŞ·¨¼ÆËã¾Ö²¿×ø±ê£¬Ôò²»·¢ËÍÍÏ×§ÏûÏ¢
+	// è®¡ç®—å±€éƒ¨åæ ‡ï¼Œé»˜è®¤æƒ…å†µä¸‹ï¼Œä¸–ç•Œè½¬æ¢çš„é€†é˜µå·²ç»è½¬æ¢äº†
+	if(npFocus->WorldToLocal(rPosition,ldDragged.CurrentPos) == false) //å‡ºé”™ï¼Œæ— æ³•è®¡ç®—å±€éƒ¨åæ ‡ï¼Œåˆ™ä¸å‘é€æ‹–æ‹½æ¶ˆæ¯
 	{
 		if(mpDragMsgReceiver != NULL)
 			mpDragMsgReceiver->KRelease();
@@ -1667,7 +1667,7 @@ void CXelManager::DetectMouseDragBegin(CXuiIterator* npFocus,ULONG nuActKey,ULON
 
 		if(lpMsg->GetResult() == ERESULT_EDRAGDROP_BEGIN && lpMsg->GetOutputDataSize() == sizeof(mdDrgdrpRequest))
 		{
-			// ¿ªÊ¼Ö´ĞĞÍÏ·Å²Ù×÷
+			// å¼€å§‹æ‰§è¡Œæ‹–æ”¾æ“ä½œ
 			mdDrgdrpRequest.Host = mpDragMsgReceiver;
 			mbXuiDragDrop = true;
 
@@ -1695,12 +1695,12 @@ void CXelManager::DetectMouseDragBegin(CXuiIterator* npFocus,ULONG nuActKey,ULON
 	lpMsg->Release();
 }
 
-// ½«Ä¿±êÔªËØ´Ó×ÓËïµ½×æÏÈÈ«²¿µ÷Õûµ½Zorder×î¸ß²ã
+// å°†ç›®æ ‡å…ƒç´ ä»å­å­™åˆ°ç¥–å…ˆå…¨éƒ¨è°ƒæ•´åˆ°Zorderæœ€é«˜å±‚
 void CXelManager::BringFocusedPopupToTop(CXuiIterator* npFocus)
 {
 	CXuiIterator* lpItrObj = (CXuiIterator*)npFocus->GetParent();
 
-	// µ½´ï¸ù½Úµã
+	// åˆ°è¾¾æ ¹èŠ‚ç‚¹
 	while(npFocus != lpItrObj)
 	{
 		if(npFocus->CheckStyle(EITR_STYLE_POPUP)!=false)
@@ -1714,16 +1714,16 @@ void CXelManager::BringFocusedPopupToTop(CXuiIterator* npFocus)
 
 }
 
-// ¼ì²éÊÇ·ñ»á»ñµÃ¼üÅÌ½¹µã£¬Èç¹ûÄ¿±êÇ¡ºÃÊÇµ±Ç°¼üÅÌ½¹µãÔòÖ±½Ó·µ»Ø£¬·ñÔò½«ÊÍ·Åµ±Ç°¼üÅÌ½¹µã
+// æ£€æŸ¥æ˜¯å¦ä¼šè·å¾—é”®ç›˜ç„¦ç‚¹ï¼Œå¦‚æœç›®æ ‡æ°å¥½æ˜¯å½“å‰é”®ç›˜ç„¦ç‚¹åˆ™ç›´æ¥è¿”å›ï¼Œå¦åˆ™å°†é‡Šæ”¾å½“å‰é”®ç›˜ç„¦ç‚¹
 void CXelManager::DetectKeyboardFocus(CXuiIterator* npToDetect)
 {
-	// ²»Ö§³Ö£¬ÄÇÃ´ÅĞ¶ÏÊÇ·ñÓĞ¸¸´°¿ÚÉèÖÃÁËEITR_STYLE_ALL_KEY
+	// ä¸æ”¯æŒï¼Œé‚£ä¹ˆåˆ¤æ–­æ˜¯å¦æœ‰çˆ¶çª—å£è®¾ç½®äº†EITR_STYLE_ALL_KEY
 	if(npToDetect->CheckStyle(EITR_STYLE_KEYBOARD)==false)
 	{
 		CXuiIterator* lpItrObj = (CXuiIterator*)npToDetect->GetParent();
 		npToDetect = NULL;
 
-		// Ã»ÓĞµ½´ï¸ù½Úµã
+		// æ²¡æœ‰åˆ°è¾¾æ ¹èŠ‚ç‚¹
 		while(lpItrObj != (CXuiIterator*)lpItrObj->GetParent())
 		{
 			if(lpItrObj->CheckStyle(EITR_STYLE_ALL_KEY)!=false)
@@ -1741,7 +1741,7 @@ void CXelManager::DetectKeyboardFocus(CXuiIterator* npToDetect)
 }
 
 
-// Êó±êÂäµã¼ì²âÔ¤´¦Àí
+// é¼ æ ‡è½ç‚¹æ£€æµ‹é¢„å¤„ç†
 ERESULT __stdcall CXelManager::EnterForMouseTest(IEinkuiIterator* npRecipient)
 {
 	ERESULT luResult;
@@ -1755,7 +1755,7 @@ ERESULT __stdcall CXelManager::EnterForMouseTest(IEinkuiIterator* npRecipient)
 		loState = moPointToTest.Top();
 
 		moPointToTest.Push(loState);
-		// Èç¹ûÒş²Ø£¬ÍË³ö
+		// å¦‚æœéšè—ï¼Œé€€å‡º
 		if(npRecipient->IsVisible()==false)
 		{
 			luResult= ERESULT_STOP_ENUM_CHILD;
@@ -1773,16 +1773,16 @@ ERESULT __stdcall CXelManager::EnterForMouseTest(IEinkuiIterator* npRecipient)
 		if(lpRecipient->GetPaintLevel() >= 0)
 			moPointToTest.Top().mlCrtLevel = lpRecipient->GetPaintLevel();
 
-		// Èç¹ûÉèÖÃÁË¿ÉÊÓÇøÓò£¬ÔòÅĞ¶ÏÊÇ·ñÔÚÇøÓòÖĞ
+		// å¦‚æœè®¾ç½®äº†å¯è§†åŒºåŸŸï¼Œåˆ™åˆ¤æ–­æ˜¯å¦åœ¨åŒºåŸŸä¸­
 		if(lpRecipient->GetVisibleRegion(ldVisibleRegion)!=false)
 		{
 			D2D1_POINT_2F ldPosition;
-			// ÌáÆğ¼ÆËãÊÀ½ç×ø±ê¾ØÕóµÄÄæÕó
+			// æèµ·è®¡ç®—ä¸–ç•Œåæ ‡çŸ©é˜µçš„é€†é˜µ
 			if(lpRecipient->WorldToLocal(moPointToTest.Top().Point,ldPosition) == false || 
 				ldPosition.x < ldVisibleRegion.left || ldPosition.x >= ldVisibleRegion.right || 
 				ldPosition.y < ldVisibleRegion.top || ldPosition.y >= ldVisibleRegion.bottom )
 			{
-				return ERESULT_STOP_ENUM_CHILD;	// ²»ÔÚÇøÓòÖĞ
+				return ERESULT_STOP_ENUM_CHILD;	// ä¸åœ¨åŒºåŸŸä¸­
 			}
 		}
 
@@ -1790,17 +1790,17 @@ ERESULT __stdcall CXelManager::EnterForMouseTest(IEinkuiIterator* npRecipient)
 
 	} while (false);
 
-	//// ÅĞ¶ÏÊÇ·ñÓĞÔöĞ§Æ÷£¬ÔöĞ§Æ÷×´Ì¬ÏÂµÄÊó±ê´¦ÀíÃ»ÓĞºÜºÃµØÊµÏÖ???£¬¹¦ÄÜÃ»ÓĞµ÷ÊÔ
+	//// åˆ¤æ–­æ˜¯å¦æœ‰å¢æ•ˆå™¨ï¼Œå¢æ•ˆå™¨çŠ¶æ€ä¸‹çš„é¼ æ ‡å¤„ç†æ²¡æœ‰å¾ˆå¥½åœ°å®ç°???ï¼ŒåŠŸèƒ½æ²¡æœ‰è°ƒè¯•
 	//lpEnhancer = lpRecipient->GetEnhancer();
 	//if(lpEnhancer != NULL)
 	//{
 	//	CElMouseTestState loState;
-	//	// ·¢ËÍÔöĞ§Æ÷Êó±ê¼ì²âÔ¤´¦Àí
+	//	// å‘é€å¢æ•ˆå™¨é¼ æ ‡æ£€æµ‹é¢„å¤„ç†
 	//	luResult = SimpleSendMessage(lpEnhancer,EMSG_ENHANCER_PRE_MOUSE_TEST,&moPointToTest.Top().Point,sizeof(loState.Point),&loState.Point,sizeof(loState.Point));
 	//	if(luResult != ERESULT_SUCCESS)
 	//		return ERESULT_STOP_ENUM_CHILD;
 
-	//	// ½«ĞÂµÄÊó±êÎ»ÖÃÑ¹Èë²âÊÔÓÃ¶ÑÕ»
+	//	// å°†æ–°çš„é¼ æ ‡ä½ç½®å‹å…¥æµ‹è¯•ç”¨å †æ ˆ
 	//	loState.mpElement = npRecipient;
 	//	moPointToTest.Push(loState);
 	//}
@@ -1808,7 +1808,7 @@ ERESULT __stdcall CXelManager::EnterForMouseTest(IEinkuiIterator* npRecipient)
 	return luResult;
 }
 
-// Êó±êÂäµã¼ì²âºó´¦Àí
+// é¼ æ ‡è½ç‚¹æ£€æµ‹åå¤„ç†
 ERESULT __stdcall CXelManager::LeaveForMouseTest(IEinkuiIterator* npRecipient)
 {
 	D2D1_RECT_F ldVisibleRegion;
@@ -1832,10 +1832,10 @@ ERESULT __stdcall CXelManager::LeaveForMouseTest(IEinkuiIterator* npRecipient)
 			break;
 		}
 
-		// ¼ÆËã¾Ö²¿×ø±ê
+		// è®¡ç®—å±€éƒ¨åæ ‡
 		if(lpRecipient->WorldToLocal(moPointToTest.Top().Point,ldLocalPos) != false)
 		{
-			// Èç¹ûÉèÖÃÁË¿ÉÊÓÇøÓò£¬ÔòÅĞ¶ÏÊÇ·ñÔÚÇøÓòÖĞ
+			// å¦‚æœè®¾ç½®äº†å¯è§†åŒºåŸŸï¼Œåˆ™åˆ¤æ–­æ˜¯å¦åœ¨åŒºåŸŸä¸­
 			if(lpRecipient->GetVisibleRegion(ldVisibleRegion)!=false && (ldLocalPos.x < ldVisibleRegion.left || ldLocalPos.x >= ldVisibleRegion.right || 
 				ldLocalPos.y < ldVisibleRegion.top || ldLocalPos.y >= ldVisibleRegion.bottom) )
 			{
@@ -1843,11 +1843,11 @@ ERESULT __stdcall CXelManager::LeaveForMouseTest(IEinkuiIterator* npRecipient)
 			}
 			else
 			{
-				// ¸øÄ¿±êÔªËØ·¢ËÍÏûÏ¢
+				// ç»™ç›®æ ‡å…ƒç´ å‘é€æ¶ˆæ¯
 				luResult = SimpleSendMessage(lpRecipient,EMSG_MOUSE_OWNER_TEST,&ldLocalPos,sizeof(ldLocalPos),NULL,0);
 				if(luResult == ERESULT_MOUSE_OWNERSHIP)
 				{
-					// ÊÔÍ¼³ĞÈÏÊÇÊó±êÂäµãÓµÓĞÕß
+					// è¯•å›¾æ‰¿è®¤æ˜¯é¼ æ ‡è½ç‚¹æ‹¥æœ‰è€…
 					if(mpMouseMoveOn != NULL)
 					{
 						if(moPointToTest.Top().mbSeekInLevels == false)
@@ -1856,14 +1856,14 @@ ERESULT __stdcall CXelManager::LeaveForMouseTest(IEinkuiIterator* npRecipient)
 							break;
 						}
 
-						// ±È½ÏÒ»ÏÂ£¬ĞÂµÄ¶ÔÏóÊÇ·ñ±»ÒÑÓĞµÄ²ã´Î¸ß
+						// æ¯”è¾ƒä¸€ä¸‹ï¼Œæ–°çš„å¯¹è±¡æ˜¯å¦è¢«å·²æœ‰çš„å±‚æ¬¡é«˜
 						if(mlMouseMoveOnLevel >= moPointToTest.Top().mlCrtLevel)
 						{
-							// µÍÓÚ»òÕßµÈÓÚ£¬Ôò²»ÇĞ»»
+							// ä½äºæˆ–è€…ç­‰äºï¼Œåˆ™ä¸åˆ‡æ¢
 							luResult = ERESULT_NOT_POINTOWNER;
 							break;
 						}
-						// ÊÍ·Åµ±Ç°
+						// é‡Šæ”¾å½“å‰
 						mpMouseMoveOn->KRelease();
 					}
 					mpMouseMoveOn = lpRecipient;
@@ -1879,26 +1879,26 @@ ERESULT __stdcall CXelManager::LeaveForMouseTest(IEinkuiIterator* npRecipient)
 		}
 		else
 		{
-			//Trace_Point(11900);// ¾ØÕó²»¿ÉÄæ£¬ÎŞ·¨ÔËËã
+			//Trace_Point(11900);// çŸ©é˜µä¸å¯é€†ï¼Œæ— æ³•è¿ç®—
 			luResult= ERESULT_UNSUCCESSFUL;
 		}
 
 	} while (false);
 
-	//  ÍËÕ»
+	//  é€€æ ˆ
 	moPointToTest.Pop();
 
 	return luResult;
 }
 
-// ¿ì½İ¼ü£¬·µ»Øfalse±íÊ¾²»ÊÇ¿ì½İ¼ü
+// å¿«æ·é”®ï¼Œè¿”å›falseè¡¨ç¤ºä¸æ˜¯å¿«æ·é”®
 bool CXelManager::HotKeyProcessor(CXuiIterator* npHost,const PSTELEMGR_WINMSG_FORWARD npKeyStrike)
 {
 	CXuiHotkeyEntry loFind;
 	//int liIndex;
 	STEMS_HOTKEY ldHotKey;
 
-	// È¡µÃ°´¼üµÄÈ«²¿ĞÅÏ¢
+	// å–å¾—æŒ‰é”®çš„å…¨éƒ¨ä¿¡æ¯
 	loFind.msuVkCode = (USHORT)npKeyStrike->wParam;
 	loFind.mcuExKey = 0;
 	if((GetKeyState( VK_CONTROL ) & 0x8000) != 0)
@@ -1909,17 +1909,17 @@ bool CXelManager::HotKeyProcessor(CXuiIterator* npHost,const PSTELEMGR_WINMSG_FO
 		loFind.mcuExKey |= loFind.eAlt;
 	loFind.mpApplicant = NULL;
 
-	// ¼ì²éÈ«¾ÖµÄ¿ì½İ¼ü
+	// æ£€æŸ¥å…¨å±€çš„å¿«æ·é”®
 	if(DetectHotKey(&moIteratorRoot,loFind)==false)
 	{
-		// È«¾ÖÃ»ÓĞÕÒµ½
+		// å…¨å±€æ²¡æœ‰æ‰¾åˆ°
 		if(npHost != NULL)
 			DetectHotKey(npHost,loFind);
 	}
 
 	if(loFind.mpApplicant != NULL)
 	{
-		// ·¢ÏÖ¿ì½İ¼üÁË
+		// å‘ç°å¿«æ·é”®äº†
 		ldHotKey.HotKeyID = loFind.muHotKeyID;
 		ldHotKey.Focus = npHost;
 		ldHotKey.VkCode = loFind.msuVkCode;
@@ -1936,12 +1936,12 @@ bool CXelManager::HotKeyProcessor(CXuiIterator* npHost,const PSTELEMGR_WINMSG_FO
 	return false;
 }
 
-// ¼ì²â¿ì½İ¼ü£¬·µ»Øfalse±íÊ¾²»ÊÇ¿ì½İ¼ü
+// æ£€æµ‹å¿«æ·é”®ï¼Œè¿”å›falseè¡¨ç¤ºä¸æ˜¯å¿«æ·é”®
 bool CXelManager::DetectHotKey(CXuiIterator* npHost,CXuiHotkeyEntry& rToFind)
 {
 	bool lbFound = false;
 
-	// ¼ì²éÈ«¾ÖµÄ¿ì½İ¼ü
+	// æ£€æŸ¥å…¨å±€çš„å¿«æ·é”®
 	//moIteratorLock.Enter();
 
 	try
@@ -1953,7 +1953,7 @@ bool CXelManager::DetectHotKey(CXuiIterator* npHost,CXuiHotkeyEntry& rToFind)
 				break;
 
 			npHost = (CXuiIterator*)npHost->GetParent();
-		} while (npHost != (CXuiIterator*)npHost->GetParent());	// Ò»Ö±ÕÒµ½¸ù½ÚµãÏÂÒ»²ã
+		} while (npHost != (CXuiIterator*)npHost->GetParent());	// ä¸€ç›´æ‰¾åˆ°æ ¹èŠ‚ç‚¹ä¸‹ä¸€å±‚
 	}
 	catch (...)
 	{
@@ -1966,7 +1966,7 @@ bool CXelManager::DetectHotKey(CXuiIterator* npHost,CXuiHotkeyEntry& rToFind)
 }
 
 
-// ´¦Àí¼üÅÌÊäÈë×ª·¢
+// å¤„ç†é”®ç›˜è¾“å…¥è½¬å‘
 ERESULT CXelManager::OnMsgKeyboardForward(const PSTELEMGR_WINMSG_FORWARD npKeyStrike)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
@@ -1979,7 +1979,7 @@ ERESULT CXelManager::OnMsgKeyboardForward(const PSTELEMGR_WINMSG_FORWARD npKeySt
 
 		lpKeyFocus = InnerGetKeyFocus();
 
-		// µ±¼üÅÌ½¹µãÎª¿ÕÊ±µÄÆÕÍ¨°´¼üÏûÏ¢£¬»òÕßµ±²»ÂÛ¼üÅÌ½¹µã×´¿öµÄÏµÍ³°´¼üÏûÏ¢	<- ĞŞ¸Äºó£¬Ò»ÂÉÏÈÅĞ¶Ï¿ì½İ¼ü
+		// å½“é”®ç›˜ç„¦ç‚¹ä¸ºç©ºæ—¶çš„æ™®é€šæŒ‰é”®æ¶ˆæ¯ï¼Œæˆ–è€…å½“ä¸è®ºé”®ç›˜ç„¦ç‚¹çŠ¶å†µçš„ç³»ç»ŸæŒ‰é”®æ¶ˆæ¯	<- ä¿®æ”¹åï¼Œä¸€å¾‹å…ˆåˆ¤æ–­å¿«æ·é”®
 		if(npKeyStrike->WinMsgID == WM_KEYDOWN /*&& lpKeyFocus==NULL*/ || npKeyStrike->WinMsgID == WM_SYSKEYDOWN)
 		{
 			CXuiIterator* lpHotkeyFrom;
@@ -2002,7 +2002,7 @@ ERESULT CXelManager::OnMsgKeyboardForward(const PSTELEMGR_WINMSG_FORWARD npKeySt
 				lpHotkeyFrom->KRelease();
 			}
 
-			// ÕÒµ½ÁË¿ì½İ¼ü£¬»ò£¬ÏµÍ³°´¼üÏûÏ¢²»ÔÙÏòÔªËØ·¢ËÍ
+			// æ‰¾åˆ°äº†å¿«æ·é”®ï¼Œæˆ–ï¼Œç³»ç»ŸæŒ‰é”®æ¶ˆæ¯ä¸å†å‘å…ƒç´ å‘é€
 			if(lbFound!=false || npKeyStrike->WinMsgID == WM_SYSKEYDOWN)
 			{
 				luResult = ERESULT_SUCCESS;
@@ -2020,7 +2020,7 @@ ERESULT CXelManager::OnMsgKeyboardForward(const PSTELEMGR_WINMSG_FORWARD npKeySt
 				ldStrike.VirtualKeyCode = (USHORT)npKeyStrike->wParam;
 				ldStrike.ExtendedKeyFlag = (ULONG)npKeyStrike->lParam;
 
-				if(ldStrike.VirtualKeyCode == VK_TAB)// Èç¹ûÊÇTabÏûÏ¢£¬Ôò×ªÒÆ¼üÅÌ½¹µã
+				if(ldStrike.VirtualKeyCode == VK_TAB)// å¦‚æœæ˜¯Tabæ¶ˆæ¯ï¼Œåˆ™è½¬ç§»é”®ç›˜ç„¦ç‚¹
 				{
 					ShiftKeyBoardFocus(NULL);
 				}
@@ -2033,7 +2033,7 @@ ERESULT CXelManager::OnMsgKeyboardForward(const PSTELEMGR_WINMSG_FORWARD npKeySt
 				break;
 			}
 
-			if(mlProbePass == 0)	// ÅĞ¶ÏÊÇ·ñ½øÈëÌ½²âÄ£Ê½
+			if(mlProbePass == 0)	// åˆ¤æ–­æ˜¯å¦è¿›å…¥æ¢æµ‹æ¨¡å¼
 			{
 				if(npKeyStrike->WinMsgID == WM_KEYDOWN)
 				{
@@ -2042,7 +2042,7 @@ ERESULT CXelManager::OnMsgKeyboardForward(const PSTELEMGR_WINMSG_FORWARD npKeySt
 					else
 					if(mlProbeMode > 0)
 					{
-						// ½øÈë²»Í¬Ì½²âÄ£Ê½
+						// è¿›å…¥ä¸åŒæ¢æµ‹æ¨¡å¼
 						switch(LOSHORT(npKeyStrike->wParam))
 						{
 						case VK_F5:
@@ -2111,7 +2111,7 @@ ERESULT CXelManager::OnMsgKeyboardForward(const PSTELEMGR_WINMSG_FORWARD npKeySt
 			luResult = KeyStrike(lpKeyFocus,&ldStrike);
 			if(luResult == ERESULT_KEY_UNEXPECTED && npKeyStrike->WinMsgID == WM_KEYDOWN)
 			{
-				// ¼üÅÌ½¹µã²»Ê¶±ğµÄ°´¼ü£¬×ª»»Îª¿ì½İ¼ü
+				// é”®ç›˜ç„¦ç‚¹ä¸è¯†åˆ«çš„æŒ‰é”®ï¼Œè½¬æ¢ä¸ºå¿«æ·é”®
 				//HotKeyProcessor(lpKeyFocus,npKeyStrike);
 
 				luResult = ERESULT_SUCCESS;
@@ -2135,14 +2135,14 @@ ERESULT CXelManager::OnMsgEnalbeInput(void)
 	return ERESULT_SUCCESS;
 }
 
-// ·¢ËÍ¼üÅÌÏûÏ¢¸øÄ¿±ê£¬Èç¹ûÄ¿±ê·´À¡ERESULT_UNEXPECTED_KEY£¬Ôò£¬ÏòÉÏ´«µİ²»Ö§³ÖµÄ¼üÅÌ°´¼üĞÅÏ¢£¬µ½PopupÔªËØÎªÖ¹
+// å‘é€é”®ç›˜æ¶ˆæ¯ç»™ç›®æ ‡ï¼Œå¦‚æœç›®æ ‡åé¦ˆERESULT_UNEXPECTED_KEYï¼Œåˆ™ï¼Œå‘ä¸Šä¼ é€’ä¸æ”¯æŒçš„é”®ç›˜æŒ‰é”®ä¿¡æ¯ï¼Œåˆ°Popupå…ƒç´ ä¸ºæ­¢
 ERESULT CXelManager::KeyStrike(CXuiIterator* npKeyFocus,const PSTEMS_KEY_PRESSED npStrike)
 {
 	ERESULT luResult;
 
 	luResult = SimpleSendMessage(npKeyFocus,EMSG_KEY_PRESSED,npStrike,sizeof(STEMS_KEY_PRESSED),NULL,0);
 
-	if(luResult == ERESULT_KEY_UNEXPECTED && npStrike->IsPressDown == false && npStrike->VirtualKeyCode == VK_TAB)// Èç¹ûÊÇTabÏûÏ¢£¬Ôò×ªÒÆ¼üÅÌ½¹µã
+	if(luResult == ERESULT_KEY_UNEXPECTED && npStrike->IsPressDown == false && npStrike->VirtualKeyCode == VK_TAB)// å¦‚æœæ˜¯Tabæ¶ˆæ¯ï¼Œåˆ™è½¬ç§»é”®ç›˜ç„¦ç‚¹
 	{
 		ShiftKeyBoardFocus(npKeyFocus);
 	}
@@ -2150,7 +2150,7 @@ ERESULT CXelManager::KeyStrike(CXuiIterator* npKeyFocus,const PSTEMS_KEY_PRESSED
 	return luResult;
 }
 
-// ´¦ÀíTab°´¼ü´øÀ´µÄ¼üÅÌ½¹µãÇĞ»»
+// å¤„ç†TabæŒ‰é”®å¸¦æ¥çš„é”®ç›˜ç„¦ç‚¹åˆ‡æ¢
 bool CXelManager::ShiftKeyBoardFocus(CXuiIterator* npKeyFocus)
 {
 
@@ -2168,7 +2168,7 @@ bool CXelManager::ShiftKeyBoardFocus(CXuiIterator* npKeyFocus)
 			if(lpHost == NULL)
 				THROW_FALSE;
 
-			lpHost->KRelease();	// Ö±½Ó¼õÉÙÒ»´ÎÒıÓÃ¼ÆÊı£¬ÒòÎªÔÚ»¥³âÌåÖĞ£¬²»´æÔÚ±»ÊÍ·ÅµÄ·çÏÕ
+			lpHost->KRelease();	// ç›´æ¥å‡å°‘ä¸€æ¬¡å¼•ç”¨è®¡æ•°ï¼Œå› ä¸ºåœ¨äº’æ–¥ä½“ä¸­ï¼Œä¸å­˜åœ¨è¢«é‡Šæ”¾çš„é£é™©
 		}
 		else
 		{
@@ -2178,11 +2178,11 @@ bool CXelManager::ShiftKeyBoardFocus(CXuiIterator* npKeyFocus)
 		while(lpHost != (CXuiIterator*)lpHost->GetParent())
 		{
 			lpMoveTo = lpHost->GetNextKeyBoardAccepter(npKeyFocus);
-			if(lpMoveTo != NULL)	// ÕÒµ½ĞÂµÄ½ÓÊÕµã
+			if(lpMoveTo != NULL)	// æ‰¾åˆ°æ–°çš„æ¥æ”¶ç‚¹
 				break;
-			if(lpHost->CheckStyle(EITR_STYLE_POPUP)!=false)	// µ±Ç°µÄHostÒÑ¾­ÊÇPopup´°¿ÚÁË£¬¾Í²»ÄÜ¼ÌĞøÏòÉÏ·­ÁË
+			if(lpHost->CheckStyle(EITR_STYLE_POPUP)!=false)	// å½“å‰çš„Hostå·²ç»æ˜¯Popupçª—å£äº†ï¼Œå°±ä¸èƒ½ç»§ç»­å‘ä¸Šç¿»äº†
 				break;
-			if(npKeyFocus != NULL)	// ÇĞ»»Host¶ÔÏóÁË£¬Õâ¸öµ±Ç°½¹µã¾ÍÃ»ÒâÒåÁË
+			if(npKeyFocus != NULL)	// åˆ‡æ¢Hostå¯¹è±¡äº†ï¼Œè¿™ä¸ªå½“å‰ç„¦ç‚¹å°±æ²¡æ„ä¹‰äº†
 				npKeyFocus = NULL;
 			lpHost = (CXuiIterator*)lpHost->GetParent();
 		}
@@ -2197,7 +2197,7 @@ bool CXelManager::ShiftKeyBoardFocus(CXuiIterator* npKeyFocus)
 
 	if(lpMoveTo != NULL)
 	{
-		// ÇĞ»»¼üÅÌ½¹µã
+		// åˆ‡æ¢é”®ç›˜ç„¦ç‚¹
 		ChangeKeyFocus(lpMoveTo);
 	}
 
@@ -2205,7 +2205,7 @@ bool CXelManager::ShiftKeyBoardFocus(CXuiIterator* npKeyFocus)
 }
 
 
-//// ½«KeyÏûÏ¢×ª»»ÎªCommand
+//// å°†Keyæ¶ˆæ¯è½¬æ¢ä¸ºCommand
 //bool CXelManager::KeyToCommand(const PSTEMS_KEY_PRESSED npStrike)
 //{
 //	//ULONG luCmd;
@@ -2218,7 +2218,7 @@ bool CXelManager::ShiftKeyBoardFocus(CXuiIterator* npKeyFocus)
 //	//	if(lpAct == NULL || lpAct->CheckStyle(EITR_STYLE_KEY_COMMAND)==false)
 //	//		break;
 //
-//	//	// ¼ì²éÊÇ·ñ·ûºÏCommandÒªÇó
+//	//	// æ£€æŸ¥æ˜¯å¦ç¬¦åˆCommandè¦æ±‚
 //	//	switch(npStrike->VirtualKeyCode)
 //	//	{
 //	//	case VK_F1:
@@ -2270,9 +2270,9 @@ bool CXelManager::ShiftKeyBoardFocus(CXuiIterator* npKeyFocus)
 //	return lbDone;
 //}
 
-// Ôö¼ÓIteratorµÄÒıÓÃ£¬ÓÉÓÚXUIµÄ¿Í»§³ÌĞò¿ÉÄÜ»áÒÅÂ©¶ÔIteratorµÄÊÍ·ÅºÍÒıÓÃ²Ù×÷£¬ËùÒÔÄ¬ÈÏµÄIterator->AddRef()ºÍIterator->Release()·½·¨ÊÇ¼ÙµÄ£¬²¢²»»á²úÉúÊµ¼ÊµÄµ÷ÓÃ£¬µ«Element±»Closeºó£¬¶ÔÓ¦µÄIteratorÒ»¶¨
-// »á±»ÊÍ·Å£»ÔÚ±¾½Ó¿ÚÖĞÌá¹©ÁËÕæÊµµÄÒıÓÃºÍÊÍ·ÅµÄ·½·¨²Ù×÷Iterator¶ÔÏó£¬ÇĞ¼ÇÒª½÷É÷²Ù×÷£¬¹ı¶àµØÊÍ·Å½«»áµ¼ÖÂXUI±ÀÀ££»
-// Ôö¼ÓIteratorÒıÓÃ
+// å¢åŠ Iteratorçš„å¼•ç”¨ï¼Œç”±äºXUIçš„å®¢æˆ·ç¨‹åºå¯èƒ½ä¼šé—æ¼å¯¹Iteratorçš„é‡Šæ”¾å’Œå¼•ç”¨æ“ä½œï¼Œæ‰€ä»¥é»˜è®¤çš„Iterator->AddRef()å’ŒIterator->Release()æ–¹æ³•æ˜¯å‡çš„ï¼Œå¹¶ä¸ä¼šäº§ç”Ÿå®é™…çš„è°ƒç”¨ï¼Œä½†Elementè¢«Closeåï¼Œå¯¹åº”çš„Iteratorä¸€å®š
+// ä¼šè¢«é‡Šæ”¾ï¼›åœ¨æœ¬æ¥å£ä¸­æä¾›äº†çœŸå®çš„å¼•ç”¨å’Œé‡Šæ”¾çš„æ–¹æ³•æ“ä½œIteratorå¯¹è±¡ï¼Œåˆ‡è®°è¦è°¨æ…æ“ä½œï¼Œè¿‡å¤šåœ°é‡Šæ”¾å°†ä¼šå¯¼è‡´XUIå´©æºƒï¼›
+// å¢åŠ Iteratorå¼•ç”¨
 int __stdcall CXelManager::AddRefIterator(IEinkuiIterator* npIterator)
 {
 	CXuiIterator* lpItrObj;
@@ -2287,7 +2287,7 @@ int __stdcall CXelManager::AddRefIterator(IEinkuiIterator* npIterator)
 	return lpItrObj->KAddRefer();
 }
 
-// ÊÍ·ÅIterator
+// é‡Šæ”¾Iterator
 int __stdcall CXelManager::ReleaseIterator(IEinkuiIterator* npIterator)
 {
 	CXuiIterator* lpItrObj;
@@ -2302,35 +2302,35 @@ int __stdcall CXelManager::ReleaseIterator(IEinkuiIterator* npIterator)
 	return lpItrObj->KRelease();
 }
 
-// »ñµÃÊó±ê½¹µã£¬!!!×¢Òâ!!!£¬·µ»ØµÄ¶ÔÏóÒ»¶¨Òªµ÷ÓÃReleaseIteratorÊÍ·Å£»
-// ÒòÎªÊó±ê½¹µãËæÊ±¿ÉÄÜ¸Ä±ä£¬ËùÓĞ£¬·µ»ØµÄ¶ÔÏó²»Ò»¶¨ÄÜÍêÈ«ÕæÊµµÄ·´Ó¦µ±Ç°µÄÇé¿ö£»
+// è·å¾—é¼ æ ‡ç„¦ç‚¹ï¼Œ!!!æ³¨æ„!!!ï¼Œè¿”å›çš„å¯¹è±¡ä¸€å®šè¦è°ƒç”¨ReleaseIteratoré‡Šæ”¾ï¼›
+// å› ä¸ºé¼ æ ‡ç„¦ç‚¹éšæ—¶å¯èƒ½æ”¹å˜ï¼Œæ‰€æœ‰ï¼Œè¿”å›çš„å¯¹è±¡ä¸ä¸€å®šèƒ½å®Œå…¨çœŸå®çš„ååº”å½“å‰çš„æƒ…å†µï¼›
 IEinkuiIterator* __stdcall CXelManager::GetMouseFocus(void)
 {
 	return InnerGetMouseFocus();
 }
 
-// »ñµÃ¼üÅÌ½¹µã£¬!!!×¢Òâ!!!£¬·µ»ØµÄ¶ÔÏóÒ»¶¨Òªµ÷ÓÃReleaseIteratorÊÍ·Å£»
-// ÒòÎª¼üÅÌ½¹µãËæÊ±¿ÉÄÜ¸Ä±ä£¬ËùÓĞ£¬·µ»ØµÄ¶ÔÏó²»Ò»¶¨ÄÜÍêÈ«ÕæÊµµÄ·´Ó¦µ±Ç°µÄÇé¿ö£»
+// è·å¾—é”®ç›˜ç„¦ç‚¹ï¼Œ!!!æ³¨æ„!!!ï¼Œè¿”å›çš„å¯¹è±¡ä¸€å®šè¦è°ƒç”¨ReleaseIteratoré‡Šæ”¾ï¼›
+// å› ä¸ºé”®ç›˜ç„¦ç‚¹éšæ—¶å¯èƒ½æ”¹å˜ï¼Œæ‰€æœ‰ï¼Œè¿”å›çš„å¯¹è±¡ä¸ä¸€å®šèƒ½å®Œå…¨çœŸå®çš„ååº”å½“å‰çš„æƒ…å†µï¼›
 IEinkuiIterator* __stdcall CXelManager::GetKeyboardFocus(void)
 {
 	return InnerGetKeyFocus();
 }
 
-// ÖØÖÃÍÏ×§Æğµã£¬½öµ±ÏµÍ³Õı´¦ÓÚÍÏ×§ĞĞÎªÖĞÊ±£¬¿ÉÒÔ½«ÍÏ×ª×ªÒÆ¸øËûÈË
-// Èç¹ûÊÔÍ¼×ªÒÆµ½µÄÄ¿±êÔªËØ²»ÄÜÖ§³ÖÍÏ×§ĞĞÎª£¬µ±Ç°µÄÍÏ×§ĞĞÎªÒ²»áÖÕÖ¹£¬µ±Ç°ÍÏ×§µÄÄ¿±êÔªËØ»áÊÕµ½Drag_endÏûÏ¢
+// é‡ç½®æ‹–æ‹½èµ·ç‚¹ï¼Œä»…å½“ç³»ç»Ÿæ­£å¤„äºæ‹–æ‹½è¡Œä¸ºä¸­æ—¶ï¼Œå¯ä»¥å°†æ‹–è½¬è½¬ç§»ç»™ä»–äºº
+// å¦‚æœè¯•å›¾è½¬ç§»åˆ°çš„ç›®æ ‡å…ƒç´ ä¸èƒ½æ”¯æŒæ‹–æ‹½è¡Œä¸ºï¼Œå½“å‰çš„æ‹–æ‹½è¡Œä¸ºä¹Ÿä¼šç»ˆæ­¢ï¼Œå½“å‰æ‹–æ‹½çš„ç›®æ ‡å…ƒç´ ä¼šæ”¶åˆ°Drag_endæ¶ˆæ¯
 ERESULT __stdcall CXelManager::ResetDragBegin(IEinkuiIterator* npToDrag)
 {
 	CElMouseFootPrint loMouseFoot;
 	STMS_DRAGGING_ELE ldDragged;
 	CXuiIterator* lpToDrag;
 
-	// ±ØĞë´¦ÓÚÍÏ×§×´Ì¬£¬²»ÄÜ´¦ÓÚDrag-drop×´Ì¬
+	// å¿…é¡»å¤„äºæ‹–æ‹½çŠ¶æ€ï¼Œä¸èƒ½å¤„äºDrag-dropçŠ¶æ€
 	if(mbDragging == false || mbXuiDragDrop != false || npToDrag == NULL)
 		return ERESULT_UNEXPECTED_CALL;
 
 	lpToDrag = dynamic_cast<CXuiIterator*>(npToDrag);
 
-	// Ä¿±ê½¹µãÊÇ·ñÖ§³ÖÍÏ×§
+	// ç›®æ ‡ç„¦ç‚¹æ˜¯å¦æ”¯æŒæ‹–æ‹½
 	if(lpToDrag->CheckStyle(EITR_STYLE_DRAG)==false)
 		return ERESULT_DRAGGING_UNSUPPORT;
 
@@ -2341,17 +2341,17 @@ ERESULT __stdcall CXelManager::ResetDragBegin(IEinkuiIterator* npToDrag)
 	
 	if(mpDragMsgReceiver != NULL)
 	{
-		// ·¢ËÍÊó±êÍÏ×§½áÊøÏûÏ¢
+		// å‘é€é¼ æ ‡æ‹–æ‹½ç»“æŸæ¶ˆæ¯
 		ldDragged.DragOn = InnerGetMouseFocus();
 		CalculateMouseMoving(mpDragMsgReceiver,loMouseFoot.Point,mdDragFrom,ldDragged.Offset);
 		ldDragged.ActKey = muKeyWithDragging;
 		ldDragged.KeyFlag = moMouseTrace.Back().KeyFlag;
 
-		// ¼ÆËã¾Ö²¿×ø±ê
+		// è®¡ç®—å±€éƒ¨åæ ‡
 		mpDragMsgReceiver->WorldToLocal(loMouseFoot.Point,ldDragged.CurrentPos);
 
 		CExMessage::SendMessage(mpDragMsgReceiver,NULL,EMSG_DRAG_END,ldDragged);
-		// ??? ĞèÒª¼ì²éldDragged.DragOnÊÇ·ñÕıÈ·ÊÍ·ÅÒıÓÃ£¬Ax Jul.8
+		// ??? éœ€è¦æ£€æŸ¥ldDragged.DragOnæ˜¯å¦æ­£ç¡®é‡Šæ”¾å¼•ç”¨ï¼ŒAx Jul.8
 	}
 
 	mbDragging = false;
@@ -2367,7 +2367,7 @@ ERESULT __stdcall CXelManager::ResetDragBegin(IEinkuiIterator* npToDrag)
 	return mbDragging!=false?ERESULT_SUCCESS:ERESULT_UNSUCCESSFUL;
 }
 
-// ÇåÀíÊäÈëÏûÏ¢LMSG_GET_TYPE(MsgId) == LMSG_TP_WIN_INPUT
+// æ¸…ç†è¾“å…¥æ¶ˆæ¯LMSG_GET_TYPE(MsgId) == LMSG_TP_WIN_INPUT
 void __stdcall CXelManager::CleanHumanInput(bool nbStallInput)
 {
 	InterlockedExchange(&mlCleanHumanInput, 1);
@@ -2377,7 +2377,7 @@ void __stdcall CXelManager::CleanHumanInput(bool nbStallInput)
 }
 
 
-// »ñµÃ¼üÅÌ½¹µã£¬ĞèÒªÊÍ·Å
+// è·å¾—é”®ç›˜ç„¦ç‚¹ï¼Œéœ€è¦é‡Šæ”¾
 CXuiIterator* CXelManager::InnerGetKeyFocus(void)
 {
 	CXuiIterator* lpFocus;
@@ -2394,7 +2394,7 @@ CXuiIterator* CXelManager::InnerGetKeyFocus(void)
 	return lpFocus;
 }
 
-// ¸Ä±ä¼üÅÌ½¹µã
+// æ”¹å˜é”®ç›˜ç„¦ç‚¹
 void CXelManager::ChangeKeyFocus(CXuiIterator* npNewFocus)
 {
 	STEMS_STATE_CHANGE ldChange;
@@ -2494,7 +2494,7 @@ void CXelManager::ChangeKeyFocus(CXuiIterator* npNewFocus)
 		lpNew->KRelease();
 }
 
-// »ñµÃÊó±ê½¹µã£¬ĞèÒªÊÍ·Å
+// è·å¾—é¼ æ ‡ç„¦ç‚¹ï¼Œéœ€è¦é‡Šæ”¾
 CXuiIterator* CXelManager::InnerGetMouseFocus(void)
 {
 	CXuiIterator* lpFocus;
@@ -2511,7 +2511,7 @@ CXuiIterator* CXelManager::InnerGetMouseFocus(void)
 	return lpFocus;
 }
 
-// »ñµÃ»îÔ¾ÔªËØ
+// è·å¾—æ´»è·ƒå…ƒç´ 
 CXuiIterator* CXelManager::GetActiveElement(void)
 {
 	CXuiIterator* lpAct;
@@ -2528,7 +2528,7 @@ CXuiIterator* CXelManager::GetActiveElement(void)
 	return lpAct;
 }
 
-// ¸Ä±äÊó±ê½¹µã
+// æ”¹å˜é¼ æ ‡ç„¦ç‚¹
 void CXelManager::ChangeMouseFocus(CXuiIterator* npNewFocus)
 {
 	CXuiIterator* lpOld;
@@ -2547,7 +2547,7 @@ void CXelManager::ChangeMouseFocus(CXuiIterator* npNewFocus)
 
 }
 
-// ÉèÖÃActive PopupÔªËØ
+// è®¾ç½®Active Popupå…ƒç´ 
 ERESULT CXelManager::AssignActivation(IEinkuiIterator* npToSet)
 {
 	if(VerifyIterator(npToSet)!= ERESULT_SUCCESS)
@@ -2564,7 +2564,7 @@ ERESULT CXelManager::AssignActivation(IEinkuiIterator* npToSet)
 	return ERESULT_SUCCESS;
 }
 
-// ÉèÖÃActive PopupÔªËØ
+// è®¾ç½®Active Popupå…ƒç´ 
 void CXelManager::ChangeActiveElement(CXuiIterator* npSeekFrom)
 {
 	STEMS_ELEMENT_ACTIVATION ldActivation;
@@ -2575,7 +2575,7 @@ void CXelManager::ChangeActiveElement(CXuiIterator* npSeekFrom)
 
 	lpOld = mpActivatedElement;
 	//if(lpOld!=NULL)
-	//	lpOld->KAddRefer(); ²»¸ÃÔö¼ÓÁË£¬¾ÍÊÇÒªÊÍ·ÅËü
+	//	lpOld->KAddRefer(); ä¸è¯¥å¢åŠ äº†ï¼Œå°±æ˜¯è¦é‡Šæ”¾å®ƒ
 
 	if(npSeekFrom != NULL)
 	{
@@ -2589,7 +2589,7 @@ void CXelManager::ChangeActiveElement(CXuiIterator* npSeekFrom)
 			}
 			npSeekFrom = (CXuiIterator*)npSeekFrom->GetParent();
 		}
-		// µ½´ï¸ù½Úµã£¬Ã»ÓĞÔªËØ»ñµÃ¼¤»î£¬Õâ²»¿ÉÄÜ·¢Éú
+		// åˆ°è¾¾æ ¹èŠ‚ç‚¹ï¼Œæ²¡æœ‰å…ƒç´ è·å¾—æ¿€æ´»ï¼Œè¿™ä¸å¯èƒ½å‘ç”Ÿ
 		if(npSeekFrom == (CXuiIterator*)npSeekFrom->GetParent())
 		{
 			mpActivatedElement = NULL;
@@ -2624,12 +2624,12 @@ void CXelManager::ChangeActiveElement(CXuiIterator* npSeekFrom)
 
 			do 
 			{
-				// ÏòÇ°Ò»¸ö»îÔ¾ÔªËØ£¬¼°ÆäËùÓĞÍ¬Ê±Ê§È¥»îÔ¾µÄ¸¸ÔªËØ·¢ËÍÊ§È¥»îÔ¾ÏûÏ¢
+				// å‘å‰ä¸€ä¸ªæ´»è·ƒå…ƒç´ ï¼ŒåŠå…¶æ‰€æœ‰åŒæ—¶å¤±å»æ´»è·ƒçš„çˆ¶å…ƒç´ å‘é€å¤±å»æ´»è·ƒæ¶ˆæ¯
 				SimpleSendMessage(lpUp,EMSG_ELEMENT_ACTIVATED,&ldActivation,sizeof(ldActivation),NULL,0);
 				lpUp = (CXuiIterator*)lpUp->GetParent();
 				if(lpUp == (CXuiIterator*)lpUp->GetParent() || lpUp->IsDeleted()!=false)
 					break;
-			} while (lpNew == NULL || lpNew->FindAncestor(lpUp)==false); // Ã»ÓĞĞÂµÄ¼¤»îÔªËØ£¬»òÕßĞÂµÄ¼¤»îÔªËØ²»ÊÇÄ¿Ç°¼ì²éÔªËØµÄ×ÓÔªËØ
+			} while (lpNew == NULL || lpNew->FindAncestor(lpUp)==false); // æ²¡æœ‰æ–°çš„æ¿€æ´»å…ƒç´ ï¼Œæˆ–è€…æ–°çš„æ¿€æ´»å…ƒç´ ä¸æ˜¯ç›®å‰æ£€æŸ¥å…ƒç´ çš„å­å…ƒç´ 
 		}
 
 		if(lpNew != NULL)
@@ -2640,12 +2640,12 @@ void CXelManager::ChangeActiveElement(CXuiIterator* npSeekFrom)
 
 			do 
 			{
-				// ÏòÇ°Ò»¸ö»îÔ¾ÔªËØ£¬¼°ÆäËùÓĞ¼¤»î¸¸ÔªËØ·¢ËÍ¼¤»îÏûÏ¢
+				// å‘å‰ä¸€ä¸ªæ´»è·ƒå…ƒç´ ï¼ŒåŠå…¶æ‰€æœ‰æ¿€æ´»çˆ¶å…ƒç´ å‘é€æ¿€æ´»æ¶ˆæ¯
 				SimpleSendMessage(lpUp,EMSG_ELEMENT_ACTIVATED,&ldActivation,sizeof(ldActivation),NULL,0);
 				lpUp = (CXuiIterator*)lpUp->GetParent();
 				if(lpUp == (CXuiIterator*)lpUp->GetParent() || lpUp->IsDeleted()!=false)
 					break;
-			} while (lpOld == NULL || lpOld->FindAncestor(lpUp)==false); // ¸Ä±ä×´Ì¬Ç°Ã»ÓĞ¼¤»îÔªËØ£¬»òÕßÏÈÇ°µÄ¼¤»îÔªËØ²»ÊÇÄ¿Ç°¼ì²éÔªËØµÄ×ÓÔªËØ
+			} while (lpOld == NULL || lpOld->FindAncestor(lpUp)==false); // æ”¹å˜çŠ¶æ€å‰æ²¡æœ‰æ¿€æ´»å…ƒç´ ï¼Œæˆ–è€…å…ˆå‰çš„æ¿€æ´»å…ƒç´ ä¸æ˜¯ç›®å‰æ£€æŸ¥å…ƒç´ çš„å­å…ƒç´ 
 		}
 	}
 
@@ -2655,14 +2655,14 @@ void CXelManager::ChangeActiveElement(CXuiIterator* npSeekFrom)
 		lpNew->KRelease();
 }
 
-// ½øÈëÄ£Ì¬¶Ô»°×´Ì¬
+// è¿›å…¥æ¨¡æ€å¯¹è¯çŠ¶æ€
 void CXelManager::EnterModal(void)
 {
-	// Çå³ş¿ÉÄÜ´æÔÚµÄDrag&drop×´Ì¬
+	// æ¸…æ¥šå¯èƒ½å­˜åœ¨çš„Drag&dropçŠ¶æ€
 	TryDropDown(NULL);
 }
 
-// ÉêÇë¼üÅÌ½¹µã£¬Èç¹û¸ÃÔªËØ¾ßÓĞpopupÊôĞÔ£¬Ò²½«±»µ÷Õûµ½ºÏÊÊµÄÉÏ²ã
+// ç”³è¯·é”®ç›˜ç„¦ç‚¹ï¼Œå¦‚æœè¯¥å…ƒç´ å…·æœ‰popupå±æ€§ï¼Œä¹Ÿå°†è¢«è°ƒæ•´åˆ°åˆé€‚çš„ä¸Šå±‚
 ERESULT CXelManager::ApplyKeyBoard(IEinkuiIterator* npIterator)
 {
 	CXuiIterator* lpAppEle;
@@ -2680,7 +2680,7 @@ ERESULT CXelManager::ApplyKeyBoard(IEinkuiIterator* npIterator)
 	return ERESULT_SUCCESS;
 }
 
-// ÊÍ·Å¼üÅÌ½¹µã£¬Õâ½«µ¼ÖÂTab OrderµÄÏÂÒ»¸ö¼üÅÌ½ÓÊÕÕß»ñµÃ½¹µã
+// é‡Šæ”¾é”®ç›˜ç„¦ç‚¹ï¼Œè¿™å°†å¯¼è‡´Tab Orderçš„ä¸‹ä¸€ä¸ªé”®ç›˜æ¥æ”¶è€…è·å¾—ç„¦ç‚¹
 void CXelManager::ReleaseKeyBoard(PST_RELEASE_KEYFOCUS npRelease)
 {
 	CXuiIterator* lpKeyFocus;
@@ -2705,7 +2705,7 @@ void CXelManager::ReleaseKeyBoard(PST_RELEASE_KEYFOCUS npRelease)
 
 }
 
-// ·¢ËÍMouse wheelÏûÏ¢£¬Èç¹ûµ±Ç°Êó±ê½¹µã²»½ÓÊÜÕâÌõÏûÏ¢£¬ÄÇÃ´¾ÍÅĞ¶ÏÔÚµ½´ïµÚÒ»¸öPopup(°üÀ¨µÚÒ»¸öpopup)Ö®Ç°ÊÇ·ñÓĞEITR_STYLE_ALL_MWHEELµÄÔªËØ£¬ĞèÒª½ÓÊÜMouse WheelÏûÏ¢
+// å‘é€Mouse wheelæ¶ˆæ¯ï¼Œå¦‚æœå½“å‰é¼ æ ‡ç„¦ç‚¹ä¸æ¥å—è¿™æ¡æ¶ˆæ¯ï¼Œé‚£ä¹ˆå°±åˆ¤æ–­åœ¨åˆ°è¾¾ç¬¬ä¸€ä¸ªPopup(åŒ…æ‹¬ç¬¬ä¸€ä¸ªpopup)ä¹‹å‰æ˜¯å¦æœ‰EITR_STYLE_ALL_MWHEELçš„å…ƒç´ ï¼Œéœ€è¦æ¥å—Mouse Wheelæ¶ˆæ¯
 void CXelManager::TransferMouseWheel(CXuiIterator* npMouseFocus,STEMS_MOUSE_WHEEL& rInfor)
 {
 	ERESULT luResult = CExMessage::SendMessage(npMouseFocus,NULL,EMSG_MOUSE_WHEEL,rInfor);
@@ -2731,7 +2731,7 @@ void CXelManager::TransferMouseWheel(CXuiIterator* npMouseFocus,STEMS_MOUSE_WHEE
 void CXelManager::CalculateMouseMoving(IEinkuiIterator* npOwner,const D2D1_POINT_2F& rCrtPos,const D2D1_POINT_2F& rLastPos,D2D1_POINT_2F& rResult)
 {
 	D2D1_POINT_2F ldCrt,ldLast;
-	rResult.x = rResult.y = 0.0f;	//Òª³õÊ¼»¯£¬·ñÔòÊÇÎŞĞ§Öµ
+	rResult.x = rResult.y = 0.0f;	//è¦åˆå§‹åŒ–ï¼Œå¦åˆ™æ˜¯æ— æ•ˆå€¼
 	if(npOwner->WorldToLocal(rLastPos,ldLast)!= false && npOwner->WorldToLocal(rCrtPos,ldCrt)!=false)
 	{
 		rResult.x = ldCrt.x - ldLast.x;
@@ -2739,17 +2739,17 @@ void CXelManager::CalculateMouseMoving(IEinkuiIterator* npOwner,const D2D1_POINT
 	}
 }
 
-// ×¢²á¿ì½İ¼ü£¬µ±¿ì½İ¼ü±»´¥·¢£¬×¢²á¿ì½İ¼üµÄElement½«»áÊÜµ½£»
-// Èç¹ûÆÕÍ¨°´¼ü×éºÏ£¨²»°üº¬Alt¼ü)°´ÏÂµÄµ±Ê±£¬´æÔÚ¼üÅÌ½¹µã£¬°´¼üÏûÏ¢»áÊ×ÏÈ·¢ËÍ¸ø¼üÅÌ½¹µã£¬Èç¹û½¹µã·µ»ØERESULT_KEY_UNEXPECTED²Å»áÅĞ¶ÏÊÇ·ñ´æÔÚ¿ì½İ¼üĞĞÎª
+// æ³¨å†Œå¿«æ·é”®ï¼Œå½“å¿«æ·é”®è¢«è§¦å‘ï¼Œæ³¨å†Œå¿«æ·é”®çš„Elementå°†ä¼šå—åˆ°ï¼›
+// å¦‚æœæ™®é€šæŒ‰é”®ç»„åˆï¼ˆä¸åŒ…å«Alté”®)æŒ‰ä¸‹çš„å½“æ—¶ï¼Œå­˜åœ¨é”®ç›˜ç„¦ç‚¹ï¼ŒæŒ‰é”®æ¶ˆæ¯ä¼šé¦–å…ˆå‘é€ç»™é”®ç›˜ç„¦ç‚¹ï¼Œå¦‚æœç„¦ç‚¹è¿”å›ERESULT_KEY_UNEXPECTEDæ‰ä¼šåˆ¤æ–­æ˜¯å¦å­˜åœ¨å¿«æ·é”®è¡Œä¸º
 bool __stdcall CXelManager::RegisterHotKey(
-	IN IEinkuiIterator* npApplicant,	// ×¢²áµÄÔªËØ£¬½«ÓĞËüÊÕµ½×¢²áÊÇ¿ì½İ¼üÏûÏ¢
-	IN ULONG nuHotKeyID,	// ÊÂÏÈ¶¨ÒåºÃµÄ³£Êı£¬ÓÃÀ´Çø·ÖHotkey£»²»ÄÜ³öÏÖÏàÍ¬µÄID£¬ÊÔÍ¼×¢²áÒÑÓĞµÄHotkey½«»áÊ§°Ü
-	IN ULONG nuVkNumber,	// ĞéÄâ¼üÂë
-	IN bool nbControlKey,	// ÊÇ·ñĞèÒªControl×éºÏ
-	IN bool nbShiftKey,		// ÊÇ·ñĞèÒªShift×éºÏ
-	IN bool nbAltKey,		// ÊÇ·ñĞèÒªAlt×éºÏ
-	IN IEinkuiIterator* npFocus	// Ö¸¶¨½¹µã·¶Î§£¬½öµ±¸ÃÔªËØ¼°Æä×ÓÔªËØ»ñµÃ¼üÅÌ½¹µãÊ±£¬²Å»á´¥·¢±¾´Î×¢²áµÄ¿ì½İ¼ü;
-	// Ê¹ÓÃNULL×÷Îª²ÎÊı¶ø²»Ö¸¶¨½¹µã·¶Î§£¬ÔòÎŞÂÛ¼üÅÌ½¹µãÔÚºÎ´¦¶¼ÄÜ¹»ÊÕµ½×¢²áµÄ¿ì½İ¼üµÄÏûÏ¢£»
+	IN IEinkuiIterator* npApplicant,	// æ³¨å†Œçš„å…ƒç´ ï¼Œå°†æœ‰å®ƒæ”¶åˆ°æ³¨å†Œæ˜¯å¿«æ·é”®æ¶ˆæ¯
+	IN ULONG nuHotKeyID,	// äº‹å…ˆå®šä¹‰å¥½çš„å¸¸æ•°ï¼Œç”¨æ¥åŒºåˆ†Hotkeyï¼›ä¸èƒ½å‡ºç°ç›¸åŒçš„IDï¼Œè¯•å›¾æ³¨å†Œå·²æœ‰çš„Hotkeyå°†ä¼šå¤±è´¥
+	IN ULONG nuVkNumber,	// è™šæ‹Ÿé”®ç 
+	IN bool nbControlKey,	// æ˜¯å¦éœ€è¦Controlç»„åˆ
+	IN bool nbShiftKey,		// æ˜¯å¦éœ€è¦Shiftç»„åˆ
+	IN bool nbAltKey,		// æ˜¯å¦éœ€è¦Altç»„åˆ
+	IN IEinkuiIterator* npFocus	// æŒ‡å®šç„¦ç‚¹èŒƒå›´ï¼Œä»…å½“è¯¥å…ƒç´ åŠå…¶å­å…ƒç´ è·å¾—é”®ç›˜ç„¦ç‚¹æ—¶ï¼Œæ‰ä¼šè§¦å‘æœ¬æ¬¡æ³¨å†Œçš„å¿«æ·é”®;
+	// ä½¿ç”¨NULLä½œä¸ºå‚æ•°è€Œä¸æŒ‡å®šç„¦ç‚¹èŒƒå›´ï¼Œåˆ™æ— è®ºé”®ç›˜ç„¦ç‚¹åœ¨ä½•å¤„éƒ½èƒ½å¤Ÿæ”¶åˆ°æ³¨å†Œçš„å¿«æ·é”®çš„æ¶ˆæ¯ï¼›
 	)
 {
 	bool lbOK;
@@ -2757,13 +2757,13 @@ bool __stdcall CXelManager::RegisterHotKey(
 	if(npFocus == NULL)
 	{
 		moIteratorLock.Enter();
-		// Ôö¼Óµ½root
+		// å¢åŠ åˆ°root
 		lbOK = moIteratorRoot.RegisterHotKey(npApplicant,nuHotKeyID,nuVkNumber,nbControlKey,nbShiftKey,nbAltKey);
 		moIteratorLock.Leave();
 	}
 	else
 	{
-		// Ôö¼Óµ½×÷ÓÃÓò
+		// å¢åŠ åˆ°ä½œç”¨åŸŸ
 		CXuiIterator* lpItrObj;
 		if(npFocus->IsKindOf(GET_BUILTIN_NAME(CXuiIterator))==false)
 			return false;
@@ -2779,17 +2779,17 @@ bool __stdcall CXelManager::RegisterHotKey(
 	return lbOK;
 }
 
-// ×¢Ïú¿ì½İ¼ü
+// æ³¨é”€å¿«æ·é”®
 bool __stdcall CXelManager::UnregisterHotKey(
-	IN IEinkuiIterator* npApplicant,	// ×¢²áÕß
+	IN IEinkuiIterator* npApplicant,	// æ³¨å†Œè€…
 	IN ULONG UnuKeyNumber
 	)
 {
-	// Ôİ²»Ö§³Ö
+	// æš‚ä¸æ”¯æŒ
 	return false;
 }
 
-// ·¢ËÍÃüÁîµ½ºÏÊÊµÄÔªËØ
+// å‘é€å‘½ä»¤åˆ°åˆé€‚çš„å…ƒç´ 
 ERESULT CXelManager::SendCommand(nes_command::ESCOMMAND neCmd)
 {
 	CXuiIterator* lpFocus;
@@ -2814,7 +2814,7 @@ ERESULT CXelManager::SendCommand(nes_command::ESCOMMAND neCmd)
 		do 
 		{
 			if(moIteratorVerification.Find(lpFrom) == moIteratorVerification.End())
-			{	// ÉèÖÃÎª¸ù£¬×èÖ¹¼ÌĞøÖ´ĞĞ
+			{	// è®¾ç½®ä¸ºæ ¹ï¼Œé˜»æ­¢ç»§ç»­æ‰§è¡Œ
 				lpFrom = &moIteratorRoot;
 				break;
 			}
@@ -2823,15 +2823,15 @@ ERESULT CXelManager::SendCommand(nes_command::ESCOMMAND neCmd)
 				break;
 
 			lpFrom = (CXuiIterator*)lpFrom->GetParent();
-		} while (lpFrom != (CXuiIterator*)lpFrom->GetParent());	// Ò»Ö±ÕÒµ½¸ù½ÚµãÏÂÒ»²ã
+		} while (lpFrom != (CXuiIterator*)lpFrom->GetParent());	// ä¸€ç›´æ‰¾åˆ°æ ¹èŠ‚ç‚¹ä¸‹ä¸€å±‚
 
 		moIteratorLock.Leave();
 
-		// Èç¹ûµ±Ç°Ä¿±ê²»½ÓÊÜÕâÌõÃüÁî£¬½«¼ÌĞøÑ°ÕÒĞ¡Ò»¸ö
+		// å¦‚æœå½“å‰ç›®æ ‡ä¸æ¥å—è¿™æ¡å‘½ä»¤ï¼Œå°†ç»§ç»­å¯»æ‰¾å°ä¸€ä¸ª
 		if(CExMessage::SendMessage(lpFrom,NULL,EMSG_COMMAND,neCmd)==ERESULT_SUCCESS)
 			break;
 
-		// Èç¹ûÒÑ¾­ÊÇ¸ù¶ÔÏó£¬ÔòÍÆ³ö
+		// å¦‚æœå·²ç»æ˜¯æ ¹å¯¹è±¡ï¼Œåˆ™æ¨å‡º
 		if(lpFrom == (CXuiIterator*)lpFrom->GetParent())
 			break;
 

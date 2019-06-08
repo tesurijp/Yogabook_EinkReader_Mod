@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -15,7 +15,7 @@ CHellFun::~CHellFun()
 {
 }
 
-//ÉèÖÃ×¢²á±íÊı¾İ
+//è®¾ç½®æ³¨å†Œè¡¨æ•°æ®
 bool CHellFun::SetRegData(wchar_t* npszKeyName, DWORD ndwValue, wchar_t* npszData)
 {
 	bool lbRet = false;
@@ -24,11 +24,11 @@ bool CHellFun::SetRegData(wchar_t* npszKeyName, DWORD ndwValue, wchar_t* npszDat
 
 	do
 	{
-		//´ò¿ª×¢²á±í
+		//æ‰“å¼€æ³¨å†Œè¡¨
 		ldwRet = RegOpenKeyEx(HKEY_CURRENT_USER, L"SOFTWARE\\Lenovo\\Eink-PdfReader", 0, KEY_ALL_ACCESS | KEY_WOW64_64KEY, &lhKey);
 		if (ldwRet != ERROR_SUCCESS)
 		{
-			//Èç¹û»¹Ã»ÓĞ¾Í´´½¨
+			//å¦‚æœè¿˜æ²¡æœ‰å°±åˆ›å»º
 			ldwRet = RegCreateKey(HKEY_CURRENT_USER, L"SOFTWARE\\Lenovo\\Eink-PdfReader", &lhKey);
 		}
 

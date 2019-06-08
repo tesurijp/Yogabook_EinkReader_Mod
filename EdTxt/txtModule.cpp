@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -12,7 +12,7 @@ CEdtxtModule* CEdtxtModule::glModule = NULL;
 
 
 
-// »ñÈ¡Ä£¿é¶ÔÏó
+// è·å–æ¨¡å—å¯¹è±¡
 IEdModule_ptr __stdcall EdGetModule(void)
 {
 	CEdtxtModule* uniqueObj = CEdtxtModule::GetUniqueObject();
@@ -31,7 +31,7 @@ CEdtxtModule::~CEdtxtModule()
 	//mGdipStart.UnInit();
 }
 
-// »ñµÃÎ¨Ò»¶ÔÏó
+// è·å¾—å”¯ä¸€å¯¹è±¡
 CEdtxtModule* CEdtxtModule::GetUniqueObject(void)
 {
 	if (glModule == NULL)
@@ -51,13 +51,13 @@ ULONG CEdtxtModule::InitOnCreate(void) {
 	return EDERR_SUCCESS;
 }
 
-// »ñÈ¡Ö§³ÖµÄÎÄ¼ş¸ñÊ½ÊıÁ¿
+// è·å–æ”¯æŒçš„æ–‡ä»¶æ ¼å¼æ•°é‡
 int32 CEdtxtModule::GetTypeCount(void)
 {
 	return 1;
 }
 
-// »ñÈ¡Ö§³ÖµÄÎÄ¼ş¸ñÊ½µÄÀ©Õ¹Ãû
+// è·å–æ”¯æŒçš„æ–‡ä»¶æ ¼å¼çš„æ‰©å±•å
 const char16_ptr CEdtxtModule::GetTypeName(int32 index)
 {
 	if(index == 0)
@@ -67,7 +67,7 @@ const char16_ptr CEdtxtModule::GetTypeName(int32 index)
 }
 
 
-// ´ò¿ªÎÄµµ
+// æ‰“å¼€æ–‡æ¡£
 ED_ERR CEdtxtModule::OpenDocument(
 	IN char16* pathName,
 	OUT IEdDocument_ptr* documentPtrPtr,

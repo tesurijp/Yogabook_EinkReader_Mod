@@ -1,4 +1,4 @@
-/* Copyright 2019 - present Lenovo */
+﻿/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
 
 /*++
@@ -28,49 +28,49 @@ Abstract:
 
 
 /*/////////////////////////////////////////////////////////////////////////
-// B+��ģ��ʹ��˵��
+// B+树模板使用说明
 ///////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////
-���ģ������������ģ�
-	��ģ�������ʹ���߽����ݴ洢��B+���У��������ݹ��������Ҵ������߲�ѯ
-Ч�ʡ� B+�����ô����ݽڵ㣬���Լ�����ɢ�ڴ���䡣
+这个模板是用来干嘛的？
+	本模板类帮助使用者将数据存储到B+树中，方便数据管理，并且大幅度提高查询
+效率。 B+树采用大数据节点，可以减少零散内存分配。
 
 
 //////////////////////////////////////////////////////////////////////////
-����ʲô��B+���У�
-	���Ա����û��Լ������C++����󣬻�����C++������ָ�롣
+保存什么到B+树中？
+	可以保存用户自己定义的C++类对象，或者是C++类对象的指针。
 
-1. ���������
-	�����ַ�ʽ�£�B+���Ľڵ��н��������������û�����ͨ�����������صġ�=���������
-������B+���Ĳ����㷨���ṩ���ⲿ����Ķ���ֵ��B+���ڲ�����Ķ���
-	�������ַ����ĺô��ܶ࣬���ڴ�����С�����ݣ����Լ���С�����ݱ������ڴ���䡣
+1. 保存对象本身
+	在这种方式下，B+树的节点中将保存有完整的用户对象。通过对象类重载的‘=’运算符，
+将调用B+树的插入算法试提供的外部分配的对象赋值给B+树内部分配的对象。
+	采用这种方法的好处很多，对于大量的小型数据，可以减少小型数据本身的内存分配。
 
-2. ��������ָ��
-	B+���ڵ��б����ֻ�Ƕ����ָ�룬�����΢���Ӳ�ѯ�����ʱ�䡣��������
-�洢λ�ñ������ⲿ�Ķ�������Ψһ�ķ���������ö�����ϵͳGDI���ݶ���ȡ�
-
-//////////////////////////////////////////////////////////////////////////
-�Ƚϱ�׼��
-	ʹ�ñ�B+��ģ�壬�����ṩһ���Ƚϱ�׼�࣬����ʵ�ֶ�����������͵ıȽϡ���ο�
-���ļ��е�CBpTreeCriterion��
+2. 保存对象的指针
+	B+树节点中保存的只是对象的指针，这会稍微增加查询计算的时间。但，对于
+存储位置必须在外部的对象，这是唯一的方法，比如该对象是系统GDI数据对象等。
 
 //////////////////////////////////////////////////////////////////////////
-���������
-	���B+��������Ƕ��������ö���������Ҫ���ء�=��������������Ҫ�Զ��ͷŶ�����
-���ⲿ��Դ����Ҫ����һЩ�����ü���֮��ķ��������Բο�demo�������ز���
+比较标准类
+	使用本B+树模板，必须提供一个比较标准类，该类实现对两个存放类型的比较。请参考
+本文件中的CBpTreeCriterion。
+
+//////////////////////////////////////////////////////////////////////////
+被保存对象
+	如果B+树保存的是对象本身，该对象类型需要重载‘=’运算符，如果需要自动释放对象内
+的外部资源，需要添加一些如引用计数之类的方法，可以参考demo程序的相关部分
 	
 //////////////////////////////////////////////////////////////////////////
-// B+����ʹ��
+// B+树的使用
 //////////////////////////////////////////////////////////////////////////
 
 
 //////////////////////////////////////////////////////////////////////////
-// ���ø߼�ƪ
+// 运用高级篇
 //////////////////////////////////////////////////////////////////////////
-1. �ṩ��򻯹��캯�������Ч��
-2. Ϊ�����ṩһ�������Ĺؼ�ֵ
-3. �������ùؼ�ֵ��Ψһʱ����ν���B+��
+1. 提供最简化构造函数，提高效率
+2. 为对象提供一个关联的关键值
+3. 当排序用关键值不唯一时，如何建立B+树
 
 
 
@@ -79,17 +79,17 @@ Abstract:
 
 
 
-class CBpTreeCriterion	// Ĭ�ϵ��ж�׼��
+class CBpTreeCriterion	// 默认的判断准则
 {
 public:
-	bool operator () (const int& Obj1,const int& Obj2)const // һ��Ҫ����������
+	bool operator () (const int& Obj1,const int& Obj2)const // 一定要用内联函数
 	{
-		// ������Ob1С�ڶ���Obj2ʱ������True�����򷵻�false
+		// 当对象Ob1小于对象Obj2时，返回True，否则返回false
 		return (Obj1 < Obj2);
 	}
-	bool operator () (const void* Obj1,const void* Obj2)const // һ��Ҫ����������
+	bool operator () (const void* Obj1,const void* Obj2)const // 一定要用内联函数
 	{
-		// ������Ob1С�ڶ���Obj2ʱ������True�����򷵻�false
+		// 当对象Ob1小于对象Obj2时，返回True，否则返回false
 		return (Obj1 < Obj2);
 	}
 };
@@ -100,10 +100,10 @@ public:
 		miEntryCount = 0;
 	}
 	~bplustree_node_base(){}
-	bool mbIsLeaf;	// ��ʾ����Ҷ�ӽڵ㼴��ײ�Ľڵ�
-	int	miEntryCount;	// ������
-	bplustree_node_base* mpParents;	// ָ�򸸽ڵ�
-	void* mpLowestObject;	// ָ����С���������ܴ��ڱ����У�Ҳ���ܴ���ĳ�������ӿ���
+	bool mbIsLeaf;	// 表示这是叶子节点即最底层的节点
+	int	miEntryCount;	// 内容数
+	bplustree_node_base* mpParents;	// 指向父节点
+	void* mpLowestObject;	// 指向最小对象，它可能处于本块中，也可能处于某级下属子块中
 };
 typedef bplustree_node_base* LPBPNODE;
 
@@ -116,23 +116,23 @@ public:
 	bplustree_node(){}
 	~bplustree_node(){}
 	CBPlusTreeObjectClass& operator [](int niIndex)
-	{	// Ϊ�����Ч�ʣ��������֤�±��Ƿ�Խ��
+	{	// 为了提高效率，这儿不验证下标是否越界
 		return mObjectsArray[niIndex];
 	}
 	CBPlusTreeObjectClass&  GetEntry(int niIndex)
 	{
 		return mObjectsArray[niIndex];
 	}
-	void Insert(CBPlusTreeObjectClass& nrObject,int niIndex);	//������һ������ָ��λ��
-	void Remove(int niIndex);	// ɾ��ָ��λ�õĶ���
-	bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* Split(int niCount);		// �����ڵ��Ϊ���������ƶ�niCount�����ݵ�ǰһ���ڵ㣬���صĶ�������½ڵ㣬�½ڵ�λ�ڱ��ڵ�ǰ����ͬ���ڵ㽫ǰ�����Ӻã������������������ϼ��ڵ�
-	void Combine(bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* npWith);		// ��Ŀ��ڵ�����ݺϲ������ڵ㣬�����޸�ǰ������ָ�룬�����������Ŀ������ǰ����
+	void Insert(CBPlusTreeObjectClass& nrObject,int niIndex);	//　插入一个对象到指定位置
+	void Remove(int niIndex);	// 删除指定位置的对象
+	bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* Split(int niCount);		// 将本节点分为两个，并移动niCount个数据到前一个节点，返回的对象就是新节点，新节点位于本节点前并且同本节点将前后链接好，但，不会设置它的上级节点
+	void Combine(bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* npWith);		// 将目标节点的数据合并到本节点，并且修改前后链接指针，本对象必须是目标对象的前对象
 
 	bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* mpLastSibling;
 	bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* mpNextSibling;
 protected:
 	//bplustree_node
-	CBPlusTreeObjectClass mObjectsArray[ObjsInNode];	// ��Ŷ��������
+	CBPlusTreeObjectClass mObjectsArray[ObjsInNode];	// 存放对象的数组
 };
 
 #pragma pack()
@@ -142,12 +142,12 @@ class bplustree_iterator;
 
 
 //////////////////////////////////////////////////////////////////////////
-// ��һ�������������Ƕ�������ͣ��ڶ����������������ж�׼�򣬵�����������������B+����ÿһ���ڵ��п������ɵ��������������ֵ���Բ���С��3
+// 第一个参数给出的是对象的类型，第二个参数给出的是判断准则，第三个参数给出的是B+树的每一个节点中可以容纳的最大对象数，这个值绝对不能小于3
 template<class CBPlusTreeObjectClass,class Criterion=CBpTreeCriterion,int ObjsInNode=30>
 class bplustree 
 {
 protected:
-	LPBPNODE mpRoot;	// ע�⣬������Ҷ�ڵ㣬Ҳ���ܲ���
+	LPBPNODE mpRoot;	// 注意，可能是叶节点，也可能不是
 	bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* mpFirstLeaf;
 	bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* mpLastLeaf;
 	int miTotalLeaves;
@@ -168,52 +168,52 @@ public:
 	typedef bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode> iterator;
 
 	//////////////////////////////////////////////////////////////////////////
-	// ��׼�ӿ�																//
+	// 标准接口																//
 	//////////////////////////////////////////////////////////////////////////
 
-	// ��ȡ����Ȩ��
+	// 获取访问权限
 	void EnterExclusiveAccess(void)const;
-	// �ͷŷ���Ȩ��
+	// 释放访问权限
 	void LeaveExclusiveAccess(void)const;
 
-	// ȡ�����е����ݶ�����Ŀ
+	// 取得树中的数据对象数目
 	int GetCount(void)const{ return miTotalObject;}
 
-	// ���룬���سɹ����ʧ�ܵ�ԭ������Ǵ�����ͬ��ֵ�����ڴ����ʧ��
+	// 插入，返回成功与否，失败的原因可能是存在相同的值或者内存分配失败
 	bool Insert(
-		CBPlusTreeObjectClass& nrObject		// ������Ķ���ע�⣬�ö�������ݿ��ܻ�Ӧ��Ӧ���� = ���������Ϊ���޸�
+		CBPlusTreeObjectClass& nrObject		// 待插入的对象，注意，该对象的内容可能会应对应类别的 = 运算符的行为而修改
 		);
-	// ���룬���سɹ����ʧ�ܵ�ԭ������Ǵ�����ͬ��ֵ�����ڴ����ʧ�ܣ�ͬ����������ǣ������ó�������������Ȼ���������Ӧ���ܹ�֧��'='������������޷�����ͨ��
+	// 插入，返回成功与否，失败的原因可能是存在相同的值或者内存分配失败，同上面的区别是，可以用常量做参数，当然，这个参数应该能够支持'='运算符，否则无法编译通过
 	bool Insert(
-		const CBPlusTreeObjectClass& nrObject		// ������Ķ���ע�⣬�ö�������ݿ��ܻ�Ӧ��Ӧ���� = ���������Ϊ���޸�
+		const CBPlusTreeObjectClass& nrObject		// 待插入的对象，注意，该对象的内容可能会应对应类别的 = 运算符的行为而修改
 		);
 
-	// ɾ��
+	// 删除
 	bool Remove(
-		const CBPlusTreeObjectClass& nrObject // ���ҵ��ؼ�ֵ��������ͬ�Ķ��󣬰���ɾ����
+		const CBPlusTreeObjectClass& nrObject // 查找到关键值意义上相同的对象，把它删除掉
 		);
 
-	// ɾ��
+	// 删除
 	bool Remove(
-		bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode>&  nrIterator // ���ҵ��ؼ�ֵ��������ͬ�Ķ��󣬰���ɾ����
+		bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode>&  nrIterator // 查找到关键值意义上相同的对象，把它删除掉
 		);
 
-	// ��ѯ���Բ�ѯ����ķ��ʣ���һ�������ƣ������ý�����ٴε��ù������ɾ�����ܣ������ܵ��¸ղŻ�õĽ������ʧЧ�����ԣ�������ڲ�ѯ��ͷ��ʲ�ѯ�������ǰ������B+���Ĳ����ɾ���㷨
+	// 查询，对查询结果的访问，受一定的限制；如果获得结果后，再次调用过插入或删除功能，将可能导致刚才获得的结果对象失效，所以，请避免在查询后和访问查询结果对象前，调用B+树的插入和删除算法
 	iterator Find(
-		const CBPlusTreeObjectClass& nrToFind, // ���ҵ��ؼ�ֵ��������ͬ�Ķ����ṩ�����������Ķ��󣬿���ֻ���ùؼ�ֵ�Ƚ�����Ҫ�ĳ�Ա
-		iterator* npEqualOrBelow=NULL	// ������ӽ����Ҷ���ģ����ڻ��߽��Ȳ��Ҷ���С�Ķ���
+		const CBPlusTreeObjectClass& nrToFind, // 查找到关键值意义上相同的对象，提供用来做参数的对象，可以只设置关键值比较所需要的成员
+		iterator* npEqualOrBelow=NULL	// 返回最接近查找对象的，等于或者仅比查找对象小的对象
 		)const;
 
-	// ȡ�ؼ�ֵ��С�Ķ���
+	// 取关键值最小的对象
 	iterator Begin(void)const;
-	// ȡ�ؼ�ֵ���Ķ���
+	// 取关键值最大的对象
 	iterator ReverseBegin(void)const;
-	// ��ʾ��Ч�Ķ���
+	// 表示无效的对象
 	inline iterator End(void)const;
-	// ֱ��ȡĳ��ֵ��ע�⣬���niIndex����ȫ����ֵ��Χ����������Ч�����ݣ����⣬�������ʵ���ϲ���������ֱ�Ӷ�ȡ��������ֵ����һ��Ҷ�ڵ��������ʱ�����������Ծ��Ч����Ҫ���ǣ��ʣ������ϣ��˳�����һ���������ݣ���ֱ��ʹ��iterator��++��--������
+	// 直接取某个值，注意，如果niIndex超出全部数值范围，将返回无效的数据；另外，这个函数实质上不是真正的直接读取，当索引值超过一块叶节点的数据量时，将会逐块跳跃，效率需要考虑；故，如果是希望顺序遍历一串连续数据，请直接使用iterator的++和--来操作
 	inline CBPlusTreeObjectClass& operator[] (int niIndex);
 
-	// ���ȫ������
+	// 清楚全部内容
 	inline void Clear(void);
 
 	void VerifyTree(LPBPNODE npNode)const;
@@ -224,21 +224,21 @@ private:
 	iterator mEndItr;
 	Criterion mCriterion;
 
-	// �ͷ�һ����֧�ϵ������¼��ڵ�
+	// 释放一个分支上的所有下级节点
 	void ReleaseEntriesInNode(
 		LPBPNODE npNode
 		);
 	bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* FindInternal(
-		const CBPlusTreeObjectClass& nrToFind,	// ���ҵĲ��ն���
-		int& Index	// ���ض��������ֵ
+		const CBPlusTreeObjectClass& nrToFind,	// 查找的参照对象
+		int& Index	// 返回对象的索引值
 		)const;
-	int FindInBranch(	// ��ĳ��֦�ڵ���Ѱ������С�ڻ����Ŀ��Ľڵ�
+	int FindInBranch(	// 在某个枝节点中寻找最大的小于或等于目标的节点
 		bplustree_node<LPBPNODE,ObjsInNode>* npBranch,
-		const CBPlusTreeObjectClass& nrToFind	// ���ҵĲ��ն���
+		const CBPlusTreeObjectClass& nrToFind	// 查找的参照对象
 		)const;
-	int FindInLeaf(	// ��ĳ��Ҷ�ڵ���Ѱ������С�ڻ����Ŀ��Ľڵ�
+	int FindInLeaf(	// 在某个叶节点中寻找最大的小于或等于目标的节点
 		bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* npLeaf,
-		const CBPlusTreeObjectClass& nrToFind	// ���ҵĲ��ն���
+		const CBPlusTreeObjectClass& nrToFind	// 查找的参照对象
 		)const;
 	bool InsertToLeaf(
 		bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* npLeaf,
@@ -248,10 +248,10 @@ private:
 		bplustree_node<LPBPNODE,ObjsInNode>* npBranch,
 		LPBPNODE npNewNode
 		);
-	inline void UpdateLowestValue(	// �����ɸýڵ�������ؽڵ����Сֵ��������
+	inline void UpdateLowestValue(	// 更新由该节点至上相关节点的最小值对象索引
 		bplustree_node<LPBPNODE,ObjsInNode>* npBranch
 		);
-	bool NewLevel(	// �ڸ��ڵ�λ�ã�������һ�㣻ʵ����Ϊ����һ��������Ϊ��������������һ���µĸ��ڵ�
+	bool NewLevel(	// 在根节点位置，新增加一层；实际行为就是一个根分裂为两个，并且增加一个新的根节点
 		LPBPNODE npNodeAhead,
 		LPBPNODE npNodeBehind
 		);
@@ -261,7 +261,7 @@ private:
 		);
 	bool DeleteFromBranch(
 		bplustree_node<LPBPNODE,ObjsInNode>* npBranch,
-		LPBPNODE npValue	// ֵ����npValue�����ݶ���
+		LPBPNODE npValue	// 值等于npValue的数据对象
 		);
 
 };
@@ -279,7 +279,7 @@ public:
 		mpCrtLeaf = src.mpCrtLeaf;
 		miCrtIndex = src.miCrtIndex;
 	}
-	CBPlusTreeObjectClass& operator*() {	// ���صĶ��󣬲�Ҫ����ʹ�á�=���������ֵ���𴦣�����п��ܵ�������������ݷ���ת�ƣ���ȷ���ܹ���ȫʹ�á�=�������
+	CBPlusTreeObjectClass& operator*() {	// 返回的对象，不要随意使用‘=’运算符赋值给别处，这很有可能导致这个对象内容发生转移，请确认能够安全使用‘=’运算符
 		return mpCrtLeaf->GetEntry(miCrtIndex);
 	}
 

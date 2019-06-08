@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -46,9 +46,9 @@ LRESULT CXsImeContext::OnImeMessage(HWND hwnd, UINT message, WPARAM wParam, LPAR
 {
 	switch(message)
 	{
-	case WM_IME_NOTIFY:	// µ±ÓÃ»§ÇĞ»»ÊäÈë·¨¿ªÆôIMEµÄÊ±ºò£¬ËùÓĞµÄContext¶¼»áÖ´ĞĞ¿ªÆô¶¯×÷£¬ËùÒÔ£¬Ö»ÒªÊÕµ½¿ªÆôÏûÏ¢£¬¾ÍÒª¼ì²éÎÒÃÇµÄ½ûÓÃIMEµÄContextÊÇ·ñ±»¿ªÆôÁË¡£
+	case WM_IME_NOTIFY:	// å½“ç”¨æˆ·åˆ‡æ¢è¾“å…¥æ³•å¼€å¯IMEçš„æ—¶å€™ï¼Œæ‰€æœ‰çš„Contextéƒ½ä¼šæ‰§è¡Œå¼€å¯åŠ¨ä½œï¼Œæ‰€ä»¥ï¼Œåªè¦æ”¶åˆ°å¼€å¯æ¶ˆæ¯ï¼Œå°±è¦æ£€æŸ¥æˆ‘ä»¬çš„ç¦ç”¨IMEçš„Contextæ˜¯å¦è¢«å¼€å¯äº†ã€‚
 		if(mhImcToHaltIme != NULL && wParam == IMN_SETOPENSTATUS && ImmGetOpenStatus(mhImcToHaltIme)!=FALSE)	
-			ImmSetOpenStatus(mhImcToHaltIme,FALSE);		// ½«Æä¹Ø±Õ
+			ImmSetOpenStatus(mhImcToHaltIme,FALSE);		// å°†å…¶å…³é—­
 		break;
 	case WM_IME_STARTCOMPOSITION:
 		{
@@ -93,7 +93,7 @@ void CXsImeContext::SetImeCompositionWnd(D2D1_POINT_2F ndPosition)
 ERESULT __stdcall CXsImeContext::ChangeImeContextCallback(ULONG nuFlag,LPVOID npContext)
 {
 	if(nuFlag != FALSE)
-	{	// ½ûÓÃIME£¬»»ÓÃ×Ô½¨µÄIMEÉÏÏÂÎÄ
+	{	// ç¦ç”¨IMEï¼Œæ¢ç”¨è‡ªå»ºçš„IMEä¸Šä¸‹æ–‡
 		if(mhImcToHaltIme == NULL || mbAssociated != false)
 			return ERESULT_SUCCESS;
 
@@ -102,7 +102,7 @@ ERESULT __stdcall CXsImeContext::ChangeImeContextCallback(ULONG nuFlag,LPVOID np
 	}
 	else
 	{
-		// È¡Ïû½ûÓÃ£¬»»»ØÄ¬ÈÏµÄIME
+		// å–æ¶ˆç¦ç”¨ï¼Œæ¢å›é»˜è®¤çš„IME
 		if(mhImcToHaltIme == NULL || mbAssociated == false)
 			return ERESULT_SUCCESS;
 

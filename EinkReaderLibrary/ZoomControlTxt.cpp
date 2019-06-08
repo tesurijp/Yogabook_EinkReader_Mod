@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -11,10 +11,10 @@
 #include "MsgDefine.h"
 #include "..\ECtl\EvButtonImp.h"
 
-// ÏÂÃæÈıĞĞ£¬´ÓPreNextButton.hÎÄ¼şÖĞ½èÀ´
-#define PNB_BT_MIDDLE 100  //ÖĞ¼ä
-#define PNB_BT_PRE 101	//ÉÏÒ»Ò³
-#define PNB_BT_NEXT 102 //ÏÂÒ»Ò³
+// ä¸‹é¢ä¸‰è¡Œï¼Œä»PreNextButton.hæ–‡ä»¶ä¸­å€Ÿæ¥
+#define PNB_BT_MIDDLE 100  //ä¸­é—´
+#define PNB_BT_PRE 101	//ä¸Šä¸€é¡µ
+#define PNB_BT_NEXT 102 //ä¸‹ä¸€é¡µ
 
 DEFINE_BUILTIN_NAME(ZoomControlTxt)
 
@@ -28,7 +28,7 @@ CZoomControlTxt::~CZoomControlTxt(void)
 {
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CZoomControlTxt::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -50,9 +50,9 @@ ERESULT CZoomControlTxt::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 ULONG CZoomControlTxt::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -60,14 +60,14 @@ ULONG CZoomControlTxt::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
 
-		//»ñÈ¡¶ÔÏñ¾ä±ú
-		//¹¤¾ßÀ¸
+		//è·å–å¯¹åƒå¥æŸ„
+		//å·¥å…·æ 
 		lpSubKey = mpTemplete->OpenKey(L"ZoomControlToolbar");
 		mpZoomControlTxtToolbar = CZoomControlToolbarTxt::CreateInstance(mpIterator, lpSubKey);
 		CMM_SAFE_RELEASE(lpSubKey);
@@ -92,15 +92,15 @@ ULONG CZoomControlTxt::InitOnCreate(
 
 	CMM_SAFE_RELEASE(lpSubKey);
 
-	// ÏòÏµÍ³×¢²áĞèÒªÊÕµ½µÄÏûÏ¢
+	// å‘ç³»ç»Ÿæ³¨å†Œéœ€è¦æ”¶åˆ°çš„æ¶ˆæ¯
 	return leResult;
 }
 
-//ÉèÖÃScrollBarµÄÎ»ÖÃ
+//è®¾ç½®ScrollBarçš„ä½ç½®
 bool CZoomControlTxt::SetScrollBarPositionAndSize()
 {
 	//{
-	//	//ÉèÖÃScrollBarÎ»ÖÃ
+	//	//è®¾ç½®ScrollBarä½ç½®
 	//	if (mpIterScrH)
 	//	{
 	//		mpIterScrH->SetPosition((mpIterator->GetSizeX() - mpIterScrH->GetSizeX()) / 2.0f, mpIterator->GetSizeY() - 20.0f);
@@ -119,7 +119,7 @@ void CZoomControlTxt::SetFontsize(DWORD ldwFontSizeIndex)
 	mpZoomControlTxtToolbar->SetFontsize(ldwFontSizeIndex);
 }
 
-//°´Å¥µ¥»÷ÊÂ¼ş
+//æŒ‰é’®å•å‡»äº‹ä»¶
 ERESULT CZoomControlTxt::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -134,7 +134,7 @@ ERESULT CZoomControlTxt::OnCtlButtonClick(IEinkuiIterator* npSender)
 		//case ZC_BT_LEFT:
 		//case ZC_BT_RIGHT:
 		//{
-		//	//ÉÏÏÂ×óÓÒÒÆ¶¯
+		//	//ä¸Šä¸‹å·¦å³ç§»åŠ¨
 		//	MovePage(llBtnID);
 		//	mpIterator->KillTimer(ZC_TIMER_ID_HIDE);
 		//	mpIterator->SetTimer(ZC_TIMER_ID_HIDE, 1, 1000 * 5, NULL);
@@ -152,7 +152,7 @@ ERESULT CZoomControlTxt::OnCtlButtonClick(IEinkuiIterator* npSender)
 	return lResult;
 }
 
-//ÏûÏ¢´¦Àíº¯Êı
+//æ¶ˆæ¯å¤„ç†å‡½æ•°
 ERESULT CZoomControlTxt::ParseMessage(IEinkuiMessage* npMsg)
 {
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
@@ -161,14 +161,14 @@ ERESULT CZoomControlTxt::ParseMessage(IEinkuiMessage* npMsg)
 	{
 	case EMSG_MODAL_ENTER:
 	{
-		//// ´´½¨Òªµ¯³öµÄ¶Ô»°¿ò
+		//// åˆ›å»ºè¦å¼¹å‡ºçš„å¯¹è¯æ¡†
 		//mpIterator->SetVisible(true);
 		luResult = ERESULT_SUCCESS;
 		break;
 	}
 	case EEVT_ER_SET_TXT_ZOOM:
 	{
-		//ÉèÖÃ·Å´ó±¶Êı
+		//è®¾ç½®æ”¾å¤§å€æ•°
 		DWORD ldwFontsizeIndex = 0;
 		luResult = CExMessage::GetInputData(npMsg, ldwFontsizeIndex);
 		if (luResult != ERESULT_SUCCESS)
@@ -189,14 +189,14 @@ ERESULT CZoomControlTxt::ParseMessage(IEinkuiMessage* npMsg)
 
 	if (luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CZoomControlTxt::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
@@ -210,7 +210,7 @@ void CZoomControlTxt::OnTimer(
 	}
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CZoomControlTxt::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	if (mpZoomControlTxtToolbar != NULL)
@@ -219,7 +219,7 @@ ERESULT CZoomControlTxt::OnElementResized(D2D1_SIZE_F nNewSize)
 		
 		D2D1_POINT_2F ldPos;
 
-		//¶¨Î»
+		//å®šä½
 		ldPos.x = (ldSize.width - 340) / 2.0f;
 		ldPos.y = ldSize.height - mpZoomControlTxtToolbar->GetIterator()->GetSizeY() - 80.0f;
 		mpZoomControlTxtToolbar->GetIterator()->SetPosition(ldPos);
@@ -229,7 +229,7 @@ ERESULT CZoomControlTxt::OnElementResized(D2D1_SIZE_F nNewSize)
 	return ERESULT_SUCCESS;
 }
 
-//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òş²Ø¡¿·¢Éú¸Ä±ä
+//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 ERESULT CZoomControlTxt::OnElementShow(bool nbIsShow)
 {
 	//EiSetHomebarStatus(nbIsShow == false ? GI_HOMEBAR_SHOW : GI_HOMEBAR_HIDE);
@@ -242,7 +242,7 @@ ERESULT CZoomControlTxt::OnElementShow(bool nbIsShow)
 }
 
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CZoomControlTxt::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -256,7 +256,7 @@ ERESULT CZoomControlTxt::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	return luResult;
 }
 
-//Êó±ê°´ÏÂ
+//é¼ æ ‡æŒ‰ä¸‹
 ERESULT CZoomControlTxt::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -265,14 +265,14 @@ ERESULT CZoomControlTxt::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 	{
 		BREAK_ON_NULL(npInfo);
 		if (mpIterator->IsEnable() == false)
-			break;	//Èç¹ûÊÇ½ûÓÃ×´Ì¬£¬¾Í²»½ÓÊÕÊäÈë
+			break;	//å¦‚æœæ˜¯ç¦ç”¨çŠ¶æ€ï¼Œå°±ä¸æ¥æ”¶è¾“å…¥
 
-		if (MOUSE_LB(npInfo->ActKey) == false)  //Èç¹û²»ÊÇÊó±ê×ó¼ü¾Í²»´¦Àí
+		if (MOUSE_LB(npInfo->ActKey) == false)  //å¦‚æœä¸æ˜¯é¼ æ ‡å·¦é”®å°±ä¸å¤„ç†
 			break;
 
 		if (npInfo->Presssed == false)
 		{
-			//Êó±êÌ§Æğ
+			//é¼ æ ‡æŠ¬èµ·
 			POINT ldPos;
 			ldPos.x = LONG(npInfo->Position.x - mdPressPos.x);
 			ldPos.y = LONG(npInfo->Position.y - mdPressPos.y);
@@ -280,23 +280,23 @@ ERESULT CZoomControlTxt::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 			mbIsBeginMove = false;
 			if (abs(mdPressPos.x - npInfo->Position.x) >= 20.0f || abs(mdPressPos.y - npInfo->Position.y) >= 20.0f)
 			{
-				//ÊÇ»¬¶¯²Ù×÷
+				//æ˜¯æ»‘åŠ¨æ“ä½œ
 	
 				do 
 				{
-					// ÅĞ¶ÏÊÇ·ñ²Ù×÷·­Ò³
-					if (abs(mdPressPos.x - npInfo->Position.x) >= abs(mdPressPos.y - npInfo->Position.y))	// ÒªÇóºáÏò»¬¶¯
+					// åˆ¤æ–­æ˜¯å¦æ“ä½œç¿»é¡µ
+					if (abs(mdPressPos.x - npInfo->Position.x) >= abs(mdPressPos.y - npInfo->Position.y))	// è¦æ±‚æ¨ªå‘æ»‘åŠ¨
 					{
 						if ((mdPressPos.x - npInfo->Position.x) >= 50.0f)
 						{
-							//ºóÒ»Ò³
+							//åä¸€é¡µ
 							PostMessageToParent(EEVT_ER_PRE_NEXT_CLICKED, PNB_BT_NEXT);
 							PostMessageToParent(EEVT_ER_ENTER_ZOOM, false);
 							break;
 						}
 						else if ((npInfo->Position.x - mdPressPos.x) >= 50.0f)
 						{
-							//Ç°Ò»Ò³
+							//å‰ä¸€é¡µ
 							PostMessageToParent(EEVT_ER_PRE_NEXT_CLICKED, PNB_BT_PRE);
 							PostMessageToParent(EEVT_ER_ENTER_ZOOM, false);
 							break;
@@ -312,8 +312,8 @@ ERESULT CZoomControlTxt::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 			}
 			else
 			{
-				//ÈÏÎªÊÇµã»÷²Ù×÷
-				//ÏÔÊ¾»òÒş²Ø×Ô¼ºµÄ°´Å¥
+				//è®¤ä¸ºæ˜¯ç‚¹å‡»æ“ä½œ
+				//æ˜¾ç¤ºæˆ–éšè—è‡ªå·±çš„æŒ‰é’®
 				//ShowItem(!mpZoomControlTxtToolbar->GetIterator()->IsVisible());
 
 				PostMessageToParent(EEVT_ER_ENTER_ZOOM, false);
@@ -321,7 +321,7 @@ ERESULT CZoomControlTxt::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 		}
 		else
 		{
-			//Êó±ê°´ÏÂ
+			//é¼ æ ‡æŒ‰ä¸‹
 			mbIsBeginMove = true;
 			mdPressPos = npInfo->Position;
 		}
@@ -335,7 +335,7 @@ ERESULT CZoomControlTxt::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 }
 
 
-//ÏÔÊ¾»òÒş²ØËùÓĞ¿Ø¼ş
+//æ˜¾ç¤ºæˆ–éšè—æ‰€æœ‰æ§ä»¶
 void CZoomControlTxt::ShowItem(bool nbIsShow)
 {
 	mpZoomControlTxtToolbar->GetIterator()->SetVisible(nbIsShow);
@@ -351,7 +351,7 @@ void CZoomControlTxt::ShowItem(bool nbIsShow)
 	}
 }
 
-//Êó±êÒÆ¶¯
+//é¼ æ ‡ç§»åŠ¨
 ERESULT CZoomControlTxt::OnMouseMoving(const STEMS_MOUSE_MOVING* npInfo)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -360,12 +360,12 @@ ERESULT CZoomControlTxt::OnMouseMoving(const STEMS_MOUSE_MOVING* npInfo)
 	{
 		BREAK_ON_NULL(npInfo);
 
-		if (MOUSE_LB(npInfo->KeyFlag) == false)  //Èç¹û²»ÊÇÊó±ê×ó¼ü¾Í²»´¦Àí
+		if (MOUSE_LB(npInfo->KeyFlag) == false)  //å¦‚æœä¸æ˜¯é¼ æ ‡å·¦é”®å°±ä¸å¤„ç†
 			break;
 
 		//if (mbIsBeginMove != false)
 		//{
-		//	//¿ªÊ¼»¬¶¯¼ÇÂ¼ÏÂÆğÊ¼×ø±ê
+		//	//å¼€å§‹æ»‘åŠ¨è®°å½•ä¸‹èµ·å§‹åæ ‡
 		//	mdDropBeginPos = npInfo->Position;
 		//	mbIsBeginMove = false;
 		//	break;
@@ -381,7 +381,7 @@ ERESULT CZoomControlTxt::OnMouseMoving(const STEMS_MOUSE_MOVING* npInfo)
 	return lResult;
 }
 
-//ÉèÖÃ·Å´óºóµÄÍ¼´óĞ¡¼°ÏÔÊ¾ÇøÓò
+//è®¾ç½®æ”¾å¤§åçš„å›¾å¤§å°åŠæ˜¾ç¤ºåŒºåŸŸ
 void CZoomControlTxt::SetRectOfViewportOnPage(D2D1_SIZE_F& nrImageSize, D2D1_RECT_F& nrViewPort)
 {
 	

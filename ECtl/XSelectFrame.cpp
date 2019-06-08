@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+﻿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -30,7 +30,7 @@ CSelectFrame::CSelectFrame(void)
 	mcLastHTurn = false;
 	mcLastVTurn = false;
 
-	// Ĭ�������༭
+	// 默认允许编辑
 	mcIsEdit = true;
 
 }
@@ -43,9 +43,9 @@ CSelectFrame::~CSelectFrame(void)
 
 
 ULONG CSelectFrame::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ������ָ��
-	IN ICfKey* npTemplete,		// npTemplete��Key ID����EID��ֵ��������EType
-	IN ULONG nuEID				// �����Ϊ0����ָ����Ԫ�ص�EID������ȡ��һ��������ģ�������õ�ֵ��ΪEID�����ģ��Ҳû������EID����ʹ��XUIϵͳ�Զ��Ǹ�����
+	IN IEinkuiIterator* npParent,	// 父对象指针
+	IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
+	IN ULONG nuEID				// 如果不为0，则指定该元素的EID，否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动那个分配
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -53,7 +53,7 @@ ULONG CSelectFrame::InitOnCreate(
 
 	do 
 	{
-		//���ȵ��û���
+		//首先调用基类
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -69,7 +69,7 @@ ULONG CSelectFrame::InitOnCreate(
 				lpPoint->GetIterator()->SetVisible(false);
 		}
 
-		// ������ˢ
+		// 创建画刷
 		mpXuiBrush = EinkuiGetSystem()->CreateBrush(XuiSolidBrush, D2D1::ColorF(0.0f,0.0f,0.0f));
 		BREAK_ON_NULL(mpXuiBrush);
 
@@ -95,12 +95,12 @@ ULONG CSelectFrame::InitOnCreate(
 
 	CMM_SAFE_RELEASE(lpSubKey);
 
-	// ��ϵͳע����Ҫ�յ�����Ϣ
+	// 向系统注册需要收到的消息
 	return leResult;
 }
 
 
-//��ʼ��������һ��Ԫ�ر�����ʱ���ã�ע�⣺��Ԫ�ػ����ڸ�Ԫ���յ�������Ϣ���Ӷ�ȷ����Ԫ����һ������Ԫ�س�ʼ��֮�����ȫ����ʼ���Ļ���
+//初始建立，当一个元素被建立时调用，注意：子元素会先于父元素收到这条消息，从而确保父元素有一个在子元素初始化之后完成全部初始化的机会
 ERESULT CSelectFrame::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -111,7 +111,7 @@ ERESULT CSelectFrame::OnElementCreate(IEinkuiIterator* npIterator)
 		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
-		//�޸�����ƶ�Ҫ�Լ�����ʱ�������ʽ
+		//修改鼠标移动要自己身上时的鼠标样式
 		CXuiElement::mhInnerCursor = LoadCursor(NULL,IDC_SIZEALL);
 		mpIterator->ModifyStyles(EITR_STYLE_ALL_DRAG|EITR_STYLE_ALL_KEY);
 
@@ -123,11 +123,11 @@ ERESULT CSelectFrame::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 
-//�ֽ���Ϣ���ṩ��Ϣ�ֽ����Ϣ��Ӧ�Ĺ��ܣ������ʵ���ǽ���Ϣ�ֽ�Ϊ��ͬ������󣬵�����Ӧ�Ĵ����麯�������ڲ���ʶ����Ϣ��һ�ɷ���ERESULT_UNEXPECTED_MESSAGE
-//�������ķ���ֵ���Զ�ͬ�����õ�npMsgָ�����Ϣ������
+//分解消息，提供消息分解或消息响应的功能，本类的实现是将消息分解为不同的请求后，调用相应的处理虚函数，对于不认识的消息，一律返回ERESULT_UNEXPECTED_MESSAGE
+//本函数的返回值会自动同步设置到npMsg指向的消息对象中
 ERESULT CSelectFrame::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ʵ��ԭ�����ȵ��������ķֽ⹦�ܣ����󽫲���������Ϣ��������
+	// 实现原则，优先调用自身的分解功能，而后将不处理的消息发给基类
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
 	switch (npMsg->GetMessageID())
@@ -141,7 +141,7 @@ ERESULT CSelectFrame::ParseMessage(IEinkuiMessage* npMsg)
 				mdOriginPosition = mpIterator->GetPosition();
 				mdOriginSize = mpIterator->GetSize();
 
-				//�жϰ�����Ϣ
+				//判断按键信息
 				if(npMsg->GetInputDataSize() != sizeof(STMS_DRAGGING_ELE))
 				{
 					luResult = ERESULT_WRONG_PARAMETERS;
@@ -151,7 +151,7 @@ ERESULT CSelectFrame::ParseMessage(IEinkuiMessage* npMsg)
 				if ((lpInfo->KeyFlag & MK_SHIFT) != 0)
 					mcProportionalScalingByKey = true;
 
-				// Ϊ�����ڷ��Ϳ�ʼ�϶�����Ϣ����Я���κ�����
+				// 为父窗口发送开始拖动的消息，不携带任何数据
 				SendMessageToParent(EMSG_SELECTPOINT_BEGIN, CExMessage::DataInvalid, NULL, 0);
 			}
 			else
@@ -163,7 +163,7 @@ ERESULT CSelectFrame::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_SELECTPOINT_MOVING:
 		{
-			// �ƶ�ĳ���㣬����ѡ���������ŷ�ת
+			// 移动某个点，带动选择框进行缩放翻转
 			if(npMsg->GetInputDataSize() != sizeof(D2D1_SIZE_F))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -177,18 +177,18 @@ ERESULT CSelectFrame::ParseMessage(IEinkuiMessage* npMsg)
 			}
 			else
 			{
-				// �������༭��������ê�㶼�����ƶ�״̬	
+				// 不允许编辑，则所有锚点都处于移动状态	
 				SendMessageToParent(EMSG_SELECTFRAME_MOVING, *lpInfo,NULL,0);			
 			}
 			break;
 		}
 	case EMSG_SELECTFPOINT_MOVED:
 		{
-			// ÿ���һ���϶������øñ�־
+			// 每完成一次拖动，重置该标志
 			mcProportionalScaling = false;
 			mcProportionalScalingByKey = false;
 
-			// ���÷�ת״̬
+			// 重置翻转状态
 			mcLastHTurn = false;
 			mcLastVTurn = false;
 
@@ -199,7 +199,7 @@ ERESULT CSelectFrame::ParseMessage(IEinkuiMessage* npMsg)
 
 			if (mcIsEdit != false)
 			{
-				// Ϊ�����ڷ����϶���������Ϣ����Я���κ�����
+				// 为父窗口发送拖动结束的消息，不携带任何数据
 				SendMessageToParent(EMSG_SELECTFPOINT_MOVED, CExMessage::DataInvalid, NULL, 0);
 			}
 			else
@@ -208,17 +208,17 @@ ERESULT CSelectFrame::ParseMessage(IEinkuiMessage* npMsg)
 			}
 			break;
 		}
-		// ������һ������
+		// 处理归一化命令
 	case EMSG_SELECTFRAME_REGULAR:
 		{
-			// �ȴ������ڵ�����������������ţ�������ê��
+			// 等待父窗口的命令，如果是任意比缩放，才重置锚点
 			//if (mcProportionalScaling == false)
 			//	EinkuiGetSystem()->GetElementManager()->ResetDragBegin(mpArrayPoint[miActivePoint-1]);
 			break;
 		}
 	case EMSG_SET_PROPORTIONAL_SCALING:
 		{
-			// �Ƿ�ִ�еȱ�������
+			// 是否执行等比例缩放
 			if(npMsg->GetInputDataSize() != sizeof(bool))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -248,13 +248,13 @@ ERESULT CSelectFrame::ParseMessage(IEinkuiMessage* npMsg)
 
 	if(luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // ���û����ͬ��������ע�⣺һ��Ҫ��������ֱ�ӻ���
+		luResult = CXuiElement::ParseMessage(npMsg); // 调用基类的同名函数；注意：一定要调用自身直接基类
 	}
 
 	return luResult;
 }
 
-//������Ϣ
+//键盘消息
 ERESULT CSelectFrame::OnKeyPressed(const STEMS_KEY_PRESSED* npInfo)
 {
 	ERESULT luResult;
@@ -263,7 +263,7 @@ ERESULT CSelectFrame::OnKeyPressed(const STEMS_KEY_PRESSED* npInfo)
 	if(luResult == ERESULT_KEY_ACCEPTED)
 		return luResult;
 
-	if(false != npInfo->IsPressDown)		// ֻ��������
+	if(false != npInfo->IsPressDown)		// 只处理按下
 	{
 		D2D1_POINT_2F ldOffset = {0.0f,0.0f};
 
@@ -301,7 +301,7 @@ ERESULT CSelectFrame::OnKeyPressed(const STEMS_KEY_PRESSED* npInfo)
 }
 
 
-//Ԫ�زο��ߴ緢���仯
+//元素参考尺寸发生变化
 ERESULT CSelectFrame::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	Relocation();
@@ -310,7 +310,7 @@ ERESULT CSelectFrame::OnElementResized(D2D1_SIZE_F nNewSize)
 }
 
 
-// ���ö�Ӧ������״̬
+// 设置对应点的鼠标状态
 void CSelectFrame::SetCursor(D2D1_POINT_2F ndPoint, D2D1_RECT_F ndNormalRect, int niIndex)
 {
 	float lfHalfWidth = mpArrayPoint[0]->GetSizeX()/2;
@@ -321,7 +321,7 @@ void CSelectFrame::SetCursor(D2D1_POINT_2F ndPoint, D2D1_RECT_F ndNormalRect, in
 	HCURSOR lhCursorNwse = LoadCursor(NULL,IDC_SIZENWSE);
 	HCURSOR lhCursorNesw = LoadCursor(NULL,IDC_SIZENESW);
 
-	// �Ƿ���1��5��
+	// 是否是1，5点
 	if (ndPoint.x == (ndNormalRect.left-lfHalfWidth) && ndPoint.y == (ndNormalRect.top-lfHalfHeight) ||
 		ndPoint.x == (ndNormalRect.right - lfHalfWidth) && ndPoint.y ==(ndNormalRect.bottom - lfHalfHeight)
 		)
@@ -329,7 +329,7 @@ void CSelectFrame::SetCursor(D2D1_POINT_2F ndPoint, D2D1_RECT_F ndNormalRect, in
 		CExMessage::SendMessage(mpArrayPoint[niIndex],mpIterator,EMSG_SELECTPOINT_RESET_CURSOR,lhCursorNwse);
 	}
 
-	// �Ƿ���3��7��
+	// 是否是3，7点
 	if (ndPoint.x == ndNormalRect.right -lfHalfWidth && ndPoint.y == (ndNormalRect.top-lfHalfHeight) ||
 		ndPoint.x == ndNormalRect.left-lfHalfWidth && ndPoint.y == (ndNormalRect.bottom-lfHalfHeight)
 		)
@@ -345,7 +345,7 @@ void CSelectFrame::SetCursor(D2D1_POINT_2F ndPoint, D2D1_RECT_F ndNormalRect, in
 	
 }
 
-//�����˸����λ��
+//调整八个点的位置
 void CSelectFrame::Relocation(void)
 {
 	if (mpArrayPoint[0] != NULL)
@@ -412,7 +412,7 @@ void CSelectFrame::Relocation(void)
 }
 
 
-//����
+//绘制
 ERESULT CSelectFrame::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -429,7 +429,7 @@ ERESULT CSelectFrame::OnPaint(IEinkuiPaintBoard* npPaintBoard)
  				);
  		}
 
-		//��ѡ��������
+		//画选择框的虚线
 		float lfHalfWidth = mpArrayPoint[0]->GetSizeX()/2;
 		float lfHalfHeight = mpArrayPoint[0]->GetSizeY()/2;
 
@@ -461,7 +461,7 @@ ERESULT CSelectFrame::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	return lResult;
 }
 
-// ��������
+// 鼠标落点检测
 ERESULT CSelectFrame::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -477,9 +477,9 @@ ERESULT CSelectFrame::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	
 	return luResult;
 
-	// ���˸�����Χ�ɵľ�������
+	// 检测八个点所围成的矩形区域
 
-	// �������ο�
+	// 顶部矩形框
 	D2D1_RECT_F ldTopRect = D2D1::RectF(
 		mpArrayPoint[0]->GetPositionX(), 
 		mpArrayPoint[0]->GetPositionY(), 
@@ -489,7 +489,7 @@ ERESULT CSelectFrame::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	if (CExRect::PtInRect(rPoint, ldTopRect))
 		return ERESULT_MOUSE_OWNERSHIP;
 
-	// �ұ߾��ο�
+	// 右边矩形框
 	D2D1_RECT_F ldRightRect = D2D1::RectF(
 		mpArrayPoint[2]->GetPositionX(), 
 		mpArrayPoint[2]->GetPositionY(), 
@@ -499,7 +499,7 @@ ERESULT CSelectFrame::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	if (CExRect::PtInRect(rPoint, ldRightRect))
 		return ERESULT_MOUSE_OWNERSHIP;
 
-	// �ײ����ο�
+	// 底部矩形框
 	D2D1_RECT_F ldBottomRect = D2D1::RectF(
 		mpArrayPoint[6]->GetPositionX(), 
 		mpArrayPoint[6]->GetPositionY(), 
@@ -508,7 +508,7 @@ ERESULT CSelectFrame::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	if (CExRect::PtInRect(rPoint, ldBottomRect))
 		return ERESULT_MOUSE_OWNERSHIP;
 
-	// ��߾��ο�
+	// 左边矩形框
 	D2D1_RECT_F ldLeftRect = D2D1::RectF(
 		mpArrayPoint[0]->GetPositionX(), 
 		mpArrayPoint[0]->GetPositionY(), 
@@ -522,12 +522,12 @@ ERESULT CSelectFrame::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 
 }
 
-//���û�����
+//禁用或启用
 ERESULT CSelectFrame::OnElementEnable(bool nbIsEnable)
 {
 	for (int i=0;i<SF_POINT_MAX;i++)
 	{
-		mpArrayPoint[i]->SetVisible(nbIsEnable);	//����ǽ��þͲ���ʾ�˸���
+		mpArrayPoint[i]->SetVisible(nbIsEnable);	//如果是禁用就不显示八个点
 	}
 
 	return ERESULT_SUCCESS;
@@ -540,7 +540,7 @@ ERESULT CSelectFrame::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 	do 
 	{
 		BREAK_ON_NULL(npInfo);
-		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//ֻ����������϶�
+		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//只有左键可以拖动
 			break;
 
 		SendMessageToParent(EMSG_SELECTFRAME_MOVING,npInfo->Offset,NULL,0);
@@ -552,7 +552,7 @@ ERESULT CSelectFrame::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 	return leResult;
 }
 
-//��ק��ʼ
+//拖拽开始
 ERESULT CSelectFrame::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -560,13 +560,13 @@ ERESULT CSelectFrame::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 	do 
 	{
 		if(mpIterator->IsEnable() == false)
-			break;	//����ǽ���״̬�Ͳ����϶�
+			break;	//如果是禁用状态就不能拖动
 
 		BREAK_ON_NULL(npInfo);
-		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//ֻ����������϶�
+		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//只有左键可以拖动
 			break;
 		
-		if(npInfo->DragOn != mpIterator) //ֻ�����Լ�����ſ���
+		if(npInfo->DragOn != mpIterator) //只有在自己上面才可以
 			break;
 	
 		SendMessageToParent(EMSG_SELECTFRAME_BEGIN, CExMessage::DataInvalid, NULL, 0);
@@ -578,7 +578,7 @@ ERESULT CSelectFrame::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 	return leResult;
 }
 
-//��ק����
+//拖拽结束
 ERESULT CSelectFrame::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -587,7 +587,7 @@ ERESULT CSelectFrame::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 	{
 		BREAK_ON_NULL(npInfo);
 
-		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//ֻ����������϶�
+		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//只有左键可以拖动
 			break;
 
 		SendMessageToParent(EMSG_SELECTFRAME_DRAGED, CExMessage::DataInvalid, NULL, 0);
@@ -601,14 +601,14 @@ ERESULT CSelectFrame::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 	return leResult;
 }
 
-//�����˸����϶�
+//处理八个点拖动
 ERESULT CSelectFrame::OnPointDrag(IEinkuiIterator* npDragItem,D2D1_SIZE_F* npOffset)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	STCTL_CHANGE_POSITION_SIZE	ldPositionSize;	// �϶��㣬�ı�λ�úʹ�С
-	D2D1_POINT_2F	ldPositionOffset;		// ��¼λ��ƫ����
-	D2D1_SIZE_F		ldSizeVariation;		// ��С�ı���
+	STCTL_CHANGE_POSITION_SIZE	ldPositionSize;	// 拖动点，改变位置和大小
+	D2D1_POINT_2F	ldPositionOffset;		// 记录位置偏移量
+	D2D1_SIZE_F		ldSizeVariation;		// 大小改变量
 
 
 	float lfSizeX = 0.0f;
@@ -617,7 +617,7 @@ ERESULT CSelectFrame::OnPointDrag(IEinkuiIterator* npDragItem,D2D1_SIZE_F* npOff
 	do 
 	{
 
-		// �ȼٶ�����Ҫ��ת
+		// 先假定不需要翻转
 		ldPositionSize.mcHTurn = false;
 		ldPositionSize.mcVTurn = false;
 		mcHTurn = false;
@@ -626,90 +626,90 @@ ERESULT CSelectFrame::OnPointDrag(IEinkuiIterator* npDragItem,D2D1_SIZE_F* npOff
 		BREAK_ON_NULL(npDragItem);
 		BREAK_ON_NULL(npOffset);
 
-		// ���㲻ͬê������Ӧ��λ��ƫ�ƺʹ�С�仯��
+		// 计算不同锚点所对应的位置偏移和大小变化量
 		switch(npDragItem->GetID())
 		//switch(miActivePoint)
 		{
-		// ���ϵ�
+		// 左上点
 		case XuiLeftTop:	
 			{
-				// ����λ��ƫ����
+				// 计算位置偏移量
 				ldPositionOffset = D2D1::Point2F(npOffset->width, npOffset->height);
 				ldSizeVariation = D2D1::SizeF(-npOffset->width, -npOffset->height);
 				break;
 			}
-		// ���ϵ�
+		// 中上点
 		case XuiMidTop:	
 			{
 				ldPositionOffset = D2D1::Point2F(0, npOffset->height);
-				ldSizeVariation = D2D1::SizeF(0, -npOffset->height);		// ��������������
+				ldSizeVariation = D2D1::SizeF(0, -npOffset->height);		// 不允许左右缩放
 				break;
 			}
-		// ���ϵ�
+		// 右上点
 		case XuiRightTop: 
 			{
 				ldPositionOffset = D2D1::Point2F(0, npOffset->height);
 				ldSizeVariation = D2D1::SizeF(npOffset->width, -npOffset->height);
 				break;
 			}
-		// ���е�
+		// 右中点
 		case XuiRightMid: 
 			{
 				ldPositionOffset = D2D1::Point2F(0, 0);
-				ldSizeVariation = D2D1::SizeF(npOffset->width, 0);	// ��������������
+				ldSizeVariation = D2D1::SizeF(npOffset->width, 0);	// 不允许上下缩放
 				break;
 			}
-		// ���µ�
+		// 右下点
 		case XuiRightBottom: 
 			{
 				ldPositionOffset = D2D1::Point2F(0, 0);
 				ldSizeVariation = D2D1::SizeF(npOffset->width, npOffset->height);
 				break;
 			}
-		// ���µ�
+		// 中下点
 		case XuiMidBottom:	
 			{
 				ldPositionOffset = D2D1::Point2F(0, 0);
-				ldSizeVariation = D2D1::SizeF(0, npOffset->height);	// ��������������
+				ldSizeVariation = D2D1::SizeF(0, npOffset->height);	// 不允许左右缩放
 				break;
 			}
-		// ���µ�
+		// 左下点
 		case XuiLeftBottom:	
 			{
 				ldPositionOffset = D2D1::Point2F(npOffset->width, 0);
 				ldSizeVariation = D2D1::SizeF(-npOffset->width, npOffset->height);
 				break;
 			}
-		// ���е�
+		// 左中点
 		case XuiLeftMid:
 			{
 				ldPositionOffset = D2D1::Point2F(npOffset->width, 0);
-				ldSizeVariation = D2D1::SizeF(-npOffset->width, 0);	// ��������������
+				ldSizeVariation = D2D1::SizeF(-npOffset->width, 0);	// 不允许上下缩放
 				break;
 			}
 
 		}
 
-		// ��ȡ�ı��Ĵ�С
+		// 获取改变后的大小
 		lfSizeX = mdOriginSize.width + ldSizeVariation.width;
 		lfSizeY = mdOriginSize.height + ldSizeVariation.height;
 
-		// ���size=0,�򱾴��϶�������
+		// 如果size=0,则本次拖动不处理
 		if (lfSizeX == 0 || lfSizeY == 0)
 			return ERESULT_SUCCESS;
 		
-		// �����и�Ч������
-		// 1������ϣ�����ת����Ҫ��һ�����Σ���ʱ�����������϶���ê�㣻�����������������ת����϶�ÿ�ζ�������жϷ�ת�����̣��Ӷ���������������
-		// 2���ȱ����ŵ�����£������һ���󣬼���б��ʱ���㽫���临�ӣ����Բ���һ����
-		// 3���������ܸĳ�֧�ָ����Σ�ʹ��Ϊͳһ�����������������϶�ʱ���������ת�����߿��ܻ�为ֵ���϶���ɺ��ڹ�һ�����꼴�ɡ�
-		// 4�����ڵ�ģ���ǣ�����������Ų��ù�һ��ģ�ͣ��ȱ����Ų��ø��������㣬���ϲ�����Ľ��ת��Ϊ�����Ρ�
+		// 这里有个效率问题
+		// 1，设计上，当翻转后，需要归一化矩形，此时会重新设置拖动的锚点；如果不这样操作，则翻转后的拖动每次都会进入判断翻转的流程，从而增加了运算量；
+		// 2，等比缩放的情况下，如果归一化后，计算斜率时运算将及其复杂，所以不归一化；
+		// 3，将来可能改成支持负矩形，使行为统一。这样，父窗口在拖动时如果发生翻转，宽高可能会变负值，拖动完成后，在归一化坐标即可。
+		// 4，现在的模型是，任意比例缩放采用归一化模型；等比缩放采用负矩形运算，向上层输出的结果转换为正矩形。
 
 
-		// ��һ���������positionƫ�ƺ�size�仯��
+		// 第一步计算出的position偏移和size变化量
 		ldPositionSize.mdPositionOffset = ldPositionOffset;
 		ldPositionSize.mdSizeVariation = ldSizeVariation;
 
-		// �����ȱ������߼����������ź�Ľ���������positionƫ�ƺ�size�仯��
+		// 处理等比缩放逻辑，根据缩放后的结果，计算出position偏移和size变化量
 		if (mcProportionalScaling != false || mcProportionalScalingByKey != false)
 		{
 			OnProportionalScaling(npDragItem, ldPositionSize);			
@@ -719,7 +719,7 @@ ERESULT CSelectFrame::OnPointDrag(IEinkuiIterator* npDragItem,D2D1_SIZE_F* npOff
 			OnNormalScaling(npDragItem, ldPositionSize);
 		}
 
-		// �򸸴��ڱ����ƶ�״̬{λ��ƫ��������С�ñ�����ˮƽ��ת����ֱ��ת}
+		// 向父窗口报告移动状态{位置偏移量，大小该变量，水平翻转，垂直翻转}
 		SendMessageToParent(EMSG_SELECTPOINT_CHANGE_POSITION_SIZE, ldPositionSize,NULL,0);
 
 		leResult = ERESULT_SUCCESS;
@@ -736,35 +736,35 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 	float lfSizeX = 0;
 	float lfSizeY = 0;
 
-	// ��ȡ�ı��Ĵ�С
+	// 获取改变后的大小
 	lfSizeX = mdOriginSize.width + noChangePositionSize.mdSizeVariation.width;
 	lfSizeY = mdOriginSize.height + noChangePositionSize.mdSizeVariation.height;
 
 
-	// �ж����޷�ת
+	// 判断有无翻转
 	do 
 	{
-		// �ж��Ƿ�ֱ��ת
+		// 判断是否垂直翻转
 		if (lfSizeY < 0)
 		{
 			noChangePositionSize.mcVTurn = true;
 			mcVTurn = true;
 		}
-		// �ж��Ƿ�ˮƽ��ת
+		// 判断是否水平翻转
 		if (lfSizeX < 0)
 		{
 			noChangePositionSize.mcHTurn = true;
 			mcHTurn = true;
 		}
 
-		// ���û�з�ת����ֱ������
+		// 如果没有翻转，则直接跳出
 		if (mcHTurn == false && mcVTurn == false)
 			break;
 
-		// ����з�ת�������ÿ���㣬��������
+		// 如果有翻转，则针对每个点，单独处理
 		switch(npDragItem->GetID())
 		{
-			// ���ϵ�
+			// 左上点
 		case XuiLeftTop:	
 			{
 				if (mcHTurn != false)
@@ -774,7 +774,7 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 
 				break;
 			}
-			// ���ϵ�
+			// 中上点
 		case XuiMidTop:	
 			{
 				if (mcVTurn != false)
@@ -782,7 +782,7 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 
 				break;
 			}
-			// ���ϵ�
+			// 右上点
 		case XuiRightTop: 
 			{
 				if (mcHTurn != false)
@@ -793,7 +793,7 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 
 				break;
 			}
-			// ���е�
+			// 右中点
 		case XuiRightMid: 
 			{
 				if (mcHTurn != false)
@@ -801,7 +801,7 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 
 				break;
 			}
-			// ���µ�
+			// 右下点
 		case XuiRightBottom: 
 			{
 				if (mcHTurn != false)
@@ -812,7 +812,7 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 
 				break;
 			}
-			// ���µ�
+			// 中下点
 		case XuiMidBottom:	
 			{
 				if (mcVTurn != false)
@@ -820,7 +820,7 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 
 				break;
 			}
-			// ���µ�
+			// 左下点
 		case XuiLeftBottom:	
 			{
 				if (mcHTurn != false)
@@ -831,7 +831,7 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 
 				break;
 			}
-			// ���е�
+			// 左中点
 		case XuiLeftMid:
 			{
 				if (mcHTurn != false)
@@ -848,19 +848,19 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 	if (mcHTurn != false || mcVTurn != false)
 	{
 
-		// ��ת֮��Ĵ�С
+		// 翻转之后的大小
 		D2D1_SIZE_F ldAfterTurnedSize;
 
 		ldAfterTurnedSize.width= lfSizeX>0 ? lfSizeX : -lfSizeX;
 		ldAfterTurnedSize.height = lfSizeY>0 ? lfSizeY : -lfSizeY;
 
-		// ��תǰ��ı仯�� = ��ת��Ĵ�С - ԭʼ��С
+		// 翻转前后的变化量 = 翻转后的大小 - 原始大小
 		noChangePositionSize.mdSizeVariation.width = ldAfterTurnedSize.width - mdOriginSize.width;
 		noChangePositionSize.mdSizeVariation.height = ldAfterTurnedSize.height - mdOriginSize.height;
 
 	}
 
-	// ���ݵ�ǰ״̬����һ�εķ�ת״̬���ж�ʵ���Ƿ�����ת
+	// 根据当前状态与上一次的翻转状态，判断实际是否发生翻转
 	if (mcLastHTurn != mcHTurn)
 	{
 		noChangePositionSize.mcHTurn = true;		
@@ -891,43 +891,43 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
 
-	// ��¼��С�ı仯��
+	// 记录大小的变化量
 	float lfSizeX = noChangePositionSize.mdSizeVariation.width;
 	float lfSizeY = noChangePositionSize.mdSizeVariation.height;
 
-	// �ȱȱ���ǰ�����ۿ��Ⱥ͸߶�
+	// 等比变形前的理论宽度和高度
 	float lfBeforeScaledWidth = 0.0f;
 	float lfBeforeScaledHeight = 0.0f;
 
-	// ��׼б��
+	// 基准斜率
 	float lfBaseLineSlope;
-	// ��ǰб��
+	// 当前斜率
 	float lfCurLineSlope;
 
-	// ��ȡ�ı��Ĵ�С
+	// 获取改变后的大小
 	lfBeforeScaledWidth = mdOriginSize.width + lfSizeX;
 	lfBeforeScaledHeight = mdOriginSize.height + lfSizeY;
 
 	{
-		// �����׼б��,��ԭʼ���ε�����ȷ����������ʼ��ʼ����(0.0f, 0.0f)������б�ʾ��ǿ��Ⱥ͸߶ȵı�ֵ
+		// 计算基准斜率,由原始矩形的数据确定，由于起始点始终是(0.0f, 0.0f)，所以斜率就是宽度和高度的比值
 		lfBaseLineSlope = mdOriginSize.width/mdOriginSize.height;
 
-		// ���㵱ǰб�ʣ�Ϊ��ǰ������߶ȵı�ֵ
+		// 计算当前斜率，为当前宽度与高度的比值
 		lfCurLineSlope = lfBeforeScaledWidth/lfBeforeScaledHeight;
-		// ȡ����ֵ�����ǵķ�ת�����
+		// 取绝对值，考虑的翻转的情况
 		lfCurLineSlope = lfCurLineSlope>0 ?lfCurLineSlope:-lfCurLineSlope;
 	}
 
 
 	{
-		// �ж��Ƿ�ˮƽ��ת
+		// 判断是否水平翻转
 		if (lfBeforeScaledWidth < 0)
 		{
 			noChangePositionSize.mcHTurn = true;
 			mcHTurn = true;
 		}
 
-		// �ж��Ƿ���ֱ��ת
+		// 判断是否向垂直翻转
 		if (lfBeforeScaledHeight < 0)
 		{
 			noChangePositionSize.mcVTurn = true;
@@ -937,24 +937,24 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// ����5���Ǿ������룬ͳһ����ȱ����ź�ı仯������˸������
+	// 下面5句是精华代码，统一计算等比缩放后的变化量，兼顾各种情况
 	//////////////////////////////////////////////////////////////////////////
 	{
 		if (lfCurLineSlope >= lfBaseLineSlope)
 		{
-			// ȡX������ű�����������X�����
+			// 取X轴的缩放比例，保持与X轴对齐
 			lfSizeX = (fabs(lfSizeX + mdOriginSize.width)-mdOriginSize.width);
 			noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfSizeX, lfSizeX/lfBaseLineSlope);
 		}
 		else
 		{
-			// ȡY������ű���
+			// 取Y轴的缩放比例
 			lfSizeY = (fabs(lfSizeY + mdOriginSize.height)-mdOriginSize.height);		
 			noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfSizeY*lfBaseLineSlope, lfSizeY);
 		}
 	}
 
-	// ����ȱȱ��κ��X���Y��ı仯����Ҳ���ǿ��Ⱥ͸߶ȵı仯�����������仯����Ҫ���ݲ�ͬ�ķ�ת�����������
+	// 定义等比变形后的X轴和Y轴的变化量，也就是宽度和高度的变化量，这两个变化量需要根据不同的翻转情况进行修正
 	float lfSizeVarX = 0.0f;
 	float lfSizeVarY = 0.0f;
 
@@ -967,7 +967,7 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 
 		switch(npDragItem->GetID())
 		{
-			// ���ϵ�
+			// 左上点
 		case XuiLeftTop:	
 			{
 				if (mcHTurn != false)
@@ -994,14 +994,14 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 
 				break;
 			}
-			// ���ϵ�
+			// 中上点
 		case XuiMidTop:	
 			{
 				float lfWidthOffset = (lfSizeY/mdOriginSize.height)*mdOriginSize.width;
 
 				if (mcVTurn != false)
 				{
-					// ����ļ����߼��ܱ�̬����ͼ�Ը�������20120701
+					// 这里的计算逻辑很变态，画图以辅助理解20120701
 					float xTmp = 0.0f;				
 					if (mdOriginSize.width/2+lfWidthOffset/2 < 0)
 					{
@@ -1022,7 +1022,7 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 				noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfWidthOffset, lfSizeY);				
 				break;
 			}
-			// ���ϵ�
+			// 右上点
 		case XuiRightTop: 
 			{
 				if (mcHTurn != false)
@@ -1050,7 +1050,7 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 
 				break;
 			}
-			// ���е�
+			// 右中点
 		case XuiRightMid: 
 			{
 				float lfHeightOffset = (lfSizeX/mdOriginSize.width)*mdOriginSize.height;
@@ -1075,7 +1075,7 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 				noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfSizeX, lfHeightOffset);				
 				break;
 			}
-			// ���µ�
+			// 右下点
 		case XuiRightBottom: 
 			{
 
@@ -1105,7 +1105,7 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 				
 				break;
 			}
-			// ���µ�
+			// 中下点
 		case XuiMidBottom:	
 			{
 				float lfWidthOffset = (lfSizeY/mdOriginSize.height)*mdOriginSize.width;
@@ -1134,7 +1134,7 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 
 				break;
 			}
-			// ���µ�
+			// 左下点
 		case XuiLeftBottom:	
 			{
 
@@ -1164,7 +1164,7 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 				
 				break;
 			}
-			// ���е�
+			// 左中点
 		case XuiLeftMid:
 			{
 				float lfHeightOffset = (lfSizeX/mdOriginSize.width)*mdOriginSize.height;
@@ -1197,29 +1197,29 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 	} while (false);
 
 
-	// ����ȱȱ��κ�Ŀ��Ⱥ͸߶�
+	// 定义等比变形后的宽度和高度
 	float lfAfterScaledWidth = 0.0f;
 	float lfAfterScaledHeight = 0.0f;
 
 	lfAfterScaledWidth = mdOriginSize.width + noChangePositionSize.mdSizeVariation.width;
 	lfAfterScaledHeight = mdOriginSize.height + noChangePositionSize.mdSizeVariation.height;
 
-	// ����ˮƽ��ת�ʹ�ֱ��ת��ı仯��
+	// 修正水平翻转和垂直翻转后的变化量
 	if (mcHTurn != false || mcVTurn != false)
 	{
-		// ��ת֮��Ĵ�С
+		// 翻转之后的大小
 		D2D1_SIZE_F ldAfterTurnedSize;
 
 		ldAfterTurnedSize.width= lfAfterScaledWidth>0 ? lfAfterScaledWidth : -lfAfterScaledWidth;
 		ldAfterTurnedSize.height = lfAfterScaledHeight>0 ? lfAfterScaledHeight : -lfAfterScaledHeight;
 
-		// ��תǰ��ı仯�� = ��ת��Ĵ�С - ԭʼ��С
+		// 翻转前后的变化量 = 翻转后的大小 - 原始大小
 		noChangePositionSize.mdSizeVariation.width = ldAfterTurnedSize.width - mdOriginSize.width;
 		noChangePositionSize.mdSizeVariation.height = ldAfterTurnedSize.height - mdOriginSize.height;
 
 	}
 
-	// ���ݵ�ǰ״̬����һ�εķ�ת״̬���ж�ʵ���Ƿ�����ת
+	// 根据当前状态与上一次的翻转状态，判断实际是否发生翻转
 	if (mcLastHTurn != mcHTurn)
 	{
 		noChangePositionSize.mcHTurn = true;		
@@ -1245,7 +1245,7 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 }
 
 
-// ���ð˸������ʾ״̬
+// 设置八个点的显示状态
 void CSelectFrame::SetPointVisible(bool nbFlag)
 {
 	/*if (nbFlag == false)

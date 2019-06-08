@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -29,16 +29,16 @@ CEvWhirlAngleImp::~CEvWhirlAngleImp(void)
 
 
 ULONG CEvWhirlAngleImp::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -54,7 +54,7 @@ ULONG CEvWhirlAngleImp::InitOnCreate(
 	return leResult;
 }
 
-//»æÖÆÏûÏ¢
+//ç»˜åˆ¶æ¶ˆæ¯
 ERESULT CEvWhirlAngleImp::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -78,7 +78,7 @@ ERESULT CEvWhirlAngleImp::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 
 ERESULT CEvWhirlAngleImp::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -119,14 +119,14 @@ ERESULT CEvWhirlAngleImp::ParseMessage(IEinkuiMessage* npMsg)
 
 	if(luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
-		//luResult = ERESULT_UNEXPECTED_MESSAGE;	// Õâ¶ùÃ»ÓĞ»ùÀà£¬ÅÉÉú±¾ÀàÊ±£¬É¾³ı±¾¾ä£»
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
+		//luResult = ERESULT_UNEXPECTED_MESSAGE;	// è¿™å„¿æ²¡æœ‰åŸºç±»ï¼Œæ´¾ç”Ÿæœ¬ç±»æ—¶ï¼Œåˆ é™¤æœ¬å¥ï¼›
 	}
 
 	return luResult;
 }
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CEvWhirlAngleImp::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -140,7 +140,7 @@ ERESULT CEvWhirlAngleImp::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	return luResult;
 }
 // 
-// //Êó±ê°´ÏÂ
+// //é¼ æ ‡æŒ‰ä¸‹
 // ERESULT CEvWhirlAngleImp::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 // {
 // 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -162,7 +162,7 @@ ERESULT CEvWhirlAngleImp::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 	do 
 	{
 		BREAK_ON_NULL(npInfo);
-		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//Ö»ÓĞ×ó¼ü¿ÉÒÔÍÏ¶¯
+		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//åªæœ‰å·¦é”®å¯ä»¥æ‹–åŠ¨
 			break;
 
 		mdbRadian = GetRadian(npInfo->CurrentPos);
@@ -183,7 +183,7 @@ ERESULT CEvWhirlAngleImp::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 	return leResult;
 }
 
-//ÍÏ×§¿ªÊ¼
+//æ‹–æ‹½å¼€å§‹
 ERESULT CEvWhirlAngleImp::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -194,13 +194,13 @@ ERESULT CEvWhirlAngleImp::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 		if(false == mpIterator->IsEnable())
 			break;
 
-		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//Ö»ÓĞ×ó¼ü¿ÉÒÔÍÏ¶¯
+		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//åªæœ‰å·¦é”®å¯ä»¥æ‹–åŠ¨
 			break;
 
-		if(npInfo->DragOn != mpIterator) //Ö»ÓĞÔÚ×Ô¼ºÉÏÃæ²Å¿ÉÒÔ
+		if(npInfo->DragOn != mpIterator) //åªæœ‰åœ¨è‡ªå·±ä¸Šé¢æ‰å¯ä»¥
 			break;
 
-		// ÍÏ¶¯¿ªÊ¼
+		// æ‹–åŠ¨å¼€å§‹
 		SetPicIndex(4);
 
 		PostMessageToParent(EEVT_WHIRLANGEL_ANGLE_CHANGE_BEGIN, NULL);
@@ -212,7 +212,7 @@ ERESULT CEvWhirlAngleImp::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 	return leResult;
 }
 
-//ÍÏ×§½áÊø
+//æ‹–æ‹½ç»“æŸ
 ERESULT CEvWhirlAngleImp::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -221,8 +221,8 @@ ERESULT CEvWhirlAngleImp::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 	{
 		BREAK_ON_NULL(npInfo);
 
-		// ÍÏ¶¯½áÊø
-		// Èç¹ûµ±Ç°Êó±ê»¹ÔÚ¶ÔÏóÄÚ£¬Ôò×ªÈë½¹µãÌ¬
+		// æ‹–åŠ¨ç»“æŸ
+		// å¦‚æœå½“å‰é¼ æ ‡è¿˜åœ¨å¯¹è±¡å†…ï¼Œåˆ™è½¬å…¥ç„¦ç‚¹æ€
 		if(mpoWhirlBg != NULL && !(npInfo->CurrentPos.x < 0.0f || npInfo->CurrentPos.x >= mpoWhirlBg->GetSizeX() 
 			|| npInfo->CurrentPos.y < 0.0f || npInfo->CurrentPos.y >= mpoWhirlBg->GetSizeY()))
 		{
@@ -244,7 +244,7 @@ ERESULT CEvWhirlAngleImp::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 
 }
 
-//Êó±ê½øÈë»òÀë¿ª
+//é¼ æ ‡è¿›å…¥æˆ–ç¦»å¼€
 void CEvWhirlAngleImp::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 {
 	do 
@@ -252,7 +252,7 @@ void CEvWhirlAngleImp::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 		if(false == mpIterator->IsEnable())
 			break;
 
-		if(0 != npState->State)		// »ñµÃ½¹µã
+		if(0 != npState->State)		// è·å¾—ç„¦ç‚¹
 		{
 			SetPicIndex(3);
 		}
@@ -263,7 +263,7 @@ void CEvWhirlAngleImp::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 	} while (false);
 }
 
-//ÆôÓÃ»ò½ûÓÃ
+//å¯ç”¨æˆ–ç¦ç”¨
 ERESULT CEvWhirlAngleImp::OnElementEnable(bool nbIsShow)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -325,10 +325,10 @@ void CEvWhirlAngleImp::LoadResource()
 	}
 }
 
-// ÃèÊö£º
-//		¸ü¸ÄÍ¼Æ¬Ö¡Êı
+// æè¿°ï¼š
+//		æ›´æ”¹å›¾ç‰‡å¸§æ•°
 void CEvWhirlAngleImp::SetPicIndex(
-	IN size_t niIndex			// Ë÷Òı
+	IN size_t niIndex			// ç´¢å¼•
 	)
 {
 	if(NULL != mpoWhirlBg)
@@ -345,8 +345,8 @@ void CEvWhirlAngleImp::SetPicIndex(
 }
 
 
-// ÃèÊö£º
-//		Í¨¹ıµ±Ç°Î»ÖÃ£¬¼ÆËãĞı×ªÁËµÄ»¡¶ÈÖµ
+// æè¿°ï¼š
+//		é€šè¿‡å½“å‰ä½ç½®ï¼Œè®¡ç®—æ—‹è½¬äº†çš„å¼§åº¦å€¼
 double CEvWhirlAngleImp::GetRadian(
 	IN D2D1_POINT_2F nfCrtPoint
 	)
@@ -354,7 +354,7 @@ double CEvWhirlAngleImp::GetRadian(
 	double ldbResult = -1;
 	do 
 	{
-		// ¼ÆËãÈı±ß³¤¶È
+		// è®¡ç®—ä¸‰è¾¹é•¿åº¦
 		double ldbCrtPointToCenter = GetDistance(nfCrtPoint, mdWhirlCenter);
 
 		double ldbDotPointToCenter = GetDistance(mdDotPoint, mdWhirlCenter);
@@ -364,14 +364,14 @@ double CEvWhirlAngleImp::GetRadian(
 		if(0 == ldbCrtPointToCenter || 0 == ldbDotPointToCenter || 0 == ldbCrtPointToDotPoint)
 			break;
 
-		// ÀûÓÃÓàÏÒ¶¨Àí¼ÆËã³ö¼Ğ½ÇµÄÓàÏÒÖµ
+		// åˆ©ç”¨ä½™å¼¦å®šç†è®¡ç®—å‡ºå¤¹è§’çš„ä½™å¼¦å€¼
 		double ldb = ldbCrtPointToCenter * ldbCrtPointToCenter + ldbDotPointToCenter * ldbDotPointToCenter
 			- ldbCrtPointToDotPoint * ldbCrtPointToDotPoint;
 		double ldbCosAngle = ldb / (2 * ldbCrtPointToCenter * ldbDotPointToCenter);
 
 		ldbResult = acos(ldbCosAngle);
 
-		// Èç¹ûÔÚÔ²ĞÄÒÔÏÂ£¬ÔòÎª¶Û½Ç
+		// å¦‚æœåœ¨åœ†å¿ƒä»¥ä¸‹ï¼Œåˆ™ä¸ºé’è§’
 		if(nfCrtPoint.y > mdWhirlCenter.y)
 		{
 			ldbResult = 2 * CONST_VALUE_PI - ldbResult;
@@ -381,8 +381,8 @@ double CEvWhirlAngleImp::GetRadian(
 	return ldbResult;
 }
 
-// ÃèÊö£º
-//		»ñÈ¡Á½µãÖ®¼äµÄ¾àÀë
+// æè¿°ï¼š
+//		è·å–ä¸¤ç‚¹ä¹‹é—´çš„è·ç¦»
 double CEvWhirlAngleImp::GetDistance(
 	IN D2D1_POINT_2F ndfPointA,
 	IN D2D1_POINT_2F ndfPointB
@@ -391,7 +391,7 @@ double CEvWhirlAngleImp::GetDistance(
 	double llResult = -1;
 	do 
 	{
-		// ¼ÆËãÈı±ß³¤¶È
+		// è®¡ç®—ä¸‰è¾¹é•¿åº¦
 		llResult = sqrt((ndfPointA.y-ndfPointB.y)*(ndfPointA.y-ndfPointB.y)
 			+ (ndfPointA.x-ndfPointB.x)*(ndfPointA.x-ndfPointB.x));
 
@@ -400,14 +400,14 @@ double CEvWhirlAngleImp::GetDistance(
 
 }
 
-// ÃèÊö£º
-//		¸üĞÂĞı×ªµãÎ»ÖÃ
+// æè¿°ï¼š
+//		æ›´æ–°æ—‹è½¬ç‚¹ä½ç½®
 void CEvWhirlAngleImp::UpdateDotPosition(
 	IN double ndbRadian
 	)
 {
 	D2D1_POINT_2F ldPosition;
-	double ldbRadian = 2 * CONST_VALUE_PI - ndbRadian;			// ÒòÎª½Ç¶È±ä»¯ÊÇÄæÊ±ÕëµÄ¡£ËùÒÔÕâÀïÈ¡·´½Ç
+	double ldbRadian = 2 * CONST_VALUE_PI - ndbRadian;			// å› ä¸ºè§’åº¦å˜åŒ–æ˜¯é€†æ—¶é’ˆçš„ã€‚æ‰€ä»¥è¿™é‡Œå–åè§’
 	ldPosition.x = mdWhirlCenter.x + (mdDotPoint.x - mdWhirlCenter.x) * (float)cos(ldbRadian) 
 		- (mdDotPoint.y - mdWhirlCenter.y) * (float)sin(ldbRadian);
 	ldPosition.y = mdWhirlCenter.y + (mdDotPoint.x - mdWhirlCenter.x) * (float)sin(ldbRadian) 
@@ -420,8 +420,8 @@ void CEvWhirlAngleImp::UpdateDotPosition(
 		mpoWhirlDot->SetPosition(ldLeftTop);
 }
 
-// ÃèÊö£º
-//		»¡¶È×ª»»³É½Ç¶È
+// æè¿°ï¼š
+//		å¼§åº¦è½¬æ¢æˆè§’åº¦
 double CEvWhirlAngleImp::RadianToAngle(
 	IN double ndbRandian
 	)
@@ -429,8 +429,8 @@ double CEvWhirlAngleImp::RadianToAngle(
 	return ndbRandian * 180.0 / CONST_VALUE_PI;
 }
 
-// ÃèÊö£º
-//		½Ç¶È×ª»»³É»¡¶È
+// æè¿°ï¼š
+//		è§’åº¦è½¬æ¢æˆå¼§åº¦
 double CEvWhirlAngleImp::AngleToRadian(
 	IN double ndbAngle
 	)

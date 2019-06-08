@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+﻿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -7,7 +7,7 @@
 #include "smtDocument.h"
 
 //////////////////////////////////////////////////////////////////////////
-// Bitmap��
+// Bitmap类
 DEFINE_BUILTIN_NAME(CSmtBitmap)
 
 
@@ -25,8 +25,8 @@ CSmtBitmap::~CSmtBitmap()
 		DeleteObject(mDIBSection);
 }
 
-// ��ʼ������������ʵ�ָ��ֲ�ͬ�����ĳ�ʼ��������ע�⣬����������InitOnCreate������һ��Ҫ���û����InitOnCreate����
-// ����0��ʾ�ɹ�������ֵ���λΪ1��ʾ�������ش���Ӧ����ֹ��ʼ�����̣����صľ��Ǵ����룻��������ֵ��ʾ�����Ǵ��󷵻���
+// 初始化函数，可以实现各种不同参数的初始化函数，注意，派生类重载InitOnCreate函数后，一定要调用基类的InitOnCreate函数
+// 返回0表示成功；返回值最高位为1表示发生严重错误，应该终止初始化过程，返回的就是错误码；返回其他值表示其他非错误返回码
 ULONG CSmtBitmap::InitOnCreate(RenderedBitmap* engineBmp)
 {
 	mEngineBmp = engineBmp;
@@ -87,7 +87,7 @@ int32Eink CSmtBitmap::GetHeight()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// Page��
+// Page类
 DEFINE_BUILTIN_NAME(CSmtPage)
 
 CSmtPage::CSmtPage()
@@ -101,8 +101,8 @@ CSmtPage::~CSmtPage()
 }
 
 
-// ��ʼ������������ʵ�ָ��ֲ�ͬ�����ĳ�ʼ��������ע�⣬����������InitOnCreate������һ��Ҫ���û����InitOnCreate����
-// ����0��ʾ�ɹ�������ֵ���λΪ1��ʾ�������ش���Ӧ����ֹ��ʼ�����̣����صľ��Ǵ����룻��������ֵ��ʾ�����Ǵ��󷵻���
+// 初始化函数，可以实现各种不同参数的初始化函数，注意，派生类重载InitOnCreate函数后，一定要调用基类的InitOnCreate函数
+// 返回0表示成功；返回值最高位为1表示发生严重错误，应该终止初始化过程，返回的就是错误码；返回其他值表示其他非错误返回码
 ULONG CSmtPage::InitOnCreate(int32Eink pageNo, CSmtDocument* docObj)
 {
 	mPageNo = pageNo;

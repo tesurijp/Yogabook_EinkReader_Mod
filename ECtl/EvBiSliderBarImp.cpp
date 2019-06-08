@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -16,7 +16,7 @@ DEFINE_BUILTIN_NAME(BiSliderBar)
 
 CEvBiSliderBar::CEvBiSliderBar()
 {
-	mulMethod = ESPB_DRAWBMP_LINEAR;	//Ëõ·Å·½Ê½
+	mulMethod = ESPB_DRAWBMP_LINEAR;	//ç¼©æ”¾æ–¹å¼
 //	mpBarButton = NULL;
 	mbIsMouseFocus = false;	
 	mbIsPressed = false;
@@ -29,14 +29,14 @@ CEvBiSliderBar::~CEvBiSliderBar()
 	//	mpBarButton->Release();
 }
 
-// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓĞÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+// é”€æ¯å…ƒç´ ï¼Œç”¨äºé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+// ä»è€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€Œåå†å°†è‡ªå·±ä»å…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 ERESULT CEvBiSliderBar::OnElementDestroy()
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
 	do
 	{
-		CXuiElement::OnElementDestroy();	//µ÷ÓÃ»ùÀà
+		CXuiElement::OnElementDestroy();	//è°ƒç”¨åŸºç±»
 		lResult = ERESULT_SUCCESS;
 
 	}while(false);
@@ -45,21 +45,21 @@ ERESULT CEvBiSliderBar::OnElementDestroy()
 }
 
 ULONG CEvBiSliderBar::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-		//´´½¨»¬¿éSliderButton/BAR picture /Bar left Picture
+		//åˆ›å»ºæ»‘å—SliderButton/BAR picture /Bar left Picture
 		ICfKey * lpKey = npTemplete->GetSubKey(SLIDER_BAR_PICTURE);			
 		if(lpKey)
 			mpBarPicture = EinkuiGetSystem()->GetAllocator()->CreateElement(mpIterator,lpKey);
@@ -91,7 +91,7 @@ ULONG CEvBiSliderBar::InitOnCreate(
 		if(lpKey)
 			mpDragButtonMidLable = EinkuiGetSystem()->GetAllocator()->CreateElement(mpIterator,lpKey);
 
-		//×°ÔØÒ»Ğ©±ØÒªµÄÅäÖÃ×ÊÔ´
+		//è£…è½½ä¸€äº›å¿…è¦çš„é…ç½®èµ„æº
 		LoadResource();
 
 	
@@ -101,7 +101,7 @@ ULONG CEvBiSliderBar::InitOnCreate(
 	} while (false);
 	return leResult;
 }
-//ÔªËØEnbale
+//å…ƒç´ Enbale
 ERESULT CEvBiSliderBar::OnElementEnable(bool nbIsEnable)
 {
 	if(mpDragButtonLeft) mpDragButtonLeft->SetEnable(nbIsEnable);
@@ -120,7 +120,7 @@ ERESULT CEvBiSliderBar::OnElementEnable(bool nbIsEnable)
 
 	return ERESULT_SUCCESS;
 }
-//×°ÔØÅäÖÃ×ÊÔ´
+//è£…è½½é…ç½®èµ„æº
 ERESULT CEvBiSliderBar::LoadResource()
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -128,22 +128,22 @@ ERESULT CEvBiSliderBar::LoadResource()
 	ICfKey* lpValue = NULL;
 	do 
 	{	
-		//×°ÔØLeftOrBackµÄÍ¼Æ¬ 
+		//è£…è½½LeftOrBackçš„å›¾ç‰‡ 
 
-		//×°ÔØMin Max
+		//è£…è½½Min Max
 
-		//ÉèÖÃBarµÄRect
+		//è®¾ç½®Barçš„Rect
 		leResult = ERESULT_SUCCESS;
 	} while (false);
 
 	return leResult;
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvBiSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 	do 
@@ -171,7 +171,7 @@ ERESULT CEvBiSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 			}
 		case EACT_SLIDERBUTTON_DRAG_START:
 			{
-				//ÉèÖÃ×óÓÒµÄ»¬¶¯ÇøÓò
+				//è®¾ç½®å·¦å³çš„æ»‘åŠ¨åŒºåŸŸ
 				if(mpDragButtonLeft && mpDragButtonRigth && mpDragButtonMid)
 				{
 					FLOAT lfPositionLeft,lfPositionRight,lfPositionMid ;
@@ -192,7 +192,7 @@ ERESULT CEvBiSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 					lRightSliderRect.right = mSliderRect.right;
 					CExMessage::PostMessage(mpDragButtonRigth,mpIterator,EACT_SLIDERBUTTON_SET_SLIDERRECT,lRightSliderRect);
 		
-					//ÉèÖÃlabelµÄÎ»ÖÃ
+					//è®¾ç½®labelçš„ä½ç½®
 					if(mpDragButtonMidLable && !mnVertical)
 					{
 						if(mpDragButtonMid->GetPositionX() < (mBarRect.right-mBarRect.left) / 2)
@@ -215,8 +215,8 @@ ERESULT CEvBiSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 			}
 		case EACT_SLIDERBUTTON_DRAGING:
 			{
-				//¼ÆËãPosition,¸ø¸¸´°¿Ú·¢¶¨Î»ÏûÏ¢
-				//¶¨Î»DragButtonµÄÖĞĞÄµãÎ»ÖÃ
+				//è®¡ç®—Position,ç»™çˆ¶çª—å£å‘å®šä½æ¶ˆæ¯
+				//å®šä½DragButtonçš„ä¸­å¿ƒç‚¹ä½ç½®
 				if(mpDragButtonLeft && mpDragButtonRigth && mpDragButtonMid)
 				{
 					FLOAT lfPositionLeft,lfPositionRight,lfPositionMid ;
@@ -234,7 +234,7 @@ ERESULT CEvBiSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 
 					}
 
-					//Èç¹ûÓĞLeftorUP picture ÔòÓ¦¸Ã·Å´ó»òËõĞ¡¸ÃÍ¼Ïñ
+					//å¦‚æœæœ‰LeftorUP picture åˆ™åº”è¯¥æ”¾å¤§æˆ–ç¼©å°è¯¥å›¾åƒ
 					if(mpLeftBarPicture)
 					{
 						if(mnVertical)
@@ -248,7 +248,7 @@ ERESULT CEvBiSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 					lfPositionLeft *= mfDestPixelPerScrollPixLeft;
 
 
-	                //Èç¹ûÓĞLeftorUP picture ÔòÓ¦¸Ã·Å´ó»òËõĞ¡¸ÃÍ¼Ïñ
+	                //å¦‚æœæœ‰LeftorUP picture åˆ™åº”è¯¥æ”¾å¤§æˆ–ç¼©å°è¯¥å›¾åƒ
 					if(mpRightBarPicture)
 					{
 						if(mnVertical)
@@ -261,7 +261,7 @@ ERESULT CEvBiSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 					}
 					lfPositionRight *= mfDestPixelPerScrollPixRight;
 
-					//ÉèÖÃlabelµÄÎ»ÖÃ
+					//è®¾ç½®labelçš„ä½ç½®
 					if(mpDragButtonMidLable && !mnVertical)
 					{
 						if(mpDragButtonMid->GetPositionX() < (mBarRect.right-mBarRect.left) / 2)
@@ -321,7 +321,7 @@ ERESULT CEvBiSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 					lfPositionLeft =  mBarRect.left + lfDeltaLeft ;
 					mpDragButtonLeft->SetPosition(lfPositionLeft-mpDragButtonLeft->GetSizeX()/2,mpDragButtonLeft->GetPositionY());
 				}
-				//Èç¹ûÓĞLeftorUP picture ÔòÓ¦¸Ã·Å´ó»òËõĞ¡¸ÃÍ¼Ïñ
+				//å¦‚æœæœ‰LeftorUP picture åˆ™åº”è¯¥æ”¾å¤§æˆ–ç¼©å°è¯¥å›¾åƒ
 				if(mpLeftBarPicture)
 				{
 					if(mnVertical)
@@ -342,7 +342,7 @@ ERESULT CEvBiSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 					lfPositionRight =  mBarRect.left + lfDeltaRight ;
 					mpDragButtonRigth->SetPosition(lfDeltaRight-mpDragButtonLeft->GetSizeX()/2,mpDragButtonRigth->GetPositionY());
 				}
-				//Èç¹ûÓĞLeftorUP picture ÔòÓ¦¸Ã·Å´ó»òËõĞ¡¸ÃÍ¼Ïñ
+				//å¦‚æœæœ‰LeftorUP picture åˆ™åº”è¯¥æ”¾å¤§æˆ–ç¼©å°è¯¥å›¾åƒ
 				if(mpRightBarPicture)
 				{
 
@@ -368,7 +368,7 @@ ERESULT CEvBiSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 					mpDragButtonMid->SetPosition(lfDeltaMid,mpDragButtonMid->GetPositionY());
 				}
 
-				//ÉèÖÃlabelµÄÎ»ÖÃ
+				//è®¾ç½®labelçš„ä½ç½®
 				if(mpDragButtonMidLable && !mnVertical)
 				{
 					if(mpDragButtonMid->GetPositionX() < (mBarRect.right-mBarRect.left) / 2)
@@ -389,7 +389,7 @@ ERESULT CEvBiSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 
 		if(luResult == ERESULT_NOT_SET)
 		{
-			luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+			luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 		}
 
 	} while (false);
@@ -397,44 +397,44 @@ ERESULT CEvBiSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 	return luResult;
 }
 
-//ÉèÖÃ¹ö¶¯µÄ·¶Î§
+//è®¾ç½®æ»šåŠ¨çš„èŒƒå›´
 bool CEvBiSliderBar:: SetDeltaSizeLeft(FLOAT nfSize)
 {
 	mfMaxLeft = nfSize;
 
-	//ÏÈµÃµ½×î´óµÄ¿É¹ö¶¯ÏñËØ
+	//å…ˆå¾—åˆ°æœ€å¤§çš„å¯æ»šåŠ¨åƒç´ 
 	FLOAT mfMaxScrollPixelLeft = 0.0;
 	if(mnVertical)
 		mfMaxScrollPixelLeft = mBarRect.bottom - mBarRect.top  ;
 	else
 		mfMaxScrollPixelLeft = mBarRect.right - mBarRect.left ;
 
-	//¼ÆËãÄ¿±êÏñËØºÍ¹ö¶¯ÏñËØµÄ¶ÔÓ¦¹ØÏµ
+	//è®¡ç®—ç›®æ ‡åƒç´ å’Œæ»šåŠ¨åƒç´ çš„å¯¹åº”å…³ç³»
 	mfDestPixelPerScrollPixLeft= mfMaxLeft / mfMaxScrollPixelLeft;
 
 	return true;
 }
 
 
-//ÉèÖÃ¹ö¶¯µÄ·¶Î§
+//è®¾ç½®æ»šåŠ¨çš„èŒƒå›´
 bool CEvBiSliderBar:: SetDeltaSizeRigth(FLOAT nfSize)
 {
 	mfMaxRight = nfSize;
 
-	//ÏÈµÃµ½×î´óµÄ¿É¹ö¶¯ÏñËØ
+	//å…ˆå¾—åˆ°æœ€å¤§çš„å¯æ»šåŠ¨åƒç´ 
 	FLOAT mfMaxScrollPixelRight= 0.0;
 	if(mnVertical)
 		mfMaxScrollPixelRight = mBarRect.bottom - mBarRect.top  ;
 	else
 		mfMaxScrollPixelRight = mBarRect.right - mBarRect.left ;
 
-	//¼ÆËãÄ¿±êÏñËØºÍ¹ö¶¯ÏñËØµÄ¶ÔÓ¦¹ØÏµ
+	//è®¡ç®—ç›®æ ‡åƒç´ å’Œæ»šåŠ¨åƒç´ çš„å¯¹åº”å…³ç³»
 	mfDestPixelPerScrollPixRight = mfMaxRight / mfMaxScrollPixelRight;
 
 	return true;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvBiSliderBar::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -454,13 +454,13 @@ ERESULT CEvBiSliderBar::OnElementCreate(IEinkuiIterator* npIterator)
 			CExMessage::PostMessage(mpDragButtonRigth,mpIterator,EACT_SLIDERBUTTON_SET_STYLE,lnStyle);
 			if(mpDragButtonMid)
 				CExMessage::PostMessage(mpDragButtonMid,mpIterator,EACT_SLIDERBUTTON_SET_STYLE,lnStyle);
-			//»ñÈ¡BarRect
+			//è·å–BarRect
 			mBarRect.left = mpBarPicture->GetPositionX() ;
 			mBarRect.top = mpBarPicture->GetPositionY();
 			mBarRect.right = mBarRect.left + mpBarPicture->GetSizeX();
 			mBarRect.bottom =mBarRect.top + mpBarPicture->GetSizeY();
 
-			//ÉèÖÃ¿ÉÒÔ»¬¶¯µÄ·¶Î§
+			//è®¾ç½®å¯ä»¥æ»‘åŠ¨çš„èŒƒå›´
 			BREAK_ON_NULL(mpBarPicture);
 			mSliderRect.left = mpBarPicture->GetPositionX() -  mpDragButtonLeft->GetSizeX()/2 ;
 			mSliderRect.top = mpBarPicture->GetPositionY();
@@ -470,7 +470,7 @@ ERESULT CEvBiSliderBar::OnElementCreate(IEinkuiIterator* npIterator)
 			CExMessage::PostMessage(mpDragButtonLeft,mpIterator,EACT_SLIDERBUTTON_SET_SLIDERRECT,mSliderRect);
 			if(mpDragButtonMid)
 				CExMessage::PostMessage(mpDragButtonMid,mpIterator,EACT_SLIDERBUTTON_SET_SLIDERRECT,mBarRect);
-			//Èç¹ûÓĞLeftOrUP PictureÔò´óĞ¡ÉèÎª0
+			//å¦‚æœæœ‰LeftOrUP Pictureåˆ™å¤§å°è®¾ä¸º0
 			if(mpLeftBarPicture)
 			{
 				if(mnVertical)
@@ -495,7 +495,7 @@ ERESULT CEvBiSliderBar::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CEvBiSliderBar::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -505,7 +505,7 @@ ERESULT CEvBiSliderBar::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 		if(mpIterator->IsVisible() == false)
 			break;
 
-		//½øÈë·Ç»¬¿éÇøÓò
+		//è¿›å…¥éæ»‘å—åŒºåŸŸ
 		if(rPoint.x < 0.0f ||
 			(UINT)rPoint.x >= mpIterator->GetSizeX() ||
 			rPoint.y < 0.0f || 
@@ -533,14 +533,14 @@ bool CEvBiSliderBar::SetDeltaSizeMid(FLOAT nfSize)
 {
 	mfMaxMid = nfSize;
 
-	//ÏÈµÃµ½×î´óµÄ¿É¹ö¶¯ÏñËØ
+	//å…ˆå¾—åˆ°æœ€å¤§çš„å¯æ»šåŠ¨åƒç´ 
 	FLOAT mfMaxScrollPixelMid= 0.0;
 	if(mnVertical)
 		mfMaxScrollPixelMid = mBarRect.bottom - mBarRect.top  ;
 	else
 		mfMaxScrollPixelMid = mBarRect.right - mBarRect.left ;
 
-	//¼ÆËãÄ¿±êÏñËØºÍ¹ö¶¯ÏñËØµÄ¶ÔÓ¦¹ØÏµ
+	//è®¡ç®—ç›®æ ‡åƒç´ å’Œæ»šåŠ¨åƒç´ çš„å¯¹åº”å…³ç³»
 	mfDestPixelPerScrollPixMid = mfMaxMid / mfMaxScrollPixelMid;
 
 	return true;
@@ -569,7 +569,7 @@ bool CEvBiSliderBar::SetPosRight(FLOAT nPos)
 	mfPosRight = nPos;
 	return false;
 }
-//Êó±ê°´ÏÂ
+//é¼ æ ‡æŒ‰ä¸‹
 ERESULT CEvBiSliderBar::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -578,14 +578,14 @@ ERESULT CEvBiSliderBar::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 	{
 		BREAK_ON_NULL(npInfo);
 		if(mpIterator->IsEnable() == false)
-			break;	//Èç¹ûÊÇ½ûÓÃ×´Ì¬£¬¾Í²»½ÓÊÕÊäÈë
+			break;	//å¦‚æœæ˜¯ç¦ç”¨çŠ¶æ€ï¼Œå°±ä¸æ¥æ”¶è¾“å…¥
 
-		if(MOUSE_LB(npInfo->ActKey) == false)  //Èç¹û²»ÊÇÊó±ê×ó¼ü¾Í²»´¦Àí
+		if(MOUSE_LB(npInfo->ActKey) == false)  //å¦‚æœä¸æ˜¯é¼ æ ‡å·¦é”®å°±ä¸å¤„ç†
 			break;
 
 		//if (npInfo->Presssed != false)
 		//{
-		//	//Êó±ê°´ÏÂ£¬Èç¹û²»ÂäÔÚmBarRect Ôò´¦Àí
+		//	//é¼ æ ‡æŒ‰ä¸‹ï¼Œå¦‚æœä¸è½åœ¨mBarRect åˆ™å¤„ç†
 		//	if(npInfo->Position.x < mBarRect.left ||
 		//			npInfo->Position.x > mBarRect.right ||
 		//			npInfo->Position.y < mBarRect.top ||
@@ -618,7 +618,7 @@ ERESULT CEvBiSliderBar::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 	return lResult;
 }
 
-//»æÖÆÏûÏ¢
+//ç»˜åˆ¶æ¶ˆæ¯
 ERESULT CEvBiSliderBar::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;

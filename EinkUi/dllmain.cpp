@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -37,14 +37,14 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	return TRUE;
 }
 
-// XUIÆô¶¯º¯Êı£¬Èç¹ûÏ£ÍûĞŞ¸ÄDPI£¬ÇëÎñ±ØÔÚµ÷ÓÃ´Ëº¯ÊıÇ°µ÷ÓÃWin API SetProcessDPIAware
+// XUIå¯åŠ¨å‡½æ•°ï¼Œå¦‚æœå¸Œæœ›ä¿®æ”¹DPIï¼Œè¯·åŠ¡å¿…åœ¨è°ƒç”¨æ­¤å‡½æ•°å‰è°ƒç”¨Win API SetProcessDPIAware
 int __stdcall EinkuiStart(
-	IN const wchar_t* nswModulePath,	// System WidgetµÄÊµÏÖÄ£¿éµÄÎÄ¼şÂ·¾¶Ãû
-	IN const wchar_t* nswHomeTempleteName,	// System WidgetµÄHome PageµÄtemplete keyµÄÃû×Ö
-	IN const wchar_t* nswClassesRegPath,	// Xui×¢²áÀàËùÔÚµÄ×¢²á±íÂ·¾¶£¬Èç:Software\\Lenovo\\Veriface5\\PublicClasses
-	IN ULONG nuAutoRotate,				// ·ÇÁãÖ§³Ö×Ô¶¯Ğı×ª
-	IN PEINKUI_CUSTOMDRAW_SETTINGS npCustomDraw,	// ×Ô»æEink
-	IN const wchar_t* nswWndTittle		// Ö÷´°¿Ú±êÌâ
+	IN const wchar_t* nswModulePath,	// System Widgetçš„å®ç°æ¨¡å—çš„æ–‡ä»¶è·¯å¾„å
+	IN const wchar_t* nswHomeTempleteName,	// System Widgetçš„Home Pageçš„templete keyçš„åå­—
+	IN const wchar_t* nswClassesRegPath,	// Xuiæ³¨å†Œç±»æ‰€åœ¨çš„æ³¨å†Œè¡¨è·¯å¾„ï¼Œå¦‚:Software\\Lenovo\\Veriface5\\PublicClasses
+	IN ULONG nuAutoRotate,				// éé›¶æ”¯æŒè‡ªåŠ¨æ—‹è½¬
+	IN PEINKUI_CUSTOMDRAW_SETTINGS npCustomDraw,	// è‡ªç»˜Eink
+	IN const wchar_t* nswWndTittle		// ä¸»çª—å£æ ‡é¢˜
 	)
 {
 	int liResult = -1;
@@ -69,7 +69,7 @@ int __stdcall EinkuiStart(
 
 	if(glbStarted != false)
 	{
-		//Trace_Point(22233);// ÖØ¸´Æô¶¯£¬Ä¿Ç°ÒÑ¾­Æô¶¯ÁË
+		//Trace_Point(22233);// é‡å¤å¯åŠ¨ï¼Œç›®å‰å·²ç»å¯åŠ¨äº†
 		return -1;
 	}
 
@@ -77,7 +77,7 @@ int __stdcall EinkuiStart(
 
 	CEinkuiSystem* lpXuiSystem = CEinkuiSystem::GetUniqueObject();
 
-	//Trace_Time(29955);//Æô¶¯XUIÏµÍ³
+	//Trace_Time(29955);//å¯åŠ¨XUIç³»ç»Ÿ
 	if(lpXuiSystem != NULL)
 	{
 		ldStart.HomeTempleteName = nswHomeTempleteName;
@@ -99,7 +99,7 @@ int __stdcall EinkuiStart(
 	return liResult;
 }
 
-// »ñµÃXUIÏµÍ³½Ó¿Ú
+// è·å¾—XUIç³»ç»Ÿæ¥å£
 IEinkuiSystem* __stdcall EinkuiGetSystem(void)
 {
 	return CEinkuiSystem::gpXuiSystem;

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+﻿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -22,12 +22,12 @@ public:
 	//	eRenderStop = 5
 	//};
 
-	// ��ȡ֧�ֵ��ļ���ʽ����
+	// 获取支持的文件格式数量
 	int32 GetTypeCount(void);
-	// ��ȡ֧�ֵ��ļ���ʽ����չ��
+	// 获取支持的文件格式的扩展名
 	const char16_ptr GetTypeName(int32 index);
 
-	// ���ĵ�
+	// 打开文档
 	ED_ERR OpenDocument(
 		IN char16_ptr pathName,
 		OUT IEdDocument_ptr* documentPtrPtr,
@@ -35,15 +35,15 @@ public:
 	);
 
 
-	// ���Ψһ����
+	// 获得唯一对象
 	static CEdtxtModule* GetUniqueObject(void);
 
 public:
-	// Ψһʵ��
+	// 唯一实例
 	static CEdtxtModule* glModule;
 
 protected:
-	// �ڲ�����
+	// 内部变量
 	//CGdipStart mGdipStart;
 
 	CEdtxtModule();
@@ -51,8 +51,8 @@ protected:
 
 	DEFINE_CUMSTOMIZE_CREATE(CEdtxtModule, (), ())
 
-	// ��ʼ������������ʵ�ָ��ֲ�ͬ�����ĳ�ʼ��������ע�⣬����������InitOnCreate������һ��Ҫ���û����InitOnCreate����
-	// ����0��ʾ�ɹ�������ֵ���λΪ1��ʾ�������ش���Ӧ����ֹ��ʼ�����̣����صľ��Ǵ����룻��������ֵ��ʾ�����Ǵ��󷵻���
+	// 初始化函数，可以实现各种不同参数的初始化函数，注意，派生类重载InitOnCreate函数后，一定要调用基类的InitOnCreate函数
+	// 返回0表示成功；返回值最高位为1表示发生严重错误，应该终止初始化过程，返回的就是错误码；返回其他值表示其他非错误返回码
 	ULONG InitOnCreate();
 
 };

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -17,7 +17,7 @@ File name: ConfigX.h
 class CCfgAssistant
 {
 public:
-	// ¸´ÖÆÒ»¸ö¼ü£¬½ö¸´ÖÆÕâ¸ö¼ü±¾Éí£¬²»°üÀ¨ËüµÄ×Ó¼ü
+	// å¤åˆ¶ä¸€ä¸ªé”®ï¼Œä»…å¤åˆ¶è¿™ä¸ªé”®æœ¬èº«ï¼Œä¸åŒ…æ‹¬å®ƒçš„å­é”®
 	static ICfKey* DuplicateKey(ICfKey* npToDuplicate,ICfKey* npInsertTo){
 		ICfKey* lpNewKey = NULL;
 		wchar_t* lpName = NULL;
@@ -63,7 +63,7 @@ public:
 		return lpNewKey;
 	}
 
-	// ¸´ÖÆÒ»¸ö¼üÄÚµÄÈ«²¿ÄÚÈİµ½ÁíÍâÒ»¸ö¼ü£¬°üÀ¨×Ó¼üµÄ×Ó¼ü
+	// å¤åˆ¶ä¸€ä¸ªé”®å†…çš„å…¨éƒ¨å†…å®¹åˆ°å¦å¤–ä¸€ä¸ªé”®ï¼ŒåŒ…æ‹¬å­é”®çš„å­é”®
 	static bool CopyContent(ICfKey* npSrcKey,ICfKey* npDestKey){
 		ICfKey* lpCrtSrc = NULL;
 		ICfKey* lpCrtDst = NULL;
@@ -91,7 +91,7 @@ public:
 		return lbResult;
 	}
 
-	// Çå¿ÕÒ»¸ö¼üµÄ×Ó¼ü
+	// æ¸…ç©ºä¸€ä¸ªé”®çš„å­é”®
 	static void ClearSubKeys(ICfKey* npMarKey){
 		ICfKey* lpSub;
 

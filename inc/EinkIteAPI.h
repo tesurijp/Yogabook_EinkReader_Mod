@@ -1,13 +1,13 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 #ifndef _EINKITEAPI_H_
 #define _EINKITEAPI_H_
 /*
-	±¾DLLÎªÓ¦ÓÃ³ÌĞò£¬Ìá¹©ÁË·ÃÎÊEinkÆÁµÄÈ«²¿½Ó¿Ú¡£
+	æœ¬DLLä¸ºåº”ç”¨ç¨‹åºï¼Œæä¾›äº†è®¿é—®Einkå±çš„å…¨éƒ¨æ¥å£ã€‚
 	//This Dll will provide all interface to access eink .
-	×¢Òâ£º
-		ÇëÔÚÍ¬Ò»¸öÏß³ÌÖĞ·ÃÎÊ´ËSDKÌá¹©µÄAPI½Ó¿Ú¡£
+	æ³¨æ„ï¼š
+		è¯·åœ¨åŒä¸€ä¸ªçº¿ç¨‹ä¸­è®¿é—®æ­¤SDKæä¾›çš„APIæ¥å£ã€‚
 	Caution:
 		please call these apis in single thread .
 
@@ -75,7 +75,7 @@ typedef struct _TRSP_SYSTEM_INFO_DATA
 #define GI_HOMEBAR_SHOW      1
 #define GI_HOMEBAR_EXPAND    2
 #define GI_HOMEBAR_COLLAPSE  3
-#define GI_HOMEBAR_UP_SHOW   4		//ÏòÏÂ»¬¶¯ÏÔÊ¾homebar
+#define GI_HOMEBAR_UP_SHOW   4		//å‘ä¸‹æ»‘åŠ¨æ˜¾ç¤ºhomebar
 
 typedef struct _EI_SYSTEM_INFO{
 	unsigned long ulWidth; // physical Screen width
@@ -102,14 +102,14 @@ typedef struct  _EI_BUFFER{
 	BYTE Buf[1];
 }EI_BUFFER,* PEI_BUFFER;
 
-//TouchÊÂ¼ş
+//Touchäº‹ä»¶
 #define EI_TOUCHEVENTF_DOWN 0
 #define EI_TOUCHEVENTF_MOVE 1
 #define EI_TOUCHEVENTF_UP 2
 #define EI_TOUCHEVENTF_HOVERING 3
 #define EI_TOUCHEVENTF_HOVERING_LEAVE 4
 
-//TouchÊ±±Ê°´¼ü
+//Touchæ—¶ç¬”æŒ‰é”®
 #define EI_TOUCH_PEN_BUTTON_NONE 0
 #define EI_TOUCH_PEN_BUTTON_ABOVE 1
 #define EI_TOUCH_PEN_BUTTON_BELOW 2
@@ -176,11 +176,11 @@ typedef struct _EI_KEYBOARD_STYLE {
 	unsigned long Style;	// 
 }EI_KEYBOARD_STYLE, *PEI_KEYBOARD_STYLE;
 
-//ÉèÖÃCÃæÊÖĞ´ÇøÓò
+//è®¾ç½®Cé¢æ‰‹å†™åŒºåŸŸ
 typedef struct  _EI_SET_TP_AREA {
-	EI_RECT Rect; //ÒªÉèÖÃµÄÇøÓò
-	BYTE Index; //0 ~ 7   ¿ÉÒÔÉèÖÃ8×é²»Í¬ÇøÓòµÄrect,rect²»ÄÜÖØµş
-	BYTE Flag; //BYTE ID; //SET_SP_AREA_NO_REPORT¡¢SET_SP_AREA_TOUCH_ONLY¡¢SET_SP_AREA_PEN_ONLY¡¢SET_SP_AREA_TOUCH_PEN
+	EI_RECT Rect; //è¦è®¾ç½®çš„åŒºåŸŸ
+	BYTE Index; //0 ~ 7   å¯ä»¥è®¾ç½®8ç»„ä¸åŒåŒºåŸŸçš„rect,rectä¸èƒ½é‡å 
+	BYTE Flag; //BYTE ID; //SET_SP_AREA_NO_REPORTã€SET_SP_AREA_TOUCH_ONLYã€SET_SP_AREA_PEN_ONLYã€SET_SP_AREA_TOUCH_PEN
 }SET_TP_AREA, *PSET_TP_AREA;
 #define SET_SP_AREA_NO_REPORT 0x00
 #define SET_SP_AREA_TOUCH_ONLY 0x01
@@ -191,51 +191,51 @@ typedef struct  _EI_SET_TP_AREA {
 // Touch
 #define WM_EI_TOUCH		WM_USER + 0x103
 // WParam: NA	
-// LParam: EI_TOUCHINPUT_POINT£¬Ö¸Ïò´¥Ãşµã½á¹¹¶ÔÏó£¬µ±ÏûÏ¢´¦Àí·µ»Øºó£¬Õâ¸öÖ¸Õë½«Ê§Ğ§
+// LParam: EI_TOUCHINPUT_POINTï¼ŒæŒ‡å‘è§¦æ‘¸ç‚¹ç»“æ„å¯¹è±¡ï¼Œå½“æ¶ˆæ¯å¤„ç†è¿”å›åï¼Œè¿™ä¸ªæŒ‡é’ˆå°†å¤±æ•ˆ
 // LParam: EI_TOUCHINPUT_POINT, point to a EI_TOUCHINPUT_POINT , when message return , this pointer will be invalid .
 
 // panel-Rotate
-// Í¨ÖªApp£¬Æ½°å·¢ÏÖĞı×ª£¬ÊÕµ½×ªÆÁÏûÏ¢ºó£¬µ÷ÓÃEiSetScreenOrientÉèÖÃµ±Ç°APPµÄÆÁÄ»ÏÔÊ¾·½Ïò
+// é€šçŸ¥Appï¼Œå¹³æ¿å‘ç°æ—‹è½¬ï¼Œæ”¶åˆ°è½¬å±æ¶ˆæ¯åï¼Œè°ƒç”¨EiSetScreenOrientè®¾ç½®å½“å‰APPçš„å±å¹•æ˜¾ç¤ºæ–¹å‘
 // Inform app that panel have been rotated. When an app receive a panel-rotation message , it can call EiSetScreenOrient to set the screen-orientation for itself.
 #define WM_EI_ROTATION WM_USER + 0x104
 // WParam: GIR_NONE\GIR_90\GIR_180\GIR_270
 // LParam: NA
 
-// ÇëÇóÓ¦ÓÃ»æÖÆEinkÆÁ£¬µ±ÏµÍ³ÅĞ¶ÏĞèÒªÖØĞÂ»æÖÆÊ±·¢ËÍ´ËÏûÏ¢¸øAPP£¬Í¨¹ıµ÷ÓÃEiInvalidPanel API´ÙÊ¹ÏµÍ³·¢ËÍ´ËÏûÏ¢¸ø±¾APP
+// è¯·æ±‚åº”ç”¨ç»˜åˆ¶Einkå±ï¼Œå½“ç³»ç»Ÿåˆ¤æ–­éœ€è¦é‡æ–°ç»˜åˆ¶æ—¶å‘é€æ­¤æ¶ˆæ¯ç»™APPï¼Œé€šè¿‡è°ƒç”¨EiInvalidPanel APIä¿ƒä½¿ç³»ç»Ÿå‘é€æ­¤æ¶ˆæ¯ç»™æœ¬APP
 // Ask app to re-draw Eink screen , when system need application to re-draw , system will send message to App . 
 // by calling EiInvalidPanel API will urge system to send this message to app .
 #define WM_EI_DRAW		WM_USER + 0x110
 //WParam: NA
 //LParam: a pointer of type PEI_RECT to indicate the area to be update
 
-// »îÔ¾Ó¦ÓÃÇĞ»» // active app switch
+// æ´»è·ƒåº”ç”¨åˆ‡æ¢ // active app switch
 #define WM_EI_ACTIVATE WM_USER + 0x115
-//WParam: ·ÇÁã±íÊ¾±¾Ó¦ÓÃ±»ÏÔÊ¾ÔÚÇ°Ì¨¡£ÎªÁã±íÊ¾±¾Ó¦ÓÃ±»×ªµ½ºóÌ¨	
+//WParam: éé›¶è¡¨ç¤ºæœ¬åº”ç”¨è¢«æ˜¾ç¤ºåœ¨å‰å°ã€‚ä¸ºé›¶è¡¨ç¤ºæœ¬åº”ç”¨è¢«è½¬åˆ°åå°	
 //WParam: none zero indicate this app is show at front , otherwise this app is switch to background .
 //LParam: NA
 
 
-// »úÆ÷ĞÎÌ¬ÇĞ»» // Lattop mode switch
+// æœºå™¨å½¢æ€åˆ‡æ¢ // Lattop mode switch
 #define WM_EI_LAPTOP_MODE_CHANGE WM_USER + 0x116
 //WParam: ULONG GIR_MODE_LAPTOP/GIR_MODE_TENT/GIR_MODE_TABLET
 //LParam: NA
 
-// HomebarĞÎÌ¬ÇĞ»» // Homebar mode switch
+// Homebarå½¢æ€åˆ‡æ¢ // Homebar mode switch
 #define WM_EI_HOMEBAR_MODE_CHANGE WM_USER + 0x117
 //WParam: ULONG GI_HOMEBAR_EXPAND/GI_HOMEBAR_COLLAPSE
 //LParam: NA
 
-// ¼üÅÌÑùÊ½ÇĞ»»Íê³É // Change Keyboard style to complete.
+// é”®ç›˜æ ·å¼åˆ‡æ¢å®Œæˆ // Change Keyboard style to complete.
 #define WM_EI_CHANGE_KEYBOARD_STYLE_COMPLETE WM_USER + 0x118
 //WParam: BOOL true for success
 //LParam: NA
 
-// ÖØĞÂÉèÖÃTp area // Reset TP area.
+// é‡æ–°è®¾ç½®Tp area // Reset TP area.
 #define WM_EI_RESET_TP_AREA WM_USER + 0x119
 //WParam: NA
 //LParam: NA
 
-//ÒşË½¿ª¹Ø×´Ì¬±ä»¯ //Privacy Status switch.
+//éšç§å¼€å…³çŠ¶æ€å˜åŒ– //Privacy Status switch.
 #define WM_EI_PRIVACY_CHANGE WM_USER + 0x120
 //WParam: 0:off 1:on
 //LParam: NA
@@ -246,66 +246,66 @@ extern "C" {
 #endif
 
 
-// ³õÊ¼»¯
+// åˆå§‹åŒ–
 // Initialize
-// ÔÚÓ¦ÓÃÆô¶¯ºó£¬ĞèÒªµ÷ÓÃ±¾½Ó¿Úº¯ÊıÏòEinkÏµÍ³×¢²á±¾Ó¦ÓÃ¡£
+// åœ¨åº”ç”¨å¯åŠ¨åï¼Œéœ€è¦è°ƒç”¨æœ¬æ¥å£å‡½æ•°å‘Einkç³»ç»Ÿæ³¨å†Œæœ¬åº”ç”¨ã€‚
 // After app startup , need to call this function to register itself to Eink system .
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»ERROR_ALREADY_EXISTS ±íÊ¾Ó¦ÓÃÒÑ¾­Æô¶¯ÁË
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›ERROR_ALREADY_EXISTS è¡¨ç¤ºåº”ç”¨å·²ç»å¯åŠ¨äº†
 // return
 //		zero: success
 //		non-zero: error code
 DWORD EiAppStart(
-	HWND hInforWindow	// ÓÃÓÚ½ÓÊÕ±¾ÏµÍ³ÏûÏ¢µÄWindows´°¿Ú¾ä±ú 
+	HWND hInforWindow	// ç”¨äºæ¥æ”¶æœ¬ç³»ç»Ÿæ¶ˆæ¯çš„Windowsçª—å£å¥æŸ„ 
 						// windows handle to receive eink message .
 	);
 
 
-// »ñµÃEinkµÄ»ù±¾ĞÅÏ¢
+// è·å¾—Einkçš„åŸºæœ¬ä¿¡æ¯
 // get eink basic information .
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
 DWORD EiGetSystemInfo(PEI_SYSTEM_INFO pstSystemInfo);
 
 
-// »ñµÃAPPµÄÆÁÄ»Éè¶¨ĞÅÏ¢
+// è·å¾—APPçš„å±å¹•è®¾å®šä¿¡æ¯
 // get APP context indicated current screen settings
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 DWORD EiGetAppContext(PEI_APP_CONTEXT pstAppContext);
 
-// »ñµÃ»æÖÆ»º´æ
+// è·å¾—ç»˜åˆ¶ç¼“å­˜
 // Get Drawing buffer .
-// Í¨¹ıµ÷ÓÃ±¾º¯Êı»ñµÃÒ»¸ö»æÖÆ»º´æ,Ò»¸öÓ¦ÓÃÊµÀı¿ÉÒÔÉêÇëÁ½¿é»æÖÆ»º´æ
+// é€šè¿‡è°ƒç”¨æœ¬å‡½æ•°è·å¾—ä¸€ä¸ªç»˜åˆ¶ç¼“å­˜,ä¸€ä¸ªåº”ç”¨å®ä¾‹å¯ä»¥ç”³è¯·ä¸¤å—ç»˜åˆ¶ç¼“å­˜
 // to get a draw-buffer that it represent pixels on the display area of Eink cover. There are two draw-buffers for each APP 
-// µ±APPµ÷ÓÃEiSetScreenOrientºó£¬ĞèÒªÊÍ·ÅÖ®Ç°ÉêÇëµÄ»æÖÆ»º³å£¬È»ºóÍ¨¹ıµ÷ÓÃ±¾º¯ÊıÖØĞÂ»ñÈ¡»º´æ
+// å½“APPè°ƒç”¨EiSetScreenOrientåï¼Œéœ€è¦é‡Šæ”¾ä¹‹å‰ç”³è¯·çš„ç»˜åˆ¶ç¼“å†²ï¼Œç„¶åé€šè¿‡è°ƒç”¨æœ¬å‡½æ•°é‡æ–°è·å–ç¼“å­˜
 // If an APP call EiSetScreenOrient to change current display orientation, these buffers must be release and call this function to retrieve them.
-// ·µ»Ø£º·µ»Ø¿ÕÖ¸ÕëNULL£¬±íÊ¾Ê§°Ü£¬¶àÎª×ÊÔ´ºÄ¾¡£»·µ»Ø·ÇNULLL£¬±íÊ¾³É¹¦£¬·µ»ØÖµ¼´ÊÇĞÂ½¨µÄ»º´æ
+// è¿”å›ï¼šè¿”å›ç©ºæŒ‡é’ˆNULLï¼Œè¡¨ç¤ºå¤±è´¥ï¼Œå¤šä¸ºèµ„æºè€—å°½ï¼›è¿”å›éNULLLï¼Œè¡¨ç¤ºæˆåŠŸï¼Œè¿”å›å€¼å³æ˜¯æ–°å»ºçš„ç¼“å­˜
 // return
 //		NULL : fail , mostly is run out of resource .
 //		none NULL: success.
 EI_BUFFER* EiGetDrawBuffer(
-	BOOL bInit,		// ÊÇ·ñ½«»º´æÇåÁã
+	BOOL bInit,		// æ˜¯å¦å°†ç¼“å­˜æ¸…é›¶
 					// whether clear buffer content to zero .
-	BOOL bCopy		// ÊÇ·ñ½«µ±Ç°EinkÆÁÄÚÈİ¸´ÖÆµ½»º´æ
+	BOOL bCopy		// æ˜¯å¦å°†å½“å‰Einkå±å†…å®¹å¤åˆ¶åˆ°ç¼“å­˜
 					// will copy current content to buffer .
 	);
 
-// ÊÍ·Å»æÖÆ»º´æ
+// é‡Šæ”¾ç»˜åˆ¶ç¼“å­˜
 // release drawing content .
-// µ±²»ÔÚÊ¹ÓÃÊ±£¬ĞèÒªµ÷ÓÃ±¾º¯ÊıÊÍ·ÅËü
+// å½“ä¸åœ¨ä½¿ç”¨æ—¶ï¼Œéœ€è¦è°ƒç”¨æœ¬å‡½æ•°é‡Šæ”¾å®ƒ
 // please call this function to release it .
 void EiReleaseDrawBuffer( 
-	EI_BUFFER* pstBuffer		// Ö¸Ïò»æÖÆ»º´æ // point to drawing buffer .
+	EI_BUFFER* pstBuffer		// æŒ‡å‘ç»˜åˆ¶ç¼“å­˜ // point to drawing buffer .
 	);
 
-// »æÖÆÄÚÈİµ½EinkÆÁ
+// ç»˜åˆ¶å†…å®¹åˆ°Einkå±
 // Draw an image to display-area in Eink-panel.
-// ½«»º´æÖĞµÄÄÚÈİ»æÖÆµ½EinkÆÁÄ»ÉÏ£¬µ÷ÓÃ´Ëº¯Êıºó£¬´«ÈëµÄ»æÖÆ»º´æ»á±»×Ô¶¯ÊÍ·Å£¬Ó¦ÓÃ²»ÄÜ¼ÌĞøÊ¹ÓÃÕâ¿é»º´æ
+// å°†ç¼“å­˜ä¸­çš„å†…å®¹ç»˜åˆ¶åˆ°Einkå±å¹•ä¸Šï¼Œè°ƒç”¨æ­¤å‡½æ•°åï¼Œä¼ å…¥çš„ç»˜åˆ¶ç¼“å­˜ä¼šè¢«è‡ªåŠ¨é‡Šæ”¾ï¼Œåº”ç”¨ä¸èƒ½ç»§ç»­ä½¿ç”¨è¿™å—ç¼“å­˜
 // draw content in DRAWING buffer to eink display , after call this function ,DRAWING buffer will be release , and app should not use this buffer any more .
-// ²ÎÊıx,y,w,h±íÊ¾ĞèÒª¸üĞÂµÄÇøÓò£»ÎŞÂÛÊÇÈ«ÆÁ»æÖÆ»¹ÊÇ¾Ö²¿»æÖÆ£¬»æÖÆ»º´æÖĞµÄÄÚÈİÊ¼ÖÕ¶ÔÓ¦µÄÊÇÕû¸öÆÁÄ»
+// å‚æ•°x,y,w,hè¡¨ç¤ºéœ€è¦æ›´æ–°çš„åŒºåŸŸï¼›æ— è®ºæ˜¯å…¨å±ç»˜åˆ¶è¿˜æ˜¯å±€éƒ¨ç»˜åˆ¶ï¼Œç»˜åˆ¶ç¼“å­˜ä¸­çš„å†…å®¹å§‹ç»ˆå¯¹åº”çš„æ˜¯æ•´ä¸ªå±å¹•
 // x,y,w,h indicate region need to be redraw , no matter full screen or partial screen redraw , DRAWING content will be for whole screen .
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -314,7 +314,7 @@ DWORD EiDraw(
 	EI_BUFFER* pstBuffer		// image buffer
 	);
 
-// Çå³ıEinkÆÁÄ»
+// æ¸…é™¤Einkå±å¹•
 // Clean up E-ink screen
 // return:
 //		na
@@ -322,19 +322,19 @@ void EiCleanupScreen(
 	unsigned char ucBackgroundColor		// the background color of E-ink screen after cleaning up
 	);
 
-// ´ÙÊ¹ÏµÍ³²úÉúÒ»ÌõWM_EI_DRAWÏûÏ¢¸øµ±Ç°APP
+// ä¿ƒä½¿ç³»ç»Ÿäº§ç”Ÿä¸€æ¡WM_EI_DRAWæ¶ˆæ¯ç»™å½“å‰APP
 // indicate system to generate an WM_EI_DRAW message to current app .
-// ±àĞ´APPÊ±£¬¿ÉÒÔ½«ËùÓĞµÄ»æÖÆ¶¼·ÅÔÚ´¦ÀíWM_EI_DRAWÏûÏ¢µÄ¹ı³ÌÖĞ£¬Èç¹ûAPPÆÚ´ıÖ÷¶¯½øĞĞÒ»´Î»æÖÆ²Ù×÷£¬Ö»ĞèÒªµ÷ÓÃ±¾º¯Êı£¬´ÙÊ¹ÏµÍ³·¢ËÍÒ»ÌõWM_EI_DRAW
+// ç¼–å†™APPæ—¶ï¼Œå¯ä»¥å°†æ‰€æœ‰çš„ç»˜åˆ¶éƒ½æ”¾åœ¨å¤„ç†WM_EI_DRAWæ¶ˆæ¯çš„è¿‡ç¨‹ä¸­ï¼Œå¦‚æœAPPæœŸå¾…ä¸»åŠ¨è¿›è¡Œä¸€æ¬¡ç»˜åˆ¶æ“ä½œï¼Œåªéœ€è¦è°ƒç”¨æœ¬å‡½æ•°ï¼Œä¿ƒä½¿ç³»ç»Ÿå‘é€ä¸€æ¡WM_EI_DRAW
 // when you write an app , please place all drawing action in WM_EI_DRAW process function , if App want an redraw , can call this function , and system will generate an WM_EI_DRAW
-// ÏûÏ¢¸øAPP£¬´Ó¶ø¾ÍÄÜ¹»½«»æÖÆ²Ù×÷¼¯ÖĞÔÚÒ»¸öµØ·½½øĞĞ£¨WM_EI_DRAW´¦Àí¹ı³Ì£©
+// æ¶ˆæ¯ç»™APPï¼Œä»è€Œå°±èƒ½å¤Ÿå°†ç»˜åˆ¶æ“ä½œé›†ä¸­åœ¨ä¸€ä¸ªåœ°æ–¹è¿›è¡Œï¼ˆWM_EI_DRAWå¤„ç†è¿‡ç¨‹ï¼‰
 // message to app , so we should centralize all drawing action in one place.
 void EiInvalidPanel(
 	EI_RECT* pstArea	// indicates the area to update; set NULL for full panel
 	);
 
-// ÉèÖÃHandwritingÄ£Ê½
+// è®¾ç½®Handwritingæ¨¡å¼
 // Set handwriting mode .
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -342,9 +342,9 @@ DWORD EiSetHandWritingMode(
 	DWORD eMode // Set the handwriting-mode, please refer to GIHW_HANDWRITING
 	);
 
-// ÉèÖÃÆÁÄ»ÏÔÊ¾·½Ïò
+// è®¾ç½®å±å¹•æ˜¾ç¤ºæ–¹å‘
 // set the screen orientation for current app
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -352,14 +352,14 @@ DWORD EiSetScreenOrient(
 	DWORD eOrientation // refer to GIR_NONE
 	);
 
-// ´ÓÎïÀí×ø±êÏµ×ª»»µ½ÏÔÊ¾×ø±êÏµ
+// ä»ç‰©ç†åæ ‡ç³»è½¬æ¢åˆ°æ˜¾ç¤ºåæ ‡ç³»
 // Convert a point from physical-coordinate to display-coordinate
 void EiPhysicalToDisplay(
 	IN EI_POINT* pstPointP,
 	OUT EI_POINT* pstPointD
 	);
 
-// ´ÓÏÔÊ¾×ø±êÏµ×ª»»µ½ÎïÀí×ø±êÏµ
+// ä»æ˜¾ç¤ºåæ ‡ç³»è½¬æ¢åˆ°ç‰©ç†åæ ‡ç³»
 // Convert a point from display-coordinate to physical-coordinate
 void EiDisplayToPhysical(
 	IN EI_POINT* pstPointD,
@@ -368,7 +368,7 @@ void EiDisplayToPhysical(
 
 // Set waveform mode for epd display, e.g. GI_WAVEFORM_DU2, GI_WAVEFORM_GC16, GI_WAVEFORM_GL16
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -380,7 +380,7 @@ DWORD EiSetWaveformMode(
 // To disable it, set both width and height = 0.
 // Direct handwriting can only be used in GIHW_OWNER_DRAW mode.
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -390,7 +390,7 @@ DWORD EiSetHandwritingRect(
 
 // Check DisplayArea engine status.
 //
-// ·µ»Ø£º ·µ»ØTRUE£¬±íÊ¾¿ÕÏĞ¡£·µ»ØFALSE£¬±íÊ¾»æÖÆ±»Õ¼ÓÃ;
+// è¿”å›ï¼š è¿”å›TRUEï¼Œè¡¨ç¤ºç©ºé—²ã€‚è¿”å›FALSEï¼Œè¡¨ç¤ºç»˜åˆ¶è¢«å ç”¨;
 // return
 //		TRUE: ready
 //		FALSE: not ready
@@ -398,7 +398,7 @@ BOOL EiCheckDpyReady();
 
 // Set PartialUpdate feature
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -409,7 +409,7 @@ DWORD EiSetPartialUpdate(
 
 // Get scenario
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -417,7 +417,7 @@ DWORD EiGetScenario(DWORD& rdwCurrentMode);
 
 // OOBE complete
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -425,7 +425,7 @@ DWORD EiOOBEComplete();
 
 // Set Homebar status
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -440,10 +440,10 @@ DWORD EiSetHomebarStatus(
 //		non-zero: error code
 DWORD EiSetHandwritingSetting(BYTE lineWidth);
 
-// »ñÈ¡µ±Ç°»úÆ÷ĞÎÌ¬
+// è·å–å½“å‰æœºå™¨å½¢æ€
 // Get tablet mode
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -451,61 +451,61 @@ DWORD EiSetHandwritingSetting(BYTE lineWidth);
 DWORD EiGetTabletMode(DWORD& rdwCurrentMode);
 
 
-// ÉèÖÃ¼üÅÌÑùÊ½
+// è®¾ç½®é”®ç›˜æ ·å¼
 // Set keyboard style
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
-// ¸Ãµ÷ÓÃÖ±½Ó·µ»Ø²»µÈ´ı£¬µ±ÊÕµ½ WM_EI_CHANGE_KEYBOARD_STYLE_COMPLETE ÏûÏ¢Ê±£¬±íÊ¾ÇĞ»»Íê³É
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
+// è¯¥è°ƒç”¨ç›´æ¥è¿”å›ä¸ç­‰å¾…ï¼Œå½“æ”¶åˆ° WM_EI_CHANGE_KEYBOARD_STYLE_COMPLETE æ¶ˆæ¯æ—¶ï¼Œè¡¨ç¤ºåˆ‡æ¢å®Œæˆ
 // return
 //		zero: success
 //		non-zero: error code
 DWORD EiSetKeyboardStyle(EI_KEYBOARD_STYLE ndStyle);
 
-// ÉèÖÃCÃæÊÖ»ò±ÊÇøÓò
+// è®¾ç½®Cé¢æ‰‹æˆ–ç¬”åŒºåŸŸ
 // Set TP Area
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
 DWORD EiSetTpArea(SET_TP_AREA ndTpArea);
 
-// ÉèÖÃÒşË½Ğ­Òé¿ª¹Ø×´Ì¬
+// è®¾ç½®éšç§åè®®å¼€å…³çŠ¶æ€
 // Set the privacy protocol switch status.
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
 //rdwStatus : 0 off,1 on
 DWORD EiSetPrivacyStatus(DWORD& rdwStatus);
 
-// »ñÈ¡ÒşË½Ğ­Òé¿ª¹Ø×´Ì¬
+// è·å–éšç§åè®®å¼€å…³çŠ¶æ€
 // Get the privacy protocol switch status.
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
 //rdwStatus : 0 off,1 on
 DWORD EiGetPrivacyStatus(DWORD& rdwStatus);
 
-// ÅĞ¶Ï×Ô¼ºÊÇ·ñÊÇÇ°Ì¨´°¿Ú
+// åˆ¤æ–­è‡ªå·±æ˜¯å¦æ˜¯å‰å°çª—å£
 // Is it a foreground window
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
 DWORD EiIsForeground(bool& rbIsForeground);
 
-// Í£Ö¹·şÎñ		// stop service .
-// µ±Ò»¸öÓ¦ÓÃÊµÀıĞèÒªÍË³öÊ±£¬µ÷ÓÃÕâ¸öº¯Êı
+// åœæ­¢æœåŠ¡		// stop service .
+// å½“ä¸€ä¸ªåº”ç”¨å®ä¾‹éœ€è¦é€€å‡ºæ—¶ï¼Œè°ƒç”¨è¿™ä¸ªå‡½æ•°
 // when an app exit , please call this function.
 void EiEnd(void);
 
-// »ñÈ¡ÓÃ»§ÏÔÊ¾ÓïÑÔ
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// è·å–ç”¨æˆ·æ˜¾ç¤ºè¯­è¨€
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 ULONG EiGetUserLagID(
 	DWORD& rdwLagID
 );

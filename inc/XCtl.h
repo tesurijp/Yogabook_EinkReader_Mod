@@ -1,10 +1,10 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 #ifndef _ECTL_H_
 #define _ECTL_H_
 
 /*
-	±¾DLLÊä³öXUIÄ¬ÈÏ¿Ø¼þ£¬ËùÓÐµÄ¿Ø¼þ¶¼ÔÚÕâ¶¨Òå
+	æœ¬DLLè¾“å‡ºXUIé»˜è®¤æŽ§ä»¶ï¼Œæ‰€æœ‰çš„æŽ§ä»¶éƒ½åœ¨è¿™å®šä¹‰
 */
 
 
@@ -14,226 +14,226 @@
 
 #pragma pack(4)
 
-// Í¨ÓÃºê¶¨Òå
-#define ES_SHOW_TEXT_MAX_LEN 200   //½á¹¹ÌåÓÃ£¬ÏÔÊ¾ÎÄ×Ö×î´óBuffer³¤¶È
+// é€šç”¨å®å®šä¹‰
+#define ES_SHOW_TEXT_MAX_LEN 200   //ç»“æž„ä½“ç”¨ï¼Œæ˜¾ç¤ºæ–‡å­—æœ€å¤§Bufferé•¿åº¦
 
 
 
 
 //////////////////////////////////////////////////////////////////////////
-//ÔªËØÀàµÄÃèÊö·½Ê½
+//å…ƒç´ ç±»çš„æè¿°æ–¹å¼
 //////////////////////////////////////////////////////////////////////////
-//ÔªËØÀàÀàÐÍID£¬ÃüÃû·½·¨£¬ÒÔES_ETYPE_Ç°×º£¬ºóÃæ¸úÀàÐÍµÄÃû³Æ£»ËùÓÐµÄÀ©Õ¹ÀàÐÍÓÃES_ETYPE_¿ªÍ·£¬½ô¸ú×ÅÊÇÀ©Õ¹°üÃû£¬È»ºóÊÇÀàÐÍÃû£¬Èç: ES_ETYPE_STOCK_CHART£¬¾Í¿ÉÒÔÀí½âÎªÄ³¸ö¹ÉÆ±À©Õ¹Ä£¿éµÄÍ¼±í¿Ø¼þ
-//ÔªËØÀàµÄÊµÀý»¯Êý¾Ý½á¹¹£¬Ãû³Æ¹æÔò£¬ST_ELALC_Ç°×º£¬ºóÃæ¸úÊý¾ÝÀàÐÍµÄÃû³Æ;Èç£ºST_ELALC_ELEMENT
-//ÔªËØÀà´¥·¢µÄÏûÏ¢£¬ÃüÃûÊ±£¬ÓÃEEVT_Ç°×º
-//ÔªËØÀà½ÓÊÜµÄ·ÃÎÊÏûÏ¢£¬ÃüÃûÊ±£¬ÓÃEACT_Ç°×º
+//å…ƒç´ ç±»ç±»åž‹IDï¼Œå‘½åæ–¹æ³•ï¼Œä»¥ES_ETYPE_å‰ç¼€ï¼ŒåŽé¢è·Ÿç±»åž‹çš„åç§°ï¼›æ‰€æœ‰çš„æ‰©å±•ç±»åž‹ç”¨ES_ETYPE_å¼€å¤´ï¼Œç´§è·Ÿç€æ˜¯æ‰©å±•åŒ…åï¼Œç„¶åŽæ˜¯ç±»åž‹åï¼Œå¦‚: ES_ETYPE_STOCK_CHARTï¼Œå°±å¯ä»¥ç†è§£ä¸ºæŸä¸ªè‚¡ç¥¨æ‰©å±•æ¨¡å—çš„å›¾è¡¨æŽ§ä»¶
+//å…ƒç´ ç±»çš„å®žä¾‹åŒ–æ•°æ®ç»“æž„ï¼Œåç§°è§„åˆ™ï¼ŒST_ELALC_å‰ç¼€ï¼ŒåŽé¢è·Ÿæ•°æ®ç±»åž‹çš„åç§°;å¦‚ï¼šST_ELALC_ELEMENT
+//å…ƒç´ ç±»è§¦å‘çš„æ¶ˆæ¯ï¼Œå‘½åæ—¶ï¼Œç”¨EEVT_å‰ç¼€
+//å…ƒç´ ç±»æŽ¥å—çš„è®¿é—®æ¶ˆæ¯ï¼Œå‘½åæ—¶ï¼Œç”¨EACT_å‰ç¼€
 
 //#define ES_ETYPE_DIRECTORPH L"DirectorPh"
 //#define ES_ETYPE_TURN3D L"Turn3D"
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_BUTTON L"Button"			//°´Å¥
+#define ES_ETYPE_BUTTON L"Button"			//æŒ‰é’®
 
-//°´Å¥ÏÔÊ¾ÎÄ×Ö
+//æŒ‰é’®æ˜¾ç¤ºæ–‡å­—
 //struct _STEMS_BUTTON_TEXT{
-//	wchar_t Text[ES_SHOW_TEXT_MAX_LEN];	    //°´Å¥ÏÔÊ¾ÎÄ×Ö
+//	wchar_t Text[ES_SHOW_TEXT_MAX_LEN];	    //æŒ‰é’®æ˜¾ç¤ºæ–‡å­—
 //};
 //typedef _STEMS_BUTTON_TEXT STEMS_BUTTON_TEXT,*PSTEMS_BUTTON_TEXT;	
 
 
-//°´Å¥¿Ø¼þ»á´¥·¢µÄÏûÏ¢
+//æŒ‰é’®æŽ§ä»¶ä¼šè§¦å‘çš„æ¶ˆæ¯
 #define EMSG_BUTTON_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_BUTTON,_MJ_NUM,_MN_NUM)
 
-//°´Å¥±»°´ÏÂ
+//æŒ‰é’®è¢«æŒ‰ä¸‹
 #define EEVT_BUTTON_PRESSED		EMSG_BUTTON_REQUEST(1,1)
-//Input			TEMS_MSG_BASE ½á¹¹Ìå
+//Input			TEMS_MSG_BASE ç»“æž„ä½“
 //Output		None
 //Result
 
-//°´ÏÂ±»ÊÍ·Å
+//æŒ‰ä¸‹è¢«é‡Šæ”¾
 #define EEVT_BUTTON_RELEASE		EMSG_BUTTON_REQUEST(1,2)
-//Input			TEMS_MSG_BASE ½á¹¹Ìå
+//Input			TEMS_MSG_BASE ç»“æž„ä½“
 //Output		None
 //Result
 
-//±»°´ÏÂµÄ°´Å¥£¬Êó±êÒâÍâµØÀë¿ªÁË°´Å¥´°Ìå£¬´Ó¶ø±ÜÃâReleaseÐÐÎª£¬²úÉúÕâ¸öÊÂ¼þ
+//è¢«æŒ‰ä¸‹çš„æŒ‰é’®ï¼Œé¼ æ ‡æ„å¤–åœ°ç¦»å¼€äº†æŒ‰é’®çª—ä½“ï¼Œä»Žè€Œé¿å…Releaseè¡Œä¸ºï¼Œäº§ç”Ÿè¿™ä¸ªäº‹ä»¶
 #define EEVT_BUTTON_ESCAPED		EMSG_BUTTON_REQUEST(1,3)
-//Input			TEMS_MSG_BASE ½á¹¹Ìå
+//Input			TEMS_MSG_BASE ç»“æž„ä½“
 //Output		None
 //Result
 
-//Êó±ê½øÈë°´Å¥ÓÐÐ§·¶
+//é¼ æ ‡è¿›å…¥æŒ‰é’®æœ‰æ•ˆèŒƒ
 #define EEVT_BUTTON_MOUSE_IN	EMSG_BUTTON_REQUEST(1,4) 
-//Input			IEinkuiIterator* ¸Ã°´Å¥
+//Input			IEinkuiIterator* è¯¥æŒ‰é’®
 //Output		None
 //Result
 
-//Êó±êÒÆ³ö°´Å¥ÓÐÐ§·¶
+//é¼ æ ‡ç§»å‡ºæŒ‰é’®æœ‰æ•ˆèŒƒ
 #define EEVT_BUTTON_MOUSE_OUT	EMSG_BUTTON_REQUEST(1,5) 
-//Input			IEinkuiIterator* ¸Ã°´Å¥
+//Input			IEinkuiIterator* è¯¥æŒ‰é’®
 //Output		None
 //Result
 
-//°´Å¥±»µ¥»÷
+//æŒ‰é’®è¢«å•å‡»
 #define EEVT_BUTTON_CLICK		EMSG_BUTTON_REQUEST(1,6)
 //Input			None
 //Output		None
 //Result
 
-//×Ô¶¨Òå¶¯»­²¥·ÅÍê³É
+//è‡ªå®šä¹‰åŠ¨ç”»æ’­æ”¾å®Œæˆ
 #define EEVT_BUTTON_PLAYED		EMSG_BUTTON_REQUEST(1,7)
-//Input			LONG ²¥·ÅÍê³ÉµÄ¶¯»­ÐòºÅ
+//Input			LONG æ’­æ”¾å®Œæˆçš„åŠ¨ç”»åºå·
 //Output		None
 //Result
 
 
-//°´Å¥±»Ñ¡ÖÐ
+//æŒ‰é’®è¢«é€‰ä¸­
 #define EEVT_BUTTON_CHECKED		EMSG_BUTTON_REQUEST(1,8)
 //Input			None
 //Output		None
 //Result
 
-//°´Å¥±»È¡ÏûÑ¡ÖÐ×´Ì¬
+//æŒ‰é’®è¢«å–æ¶ˆé€‰ä¸­çŠ¶æ€
 #define EEVT_BUTTON_UNCHECK		EMSG_BUTTON_REQUEST(1,9)
 //Input			None
 //Output		None
 //Result
 
 
-//°´Å¥¿Ø¼þ»á½ÓÊÕµÄÏûÏ¢
-//ÉèÖÃ°´Å¥ÎÄ×Ö
+//æŒ‰é’®æŽ§ä»¶ä¼šæŽ¥æ”¶çš„æ¶ˆæ¯
+//è®¾ç½®æŒ‰é’®æ–‡å­—
 #define EACT_BUTTON_SETTEXT EMSG_BUTTON_REQUEST(2,1)
-//Input			wchat_t* Òª¸Ä±äµÄ°´Å¥ÎÄ×Ö
+//Input			wchat_t* è¦æ”¹å˜çš„æŒ‰é’®æ–‡å­—
 //Output		None
 //Result
 
-//»ñÈ¡°´Å¥ÎÄ×Ö
+//èŽ·å–æŒ‰é’®æ–‡å­—
 #define EACT_BUTTON_GETTEXT EMSG_BUTTON_REQUEST(2,2)
 //Input			None
-//Output		wchat_t** ·µ»ØµÄ×Ö·û´®Ö¸Õë²»Ó¦¸Ã³¤ÆÚ³ÖÓÐ£¬ÎÞÐèÊÍ·Å
+//Output		wchat_t** è¿”å›žçš„å­—ç¬¦ä¸²æŒ‡é’ˆä¸åº”è¯¥é•¿æœŸæŒæœ‰ï¼Œæ— éœ€é‡Šæ”¾
 //Result
 
-//ÉèÖÃ°´Å¥Check×´Ì¬
+//è®¾ç½®æŒ‰é’®CheckçŠ¶æ€
 #define EACT_BUTTON_SET_CHECKED EMSG_BUTTON_REQUEST(2,3)	
 //Input			bool
 //Output		None
 //Result
 
-//»ñÈ¡°´Å¥Check×´Ì¬
+//èŽ·å–æŒ‰é’®CheckçŠ¶æ€
 #define EACT_BUTTON_GET_CHECKED EMSG_BUTTON_REQUEST(2,4)
 //Input			None
 //Output		bool
 //Result
 
-//²¥·Å°´Å¥µÄ×Ô¶¨Òå¶¯»­
+//æ’­æ”¾æŒ‰é’®çš„è‡ªå®šä¹‰åŠ¨ç”»
 #define EACT_BUTTON_PLAY_OTHER_ANIMATION EMSG_BUTTON_REQUEST(2,5)
-//Input			LONG,Ö¸Ã÷²¥·Å¼¸ºÅ¶¯»­
+//Input			LONG,æŒ‡æ˜Žæ’­æ”¾å‡ å·åŠ¨ç”»
 //Output		NONE
 //Result
 
-//¸ü»»±³¾°Í¼Æ¬,Ïà¶ÔÂ·¾¶
+//æ›´æ¢èƒŒæ™¯å›¾ç‰‡,ç›¸å¯¹è·¯å¾„
 #define EACT_BUTTON_CHANGE_PIC EMSG_BUTTON_REQUEST(2,6)
-//Input			wchat_t* Í¼Æ¬Ïà¶ÔÓÚDLLËùÔÚÄ¿Â¼µÄÂ·¾¶
+//Input			wchat_t* å›¾ç‰‡ç›¸å¯¹äºŽDLLæ‰€åœ¨ç›®å½•çš„è·¯å¾„
 //Output		NONE
 //Result
 
-//¸ü»»±³¾°Í¼Æ¬,È«Â·¾¶
+//æ›´æ¢èƒŒæ™¯å›¾ç‰‡,å…¨è·¯å¾„
 #define EACT_BUTTON_CHANGE_PIC_FULLPATH EMSG_BUTTON_REQUEST(2,7)
-//Input			wchat_t* Í¼Æ¬µÄÈ«Â·¾¶
+//Input			wchat_t* å›¾ç‰‡çš„å…¨è·¯å¾„
 //Output		NONE
 //Result
 
-//ÉèÖÃ¼¤»îÇøÓò
+//è®¾ç½®æ¿€æ´»åŒºåŸŸ
 #define EACT_BUTTON_SET_ACTION_RECT EMSG_BUTTON_REQUEST(2,8)
-//Input			D2D1_SIZE_F ÒªÉèÖÃµÄ¼¤»îÇøÓò´óÐ¡
+//Input			D2D1_SIZE_F è¦è®¾ç½®çš„æ¿€æ´»åŒºåŸŸå¤§å°
 //Output		NONE
 //Result
 
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_RADIO_BUTTON_GROUP L"RadioButtonGroup"			//µ¥Ñ¡°´Å¥×é
+#define ES_ETYPE_RADIO_BUTTON_GROUP L"RadioButtonGroup"			//å•é€‰æŒ‰é’®ç»„
 #define EMSG_RADIO_BUTTON_GROUP_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_RADIO_BUTTON_GROUP,_MJ_NUM,_MN_NUM)
 
-//µ¥Ñ¡°´¼ü×é»á´¥·¢µÄÏûÏ¢
-// ±»Ñ¡ÖÐµÄ¶ÔÏó¸Ä±ä
+//å•é€‰æŒ‰é”®ç»„ä¼šè§¦å‘çš„æ¶ˆæ¯
+// è¢«é€‰ä¸­çš„å¯¹è±¡æ”¹å˜
 #define EEVT_RBG_SELECTED_CHANGED EMSG_RADIO_BUTTON_GROUP_REQUEST(1,1)
-//Input			ULONG ±»Ñ¡ÖÐ¶ÔÏóµÄID£¬ÖØ¸´Ñ¡ÖÐÒ»¸ö¶ÔÏó£¬²»»áÖØ¸´·¢ËÍ´ËÏûÏ¢
+//Input			ULONG è¢«é€‰ä¸­å¯¹è±¡çš„IDï¼Œé‡å¤é€‰ä¸­ä¸€ä¸ªå¯¹è±¡ï¼Œä¸ä¼šé‡å¤å‘é€æ­¤æ¶ˆæ¯
 //Output		NONE
 //Result		NONE
 
-// ±»Ñ¡ÖÐµÄ¶ÔÏó±»ÔÙ´Îµã»÷
+// è¢«é€‰ä¸­çš„å¯¹è±¡è¢«å†æ¬¡ç‚¹å‡»
 #define EEVT_RBG_SELECTED_ITEM_CLICK		 EMSG_RADIO_BUTTON_GROUP_REQUEST(1,2)
-//Input			ULONG ±»µã»÷¶ÔÏóµÄID£¬
+//Input			ULONG è¢«ç‚¹å‡»å¯¹è±¡çš„IDï¼Œ
 //Output		NONE
 //Result		NONE
 
 
-//µ¥Ñ¡°´Å¥×é»á½ÓÊÕµÄÏûÏ¢
-//ÉèÖÃÄ³ÏîÑ¡ÖÐ
+//å•é€‰æŒ‰é’®ç»„ä¼šæŽ¥æ”¶çš„æ¶ˆæ¯
+//è®¾ç½®æŸé¡¹é€‰ä¸­
 #define EACT_RBG_SET_SELECT EMSG_RADIO_BUTTON_GROUP_REQUEST(2,1)
-//Input			ULONG ÒªÇóÑ¡ÖÐ¶ÔÏóµÄID
+//Input			ULONG è¦æ±‚é€‰ä¸­å¯¹è±¡çš„ID
 //Output		NONE
 //Result		NONE
 
-//»ñÈ¡µ±Ç°Ñ¡ÖÐµÄÏî
+//èŽ·å–å½“å‰é€‰ä¸­çš„é¡¹
 #define EACT_RBG_GET_SELECT EMSG_RADIO_BUTTON_GROUP_REQUEST(2,2)
 //Input			none
-//Output		ULONG	µ±Ç°±»Ñ¡ÖÐµÄ¶ÔÏóID
+//Output		ULONG	å½“å‰è¢«é€‰ä¸­çš„å¯¹è±¡ID
 //Result		NONE
 
-//°ÑÄ³Ïî½ûÓÃ
+//æŠŠæŸé¡¹ç¦ç”¨
 #define EACT_RBG_DISABLE EMSG_RADIO_BUTTON_GROUP_REQUEST(2,3)
-//Input			ULONG ÒªÇóÑ¡ÖÐ¶ÔÏóµÄID
+//Input			ULONG è¦æ±‚é€‰ä¸­å¯¹è±¡çš„ID
 //Output		NONE
 //Result		NONE
 
-//°ÑÄ³ÏîÆôÓÃ
+//æŠŠæŸé¡¹å¯ç”¨
 #define EACT_RBG_ENABLE EMSG_RADIO_BUTTON_GROUP_REQUEST(2,4)
-//Input			ULONG ÒªÇóÑ¡ÖÐ¶ÔÏóµÄID
+//Input			ULONG è¦æ±‚é€‰ä¸­å¯¹è±¡çš„ID
 //Output		NONE
 //Result		NONE
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_PICTUREFRAME L"PictureFrame"	//Í¼Æ¬ÔªËØ
+#define ES_ETYPE_PICTUREFRAME L"PictureFrame"	//å›¾ç‰‡å…ƒç´ 
 #define EMSG_PICTUREFRAME_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_PICTUREFRAME,_MJ_NUM,_MN_NUM)
 
 
-//Í¼Æ¬ÔªËØ»á´¥·¢µÄÏûÏ¢
+//å›¾ç‰‡å…ƒç´ ä¼šè§¦å‘çš„æ¶ˆæ¯
 
-//Í¼Æ¬ÔªËØ»á½ÓÊÕµÄÏûÏ¢
+//å›¾ç‰‡å…ƒç´ ä¼šæŽ¥æ”¶çš„æ¶ˆæ¯
 
-//ÇÐ»»ÏÔÊ¾Ö¡
+//åˆ‡æ¢æ˜¾ç¤ºå¸§
 #define EACT_PICTUREFRAME_SET_INDEX EMSG_PICTUREFRAME_REQUEST(2,1)
-//Input			LONG,Ö¸Ã÷ÏÔÊ¾µÚ¼¸Ö¡
+//Input			LONG,æŒ‡æ˜Žæ˜¾ç¤ºç¬¬å‡ å¸§
 //Output		NONE
 //Result
 
-//¸ü»»ÏÔÊ¾Í¼Æ¬,Ïà¶ÔÂ·¾¶
+//æ›´æ¢æ˜¾ç¤ºå›¾ç‰‡,ç›¸å¯¹è·¯å¾„
 #define EACT_PICTUREFRAME_CHANGE_PIC EMSG_PICTUREFRAME_REQUEST(2,2)
-//Input			wchat_t* Í¼Æ¬Ïà¶ÔÓÚDLLËùÔÚÄ¿Â¼µÄÂ·¾¶£¬ÏÖÔÚÖ»ÄÜ¸ü»»ÎªÖ»ÓÐ1Ö¡µÄÍ¼
+//Input			wchat_t* å›¾ç‰‡ç›¸å¯¹äºŽDLLæ‰€åœ¨ç›®å½•çš„è·¯å¾„ï¼ŒçŽ°åœ¨åªèƒ½æ›´æ¢ä¸ºåªæœ‰1å¸§çš„å›¾
 //Output		NONE
 //Result
 
-//¸ü»»ÏÔÊ¾Í¼Æ¬,È«Â·¾¶
+//æ›´æ¢æ˜¾ç¤ºå›¾ç‰‡,å…¨è·¯å¾„
 #define EACT_PICTUREFRAME_CHANGE_PIC_FULLPATH EMSG_PICTUREFRAME_REQUEST(2,3)
-//Input			wchat_t* Í¼Æ¬µÄÈ«Â·¾¶£¬ÏÖÔÚÖ»ÄÜ¸ü»»ÎªÖ»ÓÐ1Ö¡µÄÍ¼
+//Input			wchat_t* å›¾ç‰‡çš„å…¨è·¯å¾„ï¼ŒçŽ°åœ¨åªèƒ½æ›´æ¢ä¸ºåªæœ‰1å¸§çš„å›¾
 //Output		NONE
 //Result
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_LIST L"List"	//ListÔªËØ
+#define ES_ETYPE_LIST L"List"	//Listå…ƒç´ 
 
-//¶¨ÒålistµÄÑùÊ½ 
-//smallItem ÀàËÆÓÚSmallIcon
+//å®šä¹‰listçš„æ ·å¼ 
+//smallItem ç±»ä¼¼äºŽSmallIcon
 #define	LIST_VIEW_STYLE_SMALLITEM  0
 #define	LIST_VIEW_STYLE_REPORT 1
 
-//ÉèÖÃ×Ô¶¯Ôö³¤Ä£Ê½£¬¸ÃÄ£Ê½µÄÒâË¼ÊÇÁÐ±í»á¸ù¾ÝÏîµÄ¶àÉÙ¶ø×Ô¶¯±ä³¤ºÍ±ä¿í£¬
-//¸ÃÄ£Ê½²»»á³öÏÖ¹ö¶¯Ìõ
+//è®¾ç½®è‡ªåŠ¨å¢žé•¿æ¨¡å¼ï¼Œè¯¥æ¨¡å¼çš„æ„æ€æ˜¯åˆ—è¡¨ä¼šæ ¹æ®é¡¹çš„å¤šå°‘è€Œè‡ªåŠ¨å˜é•¿å’Œå˜å®½ï¼Œ
+//è¯¥æ¨¡å¼ä¸ä¼šå‡ºçŽ°æ»šåŠ¨æ¡
 #define LIST_VIEW_STYLE_AUTO_FIT_X 2
 #define LIST_VIEW_STYLE_AUTO_FIT_Y 3
 
-//¶¨ÒåListµÄ×Ó¿Ø¼þID£¬ListµÄ1ºÍ2 ±»Õ¼ÓÃ£¬ÆäËû¿Ø¼þ±ØÐë´óÓÚSCROLLBAR_SUBID_BASE
+//å®šä¹‰Listçš„å­æŽ§ä»¶IDï¼ŒListçš„1å’Œ2 è¢«å ç”¨ï¼Œå…¶ä»–æŽ§ä»¶å¿…é¡»å¤§äºŽSCROLLBAR_SUBID_BASE
 #define V_SCROLL_BAR_ID 1
 #define H_SCROLL_BAR_ID 2
 #define INSERT_MARK_ID  3
@@ -243,141 +243,141 @@
 
 
 
-//ÇÐ»»ÏÔÊ¾Ö¡
+//åˆ‡æ¢æ˜¾ç¤ºå¸§
 #define EACT_LIST_SET_PIC_INDEX EMSG_LIST_REQUEST(2,1)
-//Input			LONG,Ö¸Ã÷ÏÔÊ¾µÚ¼¸Ö¡
+//Input			LONG,æŒ‡æ˜Žæ˜¾ç¤ºç¬¬å‡ å¸§
 //Output		NONE
 //Result
 
-//¸ü»»ÏÔÊ¾Í¼Æ¬
+//æ›´æ¢æ˜¾ç¤ºå›¾ç‰‡
 #define EACT_LIST_CHANGE_PIC EMSG_LIST_REQUEST(2,2)
-//Input			wchat_t* Í¼Æ¬µÄÈ«Â·¾¶£¬ÏÖÔÚÖ»ÄÜ¸ü»»ÎªÖ»ÓÐ1Ö¡µÄÍ¼
+//Input			wchat_t* å›¾ç‰‡çš„å…¨è·¯å¾„ï¼ŒçŽ°åœ¨åªèƒ½æ›´æ¢ä¸ºåªæœ‰1å¸§çš„å›¾
 //Output		NONE
 //Result
 
-//Itemµã»÷ÏûÏ¢
+//Itemç‚¹å‡»æ¶ˆæ¯
 #define EACT_LIST_ITEMCLICK EMSG_LIST_REQUEST(2,3)
-//Input			Item Ö¸Õë
+//Input			Item æŒ‡é’ˆ
 //Output		NONE
 //Result
 
-//¸ølist·¢Õâ¸öÏûÏ¢£¬À´Ç¿ÖÆlistµÄ¹ö¶¯µÄÎ»ÖÃ
+//ç»™listå‘è¿™ä¸ªæ¶ˆæ¯ï¼Œæ¥å¼ºåˆ¶listçš„æ»šåŠ¨çš„ä½ç½®
 #define EACT_LIST_DOCSCROLL EMSG_LIST_REQUEST(2,4)
-//Input			FLOAT £¨position£©
+//Input			FLOAT ï¼ˆpositionï¼‰
 //Output		NONE
 //Result
 
 
 
-//ÉèÖÃlistµÄÏÔÊ¾Ä£Ê½
+//è®¾ç½®listçš„æ˜¾ç¤ºæ¨¡å¼
 #define EACT_LIST_SET_STYLE EMSG_LIST_REQUEST(2,5)
 //Input			STYLE(long)
 //Output		NONE
 //Result
-//»ñÈ¡ÏÔÊ¾Ä£Ê½ÏûÏ¢
+//èŽ·å–æ˜¾ç¤ºæ¨¡å¼æ¶ˆæ¯
 #define EACT_LIST_GET_STYLE EMSG_LIST_REQUEST(2,6)
 //Input			NONE
 //Output		STYLE(long)
 //Result
 
-//ÔÚÎ²²¿Ìí¼ÓÔªËØ
+//åœ¨å°¾éƒ¨æ·»åŠ å…ƒç´ 
 #define EACT_LIST_ADD_ELEMENT EMSG_LIST_REQUEST(2,7)
 //Input			LONG (CXuiElement*)
 //Output		NONE
 //Result
 
 
-//É¾³ýÔªËØ
+//åˆ é™¤å…ƒç´ 
 #define EACT_LIST_DELETE_ELEMENT EMSG_LIST_REQUEST(2,8)
 //Input			LONG (CXuiElement*)
 //Output		NONE
 //Result
 
-//É¾³ýËùÓÐÔªËØ£¬ÖØÐÂÉèÖÃLIST
+//åˆ é™¤æ‰€æœ‰å…ƒç´ ï¼Œé‡æ–°è®¾ç½®LIST
 #define EACT_LIST_RESET EMSG_LIST_REQUEST(2,9)
 //Input			NONE
 //Output		NONE
 //Result
 
-//É¾³ý²ÎÊýË÷ÒýÔªËØ£¬ÖØÐÂÉèÖÃLIST
+//åˆ é™¤å‚æ•°ç´¢å¼•å…ƒç´ ï¼Œé‡æ–°è®¾ç½®LIST
 #define EACT_LIST_DELETE_ELEMENT_INDEX EMSG_LIST_REQUEST(2,10)
 //Input			Index
 //Output		NONE
 //Result
 
-//Í¨ÖªListÊÇ²»ÊÇÐèÒªÆä°ïÃ¦ÊÍ·Å×ÓÔªËØ
+//é€šçŸ¥Listæ˜¯ä¸æ˜¯éœ€è¦å…¶å¸®å¿™é‡Šæ”¾å­å…ƒç´ 
 #define EACT_LIST_SET_MEMORY_MANAGER EMSG_LIST_REQUEST(2,11)
 //Input			bool
 //Output		NONE
 //Result
-//ÔÚÍ·²¿Ìí¼ÓÔªËØ
+//åœ¨å¤´éƒ¨æ·»åŠ å…ƒç´ 
 #define EACT_LIST_ADD_ELEMENT_HEAD EMSG_LIST_REQUEST(2,12)
 //Input			LONG (CXuiElement*)
 //Output		NONE
 //Result
-//Í¨Öª¸¸´°¿Ú¹ö¶¯ÌõÏÔÊ¾ºÍÒþ²Ø
+//é€šçŸ¥çˆ¶çª—å£æ»šåŠ¨æ¡æ˜¾ç¤ºå’Œéšè—
 #define EACT_LIST_VSCROLLBAR_SHOW EMSG_LIST_REQUEST(2,13)
 //Input			bool (true for show /false for hide)
 //Output		NONE
 //Result
 
-//»ñÈ¡¹ö¶¯·¶Î§
+//èŽ·å–æ»šåŠ¨èŒƒå›´
 #define EACT_LIST_GET_SCROLL_RANGE EMSG_LIST_REQUEST(2,14)
 //Input			NONE
 //Output		FLOAT 
 //Result
-//»ñÈ¡µ±Ç°¹ö¶¯Î»ÖÃ
+//èŽ·å–å½“å‰æ»šåŠ¨ä½ç½®
 #define EACT_LIST_GET_SCROLL_POSITION EMSG_LIST_REQUEST(2,15)
 //Input			NONE
 //Output		FLOAT 
 //Result
 
-//·µ»ØlistµÄ¸¸´°¿Ú£¬ËµÃ÷¸ÃListÕýÔÚ¹ö¶¯
+//è¿”å›žlistçš„çˆ¶çª—å£ï¼Œè¯´æ˜Žè¯¥Listæ­£åœ¨æ»šåŠ¨
 #define EACT_LIST_SCROLLING EMSG_LIST_REQUEST(2,16)
-//Input			FLOAT£¨POSITION£©
+//Input			FLOATï¼ˆPOSITIONï¼‰
 //Output		
 //Result
 
 
-//ÉèÖÃ×ÝÏò¹ö¶¯ÌõÏà¶ÔÓÚList¸¸´°¿ÚµÄÎ»ÖÃºÍ´óÐ¡
+//è®¾ç½®çºµå‘æ»šåŠ¨æ¡ç›¸å¯¹äºŽListçˆ¶çª—å£çš„ä½ç½®å’Œå¤§å°
 #define EACT_LIST_SET_VSCROLLBAR_RECT EMSG_LIST_REQUEST(2,17)
-//Input			D2D1_RectF£¨rect£©
+//Input			D2D1_RectFï¼ˆrectï¼‰
 //Output		
 //Result
 
-//·µ»Ølist ItemÎ»ÖÃ
+//è¿”å›žlist Itemä½ç½®
 #define EACT_LIST_GET_ITEM_POSITION EMSG_LIST_REQUEST(2,18)
 //Input			Item Iterator
-//Output		FLOAT£¨POSITION£©
+//Output		FLOATï¼ˆPOSITIONï¼‰
 //Result
-//Í¨ÖªList ÖØÐÂ¼ÆËã×ÓÏîµÄÎ»ÖÃºÍ²¼¾Ö
+//é€šçŸ¥List é‡æ–°è®¡ç®—å­é¡¹çš„ä½ç½®å’Œå¸ƒå±€
 #define EACT_LIST_RECACULATE EMSG_LIST_REQUEST(2,19)
 //Input			Item Iterator
-//Output		FLOAT£¨POSITION£©
+//Output		FLOATï¼ˆPOSITIONï¼‰
 //Result
-//Í¨ÖªListµÄ¸¸´°¿Ú listµÄ²¼¾Ö·¢ÉúÁË±ä»¯
+//é€šçŸ¥Listçš„çˆ¶çª—å£ listçš„å¸ƒå±€å‘ç”Ÿäº†å˜åŒ–
 #define EACT_LIST_LAYOUT_CHANGE EMSG_LIST_REQUEST(2,20)
 //Input			Item Iterator
-//Output		FLOAT£¨POSITION£©
+//Output		FLOATï¼ˆPOSITIONï¼‰
 //Result
-//·µ»Ølist ItemÎ»ÖÃË÷Òý 0 1 2 3
+//è¿”å›žlist Itemä½ç½®ç´¢å¼• 0 1 2 3
 #define EACT_LIST_GET_ITEM_INDEX EMSG_LIST_REQUEST(2,21)
 //Input			Item Iterator
-//Output		int£¨index£©
+//Output		intï¼ˆindexï¼‰
 //Result
 
 
-//ÔÚlist ItemÎ»ÖÃË÷Òý 0 1 2 3 ²åÈë
+//åœ¨list Itemä½ç½®ç´¢å¼• 0 1 2 3 æ’å…¥
 #define EACT_LIST_INSER_ITEM_INDEX EMSG_LIST_REQUEST(2,22)
 //Input			_STCTL_LIST_INSERT
-//Output		int£¨index£©
+//Output		intï¼ˆindexï¼‰
 //Result
 struct _STCTL_LIST_INSERT{
 	int mnIndex;		// index
-	IEinkuiIterator*  mpElement;	//²åÈëµÄIEinkuiIterator
+	IEinkuiIterator*  mpElement;	//æ’å…¥çš„IEinkuiIterator
 	
 };
-//É¾³ýindexºóµÄÔªËØ
+//åˆ é™¤indexåŽçš„å…ƒç´ 
 #define EACT_LIST_DELETE_ELEMENT_BIGGER_OR_EQUAL_INDEX EMSG_LIST_REQUEST(2,23)
 //Input			Index
 //Output		NONE
@@ -385,36 +385,36 @@ struct _STCTL_LIST_INSERT{
 
 static const GUID EGUID_LIST_DROP_ITEM = 
 { 0x81efb6da, 0xea4b, 0x4e5f, { 0xa4, 0xcd, 0x9c, 0xa4, 0x3e, 0x6c, 0x45, 0xf0 } };
-//ÉèÖÃÁ´±íÊÇ·ñ½ÓÊÕITEM DROPµÄÏûÏ¢£¬Ö÷ÒªÊÇÁ½¸öÍ¬ÀàÐÍµÄÁ´±íÖ®¼äµÄÍÏ×§
+//è®¾ç½®é“¾è¡¨æ˜¯å¦æŽ¥æ”¶ITEM DROPçš„æ¶ˆæ¯ï¼Œä¸»è¦æ˜¯ä¸¤ä¸ªåŒç±»åž‹çš„é“¾è¡¨ä¹‹é—´çš„æ‹–æ‹½
 #define EACT_LIST_SET_ACCEPT_DROP_ITEM EMSG_LIST_REQUEST(2,24)
 //Input			bool
 //Output		NONE
 //Result
 
-//¿ªÊ¼ÒÆ¶¯ÔªËØ
+//å¼€å§‹ç§»åŠ¨å…ƒç´ 
 #define EACT_LIST_DRAG_ITEM_START EMSG_LIST_REQUEST(2,25)
 //Input			Iterator*
 //Output		NONE
 //Result
 
-//¿ªÊ¼ÒÆ¶¯ÔªËØ
+//å¼€å§‹ç§»åŠ¨å…ƒç´ 
 #define EACT_LIST_DRAG_ITEM_DRAGING EMSG_LIST_REQUEST(2,26)
 //Input			STMS_DRAGGING_ELE
 //Output		NONE
 //Result
 
-//½áÊøÒÆ¶¯ÔªËØ
+//ç»“æŸç§»åŠ¨å…ƒç´ 
 #define EACT_LIST_DRAG_ITEM_END EMSG_LIST_REQUEST(2,27)
 //Input			Iterator*
 //Output		NONE
 //Result
 
-//ÉèÖÃ¸úËæËæ±ãÒÆ¶¯µÄIterator
+//è®¾ç½®è·Ÿéšéšä¾¿ç§»åŠ¨çš„Iterator
 #define EACT_LIST_SET_DRAG_FOR_MOUSER_ITERATOR EMSG_LIST_REQUEST(2,28)
 //Input			Iterator*
 //Output		NONE
 //Result
-//ÉèÖÃ²åÈë±êÊ¶Iterator
+//è®¾ç½®æ’å…¥æ ‡è¯†Iterator
 #define EACT_LIST_SET_DROP_MARK_ITERATOR EMSG_LIST_REQUEST(2,29)
 //Input			Iterator*
 //Output		NONE
@@ -422,101 +422,101 @@ static const GUID EGUID_LIST_DROP_ITEM =
 
 
 struct _STCTL_LIST_ITEM_CLICK{
-	int mnFlag;                   //´øÈë±ê¼Ç
-	D2D1_POINT_2F mPosWorld;		// Êó±êµã»÷µÄÎ»ÖÃ
-	IEinkuiIterator*  mpElement;	//²åÈëµÄIEinkuiIterator
+	int mnFlag;                   //å¸¦å…¥æ ‡è®°
+	D2D1_POINT_2F mPosWorld;		// é¼ æ ‡ç‚¹å‡»çš„ä½ç½®
+	IEinkuiIterator*  mpElement;	//æ’å…¥çš„IEinkuiIterator
 
 };
-//ItemÓÒ¼üµã»÷ÏûÏ¢
+//Itemå³é”®ç‚¹å‡»æ¶ˆæ¯
 #define EACT_LIST_ITEMCLICK_RBUTTON EMSG_LIST_REQUEST(2,30)
 //Input			_STCTL_LIST_ITEM_CLICK
 //Output		NONE
 //Result
-//É¾³ýindexºóµÄÔªËØ,µ«ÊÇ²»CloseÕâÐ©ÔªËØ
+//åˆ é™¤indexåŽçš„å…ƒç´ ,ä½†æ˜¯ä¸Closeè¿™äº›å…ƒç´ 
 #define EACT_LIST_DELETE_ELEMENT_BIGGER_OR_EQUAL_INDEX_NO_CLOSE EMSG_LIST_REQUEST(2,31)
 //Input			Index
 //Output		NONE
 //Result
 
 struct _STCTL_LIST_SWAP{
-	IEinkuiIterator*  mpFromElement;		// ½»»»FROM
-	IEinkuiIterator*  mpToElement;	//½»»»TO
+	IEinkuiIterator*  mpFromElement;		// äº¤æ¢FROM
+	IEinkuiIterator*  mpToElement;	//äº¤æ¢TO
 
 };
-//½»»»ÔªËØ
+//äº¤æ¢å…ƒç´ 
 #define EACT_LIST_SWAP_ELEMENT EMSG_LIST_REQUEST(2,32)
 //Input			_STCTL_LIST_SWAP
 //Output		NONE
 //Result
 
-//É¾³ýÔªËØµ«ÊÇ²»Close
+//åˆ é™¤å…ƒç´ ä½†æ˜¯ä¸Close
 #define EACT_LIST_DELETE_ELEMENT_NO_CLOSE EMSG_LIST_REQUEST(2,33)
 //Input			IEinkuiIterator
 //Output		NONE
 //Result
 
-//·µ»Ølist ItemµÄÊýÁ¿
+//è¿”å›žlist Itemçš„æ•°é‡
 #define EACT_LIST_GET_ITEM_NUM EMSG_LIST_REQUEST(2,34)
 //Input			NULL 
-//Output		int£¨£©
+//Output		intï¼ˆï¼‰
 //Result
 
-//°ÑÖ¸¶¨ÏîÒÆ¶¯µ½¿ÉÏÔÊ¾ÇøÓò
+//æŠŠæŒ‡å®šé¡¹ç§»åŠ¨åˆ°å¯æ˜¾ç¤ºåŒºåŸŸ
 #define EACT_LIST_SHOW_BY_INDEX EMSG_LIST_REQUEST(2,35)
 //Input			LONG 
 //Output		NULL
 //Result
 
-//»»Í¼
+//æ¢å›¾
 //#define EACT_PICTUREFRAME_CHANGE_PIC EMSG_BUTTON_REQUEST(2,2)
-////Input			LONG,Ö¸Ã÷ÏÔÊ¾µÚ¼¸Ö¡
+////Input			LONG,æŒ‡æ˜Žæ˜¾ç¤ºç¬¬å‡ å¸§
 //struct _STEMS_PICTURE_TEXT{
-//	wchar_t Text[ES_SHOW_TEXT_MAX_LEN];	    //°´Å¥ÏÔÊ¾ÎÄ×Ö
+//	wchar_t Text[ES_SHOW_TEXT_MAX_LEN];	    //æŒ‰é’®æ˜¾ç¤ºæ–‡å­—
 //};
 //typedef _STEMS_BUTTON_TEXT STEMS_BUTTON_TEXT,*PSTEMS_BUTTON_TEXT;	
 //
 ////Output		NONE
 ////Result
 
-// ´¥·¢µÄÏûÏ¢
+// è§¦å‘çš„æ¶ˆæ¯
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_STATICTEXT L"StaticText"	//ÎÄ±¾ÎÄ×Ö
+#define ES_ETYPE_STATICTEXT L"StaticText"	//æ–‡æœ¬æ–‡å­—
 #define EMSG_STATICTEXT_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_STATICTEXT,_MJ_NUM,_MN_NUM)
-//ÎÄ±¾ÔªËØ»á´¥·¢µÄÏûÏ¢
+//æ–‡æœ¬å…ƒç´ ä¼šè§¦å‘çš„æ¶ˆæ¯
 
 
-//ÎÄ±¾ÔªËØ½ÓÊÕµÄÏûÏ¢
-//¸ü»»ÏÔÊ¾ÎÄ×Ö
+//æ–‡æœ¬å…ƒç´ æŽ¥æ”¶çš„æ¶ˆæ¯
+//æ›´æ¢æ˜¾ç¤ºæ–‡å­—
 #define EACT_STATICTEXT_SET_TEXT EMSG_STATICTEXT_REQUEST(2,1)
-//Input			wchat* ÒªÏÔÊ¾µÄÐÂÎÄ±¾
+//Input			wchat* è¦æ˜¾ç¤ºçš„æ–°æ–‡æœ¬
 //Output		NONE
 //Result
 
-//»ñÈ¡ÏÔÊ¾ÎÄ×Ö
+//èŽ·å–æ˜¾ç¤ºæ–‡å­—
 #define EACT_STATICTEXT_GET_TEXT EMSG_STATICTEXT_REQUEST(2,2)
 //Input			none
-//Output		wchat_t** ·µ»ØµÄ×Ö·û´®Ö¸Õë²»Ó¦¸Ã³¤ÆÚ³ÖÓÐ£¬ÎÞÐèÊÍ·Å
+//Output		wchat_t** è¿”å›žçš„å­—ç¬¦ä¸²æŒ‡é’ˆä¸åº”è¯¥é•¿æœŸæŒæœ‰ï¼Œæ— éœ€é‡Šæ”¾
 //Result
 
 
-//ÎÄ±¾ÔªËØµÄÑÕÉ«
-//¸ü»»ÏÔÊ¾ÎÄ×Ö
+//æ–‡æœ¬å…ƒç´ çš„é¢œè‰²
+//æ›´æ¢æ˜¾ç¤ºæ–‡å­—
 #define EACT_STATICTEXT_SET_TEXT_COLOR EMSG_STATICTEXT_REQUEST(2,3)
 //Input			RGBA(LONG)
 //Output		NONE
 //Result
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_SLIDERBUTTON L"SliderButton"	//»¬¶¯°´Å¥
+#define ES_ETYPE_SLIDERBUTTON L"SliderButton"	//æ»‘åŠ¨æŒ‰é’®
 #define EMSG_SLIDERBUTTON_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_SLIDERBTN,_MJ_NUM,_MN_NUM)
 
-//¶¨ÒåSliderbuttonµÄstyleºê
+//å®šä¹‰Sliderbuttonçš„styleå®
 #define ES_SLIDER_BUTTON_STYLE_HOR 1
 #define ES_SLIDER_BUTTON_STYLE_VER 2
 #define ES_SLIDER_BUTTON_STYLE_ANYWAY 3
 
-//·µ»Ø¸¸´°¿ÚÍÏ×§ÏûÏ¢
+//è¿”å›žçˆ¶çª—å£æ‹–æ‹½æ¶ˆæ¯
 #define EACT_SLIDERBUTTON_DRAG_START EMSG_SLIDERBUTTON_REQUEST(2,1)
 #define EACT_SLIDERBUTTON_DRAG_END EMSG_SLIDERBUTTON_REQUEST(2,2)
 #define EACT_SLIDERBUTTON_DRAGING EMSG_SLIDERBUTTON_REQUEST(2,3)
@@ -524,83 +524,83 @@ struct _STCTL_LIST_SWAP{
 //output        NONE
 //Result
 
-//ÉèÖÃsliderbuttonµÄ¹ö¶¯·½Ïò£¬²ÎÊý½«ÉÏÃæµÄstyleºê
+//è®¾ç½®sliderbuttonçš„æ»šåŠ¨æ–¹å‘ï¼Œå‚æ•°å°†ä¸Šé¢çš„styleå®
 #define EACT_SLIDERBUTTON_SET_STYLE EMSG_SLIDERBUTTON_REQUEST(2,4)
 //Input			nStyle(LONG)
 //Output		NONE
 //Result
 
-//ÉèÖÃsliderbuttonµÄ¹ö¶¯ÇøÓò
+//è®¾ç½®sliderbuttonçš„æ»šåŠ¨åŒºåŸŸ
 #define EACT_SLIDERBUTTON_SET_SLIDERRECT EMSG_SLIDERBUTTON_REQUEST(2,5)
 //Input			D2D1_RECT_F
 //Output		NONE
 //Result
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_SCROLLBAR L"ScrollBar"	//½ø¶ÈÌõ
+#define ES_ETYPE_SCROLLBAR L"ScrollBar"	//è¿›åº¦æ¡
 #define EMSG_SCROLLBAR_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_SCROLLBAR,_MJ_NUM,_MN_NUM)
 
-//·µ»Ø¸¸´°¿Ú×ÝÏò¹ö¶¯Î»ÖÃ+1 »ò -1 ÏûÏ¢
+//è¿”å›žçˆ¶çª—å£çºµå‘æ»šåŠ¨ä½ç½®+1 æˆ– -1 æ¶ˆæ¯
 #define EACT_SCROLLBAR_VSCROLL EMSG_SCROLLBAR_REQUEST(2,1)
-//Input			0/UP »ò 1/DOWN
+//Input			0/UP æˆ– 1/DOWN
 //Output		NONE
 //Result
 
-//·µ»Ø¸¸´°¿Ú£¬Æä×ÝÏò¹ö¶¯Ìõ»¬¿éµÄÎ»ÖÃ
+//è¿”å›žçˆ¶çª—å£ï¼Œå…¶çºµå‘æ»šåŠ¨æ¡æ»‘å—çš„ä½ç½®
 #define EACT_SCROLLBAR_VSCROLL_THUMB_POSITION EMSG_SCROLLBAR_REQUEST(2,2)
 //Input			fPositin(FLOAT)
 //Output		NONE
 //Result
 
-//·µ»Ø¸¸´°¿ÚºáÏò¹ö¶¯µÄÎ»ÖÃ+1 »ò -1 ÏûÏ¢
+//è¿”å›žçˆ¶çª—å£æ¨ªå‘æ»šåŠ¨çš„ä½ç½®+1 æˆ– -1 æ¶ˆæ¯
 #define EACT_SCROLLBAR_HSCROLL EMSG_SCROLLBAR_REQUEST(2,2)
-//Input			0/Lefe »ò 1/Right
+//Input			0/Lefe æˆ– 1/Right
 //Output		NONE
 //Result
 
-//·µ»Ø¸¸´°¿Ú£¬ÆäºáÏò¹ö¶¯Ìõ»¬¿éµÄÎ»ÖÃ
+//è¿”å›žçˆ¶çª—å£ï¼Œå…¶æ¨ªå‘æ»šåŠ¨æ¡æ»‘å—çš„ä½ç½®
 #define EACT_SCROLLBAR_HSCROLL_THUMB_POSITION EMSG_SCROLLBAR_REQUEST(2,4)
 //Input			fPositin(FLOAT)
 //Output		NONE
 //Result
 
-//ÉèÖÃ×ÝÏò¹ö¶¯Ìõ»¬¿éÎ»ÖÃ
+//è®¾ç½®çºµå‘æ»šåŠ¨æ¡æ»‘å—ä½ç½®
 #define EACT_SCROLLBAR_VSCROLL_SET_SLIDER_POSTION EMSG_SCROLLBAR_REQUEST(2,5)
 //Input			fPositin(FLOAT)
 //Output		NONE
 //Result
 
-//ÉèÖÃºáÏò¹ö¶¯Ìõ»¬¿éÎ»ÖÃ
+//è®¾ç½®æ¨ªå‘æ»šåŠ¨æ¡æ»‘å—ä½ç½®
 #define EACT_SCROLLBAR_HSCROLL_SET_SLIDER_POSTION EMSG_SCROLLBAR_REQUEST(2,6)
 //Input			fPositin(FLOAT)
 //Output		NONE
 //Result
 
-//ÉèÖÃ¹ö¶¯ÌõµÄ¹ö¶¯·¶Î§
+//è®¾ç½®æ»šåŠ¨æ¡çš„æ»šåŠ¨èŒƒå›´
 #define EACT_SCROLLBAR_HVSCROLL_SET_DELTA_SIZE EMSG_SCROLLBAR_REQUEST(2,7)
 //Input			fSize(FLOAT)
 //Output		NONE
 //Result
 
-//»ñÈ¡ºáÏò¹ö¶¯ÌõµÄ¸ß¶È
+//èŽ·å–æ¨ªå‘æ»šåŠ¨æ¡çš„é«˜åº¦
 #define EACT_SCROLLBAR_HSCROLL_GET_HEIGTH EMSG_SCROLLBAR_REQUEST(2,8)
 //Input			NULL
 //Output		fSize(FLOAT)
 //Result
 
-//»ñÈ¡×ÝÏò¹ö¶¯ÌõµÄ¿í¶È
+//èŽ·å–çºµå‘æ»šåŠ¨æ¡çš„å®½åº¦
 #define EACT_SCROLLBAR_VSCROLL_GET_WIDTH EMSG_SCROLLBAR_REQUEST(2,9)
 //Input			NULL
 //Output		fSize(FLOAT)
 //Result
 
-//Relactio¹ö¶¯Ìõ
+//Relactioæ»šåŠ¨æ¡
 #define EACT_SCROLLBAR_HVSCROLL_RELACATION EMSG_SCROLLBAR_REQUEST(2,10)
 //Input			NULL
 //Output		NULL
 //Result
 
-//Ä£Äâµã»÷ÉÏÏÂ°´Å¥
+//æ¨¡æ‹Ÿç‚¹å‡»ä¸Šä¸‹æŒ‰é’®
 #define EACT_SCROLLBAR_BT_CLICK EMSG_SCROLLBAR_REQUEST(2,11)
 //Input			bool 
 //Output		NULL
@@ -608,96 +608,96 @@ struct _STCTL_LIST_SWAP{
 
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_SLIDERBAR L"SliderBar"	//¹ö¶¯Ìõ
+#define ES_ETYPE_SLIDERBAR L"SliderBar"	//æ»šåŠ¨æ¡
 #define EMSG_SLIDERBAR_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_SLIDEREBAR,_MJ_NUM,_MN_NUM)
 
 
-// ±»µã»÷¸Ä±äÁË»¬¿éµÄÎ»ÖÃ
+// è¢«ç‚¹å‡»æ”¹å˜äº†æ»‘å—çš„ä½ç½®
 #define EACT_SLIDERBAR_THUMB_CLICK EMSG_SLIDERBAR_REQUEST(2,1)
 //Input			fPositin(FLOAT)
 //Output		NONE
 //Result
 
 
-//ÉèÖÃ»¬¿é·¶Î§,×îÐ¡Ä¬ÈÏÊÇ0£¬Input ´«Èë×î´ó·¶Î§
+//è®¾ç½®æ»‘å—èŒƒå›´,æœ€å°é»˜è®¤æ˜¯0ï¼ŒInput ä¼ å…¥æœ€å¤§èŒƒå›´
 #define EACT_SLIDERBAR_SET_RANGE EMSG_SLIDERBAR_REQUEST(2,2)
-//Input			fPositin(FLOAT)£¬×î´ó·¶Î§
+//Input			fPositin(FLOAT)ï¼Œæœ€å¤§èŒƒå›´
 //Output		NONE
 //Result
 
-//ÉèÖÃ»¬¿éÎ»ÖÃ£¬ÇëÏÈÈÃRange ÔÙÉèÖÃÎ»ÖÃ
+//è®¾ç½®æ»‘å—ä½ç½®ï¼Œè¯·å…ˆè®©Range å†è®¾ç½®ä½ç½®
 #define EACT_SLIDERBAR_SET_POSITION EMSG_SLIDERBAR_REQUEST(2,3)
-//Input			fPositin(FLOAT)£¬
+//Input			fPositin(FLOAT)ï¼Œ
 //Output		NONE
 //Result
 
-//¿ªÊ¼ÍÏ¶¯»¬¿é
+//å¼€å§‹æ‹–åŠ¨æ»‘å—
 #define EACT_SLIDERBAR_DRAG_START EMSG_SLIDERBAR_REQUEST(2,4)
 //Input			fPositin(FLOAT)
 //Output		NONE
 //Result
 
-//»¬¿éÍÏ¶¯¹ý³ÌÖÐ
+//æ»‘å—æ‹–åŠ¨è¿‡ç¨‹ä¸­
 #define EACT_SLIDERBAR_DRAGING EMSG_SLIDERBAR_REQUEST(2,4)
 //Input			fPositin(FLOAT)
 //Output		NONE
 //Result
 
-//½áÊøÍÏ¶¯»¬¿é
+//ç»“æŸæ‹–åŠ¨æ»‘å—
 #define EACT_SLIDERBAR_DRAG_END EMSG_SLIDERBAR_REQUEST(2,5)
 //Input			fPositin(FLOAT)
 //Output		NONE
 //Result
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_EDIT L"Edit"	//±à¼­¿ò
+#define ES_ETYPE_EDIT L"Edit"	//ç¼–è¾‘æ¡†
 
-// ±à¼­¿ò¿Ø¼þ¿ÉÄÜ´¥·¢ÏûÏ¢ ¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
+// ç¼–è¾‘æ¡†æŽ§ä»¶å¯èƒ½è§¦å‘æ¶ˆæ¯ Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
 
-// ÄÚÈÝ±»ÐÞ¸Ä
+// å†…å®¹è¢«ä¿®æ”¹
 #define EEVT_EDIT_CONTENT_MODIFIED EMSG_DEFINE(LMSG_TP_EDIT,1,1)
 // input none
 // output none
 // result na
 
-// ÄÚÈÝÐÞ¸ÄÍê³É£¬ÊäÈëÊ±°´ÏÂ"Enter"¼ü£¬»òÕßÒÆ³ý¼üÅÌ½¹µã£¬¶¼½«µ¼ÖÂÄÚÈÝÍê³ÉÏûÏ¢±»·¢ËÍ
-// Ó¦½ìÊÕµ½"ÉèÖÃÄÚÈÝ"ÏûÏ¢¶øµ¼ÖÂµÄÄÚÈÝÐÞ¸Ä£¬²»»á·¢ËÍÕâÌõÏûÏ¢
+// å†…å®¹ä¿®æ”¹å®Œæˆï¼Œè¾“å…¥æ—¶æŒ‰ä¸‹"Enter"é”®ï¼Œæˆ–è€…ç§»é™¤é”®ç›˜ç„¦ç‚¹ï¼Œéƒ½å°†å¯¼è‡´å†…å®¹å®Œæˆæ¶ˆæ¯è¢«å‘é€
+// åº”å±Šæ”¶åˆ°"è®¾ç½®å†…å®¹"æ¶ˆæ¯è€Œå¯¼è‡´çš„å†…å®¹ä¿®æ”¹ï¼Œä¸ä¼šå‘é€è¿™æ¡æ¶ˆæ¯
 #define EEVT_EDIT_CONTENT_COMPLETION EMSG_DEFINE(LMSG_TP_EDIT,1,5)
 // input wchar[] the content string with a tail UNICODE_NULL
 // output none
 // result na
 
-// Êó±ê½¹µã±ä»¯
+// é¼ æ ‡ç„¦ç‚¹å˜åŒ–
 #define EEVT_EDIT_MOUSE_FOCUS EMSG_DEFINE(LMSG_TP_EDIT,2,1)
 // input LONG  zero if the focus is lost,nonzero if we get the mousefocus
 // output none
 // result na
 
-// Êó±êÍÏ¶¯£¬°´ÏÂ×óÖÐÓÒÈÎºÎÒ»¸ö°´Å¥È»ºóÔÚ½çÃæÉÏÍÏ¶¯
+// é¼ æ ‡æ‹–åŠ¨ï¼ŒæŒ‰ä¸‹å·¦ä¸­å³ä»»ä½•ä¸€ä¸ªæŒ‰é’®ç„¶åŽåœ¨ç•Œé¢ä¸Šæ‹–åŠ¨
 #define EEVT_EDIT_DRAGING	EMSG_DEFINE(LMSG_TP_EDIT,2,5)
 // input none
 // output none
 // result na
 
-// Êó±êË«»÷
+// é¼ æ ‡åŒå‡»
 #define EEVT_EDIT_MOUSE_DCLICK	EMSG_DEFINE(LMSG_TP_EDIT,2,11)
 // input LONG the number of the character was double-clicked
 // oputput none
 // result na
 
-// ¼üÅÌ½¹µã±ä»¯
+// é”®ç›˜ç„¦ç‚¹å˜åŒ–
 #define EEVT_EDIT_KEYBOARD_FOCUS	EMSG_DEFINE(LMSG_TP_EDIT,3,1)
 // input LONG  zero if the focus is lost,nonzero if we get the keyboardf
 // output none
 // result na
 
-// °´¼üÐÐÎª£¬¸¸ÔªËØ½ÓÊÕµ½ÕâÌõÏûÏ¢£¬Èç¹ûÏ£Íû¿Ø¼þ²»Òª´¦ÀíÕâ¸öÊäÈëÐÐÎª£¬Çë·µ»ØERESULT_DISCARD
+// æŒ‰é”®è¡Œä¸ºï¼Œçˆ¶å…ƒç´ æŽ¥æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œå¦‚æžœå¸Œæœ›æŽ§ä»¶ä¸è¦å¤„ç†è¿™ä¸ªè¾“å…¥è¡Œä¸ºï¼Œè¯·è¿”å›žERESULT_DISCARD
 #define EEVT_EDIT_KEY_STIKE		EMSG_DEFINE(LMSG_TP_EDIT,3,5)
 // intput STEMS_KEY_PRESSED
 // output none
 // result ERESULT_DISCARD to discard the operation
 
-// ×Ö·ûÊäÈë£¬¸¸ÔªËØ½ÓÊÕµ½ÕâÌõÏûÏ¢£¬Èç¹ûÏ£Íû¿Ø¼þ²»Òª´¦ÀíÕâ¸ö×Ö·ûÊäÈëÐÐÎª£¬Çë·µ»ØERESULT_DISCARD
+// å­—ç¬¦è¾“å…¥ï¼Œçˆ¶å…ƒç´ æŽ¥æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œå¦‚æžœå¸Œæœ›æŽ§ä»¶ä¸è¦å¤„ç†è¿™ä¸ªå­—ç¬¦è¾“å…¥è¡Œä¸ºï¼Œè¯·è¿”å›žERESULT_DISCARD
 #define EEVT_EDIT_CHAR_INPUT	EMSG_DEFINE(LMSG_TP_EDIT,3,10)
 // intput STEMS_CHAR_INPUT
 // output none
@@ -705,58 +705,58 @@ struct _STCTL_LIST_SWAP{
 
 
 
-// ±à¼­¿ò¿Ø¼þµÄÉèÖÃÏûÏ¢ ¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
+// ç¼–è¾‘æ¡†æŽ§ä»¶çš„è®¾ç½®æ¶ˆæ¯ Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
 
-// ÉèÖÃÎÄ±¾ÄÚÈÝ, must be send
+// è®¾ç½®æ–‡æœ¬å†…å®¹, must be send
 #define EACT_EDIT_SET_TEXT EMSG_DEFINE(LMSG_TP_EDIT,20,1)
 // input wchar[] must have the tail UNICODE_NULL and no more than 512 characters
 // output none
 // result ERESULT_SUCCESS or ERESULT_UNSUCCESSFUL
 
-// Ö»½ÓÊÜÊý×Ö
+// åªæŽ¥å—æ•°å­—
 #define EACT_EDIT_NUMBER_ONLY EMSG_DEFINE(LMSG_TP_EDIT,20,5)
 // input LONG, nonzero indicate that the edit shalln't accept characters except these are numbers '0' to '9'; zero set back to normal mode
 // output none
 // result na
 
-// ÃÜÎÄÏÔÊ¾
+// å¯†æ–‡æ˜¾ç¤º
 #define EACT_EDIT_PASSWORD_MODE EMSG_DEFINE(LMSG_TP_EDIT,20,6)
 // intput LONG, nonzero inidcate that the edit shall draw every charactor as '*';zero set back to normal mode 
 // output none
 // result na
 
-// ×ÖÊýÏÞÖÆ
+// å­—æ•°é™åˆ¶
 #define EACT_EDIT_SET_LENGTH_LIMIT EMSG_DEFINE(LMSG_TP_EDIT,20,7)
 // input LONG, the limit of characters the edit can save. < 0 to cancel the limit
 // output none
 // result na
 
 
-// »ñµÃÎÄ±¾ÄÚÈÝ£¬must be send
+// èŽ·å¾—æ–‡æœ¬å†…å®¹ï¼Œmust be send
 #define EACT_EDIT_GET_TEXT EMSG_DEFINE(LMSG_TP_EDIT,21,1)
 // intput none
 // output wchar[] buffer to receive the text
 // result return ERESULT_INSUFFICIENT_RESOURCES if output buffer is short than the text to obtain. 
 
-// »ñµÃÎÄ±¾ÄÚÈÝ°üº¬µÄ×Ö·û×ÜÊý£¬²»°üÀ¨½áÎ²µÄNULL
+// èŽ·å¾—æ–‡æœ¬å†…å®¹åŒ…å«çš„å­—ç¬¦æ€»æ•°ï¼Œä¸åŒ…æ‹¬ç»“å°¾çš„NULL
 #define EACT_EDIT_GET_TEXT_LENGTH	EMSG_DEFINE(LMSG_TP_EDIT,21,2)
 // input none
 // output ULONG
 // result ERESULT_SUCCESS
 
-// »ñÈ¡Ñ¡ÖÐÐÅÏ¢
+// èŽ·å–é€‰ä¸­ä¿¡æ¯
 #define EACT_EDIT_GET_SELECTION EMSG_DEFINE(LMSG_TP_EDIT,22,1)
 // intput none
 // output
 struct _STCTL_EDIT_SELECTION{
-	LONG Chars;		// ¿Ø¼þÄÚµÄ×Ö·ûÊý£¬²»°üÀ¨½áÎ²'\0'£»µ±ÓÃÓÚÏûÏ¢EACT_EDIT_SET_SELECTIONÊ±ÎÞÐ§
-	LONG SelBegin;	// Ñ¡ÖÐÇøÓòµÄÊ××Ö·ûË÷Òý£¬0±íÊ¾¿Ø¼þÖÐµÄµÚÒ»¸ö×Ö·û£»Ã»ÓÐ×Ö·ûÑ¡ÖÐÊ±ÎÞÒâÒå£»
-	LONG SelCount;	// Ñ¡ÖÐÇøÓòµÄ×Ö·ûÊý£¬0±íÊ¾Ã»ÓÐ×Ö·û±»Ñ¡ÖÐ£»-1±íÊ¾È«²¿Ñ¡ÖÐ		add by colin
+	LONG Chars;		// æŽ§ä»¶å†…çš„å­—ç¬¦æ•°ï¼Œä¸åŒ…æ‹¬ç»“å°¾'\0'ï¼›å½“ç”¨äºŽæ¶ˆæ¯EACT_EDIT_SET_SELECTIONæ—¶æ— æ•ˆ
+	LONG SelBegin;	// é€‰ä¸­åŒºåŸŸçš„é¦–å­—ç¬¦ç´¢å¼•ï¼Œ0è¡¨ç¤ºæŽ§ä»¶ä¸­çš„ç¬¬ä¸€ä¸ªå­—ç¬¦ï¼›æ²¡æœ‰å­—ç¬¦é€‰ä¸­æ—¶æ— æ„ä¹‰ï¼›
+	LONG SelCount;	// é€‰ä¸­åŒºåŸŸçš„å­—ç¬¦æ•°ï¼Œ0è¡¨ç¤ºæ²¡æœ‰å­—ç¬¦è¢«é€‰ä¸­ï¼›-1è¡¨ç¤ºå…¨éƒ¨é€‰ä¸­		add by colin
 };
 typedef _STCTL_EDIT_SELECTION STCTL_EDIT_SELECTION,* PSTCTL_EDIT_SELECTION;
 // success or failure
 
-// ÉèÖÃÑ¡ÖÐ
+// è®¾ç½®é€‰ä¸­
 #define EACT_EDIT_SET_SELECTION EMSG_DEFINE(LMSG_TP_EDIT,22,2)
 // intput STCTL_EDIT_SELECTION
 // output none
@@ -769,29 +769,29 @@ typedef _STCTL_EDIT_SELECTION STCTL_EDIT_SELECTION,* PSTCTL_EDIT_SELECTION;
 
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_LABEL L"Label"	//±êÇ©
+#define ES_ETYPE_LABEL L"Label"	//æ ‡ç­¾
 
-// ±êÇ©¿Ø¼þ¿ÉÄÜ´¥·¢ÏûÏ¢£¬Ö»ÓÐÉèÖÃÁË³¬Á´½ÓÊôÐÔ²Å»á´¥·¢ÏÂÁÐÏûÏ¢ ¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
+// æ ‡ç­¾æŽ§ä»¶å¯èƒ½è§¦å‘æ¶ˆæ¯ï¼Œåªæœ‰è®¾ç½®äº†è¶…é“¾æŽ¥å±žæ€§æ‰ä¼šè§¦å‘ä¸‹åˆ—æ¶ˆæ¯ Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
 
-// Êó±ê½¹µã±ä»¯
+// é¼ æ ‡ç„¦ç‚¹å˜åŒ–
 #define EEVT_LABEL_MOUSE_FOCUS EMSG_DEFINE(LMSG_TP_LABEL,1,1)
 // input LONG  zero if the focus is lost,nonzero if we get the mousefocus
 // output none
 // result na
 
-// OPEN£¬Êó±ê×ó¼üµ¥»÷£¬»òÕßÊÇ»ñµÃ¼üÅÌ½¹µãÊÇ°´ÏÂ¿Õ¸ñ¼ü
+// OPENï¼Œé¼ æ ‡å·¦é”®å•å‡»ï¼Œæˆ–è€…æ˜¯èŽ·å¾—é”®ç›˜ç„¦ç‚¹æ˜¯æŒ‰ä¸‹ç©ºæ ¼é”®
 #define EEVT_LABEL_OPEN	EMSG_DEFINE(LMSG_TP_LABEL,1,2)
 // input none
 // oputput none
 // result na
 
-// ¼üÅÌ½¹µã±ä»¯
+// é”®ç›˜ç„¦ç‚¹å˜åŒ–
 #define EEVT_LABEL_KEYBOARD_FOCUS	EMSG_DEFINE(LMSG_TP_LABEL,2,1)
 // input LONG  zero if the focus is lost,nonzero if we get the keyboardf
 // output none
 // result na
 
-// °´¼üÐÐÎª£¬¸¸ÔªËØ½ÓÊÕµ½ÕâÌõÏûÏ¢£¬Èç¹ûÏ£Íû¿Ø¼þ²»Òª´¦ÀíÕâ¸öÊäÈëÐÐÎª£¬Çë·µ»ØERESULT_DISCARD
+// æŒ‰é”®è¡Œä¸ºï¼Œçˆ¶å…ƒç´ æŽ¥æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œå¦‚æžœå¸Œæœ›æŽ§ä»¶ä¸è¦å¤„ç†è¿™ä¸ªè¾“å…¥è¡Œä¸ºï¼Œè¯·è¿”å›žERESULT_DISCARD
 #define EEVT_LABEL_KEY_STIKE		EMSG_DEFINE(LMSG_TP_LABEL,2,2)
 // intput STEMS_KEY_PRESSED
 // output none
@@ -799,85 +799,85 @@ typedef _STCTL_EDIT_SELECTION STCTL_EDIT_SELECTION,* PSTCTL_EDIT_SELECTION;
 
 
 
-// ±êÇ©¿Ø¼þµÄÉèÖÃÏûÏ¢ ¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
+// æ ‡ç­¾æŽ§ä»¶çš„è®¾ç½®æ¶ˆæ¯ Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
 
-// ÉèÖÃÎÄ±¾ÄÚÈÝ, must be send
+// è®¾ç½®æ–‡æœ¬å†…å®¹, must be send
 #define EACT_LABEL_SET_TEXT EMSG_DEFINE(LMSG_TP_LABEL,20,1)
 // input wchar[] must have the tail UNICODE_NULL and no more than 512 characters
 // output none
 // result ERESULT_SUCCESS or ERESULT_UNSUCCESSFUL
 
-// »ñµÃÎÄ±¾ÄÚÈÝ£¬must be send
+// èŽ·å¾—æ–‡æœ¬å†…å®¹ï¼Œmust be send
 #define EACT_LABEL_GET_TEXT EMSG_DEFINE(LMSG_TP_LABEL,21,1)
 // intput none
 // output wchar[] buffer to receive the text
 // result return ERESULT_INSUFFICIENT_RESOURCES if output buffer is short than the text to obtain. 
 
-// »ñµÃÎÄ±¾ÄÚÈÝ°üº¬µÄ×Ö·û×ÜÊý£¬²»°üÀ¨½áÎ²µÄNULL
+// èŽ·å¾—æ–‡æœ¬å†…å®¹åŒ…å«çš„å­—ç¬¦æ€»æ•°ï¼Œä¸åŒ…æ‹¬ç»“å°¾çš„NULL
 #define EACT_LABEL_GET_TEXT_LENGTH	EMSG_DEFINE(LMSG_TP_LABEL,21,2)
 // input none
 // output ULONG
 // result ERESULT_SUCCESS
 
-// ÉèÖÃ×ÖÌåÇ°¾°ÑÕÉ«
+// è®¾ç½®å­—ä½“å‰æ™¯é¢œè‰²
 #define EACT_LABEL_SET_FORE_COLOR EMSG_DEFINE(LMSG_TP_LABEL,21,5)
 // intput ULONG color in 4 bytes as b,g,r,a
 // output none
 // result ERESULT_SUCCESS or ERESULT_WRONG_PARAMETERS or ERESULT_UNSUCCESSFUL
 
-// ÉèÖÃ×ÖÌå±³¾°ÑÕÉ«
+// è®¾ç½®å­—ä½“èƒŒæ™¯é¢œè‰²
 #define EACT_LABEL_SET_BACK_COLOR EMSG_DEFINE(LMSG_TP_LABEL,21,6)
 // input  ULONG color in 4 bytes as b,g,r,a
 // output none
 // result ERESULT_SUCCESS or ERESULT_WRONG_PARAMETERS or ERESULT_UNSUCCESSFUL
 
-// »ñµÃ×ÖÌåÇ°¾°ÑÕÉ«
+// èŽ·å¾—å­—ä½“å‰æ™¯é¢œè‰²
 #define EACT_LABEL_GET_FORE_COLOR EMSG_DEFINE(LMSG_TP_LABEL,21,7)
 // input none
 // output  ULONG color in 4 bytes as b,g,r,a
 // result ERESULT_SUCCESS or ERESULT_WRONG_PARAMETERS or ERESULT_UNSUCCESSFUL
 
-// »ñµÃ×ÖÌå±³¾°ÑÕÉ«
+// èŽ·å¾—å­—ä½“èƒŒæ™¯é¢œè‰²
 #define EACT_LABEL_GET_BACK_COLOR EMSG_DEFINE(LMSG_TP_LABEL,21,8)
 // input none
 // output  ULONG color in 4 bytes as b,g,r,a
 // result ERESULT_SUCCESS or ERESULT_WRONG_PARAMETERS or ERESULT_UNSUCCESSFUL
 
-// ÉèÖÃËü¾ßÓÐÏÂ»®Ïß
+// è®¾ç½®å®ƒå…·æœ‰ä¸‹åˆ’çº¿
 #define EACT_LABEL_SET_UNDERLINE EMSG_DEFINE(LMSG_TP_LABEL,21,10)
 // input LONG, nonzero to set underline with the text,zero to remove the underline
 // output none
 // result na
 
-// ÉèÖÃ³¬Á´½ÓÊôÐÔ
+// è®¾ç½®è¶…é“¾æŽ¥å±žæ€§
 #define EACT_LABEL_SET_HYPERLINK EMSG_DEFINE(LMSG_TP_LABEL,21,11)
 // input LONG, nonzero to set the hyperlink attribute,zero to remove the hyperlink attribute
 // output none
 // result na
 
-// »ñµÃÎÄ×ÖÅÅ²¼ÐÅÏ¢
+// èŽ·å¾—æ–‡å­—æŽ’å¸ƒä¿¡æ¯
 #define EACT_LABEL_GET_LAYOUT EMSG_DEFINE(LMSG_TP_LABEL,21,15)
 // input none
 //output 
 struct _STCTL_LABEL_LAYOUT{
-	D2D1_SIZE_F MaxSize;			// ÎÄ×ÖÇøÓò×î´ó¿í¸ß
-	D2D1_RECT_F Background;			// ±³¾°ÇøÓò
-	D2D1_POINT_2F TextPos;			// ÎÄ×ÖÇøÓòµÄ×óÉÏ½Ç
-	D2D1_SIZE_F TextSize;			// ÎÄ×ÖÇøÓòµÄ¿í¸ß
-	LONG VisibleChars;				// ¿É¼û×Ö·ûÊý£¬²»°üÀ¨Ëõ¶ÌÌæ»»·û'.'
-	LONG Lines;						// ¿É¼ûÐÐÊý
+	D2D1_SIZE_F MaxSize;			// æ–‡å­—åŒºåŸŸæœ€å¤§å®½é«˜
+	D2D1_RECT_F Background;			// èƒŒæ™¯åŒºåŸŸ
+	D2D1_POINT_2F TextPos;			// æ–‡å­—åŒºåŸŸçš„å·¦ä¸Šè§’
+	D2D1_SIZE_F TextSize;			// æ–‡å­—åŒºåŸŸçš„å®½é«˜
+	LONG VisibleChars;				// å¯è§å­—ç¬¦æ•°ï¼Œä¸åŒ…æ‹¬ç¼©çŸ­æ›¿æ¢ç¬¦'.'
+	LONG Lines;						// å¯è§è¡Œæ•°
 };
 typedef _STCTL_LABEL_LAYOUT STCTL_LABEL_LAYOUT,* PSTCTL_LABEL_LAYOUT;
 // result ERESULT_SUCCESS or ERESULT_WRONG_PARAMETERS or ERESULT_UNSUCCESSFUL
 
 
-// ÉèÖÃ×î¿í
+// è®¾ç½®æœ€å®½
 #define EACT_LABEL_SET_MAX_WIDTH EMSG_DEFINE(LMSG_TP_LABEL,21,16)
 // input LONG
 // output none
 // result na
 
-// ÉèÖÃ×î¸ß
+// è®¾ç½®æœ€é«˜
 #define EACT_LABEL_SET_MAX_HEIGHT EMSG_DEFINE(LMSG_TP_LABEL,21,17)
 // input LONG
 // output none
@@ -885,26 +885,26 @@ typedef _STCTL_LABEL_LAYOUT STCTL_LABEL_LAYOUT,* PSTCTL_LABEL_LAYOUT;
 
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_ANIMATOR L"Animator"	//±êÇ©
+#define ES_ETYPE_ANIMATOR L"Animator"	//æ ‡ç­¾
 
-// ¶¯»­¿Ø¼þµÄ´¥·¢ÏûÏ¢¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
+// åŠ¨ç”»æŽ§ä»¶çš„è§¦å‘æ¶ˆæ¯Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
 
-// ×¼±¸»æÖÆÏûÏ¢£¬ÈÃ¸¸¶ÔÏóÓÐ»ú»á¶Ô×ÔÉíÉèÖÃÃÉ°æ£¬ÊÕµ½´ËÏûÏ¢ºó£¬²»ÒªÖ´ÐÐÆäËû´úÂë£¬½ö½ö×öÃÉ°æÉèÖÃ
+// å‡†å¤‡ç»˜åˆ¶æ¶ˆæ¯ï¼Œè®©çˆ¶å¯¹è±¡æœ‰æœºä¼šå¯¹è‡ªèº«è®¾ç½®è’™ç‰ˆï¼Œæ”¶åˆ°æ­¤æ¶ˆæ¯åŽï¼Œä¸è¦æ‰§è¡Œå…¶ä»–ä»£ç ï¼Œä»…ä»…åšè’™ç‰ˆè®¾ç½®
 #define EEVT_ANIMATOR_BEFORE_PAINT EMSG_DEFINE(LMSG_TP_ANIMATOR,1,1)
 // input IXuiPaintBoard*
 // output none
 // result na
 
-// ½áÊø»æÖÆÏûÏ¢£¬ÈÃ¸¸¶ÔÏóÓÐ»ú»á³·ÏúÒÑÉèÖÃÃÉ°æ£¬ÊÕµ½´ËÏûÏ¢ºó£¬²»ÒªÖ´ÐÐÆäËû´úÂë£¬½ö½ö×öÃÉ°æÉèÖÃ
+// ç»“æŸç»˜åˆ¶æ¶ˆæ¯ï¼Œè®©çˆ¶å¯¹è±¡æœ‰æœºä¼šæ’¤é”€å·²è®¾ç½®è’™ç‰ˆï¼Œæ”¶åˆ°æ­¤æ¶ˆæ¯åŽï¼Œä¸è¦æ‰§è¡Œå…¶ä»–ä»£ç ï¼Œä»…ä»…åšè’™ç‰ˆè®¾ç½®
 #define EEVT_ANIMATOR_AFTER_PAINT EMSG_DEFINE(LMSG_TP_ANIMATOR,1,2)
 // input IXuiPaintBoard*
 // output none
 // result na
 
 
-// ¶¯»­¿Ø¼þµÄÉèÖÃÏûÏ¢¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
+// åŠ¨ç”»æŽ§ä»¶çš„è®¾ç½®æ¶ˆæ¯Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
 
-// ¸üÐÂ¶¯»­Ö¡, must be send
+// æ›´æ–°åŠ¨ç”»å¸§, must be send
 #define EACT_ANIMATOR_SET_FRAME EMSG_DEFINE(LMSG_TP_ANIMATOR,20,1)
 // input 
 struct _STCTL_ANIMATOR_FRAME{
@@ -917,30 +917,30 @@ typedef _STCTL_ANIMATOR_FRAME STCTL_ANIMATOR_FRAME,* PSTCTL_ANIMATOR_FRAME;
 // result ERESULT_SUCCESS or ERESULT_UNSUCCESSFUL
 
 
-// ÉèÖÃÍ¼Ïñ±ä»», ÉÐÎ´ÊµÏÖ
+// è®¾ç½®å›¾åƒå˜æ¢, å°šæœªå®žçŽ°
 #define EACT_ANIMATOR_SET_TRANSFORM EMSG_DEFINE(LMSG_TP_ANIMATOR,21,1)
 // input
 struct _STCTL_ANIMATOR_TRANSFORM{
-	ULONG Flag;				// ¼ûÏÂÃæµÄºê¶¨Òå£¬¿ÉÒÔÊÇ²»Í¬FlagµÄ×éºÏ
-	FLOAT RotationAngle;	// Ðý×ª½Ç¶È£¬ÕýÊýË³Ê±Õë
-	D2D1_POINT_2F RotationCenter;	// Ðý×ªÖÐÐÄ
+	ULONG Flag;				// è§ä¸‹é¢çš„å®å®šä¹‰ï¼Œå¯ä»¥æ˜¯ä¸åŒFlagçš„ç»„åˆ
+	FLOAT RotationAngle;	// æ—‹è½¬è§’åº¦ï¼Œæ­£æ•°é¡ºæ—¶é’ˆ
+	D2D1_POINT_2F RotationCenter;	// æ—‹è½¬ä¸­å¿ƒ
 };
 typedef _STCTL_ANIMATOR_TRANSFORM STCTL_ANIMATOR_TRANSFORM,* PSTCTL_ANIMATOR_TRANSFORM;
-#define EFLAG_ANIMATOR_HORIZONTALFLIP 1 // ×óÓÒ·­×ª
-#define EFLAG_ANIMATOR_VIRTICALFLIP 2 // ÉÏÏÂ·­×ª
-#define EFLAG_ANIMATOR_ROTATION	4		// Éè¶¨Ðý×ªµÄ½Ç¶È
-#define EFLAG_ANIMATOR_ROTATION_CENTER  8 // Éè¶¨Ðý×ªµÄÖÐÐÄ 
+#define EFLAG_ANIMATOR_HORIZONTALFLIP 1 // å·¦å³ç¿»è½¬
+#define EFLAG_ANIMATOR_VIRTICALFLIP 2 // ä¸Šä¸‹ç¿»è½¬
+#define EFLAG_ANIMATOR_ROTATION	4		// è®¾å®šæ—‹è½¬çš„è§’åº¦
+#define EFLAG_ANIMATOR_ROTATION_CENTER  8 // è®¾å®šæ—‹è½¬çš„ä¸­å¿ƒ 
 // output none
 // result ERESULT_SUCCESS or ERESULT_UNSUCCESSFUL
 
 
 //////////////////////////////////////////////////////////////////////////
-// Ñ¡Ôñ¿ò
+// é€‰æ‹©æ¡†
 //////////////////////////////////////////////////////////////////////////
 
 // NOTE:
-// 1£ºÑ¡Ôñ¿òµÄÎ»ÖÃºÍ´óÐ¡£¬ÐèÒª¸¸´°¿ÚÈ¥ÉèÖÃ¡£
-// 2£ºÈç¹û¸¸´°¿Ú²»ÉèÖÃ£¬ÄÇÃ´Ñ¡Ôñ¿òµÄÎ»ÖÃºÍ´óÐ¡ÔòºÍ¸¸´°¿ÚÖØºÏ¡£Ñ¡Ôñ¿ò»áÍêÈ«°´ÕÕ¸¸´°¿ÚµÄ×îÐ¡¾ØÐÎ£¬ÍêÈ«ÕÖ×¡¸¸´°¿Ú
+// 1ï¼šé€‰æ‹©æ¡†çš„ä½ç½®å’Œå¤§å°ï¼Œéœ€è¦çˆ¶çª—å£åŽ»è®¾ç½®ã€‚
+// 2ï¼šå¦‚æžœçˆ¶çª—å£ä¸è®¾ç½®ï¼Œé‚£ä¹ˆé€‰æ‹©æ¡†çš„ä½ç½®å’Œå¤§å°åˆ™å’Œçˆ¶çª—å£é‡åˆã€‚é€‰æ‹©æ¡†ä¼šå®Œå…¨æŒ‰ç…§çˆ¶çª—å£çš„æœ€å°çŸ©å½¢ï¼Œå®Œå…¨ç½©ä½çˆ¶çª—å£
 
 
 #define ES_ETYPE_SELECT L"Select"
@@ -948,104 +948,104 @@ typedef _STCTL_ANIMATOR_TRANSFORM STCTL_ANIMATOR_TRANSFORM,* PSTCTL_ANIMATOR_TRA
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÒÔÏÂÊÇÒÆ¶¯Ñ¡Ôñ¿òµÄÏûÏ¢
+// ä»¥ä¸‹æ˜¯ç§»åŠ¨é€‰æ‹©æ¡†çš„æ¶ˆæ¯
 //////////////////////////////////////////////////////////////////////////
 
-#define EMSG_SELECTFRAME_BEGIN		EMSG_SELECTFRAME_REQUEST(1,2)		//Ñ¡Ôñ¿ò¿ªÊ¼ÍÏ¶¯
+#define EMSG_SELECTFRAME_BEGIN		EMSG_SELECTFRAME_REQUEST(1,2)		//é€‰æ‹©æ¡†å¼€å§‹æ‹–åŠ¨
 // input  none
 // output none
 // result none
-#define EMSG_SELECTFRAME_DRAGED		EMSG_SELECTFRAME_REQUEST(1,3)		//Ñ¡Ôñ¿òÍÏ¶¯Íê³É
+#define EMSG_SELECTFRAME_DRAGED		EMSG_SELECTFRAME_REQUEST(1,3)		//é€‰æ‹©æ¡†æ‹–åŠ¨å®Œæˆ
 // input none
 // output none
 // result none
 
-#define EMSG_SELECTFRAME_MOVING		EMSG_SELECTFRAME_REQUEST(1,4)		// ÒÆ¶¯Ñ¡Ôñ¿ò£¬½«Æ«ÒÆ´«µÝµ½¸¸Àà
+#define EMSG_SELECTFRAME_MOVING		EMSG_SELECTFRAME_REQUEST(1,4)		// ç§»åŠ¨é€‰æ‹©æ¡†ï¼Œå°†åç§»ä¼ é€’åˆ°çˆ¶ç±»
 // input D2D1_POINT_2F
 // output none
 // result none
 
-// ÊÕµ½¼üÅÌÏûÏ¢£¬¸¸¶ÔÏóÈç¹ûÐèÒªÊ¶±ð´¦Àí£¬Çë·µ»ØERESULT_KEY_ACCEPTED£¬·µ»ØÆäËûÖµ£¬Ñ¡Ôñ¿ò½«×ÔÐÐ½âÊÍ¸Ã¼üÅÌÏûÏ¢£¬Ä¿Ç°¿ÉÄÜ½âÊÍµÄÊÇ·½Ïò¼üµ¼ÖÂµÄÑ¡Ôñ¿òÒÆ¶¯
+// æ”¶åˆ°é”®ç›˜æ¶ˆæ¯ï¼Œçˆ¶å¯¹è±¡å¦‚æžœéœ€è¦è¯†åˆ«å¤„ç†ï¼Œè¯·è¿”å›žERESULT_KEY_ACCEPTEDï¼Œè¿”å›žå…¶ä»–å€¼ï¼Œé€‰æ‹©æ¡†å°†è‡ªè¡Œè§£é‡Šè¯¥é”®ç›˜æ¶ˆæ¯ï¼Œç›®å‰å¯èƒ½è§£é‡Šçš„æ˜¯æ–¹å‘é”®å¯¼è‡´çš„é€‰æ‹©æ¡†ç§»åŠ¨
 #define EMSG_SELECTFRAME_KEYBOARD	EMSG_SELECTFRAME_REQUEST(2,1)		
 // input STEMS_KEY_PRESSED refer to EMSG_KEY_PRESSED message's definition
 // output none
 // result na
 
 //////////////////////////////////////////////////////////////////////////
-// ÒÔÏÂµÄÒÆ¶¯ÃªµãµÄÏûÏ¢
+// ä»¥ä¸‹çš„ç§»åŠ¨é”šç‚¹çš„æ¶ˆæ¯
 //////////////////////////////////////////////////////////////////////////
 
-// NOTE:µ±ÕýÔÚÒÆ¶¯Ä³¸öÃªµãÊ±£¬Ñ¡Ôñ¿òÐèÒª·¢ËÍ¸ø¸¸´°¿ÚÒ»¸öÈýÔª×é{positionÆ«ÒÆÁ¿,size±ä»¯Á¿, ÊÇ·ñ·¢Éú·­×ª},
-// ¸¸´°¿ÚÊÕµ½ÏûÏ¢ºó£¬¸ù¾Ý×ÔÉíÂß¼­ÅÐ¶ÏÊÇ·ñÐèÒª·¢Éú·­×ª£¬²¢¸øÑ¡Ôñ¿ò¶ÔÏó·¢ËÍ¹éÒ»»¯µÄÃüÁî£¬²¢ÇÒÖØÐÂÉèÖÃÑ¡Ôñ¿òµÄÎ»ÖÃºÍ´óÐ¡¡£
+// NOTE:å½“æ­£åœ¨ç§»åŠ¨æŸä¸ªé”šç‚¹æ—¶ï¼Œé€‰æ‹©æ¡†éœ€è¦å‘é€ç»™çˆ¶çª—å£ä¸€ä¸ªä¸‰å…ƒç»„{positionåç§»é‡,sizeå˜åŒ–é‡, æ˜¯å¦å‘ç”Ÿç¿»è½¬},
+// çˆ¶çª—å£æ”¶åˆ°æ¶ˆæ¯åŽï¼Œæ ¹æ®è‡ªèº«é€»è¾‘åˆ¤æ–­æ˜¯å¦éœ€è¦å‘ç”Ÿç¿»è½¬ï¼Œå¹¶ç»™é€‰æ‹©æ¡†å¯¹è±¡å‘é€å½’ä¸€åŒ–çš„å‘½ä»¤ï¼Œå¹¶ä¸”é‡æ–°è®¾ç½®é€‰æ‹©æ¡†çš„ä½ç½®å’Œå¤§å°ã€‚
 
-#define EMSG_SELECTPOINT_CHANGE_POSITION_SIZE		EMSG_SELECTFRAME_REQUEST(10,1)	// ÒÆ¶¯Ä³¸öÃªµã£¬Ïò¸¸´°¿Ú·¢´ËÏûÏ¢
+#define EMSG_SELECTPOINT_CHANGE_POSITION_SIZE		EMSG_SELECTFRAME_REQUEST(10,1)	// ç§»åŠ¨æŸä¸ªé”šç‚¹ï¼Œå‘çˆ¶çª—å£å‘æ­¤æ¶ˆæ¯
 // input PSTCTL_CHANGE_POSITION_SIZE
 // output none
 // result none
 
-#define EMSG_SELECTPOINT_BEGIN	EMSG_SELECTFRAME_REQUEST(10,5)		//¿ªÊ¼ÒÆ¶¯Ä³Ò»¸öÃªµã
+#define EMSG_SELECTPOINT_BEGIN	EMSG_SELECTFRAME_REQUEST(10,5)		//å¼€å§‹ç§»åŠ¨æŸä¸€ä¸ªé”šç‚¹
 // input none
 // output none
 // result none
 
-#define EMSG_SELECTFPOINT_MOVED	 EMSG_SELECTFRAME_REQUEST(10,10)		//Ä³¸öÃªµãÒÆ¶¯Íê³É
+#define EMSG_SELECTFPOINT_MOVED	 EMSG_SELECTFRAME_REQUEST(10,10)		//æŸä¸ªé”šç‚¹ç§»åŠ¨å®Œæˆ
 // input none
 // output none
 // result none
 
-#define EMSG_SELECTFRAME_REGULAR		EMSG_SELECTFRAME_REQUEST(10,12)		// ¸¸´°¿Ú¸ø×Ó´°¿Ú·¢ËÍ¹éÒ»»¯ÃüÁî
+#define EMSG_SELECTFRAME_REGULAR		EMSG_SELECTFRAME_REQUEST(10,12)		// çˆ¶çª—å£ç»™å­çª—å£å‘é€å½’ä¸€åŒ–å‘½ä»¤
 // input none
 // output none
 // result none
 
 
-#define EMSG_SET_PROPORTIONAL_SCALING		EMSG_SELECTFRAME_REQUEST(10,15)		// ¸¸´°¿ÚÍ¨Öª×Ó´°¿Ú£¬ÐèÒªÇ¿ÖÆµÈ±ÈËõ·Å
-// input bool£¬true±íÊ¾ÐèÒªµÈ±ÈËõ·Å£¬false±íÊ¾²»ÐèÒª
+#define EMSG_SET_PROPORTIONAL_SCALING		EMSG_SELECTFRAME_REQUEST(10,15)		// çˆ¶çª—å£é€šçŸ¥å­çª—å£ï¼Œéœ€è¦å¼ºåˆ¶ç­‰æ¯”ç¼©æ”¾
+// input boolï¼Œtrueè¡¨ç¤ºéœ€è¦ç­‰æ¯”ç¼©æ”¾ï¼Œfalseè¡¨ç¤ºä¸éœ€è¦
 // output none
 // result none
 
-#define EMSG_SET_EDIT_STATUS				EMSG_SELECTFRAME_REQUEST(10,16)		// ±íÊ¾ÊÇ·ñÔÊÐí±à¼­
-// input bool£¬true±íÊ¾ÔÊÐí±à¼­£¬false±íÊ¾²»ÔÊÐí
+#define EMSG_SET_EDIT_STATUS				EMSG_SELECTFRAME_REQUEST(10,16)		// è¡¨ç¤ºæ˜¯å¦å…è®¸ç¼–è¾‘
+// input boolï¼Œtrueè¡¨ç¤ºå…è®¸ç¼–è¾‘ï¼Œfalseè¡¨ç¤ºä¸å…è®¸
 // output none
 // result none
 
 
 enum XuiSelectFrameActivePoint{
-	XuiLeftTop = 1,		// ×óÉÏµã
-	XuiMidTop = 2,		// ÖÐÉÏµã
-	XuiRightTop = 3,		// ÓÒÉÏµã
-	XuiRightMid = 4,		// ÓÒÖÐµã
-	XuiRightBottom = 5,	// ÓÒÏÂµã
-	XuiMidBottom = 6,	// ÖÐÏÂµã
-	XuiLeftBottom = 7,	// ×óÏÂµã
-	XuiLeftMid = 8		// ×óÖÐµã
+	XuiLeftTop = 1,		// å·¦ä¸Šç‚¹
+	XuiMidTop = 2,		// ä¸­ä¸Šç‚¹
+	XuiRightTop = 3,		// å³ä¸Šç‚¹
+	XuiRightMid = 4,		// å³ä¸­ç‚¹
+	XuiRightBottom = 5,	// å³ä¸‹ç‚¹
+	XuiMidBottom = 6,	// ä¸­ä¸‹ç‚¹
+	XuiLeftBottom = 7,	// å·¦ä¸‹ç‚¹
+	XuiLeftMid = 8		// å·¦ä¸­ç‚¹
 };
 
 typedef  struct _STCTL_CHANGE_POSITION_SIZE{
-	D2D1_POINT_2F	mdPositionOffset;	// Î»ÖÃÆ«ÒÆÁ¿
-	D2D1_SIZE_F		mdSizeVariation;	// ´óÐ¡±ä»¯Á¿
-	bool			mcHTurn;			// ÅÐ¶ÏÊÇ·ñË®Æ½·­×ª
-	bool			mcVTurn;			// ÅÐ¶ÏÊÇ·ñ´¹Ö±·­×ª
+	D2D1_POINT_2F	mdPositionOffset;	// ä½ç½®åç§»é‡
+	D2D1_SIZE_F		mdSizeVariation;	// å¤§å°å˜åŒ–é‡
+	bool			mcHTurn;			// åˆ¤æ–­æ˜¯å¦æ°´å¹³ç¿»è½¬
+	bool			mcVTurn;			// åˆ¤æ–­æ˜¯å¦åž‚ç›´ç¿»è½¬
 }STCTL_CHANGE_POSITION_SIZE,*PSTCTL_CHANGE_POSITION_SIZE;
 
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_MENUITEM L"MenuItem"	// ²Ëµ¥Ïî
+#define ES_ETYPE_MENUITEM L"MenuItem"	// èœå•é¡¹
 
 #define EMSG_MENUITEM_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_MENUITEMN,_MJ_NUM,_MN_NUM)
 
-// ²Ëµ¥Ïî´¥·¢µÄÏûÏ¢£¬»áÖ±½Ó·¢ËÍ¸øPopupMenu£¬PopupMenu¡¢MenuButton¡¢MenuBarµÈÊÕµ½Õâ¸öÏûÏ¢¶¼»áÖ±½ÓÍù¸¸¶ÔÏó·¢ËÍ
-// ¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
+// èœå•é¡¹è§¦å‘çš„æ¶ˆæ¯ï¼Œä¼šç›´æŽ¥å‘é€ç»™PopupMenuï¼ŒPopupMenuã€MenuButtonã€MenuBarç­‰æ”¶åˆ°è¿™ä¸ªæ¶ˆæ¯éƒ½ä¼šç›´æŽ¥å¾€çˆ¶å¯¹è±¡å‘é€
+// Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
 
-// ²Ëµ¥Ïî±»µã»÷
+// èœå•é¡¹è¢«ç‚¹å‡»
 #define EEVT_MENUITEM_CLICK						EMSG_MENUITEM_REQUEST(1,1)
-// input LONG, ±»µã»÷µÄ²Ëµ¥ÏîµÄID
+// input LONG, è¢«ç‚¹å‡»çš„èœå•é¡¹çš„ID
 
-// ²Ëµ¥Ïî»ñÈ¡½¹µã
+// èœå•é¡¹èŽ·å–ç„¦ç‚¹
 #define EEVT_MENUITEM_GET_FOCUS					EMSG_MENUITEM_REQUEST(1,2)
-// input Iterator** »ñÈ¡½¹µãµÄ²Ëµ¥Ïî
+// input Iterator** èŽ·å–ç„¦ç‚¹çš„èœå•é¡¹
 
-// ²Ëµ¥ÏîÊó±êÐüÍ£
+// èœå•é¡¹é¼ æ ‡æ‚¬åœ
 #define EEVT_MENUITEM_MOUSE_HOVER				EMSG_MENUITEM_REQUEST(1,3)
 // input STCTL_MENUITEM_MOUSE_HOVER
 // output none
@@ -1057,26 +1057,26 @@ typedef struct _STCTL_MENUITEM_MOUSE_HOVER{
 }STCTL_MENUITEM_MOUSE_HOVER,*PSTCTL_MENUITEM_MOUSE_HOVER;
 
 
-// ²Ëµ¥Ïî·ÃÎÊÏûÏ¢
-// ÉèÖÃ²Ëµ¥ÏîµÄCheck×´Ì¬
+// èœå•é¡¹è®¿é—®æ¶ˆæ¯
+// è®¾ç½®èœå•é¡¹çš„CheckçŠ¶æ€
 #define EACT_MENUITEM_SET_CHECK_STATE			EMSG_MENUITEM_REQUEST(2,1)
-// input bool ÊÇ·ñÉèÖÃCheck×´Ì¬
+// input bool æ˜¯å¦è®¾ç½®CheckçŠ¶æ€
 
-// ¸ü¸Ä²Ëµ¥ÏîÎÄ±¾
+// æ›´æ”¹èœå•é¡¹æ–‡æœ¬
 #define EACT_MENUITEM_CHANGE_TEXT				EMSG_MENUITEM_REQUEST(2,2)
-// input wchar_t*			ÐÂµÄ²Ëµ¥ÎÄ±¾
+// input wchar_t*			æ–°çš„èœå•æ–‡æœ¬
 
-// ¸ü¸ÄÈÈ¼ü(±ØÐëÈ·±£²Ëµ¥ÏîÓÐÎÄ±¾£©
+// æ›´æ”¹çƒ­é”®(å¿…é¡»ç¡®ä¿èœå•é¡¹æœ‰æ–‡æœ¬ï¼‰
 #define EACT_MENUITEM_CHANGE_HOTKEY				EMSG_MENUITEM_REQUEST(2,3)
 // PSTCTL_MENUITEM_HOTKEY
 
 struct _STCTL_MENUITEM_HOTKEY
 {
-	wchar_t HotKeyToShow[MAX_PATH];		// ÓÃÀ´ÏÔÊ¾µÄÈÈ¼üÎÄ×Ö
-	ULONG VirtualKey;					// ÐéÄâ¼üÖµ
-	bool NeedShift;						// ÊÇ·ñÐèÒªShift
-	bool NeedCtrl;						// ÊÇ·ñÐèÒªCtrl
-	bool NeedAlt;						// ÊÇ·ñÐèÒªAlt
+	wchar_t HotKeyToShow[MAX_PATH];		// ç”¨æ¥æ˜¾ç¤ºçš„çƒ­é”®æ–‡å­—
+	ULONG VirtualKey;					// è™šæ‹Ÿé”®å€¼
+	bool NeedShift;						// æ˜¯å¦éœ€è¦Shift
+	bool NeedCtrl;						// æ˜¯å¦éœ€è¦Ctrl
+	bool NeedAlt;						// æ˜¯å¦éœ€è¦Alt
 };
 
 typedef _STCTL_MENUITEM_HOTKEY STCTL_MENUITEM_HOTKEY, *PSTCTL_MENUITEM_HOTKEY;
@@ -1090,89 +1090,89 @@ typedef _STCTL_MENUITEM_HOTKEY STCTL_MENUITEM_HOTKEY, *PSTCTL_MENUITEM_HOTKEY;
 
 #define EMSG_POPUPMENU_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_POPUPMENU,_MJ_NUM,_MN_NUM)
 
-// µ¯³ö²Ëµ¥·ÃÎÊÏûÏ¢
-// ¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
+// å¼¹å‡ºèœå•è®¿é—®æ¶ˆæ¯
+// Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
 
-// Ôö¼ÓÐÂµÄ²Ëµ¥Ïîµ½Ö¸¶¨Î»ÖÃ
+// å¢žåŠ æ–°çš„èœå•é¡¹åˆ°æŒ‡å®šä½ç½®
 #define EACT_POPUPMENU_INSERT_MENUITEM_BY_CREATE								EMSG_POPUPMENU_REQUEST(1,1)
 // input STCTL_POPUPMENU_MENUITEMINFO
 struct _STCTL_POPUPMENU_MENUITEMINFO{
-	LONG UniqueMenuItemId;				// MenuItemµÄÈ«¾ÖÎ¨Ò»ID
-	int Index;							// ²Ëµ¥ÏîµÄÎ»ÖÃË÷Òý£¨-1±íÊ¾²åÖµÄ©Î²£©
-	LONG MenuItemId;					// MenuItemÔÚPopupMenuÏÂµÄID£¬Îª0±íÊ¾ÈÎÒâID
-	UINT Type;							// ²Ëµ¥ÏîµÄÀàÐÍ£¬²ÎÕÕMenuItemÃ¶¾ÙµÄÀàÐÍ£¬Ä¿Ç°½öÖ§³Ö1ÀàÐÍ
-	wchar_t MenuText[MAX_PATH];			// ²Ëµ¥ÏîÏÔÊ¾µÄÎÄ×Ö
-	PSTCTL_MENUITEM_HOTKEY* HotKeyInfo;	// ÈÈ¼üÐÅÏ¢
+	LONG UniqueMenuItemId;				// MenuItemçš„å…¨å±€å”¯ä¸€ID
+	int Index;							// èœå•é¡¹çš„ä½ç½®ç´¢å¼•ï¼ˆ-1è¡¨ç¤ºæ’å€¼æœ«å°¾ï¼‰
+	LONG MenuItemId;					// MenuItemåœ¨PopupMenuä¸‹çš„IDï¼Œä¸º0è¡¨ç¤ºä»»æ„ID
+	UINT Type;							// èœå•é¡¹çš„ç±»åž‹ï¼Œå‚ç…§MenuItemæžšä¸¾çš„ç±»åž‹ï¼Œç›®å‰ä»…æ”¯æŒ1ç±»åž‹
+	wchar_t MenuText[MAX_PATH];			// èœå•é¡¹æ˜¾ç¤ºçš„æ–‡å­—
+	PSTCTL_MENUITEM_HOTKEY* HotKeyInfo;	// çƒ­é”®ä¿¡æ¯
 };
 typedef _STCTL_POPUPMENU_MENUITEMINFO STCTL_POPUPMENU_MENUITEMINFO,* PSTCTL_POPUPMENU_MENUITEMINFO;
 
 
-// ²åÈë²Ëµ¥Ïîµ½Ö¸¶¨Î»ÖÃ
+// æ’å…¥èœå•é¡¹åˆ°æŒ‡å®šä½ç½®
 #define EACT_POPUPMENU_INSERT_MENUITEM_BY_EXIST								EMSG_POPUPMENU_REQUEST(1,2)
 // input PSTCTL_POPUPMENU_MENUITEMINSERT
 
 struct _STCTL_POPUPMENU_MENUITEMINSERT{
 	IEinkuiIterator* MenuItem;
-	int Index;							// Òª²åÈëµÄË÷ÒýÎ»ÖÃ
+	int Index;							// è¦æ’å…¥çš„ç´¢å¼•ä½ç½®
 };
 typedef _STCTL_POPUPMENU_MENUITEMINSERT STCTL_POPUPMENU_MENUITEMINSERT,* PSTCTL_POPUPMENU_MENUITEMINSERT;
 
 
-// É¾³ýÖ¸¶¨CommandIDµÄ²Ëµ¥Ïî
+// åˆ é™¤æŒ‡å®šCommandIDçš„èœå•é¡¹
 #define EACT_POPUPMENU_DELETE_MENUITEM_BY_COMMANDID					EMSG_POPUPMENU_REQUEST(1,4)
 // input LONG commandid
 
-// É¾³ýÖ¸¶¨Ë÷ÒýµÄ²Ëµ¥Ïî£¬Ë÷Òý´«Èë-1±íÊ¾É¾³ýÈ«²¿²Ëµ¥Ïî
+// åˆ é™¤æŒ‡å®šç´¢å¼•çš„èœå•é¡¹ï¼Œç´¢å¼•ä¼ å…¥-1è¡¨ç¤ºåˆ é™¤å…¨éƒ¨èœå•é¡¹
 #define EACT_POPUPMENU_DELETE_MENUITEM_BY_INDEX						EMSG_POPUPMENU_REQUEST(1,5)
 // input LONG index
 
-// »ñÈ¡Ö¸¶¨CommandIDµÄ²Ëµ¥Ïîµü´úÆ÷
+// èŽ·å–æŒ‡å®šCommandIDçš„èœå•é¡¹è¿­ä»£å™¨
 #define EACT_POPUPMENU_GET_MENUITEM_BY_COMMANDID					EMSG_POPUPMENU_REQUEST(1,6)
 // input LONG commandId
 // output Iterator*
 
-// »ñÈ¡Ö¸¶¨Ë÷ÒýµÄ²Ëµ¥ÏîµÄµü´úÆ÷
+// èŽ·å–æŒ‡å®šç´¢å¼•çš„èœå•é¡¹çš„è¿­ä»£å™¨
 #define EACT_POPUPMENU_GET_MENUITEM_BY_INDEX						EMSG_POPUPMENU_REQUEST(1,7)
 // input  LONG index
 // output Iterator* 
 
-// ÒªÇóÖØÐÂ²¼¾Ö²Ëµ¥Ïî
+// è¦æ±‚é‡æ–°å¸ƒå±€èœå•é¡¹
 #define EACT_POPUPMENU_RELAYOUT_MENUITEM							EMSG_POPUPMENU_REQUEST(1,8)
 
 
-// ÉèÖÃÏÔÊ¾µÄÊ±ºò²»ÐèÒªÈ¥¹ÜÀí²Ëµ¥ÏîµÄÆôÓÃ/½ûÓÃ¡£ ÓÃ²Ëµ¥Ïî×ÔÉíÈ¥ÉèÖÃ
+// è®¾ç½®æ˜¾ç¤ºçš„æ—¶å€™ä¸éœ€è¦åŽ»ç®¡ç†èœå•é¡¹çš„å¯ç”¨/ç¦ç”¨ã€‚ ç”¨èœå•é¡¹è‡ªèº«åŽ»è®¾ç½®
 #define EACT_POPUPMENU_IS_MANAGER_MENUITEM_ENABLE					EMSG_POPUPMENU_REQUEST(1, 9)
 // input bool 
 
-// µ¯³ö²Ëµ¥´¥·¢µÄÏûÏ¢£¬
-// ¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
+// å¼¹å‡ºèœå•è§¦å‘çš„æ¶ˆæ¯ï¼Œ
+// Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
 
 
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_MENUBUTTON L"MenuButton"		// ²Ëµ¥°´Å¥
+#define ES_ETYPE_MENUBUTTON L"MenuButton"		// èœå•æŒ‰é’®
 
 #define EMSG_MENUBUTTON_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_MENUBUTTON,_MJ_NUM,_MN_NUM)
 
-// ²Ëµ¥°´Å¥´¥·¢µÄÏûÏ¢£¬»áÖ±½Ó·¢ËÍ¸ø¸¸´°¿Ú
-// ¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
+// èœå•æŒ‰é’®è§¦å‘çš„æ¶ˆæ¯ï¼Œä¼šç›´æŽ¥å‘é€ç»™çˆ¶çª—å£
+// Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
 
-// ²Ëµ¥°´Å¥±»µã»÷
+// èœå•æŒ‰é’®è¢«ç‚¹å‡»
 #define EEVT_MENUBUTTON_CLICK					EMSG_MENUBUTTON_REQUEST(1,1)
-// input bool µ±Ç°µã»÷µÄ²Ëµ¥°´Å¥ÊÇ·ñµ¯³ö×Ó²Ëµ¥
+// input bool å½“å‰ç‚¹å‡»çš„èœå•æŒ‰é’®æ˜¯å¦å¼¹å‡ºå­èœå•
 
 
-// ²Ëµ¥°´Å¥·ÃÎÊÏûÏ¢
-// ¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
-// ÉèÖÃ×Ó²Ëµ¥¿ÉÊÓ×´Ì¬
+// èœå•æŒ‰é’®è®¿é—®æ¶ˆæ¯
+// Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
+// è®¾ç½®å­èœå•å¯è§†çŠ¶æ€
 #define EEVT_MENUBUTTON_SET_SUBMENU_VISIBLE		EMSG_MENUBUTTON_REQUEST(2,1)
-// input bool ¿ÉÊÓ×´Ì¬
+// input bool å¯è§†çŠ¶æ€
 
-// ²åÈë²Ëµ¥Ïîµ½PopupMenu£¨°üÀ¨×ÓMenuItemµÄPopupMenu)
+// æ’å…¥èœå•é¡¹åˆ°PopupMenuï¼ˆåŒ…æ‹¬å­MenuItemçš„PopupMenu)
 #define EEVT_MENUBUTTON_INSERT_MENUITEM			EMSG_MENUBUTTON_REQUEST(2,2)
 // input STCTL_MENUBUTTON_INSERT_MENUITEM
 struct _STCTL_MENUBUTTON_INSERT_MENUITEM{
-	LONG UniquePopupMenuId;				// PopupMenuµÄÈ«¾ÖÎ¨Ò»ID
+	LONG UniquePopupMenuId;				// PopupMenuçš„å…¨å±€å”¯ä¸€ID
 	STCTL_POPUPMENU_MENUITEMINFO PopupMenuInfo;
 };
 typedef struct _STCTL_MENUBUTTON_INSERT_MENUITEM STCTL_MENUBUTTON_INSERT_MENUITEM,* PSTCTL_MENUBUTTON_INSERT_MENUITEM;
@@ -1182,34 +1182,34 @@ typedef struct _STCTL_MENUBUTTON_INSERT_MENUITEM STCTL_MENUBUTTON_INSERT_MENUITE
 
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_MENUBAR L"MenuBar"		// ²Ëµ¥°´Å¥
+#define ES_ETYPE_MENUBAR L"MenuBar"		// èœå•æŒ‰é’®
 
 #define EMSG_MENUBAR_REQUEST(_MJ_NUM,_MN_NUM)	EMSG_DEFINE(LMSG_TP_MENUBAR,_MJ_NUM,_MN_NUM)
 
-// ²Ëµ¥Ìõ·ÃÎÊÏûÏ¢
-// ¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
+// èœå•æ¡è®¿é—®æ¶ˆæ¯
+// Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
 
-// Ñ¯ÎÊµ±Ç°ÊÇ·ñÓÐÆäËû²Ëµ¥°´Å¥±»Õ¹¿ª
+// è¯¢é—®å½“å‰æ˜¯å¦æœ‰å…¶ä»–èœå•æŒ‰é’®è¢«å±•å¼€
 #define EACT_MENUBAR_ANY_SUBMENU_VISIBLE		EMSG_MENUBAR_REQUEST(1,1)
-// output  bool, ture±íÊ¾ÓÐÆäËû°´Å¥±»Õ¹¿ª£¬false±íÊ¾Ã»ÓÐ¡£
+// output  bool, tureè¡¨ç¤ºæœ‰å…¶ä»–æŒ‰é’®è¢«å±•å¼€ï¼Œfalseè¡¨ç¤ºæ²¡æœ‰ã€‚
 
-// ÉèÖÃÒþ²Ø×îºóÒ»´Îµ¯³öµÄ×Ó²Ëµ¥
+// è®¾ç½®éšè—æœ€åŽä¸€æ¬¡å¼¹å‡ºçš„å­èœå•
 #define EACT_MENUBAR_HIDE_LAST_SUBMENU			EMSG_MENUBAR_REQUEST(1,2)
 
 
-// ÒªÇó´´½¨ÐÂµÄMenuItem²åÈëµ½Ö¸¶¨µÄPopupMenuÖÐ
+// è¦æ±‚åˆ›å»ºæ–°çš„MenuItemæ’å…¥åˆ°æŒ‡å®šçš„PopupMenuä¸­
 #define EACT_MENUBAR_INSERT_NEW_MENUITEM		EMSG_MENUBAR_REQUEST(1,3)
 // input _STCTL_MENUBAR_INSERT_MENUITEM
-// ·µ»ØÖµ ERESULT_SUCCESS ±íÊ¾³É¹¦£¬·ñÔò±íÊ¾Ê§°Ü
+// è¿”å›žå€¼ ERESULT_SUCCESS è¡¨ç¤ºæˆåŠŸï¼Œå¦åˆ™è¡¨ç¤ºå¤±è´¥
 
 struct _STCTL_MENUBAR_INSERT_MENUITEM{
-	UINT MenuButtonID;				// Òª²åÈëµÄMenuButtonID
+	UINT MenuButtonID;				// è¦æ’å…¥çš„MenuButtonID
 	STCTL_MENUBUTTON_INSERT_MENUITEM MenuButtonInfo;
 };
 typedef _STCTL_MENUBAR_INSERT_MENUITEM STCTL_MENUBAR_INSERT_MENUITEM,* PSTCTL_MENUBAR_INSERT_MENUITEM;
 
 
-// »ñÈ¡Ö¸¶¨CommandIDµÄµ¯³ö²Ëµ¥µü´úÆ÷£¬³É¹¦·µ»ØSUCCESS£¬·ñÔòÊ§°Ü
+// èŽ·å–æŒ‡å®šCommandIDçš„å¼¹å‡ºèœå•è¿­ä»£å™¨ï¼ŒæˆåŠŸè¿”å›žSUCCESSï¼Œå¦åˆ™å¤±è´¥
 #define EACT_MENUBAR_GET_POPUPMENU_BY_COMMANDID	EMSG_MENUBAR_REQUEST(1, 4)
 // long commandid
 // output Iterator* 
@@ -1220,90 +1220,90 @@ typedef _STCTL_MENUBAR_INSERT_MENUITEM STCTL_MENUBAR_INSERT_MENUITEM,* PSTCTL_ME
 
 //////////////////////////////////////////////////////////////////////////
 
-#define ES_ETYPE_IMAGEBUTTON	L"ImageButton"			//ImageButtonÔªËØ
+#define ES_ETYPE_IMAGEBUTTON	L"ImageButton"			//ImageButtonå…ƒç´ 
 
-//¶¨ÒåImageButtonµÄÑùÊ½ 
-#define	IB_STYLE_NORMAL				0		//ÆÕÍ¨·ç¸ñ
-#define	IB_STYLE_KEEP_CHECKED		1		//±£³ÖÑ¡ÖÐ°´ÏÂ·ç¸ñ
+//å®šä¹‰ImageButtonçš„æ ·å¼ 
+#define	IB_STYLE_NORMAL				0		//æ™®é€šé£Žæ ¼
+#define	IB_STYLE_KEEP_CHECKED		1		//ä¿æŒé€‰ä¸­æŒ‰ä¸‹é£Žæ ¼
 
-//¶¨ÒåImageButtonµÄ×Ó¿Ø¼þID£¬ÆäËû¿Ø¼þ±ØÐë´óÓÚµÈÓÚ IB_ID_CTRL_OTHERS
+//å®šä¹‰ImageButtonçš„å­æŽ§ä»¶IDï¼Œå…¶ä»–æŽ§ä»¶å¿…é¡»å¤§äºŽç­‰äºŽ IB_ID_CTRL_OTHERS
 #define IB_ID_CTRL_LEFT_PICTURE				1
 #define IB_ID_CTRL_RIGHT_PICTURE			2
 
 #define IB_ID_CTRL_OTHERS					3	
 
-//°´Å¥¿Ø¼þ»á´¥·¢µÄÏûÏ¢
+//æŒ‰é’®æŽ§ä»¶ä¼šè§¦å‘çš„æ¶ˆæ¯
 #define EMSG_IMAGEBUTTON_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_IMAGEBUTTON,_MJ_NUM,_MN_NUM)
 
-//°´Å¥±»°´ÏÂ
+//æŒ‰é’®è¢«æŒ‰ä¸‹
 #define EEVT_IMAGEBUTTON_PRESSED		EMSG_IMAGEBUTTON_REQUEST(1,1)
-//Input			TEMS_MSG_BASE ½á¹¹Ìå
+//Input			TEMS_MSG_BASE ç»“æž„ä½“
 //Output		None
 //Result
 
-//°´Å¥±»ÊÍ·Å
+//æŒ‰é’®è¢«é‡Šæ”¾
 #define EEVT_IMAGEBUTTON_RELEASE		EMSG_IMAGEBUTTON_REQUEST(1,2)
-//Input			TEMS_MSG_BASE ½á¹¹Ìå
+//Input			TEMS_MSG_BASE ç»“æž„ä½“
 //Output		None
 //Result
 
-//°´Å¥±»µ¥»÷
+//æŒ‰é’®è¢«å•å‡»
 #define EEVT_IMAGEBUTTON_CLICK			EMSG_IMAGEBUTTON_REQUEST(1,3)
 //Input			None
 //Output		None
 //Result
 
-//°´Å¥±»µ¥»÷£¬½øÈë°´ÏÂ×´Ì¬
+//æŒ‰é’®è¢«å•å‡»ï¼Œè¿›å…¥æŒ‰ä¸‹çŠ¶æ€
 #define EEVT_IMAGEBUTTON_CHECKED		EMSG_IMAGEBUTTON_REQUEST(1,4)
 //Input			None
 //Output		None
 //Result
 
-//°´Å¥±»µ¥»÷£¬È¡Ïû°´ÏÂ×´Ì¬
+//æŒ‰é’®è¢«å•å‡»ï¼Œå–æ¶ˆæŒ‰ä¸‹çŠ¶æ€
 #define EEVT_IMAGEBUTTON_UNCHECKED		EMSG_IMAGEBUTTON_REQUEST(1,5)
 //Input			None
 //Output		None
 //Result
 
-//¸Ä±äÑÕÉ«Ñ¡Ôñ°´Å¥µÄÑÕÉ«Öµ£¨Ö»¶ÔÑÕÉ«Ñ¡Ôñ°´Å¥ÓÐÐ§£©
+//æ”¹å˜é¢œè‰²é€‰æ‹©æŒ‰é’®çš„é¢œè‰²å€¼ï¼ˆåªå¯¹é¢œè‰²é€‰æ‹©æŒ‰é’®æœ‰æ•ˆï¼‰
 #define EACT_IMAGEBUTTON_SET_COLOR		EMSG_IMAGEBUTTON_REQUEST(1,6)
-//Input			ULONG £¨ÑÕÉ«Öµ£©Òª»æÖÆµÄÑÕÉ«£¬Èç¹ûAÍ¨µÀÎª0£¬Ôò²»»æÖÆ 0xARGB 
+//Input			ULONG ï¼ˆé¢œè‰²å€¼ï¼‰è¦ç»˜åˆ¶çš„é¢œè‰²ï¼Œå¦‚æžœAé€šé“ä¸º0ï¼Œåˆ™ä¸ç»˜åˆ¶ 0xARGB 
 //Output		None
 //Result
 
-//¸Ä±ä×óÍ¼µÄ±³¾°Í¼£¨Ïà¶ÔÂ·¾¶£©
+//æ”¹å˜å·¦å›¾çš„èƒŒæ™¯å›¾ï¼ˆç›¸å¯¹è·¯å¾„ï¼‰
 #define EACT_IMAGEBUTTON_CHANGE_LEFT_IMAGE_BKG		EMSG_IMAGEBUTTON_REQUEST(1,7)
-//Input			wchat_t* Í¼Æ¬Ïà¶ÔÓÚDLLËùÔÚÄ¿Â¼µÄÂ·¾¶£¬ÏÖÔÚÖ»ÄÜ¸ü»»ÎªÖ»ÓÐ1Ö¡µÄÍ¼
+//Input			wchat_t* å›¾ç‰‡ç›¸å¯¹äºŽDLLæ‰€åœ¨ç›®å½•çš„è·¯å¾„ï¼ŒçŽ°åœ¨åªèƒ½æ›´æ¢ä¸ºåªæœ‰1å¸§çš„å›¾
 //Output		NONE
 //Result
 
-//¸Ä±ä×óÍ¼µÄ±³¾°Í¼£¨È«Â·¾¶£©
+//æ”¹å˜å·¦å›¾çš„èƒŒæ™¯å›¾ï¼ˆå…¨è·¯å¾„ï¼‰
 #define EACT_IMAGEBUTTON_CHANGE_LEFT_IMAGE_BKG_FULL_PATH		EMSG_IMAGEBUTTON_REQUEST(1,8)
-//Input			wchat_t* Í¼Æ¬È«Â·¾¶£¬ÏÖÔÚÖ»ÄÜ¸ü»»ÎªÖ»ÓÐ1Ö¡µÄÍ¼
+//Input			wchat_t* å›¾ç‰‡å…¨è·¯å¾„ï¼ŒçŽ°åœ¨åªèƒ½æ›´æ¢ä¸ºåªæœ‰1å¸§çš„å›¾
 //Output		NONE
 //Result
 
-//ÉèÖÃ°´Å¥check×´Ì¬
+//è®¾ç½®æŒ‰é’®checkçŠ¶æ€
 #define EACT_IMAGEBUTTON_SET_CHECKED							EMSG_IMAGEBUTTON_REQUEST(1,9)
 //Input			bool
 //Output		None
 //Result
 
-//ÉèÖÃ°´Å¥µÄËõ·Å±ÈÀý£¬·ÀÖ¹°´Å¥±äÐÎ
+//è®¾ç½®æŒ‰é’®çš„ç¼©æ”¾æ¯”ä¾‹ï¼Œé˜²æ­¢æŒ‰é’®å˜å½¢
 #define EACT_IMAGEBUTTON_SET_RATIO								EMSG_IMAGEBUTTON_REQUEST(1,10)
-//Input			Float £¨±ÈÀý£©
+//Input			Float ï¼ˆæ¯”ä¾‹ï¼‰
 //Output		NONE
 //Result
 
-//ÉèÖÃ°´Å¥×Ó²Ëµ¥Ä³Ïî±»Ñ¡ÖÐ
+//è®¾ç½®æŒ‰é’®å­èœå•æŸé¡¹è¢«é€‰ä¸­
 #define EACT_IMAGEBUTTON_SET_ITEM_SELECTED						EMSG_IMAGEBUTTON_REQUEST(1,11)
-//Input			int £¨ÏîID£¬ ´Ó1¿ªÊ¼£©
+//Input			int ï¼ˆé¡¹IDï¼Œ ä»Ž1å¼€å§‹ï¼‰
 //Output		NONE
 //Result
 
-//ÉèÖÃÑÕÉ«°´Å¥»æÖÆ¾ØÐÎ×´Ì¬µÄ¿ªÆô»ò¹Ø±Õ
+//è®¾ç½®é¢œè‰²æŒ‰é’®ç»˜åˆ¶çŸ©å½¢çŠ¶æ€çš„å¼€å¯æˆ–å…³é—­
 #define EACT_IMAGEBUTTON_DRAW_SHAPE						EMSG_IMAGEBUTTON_REQUEST(1,12)
-//Input			bool £¨true: »æÖÆ×Ô¶¨ÒåÐÎ×´ false£º²»»æÖÆ£©
+//Input			bool ï¼ˆtrue: ç»˜åˆ¶è‡ªå®šä¹‰å½¢çŠ¶ falseï¼šä¸ç»˜åˆ¶ï¼‰
 //Output		NONE
 //Result
 
@@ -1314,13 +1314,13 @@ typedef _STCTL_MENUBAR_INSERT_MENUITEM STCTL_MENUBAR_INSERT_MENUITEM,* PSTCTL_ME
 
 //////////////////////////////////////////////////////////////////////////
 
-#define ES_ETYPE_COMBOBOX L"ComboBox"			//ComboBoxÔªËØ
+#define ES_ETYPE_COMBOBOX L"ComboBox"			//ComboBoxå…ƒç´ 
 
-//¶¨ÒåComboBoxµÄÑùÊ½ 
-#define	COMBO_STYLE_EDIT		0	//´øÓÐ±à¼­¿òµÄ×éºÏ¿ò
-#define	COMBO_STYLE_STATIC		1	//´øÓÐ¾²Ì¬ÎÄ±¾¿Ø¼þµÄ×éºÏ¿ò
+//å®šä¹‰ComboBoxçš„æ ·å¼ 
+#define	COMBO_STYLE_EDIT		0	//å¸¦æœ‰ç¼–è¾‘æ¡†çš„ç»„åˆæ¡†
+#define	COMBO_STYLE_STATIC		1	//å¸¦æœ‰é™æ€æ–‡æœ¬æŽ§ä»¶çš„ç»„åˆæ¡†
 
-//¶¨ÒåComboBoxµÄ×Ó¿Ø¼þID£¬ÆäËû¿Ø¼þ±ØÐë´óÓÚµÈÓÚ COMBO_ID_CTRL_OTHERS
+//å®šä¹‰ComboBoxçš„å­æŽ§ä»¶IDï¼Œå…¶ä»–æŽ§ä»¶å¿…é¡»å¤§äºŽç­‰äºŽ COMBO_ID_CTRL_OTHERS
 #define COMBO_ID_CTRL_UPPER_PICTURE				1
 #define COMBO_ID_CTRL_UNDER_PICTURE				2
 #define COMBO_ID_CTRL_CURRENT_ITEM_EDIT			3
@@ -1333,38 +1333,38 @@ typedef _STCTL_MENUBAR_INSERT_MENUITEM STCTL_MENUBAR_INSERT_MENUITEM,* PSTCTL_ME
 
 #define EMSG_COMBOBOX_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_COMBO, _MJ_NUM, _MN_NUM)
 
-// Ìí¼ÓÑ¡Ïî
+// æ·»åŠ é€‰é¡¹
 #define EACT_COMBOBOX_ADD_ITEM						EMSG_COMBOBOX_REQUEST(1,1)
-//Input			wchar_t*  Ñ¡Ïî×Ö·û´®
+//Input			wchar_t*  é€‰é¡¹å­—ç¬¦ä¸²
 //Output		None
 //Result
 
 
-//	ÏÂÀ­ÁÐ±íÏî±»µã»÷
+//	ä¸‹æ‹‰åˆ—è¡¨é¡¹è¢«ç‚¹å‡»
 #define EEVT_COMBOBOX_LIST_ITEM_CLICK				EMSG_COMBOBOX_REQUEST(1,2)
-//Input			int (IDÖµ£¬ÅäÖÃÎÄ¼þÖÐÖ¸¶¨£©
+//Input			int (IDå€¼ï¼Œé…ç½®æ–‡ä»¶ä¸­æŒ‡å®šï¼‰
 //Output		None
 //Result
 
-//	ÏÂÀ­ÁÐ±íÏî±»µã»÷
+//	ä¸‹æ‹‰åˆ—è¡¨é¡¹è¢«ç‚¹å‡»
 #define EEVT_COMBOBOX_LIST_ITEM_CLICK_COMPLEX			EMSG_COMBOBOX_REQUEST(1,3)
-//Input			int (IDÖµ£¬ÅäÖÃÎÄ¼þÖÐÖ¸¶¨£©
+//Input			int (IDå€¼ï¼Œé…ç½®æ–‡ä»¶ä¸­æŒ‡å®šï¼‰
 //Output		None
 //Result
 
-// Ä³Ïî±»µã»÷Ê±£¬·¢ËÍ±»Ñ¡ÖÐÏîµÄÎÄ±¾ÄÚÈÝ			// add by colin
+// æŸé¡¹è¢«ç‚¹å‡»æ—¶ï¼Œå‘é€è¢«é€‰ä¸­é¡¹çš„æ–‡æœ¬å†…å®¹			// add by colin
 #define EEVT_COMBOBOX_ITEM_CLICK_WITH_TEXT			EMSG_COMBOBOX_REQUEST(1,4)
 // Input wchar_t*
 // output none
 // result
 
-// Ä³Ïî±»µã»÷Ê±£¬·¢ËÍ±»Ñ¡ÖÐÏîµÄË÷Òý				// add by colin
+// æŸé¡¹è¢«ç‚¹å‡»æ—¶ï¼Œå‘é€è¢«é€‰ä¸­é¡¹çš„ç´¢å¼•				// add by colin
 #define EEVT_COMBOBOX_ITEM_CLICK_WITH_INDEX			EMSG_COMBOBOX_REQUEST(1,5)
 // Input ULONG*
 // output none
 // result
 
-//¶¨ÒåToolBarÏûÏ¢½á¹¹
+//å®šä¹‰ToolBaræ¶ˆæ¯ç»“æž„
 enum COMBOBOX_MSG_PARA_TYPE
 {
 	COMBOBOX_TMPT_NONE,
@@ -1376,52 +1376,52 @@ enum COMBOBOX_MSG_PARA_TYPE
 };
 struct COMBOBOX_MSG
 {
-	unsigned int				mnCtrlID;			//ToolBar×Ó¿Ø¼þ ID
-	COMBOBOX_MSG_PARA_TYPE		mnMsgParaType;		//ÏûÏ¢ÀàÐÍ±êÊ¶
-	void*						mpMsgBuf;			//ÏûÏ¢Ð¯´øµÄÊý¾Ý»º³åÇø
+	unsigned int				mnCtrlID;			//ToolBarå­æŽ§ä»¶ ID
+	COMBOBOX_MSG_PARA_TYPE		mnMsgParaType;		//æ¶ˆæ¯ç±»åž‹æ ‡è¯†
+	void*						mpMsgBuf;			//æ¶ˆæ¯æºå¸¦çš„æ•°æ®ç¼“å†²åŒº
 
 	COMBOBOX_MSG() : mnCtrlID(0x00000000), mnMsgParaType(COMBOBOX_TMPT_OTHERS), mpMsgBuf(0) {}
 	~COMBOBOX_MSG() { mpMsgBuf = 0;}
 };
 
-//ÉèÖÃ°´Å¥×Ó²Ëµ¥Ä³Ïî±»Ñ¡ÖÐ
+//è®¾ç½®æŒ‰é’®å­èœå•æŸé¡¹è¢«é€‰ä¸­
 #define EACT_COMBOBOX_SET_ITEM_SELECTED						EMSG_COMBOBOX_REQUEST(2,4)
-//Input			int £¨ÏîID£©
+//Input			int ï¼ˆé¡¹IDï¼‰
 //Output		NONE
 //Result
 
-//ÉèÖÃÏÂÀ­²Ëµ¥Ä³Ò»ÏîÓÐÐ§
+//è®¾ç½®ä¸‹æ‹‰èœå•æŸä¸€é¡¹æœ‰æ•ˆ
 #define EACT_COMBOBOX_SET_ENABLE							EMSG_COMBOBOX_REQUEST(2,5)
-//Input			int £¨ÏîID£©
+//Input			int ï¼ˆé¡¹IDï¼‰
 //Output		NONE
 //Result
 
-//ÉèÖÃÏÂÀ­²Ëµ¥Ä³Ò»ÏîÎÞÐ§
+//è®¾ç½®ä¸‹æ‹‰èœå•æŸä¸€é¡¹æ— æ•ˆ
 #define EACT_COMBOBOX_SET_DISABLE							EMSG_COMBOBOX_REQUEST(2,6)
-//Input			int £¨ÏîID£©
+//Input			int ï¼ˆé¡¹IDï¼‰
 //Output		NONE
 //Result
 
-// °´Ë÷ÒýÉ¾³ýÏî ,´«Èë¸ºÊý±íÊ¾É¾³ýÈ«²¿ add by colin
+// æŒ‰ç´¢å¼•åˆ é™¤é¡¹ ,ä¼ å…¥è´Ÿæ•°è¡¨ç¤ºåˆ é™¤å…¨éƒ¨ add by colin
 #define EACT_COMBOBOX_DELETE_ITEM_BY_INDEX			EMSG_COMBOBOX_REQUEST(2,7)
-//Input			int Ë÷Òý
+//Input			int ç´¢å¼•
 //Output		None
 //Result
 
-// »ñÈ¡µ±Ç°Ñ¡ÔñÏîÏÔÊ¾ÎÄ±¾ add by colin
+// èŽ·å–å½“å‰é€‰æ‹©é¡¹æ˜¾ç¤ºæ–‡æœ¬ add by colin
 #define EACT_COMBOBOX_GET_CURRENT_ITEM_TEXT			EMSG_COMBOBOX_REQUEST(2,8)
 // input none
-//Output		wchat_t** ·µ»ØµÄ×Ö·û´®Ö¸Õë²»Ó¦¸Ã³¤ÆÚ³ÖÓÐ£¬ÎÞÐèÊÍ·Å
+//Output		wchat_t** è¿”å›žçš„å­—ç¬¦ä¸²æŒ‡é’ˆä¸åº”è¯¥é•¿æœŸæŒæœ‰ï¼Œæ— éœ€é‡Šæ”¾
 // result return ERESULT_INSUFFICIENT_RESOURCES if output buffer is short than the text to obtain. 
 
-// ¸ù¾ÝË÷ÒýÉèÖÃÄ³Ïî±»Ñ¡ÖÐ add by colin
+// æ ¹æ®ç´¢å¼•è®¾ç½®æŸé¡¹è¢«é€‰ä¸­ add by colin
 #define EACT_COMBOBOX_SET_ITEM_SELECTED_BY_INDEX						EMSG_COMBOBOX_REQUEST(2,9)
-//Input			ULONG £¨index)
+//Input			ULONG ï¼ˆindex)
 //Output		NONE
 //Result
 
 //////////////////////////////////////////////////////////////////////////
-//BiSliderBarÏûÏ¢
+//BiSliderBaræ¶ˆæ¯
 #define EMSG_BI_SLIDERBAR_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_BI_SLIDERBAR, _MJ_NUM, _MN_NUM)
 struct _sBiSliderBarStruct
 {
@@ -1474,15 +1474,15 @@ struct _sBiSliderBarStruct
 //Output		NULL
 //Result
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_TOOLBAR	L"ToolBar"			// ¹¤¾ßÀ¸
+#define ES_ETYPE_TOOLBAR	L"ToolBar"			// å·¥å…·æ 
 
 #define EMSG_TOOLBARITEM_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_TOOLBAR, _MJ_NUM, _MN_NUM)
 
 
-// ¹¤¾ßÀ¸Ïî»òÆä×ÓÏî±»µã»÷
+// å·¥å…·æ é¡¹æˆ–å…¶å­é¡¹è¢«ç‚¹å‡»
 #define EEVT_TOOLBARITEM_CLICK					EMSG_TOOLBARITEM_REQUEST(1,1)
 // input TOOLBAR_MSG
-//¶¨ÒåToolBarÏûÏ¢½á¹¹
+//å®šä¹‰ToolBaræ¶ˆæ¯ç»“æž„
 enum TOOLBAR_MSG_PARA_TYPE
 {
 	TMPT_NONE,
@@ -1496,9 +1496,9 @@ enum TOOLBAR_MSG_PARA_TYPE
 };
 struct TOOLBAR_MSG
 {
-	unsigned int				mnCtrlID;			//ToolBar×Ó¿Ø¼þ ID
-	TOOLBAR_MSG_PARA_TYPE		mnMsgParaType;		//ÏûÏ¢ÀàÐÍ±êÊ¶
-	//void*						mpMsgBuf;			//ÏûÏ¢Ð¯´øµÄÊý¾Ý»º³åÇø
+	unsigned int				mnCtrlID;			//ToolBarå­æŽ§ä»¶ ID
+	TOOLBAR_MSG_PARA_TYPE		mnMsgParaType;		//æ¶ˆæ¯ç±»åž‹æ ‡è¯†
+	//void*						mpMsgBuf;			//æ¶ˆæ¯æºå¸¦çš„æ•°æ®ç¼“å†²åŒº
 	union {
 		bool mbBool;
 		wchar_t mswString[MAX_PATH];
@@ -1512,65 +1512,65 @@ struct TOOLBAR_MSG
 };
 
 
-//	¸üÐÂ½çÃæÏûÏ¢
+//	æ›´æ–°ç•Œé¢æ¶ˆæ¯
 #define EEVT_UPDATE_UI							EMSG_TOOLBARITEM_REQUEST(1,2)
 // input  none
 // output none
 // result none
 
-//	¸üÐÂPane
+//	æ›´æ–°Pane
 #define EEVT_UPDATE_PANE						EMSG_TOOLBARITEM_REQUEST(1,4)
-//Input			int (Pane IDÖµ£©
+//Input			int (Pane IDå€¼ï¼‰
 //Output		None
 //Result
 
-//	Í¨ÖªPane×ÓÔªËØ¸üÐÂÊý¾Ý½çÃæ
+//	é€šçŸ¥Paneå­å…ƒç´ æ›´æ–°æ•°æ®ç•Œé¢
 #define EEVT_PANE_ITEM_SET_VALUE				EMSG_TOOLBARITEM_REQUEST(1,5)
 //Input			None
 //Output		None
 //Result
 
 
-//	»ñÈ¡×ÓÏîUnificSetting ID
+//	èŽ·å–å­é¡¹UnificSetting ID
 #define EEVT_GET_UNIFIC_SETTING_ID				EMSG_TOOLBARITEM_REQUEST(1,6)
 //Input		None
 //Output	int
 //Result
 
 //////////////////////////////////////////////////////////////////////////
-#define ES_ETYPE_WHIRLANGLE L"WhirlAngle"		// Ðý×ª½Ç¶È
+#define ES_ETYPE_WHIRLANGLE L"WhirlAngle"		// æ—‹è½¬è§’åº¦
 
 #define EMSG_WHIRLANGLE_REQUEST(_MJ_NUM,_MN_NUM)	EMSG_DEFINE(LMSG_TP_WHIRLANGLE,_MJ_NUM,_MN_NUM)
 
-// ·ÃÎÊÏûÏ¢
-// ¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
+// è®¿é—®æ¶ˆæ¯
+// Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
 
-// »ñÈ¡µ±Ç°½Ç¶È
+// èŽ·å–å½“å‰è§’åº¦
 #define EACT_WHIRLANGLE_GET_ANGLE				EMSG_WHIRLANGLE_REQUEST(1,1)
 // output  double
 
-// ÉèÖÃµ±Ç°½Ç¶È
+// è®¾ç½®å½“å‰è§’åº¦
 #define EACT_WHIRLANGLE_SET_ANGLE				EMSG_WHIRLANGLE_REQUEST(1,2)
 // input  double
 
 
-// ´¥·¢ÏûÏ¢
-// ¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á¡Á
-// ½Ç¶È·¢Éú±ä»¯¿ªÊ¼
+// è§¦å‘æ¶ˆæ¯
+// Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—Ã—
+// è§’åº¦å‘ç”Ÿå˜åŒ–å¼€å§‹
 #define EEVT_WHIRLANGEL_ANGLE_CHANGE_BEGIN		EMSG_WHIRLANGLE_REQUEST(2,1)
 
-// ½Ç¶È·¢Éú±ä»¯
+// è§’åº¦å‘ç”Ÿå˜åŒ–
 #define EEVT_WHIRLANGEL_ANGLE_CHANGE			EMSG_WHIRLANGLE_REQUEST(2,2)
-// input double µ±Ç°½Ç¶È
+// input double å½“å‰è§’åº¦
 
-// ½Ç¶È·¢Éú±ä»¯½áÊø
+// è§’åº¦å‘ç”Ÿå˜åŒ–ç»“æŸ
 #define EEVT_WHIRLANGEL_ANGLE_CHANGE_END		EMSG_WHIRLANGLE_REQUEST(2,3)
 
 //////////////////////////////////////////////////////////////////////////
 
-#define ES_ETYPE_SPINBUTTON L"SpinButton"			//SpinButtonÔªËØ
+#define ES_ETYPE_SPINBUTTON L"SpinButton"			//SpinButtonå…ƒç´ 
 
-//¶¨ÒåSpinButtonµÄ×Ó¿Ø¼þID£¬ÆäËû¿Ø¼þ±ØÐë´óÓÚµÈÓÚ SB_ID_CTRL_OTHERS
+//å®šä¹‰SpinButtonçš„å­æŽ§ä»¶IDï¼Œå…¶ä»–æŽ§ä»¶å¿…é¡»å¤§äºŽç­‰äºŽ SB_ID_CTRL_OTHERS
 #define SB_ID_CTRL_BACKGROUND				1
 #define SB_ID_CTRL_EDIT						2
 #define SB_ID_CTRL_BUTTON_UP				3
@@ -1580,51 +1580,51 @@ struct TOOLBAR_MSG
 
 #define EMSG_SPINBUTTON_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_SPINBUTTON, _MJ_NUM, _MN_NUM)
 
-//»ñÈ¡µ±Ç°Öµ
+//èŽ·å–å½“å‰å€¼
 #define EACT_SPINBUTTON_GET_CURRENT_VALUE			EMSG_SPINBUTTON_REQUEST(1,1)
 //Input		None
 //Output	int*
 //Result
 
-//ÉèÖÃµ±Ç°Öµ
+//è®¾ç½®å½“å‰å€¼
 #define EACT_SPINBUTTON_SET_CURRENT_VALUE			EMSG_SPINBUTTON_REQUEST(1,2)
 //Input		int*  
 //Output	None
 //Result
 
-// ÉèÖÃ×îÐ¡Öµ
+// è®¾ç½®æœ€å°å€¼
 #define EACT_SPINBUTTON_SET_MIN_VALUE				EMSG_SPINBUTTON_REQUEST(1,3)
 //Input		int*  
 //Output	None
 //Result
 
-// ÉèÖÃ×î´óÖµ
+// è®¾ç½®æœ€å¤§å€¼
 #define EACT_SPINBUTTON_SET_MAX_VALUE				EMSG_SPINBUTTON_REQUEST(1,4)
 //Input		int*  
 //Output	None
 //Result
 
 
-//±à¼­¿òÄÚÈÝ±»ÐÞ¸Ä
+//ç¼–è¾‘æ¡†å†…å®¹è¢«ä¿®æ”¹
 #define EEVT_SPINBUTTON_CONTENT_MODIFING			EMSG_SPINBUTTON_REQUEST(2,1)
 // input none
 // output none
 // result na
 
-// ÄÚÈÝÐÞ¸ÄÍê³É£¬ÊäÈëÊ±°´ÏÂ"Enter"¼ü£¬»òÕßÒÆ³ý¼üÅÌ½¹µã£¬¶¼½«µ¼ÖÂÄÚÈÝÍê³ÉÏûÏ¢±»·¢ËÍ
-// Ó¦½ìÊÕµ½"ÉèÖÃÄÚÈÝ"ÏûÏ¢¶øµ¼ÖÂµÄÄÚÈÝÐÞ¸Ä£¬²»»á·¢ËÍÕâÌõÏûÏ¢
+// å†…å®¹ä¿®æ”¹å®Œæˆï¼Œè¾“å…¥æ—¶æŒ‰ä¸‹"Enter"é”®ï¼Œæˆ–è€…ç§»é™¤é”®ç›˜ç„¦ç‚¹ï¼Œéƒ½å°†å¯¼è‡´å†…å®¹å®Œæˆæ¶ˆæ¯è¢«å‘é€
+// åº”å±Šæ”¶åˆ°"è®¾ç½®å†…å®¹"æ¶ˆæ¯è€Œå¯¼è‡´çš„å†…å®¹ä¿®æ”¹ï¼Œä¸ä¼šå‘é€è¿™æ¡æ¶ˆæ¯
 #define EEVT_SPINBUTTON_CONTENT_COMPLETION			EMSG_SPINBUTTON_REQUEST(2,2)
-// input µ±Ç°Öµ
+// input å½“å‰å€¼
 // output none
 // result na
 //////////////////////////////////////////////////////////////////////////
 
-#define ES_ETYPE_TIMESPINBUTTON L"TimeSpinButton"			//TimeSpinButtonÔªËØ
+#define ES_ETYPE_TIMESPINBUTTON L"TimeSpinButton"			//TimeSpinButtonå…ƒç´ 
 
 
 #define EMSG_TIMESPINBUTTON_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(LMSG_TP_TIMESPINBUTTON, _MJ_NUM, _MN_NUM)
 
-//¶¨ÒåSpinButtonµÄ×Ó¿Ø¼þID£¬ÆäËû¿Ø¼þ±ØÐë´óÓÚµÈÓÚ SB_ID_CTRL_OTHERS
+//å®šä¹‰SpinButtonçš„å­æŽ§ä»¶IDï¼Œå…¶ä»–æŽ§ä»¶å¿…é¡»å¤§äºŽç­‰äºŽ SB_ID_CTRL_OTHERS
 #define TSB_ID_CTRL_EDIT_MINUTES			1
 #define TSB_ID_CTRL_EDIT_SECONDS			2
 #define TSB_ID_CTRL_EDIT_MILLISECONDS		3
@@ -1639,24 +1639,24 @@ struct TOOLBAR_MSG
 struct XuiTimeFormat
 {
 	//int nHours;		//00 - 23
-	int nMinutes;		//·Ö		00 - 59
-	int nSeconds;		//Ãë		00 - 59
-	int nMillisecond;	//ºÁÃë	000 - 999 
+	int nMinutes;		//åˆ†		00 - 59
+	int nSeconds;		//ç§’		00 - 59
+	int nMillisecond;	//æ¯«ç§’	000 - 999 
 
 	XuiTimeFormat() : nMinutes(0), nSeconds(0), nMillisecond(0) {}
 };
 
-//ÉèÖÃ¿Ø¼þµ±Ç°Ê±¼ä
+//è®¾ç½®æŽ§ä»¶å½“å‰æ—¶é—´
 #define EACT_TIMESPINBUTTON_SET_TIME			EMSG_TIMESPINBUTTON_REQUEST(1,1)
 //Input		XuiTimeFormat 
 //Output	None
 
-//»ñÈ¡¿Ø¼þµ±Ç°Ê±¼ä (send)
+//èŽ·å–æŽ§ä»¶å½“å‰æ—¶é—´ (send)
 #define EACT_TIMESPINBUTTON_GET_TIME			EMSG_TIMESPINBUTTON_REQUEST(1,2)
 // intput none
 // output XuiTimeFormat* buffer to receive the time
 
-//Í¨Öª¸¸´°¿ÚÊ±¼ä±»ÐÞ¸Ä
+//é€šçŸ¥çˆ¶çª—å£æ—¶é—´è¢«ä¿®æ”¹
 #define EEVT_TIMESPINBUTTON_TIME_MODIFIED			EMSG_TIMESPINBUTTON_REQUEST(1,3)
 //Input		XuiTimeFormat 
 //Output	None

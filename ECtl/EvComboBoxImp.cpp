@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -10,7 +10,7 @@
 #include "EvComboBoxImp.h"
 
 
-//¶¨Òå¼üÖµ
+//å®šä¹‰é”®å€¼
 #define CB_KEY_DEFAULT_CTRL						L"DefaultCtrl"
 #define CB_KEY_COMBOBOX							L"ComboBox"
 
@@ -45,21 +45,21 @@
 #define CB_KEY_MENUITEM_ID						L"ID"
 #define CB_KEY_MENUITEM_TEXT					L"Text"
 
-//ÊäÈë¿òÏà¹Ø
+//è¾“å…¥æ¡†ç›¸å…³
 #define CB_KEY_ONLY_ACCEPT_NUM					L"OnlyAcceptNum"
 #define CB_KEY_MAX_INPUT_NUM					L"MaxInputNum"
 #define CB_KEY_MIN_INPUT_NUM					L"MinInputNum"
 #define CB_KEY_MAX_INPUT_LEN					L"MaxInputLen"
 
-//¿Ø¼ş·ç¸ñ
+//æ§ä»¶é£æ ¼
 #define CB_STYLE_EDITABLE						L"0"
 #define CB_STYLE_UNEDITABLE						L"1"
 
 
-//¶¨Òå×Ó¿Ø¼ş
-#define	CB_ID_POPMENU							10		//µ¯³ö²Ëµ¥
+//å®šä¹‰å­æ§ä»¶
+#define	CB_ID_POPMENU							10		//å¼¹å‡ºèœå•
 
-//ÏûÏ¢Ïà¹Ø
+//æ¶ˆæ¯ç›¸å…³
 #define CB_KEY_MESSAGE_INFO							L"MessageInfo"
 #define CB_KEY_MESSAGE_INFO_ID						L"ID"
 #define CB_KEY_MESSAGE_INFO_MESSAGE_TYPE			L"MessageType"
@@ -73,7 +73,7 @@
 DEFINE_BUILTIN_NAME(ComboBox)
 
 
-// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓĞ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖĞ½øĞĞ
+// åªç”¨äºå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 CEvComboBox::CEvComboBox() : 
 			mpUpperPicture(NULL),
 			mpCurrentItemEdit(NULL),
@@ -98,9 +98,9 @@ CEvComboBox::~CEvComboBox()
 }
 
 ULONG CEvComboBox::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID				// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID				// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -109,12 +109,12 @@ ULONG CEvComboBox::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-		//´´½¨ComboBoxµÄ×Ó¿Ø¼ş
+		//åˆ›å»ºComboBoxçš„å­æ§ä»¶
 		IConfigFile * lpConfigFile = EinkuiGetSystem()->GetCurrentWidget()->GetDefaultFactory()->GetTempleteFile();
 		if (lpConfigFile == NULL) break;
 		lpRootKey = lpConfigFile->GetRootKey();
@@ -124,35 +124,35 @@ ULONG CEvComboBox::InitOnCreate(
 		mpComboBoxKey = lpDefaultCtrlKey->GetSubKey(CB_KEY_COMBOBOX);
 		if (mpComboBoxKey == NULL) break;
 
-		//´´½¨±à¼­ÇøÓòµÄ±³¾°£¨ÉÏ±³¾°£©
+		//åˆ›å»ºç¼–è¾‘åŒºåŸŸçš„èƒŒæ™¯ï¼ˆä¸ŠèƒŒæ™¯ï¼‰
 		ICfKey * lpUpperPictureKey = mpComboBoxKey->GetSubKey(CB_KEY_DEFAULT_PICTURE_FRAME);
 		if(lpUpperPictureKey)
 		{
 			mpUpperPicture = CEvPictureFrame::CreateInstance(mpIterator, lpUpperPictureKey, COMBO_ID_CTRL_UPPER_PICTURE);			
 		}
 
-		//´´½¨×éºÏ¿òÖĞµ±Ç°Ïî£¨±à¼­Ä£Ê½£©
+		//åˆ›å»ºç»„åˆæ¡†ä¸­å½“å‰é¡¹ï¼ˆç¼–è¾‘æ¨¡å¼ï¼‰
 		ICfKey * lpCurrentItemEditKey = mpComboBoxKey->GetSubKey(CB_KEY_DEFAULT_EDIT);
 		if(lpCurrentItemEditKey)
 		{
 			mpCurrentItemEdit = CEvEditImp::CreateInstance(mpIterator, lpCurrentItemEditKey, COMBO_ID_CTRL_CURRENT_ITEM_EDIT);			
 		}
 
-		//´´½¨×éºÏ¿òÖĞµ±Ç°Ïî£¨·Ç±à¼­Ä£Ê½£©
+		//åˆ›å»ºç»„åˆæ¡†ä¸­å½“å‰é¡¹ï¼ˆéç¼–è¾‘æ¨¡å¼ï¼‰
 		ICfKey * lpCurrentItemButtonKey = mpComboBoxKey->GetSubKey(CB_KEY_DEFAULT_DROP_BUTTON);
 		if(lpCurrentItemButtonKey)
 		{
 			mpCurrentItemButton = CEvButton::CreateInstance(mpIterator, lpCurrentItemButtonKey, COMBO_ID_CTRL_CURRENT_ITEM_BUTTON);	
 		}
 
-		//´´½¨×éºÏ¿òÖĞµÄÏÂÀ­°´Å¥
+		//åˆ›å»ºç»„åˆæ¡†ä¸­çš„ä¸‹æ‹‰æŒ‰é’®
 		ICfKey * lpDropDownButtonKey = mpComboBoxKey->GetSubKey(CB_KEY_DEFAULT_IMAGE_BUTTON);
 		if(lpDropDownButtonKey)
 		{
 			mpDropDownButton = CEvImageButton::CreateInstance(mpIterator, lpDropDownButtonKey, COMBO_ID_CTRL_DROP_DOWN_BUTTON);			
 		}
 
-		//ÅäÖÃÎÄ¼ş¶ÁÈ¡ÏûÏ¢ÊôĞÔ
+		//é…ç½®æ–‡ä»¶è¯»å–æ¶ˆæ¯å±æ€§
 		ICfKey* lpMessageInfoKey = mpTemplete->GetSubKey(CB_KEY_MESSAGE_INFO);
 		if (lpMessageInfoKey)
 		{
@@ -194,11 +194,11 @@ ULONG CEvComboBox::InitOnCreate(
 			}
 		}
 
-		////	³õÊ¼»¯UnificSetting
+		////	åˆå§‹åŒ–UnificSetting
 		//mpUnificSetting = GetUnificSetting();
 
 		
-		//´´½¨List
+		//åˆ›å»ºList
 		ICfKey * lpListKey = mpComboBoxKey->GetSubKey(CB_KEY_DEFAULT_LIST);
 		if(lpListKey != NULL)
 		{
@@ -218,7 +218,7 @@ ULONG CEvComboBox::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvComboBox::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -244,7 +244,7 @@ ERESULT CEvComboBox::OnElementCreate(IEinkuiIterator* npIterator)
 				mpIterList->SetPosition(-5.0f,mpIterPopMenu->GetPositionY());
 				//mpIterPopMenu->SetPosition(0.0f, 0.0f);
 				mpIterList->SetSize(mpIterPopMenu->GetSizeX(),(float)mpTemplete->QuerySubKeyValueAsLONG(CB_KEY_LIST_HEIGHT,(LONG)mpIterPopMenu->GetSizeY()));
-				EinkuiGetSystem()->GetElementManager()->SetParentElement(mpIterList,mpIterPopMenu);	//°Ñ²Ëµ¥·Åµ½ListÀï
+				EinkuiGetSystem()->GetElementManager()->SetParentElement(mpIterList,mpIterPopMenu);	//æŠŠèœå•æ”¾åˆ°Listé‡Œ
 				CExMessage::SendMessage(mpIterList,mpIterator,EACT_LIST_ADD_ELEMENT,mpIterPopMenu);
 				mpIterList->SetVisible(false);
 			}
@@ -290,7 +290,7 @@ ERESULT CEvComboBox::OnCtlButtonClick(IEinkuiIterator* npSender)
 		}
 	default:
 		{
-			////ÁĞ±íÏî±»µã»÷
+			////åˆ—è¡¨é¡¹è¢«ç‚¹å‡»
 			//if (luCtrlId >= COMBO_ID_CTRL_OTHERS)
 			//{
 			//	wchar_t* lswBuf = NULL;
@@ -321,7 +321,7 @@ ERESULT CEvComboBox::OnCtlButtonClick(IEinkuiIterator* npSender)
 	return luResult;
 }
 
-//½ûÓÃ»òÆôÓÃ
+//ç¦ç”¨æˆ–å¯ç”¨
 ERESULT CEvComboBox::OnElementEnable(bool nbIsEnable)
 {
 	SetComboBoxEnable(nbIsEnable);
@@ -329,11 +329,11 @@ ERESULT CEvComboBox::OnElementEnable(bool nbIsEnable)
 	return ERROR_SUCCESS;
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvComboBox::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -358,19 +358,19 @@ ERESULT CEvComboBox::ParseMessage(IEinkuiMessage* npMsg)
 
 		case EMSG_ELEMENT_ACTIVATED:
 			{
-				//¼¤»î×´Ì¬¸Ä±ä
+				//æ¿€æ´»çŠ¶æ€æ”¹å˜
 				STEMS_ELEMENT_ACTIVATION* lpActive;
 				luResult = CExMessage::GetInputDataBuffer(npMsg,lpActive);
 				if(luResult != ERESULT_SUCCESS)
 					break;
 
-// 				if (lpActive->State == 0 && mpIterPopMenu->IsVisible() != false)			// ¿É¼û×´Ì¬ÏÂÊ§È¥¼¤»î×´Ì¬£¬ĞèÒªÒş²Øµ±Ç°Õ¹¿ªµÄ²Ëµ¥
+// 				if (lpActive->State == 0 && mpIterPopMenu->IsVisible() != false)			// å¯è§çŠ¶æ€ä¸‹å¤±å»æ¿€æ´»çŠ¶æ€ï¼Œéœ€è¦éšè—å½“å‰å±•å¼€çš„èœå•
 // 				{
 // 					bool lbShow = false; 
 // 					mpIterPopMenu->SetVisible(lbShow);
 // 				}
 
-				if (lpActive->State == 0 && mpIterList->IsVisible() != false)			// ¿É¼û×´Ì¬ÏÂÊ§È¥¼¤»î×´Ì¬£¬ĞèÒªÒş²Øµ±Ç°Õ¹¿ªµÄ²Ëµ¥
+				if (lpActive->State == 0 && mpIterList->IsVisible() != false)			// å¯è§çŠ¶æ€ä¸‹å¤±å»æ¿€æ´»çŠ¶æ€ï¼Œéœ€è¦éšè—å½“å‰å±•å¼€çš„èœå•
 				{
 					bool lbShow = false; 
 					mpIterList->SetVisible(lbShow);
@@ -378,9 +378,9 @@ ERESULT CEvComboBox::ParseMessage(IEinkuiMessage* npMsg)
 			}
 			break;
 
-		case EEVT_MENUITEM_CLICK:			//À©Õ¹¿Ø¼şµÄ²Ëµ¥Ïî±»µã»÷
+		case EEVT_MENUITEM_CLICK:			//æ‰©å±•æ§ä»¶çš„èœå•é¡¹è¢«ç‚¹å‡»
 			{	
-				//¶ÁÈ¡ID
+				//è¯»å–ID
 				if(npMsg->GetInputDataSize()!=sizeof(int) || npMsg->GetInputData()==NULL)
 					luResult = ERESULT_WRONG_PARAMETERS;
 				int lItemID = *(int*)(npMsg->GetInputData());
@@ -393,7 +393,7 @@ ERESULT CEvComboBox::ParseMessage(IEinkuiMessage* npMsg)
 					{
 						if (mpVecComboMenuItem[i].mnID == lItemID)
 						{
-							PostMessageToParent(EEVT_COMBOBOX_ITEM_CLICK_WITH_TEXT, mpVecComboMenuItem[i].mpText);		// Í¨Öª¸¸¶ÔÏó add by colin
+							PostMessageToParent(EEVT_COMBOBOX_ITEM_CLICK_WITH_TEXT, mpVecComboMenuItem[i].mpText);		// é€šçŸ¥çˆ¶å¯¹è±¡ add by colin
 							PostMessageToParent(EEVT_COMBOBOX_ITEM_CLICK_WITH_INDEX, i);
 
 							if (mnStyle == 0)
@@ -465,7 +465,7 @@ ERESULT CEvComboBox::ParseMessage(IEinkuiMessage* npMsg)
 				break;
 			}
 
-		case EACT_COMBOBOX_DELETE_ITEM_BY_INDEX:		// É¾³ıÏî add by colin
+		case EACT_COMBOBOX_DELETE_ITEM_BY_INDEX:		// åˆ é™¤é¡¹ add by colin
 			{
 				if(npMsg->GetInputDataSize() != sizeof(int))
 				{
@@ -479,9 +479,9 @@ ERESULT CEvComboBox::ParseMessage(IEinkuiMessage* npMsg)
 			}
 			break;
 
-		case EACT_COMBOBOX_GET_CURRENT_ITEM_TEXT:			// »ñÈ¡µ±Ç°Ñ¡ÖĞÏîµÄÎÄ±¾	add by colin
+		case EACT_COMBOBOX_GET_CURRENT_ITEM_TEXT:			// è·å–å½“å‰é€‰ä¸­é¡¹çš„æ–‡æœ¬	add by colin
 			{
-				// »ñÈ¡µ±Ç°Ñ¡ÖĞÏîÎÄ±¾ÄÚÈİ
+				// è·å–å½“å‰é€‰ä¸­é¡¹æ–‡æœ¬å†…å®¹
 				IEinkuiIterator* lpoCrtItemIter = NULL;
 				wchar_t lswBuffer[BUF_SIZE] = {0};
 				if (mnStyle == 0)
@@ -501,9 +501,9 @@ ERESULT CEvComboBox::ParseMessage(IEinkuiMessage* npMsg)
 			}
 			break;
 
-		case EACT_COMBOBOX_SET_ITEM_SELECTED_BY_INDEX:		// ¸ù¾İË÷ÒıÉèÖÃÑ¡Ïî add by colin
+		case EACT_COMBOBOX_SET_ITEM_SELECTED_BY_INDEX:		// æ ¹æ®ç´¢å¼•è®¾ç½®é€‰é¡¹ add by colin
 			{
-				// »ñÈ¡Ñ¡ÖĞÏîË÷Òı
+				// è·å–é€‰ä¸­é¡¹ç´¢å¼•
 				ULONG* lpulItemIndex = NULL;
 				if(ERESULT_SUCCESS != CExMessage::GetInputDataBuffer(npMsg,lpulItemIndex))
 				{
@@ -649,7 +649,7 @@ ERESULT CEvComboBox::ParseMessage(IEinkuiMessage* npMsg)
 
 		if(luResult == ERESULT_NOT_SET)
 		{
-			luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+			luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 		}
 
 	} while (false);
@@ -657,7 +657,7 @@ ERESULT CEvComboBox::ParseMessage(IEinkuiMessage* npMsg)
 	return luResult;
 }
 
-//²åÈëĞÂµÄÒ»Ïî
+//æ’å…¥æ–°çš„ä¸€é¡¹
 BOOL CEvComboBox::InsertItem(wchar_t* lswName)
 {
 	BOOL lbRet = FALSE;
@@ -676,7 +676,7 @@ BOOL CEvComboBox::InsertItem(wchar_t* lswName)
 		if(CExMessage::SendMessage(mpIterPopMenu,mpIterator,EACT_POPUPMENU_INSERT_MENUITEM_BY_CREATE,lsPopItem) != ERESULT_SUCCESS)
 			break;
 
-		//ÖØĞÂÉèÖÃListµÄ´óĞ¡
+		//é‡æ–°è®¾ç½®Listçš„å¤§å°
 		mpIterList->SetSize(mpIterPopMenu->GetSizeX(),(float)mpTemplete->QuerySubKeyValueAsLONG(CB_KEY_LIST_HEIGHT,(LONG)mpIterPopMenu->GetSizeY()));
 		//mpIterPopMenu->SetPosition(0.0f,0.0f);
 		//CExMessage::SendMessage(mpIterList,mpIterator,EACT_LIST_RECACULATE,mpIterPopMenu);
@@ -686,7 +686,7 @@ BOOL CEvComboBox::InsertItem(wchar_t* lswName)
 		wcscpy_s(ldMenuItem.mpText,BUF_SIZE,lswName);
 		mpVecComboMenuItem.Insert(-1, ldMenuItem);
 
-		//// ÔÚ·Ç±à¼­Ä£Ê½ÏÂ£¬Èç¹ûµ±Ç°Ö»ÓĞ¸Õ²åÈëµÄÒ»Ïî£¬ÔòÒªÉèÖÃ¸ÃÏîÎªÄ¬ÈÏÑ¡ÖĞµÄÏî  add by colin
+		//// åœ¨éç¼–è¾‘æ¨¡å¼ä¸‹ï¼Œå¦‚æœå½“å‰åªæœ‰åˆšæ’å…¥çš„ä¸€é¡¹ï¼Œåˆ™è¦è®¾ç½®è¯¥é¡¹ä¸ºé»˜è®¤é€‰ä¸­çš„é¡¹  add by colin
 		//if(mnStyle == 1 && mpVecComboMenuItem.Size() == 1)
 		//{
 		//	CExMessage::PostMessage(mpIterator, mpIterator, EEVT_MENUITEM_CLICK, ldMenuItem.mnID);
@@ -699,7 +699,7 @@ BOOL CEvComboBox::InsertItem(wchar_t* lswName)
 	return lbRet;
 }
 
-// É¾³ıÖ¸¶¨Ïî£¬Ğ¡ÓÚ0±íÊ¾É¾³ıÈ«²¿¡£ ¡ª¡ª¡ª¡ªAdd by colin
+// åˆ é™¤æŒ‡å®šé¡¹ï¼Œå°äº0è¡¨ç¤ºåˆ é™¤å…¨éƒ¨ã€‚ â€”â€”â€”â€”Add by colin
 bool CEvComboBox::DeleteItem(IN int niIndexToDel)
 {
 	bool lbResult = false;
@@ -710,10 +710,10 @@ bool CEvComboBox::DeleteItem(IN int niIndexToDel)
 			if(niIndexToDel >= mpVecComboMenuItem.Size())
 				break;
 
-			// É¾³ıÏî
+			// åˆ é™¤é¡¹
 			CExMessage::SendMessage(mpIterPopMenu, mpIterPopMenu, EACT_POPUPMENU_DELETE_MENUITEM_BY_INDEX, niIndexToDel);
 
-			// »ñÈ¡µ±Ç°Ñ¡ÖĞÏîÎÄ±¾ÄÚÈİ
+			// è·å–å½“å‰é€‰ä¸­é¡¹æ–‡æœ¬å†…å®¹
 			IEinkuiIterator* lpoCrtItemIter = NULL;
 			wchar_t lswBuffer[BUF_SIZE] = {0};
 			if (mnStyle == 0)
@@ -732,8 +732,8 @@ bool CEvComboBox::DeleteItem(IN int niIndexToDel)
 			else
 				break;
 
-			// É¾³ı¼ÇÂ¼Ïî
-			if(niIndexToDel < 0)		// É¾³ıÈ«²¿
+			// åˆ é™¤è®°å½•é¡¹
+			if(niIndexToDel < 0)		// åˆ é™¤å…¨éƒ¨
 			{
 				wchar_t lswEmpty[] = L"";
 				if(mnStyle == 0)
@@ -743,15 +743,15 @@ bool CEvComboBox::DeleteItem(IN int niIndexToDel)
 
 				mpVecComboMenuItem.Clear();
 
-				// ½«PopmMenuÉèÖÃ³É¸ÕºÃÃ»ÓĞListµÄ´óĞ¡
+				// å°†PopmMenuè®¾ç½®æˆåˆšå¥½æ²¡æœ‰Listçš„å¤§å°
 				mpIterPopMenu->SetSize(mpIterPopMenu->GetSizeX(), mpIterList->GetSizeY());
 			}
-			else		// É¾³ıÄ³Ïî
+			else		// åˆ é™¤æŸé¡¹
 			{
-				// Èç¹ûÒªÉ¾³ıµÄÏîµÄÄÚÈİºÍµ±Ç°Ñ¡ÖĞÏîµÄÄÚÈİÏàÍ¬£¬ÔòÇĞ»»Ò»Ïî
+				// å¦‚æœè¦åˆ é™¤çš„é¡¹çš„å†…å®¹å’Œå½“å‰é€‰ä¸­é¡¹çš„å†…å®¹ç›¸åŒï¼Œåˆ™åˆ‡æ¢ä¸€é¡¹
 				if(_wcsicmp(lswBuffer, mpVecComboMenuItem[niIndexToDel].mpText) == 0)
 				{
-					// Èç¹û²»ÊÇ×îºóÒ»Ïî£¬ÔòÊ¹ÓÃÏÂÒ»Ïî£¬·ñÔòÊ¹ÓÃµÚÒ»Ïî
+					// å¦‚æœä¸æ˜¯æœ€åä¸€é¡¹ï¼Œåˆ™ä½¿ç”¨ä¸‹ä¸€é¡¹ï¼Œå¦åˆ™ä½¿ç”¨ç¬¬ä¸€é¡¹
 					int liNextItemIndex = (niIndexToDel + 1) < mpVecComboMenuItem.Size()? (niIndexToDel + 1) : 0;
 					if(mnStyle == 0)
 						CExMessage::SendMessageWithText(lpoCrtItemIter,mpIterator,EACT_EDIT_SET_TEXT, mpVecComboMenuItem[liNextItemIndex].mpText);
@@ -765,7 +765,7 @@ bool CEvComboBox::DeleteItem(IN int niIndexToDel)
 			}
 
 
-			// ÖØÖÃListµÄ´óĞ¡
+			// é‡ç½®Listçš„å¤§å°
 			CExMessage::SendMessage(mpIterList,mpIterator,EACT_LIST_RECACULATE,CExMessage::DataInvalid);
 
 		}
@@ -783,9 +783,9 @@ BOOL CEvComboBox::SetChildCtrlPara()
 
 	if (mpUpperPicture)
 	{
-		//ÉèÖÃÉÏ±³¾°
+		//è®¾ç½®ä¸ŠèƒŒæ™¯
 		ICfKey* pKeyUpperPicture = mpTemplete->GetSubKey(CB_KEY_UPPER_PICTURE);
-		if(NULL != pKeyUpperPicture)		// ¼üÖµ´æÔÚÊ±ÔÙ¸ü¸Ä£¬·ñÔòÈÔÈ»Ê¹ÓÃÄ¬ÈÏµÄ  ¡ª¡ªadd by colin
+		if(NULL != pKeyUpperPicture)		// é”®å€¼å­˜åœ¨æ—¶å†æ›´æ”¹ï¼Œå¦åˆ™ä»ç„¶ä½¿ç”¨é»˜è®¤çš„  â€”â€”add by colin
 		{
 			IEinkuiIterator* pIter = mpUpperPicture->GetIterator();
 			wchar_t lpUpperPicture[BUF_SIZE] = {0};
@@ -806,9 +806,9 @@ BOOL CEvComboBox::SetChildCtrlPara()
 
 	if (mpCurrentItemEdit)
 	{
-		//ÉèÖÃ×éºÏ¿òÖĞµ±Ç°Ïî£¨±à¼­Ä£Ê½£©
+		//è®¾ç½®ç»„åˆæ¡†ä¸­å½“å‰é¡¹ï¼ˆç¼–è¾‘æ¨¡å¼ï¼‰
 		ICfKey* pKeyCurrentItemEdit = mpTemplete->GetSubKey(CB_KEY_CURRENT_ITEM_EDIT);
-		if(NULL != pKeyCurrentItemEdit)		// ¼üÖµ´æÔÚÊ±ÔÙ¸ü¸Ä£¬·ñÔòÈÔÈ»Ê¹ÓÃÄ¬ÈÏµÄ  ¡ª¡ªadd by colin
+		if(NULL != pKeyCurrentItemEdit)		// é”®å€¼å­˜åœ¨æ—¶å†æ›´æ”¹ï¼Œå¦åˆ™ä»ç„¶ä½¿ç”¨é»˜è®¤çš„  â€”â€”add by colin
 		{
 			IEinkuiIterator* pIter = mpCurrentItemEdit->GetIterator();
 			ULONG lPosX = pKeyCurrentItemEdit->QuerySubKeyValueAsLONG(CB_KEY_X);
@@ -823,9 +823,9 @@ BOOL CEvComboBox::SetChildCtrlPara()
 
 	if (mpCurrentItemButton)
 	{
-		//ÉèÖÃ×éºÏ¿òÖĞµ±Ç°Ïî£¨·Ç±à¼­Ä£Ê½£©
+		//è®¾ç½®ç»„åˆæ¡†ä¸­å½“å‰é¡¹ï¼ˆéç¼–è¾‘æ¨¡å¼ï¼‰
 		ICfKey* pKeyCurrentItemButton = mpTemplete->GetSubKey(CB_KEY_CURRENT_ITEM_BUTTON);
-		if(NULL != pKeyCurrentItemButton)	// ¼üÖµ´æÔÚÊ±ÔÙ¸ü¸Ä£¬·ñÔòÈÔÈ»Ê¹ÓÃÄ¬ÈÏµÄ  ¡ª¡ªadd by colin
+		if(NULL != pKeyCurrentItemButton)	// é”®å€¼å­˜åœ¨æ—¶å†æ›´æ”¹ï¼Œå¦åˆ™ä»ç„¶ä½¿ç”¨é»˜è®¤çš„  â€”â€”add by colin
 		{
 			IEinkuiIterator* pIter = mpCurrentItemButton->GetIterator();
 
@@ -851,9 +851,9 @@ BOOL CEvComboBox::SetChildCtrlPara()
 	
 	if (mpDropDownButton)
 	{
-		//ÉèÖÃ×éºÏ¿òÖĞµÄÏÂÀ­°´Å¥
+		//è®¾ç½®ç»„åˆæ¡†ä¸­çš„ä¸‹æ‹‰æŒ‰é’®
 		ICfKey* pKeyDropDownButton = mpTemplete->GetSubKey(CB_KEY_DROP_DOWN_BUTTON);
-		if(NULL != pKeyDropDownButton)	// ¼üÖµ´æÔÚÊ±ÔÙ¸ü¸Ä£¬·ñÔòÈÔÈ»Ê¹ÓÃÄ¬ÈÏµÄ  ¡ª¡ªadd by colin
+		if(NULL != pKeyDropDownButton)	// é”®å€¼å­˜åœ¨æ—¶å†æ›´æ”¹ï¼Œå¦åˆ™ä»ç„¶ä½¿ç”¨é»˜è®¤çš„  â€”â€”add by colin
 		{
 			IEinkuiIterator* pIter = mpDropDownButton->GetIterator();
 
@@ -867,7 +867,7 @@ BOOL CEvComboBox::SetChildCtrlPara()
 		}
 	}
 
-	// ÉèÖÃ°´Å¥ÏìÓ¦ÇøÓò
+	// è®¾ç½®æŒ‰é’®å“åº”åŒºåŸŸ
 	if(mpUpperPicture)
 	{
 		D2D1_SIZE_F ldfSize;
@@ -877,16 +877,16 @@ BOOL CEvComboBox::SetChildCtrlPara()
 
 	}
 	
-	//ÅäÖÃÎÄ¼ş¶ÁÈ¡¿Ø¼ş·ç¸ñ
+	//é…ç½®æ–‡ä»¶è¯»å–æ§ä»¶é£æ ¼
 	wchar_t lpStyle[BUF_SIZE] = {0};
 	mpTemplete->QuerySubKeyValue(CB_KEY_STYLE, lpStyle, BUF_SIZE * sizeof(wchar_t));
 	if (wcscmp(lpStyle, CB_STYLE_EDITABLE) == 0)
 	{
-		//¿É±à¼­·ç¸ñ
+		//å¯ç¼–è¾‘é£æ ¼
 		mnStyle = 0;
 		mpCurrentItemButton->GetIterator()->SetVisible(false);
 
-		//¶ÁÈ¡±à¼­²ÎÊı
+		//è¯»å–ç¼–è¾‘å‚æ•°
 		ICfKey* pKeyCurrentItemEdit = mpTemplete->GetSubKey(CB_KEY_CURRENT_ITEM_EDIT);
 		if (pKeyCurrentItemEdit != NULL)
 		{
@@ -899,19 +899,19 @@ BOOL CEvComboBox::SetChildCtrlPara()
 				ULONG lulAcceptNumOnly = 1;
 				CExMessage::SendMessage(mpCurrentItemEdit->GetIterator(), 
 					mpIterator, EACT_EDIT_NUMBER_ONLY, lulAcceptNumOnly, NULL, 0);
-				// ¶ÁÈ¡×ÖÊıÏŞÖÆ
+				// è¯»å–å­—æ•°é™åˆ¶
 				memset(lpBuf, 0, sizeof(wchar_t) * BUF_SIZE);
 				pKeyCurrentItemEdit->QuerySubKeyValue(CB_KEY_MAX_INPUT_LEN, 
 					lpBuf, BUF_SIZE * sizeof(wchar_t));
 				ULONG lulLengthLimit = _wtoi(lpBuf);
 				CExMessage::SendMessage(mpCurrentItemEdit->GetIterator(), 
 					mpIterator, EACT_EDIT_SET_LENGTH_LIMIT, lulLengthLimit, NULL, 0);
-				// ×î´óÊıÖµ
+				// æœ€å¤§æ•°å€¼
 				memset(lpBuf, 0, sizeof(wchar_t) * BUF_SIZE);
 				pKeyCurrentItemEdit->QuerySubKeyValue(CB_KEY_MAX_INPUT_NUM, 
 					lpBuf, BUF_SIZE * sizeof(wchar_t));
 				mnMaxInputNum = _wtoi(lpBuf);
-				// ×îĞ¡ÊıÖµ
+				// æœ€å°æ•°å€¼
 				memset(lpBuf, 0, sizeof(wchar_t) * BUF_SIZE);
 				pKeyCurrentItemEdit->QuerySubKeyValue(CB_KEY_MIN_INPUT_NUM, 
 					lpBuf, BUF_SIZE * sizeof(wchar_t));
@@ -921,12 +921,12 @@ BOOL CEvComboBox::SetChildCtrlPara()
 	}
 	else
 	{
-		//²»¿É±à¼­·ç¸ñ
+		//ä¸å¯ç¼–è¾‘é£æ ¼
 		mnStyle = 1;
 		mpCurrentItemEdit->GetIterator()->SetVisible(false);
 	}
 
-	//ÉèÖÃ²Ëµ¥ÏîÁĞ±í
+	//è®¾ç½®èœå•é¡¹åˆ—è¡¨
 	ICfKey*  lpChildrenKey = NULL;
 	ICfKey*	lpMenuKey = NULL;
 	ICfKey*	lpMenuItemKey = NULL;
@@ -938,7 +938,7 @@ BOOL CEvComboBox::SetChildCtrlPara()
 	{
 		ICfKey* lpItemKey = lpMenuItemKey->MoveToSubKey();	
 		int nCount = 0;
-		while (lpItemKey != NULL)	//Ñ­»·¶ÁÈ¡²Ëµ¥ÏîĞÅÏ¢
+		while (lpItemKey != NULL)	//å¾ªç¯è¯»å–èœå•é¡¹ä¿¡æ¯
 		{
  			ComboMenuItem MenuItem;
  			lpItemKey->QuerySubKeyValue(CB_KEY_MENUITEM_ID, &(MenuItem.mnID), sizeof(int));
@@ -954,7 +954,7 @@ BOOL CEvComboBox::SetChildCtrlPara()
 
 BOOL CEvComboBox::SetDefaultValueList()
 {
-	//ÉèÖÃÄ¬ÈÏÖµ
+	//è®¾ç½®é»˜è®¤å€¼
 	ICfKey* lpDefaultCurrentValueKey = mpTemplete->GetSubKey(CB_KEY_DEFAULT_CURRENT_VALUE);
 	if (lpDefaultCurrentValueKey)
 	{
@@ -988,13 +988,13 @@ bool CEvComboBox::SetValue()
 
 	if (false == mpIterator->IsEnable()) return false;
 
-	//	¶ÁÈ¡Öµ
+	//	è¯»å–å€¼
 	//eValueType ValueType;
 	//wstring lwValue = mpUnificSetting->GetItemValue(mMsgInfo.mnCtrlID, &ValueType);
 	wchar_t lwValue[] = L"1";
 	//int lnID = _wtoi(lwID.c_str());
 
-	//// ÉèÖÃµ±Ç°Ñ¡ÔñÖµ
+	//// è®¾ç½®å½“å‰é€‰æ‹©å€¼
 	//if (mpCurrentItemEdit)
 	//{
 	//	

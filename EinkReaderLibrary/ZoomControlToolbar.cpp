@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -32,7 +32,7 @@ CZoomControlToolbar::~CZoomControlToolbar(void)
 {
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CZoomControlToolbar::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -54,9 +54,9 @@ ERESULT CZoomControlToolbar::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 ULONG CZoomControlToolbar::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -64,13 +64,13 @@ ULONG CZoomControlToolbar::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
 
-		//»ñÈ¡¶ÔÏñ¾ä±ú
+		//è·å–å¯¹åƒå¥æŸ„
 		mpIterBili = mpIterator->GetSubElementByID(110);
 		BREAK_ON_NULL(mpIterBili);
 		
@@ -91,11 +91,11 @@ ULONG CZoomControlToolbar::InitOnCreate(
 
 	CMM_SAFE_RELEASE(lpSubKey);
 
-	// ÏòÏµÍ³×¢²áĞèÒªÊÕµ½µÄÏûÏ¢
+	// å‘ç³»ç»Ÿæ³¨å†Œéœ€è¦æ”¶åˆ°çš„æ¶ˆæ¯
 	return leResult;
 }
 
-//ÉèÖÃÏÔÊ¾±ÈÀı
+//è®¾ç½®æ˜¾ç¤ºæ¯”ä¾‹
 void CZoomControlToolbar::SetString(ULONG nulLevel)
 {
 	wchar_t lszString[MAX_PATH] = { 0 };
@@ -103,7 +103,7 @@ void CZoomControlToolbar::SetString(ULONG nulLevel)
 	CExMessage::SendMessageWithText(mpIterBili, mpIterator, EACT_LABEL_SET_TEXT, lszString, NULL, 0);
 }
 
-//°´Å¥µ¥»÷ÊÂ¼ş
+//æŒ‰é’®å•å‡»äº‹ä»¶
 ERESULT CZoomControlToolbar::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 
@@ -116,7 +116,7 @@ ERESULT CZoomControlToolbar::OnCtlButtonClick(IEinkuiIterator* npSender)
 		{
 		case ZC_BT_DEFAULT:
 		{
-			//»Ö¸´Îª100%ÏÔÊ¾
+			//æ¢å¤ä¸º100%æ˜¾ç¤º
 			SendMessageToParent(EEVT_ER_SET_ZOOM, mfZoom[miFatRatioInx],NULL,0);
 			initData();
 
@@ -124,21 +124,21 @@ ERESULT CZoomControlToolbar::OnCtlButtonClick(IEinkuiIterator* npSender)
 		}
 		case ZC_BT_ADD:
 		{
-			//·Å´ó
+			//æ”¾å¤§
 			SetLevel(true);
 
 			break;
 		}
 		case ZC_BT_SUB:
 		{
-			//ËõĞ¡
+			//ç¼©å°
 			SetLevel(false);
 
 			break;
 		}
 		case ZC_BT_CLOSE:
 		{
-			//ÍË³öËõ·ÅÄ£Ê½
+			//é€€å‡ºç¼©æ”¾æ¨¡å¼
 			PostMessageToParent(EEVT_ER_ENTER_ZOOM, false);
 			initData();
 
@@ -146,7 +146,7 @@ ERESULT CZoomControlToolbar::OnCtlButtonClick(IEinkuiIterator* npSender)
 		}
 		case ZC_BT_SNAP:
 		{
-			//½ØÆÁ
+			//æˆªå±
 			PostMessageToParent(EEVT_ER_ENTER_SNAPSHOT, false);
 
 			break;
@@ -163,7 +163,7 @@ ERESULT CZoomControlToolbar::OnCtlButtonClick(IEinkuiIterator* npSender)
 	return lResult;
 }
 
-//³õÊ¼»¯×Ô¼º
+//åˆå§‹åŒ–è‡ªå·±
 void CZoomControlToolbar::initData(void)
 {
 	mlCurrentZoomLevel = miFatRatioInx;
@@ -171,7 +171,7 @@ void CZoomControlToolbar::initData(void)
 	mpIterBtAdd->SetEnable(true);
 	SetString(mlCurrentZoomLevel);
 
-	//ÖÃ»Ò
+	//ç½®ç°
 	mpIterBtDefault->SetEnable(false);
 }
 
@@ -186,9 +186,9 @@ void CZoomControlToolbar::SetFatRatio(float fatRatio)
 			break;*/
 
 		if (i > miFatRatioInx + 4)
-			break; //³ÅÂúÆÁÄ»ºó£¬ÔÙ·Å´ó4´Î
+			break; //æ’‘æ»¡å±å¹•åï¼Œå†æ”¾å¤§4æ¬¡
 
-		if (fatSaved == false && CExFloat::Equal(defaultRatios[i], fatRatio, 0.1f))	// Ïà²î²»´ó£¬Ö±½ÓÌæ»»
+		if (fatSaved == false && CExFloat::Equal(defaultRatios[i], fatRatio, 0.1f))	// ç›¸å·®ä¸å¤§ï¼Œç›´æ¥æ›¿æ¢
 		{
 			mfZoom.Insert(-1, fatRatio);
 			miFatRatioInx = i;
@@ -201,13 +201,13 @@ void CZoomControlToolbar::SetFatRatio(float fatRatio)
 		{ 
 			fatSaved = true;
 
-			//ÅĞ¶ÏÒ»ÏÂ£¬ÊÇÀëÇ°ÃæµÄ½ü£¬»¹ÊÇÀëºóÃæµÄ½ü
+			//åˆ¤æ–­ä¸€ä¸‹ï¼Œæ˜¯ç¦»å‰é¢çš„è¿‘ï¼Œè¿˜æ˜¯ç¦»åé¢çš„è¿‘
 			if ((fatRatio - mfZoom.GetEntry(i)) > (defaultRatios[i + 1] - fatRatio))
 			{
 				miFatRatioInx = i + 1;
 				mfZoom.Insert(-1, fatRatio);
 
-				i++; //·ñÔò»áÔö¼ÓÒ»¸ö±¶ÊıÏà½üµÄ
+				i++; //å¦åˆ™ä¼šå¢åŠ ä¸€ä¸ªå€æ•°ç›¸è¿‘çš„
 			}
 			else
 			{
@@ -221,16 +221,16 @@ void CZoomControlToolbar::SetFatRatio(float fatRatio)
 	initData();
 }
 
-//ÉèÖÃ·Å´ó¼¶±ğ
+//è®¾ç½®æ”¾å¤§çº§åˆ«
 void CZoomControlToolbar::SetLevel(bool nbIsAdd)
 {
 	do
 	{
 		if (nbIsAdd == false)
 		{
-			//½µµÍ
+			//é™ä½
 			if (mlCurrentZoomLevel <= 0)
-				break; //ÒÑ¾­ÊÇ×îµÍÁË
+				break; //å·²ç»æ˜¯æœ€ä½äº†
 
 			if (--mlCurrentZoomLevel <= 0)
 				mpIterBtSub->SetEnable(false);
@@ -239,9 +239,9 @@ void CZoomControlToolbar::SetLevel(bool nbIsAdd)
 		}
 		else
 		{
-			//Ôö¼Ó
+			//å¢åŠ 
 			if (mlCurrentZoomLevel >= mfZoom.Size()-1)
-				break; //ÒÑ¾­ÊÇ×î¸ßÁË
+				break; //å·²ç»æ˜¯æœ€é«˜äº†
 
 			if (++mlCurrentZoomLevel >= mfZoom.Size()-1)
 				mpIterBtAdd->SetEnable(false);
@@ -260,7 +260,7 @@ void CZoomControlToolbar::SetLevel(bool nbIsAdd)
 	} while (false);
 }
 
-//ÏûÏ¢´¦Àíº¯Êı
+//æ¶ˆæ¯å¤„ç†å‡½æ•°
 ERESULT CZoomControlToolbar::ParseMessage(IEinkuiMessage* npMsg)
 {
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
@@ -269,7 +269,7 @@ ERESULT CZoomControlToolbar::ParseMessage(IEinkuiMessage* npMsg)
 	{
 	case EMSG_MODAL_ENTER:
 	{
-		//// ´´½¨Òªµ¯³öµÄ¶Ô»°¿ò
+		//// åˆ›å»ºè¦å¼¹å‡ºçš„å¯¹è¯æ¡†
 		//mpIterator->SetVisible(true);
 		luResult = ERESULT_SUCCESS;
 		break;
@@ -281,13 +281,13 @@ ERESULT CZoomControlToolbar::ParseMessage(IEinkuiMessage* npMsg)
 
 	if (luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CZoomControlToolbar::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
@@ -295,7 +295,7 @@ void CZoomControlToolbar::OnTimer(
 
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CZoomControlToolbar::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	
@@ -303,7 +303,7 @@ ERESULT CZoomControlToolbar::OnElementResized(D2D1_SIZE_F nNewSize)
 }
 
 
-//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òş²Ø¡¿·¢Éú¸Ä±ä
+//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 ERESULT CZoomControlToolbar::OnElementShow(bool nbIsShow)
 {
 	//EiSetHomebarStatus(nbIsShow == false ? GI_HOMEBAR_SHOW : GI_HOMEBAR_HIDE);

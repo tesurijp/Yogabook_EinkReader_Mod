@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -59,7 +59,7 @@ void CEdViewCtl::SetImageInit(const ED_SIZE& imageInit)
 
 void CEdViewCtl::Move(const ED_POINT& offset)
 {
-	// ¼ÆËãÄ¿±êÍ¼Ïñ´óĞ¡
+	// è®¡ç®—ç›®æ ‡å›¾åƒå¤§å°
 	ED_SIZEF imageExtSize;
 
 	if (mImageReal.x > 0 && mImageReal.y > 0)
@@ -74,7 +74,7 @@ void CEdViewCtl::Move(const ED_POINT& offset)
 	}
 
 	if((float32)mViewPort.x < imageExtSize.x)
-		mFocusOn.x -= offset.x / (imageExtSize.x);	// ½¹µãºÍÒ³ÃæµÄÒÆ¶¯·½ÏòÊÇÏà·´µÄ
+		mFocusOn.x -= offset.x / (imageExtSize.x);	// ç„¦ç‚¹å’Œé¡µé¢çš„ç§»åŠ¨æ–¹å‘æ˜¯ç›¸åçš„
 	if((float32)mViewPort.y < imageExtSize.y)
 		mFocusOn.y -= offset.y / (imageExtSize.y);
 }
@@ -108,7 +108,7 @@ bool CEdViewCtl::GetViewMapArea(ED_RECT& destArea, ED_RECT& srcArea, UCHAR* edge
 	if (Calculate() == false)
 		return false;
 
-	// ¼ÆËãÄ¿±êÍ¼Ïñ´óĞ¡
+	// è®¡ç®—ç›®æ ‡å›¾åƒå¤§å°
 	ED_SIZEF imageExtSize;
 
 	if (mImageReal.x > 0 && mImageReal.y > 0)
@@ -122,20 +122,20 @@ bool CEdViewCtl::GetViewMapArea(ED_RECT& destArea, ED_RECT& srcArea, UCHAR* edge
 		imageExtSize.y = mImageInit.y*mRealRatio;
 	}
 
-	// Èç¹ûÄ³¸ö·½ÏòĞ¡ÓÚÊÓ¿Ú£¬Ôò½«½¹µãÒÆµ½Í¼ÏñÖĞ¼ä
+	// å¦‚æœæŸä¸ªæ–¹å‘å°äºè§†å£ï¼Œåˆ™å°†ç„¦ç‚¹ç§»åˆ°å›¾åƒä¸­é—´
 	if (imageExtSize.x <= mViewPort.x && mFocusOn.x != 0.5f)
 		mFocusOn.x = 0.5f;
 	if (imageExtSize.y <= mViewPort.y && mFocusOn.y != 0.5f)
 		mFocusOn.y = 0.5f;
 
-	// ½«Ä¿±êÍ¼Ïñ¼ÓÉÏÆ«ÒÆ
+	// å°†ç›®æ ‡å›¾åƒåŠ ä¸Šåç§»
 	ED_RECTF destImage;
 	destImage.left = mViewPort.x / 2.0f - (imageExtSize.x * mFocusOn.x);
 	destImage.right = destImage.left + (imageExtSize.x);
 	destImage.top = mViewPort.y / 2.0f - (imageExtSize.y * mFocusOn.y);
 	destImage.bottom = destImage.top + (imageExtSize.y);
 
-	// ¼ì²éÊÇ·ñÓĞ±ßËõÈëÊÓ¿Ú£¬ÈçÓĞÔòµ÷Õû
+	// æ£€æŸ¥æ˜¯å¦æœ‰è¾¹ç¼©å…¥è§†å£ï¼Œå¦‚æœ‰åˆ™è°ƒæ•´
 	bool32 moveFocus = false;
 	if (destImage.left > 0.0f && destImage.right > (float32)mViewPort.x)
 	{
@@ -244,7 +244,7 @@ bool32 CEdViewCtl::Calculate(void)
 		if (mViewPort.x == 0 || mViewPort.y == 0)
 			return false;
 
-		// ¼ÆËã»ù´¡·Å´ó±¶Êı
+		// è®¡ç®—åŸºç¡€æ”¾å¤§å€æ•°
 		float32 imageSlope = (float32)mImageInit.x / (float32)mImageInit.y;
 		float32 viewPortSlope = (float32)mViewPort.x / (float32)mViewPort.y;
 
@@ -276,9 +276,9 @@ bool32 CEdViewCtl::Calculate(void)
 	}
 	if (focusOnNewPage)
 	{
-		mFocusOn.x = 0.5f;	// ºáÖá¶¨Î»µ½ÖĞ¼ä
+		mFocusOn.x = 0.5f;	// æ¨ªè½´å®šä½åˆ°ä¸­é—´
 
-		// ×İÖá¶¨Î»µ½Ò³ÃæÉÏ²¿
+		// çºµè½´å®šä½åˆ°é¡µé¢ä¸Šéƒ¨
 		if (mImageInit.y*mRealRatio > (float32)mViewPort.y)
 			mFocusOn.y = (float32)mViewPort.y / (mImageInit.y*mRealRatio*2.0f);
 		else

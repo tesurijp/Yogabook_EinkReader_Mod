@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -15,7 +15,7 @@
 
 DEFINE_BUILTIN_NAME(List)
 
-// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓĞ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖĞ½øĞĞ
+// åªç”¨äºå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 CEvList::CEvList()
 {
 	mlShowStyle = LIST_VIEW_STYLE_REPORT;
@@ -34,7 +34,7 @@ CEvList::CEvList()
 	mpIterInsertMark = NULL;
 }
 
-// ÓÃÓÚÊÍ·Å³ÉÔ±¶ÔÏó
+// ç”¨äºé‡Šæ”¾æˆå‘˜å¯¹è±¡
 CEvList::~CEvList()
 {
 	//ResetList();
@@ -45,26 +45,26 @@ CEvList::~CEvList()
 }
 
 ULONG CEvList::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
-		//´´½¨×İÏò¹ö¶¯Ìõ
+		//åˆ›å»ºçºµå‘æ»šåŠ¨æ¡
 		ICfKey * lpVScrollKey = npTemplete->GetSubKey(L"VScroll");
 		if(lpVScrollKey)
 		{
 			mpVScrollBar = CEvScrollBar::CreateInstance(mpIterator,lpVScrollKey,V_SCROLL_BAR_ID);			
 		}
-		//´´½¨ºáÏò¹ö¶¯Ìõ
+		//åˆ›å»ºæ¨ªå‘æ»šåŠ¨æ¡
 		ICfKey * lpHScrollKey = npTemplete->GetSubKey(L"HScroll");
 		if(lpHScrollKey)
 		{
@@ -72,7 +72,7 @@ ULONG CEvList::InitOnCreate(
 		}
 		
 		mpIterator->ModifyStyles(EITR_STYLE_ALL_MWHEEL);
-		//´´½¨InsertMark
+		//åˆ›å»ºInsertMark
 		ICfKey * lpMarkKey = npTemplete->GetSubKey(L"InsertMark");
 		if(lpMarkKey)
 		{
@@ -88,7 +88,7 @@ ULONG CEvList::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvList::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -98,11 +98,11 @@ ERESULT CEvList::OnElementCreate(IEinkuiIterator* npIterator)
 		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
-		//×°ÔØÒ»Ğ©±ØÒªµÄÅäÖÃ×ÊÔ´
+		//è£…è½½ä¸€äº›å¿…è¦çš„é…ç½®èµ„æº
 		LoadResource();
 
-		//ÉèÖÃ¹ö¶¯ÌõÎ»ÖÃºÍ´óĞ¡
-		//ÉèÖÃÏÔÊ¾ÇøÓò
+		//è®¾ç½®æ»šåŠ¨æ¡ä½ç½®å’Œå¤§å°
+		//è®¾ç½®æ˜¾ç¤ºåŒºåŸŸ
 		if(mlShowStyle != LIST_VIEW_STYLE_AUTO_FIT_X && mlShowStyle != LIST_VIEW_STYLE_AUTO_FIT_Y)
 		{
 			D2D1_RECT_F lRectVisibel;
@@ -111,7 +111,7 @@ ERESULT CEvList::OnElementCreate(IEinkuiIterator* npIterator)
 			lRectVisibel.right = lRectVisibel.left + mpIterator->GetSizeX();
 			lRectVisibel.bottom = lRectVisibel.top + mpIterator->GetSizeY();
 			mpIterator->SetVisibleRegion(lRectVisibel);
-			//ÖØĞÂÉèÖÃ¹ö¶¯ÌõµÄÎ»ÖÃºÍ´óĞ¡
+			//é‡æ–°è®¾ç½®æ»šåŠ¨æ¡çš„ä½ç½®å’Œå¤§å°
 			SetScrollBarPositionAndSize();
 		}
 		else
@@ -125,12 +125,12 @@ ERESULT CEvList::OnElementCreate(IEinkuiIterator* npIterator)
 	return lResult;
 }
 
-//ÉèÖÃScrollBarµÄÎ»ÖÃ
+//è®¾ç½®ScrollBarçš„ä½ç½®
 bool CEvList::SetScrollBarPositionAndSize()
 {
 	//if(mbSetScrollBarPositionAndSize == false)
 	{
-		//ÉèÖÃScrollBarÎ»ÖÃ
+		//è®¾ç½®ScrollBarä½ç½®
 		if(mpVScrollBar)
 		{
 			//mpVScrollBar->GetIterator()->SetVisible(false);
@@ -147,15 +147,15 @@ bool CEvList::SetScrollBarPositionAndSize()
 	return true;
 }
 
-// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓĞÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+// é”€æ¯å…ƒç´ ï¼Œç”¨äºé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+// ä»è€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€Œåå†å°†è‡ªå·±ä»å…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 ERESULT CEvList::OnElementDestroy()
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
 
 	do
 	{
-		CXuiElement::OnElementDestroy();	//µ÷ÓÃ»ùÀà
+		CXuiElement::OnElementDestroy();	//è°ƒç”¨åŸºç±»
 
 		lResult = ERESULT_SUCCESS;
 
@@ -164,7 +164,7 @@ ERESULT CEvList::OnElementDestroy()
 	return lResult;
 }
 
-//×°ÔØÅäÖÃ×ÊÔ´
+//è£…è½½é…ç½®èµ„æº
 ERESULT CEvList::LoadResource()
 {
 
@@ -174,23 +174,23 @@ ERESULT CEvList::LoadResource()
 
 	do 
 	{
-		//»ñÈ¡Ö¡ĞÅÏ¢
+		//è·å–å¸§ä¿¡æ¯
 		mlMaxFrame = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_LIST_BACKIAMGE_FRAME_COUNT,1);
 
 		if (mlMaxFrame > 0 && mpBgBitmap != NULL)
 		{
-			//¼ÆËãÃ¿Ö¡´óĞ¡
+			//è®¡ç®—æ¯å¸§å¤§å°
 			UINT luiWidth = mpBgBitmap->GetWidth();
 			UINT luiHeight = mpBgBitmap->GetHeight();
 			mlCurrentIndex = 0;
 
 			mpIterator->SetSize(float(luiWidth / mlMaxFrame),(float)luiHeight);
 		}
-		//»ñÈ¡ÏÔÊ¾Ä£Ê½
+		//è·å–æ˜¾ç¤ºæ¨¡å¼
 
-		//»ñÈ¡ÊÇ·ñ²»ĞèÒªÏÔÊ¾¹ö¶¯ÌõµÈÊôĞÔ
+		//è·å–æ˜¯å¦ä¸éœ€è¦æ˜¾ç¤ºæ»šåŠ¨æ¡ç­‰å±æ€§
 
-		// ¶ÁÈ¡·ç¸ñÉèÖÃ
+		// è¯»å–é£æ ¼è®¾ç½®
 		mlShowStyle = (LONG)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_LIST_STYLE,1);
 
 		leResult = ERESULT_SUCCESS;
@@ -199,34 +199,34 @@ ERESULT CEvList::LoadResource()
 
 	return leResult;
 }
-//ÖØÔØResize ÖØĞÂÉèÖÃÏÔÊ¾ÇøÓò
+//é‡è½½Resize é‡æ–°è®¾ç½®æ˜¾ç¤ºåŒºåŸŸ
 ERESULT CEvList::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	
 	if(mlShowStyle != LIST_VIEW_STYLE_AUTO_FIT_X && mlShowStyle != LIST_VIEW_STYLE_AUTO_FIT_Y)
 	{
-		//ÉèÖÃÏÔÊ¾ÇøÓò
+		//è®¾ç½®æ˜¾ç¤ºåŒºåŸŸ
 		D2D1_RECT_F lRectVisibel;
 		lRectVisibel.left = 0;
 		lRectVisibel.top = 0;
 		lRectVisibel.right = lRectVisibel.left + mpIterator->GetSizeX();
 		lRectVisibel.bottom = lRectVisibel.top + mpIterator->GetSizeY();
 		mpIterator->SetVisibleRegion(lRectVisibel);
-		//ÖØĞÂÉèÖÃ¹ö¶¯ÌõµÄÎ»ÖÃºÍ´óĞ¡
+		//é‡æ–°è®¾ç½®æ»šåŠ¨æ¡çš„ä½ç½®å’Œå¤§å°
 		SetScrollBarPositionAndSize();
 
-		//ÖØĞÂ¼ÆËãÇøÓòÉèÖÃ¹ö¶¯´óĞ¡
+		//é‡æ–°è®¡ç®—åŒºåŸŸè®¾ç½®æ»šåŠ¨å¤§å°
 		CalcElementPosition();
 		//
 		CheckVScrollBarNeedToShow();
 	}
 	return ERESULT_SUCCESS;
 }
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -238,7 +238,7 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 		{
 			
 	
-			//´¦Àí¹ö¶¯ÏûÏ¢
+			//å¤„ç†æ»šåŠ¨æ¶ˆæ¯
 		case EACT_SCROLLBAR_VSCROLL_THUMB_POSITION:
 			{
 				if(npMsg->GetInputDataSize() != sizeof(FLOAT))
@@ -256,14 +256,14 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 				mlDocToView0PositionY = lTempPos;
 				CalcElementPosition();
 
-				//Ğè·µ»Ø¸ø¸¸´°¿Ú£¬Á´±íÕıÔÚ¹ö¶¯
+				//éœ€è¿”å›ç»™çˆ¶çª—å£ï¼Œé“¾è¡¨æ­£åœ¨æ»šåŠ¨
 				PostMessageToParent(EACT_LIST_SCROLLING,mlDocToView0PositionY);
 				luResult = ERESULT_SUCCESS;
 				break;
 			}
 		case EACT_LIST_SET_PIC_INDEX:	
 			{
-				//ÇĞ»»ÏÔÊ¾Ö¡
+				//åˆ‡æ¢æ˜¾ç¤ºå¸§
 				if(npMsg->GetInputDataSize() != sizeof(LONG))
 				{
 					luResult = ERESULT_WRONG_PARAMETERS;
@@ -276,7 +276,7 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 			}
 		case EACT_LIST_SET_MEMORY_MANAGER:	
 			{
-				//ÇĞ»»ÏÔÊ¾Ö¡
+				//åˆ‡æ¢æ˜¾ç¤ºå¸§
 				if(npMsg->GetInputDataSize() != sizeof(bool))
 				{
 					luResult = ERESULT_WRONG_PARAMETERS;
@@ -290,7 +290,7 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 			}
 		case EACT_LIST_CHANGE_PIC:	
 			{
-				//¸ü»»ÏÔÊ¾Í¼Æ¬			
+				//æ›´æ¢æ˜¾ç¤ºå›¾ç‰‡			
 
 				wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
 
@@ -301,7 +301,7 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 		case EACT_LIST_ITEMCLICK_RBUTTON:
 		case EEVT_MENUITEM_CLICK:
 			{
-				//·¢Ïò¸¸´°¿Ú
+				//å‘å‘çˆ¶çª—å£
 				mpIterator->PostMessageToParent(npMsg);
 				luResult = ERESULT_SUCCESS;
 				break;
@@ -324,7 +324,7 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 				mlDocToView0PositionY = lTempPos;
 				CalcElementPosition();
 				CheckVScrollBarNeedToShow();
-				//ĞèÒªÉèÖÃ¹ö¶¯ÌõµÄ»¬¿éÎ»ÖÃ
+				//éœ€è¦è®¾ç½®æ»šåŠ¨æ¡çš„æ»‘å—ä½ç½®
 				if(mpVScrollBar)
 					EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(mpVScrollBar->GetIterator(),
 					EACT_SCROLLBAR_VSCROLL_SET_SLIDER_POSTION,&mlDocToView0PositionY,sizeof(FLOAT),NULL,0);
@@ -509,7 +509,7 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 			}
 		case EEVT_BUTTON_CLICK:
 			{
-				//ÏòÉÏ×ª·¢
+				//å‘ä¸Šè½¬å‘
 				if(npMsg->IsSent())
 				{					
 					if(mpIterator->GetParent())
@@ -572,7 +572,7 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 					if(lpElement == mpElementVector[i])
 						break;
 				}
-				// ÉèÖÃÊä³öÊı¾İ
+				// è®¾ç½®è¾“å‡ºæ•°æ®
 				int* lpOut = (int*)npMsg->GetOutputBuffer();
 				*lpOut = i;
 				npMsg->SetOutputDataSize(sizeof(int));
@@ -588,7 +588,7 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 				}				
 				int lnNum = mpElementVector.Size();
 				
-				// ÉèÖÃÊä³öÊı¾İ
+				// è®¾ç½®è¾“å‡ºæ•°æ®
 				int* lpOut = (int*)npMsg->GetOutputBuffer();
 				*lpOut = lnNum;
 				npMsg->SetOutputDataSize(sizeof(int));
@@ -668,12 +668,12 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 				luResult = ERESULT_SUCCESS;	
 				break;
 			}
-		case EMSG_DRAGDROP_ENTER://Drag½øÈë
+		case EMSG_DRAGDROP_ENTER://Dragè¿›å…¥
 			{
 				
 				break;
 			}
-		case EMSG_DRAGDROP_LEAVE://dragÀë¿ª
+		case EMSG_DRAGDROP_LEAVE://dragç¦»å¼€
 			{
 				OutputDebugString(L"Drop leave");
 				if(mpIterInsertMark)
@@ -695,12 +695,12 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 				{				
 					
 					//mpIterator->SetAlpha(0.4);
-					//¼ì²â¾ØĞÎ¸²¸Ç£¬ÏÔÊ¾²åÈë±êÊ¶
+					//æ£€æµ‹çŸ©å½¢è¦†ç›–ï¼Œæ˜¾ç¤ºæ’å…¥æ ‡è¯†
 					int nIndex = CheckPos(lpReq->CurrentPos);
 					if(nIndex != -1 && mpIterInsertMark)
 					{						
 						//mpIterInsertMark->ModifyStyles(EITR_STYLE_TOPDRAW);
-						if(nIndex == mpElementVector.Size()) //Èç¹û´ïµ½×îºó
+						if(nIndex == mpElementVector.Size()) //å¦‚æœè¾¾åˆ°æœ€å
 						{
 							IEinkuiIterator * lpLastIte = mpElementVector[nIndex-1];
 							mpIterInsertMark->SetPosition(lpLastIte->GetPositionX(),
@@ -723,7 +723,7 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 				OutputDebugString(L"Drop down");
 				if(mpIterInsertMark)
 					mpIterInsertMark->SetVisible(false);
-				//Ä¿±êÔÚ×Ô¼ºÉíÉÏÂäÏÂ
+				//ç›®æ ‡åœ¨è‡ªå·±èº«ä¸Šè½ä¸‹
 				if(npMsg->GetInputData()==NULL || npMsg->GetInputDataSize()!=sizeof(STMS_EDRGDRP_REQUEST))
 				{
 					luResult = ERESULT_WRONG_PARAMETERS;
@@ -815,7 +815,7 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 			}
 		case EACT_LIST_SHOW_BY_INDEX:
 			{
-				////°ÑÖ¸¶¨ÏîÒÆ¶¯µ½¿ÉÏÔÊ¾ÇøÓò
+				////æŠŠæŒ‡å®šé¡¹ç§»åŠ¨åˆ°å¯æ˜¾ç¤ºåŒºåŸŸ
 				LONG llIndex = -1;
 				if(CExMessage::GetInputData(npMsg,llIndex) != ERESULT_SUCCESS)
 					break;
@@ -831,7 +831,7 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 
 		if(luResult == ERESULT_NOT_SET)
 		{
-			luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+			luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 		}
 
 	} while (false);
@@ -839,7 +839,7 @@ ERESULT CEvList::ParseMessage(IEinkuiMessage* npMsg)
 	return luResult;
 }
 
-//»æÖÆ
+//ç»˜åˆ¶
 ERESULT CEvList::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 
@@ -868,7 +868,7 @@ ERESULT CEvList::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 }
 
 
-//ÇĞ»»ÏÔÊ¾Ö¡,µÚÒ»Ö¡Îª1
+//åˆ‡æ¢æ˜¾ç¤ºå¸§,ç¬¬ä¸€å¸§ä¸º1
 ERESULT CEvList::OnChangeBackImageIndex(LONG nlIndex)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -887,7 +887,7 @@ ERESULT CEvList::OnChangeBackImageIndex(LONG nlIndex)
 	return lResult;
 }
 
-//¸ü»»ÏÔÊ¾Í¼Æ¬
+//æ›´æ¢æ˜¾ç¤ºå›¾ç‰‡
 ERESULT CEvList::OnChangeBackImagePic(wchar_t* npswPicPath)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -897,12 +897,12 @@ ERESULT CEvList::OnChangeBackImagePic(wchar_t* npswPicPath)
 		if(npswPicPath == NULL || npswPicPath[0] == UNICODE_NULL)
 			break;
 
-		CMM_SAFE_RELEASE(mpBgBitmap);	//È¥³ıÔ­À´µÄÍ¼Æ¬
+		CMM_SAFE_RELEASE(mpBgBitmap);	//å»é™¤åŸæ¥çš„å›¾ç‰‡
 
 		mpBgBitmap = EinkuiGetSystem()->GetAllocator()->LoadImageFile(npswPicPath);
 		BREAK_ON_NULL(mpBgBitmap);
 
-		mlMaxFrame = 1;	//Ä¿Ç°Ö»Ö§³ÖÇĞ»»ÎªÒ»Ö¡µÄÍ¼
+		mlMaxFrame = 1;	//ç›®å‰åªæ”¯æŒåˆ‡æ¢ä¸ºä¸€å¸§çš„å›¾
 
 		leResult = ERESULT_SUCCESS;
 
@@ -911,7 +911,7 @@ ERESULT CEvList::OnChangeBackImagePic(wchar_t* npswPicPath)
 	return leResult;
 }
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CEvList::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -995,7 +995,7 @@ bool CEvList::CheckVScrollBarNeedToShow()
 
 	return lbRet;
 }
-//¸ù¾İÎ»ÖÃ£¬¼ÆËã³ÉÔ±±äÁ¿µÄÎ»ÖÃ
+//æ ¹æ®ä½ç½®ï¼Œè®¡ç®—æˆå‘˜å˜é‡çš„ä½ç½®
 bool CEvList::CalcElementPosition()
 {
 	bool lbRet = false;
@@ -1004,7 +1004,7 @@ bool CEvList::CalcElementPosition()
 		IEinkuiIterator * lpIterator = NULL;
 		IEinkuiIterator * lpPreIterator = NULL;
 
-		//Î»ÖÃ´Ó-mlDocToView0PositionY¿ªÊ¼
+		//ä½ç½®ä»-mlDocToView0PositionYå¼€å§‹
 		FLOAT lfPositionY = -mlDocToView0PositionY; 
 		mlDocumentHeight = 0.0f;
 		for(int i = 0; i < mpElementVector.Size();i++)
@@ -1013,7 +1013,7 @@ bool CEvList::CalcElementPosition()
 			if(lpIterator && lpIterator->IsVisible())
 			{
 				mlDocumentHeight += lpIterator->GetSizeY();
-				//Èç¹ûÇ°Ò»¸ö²»»á¿Õ£¬Ôòµ±Ç°µÄÎ»ÖÃÎª£¨Ç°Ò»¸öPositionY£© + £¨Ç°Ò»¸ösizeY£©			
+				//å¦‚æœå‰ä¸€ä¸ªä¸ä¼šç©ºï¼Œåˆ™å½“å‰çš„ä½ç½®ä¸ºï¼ˆå‰ä¸€ä¸ªPositionYï¼‰ + ï¼ˆå‰ä¸€ä¸ªsizeYï¼‰			
 				if(lpPreIterator)
 					lfPositionY += lpPreIterator->GetSizeY();
 
@@ -1025,14 +1025,14 @@ bool CEvList::CalcElementPosition()
 	}
 	else if(mlShowStyle == LIST_VIEW_STYLE_SMALLITEM && mpElementVector.Size() > 0)
 	{
-		//»ñÈ¡ViewµÄsize £¬ĞèÒª¼õÈ¥¹ö¶¯ÌõµÄ¿í¶È
+		//è·å–Viewçš„size ï¼Œéœ€è¦å‡å»æ»šåŠ¨æ¡çš„å®½åº¦
 		FLOAT lfViewSizeX = mpIterator->GetSizeX();
 		FLOAT lfViewSizeY = mpIterator->GetSizeY();
-		//Ò»ĞĞÒ»ĞĞÅÅ²¼£¬µÃÍ³¼ÆÒ»ĞĞµÄ×î´ó¸ß¶È£¬·½±ã¼ÆËãdocmentHeigth
+		//ä¸€è¡Œä¸€è¡Œæ’å¸ƒï¼Œå¾—ç»Ÿè®¡ä¸€è¡Œçš„æœ€å¤§é«˜åº¦ï¼Œæ–¹ä¾¿è®¡ç®—docmentHeigth
 		FLOAT lfCurrentLineMaxHeigth = 0;
 		FLOAT lfCurrentLinePositionX = 0;
 		FLOAT lfCurrentLinePositionY = -mlDocToView0PositionY;
-		FLOAT lfCurrentLineUsedX = 0; //ÁÙÊ±±äÁ¿£¬¼ÇÂ¼Ò»ĞĞÒÑ¾­ÓÃÁË¶àÉÙ
+		FLOAT lfCurrentLineUsedX = 0; //ä¸´æ—¶å˜é‡ï¼Œè®°å½•ä¸€è¡Œå·²ç»ç”¨äº†å¤šå°‘
 		IEinkuiIterator * lpIterator = NULL;
 		IEinkuiIterator * lpPreIterator = NULL;
 		mlDocumentHeight = 0.0;
@@ -1041,11 +1041,11 @@ bool CEvList::CalcElementPosition()
 			lpIterator = mpElementVector[i];
 			if(lpIterator && lpIterator->IsVisible())
 			{
-				//¿´¿´ÄÜ²»ÄÜÅÅÔÚµ±Ç°ĞĞ£¬²»ĞĞ¾Í»»ĞĞ
+				//çœ‹çœ‹èƒ½ä¸èƒ½æ’åœ¨å½“å‰è¡Œï¼Œä¸è¡Œå°±æ¢è¡Œ
 				bool lbIsChangeLine = false;
 				if(lfViewSizeX - lfCurrentLineUsedX < lpIterator->GetSizeX())
 				{
-					//Èç¹û²»ĞĞ¾ÍÒª»»ĞĞ£¬ÖØĞÂÉèÖÃµ±Ç°ĞĞ±äÁ¿
+					//å¦‚æœä¸è¡Œå°±è¦æ¢è¡Œï¼Œé‡æ–°è®¾ç½®å½“å‰è¡Œå˜é‡
 					mlDocumentHeight += lfCurrentLineMaxHeigth;
 					lfCurrentLineUsedX = 0;
 					lfCurrentLinePositionX = 0;
@@ -1055,11 +1055,11 @@ bool CEvList::CalcElementPosition()
 
 				}
 
-				//ÖØĞÂcheck ¿´¿´ÄÜ²»ÄÜ·ÅÈëµ±Ç°ĞĞ£¬»òÕßĞÂµÄĞĞ£¬
-				//Èç¹ûÕâ¶¼²»ĞĞ£¬ËµÃ÷Õâ¸öelementµÄ¿í¶È³¬³öviewµÄ¿í¶È£¬²»Óè´¦Àí
+				//é‡æ–°check çœ‹çœ‹èƒ½ä¸èƒ½æ”¾å…¥å½“å‰è¡Œï¼Œæˆ–è€…æ–°çš„è¡Œï¼Œ
+				//å¦‚æœè¿™éƒ½ä¸è¡Œï¼Œè¯´æ˜è¿™ä¸ªelementçš„å®½åº¦è¶…å‡ºviewçš„å®½åº¦ï¼Œä¸äºˆå¤„ç†
 				if(lfViewSizeX - lfCurrentLineUsedX >= lpIterator->GetSizeX())
 				{
-					//¿ÉÒÔ·ÅÔÚµ±Ç°ĞĞ,ĞŞ¸Äµ±Ç°ĞĞ±äÁ¿
+					//å¯ä»¥æ”¾åœ¨å½“å‰è¡Œ,ä¿®æ”¹å½“å‰è¡Œå˜é‡
 					lfCurrentLineUsedX += lpIterator->GetSizeX();
 					if(lfCurrentLineMaxHeigth < lpIterator->GetSizeY())
 						lfCurrentLineMaxHeigth = lpIterator->GetSizeY();
@@ -1072,7 +1072,7 @@ bool CEvList::CalcElementPosition()
 			}//if(lpIterator)
 			lpPreIterator = lpIterator;
 		}//for
-		//¼ÓÉÏ×îºóÒ»ĞĞµÄ¸ß¶È
+		//åŠ ä¸Šæœ€åä¸€è¡Œçš„é«˜åº¦
 		if(lpIterator)
 		   mlDocumentHeight += lfCurrentLineMaxHeigth;
 	}
@@ -1081,7 +1081,7 @@ bool CEvList::CalcElementPosition()
 		IEinkuiIterator * lpIterator = NULL;
 		IEinkuiIterator * lpPreIterator = NULL;
 
-		//Î»ÖÃ´Ó-mlDocToView0PositionY¿ªÊ¼
+		//ä½ç½®ä»-mlDocToView0PositionYå¼€å§‹
 		FLOAT lfPositionY = 0; 
 		mlDocumentHeight = 0.0;
 		FLOAT lfMaxSizeX = 0;
@@ -1091,10 +1091,10 @@ bool CEvList::CalcElementPosition()
 			if(lpIterator && lpIterator->IsVisible())
 			{
 				mlDocumentHeight += lpIterator->GetSizeY();
-				//»ñÈ¡×î´ó¿í¶È
+				//è·å–æœ€å¤§å®½åº¦
 				if(lpIterator->GetSizeX() > lfMaxSizeX)
 					lfMaxSizeX = lpIterator->GetSizeX();
-				//Èç¹ûÇ°Ò»¸ö²»»á¿Õ£¬Ôòµ±Ç°µÄÎ»ÖÃÎª£¨Ç°Ò»¸öPositionY£© + £¨Ç°Ò»¸ösizeY£©			
+				//å¦‚æœå‰ä¸€ä¸ªä¸ä¼šç©ºï¼Œåˆ™å½“å‰çš„ä½ç½®ä¸ºï¼ˆå‰ä¸€ä¸ªPositionYï¼‰ + ï¼ˆå‰ä¸€ä¸ªsizeYï¼‰			
 				if(lpPreIterator)
 					lfPositionY += lpPreIterator->GetSizeY();
 
@@ -1106,14 +1106,14 @@ bool CEvList::CalcElementPosition()
 	}
 	return lbRet;
 }
-//¹«¿ª²Ù×÷
-//ÉèÖÃÏÔÊ¾Ä£Ê½
+//å…¬å¼€æ“ä½œ
+//è®¾ç½®æ˜¾ç¤ºæ¨¡å¼
 bool CEvList::SetListViewStyle(LONG nlShowStyle)
 {
 	mlShowStyle = nlShowStyle;
 	return true;
 }
-//ÉèÖÃÊÇ·ñÏÔÊ¾ºáÏòºÍ×İÏòµÄ¹ö¶¯Ìõ
+//è®¾ç½®æ˜¯å¦æ˜¾ç¤ºæ¨ªå‘å’Œçºµå‘çš„æ»šåŠ¨æ¡
 bool CEvList::ShowScrollBar(bool nbShowVer,bool nbShowHor)
 {
 	mbShowHorScroll = nbShowHor;
@@ -1121,7 +1121,7 @@ bool CEvList::ShowScrollBar(bool nbShowVer,bool nbShowHor)
 	return true;
 }
 
-//Ìí¼ÓÒ»¸öÔªËØµ½ListÈİÆ÷£¬listÈİÆ÷½«¸ºÔğÊÍ·Å¸ÃÔªËØ
+//æ·»åŠ ä¸€ä¸ªå…ƒç´ åˆ°Listå®¹å™¨ï¼Œlistå®¹å™¨å°†è´Ÿè´£é‡Šæ”¾è¯¥å…ƒç´ 
 bool CEvList::AddElement(IEinkuiIterator * npElement,int nIndex ) 
 {
 	if(npElement == NULL)
@@ -1135,10 +1135,10 @@ bool CEvList::AddElement(IEinkuiIterator * npElement,int nIndex )
 	return lbRet;
 }
 
-//Çå¿ÕList£¬½«ÊÍ·ÅÔ­ÓĞµÄÔªËØ
+//æ¸…ç©ºListï¼Œå°†é‡Šæ”¾åŸæœ‰çš„å…ƒç´ 
 bool CEvList::ResetList()
 {
-	//ÊÍ·Å¶ÔÓ¦µÄÄÚ´æ
+	//é‡Šæ”¾å¯¹åº”çš„å†…å­˜
 	if(mbNeedMemoryManager)
 	{
 		for(int i = 0; i < mpElementVector.Size();i++)
@@ -1150,7 +1150,7 @@ bool CEvList::ResetList()
 
 	mpElementVector.Clear();
 	mlDocumentHeight = mlDocumentWidth = 0;
-	//Òş²Ø¹ö¶¯Ìõ
+	//éšè—æ»šåŠ¨æ¡
 	CheckVScrollBarNeedToShow();
 	if(mlShowStyle == LIST_VIEW_STYLE_AUTO_FIT_Y )
 		mpIterator->SetSize(mpIterator->GetSizeX(),0.0f);
@@ -1160,7 +1160,7 @@ bool CEvList::ResetList()
 	return true;
 }
 
-//¸ù¾İË÷ÒıÉ¾³ıÔªËØ
+//æ ¹æ®ç´¢å¼•åˆ é™¤å…ƒç´ 
 bool CEvList::DeleteElement(LONG nlIndex,bool nbClostElement)
 {
 	bool lbRet = false;
@@ -1175,11 +1175,11 @@ bool CEvList::DeleteElement(LONG nlIndex,bool nbClostElement)
 		lbRet = mpElementVector.RemoveByIndex(nlIndex);
 		if(lbRet)
 		{
-			//¼õÉÙDoc¸ß¶È			
+			//å‡å°‘Docé«˜åº¦			
 			lbRet = CalcElementPosition();
 		}
 
-		//check docunmentµÄ¸ß¶È,ÉèÖÃ¹ö¶¯·¶Î§
+		//check docunmentçš„é«˜åº¦,è®¾ç½®æ»šåŠ¨èŒƒå›´
 		lbRet = CheckVScrollBarNeedToShow();
 
 	}
@@ -1187,7 +1187,7 @@ bool CEvList::DeleteElement(LONG nlIndex,bool nbClostElement)
 	return lbRet;
 }
 
-//¸ù¾İÔªËØÖ¸ÕëÉ¾³ıÔªËØ
+//æ ¹æ®å…ƒç´ æŒ‡é’ˆåˆ é™¤å…ƒç´ 
 bool CEvList::DeleteElement(IEinkuiIterator * npElement)
 {
 	int liShow = 0;
@@ -1205,14 +1205,14 @@ bool CEvList::DeleteElement(IEinkuiIterator * npElement)
 	return false;
 }
 
-//Êó±ê»¬ÂÖ
+//é¼ æ ‡æ»‘è½®
 ERESULT CEvList::OnMouseWheel(const STEMS_MOUSE_WHEEL* npInfo)
 {
 	if(npInfo && mpVScrollBar->GetIterator()->IsVisible() && mpElementVector.Size() != 0)
 	{	
 		float lfPosition = -mlDocToView0PositionY;
 		float lfOffset = ( (FLOAT)npInfo->Delta * (mlDocumentHeight/mpElementVector.Size()) )/120.0f;
-	    //ÎªÁËÍ³Ò»£¬Ö»¹ö¶¯20¸öÏñËØ
+	    //ä¸ºäº†ç»Ÿä¸€ï¼Œåªæ»šåŠ¨20ä¸ªåƒç´ 
 		lfPosition += (lfOffset < 0 ? -LIST_MIN_WHEEL_OFFSET :LIST_MIN_WHEEL_OFFSET);
 		if(lfPosition <= -(mlDocumentHeight - mpIterator->GetSizeY()))
 			lfPosition = -(mlDocumentHeight - mpIterator->GetSizeY());
@@ -1233,7 +1233,7 @@ ERESULT CEvList::OnMouseWheel(const STEMS_MOUSE_WHEEL* npInfo)
 }
 
 
-//¼üÅÌÏûÏ¢
+//é”®ç›˜æ¶ˆæ¯
 ERESULT CEvList::OnKeyPressed(const STEMS_KEY_PRESSED* npInfo)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -1288,14 +1288,14 @@ ERESULT CEvList::OnKeyPressed(const STEMS_KEY_PRESSED* npInfo)
 }
 
 //
-////×Ö·ûÊäÈëÏûÏ¢
+////å­—ç¬¦è¾“å…¥æ¶ˆæ¯
 //ERESULT CEvList::OnChar(const PSTEMS_CHAR_INPUT npChar)
 //{
 //	ERESULT luResult;
 //
 //	bool lbSet = false;
 //	float lfPosition = -mlDocToView0PositionY;
-//	//ÅĞ¶Ï
+//	//åˆ¤æ–­
 //	if(npChar->CharIn == VK_UP)
 //	{
 //		if(mpVScrollBar->GetIterator()->IsVisible()
@@ -1340,7 +1340,7 @@ int CEvList::CheckPos(D2D1_POINT_2F nPos)
 	do 
 	{
 		D2D1_RECT_F lRect;
-		//ÏÈcheckÂäµã£¬ÂäÔÚÄÇ¸öelementÉÏ
+		//å…ˆcheckè½ç‚¹ï¼Œè½åœ¨é‚£ä¸ªelementä¸Š
 		for(int i = 0;i < mpElementVector.Size();i++)
 		{			
 			mpElementVector[i]->GetRect(lRect);
@@ -1352,7 +1352,7 @@ int CEvList::CheckPos(D2D1_POINT_2F nPos)
 			}
 		}
 
-		//check ÊÇ·ñÂäÔÚÏÂ°ë²¿·Ö£¬Èç¹ûÏÂ°ë²¿·Ö£¬ÔòIndex+1
+		//check æ˜¯å¦è½åœ¨ä¸‹åŠéƒ¨åˆ†ï¼Œå¦‚æœä¸‹åŠéƒ¨åˆ†ï¼Œåˆ™Index+1
 		if( lnIndex != -1 && nPos.y > lRect.top + (lRect.bottom - lRect.top)/2)
 			lnIndex += 1;
 
@@ -1360,7 +1360,7 @@ int CEvList::CheckPos(D2D1_POINT_2F nPos)
 	return lnIndex;
 }
 
-////°ÑÖ¸¶¨ÏîÒÆ¶¯µ½¿ÉÏÔÊ¾ÇøÓò
+////æŠŠæŒ‡å®šé¡¹ç§»åŠ¨åˆ°å¯æ˜¾ç¤ºåŒºåŸŸ
 void CEvList::ShowByIndex(LONG nlIndex)
 {
 	IEinkuiIterator* lpItem = NULL;
@@ -1368,7 +1368,7 @@ void CEvList::ShowByIndex(LONG nlIndex)
 	do 
 	{
 		if(nlIndex < 0 || nlIndex >= mpElementVector.Size())
-			break;	//²»ºÏ·¨µÄĞòºÅ
+			break;	//ä¸åˆæ³•çš„åºå·
 
 		lpItem = mpElementVector.GetEntry(nlIndex);
 		BREAK_ON_NULL(lpItem);
@@ -1377,28 +1377,28 @@ void CEvList::ShowByIndex(LONG nlIndex)
 			&& lpItem->GetPositionY() >= 0.0f 
 			&& (lpItem->GetPositionX()+lpItem->GetSizeX()) <= mpIterator->GetSizeX()
 			&& (lpItem->GetPositionY()+lpItem->GetSizeY()) <= mpIterator->GetSizeY())
-			break;	//ÒÑ¾­ÔÚÏÔÊ¾ÇøÓòÄÚÁË
+			break;	//å·²ç»åœ¨æ˜¾ç¤ºåŒºåŸŸå†…äº†
 
 		D2D1_POINT_2F ldOldPos = lpItem->GetPosition();
 		D2D1_POINT_2F ldNewPos = ldOldPos;
 		if (ldOldPos.y < 0.0f)
 		{
-			//ÔÚÏÔÊ¾ÇøÓòÉÏÃæ
+			//åœ¨æ˜¾ç¤ºåŒºåŸŸä¸Šé¢
 			ldNewPos.y = 0.0f;
 		}
 		else
 		{
-			//ÔÚÏÔÊ¾ÇøÓòÏÂÃæ
+			//åœ¨æ˜¾ç¤ºåŒºåŸŸä¸‹é¢
 			ldNewPos.y = mpIterator->GetSizeY() - lpItem->GetSizeY();
 		}
 
 		
 		mlDocToView0PositionY -= (ldNewPos.y - ldOldPos.y);
 
-		//ÖØĞÂ¶¨Î»ÔªËØÎ»ÖÃ
+		//é‡æ–°å®šä½å…ƒç´ ä½ç½®
 		CalcElementPosition();
 
-		//ĞèÒªÉèÖÃ¹ö¶¯ÌõµÄ»¬¿éÎ»ÖÃ
+		//éœ€è¦è®¾ç½®æ»šåŠ¨æ¡çš„æ»‘å—ä½ç½®
 		if(mpVScrollBar)
 			EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(mpVScrollBar->GetIterator(),
 			EACT_SCROLLBAR_VSCROLL_SET_SLIDER_POSTION,&mlDocToView0PositionY,sizeof(FLOAT),NULL,0);
@@ -1406,7 +1406,7 @@ void CEvList::ShowByIndex(LONG nlIndex)
 	} while (false);
 }
 
-//ÖØĞÂ¶¨Î»Î»ÖÃ
+//é‡æ–°å®šä½ä½ç½®
 void CEvList::Recaculate(void)
 {
 	CalcElementPosition();
@@ -1415,7 +1415,7 @@ void CEvList::Recaculate(void)
 	{
 		if(mpVScrollBar->GetIterator()->IsEnable())
 		{
-			//¼ì²âÊÇ·ñĞèÒªÉèÖÃPostionÎ»ÖÃ£¬ÒòÎª±ä¶¯ºó£¬Ô­ÓĞµÄÎ»ÖÃ³¬³öÁË»¬¶¯·¶Î§
+			//æ£€æµ‹æ˜¯å¦éœ€è¦è®¾ç½®Postionä½ç½®ï¼Œå› ä¸ºå˜åŠ¨åï¼ŒåŸæœ‰çš„ä½ç½®è¶…å‡ºäº†æ»‘åŠ¨èŒƒå›´
 			if( ( mlDocToView0PositionY + mpIterator->GetSizeY()) > mlDocumentHeight )
 				mlDocToView0PositionY = mlDocumentHeight - mpIterator->GetSizeY();	
 		}
@@ -1426,7 +1426,7 @@ void CEvList::Recaculate(void)
 
 	}
 	CalcElementPosition();
-	//Ğè·µ»Ø¸ø¸¸´°¿Ú£¬Á´±í´óĞ¡µÄ¸Ä±ä
+	//éœ€è¿”å›ç»™çˆ¶çª—å£ï¼Œé“¾è¡¨å¤§å°çš„æ”¹å˜
 	//SendMessageToParent(EACT_LIST_LAYOUT_CHANGE,NULL);
 	EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(mpIterator->GetParent(),
 		EACT_LIST_LAYOUT_CHANGE,NULL,0,NULL,0);

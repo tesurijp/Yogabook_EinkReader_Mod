@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -28,22 +28,22 @@ extern "C" {
 #endif
 
 
-// ½¨Á¢»òÕß´ò¿ªÒ»¸öÅäÖÃÎÄ¼ş£¬·µ»ØÅäÖÃÎÄ¼ş¶ÔÏó»òÕß·µ»ØNULL±íÊ¾Ê§°Ü£¬Ê§°ÜµÄÔ­Òò¿ÉÄÜÊÇÎÄ¼ş²»´æÔÚ»òÕßÎÄ¼ş¸ñÊ½´íÎó
+// å»ºç«‹æˆ–è€…æ‰“å¼€ä¸€ä¸ªé…ç½®æ–‡ä»¶ï¼Œè¿”å›é…ç½®æ–‡ä»¶å¯¹è±¡æˆ–è€…è¿”å›NULLè¡¨ç¤ºå¤±è´¥ï¼Œå¤±è´¥çš„åŸå› å¯èƒ½æ˜¯æ–‡ä»¶ä¸å­˜åœ¨æˆ–è€…æ–‡ä»¶æ ¼å¼é”™è¯¯
 IConfigFile* __stdcall CfCreateConfig(
-		IN const wchar_t* nszPathName,				// ÎÄ¼şµÄÍêÕûÂ·¾¶Ãû
-		IN ULONG nuCreationDisposition			// Í¬CreateFile APIÀàËÆ£¬¼ûCfgIface.hÎÄ¼şÖĞµÄÏà¹Ø¶¨Òå
+		IN const wchar_t* nszPathName,				// æ–‡ä»¶çš„å®Œæ•´è·¯å¾„å
+		IN ULONG nuCreationDisposition			// åŒCreateFile APIç±»ä¼¼ï¼Œè§CfgIface.hæ–‡ä»¶ä¸­çš„ç›¸å…³å®šä¹‰
 		)
 {
 	return  CConfigFile::CreateInstance(nszPathName,nuCreationDisposition);
 }
 
-// Í¬ÉÏÃæµÄº¯ÊıµÄÇø±ğÊÇ£¬StableConfig»á×Ô¶¯ÎªÎÄ¼ş½¨Á¢Ò»¸ö±¸·İ¸±±¾£¬·ÀÖ¹²Ù×÷ÎÄ¼ş»òÕßÆäËûÔ­Òòµ¼ÖÂµ¥Ò»ÎÄ¼şÆÆ»µ
-// ÅäÖÃÎÄ¼ş½«´æÔÚÇ°ºóÁ½´Î´ò¿ªµÄ²»Í¬µÄÁ½¸ö£¬ËüÃÇ½»ÌæÊ¹ÓÃ£¬»¥Îª±¸·İ£¬´Ó¶ø·ÀÖ¹Ä³´ÎµÄÊ¹ÓÃ¹ı³ÌÖĞÆÆ»µÁËÆäÖĞÒ»¸öÎÄ¼ş£»
-// ĞèÒª×¢Òâ£¬±¸·İµÄÊÇ´ò¿ªÇ°µÄÄÚÈİ£¬µ±Ò»¸ö´ò¿ªµÄÅäÖÃ±»¶à´Î¸ÄĞ´£¬¶ø×îºóÒ»´ÎĞ´ÈëµÄÎÄ¼ş×îºóËğ»µ£¬½«À´»á×Ô¶¯»Ø¸´µÄ²»ÊÇÇ°Ò»´ÎĞ´ÈëµÄÊı¾İ£¬¶øÊÇÇ°´Î¶ÔÏó´ò¿ªÇ°×îºó±£´æµÄÊı¾İ¡£
-// Èç£ºÈç¹ûÅäÖÃÎÄ¼şÃûÎªabc.set£¬ÄÇÃ´ÔÚÍ¬Ò»¸öÄ¿Â¼ÏÂ½«¿ÉÄÜ´æÔÚÒ»¸öabc_dup.setµÄÎÄ¼ş£¬Ëü¾ÍÊÇ¸±±¾£»
+// åŒä¸Šé¢çš„å‡½æ•°çš„åŒºåˆ«æ˜¯ï¼ŒStableConfigä¼šè‡ªåŠ¨ä¸ºæ–‡ä»¶å»ºç«‹ä¸€ä¸ªå¤‡ä»½å‰¯æœ¬ï¼Œé˜²æ­¢æ“ä½œæ–‡ä»¶æˆ–è€…å…¶ä»–åŸå› å¯¼è‡´å•ä¸€æ–‡ä»¶ç ´å
+// é…ç½®æ–‡ä»¶å°†å­˜åœ¨å‰åä¸¤æ¬¡æ‰“å¼€çš„ä¸åŒçš„ä¸¤ä¸ªï¼Œå®ƒä»¬äº¤æ›¿ä½¿ç”¨ï¼Œäº’ä¸ºå¤‡ä»½ï¼Œä»è€Œé˜²æ­¢æŸæ¬¡çš„ä½¿ç”¨è¿‡ç¨‹ä¸­ç ´åäº†å…¶ä¸­ä¸€ä¸ªæ–‡ä»¶ï¼›
+// éœ€è¦æ³¨æ„ï¼Œå¤‡ä»½çš„æ˜¯æ‰“å¼€å‰çš„å†…å®¹ï¼Œå½“ä¸€ä¸ªæ‰“å¼€çš„é…ç½®è¢«å¤šæ¬¡æ”¹å†™ï¼Œè€Œæœ€åä¸€æ¬¡å†™å…¥çš„æ–‡ä»¶æœ€åæŸåï¼Œå°†æ¥ä¼šè‡ªåŠ¨å›å¤çš„ä¸æ˜¯å‰ä¸€æ¬¡å†™å…¥çš„æ•°æ®ï¼Œè€Œæ˜¯å‰æ¬¡å¯¹è±¡æ‰“å¼€å‰æœ€åä¿å­˜çš„æ•°æ®ã€‚
+// å¦‚ï¼šå¦‚æœé…ç½®æ–‡ä»¶åä¸ºabc.setï¼Œé‚£ä¹ˆåœ¨åŒä¸€ä¸ªç›®å½•ä¸‹å°†å¯èƒ½å­˜åœ¨ä¸€ä¸ªabc_dup.setçš„æ–‡ä»¶ï¼Œå®ƒå°±æ˜¯å‰¯æœ¬ï¼›
 IConfigFile* __stdcall CfCreateStableConfig(
-	IN const wchar_t* nszPathName,				// ÎÄ¼şµÄÍêÕûÂ·¾¶Ãû£»ÉèÖÃÎªNULL£¬±íÊ¾½¨Á¢Ò»¸ö¿ÕÎÄ¼şÔİÊ±²»Ö¸¶¨ÎÄ¼şÃû
-	IN ULONG nuCreationDisposition	// Í¬CreateFile APIÀàËÆ£¬µ«½ö°üÀ¨CREATE_ALWAYS¡¢CREATE_NEW¡¢OPEN_ALWAYS¡¢OPEN_EXISTING£¬¶¨Òå¼ûÏÂÃæ
+	IN const wchar_t* nszPathName,				// æ–‡ä»¶çš„å®Œæ•´è·¯å¾„åï¼›è®¾ç½®ä¸ºNULLï¼Œè¡¨ç¤ºå»ºç«‹ä¸€ä¸ªç©ºæ–‡ä»¶æš‚æ—¶ä¸æŒ‡å®šæ–‡ä»¶å
+	IN ULONG nuCreationDisposition	// åŒCreateFile APIç±»ä¼¼ï¼Œä½†ä»…åŒ…æ‹¬CREATE_ALWAYSã€CREATE_NEWã€OPEN_ALWAYSã€OPEN_EXISTINGï¼Œå®šä¹‰è§ä¸‹é¢
 	)
 {
 	return CStableConfigFile::CreateInstance(nszPathName,nuCreationDisposition);
@@ -54,7 +54,7 @@ IConfigFile* __stdcall CfCreateStableConfig(
 
 CConfigFile::CConfigFile()
 {
-	miReferenceCount = 1;	// Ïàµ±ÓÚ¼ÇÂ¼ÁËÒ»´ÎÒıÓÃ
+	miReferenceCount = 1;	// ç›¸å½“äºè®°å½•äº†ä¸€æ¬¡å¼•ç”¨
 	mpRootInterface = NULL;
 	mpRoot = NULL;
 }
@@ -72,14 +72,14 @@ CConfigFile::~CConfigFile()
 	}
 	if(mpRootInterface != NULL)
 		mpRootInterface->Release();
-	// ÊÍ·ÅÄÚ´æ
+	// é‡Šæ”¾å†…å­˜
 	if(mpRoot != NULL)
 		RemoveKey((PCFKEY_NODE)mpRoot);
 }
 
 ULONG CConfigFile::InitOnCreate(
-		IN const wchar_t* nszPathName,				// ÎÄ¼şµÄÍêÕûÂ·¾¶Ãû
-		IN ULONG nuCreationDisposition			// Í¬CreateFile APIÀàËÆ£¬¼ûCfgIface.hÎÄ¼şÖĞµÄÏà¹Ø¶¨Òå
+		IN const wchar_t* nszPathName,				// æ–‡ä»¶çš„å®Œæ•´è·¯å¾„å
+		IN ULONG nuCreationDisposition			// åŒCreateFile APIç±»ä¼¼ï¼Œè§CfgIface.hæ–‡ä»¶ä¸­çš„ç›¸å…³å®šä¹‰
 	)
 {
 	bool lbReval = false;
@@ -97,11 +97,11 @@ ULONG CConfigFile::InitOnCreate(
 	bool lbResetConfig = false;
 
 	do{
-		// Èç¹ûnszPathNameÎªNULL£¬±íÊ¾½¨Á¢Ò»¸öĞÂµÄÎÄ¼ş
+		// å¦‚æœnszPathNameä¸ºNULLï¼Œè¡¨ç¤ºå»ºç«‹ä¸€ä¸ªæ–°çš„æ–‡ä»¶
 		if(nszPathName != NULL)
 		{
 			COPYSTR_S(mszFileName,256,nszPathName);
-			// ´ò¿ªÎÄ¼ş
+			// æ‰“å¼€æ–‡ä»¶
 	#ifndef KERNEL_CODE
 			lhFile = ::CreateFileW(mszFileName,GENERIC_READ,FILE_SHARE_READ|FILE_SHARE_WRITE,NULL,nuCreationDisposition,NULL,NULL);
 			if(lhFile == INVALID_HANDLE_VALUE)
@@ -134,13 +134,13 @@ ULONG CConfigFile::InitOnCreate(
 
 	#endif
 
-			// ÅĞ¶ÏÎÄ¼şÊÇ·ñÊÇĞÂ½¨Á¢µÄ£¬Èç¹ûÊÇĞÂ½¨µÄlbResetConfig½«»áÊÇtrue
+			// åˆ¤æ–­æ–‡ä»¶æ˜¯å¦æ˜¯æ–°å»ºç«‹çš„ï¼Œå¦‚æœæ˜¯æ–°å»ºçš„lbResetConfigå°†ä¼šæ˜¯true
 			if(lbResetConfig == false)
 			{
 				bool lbLoadOk = false;
 				do 
 				{
-					// ¶ÁÈëÎÄ¼şÍ·
+					// è¯»å…¥æ–‡ä»¶å¤´
 					lpHead = new CF_FILE_HEAD;
 					if(lpHead == NULL)
 						break;
@@ -154,17 +154,17 @@ ULONG CConfigFile::InitOnCreate(
 						break;
 			#endif
 
-					// ¼ì²é°æ±¾
+					// æ£€æŸ¥ç‰ˆæœ¬
 					if(lpHead->ShortHead.Signature != CF_SIGNATURE || lpHead->ShortHead.Version > CF_VERSION)
 						break;
 
-					// ¼ì²éÎÄ¼şÊÇ·ñÓĞÊ§°ÜµÄĞŞ¸Ä
+					// æ£€æŸ¥æ–‡ä»¶æ˜¯å¦æœ‰å¤±è´¥çš„ä¿®æ”¹
 					if(lpHead->ShortHead.SequenceA != lpHead->Tail.SequenceB)
-						break;	// ÉÏ´ÎµÄĞŞ¸ÄÃ»ÓĞÕıÈ·±»±£´æ£¬µ±Ç°ÎÄ¼ş¿ÉÄÜËğ»µ
+						break;	// ä¸Šæ¬¡çš„ä¿®æ”¹æ²¡æœ‰æ­£ç¡®è¢«ä¿å­˜ï¼Œå½“å‰æ–‡ä»¶å¯èƒ½æŸå
 
 					if (lpHead->ShortHead.SizeOfKeys > 0)
 					{
-						// Ò»´ÎĞĞ¶ÁÈëÈ«²¿Êı¾İ
+						// ä¸€æ¬¡è¡Œè¯»å…¥å…¨éƒ¨æ•°æ®
 						lpBuffer = new UCHAR[lpHead->ShortHead.SizeOfKeys];
 		#ifndef KERNEL_CODE
 						if(ReadFile(lhFile,lpBuffer,lpHead->ShortHead.SizeOfKeys,&luRead,NULL)==FALSE)
@@ -173,7 +173,7 @@ ULONG CConfigFile::InitOnCreate(
 						if(STATUS_SUCCESS != ZwReadFile(lhFile,NULL,NULL,NULL,&IoStatus,lpBuffer,lpHead->ShortHead.SizeOfKeys,NULL,NULL))
 							break;
 		#endif
-						// ÅĞ¶ÏÊÇ·ñÓĞÕıÈ·µÄĞ£ÑéºÍ
+						// åˆ¤æ–­æ˜¯å¦æœ‰æ­£ç¡®çš„æ ¡éªŒå’Œ
 						if(lpHead->ShortHead.Version >= CF_VERSION)
 						{
 							ULONG luCheckSum = 0;
@@ -182,10 +182,10 @@ ULONG CConfigFile::InitOnCreate(
 								luCheckSum += *((UCHAR*)lpBuffer+i);
 							}
 							if(luCheckSum != lpHead->ShortHead.CheckSum)
-								break;	// Ğ£ÑéºÍ²»¶Ô
+								break;	// æ ¡éªŒå’Œä¸å¯¹
 						}
 
-						// µİ¹éµ÷ÓÃÖ´ĞĞ¼ü×°ÔØ
+						// é€’å½’è°ƒç”¨æ‰§è¡Œé”®è£…è½½
 						lpEntry = (PCF_KEY_ENTRY)lpBuffer;
 						lpEndEntry = (PCF_KEY_ENTRY)((UCHAR*)lpBuffer + lpHead->ShortHead.SizeOfKeys);
 
@@ -193,7 +193,7 @@ ULONG CConfigFile::InitOnCreate(
 						if(mpRoot == NULL)
 							break;
 
-						// ¸´ÖÆµ±Ç°ÎÄ¼şÍ·
+						// å¤åˆ¶å½“å‰æ–‡ä»¶å¤´
 						RtlCopyMemory(&mdFileHead,&lpHead->ShortHead,sizeof(mdFileHead));
 
 						lbLoadOk = true;
@@ -216,14 +216,14 @@ ULONG CConfigFile::InitOnCreate(
 
 		if(lbResetConfig != false)
 		{
-			// ×¼±¸Ä¬ÈÏÎÄ¼şÍ·
+			// å‡†å¤‡é»˜è®¤æ–‡ä»¶å¤´
 			mdFileHead.Signature = CF_SIGNATURE;
 			mdFileHead.Version = CF_VERSION;
 			mdFileHead.SizeOfHead = sizeof(CF_FILE_HEAD);
 			mdFileHead.SizeOfReserved = 0;
 			mdFileHead.SequenceA = 1;
 
-			// ÊÇÒ»¸öĞÂ½¨µÄÎÄ¼ş£¬½¨Á¢Ò»¸ö¿ÕµÄRoot½Úµã¾ÍºÃÁË
+			// æ˜¯ä¸€ä¸ªæ–°å»ºçš„æ–‡ä»¶ï¼Œå»ºç«‹ä¸€ä¸ªç©ºçš„RootèŠ‚ç‚¹å°±å¥½äº†
 			mpRoot = (PCFKEY_BRANCH)new UCHAR[sizeof(CFKEY_BRANCH)+sizeof(wchar_t)*4];
 			if(mpRoot == NULL)
 				break;
@@ -238,7 +238,7 @@ ULONG CConfigFile::InitOnCreate(
 			mpRoot->ValueLength = 0;
 		}
 
-		// »ñÈ¡Ò»´ÎRootKey
+		// è·å–ä¸€æ¬¡RootKey
 		{
 			ICfKey* lpKey = GetRootKey();
 			if(lpKey == NULL)
@@ -269,9 +269,9 @@ ULONG CConfigFile::InitOnCreate(
 	return (lbReval?0:(ULONG)-1);
 }
 
-// ±£´æĞŞ¸Äµ½ÎÄ¼ş
+// ä¿å­˜ä¿®æ”¹åˆ°æ–‡ä»¶
 bool CConfigFile::SaveFile(
-		IN const wchar_t* nszOtherFile	// ¿ÉÒÔÖ¸¶¨±£´æÎªÆäËûµÄÎÄ¼ş£¬Èç¹ûÎªNULL£¬Õâ±£´æµ½¸Õ²Å´ò¿ª»òÕßĞÂ½¨µÄÎÄ¼ş
+		IN const wchar_t* nszOtherFile	// å¯ä»¥æŒ‡å®šä¿å­˜ä¸ºå…¶ä»–çš„æ–‡ä»¶ï¼Œå¦‚æœä¸ºNULLï¼Œè¿™ä¿å­˜åˆ°åˆšæ‰æ‰“å¼€æˆ–è€…æ–°å»ºçš„æ–‡ä»¶
 	)
 {
 	bool lbReval = false;
@@ -296,7 +296,7 @@ bool CConfigFile::SaveFile(
 		if(mszFileName[0]==UNICODE_NULL)
 			break;
 
-		// ´ò¿ªÎÄ¼ş
+		// æ‰“å¼€æ–‡ä»¶
 #ifndef KERNEL_CODE
 		lhFile = ::CreateFileW(mszFileName,GENERIC_READ|GENERIC_WRITE,NULL,NULL,OPEN_ALWAYS,NULL,NULL);
 		if(lhFile == INVALID_HANDLE_VALUE)
@@ -319,7 +319,7 @@ bool CConfigFile::SaveFile(
 
 #endif
 
-		// ×¼±¸ÎÄ¼şÍ·
+		// å‡†å¤‡æ–‡ä»¶å¤´
 		lpHead = new CF_FILE_HEAD;
 		if(lpHead == NULL)
 			break;
@@ -328,7 +328,7 @@ bool CConfigFile::SaveFile(
 		RtlCopyMemory(&lpHead->ShortHead,&mdFileHead,sizeof(mdFileHead));
 		lpHead->ShortHead.Version = CF_VERSION;
 
-		// Éè¶¨Ò»¸ö´íÎóµÄË³ĞòÖµ£¬×÷ÎªÕıÔÚĞŞ¸ÄÎÄ¼şµÄ±êÖ¾
+		// è®¾å®šä¸€ä¸ªé”™è¯¯çš„é¡ºåºå€¼ï¼Œä½œä¸ºæ­£åœ¨ä¿®æ”¹æ–‡ä»¶çš„æ ‡å¿—
 		lpHead->ShortHead.SequenceA = lpHead->Tail.SequenceB + 1;
 
 		LARGE_INTEGER lxFilePos;
@@ -346,7 +346,7 @@ bool CConfigFile::SaveFile(
 			break;
 #endif
 
-		// ³¢ÊÔÈ·¶¨ËùÓĞKey½«Õ¼ÓÃµÄ³ß´ç
+		// å°è¯•ç¡®å®šæ‰€æœ‰Keyå°†å ç”¨çš„å°ºå¯¸
 		moExclusive.Enter();
 		lpHead->ShortHead.SizeOfKeys = (LONG)SaveKey((PCFKEY_NODE)mpRoot,lpEntry);
 		if(lpHead->ShortHead.SizeOfKeys == 0)
@@ -355,11 +355,11 @@ bool CConfigFile::SaveFile(
 			break;
 		}
 
-		// ×¼±¸È«²¿´æ´¢¿Õ¼ä
-		// ×¼±¸´æ´¢Çø
+		// å‡†å¤‡å…¨éƒ¨å­˜å‚¨ç©ºé—´
+		// å‡†å¤‡å­˜å‚¨åŒº
 		lpBuffer = new UCHAR[lpHead->ShortHead.SizeOfKeys];
 
-		// µİ¹é¹àÈëÊı¾İ
+		// é€’å½’çŒå…¥æ•°æ®
 		lpEntry = (PCF_KEY_ENTRY)lpBuffer;
 		//moExclusive.Enter();
 		LONG liSize = (LONG)SaveKey((PCFKEY_NODE)mpRoot,lpEntry);
@@ -368,14 +368,14 @@ bool CConfigFile::SaveFile(
 		if(liSize != lpHead->ShortHead.SizeOfKeys)
 			break;
 
-		// ¼ÆËãĞ£ÑéºÍ
+		// è®¡ç®—æ ¡éªŒå’Œ
 		lpHead->ShortHead.CheckSum = 0;
 		for(ULONG i=0;i< lpHead->ShortHead.SizeOfKeys;i++)
 		{
 			lpHead->ShortHead.CheckSum += *((UCHAR*)lpBuffer+i);
 		}
 
-		// Ğ´ÈëÎÄ¼ş
+		// å†™å…¥æ–‡ä»¶
 		lxFilePos.QuadPart = sizeof(CF_FILE_HEAD);
 #ifndef KERNEL_CODE
 		if(WriteFile(lhFile,lpBuffer,lpHead->ShortHead.SizeOfKeys,&luWritten,NULL)==FALSE)
@@ -386,7 +386,7 @@ bool CConfigFile::SaveFile(
 			break;
 #endif
 
-		// ¸üÕıÎÄ¼şÍ·£¬ÖØĞÂĞ´ÈëÊı¾İ
+		// æ›´æ­£æ–‡ä»¶å¤´ï¼Œé‡æ–°å†™å…¥æ•°æ®
 		lpHead->ShortHead.SequenceA++;
 		lpHead->Tail.SequenceB = lpHead->ShortHead.SequenceA;
 		lxFilePos.QuadPart = 0;
@@ -425,7 +425,7 @@ bool CConfigFile::SaveFile(
 }
 
 
-// »ñµÃ¸ù¼ü£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease
+// è·å¾—æ ¹é”®ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Release
 ICfKey* CConfigFile::GetRootKey(void)
 {
 
@@ -441,7 +441,7 @@ ICfKey* CConfigFile::GetRootKey(void)
 
 		mpRootInterface->mpParentsKey = NULL;
 		mpRootInterface->miPositionInBrothers = -1;
-		// »¹ĞèÒª³õÊ¼»¯·ÃÎÊÊı¾İºÍÃû³ÆµÄ¿ì½İ
+		// è¿˜éœ€è¦åˆå§‹åŒ–è®¿é—®æ•°æ®å’Œåç§°çš„å¿«æ·
 	}
 
 	mpRootInterface->miReferenceCount++;
@@ -452,11 +452,11 @@ ICfKey* CConfigFile::GetRootKey(void)
 	return dynamic_cast<ICfKey*>(mpRootInterface);
 }
 
-// ·ÖÅäÒ»¸öĞÂµÄNode
+// åˆ†é…ä¸€ä¸ªæ–°çš„Node
 PCFKEY_NODE CConfigFile::AllocateNode(
-	IN const wchar_t* nszName,	// ×Ó¼üµÄÃû×Ö
+	IN const wchar_t* nszName,	// å­é”®çš„åå­—
 	IN int niNameLen,		// count in wchar, if be -1 indicate that the nszName is terminated by '\0' or '\\' or '/'
-	IN UCHAR nchFlag,	// ×Ó¼üµÄÄ¬ÈÏÖµÀàĞÍ£¬Èç¹ûÎªInvalid£¬ÔòºöÂÔºóÁ½¸ö²ÎÊı
+	IN UCHAR nchFlag,	// å­é”®çš„é»˜è®¤å€¼ç±»å‹ï¼Œå¦‚æœä¸ºInvalidï¼Œåˆ™å¿½ç•¥åä¸¤ä¸ªå‚æ•°
 	IN const void* npValueBuf,
 	IN int  niValuelen,
 	IN int  niSubKeyCount
@@ -476,7 +476,7 @@ PCFKEY_NODE CConfigFile::AllocateNode(
 		for(liSize = 0;liSize<niNameLen;liSize++)
 		{
 			if(/*nszName[liSize] == L'\\' || nszName[liSize] == L'/' || */nszName[liSize] == L'<' || nszName[liSize] == L'>')
-				return NULL;	// Ãû×ÖÖĞ³öÏÖ·Ç·¨×Ö·û
+				return NULL;	// åå­—ä¸­å‡ºç°éæ³•å­—ç¬¦
 
 			if(nszName[liSize]==L'\0' || nszName[liSize] == L'\\' || nszName[liSize] == L'/' )
 				break;
@@ -488,21 +488,21 @@ PCFKEY_NODE CConfigFile::AllocateNode(
 	if(niValuelen == -1)
 		niValuelen = GetValueLengthOfTypeString(CFKEY_VALUE_TYPE(nchFlag),npValueBuf);
 
-	// È¥µôÊÇ·ñÒÑ´ò¿ª±êÖ¾£¬ÏÖÔÚÊÇÎŞÒâÒåµÄ
+	// å»æ‰æ˜¯å¦å·²æ‰“å¼€æ ‡å¿—ï¼Œç°åœ¨æ˜¯æ— æ„ä¹‰çš„
 	nchFlag &= ~CFKEY_NODE_OPENED;
 
-	// Çø·ÖÊÇ·ñ¾ßÓĞ×Ó½Úµã
+	// åŒºåˆ†æ˜¯å¦å…·æœ‰å­èŠ‚ç‚¹
 	if(niSubKeyCount > 0)
-	{	// ¾ßÓĞ×Ó½Úµã
+	{	// å…·æœ‰å­èŠ‚ç‚¹
 		PCFKEY_BRANCH lpBranch = NULL;
 		ULONG* lpHash = NULL;
 
 		do 
 		{
-			// ¼ÆËãµ±Ç°½ÚµãĞèÒªµÄ´æ´¢´óĞ¡
+			// è®¡ç®—å½“å‰èŠ‚ç‚¹éœ€è¦çš„å­˜å‚¨å¤§å°
 			liSize = sizeof(CFKEY_BRANCH) + niNameLen*sizeof(wchar_t) + niValuelen;
 
-			// ·ÖÅäµ±Ç°½Úµã
+			// åˆ†é…å½“å‰èŠ‚ç‚¹
 			lpBranch = (PCFKEY_BRANCH)new UCHAR[liSize];
 			if(lpBranch == NULL)
 				break;
@@ -512,7 +512,7 @@ PCFKEY_NODE CConfigFile::AllocateNode(
 			if(lpBranch->mpSubKeys == NULL)
 				break;
 
-			// ÌîÈëÃû³Æ
+			// å¡«å…¥åç§°
 			lpBranch->NameLength = (UCHAR)niNameLen;
 			if(niNameLen > 0 )
 			{
@@ -520,14 +520,14 @@ PCFKEY_NODE CConfigFile::AllocateNode(
 				lpBranch->Name[niNameLen] = UNICODE_NULL;
 			}
 
-			// ÌîÈëÊı¾İ
+			// å¡«å…¥æ•°æ®
 			lpBranch->ValueLength = (USHORT)niValuelen;
 			if(lpBranch->ValueLength > 0)
 			{
 				RtlCopyMemory(&lpBranch->Name[lpBranch->NameLength]+1,npValueBuf,lpBranch->ValueLength);
 			}
 
-			// ³É¹¦·µ»Ø
+			// æˆåŠŸè¿”å›
 			lpRetrun = (PCFKEY_NODE)lpBranch;
 			lpBranch = NULL;
 
@@ -541,22 +541,22 @@ PCFKEY_NODE CConfigFile::AllocateNode(
 		}
 	}
 	else
-	{	// Ã»ÓĞ×Ó½Úµã
+	{	// æ²¡æœ‰å­èŠ‚ç‚¹
 		PCFKEY_LEAF lpLeaf = NULL;
 
 		do 
 		{
-			// ¼ÆËãµ±Ç°½ÚµãĞèÒªµÄ´æ´¢´óĞ¡
+			// è®¡ç®—å½“å‰èŠ‚ç‚¹éœ€è¦çš„å­˜å‚¨å¤§å°
 			liSize = sizeof(CFKEY_LEAF) + niNameLen*sizeof(wchar_t) + niValuelen;
 
-			// ·ÖÅäµ±Ç°½Úµã
+			// åˆ†é…å½“å‰èŠ‚ç‚¹
 			lpLeaf = (PCFKEY_LEAF)new UCHAR[liSize];
 			if(lpLeaf == NULL)
 				break;
 
 			lpLeaf->Flag = nchFlag;
 
-			// ÌîÈëÃû³Æ
+			// å¡«å…¥åç§°
 			lpLeaf->NameLength = (UCHAR)niNameLen;
 			if(niNameLen > 0 )
 			{
@@ -564,14 +564,14 @@ PCFKEY_NODE CConfigFile::AllocateNode(
 				lpLeaf->Name[niNameLen] = UNICODE_NULL;
 			}
 
-			// ÌîÈëÊı¾İ
+			// å¡«å…¥æ•°æ®
 			lpLeaf->ValueLength = (USHORT)niValuelen;
 			if(lpLeaf->ValueLength > 0)
 			{
 				RtlCopyMemory(&lpLeaf->Name[lpLeaf->NameLength]+1,npValueBuf,niValuelen);
 			}
 
-			// ³É¹¦·µ»Ø
+			// æˆåŠŸè¿”å›
 			lpRetrun = (PCFKEY_NODE)lpLeaf;
 			lpLeaf = NULL;
 
@@ -585,10 +585,10 @@ PCFKEY_NODE CConfigFile::AllocateNode(
 }
 
 
-// ´ò¿ªÖ¸¶¨µÄ¼ü£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease
+// æ‰“å¼€æŒ‡å®šçš„é”®ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Release
 ICfKey* CConfigFile::OpenKey(
-		IN const wchar_t* nszKeyName,		// ÓÃ'/'·Ö¸î¸¸×Ó¼üÃû£¬¸ù¼ü²»ÓÃÖ¸¶¨£¬Èç£ºxx/yy/zz
-		IN bool nbCreateIf			// Èç¹ûÕâ¸ö¼ü²»´æÔÚ£¬Ôò½¨Á¢Ëü
+		IN const wchar_t* nszKeyName,		// ç”¨'/'åˆ†å‰²çˆ¶å­é”®åï¼Œæ ¹é”®ä¸ç”¨æŒ‡å®šï¼Œå¦‚ï¼šxx/yy/zz
+		IN bool nbCreateIf			// å¦‚æœè¿™ä¸ªé”®ä¸å­˜åœ¨ï¼Œåˆ™å»ºç«‹å®ƒ
 	)
 {
 	ICfKey* lpRoot = GetRootKey();
@@ -598,27 +598,27 @@ ICfKey* CConfigFile::OpenKey(
 }
 
 
-// µİ¹éµ÷ÓÃ£¬×°ÔØÖ¸¶¨¼üºÍËûµÄ×Ó¼ü£¬·µ»ØÊ±nrKeyEntry»áĞŞ¸ÄÖ¸ÏòÏÂÒ»¸öEntry
+// é€’å½’è°ƒç”¨ï¼Œè£…è½½æŒ‡å®šé”®å’Œä»–çš„å­é”®ï¼Œè¿”å›æ—¶nrKeyEntryä¼šä¿®æ”¹æŒ‡å‘ä¸‹ä¸€ä¸ªEntry
 PCFKEY_NODE CConfigFile::LoadKey(PCF_KEY_ENTRY& nrKeyEntry,const PCF_KEY_ENTRY npEndEntry)
 {
 	PCFKEY_NODE lpRetrun = NULL;
 
-	if(nrKeyEntry >= npEndEntry)	// ³¬¹ıÎ²²¿ÁË£¬¿Ï¶¨ÊÇÓĞ´íÎó·¢Éú
+	if(nrKeyEntry >= npEndEntry)	// è¶…è¿‡å°¾éƒ¨äº†ï¼Œè‚¯å®šæ˜¯æœ‰é”™è¯¯å‘ç”Ÿ
 		return NULL;
 
-	if(nrKeyEntry->NameLength > 255 )	// ÓĞ´íÎó£¬Õâ²»ÊÇÕâ¸ö°æ±¾ºÏ·¨µÄ±êÖ¾Öµ
+	if(nrKeyEntry->NameLength > 255 )	// æœ‰é”™è¯¯ï¼Œè¿™ä¸æ˜¯è¿™ä¸ªç‰ˆæœ¬åˆæ³•çš„æ ‡å¿—å€¼
 		return NULL;
 
 
-	// Çø·ÖÊÇ·ñ¾ßÓĞ×Ó½Úµã
+	// åŒºåˆ†æ˜¯å¦å…·æœ‰å­èŠ‚ç‚¹
 	if((nrKeyEntry->Flag&CFKEY_INDEX_AVAILABLE) != 0)
-	{	// ¾ßÓĞ×Ó½Úµã
+	{	// å…·æœ‰å­èŠ‚ç‚¹
 		PCFKEY_BRANCH lpBranch = NULL;
 		ULONG* lpHash = NULL;
 
 		do 
 		{
-			// ·ÖÅäµ±Ç°½Úµã
+			// åˆ†é…å½“å‰èŠ‚ç‚¹
 			lpBranch = (PCFKEY_BRANCH)AllocateNode((wchar_t*)(nrKeyEntry+1),nrKeyEntry->NameLength,nrKeyEntry->Flag,(UCHAR*)((wchar_t*)(nrKeyEntry+1)+nrKeyEntry->NameLength),nrKeyEntry->ValueSize,nrKeyEntry->SubEntryCount);
 			if(lpBranch == NULL)
 				break;
@@ -627,11 +627,11 @@ PCFKEY_NODE CConfigFile::LoadKey(PCF_KEY_ENTRY& nrKeyEntry,const PCF_KEY_ENTRY n
 			if(lpBranch->mpSubKeys == NULL)
 				 break;
 
-			// Ñ­»·¶ÁÈëÃ¿Ò»¸ö×Ó½Úµã£¬²¢½«×Ó½ÚµãµÄHashÖµÓë×Ó½ÚµãÒ»Í¬²åÈëË÷Òı±íÖĞ
+			// å¾ªç¯è¯»å…¥æ¯ä¸€ä¸ªå­èŠ‚ç‚¹ï¼Œå¹¶å°†å­èŠ‚ç‚¹çš„Hashå€¼ä¸å­èŠ‚ç‚¹ä¸€åŒæ’å…¥ç´¢å¼•è¡¨ä¸­
 			int liSubCount = nrKeyEntry->SubEntryCount;
-			lpHash = (ULONG*)((UCHAR*)nrKeyEntry + sizeof(CF_KEY_ENTRY) + nrKeyEntry->NameLength*sizeof(wchar_t) + nrKeyEntry->ValueSize);	// Ö¸ÏòHash±í
-			// ÊäÈëÊı¾İºóÒÆ£¬Ö¸ÏòÏÂÒ»Ìõ¼ÇÂ¼
-			nrKeyEntry = (PCF_KEY_ENTRY)(lpHash + nrKeyEntry->SubEntryCount);	// Ö¸ÏòÏÂÒ»Ìõ¼ÇÂ¼
+			lpHash = (ULONG*)((UCHAR*)nrKeyEntry + sizeof(CF_KEY_ENTRY) + nrKeyEntry->NameLength*sizeof(wchar_t) + nrKeyEntry->ValueSize);	// æŒ‡å‘Hashè¡¨
+			// è¾“å…¥æ•°æ®åç§»ï¼ŒæŒ‡å‘ä¸‹ä¸€æ¡è®°å½•
+			nrKeyEntry = (PCF_KEY_ENTRY)(lpHash + nrKeyEntry->SubEntryCount);	// æŒ‡å‘ä¸‹ä¸€æ¡è®°å½•
 			while(--liSubCount >=  0)
 			{
 				CCfKeyHash loNewSubKey;
@@ -649,9 +649,9 @@ PCFKEY_NODE CConfigFile::LoadKey(PCF_KEY_ENTRY& nrKeyEntry,const PCF_KEY_ENTRY n
 			//////////////////////////////////////////////////////////////////////////
 			// discarded by AX. Do not terminate the loading on the event that a bad key is found for fastboot version.
 			//if(liSubCount >= 0)
-			//	break;	// ³ö´íÁË
+			//	break;	// å‡ºé”™äº†
 
-			// ³É¹¦·µ»Ø
+			// æˆåŠŸè¿”å›
 			lpRetrun = (PCFKEY_NODE)lpBranch;
 			lpBranch = NULL;
 
@@ -661,20 +661,20 @@ PCFKEY_NODE CConfigFile::LoadKey(PCF_KEY_ENTRY& nrKeyEntry,const PCF_KEY_ENTRY n
 			delete lpBranch;
 	}
 	else
-	{	// Ã»ÓĞ×Ó½Úµã
+	{	// æ²¡æœ‰å­èŠ‚ç‚¹
 		PCFKEY_LEAF lpLeaf = NULL;
 
 		do 
 		{
-			// ·ÖÅäµ±Ç°½Úµã
+			// åˆ†é…å½“å‰èŠ‚ç‚¹
 			lpLeaf = (PCFKEY_LEAF)AllocateNode((wchar_t*)(nrKeyEntry+1),nrKeyEntry->NameLength,nrKeyEntry->Flag,(UCHAR*)((wchar_t*)(nrKeyEntry+1)+nrKeyEntry->NameLength),nrKeyEntry->ValueSize);
 			if(lpLeaf == NULL)
 				break;
 
-			// ÊäÈëÊı¾İºóÒÆ£¬Ö¸ÏòÏÂÒ»Ìõ¼ÇÂ¼
+			// è¾“å…¥æ•°æ®åç§»ï¼ŒæŒ‡å‘ä¸‹ä¸€æ¡è®°å½•
 			nrKeyEntry = (PCF_KEY_ENTRY)((UCHAR*)nrKeyEntry + sizeof(CF_KEY_ENTRY) + nrKeyEntry->NameLength*sizeof(wchar_t) + nrKeyEntry->ValueSize);
 
-			// ³É¹¦·µ»Ø
+			// æˆåŠŸè¿”å›
 			lpRetrun = (PCFKEY_NODE)lpLeaf;
 			lpLeaf = NULL;
 
@@ -687,42 +687,42 @@ PCFKEY_NODE CConfigFile::LoadKey(PCF_KEY_ENTRY& nrKeyEntry,const PCF_KEY_ENTRY n
 	return lpRetrun;
 }
 
-// µİ¹éµ÷ÓÃ£¬±£´æ±¾¼üºÍ×Ó¼üµÄÖµ£¬·µ»Ø0±íÊ¾Ê§°Ü¡£·µ»ØÊ½nrKeyEntry»áÔ½¹ıÒÑ¾­´æ·ÅµÄÊı¾İ¡£Èç¹ûÊäÈëÊ±nrKeyEntry==NULL£¬ÔòÖ»·µ»ØĞèÒªµÄ´æ´¢Çø´óĞ¡
+// é€’å½’è°ƒç”¨ï¼Œä¿å­˜æœ¬é”®å’Œå­é”®çš„å€¼ï¼Œè¿”å›0è¡¨ç¤ºå¤±è´¥ã€‚è¿”å›å¼nrKeyEntryä¼šè¶Šè¿‡å·²ç»å­˜æ”¾çš„æ•°æ®ã€‚å¦‚æœè¾“å…¥æ—¶nrKeyEntry==NULLï¼Œåˆ™åªè¿”å›éœ€è¦çš„å­˜å‚¨åŒºå¤§å°
 int CConfigFile::SaveKey(PCFKEY_NODE npKey,PCF_KEY_ENTRY& nrKeyEntry)
 {
 	int liSize;
 	int liReval = 0;
 
-	// Çø·ÖÊÇ·ñ¾ßÓĞ×Ó½Úµã
+	// åŒºåˆ†æ˜¯å¦å…·æœ‰å­èŠ‚ç‚¹
 	if((npKey->Flag&CFKEY_INDEX_AVAILABLE) != 0)
-	{	// ¾ßÓĞ×Ó½Úµã
+	{	// å…·æœ‰å­èŠ‚ç‚¹
 		PCFKEY_BRANCH lpBranch = (PCFKEY_BRANCH)npKey;
 		ULONG* lpHash = NULL;
 
 		do 
 		{
-			// ¼ÆËãµ±Ç°½ÚµãĞèÒªµÄ´æ´¢´óĞ¡
+			// è®¡ç®—å½“å‰èŠ‚ç‚¹éœ€è¦çš„å­˜å‚¨å¤§å°
 			liSize = sizeof(CF_KEY_ENTRY) + lpBranch->NameLength*sizeof(wchar_t) + lpBranch->ValueLength + lpBranch->mpSubKeys->Size()*sizeof(ULONG);
 
-			// Èç¹ûnrKeyEntry==NULL£¬Ö»ĞèÒª¼ÆËã´æ´¢Õâ¸ö¼üºÍËûµÄ×Ó¼üĞèÒªµÄ¿Õ¼ä¾Í¿ÉÒÔÁË
+			// å¦‚æœnrKeyEntry==NULLï¼Œåªéœ€è¦è®¡ç®—å­˜å‚¨è¿™ä¸ªé”®å’Œä»–çš„å­é”®éœ€è¦çš„ç©ºé—´å°±å¯ä»¥äº†
 			if(nrKeyEntry != NULL)
 			{
 				nrKeyEntry->Flag = lpBranch->Flag;
 				if(lpBranch->mpSubKeys->Size() == 0)
-					nrKeyEntry->Flag &= (~CFKEY_INDEX_AVAILABLE);	// ËµÃ÷£¬ÒÑ¾­Ã»ÓĞÁË×Ó¼ü£¬ËùÒÔ²»ÄÜÓĞ×Ó¼ü±êÖ¾
+					nrKeyEntry->Flag &= (~CFKEY_INDEX_AVAILABLE);	// è¯´æ˜ï¼Œå·²ç»æ²¡æœ‰äº†å­é”®ï¼Œæ‰€ä»¥ä¸èƒ½æœ‰å­é”®æ ‡å¿—
 
-				// ÌîÈëÃû³Æ
+				// å¡«å…¥åç§°
 				nrKeyEntry->NameLength = lpBranch->NameLength;
 				RtlCopyMemory((wchar_t*)(nrKeyEntry+1),lpBranch->Name,lpBranch->NameLength*sizeof(wchar_t));
 
-				// ÌîÈëÊı¾İ
+				// å¡«å…¥æ•°æ®
 				nrKeyEntry->ValueSize = lpBranch->ValueLength;
 				if(lpBranch->ValueLength > 0)
 				{
 					RtlCopyMemory((UCHAR*)((wchar_t*)(nrKeyEntry+1)+nrKeyEntry->NameLength),&lpBranch->Name[lpBranch->NameLength]+1,lpBranch->ValueLength);
 				}
 
-				// ÌîÈëHash±í
+				// å¡«å…¥Hashè¡¨
 				lpHash = (ULONG*)((UCHAR*)nrKeyEntry + sizeof(CF_KEY_ENTRY) + nrKeyEntry->NameLength*sizeof(wchar_t) + nrKeyEntry->ValueSize);
 				nrKeyEntry->SubEntryCount = 0;
 				for(int i=0;i<lpBranch->mpSubKeys->Size();i++)
@@ -731,11 +731,11 @@ int CConfigFile::SaveKey(PCFKEY_NODE npKey,PCF_KEY_ENTRY& nrKeyEntry)
 					nrKeyEntry->SubEntryCount++;
 				}
 
-				// ÊäÈëÊı¾İºóÒÆ£¬Ö¸ÏòÏÂÒ»Ìõ¼ÇÂ¼
-				nrKeyEntry = (PCF_KEY_ENTRY)(lpHash + nrKeyEntry->SubEntryCount);	// Ö¸ÏòÏÂÒ»Ìõ¼ÇÂ¼
+				// è¾“å…¥æ•°æ®åç§»ï¼ŒæŒ‡å‘ä¸‹ä¸€æ¡è®°å½•
+				nrKeyEntry = (PCF_KEY_ENTRY)(lpHash + nrKeyEntry->SubEntryCount);	// æŒ‡å‘ä¸‹ä¸€æ¡è®°å½•
 			}
 
-			// Ñ­»·±£´æÃ¿Ò»¸ö×Ó½Úµã
+			// å¾ªç¯ä¿å­˜æ¯ä¸€ä¸ªå­èŠ‚ç‚¹
 			int i;
 			for(i=0;i<lpBranch->mpSubKeys->Size();i++)
 			{
@@ -747,41 +747,41 @@ int CConfigFile::SaveKey(PCFKEY_NODE npKey,PCF_KEY_ENTRY& nrKeyEntry)
 			if(i < lpBranch->mpSubKeys->Size())
 				break;
 
-			// ³É¹¦·µ»Ø
+			// æˆåŠŸè¿”å›
 			liReval = liSize;
 
 		} while(false);
 	}
 	else
-	{	// Ã»ÓĞ×Ó½Úµã
+	{	// æ²¡æœ‰å­èŠ‚ç‚¹
 		PCFKEY_LEAF lpLeaf = (PCFKEY_LEAF)npKey;
 
 		do 
 		{
-			// ¼ÆËãµ±Ç°½ÚµãĞèÒªµÄ´æ´¢´óĞ¡
+			// è®¡ç®—å½“å‰èŠ‚ç‚¹éœ€è¦çš„å­˜å‚¨å¤§å°
 			liSize = sizeof(CF_KEY_ENTRY) + lpLeaf->NameLength*sizeof(wchar_t) + lpLeaf->ValueLength;
 
-			// Èç¹ûnrKeyEntry==NULL£¬Ö»ĞèÒª¼ÆËã´æ´¢Õâ¸ö¼üºÍËûµÄ×Ó¼üĞèÒªµÄ¿Õ¼ä¾Í¿ÉÒÔÁË
+			// å¦‚æœnrKeyEntry==NULLï¼Œåªéœ€è¦è®¡ç®—å­˜å‚¨è¿™ä¸ªé”®å’Œä»–çš„å­é”®éœ€è¦çš„ç©ºé—´å°±å¯ä»¥äº†
 			if(nrKeyEntry != NULL)
 			{
 				nrKeyEntry->Flag = lpLeaf->Flag;
 
-				// ÌîÈëÃû³Æ
+				// å¡«å…¥åç§°
 				nrKeyEntry->NameLength = lpLeaf->NameLength;
 				RtlCopyMemory((wchar_t*)(nrKeyEntry+1),lpLeaf->Name,lpLeaf->NameLength*sizeof(wchar_t));
 
-				// ÌîÈëÊı¾İ
+				// å¡«å…¥æ•°æ®
 				nrKeyEntry->ValueSize = lpLeaf->ValueLength;
 				if(lpLeaf->ValueLength > 0)
 				{
 					RtlCopyMemory((UCHAR*)((wchar_t*)(nrKeyEntry+1)+nrKeyEntry->NameLength),&lpLeaf->Name[lpLeaf->NameLength]+1,lpLeaf->ValueLength);
 				}
 
-				// ÊäÈëÊı¾İºóÒÆ£¬Ö¸ÏòÏÂÒ»Ìõ¼ÇÂ¼
+				// è¾“å…¥æ•°æ®åç§»ï¼ŒæŒ‡å‘ä¸‹ä¸€æ¡è®°å½•
 				nrKeyEntry = (PCF_KEY_ENTRY)((UCHAR*)nrKeyEntry + sizeof(CF_KEY_ENTRY) + nrKeyEntry->NameLength*sizeof(wchar_t) + nrKeyEntry->ValueSize);
 			}
 
-			// ³É¹¦·µ»Ø
+			// æˆåŠŸè¿”å›
 			liReval = liSize;
 		} while(false);
 
@@ -790,17 +790,17 @@ int CConfigFile::SaveKey(PCFKEY_NODE npKey,PCF_KEY_ENTRY& nrKeyEntry)
 	return liReval;
 }
 
-// É¾³ı¼üÖµºÍËüµÄ×Ó¼üÖµ
+// åˆ é™¤é”®å€¼å’Œå®ƒçš„å­é”®å€¼
 bool CConfigFile::RemoveKey(PCFKEY_NODE npKey)
 {
 	if((npKey->Flag&CFKEY_NODE_OPENED)!=0)
 	{
 		CCfKeyInterface* lpInterface = FindValidKeyInterface(npKey);
-		// Ê¹ÆäÎŞĞ§
+		// ä½¿å…¶æ— æ•ˆ
 		lpInterface->mbDeleted = true;
 	}
 
-	// ÊÇ·ñ´æÔÚ×Ó½Úµã
+	// æ˜¯å¦å­˜åœ¨å­èŠ‚ç‚¹
 	if(CFKEY_HAS_CHILD(npKey))
 	{
 		PCFKEY_BRANCH lpBranch = (PCFKEY_BRANCH)npKey;
@@ -812,33 +812,33 @@ bool CConfigFile::RemoveKey(PCFKEY_NODE npKey)
 		delete lpBranch->mpSubKeys;
 	}
 
-	// ÊÍ·ÅÄÚ´æ
+	// é‡Šæ”¾å†…å­˜
 	delete npKey;
 	
 	return true;
 }
 
-// Ñ¯ÎÊÊÇ·ñ¿ÉÒÔÉ¾³ıÒ»¸ö×Ó¼üÖµ£¬°üÀ¨ËüµÄÏÂ²ãÄ³¸ö¼üÖµ
+// è¯¢é—®æ˜¯å¦å¯ä»¥åˆ é™¤ä¸€ä¸ªå­é”®å€¼ï¼ŒåŒ…æ‹¬å®ƒçš„ä¸‹å±‚æŸä¸ªé”®å€¼
 bool CConfigFile::QueryRemove(PCFKEY_NODE npKey)
 {
-	// ÊÇ·ñ´æÔÚ×Ó½Úµã
+	// æ˜¯å¦å­˜åœ¨å­èŠ‚ç‚¹
 	if(CFKEY_HAS_CHILD(npKey))
 	{
 		PCFKEY_BRANCH lpBranch = (PCFKEY_BRANCH)npKey;
 		for (int i=0;i<lpBranch->mpSubKeys->Size();i++)
 		{
 			if(QueryRemove((*lpBranch->mpSubKeys)[i].KeyObj)==false)
-				return false;	// Èç¹ûÄ³¸ö×Ó¼ü²»ÄÜ±»É¾³ı£¬Ôò×ÔÉíÒ²²»ÄÜ±»É¾³ı
+				return false;	// å¦‚æœæŸä¸ªå­é”®ä¸èƒ½è¢«åˆ é™¤ï¼Œåˆ™è‡ªèº«ä¹Ÿä¸èƒ½è¢«åˆ é™¤
 		}
 	}
-	// Èç¹û±»Ëø¶¨£¬Ôò²»ÄÜ±»É¾³ı
+	// å¦‚æœè¢«é”å®šï¼Œåˆ™ä¸èƒ½è¢«åˆ é™¤
 	if((npKey->Flag&CDKEY_FLAG_LOCKED)!=0)
 		return false;
 
 	return true;
 }
 
-// ´ò¿ªÒ»¸öKey
+// æ‰“å¼€ä¸€ä¸ªKey
 CCfKeyInterface* CConfigFile::GetKeyInterface(CCfKeyInterface* npParents,int niPosition)
 {
 	CCfKeyInterface* lpInterface;
@@ -846,14 +846,14 @@ CCfKeyInterface* CConfigFile::GetKeyInterface(CCfKeyInterface* npParents,int niP
 	if (niPosition < 0 || npParents->mbDeleted != false ||  CFKEY_HAS_CHILD(npParents->BaseNode)==false || niPosition >= npParents->Branch->mpSubKeys->Size())
 		return NULL;
 
-	// ¼ì²éÊÇ·ñÒÑ¾­´ò¿ª
+	// æ£€æŸ¥æ˜¯å¦å·²ç»æ‰“å¼€
 	if(((*npParents->Branch->mpSubKeys)[niPosition].KeyObj->Flag&CFKEY_NODE_OPENED)!=0)
 	{
 		lpInterface = FindValidKeyInterface((*npParents->Branch->mpSubKeys)[niPosition].KeyObj);
 		CMMASSERT(lpInterface->miPositionInBrothers == niPosition);
 		if(lpInterface != NULL)
 		{
-			// Ôö¼ÓÒıÓÃ¼ÇÂ¼
+			// å¢åŠ å¼•ç”¨è®°å½•
 			lpInterface->miReferenceCount++;
 			return lpInterface;
 		}
@@ -863,16 +863,16 @@ CCfKeyInterface* CConfigFile::GetKeyInterface(CCfKeyInterface* npParents,int niP
 	{
 		lpInterface->miPositionInBrothers = niPosition;
 		lpInterface->mpParentsKey = npParents;
-		npParents->miReferenceCount++;	// Ôö¼Ó¶Ô¸¸½ÚµãµÄÒıÓÃ¼ÇÂ¼
+		npParents->miReferenceCount++;	// å¢åŠ å¯¹çˆ¶èŠ‚ç‚¹çš„å¼•ç”¨è®°å½•
 
-		// ±êÊ¶¸Ã½Úµã±»´ò¿ª
+		// æ ‡è¯†è¯¥èŠ‚ç‚¹è¢«æ‰“å¼€
 		lpInterface->BaseNode->Flag |= CFKEY_NODE_OPENED;
 	}
 
 	return lpInterface;
 }
 
-// ·ÖÅäÒ»¸ö´ò¿ªKeyµÄ´ò¿ª¶ÔÏó
+// åˆ†é…ä¸€ä¸ªæ‰“å¼€Keyçš„æ‰“å¼€å¯¹è±¡
 CCfKeyInterface* CConfigFile::AllocateKeyInterface(PCFKEY_NODE npKeyNode)
 {
 	CCfKeyInterface* lpInterface;
@@ -904,7 +904,7 @@ CCfKeyInterface* CConfigFile::AllocateKeyInterface(PCFKEY_NODE npKeyNode)
 	return lpInterface;
 }
 
-// Ôö¼Ó¶ÔÒ»¸öKeyµÄÒıÓÃ£¬×¢Òâ£¬ÓÉÓÚ½øÈëSpinLock£¬ËùÒÔÕâ¸öº¯ÊıÖ»¸øCCfKeyInterfaceµ÷ÓÃ£¬±¾Àà´úÂë´¦ÓÚSpinLockÖĞÊ±£¬Ö±½Ó¶Ô¸ÃÖµ¼Ó1
+// å¢åŠ å¯¹ä¸€ä¸ªKeyçš„å¼•ç”¨ï¼Œæ³¨æ„ï¼Œç”±äºè¿›å…¥SpinLockï¼Œæ‰€ä»¥è¿™ä¸ªå‡½æ•°åªç»™CCfKeyInterfaceè°ƒç”¨ï¼Œæœ¬ç±»ä»£ç å¤„äºSpinLockä¸­æ—¶ï¼Œç›´æ¥å¯¹è¯¥å€¼åŠ 1
 int CConfigFile::AddReferToKeyInterface(CCfKeyInterface* npKeyInterface)
 {
 	int liValue;
@@ -918,7 +918,7 @@ int CConfigFile::AddReferToKeyInterface(CCfKeyInterface* npKeyInterface)
 	return liValue;
 }
 
-// ¼õÉÙ¶ÔÒ»¸öKeyµÄÒıÓÃ£¬Èç¹ûÒıÓÃÎª0¾ÍÊÍ·ÅËü£¬×¢Òâ£¬Õâ¸öº¯ÊıÖ»¸øCCfKeyInterfaceµ÷ÓÃ
+// å‡å°‘å¯¹ä¸€ä¸ªKeyçš„å¼•ç”¨ï¼Œå¦‚æœå¼•ç”¨ä¸º0å°±é‡Šæ”¾å®ƒï¼Œæ³¨æ„ï¼Œè¿™ä¸ªå‡½æ•°åªç»™CCfKeyInterfaceè°ƒç”¨
 int CConfigFile::ReleaseKeyInterface(CCfKeyInterface* npKeyInterface)
 {
 	TCFKEYINTERFACESTACK loKeysToDelete;
@@ -927,27 +927,27 @@ int CConfigFile::ReleaseKeyInterface(CCfKeyInterface* npKeyInterface)
 
 	moExclusive.Enter();
 
-	// ¼ì²éËüÊÇ·ñ´æÔÚÓÚÒÑ´ò¿ª¶ÓÁĞÖĞ
+	// æ£€æŸ¥å®ƒæ˜¯å¦å­˜åœ¨äºå·²æ‰“å¼€é˜Ÿåˆ—ä¸­
 	while(npKeyInterface != NULL && (liIndex = FindKeyInterface(npKeyInterface)) >= 0)
 	{
-		// ¼õÉÙÒıÓÃ¼ÆÊı
+		// å‡å°‘å¼•ç”¨è®¡æ•°
 		npKeyInterface->miReferenceCount--;
 		if(liReval == -1)
 			liReval = npKeyInterface->miReferenceCount;
 
-		if(npKeyInterface->miReferenceCount <= 0)	// ĞèÒªÉ¾³ıÁË
+		if(npKeyInterface->miReferenceCount <= 0)	// éœ€è¦åˆ é™¤äº†
 		{
-			// ´Ó´ò¿ª¶ÓÁĞÖĞÄÃµô
+			// ä»æ‰“å¼€é˜Ÿåˆ—ä¸­æ‹¿æ‰
 			moKeyOpened.RemoveByIndex(liIndex);
 
-			// Çå³ıÔÚNodeÉÏµÄ´ò¿ª±êÖ¾
+			// æ¸…é™¤åœ¨Nodeä¸Šçš„æ‰“å¼€æ ‡å¿—
 			if(npKeyInterface->mbDeleted == false)
 				npKeyInterface->BaseNode->Flag &= ~CFKEY_NODE_OPENED;
 
-			// ²åÈëµ½ÊÍ·ÅÕ»ÖĞ
+			// æ’å…¥åˆ°é‡Šæ”¾æ ˆä¸­
 			loKeysToDelete.Push(npKeyInterface);
 
-			// ¼õÈ¥¶Ô¸¸½ÚµãµÄÒıÓÃ
+			// å‡å»å¯¹çˆ¶èŠ‚ç‚¹çš„å¼•ç”¨
 			npKeyInterface = npKeyInterface->mpParentsKey;
 		}
 		else
@@ -956,7 +956,7 @@ int CConfigFile::ReleaseKeyInterface(CCfKeyInterface* npKeyInterface)
 
 	moExclusive.Leave();
 
-	// ÊÍ·ÅËùÓĞµÄKeyInterface
+	// é‡Šæ”¾æ‰€æœ‰çš„KeyInterface
 	while(loKeysToDelete.Size() != 0)
 	{
 		npKeyInterface = loKeysToDelete.Top();
@@ -976,7 +976,7 @@ int CConfigFile::ReleaseKeyInterface(CCfKeyInterface* npKeyInterface)
 	return liReval;
 }
 
-//// ²éÕÒÒ»¸ö´ò¿ªµÄKEY
+//// æŸ¥æ‰¾ä¸€ä¸ªæ‰“å¼€çš„KEY
 //CCfKeyInterface* CConfigFile::FindKeyInterface(PCFKEY_NODE npKeyNode,bool nbTakeOff)
 //{
 //	CCfKeyOpened loToFind;
@@ -996,7 +996,7 @@ int CConfigFile::ReleaseKeyInterface(CCfKeyInterface* npKeyInterface)
 //	return NULL;
 //}
 
-// ²éÕÒÒ»¸ö´ò¿ª²¢ÇÒÓĞĞ§µÄKEY£¬ÒòÎª¿ÉÄÜ´æÔÚÖ¸ÏòÍ¬Ò»¸önpKeyNodeµÄ²»Í¬npKeyInterface£¬ÆäÖĞÖ»ÓĞÒ»¸öÊÇÓĞĞ§µÄ£¬ÆäËûµÄÖ¸ÏòµÄ¶¼¿ÉÄÜÊÇÒÑ¾­É¾³ı¹ıµÃÆäËûKeyÖµ
+// æŸ¥æ‰¾ä¸€ä¸ªæ‰“å¼€å¹¶ä¸”æœ‰æ•ˆçš„KEYï¼Œå› ä¸ºå¯èƒ½å­˜åœ¨æŒ‡å‘åŒä¸€ä¸ªnpKeyNodeçš„ä¸åŒnpKeyInterfaceï¼Œå…¶ä¸­åªæœ‰ä¸€ä¸ªæ˜¯æœ‰æ•ˆçš„ï¼Œå…¶ä»–çš„æŒ‡å‘çš„éƒ½å¯èƒ½æ˜¯å·²ç»åˆ é™¤è¿‡å¾—å…¶ä»–Keyå€¼
 CCfKeyInterface* CConfigFile::FindValidKeyInterface(PCFKEY_NODE npKeyNode)
 {
 	CCfKeyOpened loToFind;
@@ -1010,7 +1010,7 @@ CCfKeyInterface* CConfigFile::FindValidKeyInterface(PCFKEY_NODE npKeyNode)
 
 	for(;liIndex < moKeyOpened.Size() && moKeyOpened[liIndex].KeyNode == npKeyNode ;liIndex++)
 	{
-		// Ö»»áÓĞÒ»¸öÎ´±»É¾³ıµÄÓĞĞ§µÄKeyInterface´æÔÚ
+		// åªä¼šæœ‰ä¸€ä¸ªæœªè¢«åˆ é™¤çš„æœ‰æ•ˆçš„KeyInterfaceå­˜åœ¨
 		if(moKeyOpened[liIndex].Interface->mbDeleted == false)
 			return moKeyOpened[liIndex].Interface;
 	}
@@ -1018,7 +1018,7 @@ CCfKeyInterface* CConfigFile::FindValidKeyInterface(PCFKEY_NODE npKeyNode)
 	return NULL;
 }
 
-//// ²éÕÒÒ»¸öµÚÒ»¸ö·ûºÏÌõ¼şµÄKeyInterface£¬×¢Òâ£¬¿ÉÄÜÊÇ¶ÔÓ¦µÄKeyÒÑ¾­±»É¾³ıµ«Interface»¹Ã»ÓĞ±»ÊÍ·Å£»·µ»ØËü´æÔÚµÄÎ»ÖÃ£¬Ğ¡ÓÚ0±íÊ¾Ã»ÕÒµ½
+//// æŸ¥æ‰¾ä¸€ä¸ªç¬¬ä¸€ä¸ªç¬¦åˆæ¡ä»¶çš„KeyInterfaceï¼Œæ³¨æ„ï¼Œå¯èƒ½æ˜¯å¯¹åº”çš„Keyå·²ç»è¢«åˆ é™¤ä½†Interfaceè¿˜æ²¡æœ‰è¢«é‡Šæ”¾ï¼›è¿”å›å®ƒå­˜åœ¨çš„ä½ç½®ï¼Œå°äº0è¡¨ç¤ºæ²¡æ‰¾åˆ°
 //int CConfigFile::FindKeyInterface(PCFKEY_NODE npKeyNode)
 //{
 //	CCfKeyOpened loToFind;
@@ -1029,7 +1029,7 @@ CCfKeyInterface* CConfigFile::FindValidKeyInterface(PCFKEY_NODE npKeyNode)
 //	return moKeyOpened.Find(loToFind);
 //}
 
-// ²éÕÒÒ»¸öKeyInterfaceÊÇ·ñÔÚ±£´æÊı×éÖĞ´æÔÚ£¬·µ»ØËü´æÔÚµÄÎ»ÖÃ£¬Ğ¡ÓÚ0±íÊ¾Ã»ÕÒµ½
+// æŸ¥æ‰¾ä¸€ä¸ªKeyInterfaceæ˜¯å¦åœ¨ä¿å­˜æ•°ç»„ä¸­å­˜åœ¨ï¼Œè¿”å›å®ƒå­˜åœ¨çš„ä½ç½®ï¼Œå°äº0è¡¨ç¤ºæ²¡æ‰¾åˆ°
 int CConfigFile::FindKeyInterface(CCfKeyInterface* npKeyInterface)
 {
 	CCfKeyOpened loToFind;
@@ -1042,7 +1042,7 @@ int CConfigFile::FindKeyInterface(CCfKeyInterface* npKeyInterface)
 	{
 		for(;liIndex < moKeyOpened.Size();liIndex++)
 		{
-			// npKeyInterface ÊÇ²»»áÖØ¸´³öÏÖµÄµØÖ·
+			// npKeyInterface æ˜¯ä¸ä¼šé‡å¤å‡ºç°çš„åœ°å€
 			if(moKeyOpened[liIndex].Interface == npKeyInterface)
 				break;
 		}
@@ -1050,7 +1050,7 @@ int CConfigFile::FindKeyInterface(CCfKeyInterface* npKeyInterface)
 	return liIndex;
 }
 
-// ¸üĞÂÒ»¸ö´ò¿ªµÄ¼üµÄNodeÖ¸Õë
+// æ›´æ–°ä¸€ä¸ªæ‰“å¼€çš„é”®çš„NodeæŒ‡é’ˆ
 bool CConfigFile::UpdateInterface(CCfKeyInterface* npInterface,PCFKEY_NODE npKeyNode)
 {
 	CCfKeyOpened loToFind;
@@ -1075,7 +1075,7 @@ bool CConfigFile::UpdateInterface(CCfKeyInterface* npInterface,PCFKEY_NODE npKey
 
 }
 
-// ¸üĞÂÒ»¸ö´ò¿ªµÄ¼üµÄSubNodesÊı×é£¬ÒòÎªÊı×é·¢ÉúÁË¿ÉÄÜµ¼ÖÂÆäËûInterface£¨ËüÃÇÖ¸ÏòÄ³¸öSubNode)Ê§Ğ§£¬ËùÒÔĞèÒª¸üĞÂ
+// æ›´æ–°ä¸€ä¸ªæ‰“å¼€çš„é”®çš„SubNodesæ•°ç»„ï¼Œå› ä¸ºæ•°ç»„å‘ç”Ÿäº†å¯èƒ½å¯¼è‡´å…¶ä»–Interfaceï¼ˆå®ƒä»¬æŒ‡å‘æŸä¸ªSubNode)å¤±æ•ˆï¼Œæ‰€ä»¥éœ€è¦æ›´æ–°
 void CConfigFile::UpdateSubNodes(CCfKeyInterface* npInterface)
 {
 	CCfKeyInterface* lpSubIntf;
@@ -1087,7 +1087,7 @@ void CConfigFile::UpdateSubNodes(CCfKeyInterface* npInterface)
 	}
 }
 
-// ÅĞ¶Ï×Ö·û´®ÖµµÄ³¤¶È
+// åˆ¤æ–­å­—ç¬¦ä¸²å€¼çš„é•¿åº¦
 int CConfigFile::GetValueLengthOfTypeString(IConfigFile::VALUETYPE nuValueType,const void* npValueBuf)
 {
 	int liValuelen = 0;
@@ -1107,20 +1107,20 @@ int CConfigFile::GetValueLengthOfTypeString(IConfigFile::VALUETYPE nuValueType,c
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 
-// Ôö¼ÓÒıÓÃ
+// å¢åŠ å¼•ç”¨
 int CCfKeyInterface::AddRefer(void)
 {
 	return mpConfigFile->AddReferToKeyInterface(this);
 }
 
-//ÊÍ·Å¼ü£¬ĞÂ½¨£¬´ò¿ª£¬»òÕßÈÎºÎÒ»ÖÖ·½·¨µÃµ½µÄ±¾Àà¶ÔÏó¶¼±ØĞëÊÍ·Å
+//é‡Šæ”¾é”®ï¼Œæ–°å»ºï¼Œæ‰“å¼€ï¼Œæˆ–è€…ä»»ä½•ä¸€ç§æ–¹æ³•å¾—åˆ°çš„æœ¬ç±»å¯¹è±¡éƒ½å¿…é¡»é‡Šæ”¾
 int CCfKeyInterface::Release(void)
 {
 	return mpConfigFile->ReleaseKeyInterface(this);
 }
 
 
-//É¾³ıÕâ¸ö¼ü£¬×¢Òâ£¬µ÷ÓÃÉ¾³ıºóµÄ½Ó¿ÚÈÔÈ»ĞèÒªRelease£»µ÷ÓÃ¹ıDeleteºó£¬Õâ¸ö½Ó¿ÚÒ²¾ÍÃ»ÓĞÓÃÁË£¬³öReleaseÍâ£¬ÆäËû¹¦ÄÜ¶¼²»Ö§³ÖÁË
+//åˆ é™¤è¿™ä¸ªé”®ï¼Œæ³¨æ„ï¼Œè°ƒç”¨åˆ é™¤åçš„æ¥å£ä»ç„¶éœ€è¦Releaseï¼›è°ƒç”¨è¿‡Deleteåï¼Œè¿™ä¸ªæ¥å£ä¹Ÿå°±æ²¡æœ‰ç”¨äº†ï¼Œå‡ºReleaseå¤–ï¼Œå…¶ä»–åŠŸèƒ½éƒ½ä¸æ”¯æŒäº†
 bool CCfKeyInterface::Delete(void)
 {
 	bool lbResult = false;
@@ -1131,7 +1131,7 @@ bool CCfKeyInterface::Delete(void)
 		if(mbDeleted != false)
 			break ;
 
-		// È·ÈÏ¸¸¼üÓĞĞ§
+		// ç¡®è®¤çˆ¶é”®æœ‰æ•ˆ
 		if(mpParentsKey == NULL || mpParentsKey->mbDeleted != false || CFKEY_HAS_CHILD(mpParentsKey->BaseNode)==false)
 			break;
 		
@@ -1140,20 +1140,20 @@ bool CCfKeyInterface::Delete(void)
 
 		PCFKEY_NODE lpKeyNode = mpParentsKey->GetSubNode(miPositionInBrothers);
 
-		// È·ÈÏÊÇ·ñÄÜ¹»±»É¾³ı
+		// ç¡®è®¤æ˜¯å¦èƒ½å¤Ÿè¢«åˆ é™¤
 		if(mpConfigFile->QueryRemove(lpKeyNode)==false)
 			break;
 
-		// Ê×ÏÈ´Ó¸¸¼üµÄ×Ó¼üÁĞ±íÖĞÄÃµô±¾¼ü
+		// é¦–å…ˆä»çˆ¶é”®çš„å­é”®åˆ—è¡¨ä¸­æ‹¿æ‰æœ¬é”®
 		if(mpParentsKey->RemoveSubNode(miPositionInBrothers)==false)
 		{
 			break;
 		}
 
-		// ¸üĞÂÍ¬¼¶µÄËùÓĞ´ò¿ªµÄ¼ü
+		// æ›´æ–°åŒçº§çš„æ‰€æœ‰æ‰“å¼€çš„é”®
 		mpConfigFile->UpdateSubNodes(mpParentsKey);
 
-		// É¾³ı¶ÔÓ¦µÄNodeºÍÈ«²¿ËüµÄ×ÓNode
+		// åˆ é™¤å¯¹åº”çš„Nodeå’Œå…¨éƒ¨å®ƒçš„å­Node
 		lbResult = mpConfigFile->RemoveKey(lpKeyNode);
 
 	} while(false);
@@ -1164,12 +1164,12 @@ bool CCfKeyInterface::Delete(void)
 }
 	
 
-// ĞÂ½¨Ò»¸ö¼ü£¬·µ»ØNULL±íÊ¾Ê§°Ü£¬Ê§°ÜµÄÔ­Òò¿ÉÄÜÊÇÒÑ¾­¾ßÓĞÏàÍ¬µÄ¼üÖµ£¬»òÕß·ÖÅäÄÚ´æÊ§°Ü
+// æ–°å»ºä¸€ä¸ªé”®ï¼Œè¿”å›NULLè¡¨ç¤ºå¤±è´¥ï¼Œå¤±è´¥çš„åŸå› å¯èƒ½æ˜¯å·²ç»å…·æœ‰ç›¸åŒçš„é”®å€¼ï¼Œæˆ–è€…åˆ†é…å†…å­˜å¤±è´¥
 ICfKey* CCfKeyInterface::NewSubKey(
-	IN const wchar_t* nszName,	// ×Ó¼üµÄÃû×Ö£¬²»ÄÜÎª¿Õ
-	IN IConfigFile::VALUETYPE nuValueType,	// ×Ó¼üµÄÄ¬ÈÏÖµÀàĞÍ£¬Èç¹ûÎªInvalid£¬ÔòºöÂÔºóÁ½¸ö²ÎÊı
+	IN const wchar_t* nszName,	// å­é”®çš„åå­—ï¼Œä¸èƒ½ä¸ºç©º
+	IN IConfigFile::VALUETYPE nuValueType,	// å­é”®çš„é»˜è®¤å€¼ç±»å‹ï¼Œå¦‚æœä¸ºInvalidï¼Œåˆ™å¿½ç•¥åä¸¤ä¸ªå‚æ•°
 	IN const void* npValueBuf,
-	IN LONG  niValuelen	// ×Ö·û´®ÀàĞÍÊ±£¬¿ÉÒÔÍ¨¹ı½áÎ²µÄ\0À´¾ö¶¨ÊıÖµµÄ³¤¶È£¬´ËÊ±ÉèÖÃÎª-1
+	IN LONG  niValuelen	// å­—ç¬¦ä¸²ç±»å‹æ—¶ï¼Œå¯ä»¥é€šè¿‡ç»“å°¾çš„\0æ¥å†³å®šæ•°å€¼çš„é•¿åº¦ï¼Œæ­¤æ—¶è®¾ç½®ä¸º-1
 	)
 {
 	PCFKEY_LEAF lpLeaf;
@@ -1181,27 +1181,27 @@ ICfKey* CCfKeyInterface::NewSubKey(
 		if(mbDeleted != false)
 			break;
 
-		// ÅĞ¶ÏÊÇ·ñÒÑ¾­´æÔÚ
+		// åˆ¤æ–­æ˜¯å¦å·²ç»å­˜åœ¨
 		if(CFKEY_HAS_CHILD(BaseNode)!=false && FindSubKey(nszName,-1) >= 0)
 			break;
 
-		// ·ÖÅä½Úµã
+		// åˆ†é…èŠ‚ç‚¹
 		lpLeaf = (PCFKEY_LEAF)mpConfigFile->AllocateNode(nszName,-1,nuValueType,npValueBuf,niValuelen);
 		if(lpLeaf == NULL)
 			break;
 
-		// ²åÈë
+		// æ’å…¥
 		int liPos = InsertSubNode((PCFKEY_NODE)lpLeaf);
 		if(liPos < 0)
 		{
 			CMMASSERT(0);
-			break;	// ÓÉÓÚ²»ÖªµÀ·¢ÉúÁËÊ²Ã´Çé¿ö£¬ËùÒÔ£¬²»ÄÜÊÍ·ÅÕâ¸ö¿ÉÄÜÊÇËéÆ¬µÄÄÚ´æ
+			break;	// ç”±äºä¸çŸ¥é“å‘ç”Ÿäº†ä»€ä¹ˆæƒ…å†µï¼Œæ‰€ä»¥ï¼Œä¸èƒ½é‡Šæ”¾è¿™ä¸ªå¯èƒ½æ˜¯ç¢ç‰‡çš„å†…å­˜
 		}
 
-		// ¸üĞÂÍ¬¼¶µÄËùÓĞ´ò¿ªµÄ¼ü
+		// æ›´æ–°åŒçº§çš„æ‰€æœ‰æ‰“å¼€çš„é”®
 		mpConfigFile->UpdateSubNodes(this);
 
-		// ´ò¿ªÕâ¸ö×Ó¼ü
+		// æ‰“å¼€è¿™ä¸ªå­é”®
 		lpReval = mpConfigFile->GetKeyInterface(this,liPos);
 
 	} while(false);
@@ -1211,13 +1211,13 @@ ICfKey* CCfKeyInterface::NewSubKey(
 	return lpReval;
 }
 
-// ĞÂ½¨Ò»¸öÎŞÃû¼ü£¬·µ»ØNULL±íÊ¾Ê§°Ü£»Èç¹ûÍ¬Ê±´æÔÚÃüÃû¼üÖµ£¬½«ÓĞ¿ÉÄÜ´æÔÚÃüÃû¼üÖµ¼ĞÔÚÎŞÃû¼üÖĞ¼äµÄÇé¿ö
+// æ–°å»ºä¸€ä¸ªæ— åé”®ï¼Œè¿”å›NULLè¡¨ç¤ºå¤±è´¥ï¼›å¦‚æœåŒæ—¶å­˜åœ¨å‘½åé”®å€¼ï¼Œå°†æœ‰å¯èƒ½å­˜åœ¨å‘½åé”®å€¼å¤¹åœ¨æ— åé”®ä¸­é—´çš„æƒ…å†µ
 ICfKey* CCfKeyInterface::NewSubKey(
-	IN ULONG nuID,		// Ö¸¶¨ÎŞÃû¼üµÄ±êÊ¶ID£¬¾¡¿ÉÒÔ²»ÒªÊ¹ÓÃÏàÍ¬±êÊ¶
-	IN bool nbAhead,	// µ±Óöµ½ÏàÍ¬IDµÄ×Ó¼üÊ±£¬ÔÚÏàÍ¬ID×Ó¼üÖ®Ç°½¨Á¢ĞÂ¼ü£»·ñÔò£¬ÔÚÏàÍ¬ID×Ó¼üÖ®ºó½¨Á¢ĞÂ¼ü
-	IN IConfigFile::VALUETYPE nuValueType,	// ×Ó¼üµÄÄ¬ÈÏÖµÀàĞÍ£¬Èç¹ûÎªInvalid£¬ÔòºöÂÔºóÁ½¸ö²ÎÊı
+	IN ULONG nuID,		// æŒ‡å®šæ— åé”®çš„æ ‡è¯†IDï¼Œå°½å¯ä»¥ä¸è¦ä½¿ç”¨ç›¸åŒæ ‡è¯†
+	IN bool nbAhead,	// å½“é‡åˆ°ç›¸åŒIDçš„å­é”®æ—¶ï¼Œåœ¨ç›¸åŒIDå­é”®ä¹‹å‰å»ºç«‹æ–°é”®ï¼›å¦åˆ™ï¼Œåœ¨ç›¸åŒIDå­é”®ä¹‹åå»ºç«‹æ–°é”®
+	IN IConfigFile::VALUETYPE nuValueType,	// å­é”®çš„é»˜è®¤å€¼ç±»å‹ï¼Œå¦‚æœä¸ºInvalidï¼Œåˆ™å¿½ç•¥åä¸¤ä¸ªå‚æ•°
 	IN const void* npValueBuf,
-	IN LONG  niValuelen	// ×Ö·û´®ÀàĞÍÊ±£¬¿ÉÒÔÍ¨¹ı½áÎ²µÄ\0À´¾ö¶¨ÊıÖµµÄ³¤¶È£¬´ËÊ±ÉèÖÃÎª-1
+	IN LONG  niValuelen	// å­—ç¬¦ä¸²ç±»å‹æ—¶ï¼Œå¯ä»¥é€šè¿‡ç»“å°¾çš„\0æ¥å†³å®šæ•°å€¼çš„é•¿åº¦ï¼Œæ­¤æ—¶è®¾ç½®ä¸º-1
 	)
 {
 	PCFKEY_LEAF lpLeaf;
@@ -1232,27 +1232,27 @@ ICfKey* CCfKeyInterface::NewSubKey(
 		if(mbDeleted != false)
 			break;
 
-		//// ÅĞ¶ÏÊÇ·ñÒÑ¾­´æÔÚ
+		//// åˆ¤æ–­æ˜¯å¦å·²ç»å­˜åœ¨
 		//if(CFKEY_HAS_CHILD(BaseNode)!=false && FindSubKey(nuID) >= 0)
 		//	break;
 
-		// ·ÖÅä½Úµã
+		// åˆ†é…èŠ‚ç‚¹
 		lpLeaf = (PCFKEY_LEAF)mpConfigFile->AllocateNode(NULL,0,nuValueType,npValueBuf,niValuelen);
 		if(lpLeaf == NULL)
 			break;
 
-		// ²åÈë
+		// æ’å…¥
 		int liPos = InsertSubNode((PCFKEY_NODE)lpLeaf,nuID,nbAhead);
 		if(liPos < 0)
 		{
 			CMMASSERT(0);
-			break;	// ÓÉÓÚ²»ÖªµÀ·¢ÉúÁËÊ²Ã´Çé¿ö£¬ËùÒÔ£¬²»ÄÜÊÍ·ÅÕâ¸ö¿ÉÄÜÊÇËéÆ¬µÄÄÚ´æ
+			break;	// ç”±äºä¸çŸ¥é“å‘ç”Ÿäº†ä»€ä¹ˆæƒ…å†µï¼Œæ‰€ä»¥ï¼Œä¸èƒ½é‡Šæ”¾è¿™ä¸ªå¯èƒ½æ˜¯ç¢ç‰‡çš„å†…å­˜
 		}
 
-		// ¸üĞÂÍ¬¼¶µÄËùÓĞ´ò¿ªµÄ¼ü
+		// æ›´æ–°åŒçº§çš„æ‰€æœ‰æ‰“å¼€çš„é”®
 		mpConfigFile->UpdateSubNodes(this);
 
-		// ´ò¿ªÕâ¸ö×Ó¼ü
+		// æ‰“å¼€è¿™ä¸ªå­é”®
 		lpReval = mpConfigFile->GetKeyInterface(this,liPos);
 
 	} while(false);
@@ -1262,7 +1262,7 @@ ICfKey* CCfKeyInterface::NewSubKey(
 	return lpReval;
 }
 
-// »ñµÃ±¾¼üµÄ¸¸¼ü£¬Èç¹û±¾¼üÊÇ¸ù¼ü£¬Ôò·µ»ØNULL
+// è·å¾—æœ¬é”®çš„çˆ¶é”®ï¼Œå¦‚æœæœ¬é”®æ˜¯æ ¹é”®ï¼Œåˆ™è¿”å›NULL
 ICfKey* CCfKeyInterface::GetParentsKey(void)
 {
 	if(mpParentsKey!=NULL)
@@ -1270,7 +1270,7 @@ ICfKey* CCfKeyInterface::GetParentsKey(void)
 	return mpParentsKey;
 }
 
-// ÖØĞÂÉèÖÃ¸¸½Úµã£¬½«±¾½Úµã´Óµ±Ç°¸¸½ÚµãÒÆ³ı£¬²åÈëĞÂµÄ¸¸½ÚµãÏÂ
+// é‡æ–°è®¾ç½®çˆ¶èŠ‚ç‚¹ï¼Œå°†æœ¬èŠ‚ç‚¹ä»å½“å‰çˆ¶èŠ‚ç‚¹ç§»é™¤ï¼Œæ’å…¥æ–°çš„çˆ¶èŠ‚ç‚¹ä¸‹
 bool __stdcall CCfKeyInterface::SetParentKey(
 	IN ICfKey* npNewParent,
 	IN bool nbAhead
@@ -1287,7 +1287,7 @@ bool __stdcall CCfKeyInterface::SetParentKey(
 		lbHasName = true;
 		ICfKey* lpExist = npNewParent->GetSubKey(lswName);
 		if(lpExist != NULL)
-		{	// ÃüÃû¼ü²»ÄÜ´æÔÚÏàÍ¬Ãû³Æ
+		{	// å‘½åé”®ä¸èƒ½å­˜åœ¨ç›¸åŒåç§°
 			lpExist->Release();
 			return false;
 		}
@@ -1305,14 +1305,14 @@ bool __stdcall CCfKeyInterface::SetParentKey(
 		if(mbDeleted != false)
 			break;
 
-		// ´Ó¸¸½ÚµãÒÆ³ı
+		// ä»çˆ¶èŠ‚ç‚¹ç§»é™¤
 		if(mpParentsKey->RemoveSubNode(miPositionInBrothers)==false)
 			break;
 
-		// ¸üĞÂ¸¸½Úµã
+		// æ›´æ–°çˆ¶èŠ‚ç‚¹
 		mpConfigFile->UpdateSubNodes(mpParentsKey);
 
-		// ÔÚĞÂµÄ¸¸½ÚµãÉÏ²åÈë×Ó½Úµã
+		// åœ¨æ–°çš„çˆ¶èŠ‚ç‚¹ä¸Šæ’å…¥å­èŠ‚ç‚¹
 		if(lbHasName!=false)
 		{
 			if(lpNewParent->InsertSubNode(BaseNode)<0)
@@ -1324,7 +1324,7 @@ bool __stdcall CCfKeyInterface::SetParentKey(
 				break;
 		}
 
-		// ¸üĞÂĞÂ¸¸½Úµã
+		// æ›´æ–°æ–°çˆ¶èŠ‚ç‚¹
 		mpConfigFile->UpdateSubNodes(lpNewParent);
 
 		lbResult = true;
@@ -1336,7 +1336,7 @@ bool __stdcall CCfKeyInterface::SetParentKey(
 	return lbResult;
 }
 
-// »ñµÃÏÂÒ»¸ö¼ü£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease,°´ÕÕ»ñÈ¡µ±Ç°KeyÓÃµÄÍ¬Ò»ÅÅĞò¹æÔò
+// è·å¾—ä¸‹ä¸€ä¸ªé”®ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Release,æŒ‰ç…§è·å–å½“å‰Keyç”¨çš„åŒä¸€æ’åºè§„åˆ™
 ICfKey* CCfKeyInterface::GetNextKey(void)
 {
 	ICfKey* lpReval = NULL;
@@ -1351,7 +1351,7 @@ ICfKey* CCfKeyInterface::GetNextKey(void)
 	return lpReval;
 }
 
-// »ñµÃÏÂÒ»¸ö¼ü£¬²¢ÇÒÊÍ·Åµ±Ç°¼ü£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease
+// è·å¾—ä¸‹ä¸€ä¸ªé”®ï¼Œå¹¶ä¸”é‡Šæ”¾å½“å‰é”®ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Release
 ICfKey* CCfKeyInterface::MoveToParentsKey(void)
 {
 	ICfKey* lpNext = GetParentsKey();
@@ -1361,7 +1361,7 @@ ICfKey* CCfKeyInterface::MoveToParentsKey(void)
 	return lpNext;
 }
 
-// »ñµÃÏÂÒ»¸ö¼ü£¬²¢ÇÒÊÍ·Åµ±Ç°¼ü£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease
+// è·å¾—ä¸‹ä¸€ä¸ªé”®ï¼Œå¹¶ä¸”é‡Šæ”¾å½“å‰é”®ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Release
 ICfKey* CCfKeyInterface::MoveToNextKey(void)
 {
 	ICfKey* lpNext = GetNextKey();
@@ -1371,7 +1371,7 @@ ICfKey* CCfKeyInterface::MoveToNextKey(void)
 	return lpNext;
 }
 
-// »ñµÃÏÂÒ»¸ö¼ü£¬É¾³ı²¢ÊÍ·Åµ±Ç°¼ü!!!£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease
+// è·å¾—ä¸‹ä¸€ä¸ªé”®ï¼Œåˆ é™¤å¹¶é‡Šæ”¾å½“å‰é”®!!!ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Release
 ICfKey* CCfKeyInterface::MoveToNextKey(bool nbDelete)
 {
 	ICfKey* lpNext = GetNextKey();
@@ -1384,7 +1384,7 @@ ICfKey* CCfKeyInterface::MoveToNextKey(bool nbDelete)
 	return lpNext;
 }
 
-// »ñµÃµÚÒ»¸ö×Ó¼ü£¬²¢ÇÒÊÍ·Åµ±Ç°¼ü!!!£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease
+// è·å¾—ç¬¬ä¸€ä¸ªå­é”®ï¼Œå¹¶ä¸”é‡Šæ”¾å½“å‰é”®!!!ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Release
 ICfKey* CCfKeyInterface::MoveToSubKey(void)
 {
 	ICfKey* lpNext = GetSubKey();
@@ -1394,9 +1394,9 @@ ICfKey* CCfKeyInterface::MoveToSubKey(void)
 	return lpNext;
 }
 
-// »ñµÃÖ¸¶¨×Ó¼ü£¬²¢ÇÒÊÍ·Åµ±Ç°¼ü!!!£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease
+// è·å¾—æŒ‡å®šå­é”®ï¼Œå¹¶ä¸”é‡Šæ”¾å½“å‰é”®!!!ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Release
 ICfKey* CCfKeyInterface::MoveToSubKey(
-	IN ULONG nuID		// ×Ó¼üµÄ±êÊ¶ID
+	IN ULONG nuID		// å­é”®çš„æ ‡è¯†ID
 	)
 {
 	ICfKey* lpNext = GetSubKey(nuID);
@@ -1406,9 +1406,9 @@ ICfKey* CCfKeyInterface::MoveToSubKey(
 	return lpNext;
 }
 
-// »ñµÃÖ¸¶¨×Ó¼ü£¬²¢ÇÒÊÍ·Åµ±Ç°¼ü!!!£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease
+// è·å¾—æŒ‡å®šå­é”®ï¼Œå¹¶ä¸”é‡Šæ”¾å½“å‰é”®!!!ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Release
 ICfKey* CCfKeyInterface::MoveToSubKey(
-	IN const wchar_t* nszName,	// °´ÕÕÃû×ÖÈ¥»ñÈ¡×Ó¼ü
+	IN const wchar_t* nszName,	// æŒ‰ç…§åå­—å»è·å–å­é”®
 	IN int niNameLen	// -1 indicate nszName is terminated by '\0' or '\\' or '/', >=0 is the charactar count of nszName
 	)
 {
@@ -1421,7 +1421,7 @@ ICfKey* CCfKeyInterface::MoveToSubKey(
 
 
 
-// »ñµÃµÚÒ»¸ö×Ó¼ü£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease
+// è·å¾—ç¬¬ä¸€ä¸ªå­é”®ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Release
 ICfKey* CCfKeyInterface::GetSubKey(void)
 {
 	ICfKey* lpReval = NULL;
@@ -1436,10 +1436,10 @@ ICfKey* CCfKeyInterface::GetSubKey(void)
 	return lpReval;
 }
 
-// ´ò¿ª¶à²ãÂ·¾¶Ö¸¶¨µÄ×Ó¼ü£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease£»±¾º¯ÊıÍ¬ÏÂÃæµÄGetSubKeyÇø±ğÊÇ£¬±¾º¯Êı¿ÉÒÔ´ò¿ªÒ»¸öÂ·¾¶Èç£ºxx/yy/zzÖ¸¶¨µÄ×îÏÂ²ãµÄzz×Ó¼ü£¬¶øGetSubKeyÖ»»á´ò¿ªµÚÒ»²ãµÄxx×Ó¼ü
+// æ‰“å¼€å¤šå±‚è·¯å¾„æŒ‡å®šçš„å­é”®ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Releaseï¼›æœ¬å‡½æ•°åŒä¸‹é¢çš„GetSubKeyåŒºåˆ«æ˜¯ï¼Œæœ¬å‡½æ•°å¯ä»¥æ‰“å¼€ä¸€ä¸ªè·¯å¾„å¦‚ï¼šxx/yy/zzæŒ‡å®šçš„æœ€ä¸‹å±‚çš„zzå­é”®ï¼Œè€ŒGetSubKeyåªä¼šæ‰“å¼€ç¬¬ä¸€å±‚çš„xxå­é”®
 ICfKey* CCfKeyInterface::OpenKey(
-	IN const wchar_t* nszKeyName,		// ÓÃ'/'·Ö¸î¸¸×Ó¼üÃû£¬¸ù¼ü²»ÓÃÖ¸¶¨£¬Èç£ºxx/yy/zz
-	IN bool nbCreateIf			// Èç¹ûÕâ¸ö¼ü²»´æÔÚ£¬Ôò½¨Á¢Ëü
+	IN const wchar_t* nszKeyName,		// ç”¨'/'åˆ†å‰²çˆ¶å­é”®åï¼Œæ ¹é”®ä¸ç”¨æŒ‡å®šï¼Œå¦‚ï¼šxx/yy/zz
+	IN bool nbCreateIf			// å¦‚æœè¿™ä¸ªé”®ä¸å­˜åœ¨ï¼Œåˆ™å»ºç«‹å®ƒ
 	)
 {
 	ICfKey* lpParents;
@@ -1461,7 +1461,7 @@ ICfKey* CCfKeyInterface::OpenKey(
 
 	do 
 	{
-		// ´ò¿ªÕâ¸öÄ¿Â¼
+		// æ‰“å¼€è¿™ä¸ªç›®å½•
 		lpCurrent = lpParents->GetSubKey(lpName,-1,&liLength,nbCreateIf);
 
 		if(liLength < 0 || lpCurrent == NULL)
@@ -1470,7 +1470,7 @@ ICfKey* CCfKeyInterface::OpenKey(
 			break;
 		}
 
-		// ¼ÌĞø´ò¿ªÏÂÒ»¼¶
+		// ç»§ç»­æ‰“å¼€ä¸‹ä¸€çº§
 		lpParents->Release();
 		lpParents = lpCurrent;
 
@@ -1485,12 +1485,12 @@ ICfKey* CCfKeyInterface::OpenKey(
 }
 
 
-// »ñµÃ×Ó¼ü£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease£»±¾º¯ÊıÍ¬ÉÏÃæµÄOpenKeyÇø±ğÊÇ£¬OpenKey¿ÉÒÔ´ò¿ªÒ»¸öÂ·¾¶Èç£ºxx/yy/zzÖ¸¶¨µÄ×îÏÂ²ãµÄzz×Ó¼ü£¬¶øGetSubKeyÖ»»á´ò¿ªµÚÒ»²ãµÄxx×Ó¼ü
+// è·å¾—å­é”®ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Releaseï¼›æœ¬å‡½æ•°åŒä¸Šé¢çš„OpenKeyåŒºåˆ«æ˜¯ï¼ŒOpenKeyå¯ä»¥æ‰“å¼€ä¸€ä¸ªè·¯å¾„å¦‚ï¼šxx/yy/zzæŒ‡å®šçš„æœ€ä¸‹å±‚çš„zzå­é”®ï¼Œè€ŒGetSubKeyåªä¼šæ‰“å¼€ç¬¬ä¸€å±‚çš„xxå­é”®
 ICfKey* CCfKeyInterface::GetSubKey(
-		IN const wchar_t* nszName,	// °´ÕÕÃû×ÖÈ¥»ñÈ¡×Ó¼ü
+		IN const wchar_t* nszName,	// æŒ‰ç…§åå­—å»è·å–å­é”®
 		IN int niNameLen,	// -1 indicate nszName is terminated by '\0' or '\\' or '/', >=0 is the charactar count of nszName
-		OUT int* npNameLen,	// ·µ»ØÃû×ÖµÄÓĞĞ§³¤¶È
-		IN bool nbCreateIf		// Èç¹û¸Ã¼ü²»´æÔÚ£¬Ôò½¨Á¢Ëü
+		OUT int* npNameLen,	// è¿”å›åå­—çš„æœ‰æ•ˆé•¿åº¦
+		IN bool nbCreateIf		// å¦‚æœè¯¥é”®ä¸å­˜åœ¨ï¼Œåˆ™å»ºç«‹å®ƒ
 	)
 {
 	int liPos;
@@ -1517,10 +1517,10 @@ ICfKey* CCfKeyInterface::GetSubKey(
 	return lpReval;
 }
 
-// »ñµÃ×Ó¼ü£¬»ñµÃµÄ¶ÔÏóµ±²»ÔÙ·ÃÎÊÊ±ĞèÒªRelease£»±¾º¯ÊıÍ¬ÉÏÃæµÄGetSubKeyÇø±ğÊÇ£¬ÉÏÃæµÄ°´Ãû×Ö´ò¿ª¼üÖµ£¬¶ø±¾º¯ÊıÖ±½Ó°´ID´ò¿ª£¬Ö»ÓĞÍ¨¹ı±¾º¯Êı²ÅÄÜ´ò¿ªÃ»ÓĞÃû×ÖµÄ¼üÖµ
+// è·å¾—å­é”®ï¼Œè·å¾—çš„å¯¹è±¡å½“ä¸å†è®¿é—®æ—¶éœ€è¦Releaseï¼›æœ¬å‡½æ•°åŒä¸Šé¢çš„GetSubKeyåŒºåˆ«æ˜¯ï¼Œä¸Šé¢çš„æŒ‰åå­—æ‰“å¼€é”®å€¼ï¼Œè€Œæœ¬å‡½æ•°ç›´æ¥æŒ‰IDæ‰“å¼€ï¼Œåªæœ‰é€šè¿‡æœ¬å‡½æ•°æ‰èƒ½æ‰“å¼€æ²¡æœ‰åå­—çš„é”®å€¼
 ICfKey* CCfKeyInterface::GetSubKey(
-	IN ULONG nuID,		// ×Ó¼üµÄ±êÊ¶ID
-	IN int niPos		// ÔÚÏàÍ¬µÄIDµÄ¼üÖµÖĞµÄÏÈºóÎ»ÖÃ£¬< 0±íÊ¾È¡×îºóÒ»¸ö
+	IN ULONG nuID,		// å­é”®çš„æ ‡è¯†ID
+	IN int niPos		// åœ¨ç›¸åŒçš„IDçš„é”®å€¼ä¸­çš„å…ˆåä½ç½®ï¼Œ< 0è¡¨ç¤ºå–æœ€åä¸€ä¸ª
 	)
 {
 	int liPos;
@@ -1541,7 +1541,7 @@ ICfKey* CCfKeyInterface::GetSubKey(
 }
 
 
-// »ñµÃ±¾¼üµÄÄ¬ÈÏÖµÀàĞÍ
+// è·å¾—æœ¬é”®çš„é»˜è®¤å€¼ç±»å‹
 IConfigFile::VALUETYPE CCfKeyInterface::GetValueType(void)
 {
 	IConfigFile::VALUETYPE luValue = IConfigFile::Invalid;
@@ -1556,7 +1556,7 @@ IConfigFile::VALUETYPE CCfKeyInterface::GetValueType(void)
 	return luValue;
 }
 
-// »ñµÃ±¾¼üµÄÀ©Õ¹±êÖ¾£¬¶¨ÒåÔÚÏÂÃæ
+// è·å¾—æœ¬é”®çš„æ‰©å±•æ ‡å¿—ï¼Œå®šä¹‰åœ¨ä¸‹é¢
 UCHAR CCfKeyInterface::GetExtFlag(void)
 {
 	UCHAR lcFlag = 0;
@@ -1572,7 +1572,7 @@ UCHAR CCfKeyInterface::GetExtFlag(void)
 }
 
 
-// »ñµÃ±¾¼üµÄÄ¬ÈÏÖµ³¤¶È£¬×Ö½Úµ¥Î»
+// è·å¾—æœ¬é”®çš„é»˜è®¤å€¼é•¿åº¦ï¼Œå­—èŠ‚å•ä½
 LONG CCfKeyInterface::GetValueLength(void)
 {
 	LONG liLength = 0;
@@ -1587,7 +1587,7 @@ LONG CCfKeyInterface::GetValueLength(void)
 	return liLength;
 }
 
-// »ñµÃ±¾¼üËùÔÚµÄĞòºÅ
+// è·å¾—æœ¬é”®æ‰€åœ¨çš„åºå·
 int CCfKeyInterface::GetPosition(void)
 {
 	if(mbDeleted != false)
@@ -1595,9 +1595,9 @@ int CCfKeyInterface::GetPosition(void)
 	return miPositionInBrothers;
 }
 
-// »ñµÃID£¬¶ÔÓÚÃüÃû¼üÖµ¶øÑÔ»ñµÃµÄÊÇHashÖµ
+// è·å¾—IDï¼Œå¯¹äºå‘½åé”®å€¼è€Œè¨€è·å¾—çš„æ˜¯Hashå€¼
 ULONG CCfKeyInterface::GetID(
-	OUT int* npPos		// ÔÚÏàÍ¬µÄIDµÄ¼üÖµÖĞµÄÏÈºóÎ»ÖÃ
+	OUT int* npPos		// åœ¨ç›¸åŒçš„IDçš„é”®å€¼ä¸­çš„å…ˆåä½ç½®
 	)
 {
 	ULONG luID;
@@ -1624,7 +1624,7 @@ ULONG CCfKeyInterface::GetID(
 }
 
 
-// »ñµÃ±¾¼üµÄÃû×Ö
+// è·å¾—æœ¬é”®çš„åå­—
 int CCfKeyInterface::GetName(wchar_t* npNameBuff,int niBufLenByWchar)
 {
 
@@ -1673,10 +1673,10 @@ int CCfKeyInterface::GetName(wchar_t* npNameBuff,int niBufLenByWchar)
 }
 
 
-// ¸ÄÃû£¬Èç¹û¸ÄÃû»áµ¼ÖÂÍ¬Ò»½ÚµãÏÂ³öÏÖÍ¬Ãû½Úµã£¬½«Ê§°Ü
+// æ”¹åï¼Œå¦‚æœæ”¹åä¼šå¯¼è‡´åŒä¸€èŠ‚ç‚¹ä¸‹å‡ºç°åŒåèŠ‚ç‚¹ï¼Œå°†å¤±è´¥
 bool __stdcall CCfKeyInterface::Rename(
 	IN const wchar_t* nszName,
-	IN bool FailIfExist	//	FailIfExist==trueÈç¹û¸ÄÃû»áµ¼ÖÂÍ¬Ò»½ÚµãÏÂ³öÏÖÍ¬Ãû½Úµã£¬½«Ê§°Ü;  ==false ½«×Ô¶¯Ôö¼Ó¸½¼Ó×Ö·û
+	IN bool FailIfExist	//	FailIfExist==trueå¦‚æœæ”¹åä¼šå¯¼è‡´åŒä¸€èŠ‚ç‚¹ä¸‹å‡ºç°åŒåèŠ‚ç‚¹ï¼Œå°†å¤±è´¥;  ==false å°†è‡ªåŠ¨å¢åŠ é™„åŠ å­—ç¬¦
 	)
 {
 	wchar_t lswName[MAX_PATH];
@@ -1685,7 +1685,7 @@ bool __stdcall CCfKeyInterface::Rename(
 	int i;
 
 	if(nszName == NULL || nszName[0] == UNICODE_NULL)
-		return false;	// Ãû×Ö²»ÄÜÎª¿Õ
+		return false;	// åå­—ä¸èƒ½ä¸ºç©º
 
 	mpConfigFile->moExclusive.Enter();
 	do 
@@ -1693,14 +1693,14 @@ bool __stdcall CCfKeyInterface::Rename(
 		if(mbDeleted != false|| mpParentsKey == NULL)
 			break;
 
-		// Ëø¶¨¼ü²»ÄÜĞŞ¸ÄÊôĞÔ
+		// é”å®šé”®ä¸èƒ½ä¿®æ”¹å±æ€§
 		if((BaseNode->Flag&CDKEY_FLAG_LOCKED)!=0)
 			break;
 
-		//if(BaseNode->NameLength == 0)	// Ã»ÓĞÃû×ÖµÄ¼üÖµ²»ÄÜÉè¶¨Ãû×Ö		modified by AX 2011.10.13
+		//if(BaseNode->NameLength == 0)	// æ²¡æœ‰åå­—çš„é”®å€¼ä¸èƒ½è®¾å®šåå­—		modified by AX 2011.10.13
 		//	break;
 
-		// È·ÈÏÕâ¸öĞÂÃû×ÖÊÇ·ñ³öÏÖ³åÍ»
+		// ç¡®è®¤è¿™ä¸ªæ–°åå­—æ˜¯å¦å‡ºç°å†²çª
 		if(mpParentsKey->FindSubKey(nszName,-1) >= 0)
 		{
 			if(FailIfExist != false)
@@ -1725,7 +1725,7 @@ bool __stdcall CCfKeyInterface::Rename(
 			lpNewNode = mpConfigFile->AllocateNode(nszName,-1,CFKEY_VALUE_TYPE(BaseNode->Flag),&Branch->Name[Branch->NameLength]+1,BaseNode->ValueLength,Branch->mpSubKeys->Size());
 			if(lpNewNode != NULL)
 			{
-				// ½«×Ó½Úµã¼ÇÂ¼¶¼¸´ÖÆ¹ıÀ´
+				// å°†å­èŠ‚ç‚¹è®°å½•éƒ½å¤åˆ¶è¿‡æ¥
 				for (int i=0;i<Branch->mpSubKeys->Size();i++)
 				{
 					((PCFKEY_BRANCH)lpNewNode)->mpSubKeys->Push_Back((*Branch->mpSubKeys)[i]);
@@ -1739,13 +1739,13 @@ bool __stdcall CCfKeyInterface::Rename(
 		if(lpNewNode == NULL)
 			break;
 
-		// Ìæ»»×Ô¼ºÔÚ¸¸½ÚµãÖĞµÄÖ¸Ïò¼ÇÂ¼
+		// æ›¿æ¢è‡ªå·±åœ¨çˆ¶èŠ‚ç‚¹ä¸­çš„æŒ‡å‘è®°å½•
 		mpParentsKey->RemoveSubNode(miPositionInBrothers);
 		mpParentsKey->InsertSubNode(lpNewNode);
 
 		mpConfigFile->UpdateInterface(this,lpNewNode);
 
-		// ¸üĞÂÍ¬¼¶µÄËùÓĞ´ò¿ªµÄ¼ü
+		// æ›´æ–°åŒçº§çš„æ‰€æœ‰æ‰“å¼€çš„é”®
 		mpConfigFile->UpdateSubNodes(mpParentsKey);
 
 		lbReval = true;
@@ -1758,9 +1758,9 @@ bool __stdcall CCfKeyInterface::Rename(
 	return lbReval;
 }
 
-// ÉèÖÃ»ò¸Ä±äµ±Ç°µÄÄ¬ÈÏÖµ
+// è®¾ç½®æˆ–æ”¹å˜å½“å‰çš„é»˜è®¤å€¼
 bool CCfKeyInterface::SetValue(
-	IN IConfigFile::VALUETYPE nuValueType,	// ×Ó¼üµÄÄ¬ÈÏÖµÀàĞÍ
+	IN IConfigFile::VALUETYPE nuValueType,	// å­é”®çš„é»˜è®¤å€¼ç±»å‹
 	IN const void* npValueBuf,
 	IN LONG  niValuelen
 	)
@@ -1779,7 +1779,7 @@ bool CCfKeyInterface::SetValue(
 		if(mbDeleted != false || mpParentsKey == NULL || mpParentsKey->mbDeleted != false)
 			break;
 
-		// Ëø¶¨¼ü²»ÄÜĞŞ¸ÄÊôĞÔ
+		// é”å®šé”®ä¸èƒ½ä¿®æ”¹å±æ€§
 		if((BaseNode->Flag&CDKEY_FLAG_LOCKED)!=0)
 			break;
 
@@ -1806,7 +1806,7 @@ bool CCfKeyInterface::SetValue(
 			lpNewNode = mpConfigFile->AllocateNode(Branch->Name,Branch->NameLength,nuValueType,npValueBuf,niValuelen,Branch->mpSubKeys->Size());
 			if(lpNewNode != NULL)
 			{
-				// ½«×Ó½Úµã¼ÇÂ¼¶¼¸´ÖÆ¹ıÀ´
+				// å°†å­èŠ‚ç‚¹è®°å½•éƒ½å¤åˆ¶è¿‡æ¥
 				for (int i=0;i<Branch->mpSubKeys->Size();i++)
 				{
 					((PCFKEY_BRANCH)lpNewNode)->mpSubKeys->Push_Back((*Branch->mpSubKeys)[i]);
@@ -1820,7 +1820,7 @@ bool CCfKeyInterface::SetValue(
 		if(lpNewNode == NULL)
 			break;
 
-		// Ìæ»»×Ô¼ºÔÚ¸¸½ÚµãÖĞµÄÖ¸Ïò¼ÇÂ¼
+		// æ›¿æ¢è‡ªå·±åœ¨çˆ¶èŠ‚ç‚¹ä¸­çš„æŒ‡å‘è®°å½•
 		mpParentsKey->UpdateSubNode(lpNewNode,miPositionInBrothers);
 
 		mpConfigFile->UpdateInterface(this,lpNewNode);
@@ -1835,7 +1835,7 @@ bool CCfKeyInterface::SetValue(
 	return lbReval;
 }
 
-// ĞŞ¸ÄÀ©Õ¹±êÖ¾
+// ä¿®æ”¹æ‰©å±•æ ‡å¿—
 bool CCfKeyInterface::SetExtFlag(
 	IN UCHAR nchFlag
 	)
@@ -1853,7 +1853,7 @@ bool CCfKeyInterface::SetExtFlag(
 	return true;
 }
 
-// »ñµÃµ±Ç°Ä¬ÈÏÖµ£¬·µ»Ø»ñµÃµÄÖµµÄ×Ö½ÚÊı
+// è·å¾—å½“å‰é»˜è®¤å€¼ï¼Œè¿”å›è·å¾—çš„å€¼çš„å­—èŠ‚æ•°
 int CCfKeyInterface::GetValue(
 	OUT PVOID npValueBuf,
 	IN  LONG  niBufLen
@@ -1893,11 +1893,11 @@ CCfKeyInterface::~CCfKeyInterface()
 	CMMASSERT(miReferenceCount<=0);
 }
 
-// ²éÕÒ×Ó½Úµã£¬·µ»Ø×Ó½ÚµãÔÚHashÊı×éÖĞµÄĞòºÅ£¬·µ»Ø-1±íÊ¾Ã»ÓĞÕÒµ½
+// æŸ¥æ‰¾å­èŠ‚ç‚¹ï¼Œè¿”å›å­èŠ‚ç‚¹åœ¨Hashæ•°ç»„ä¸­çš„åºå·ï¼Œè¿”å›-1è¡¨ç¤ºæ²¡æœ‰æ‰¾åˆ°
 int CCfKeyInterface::FindSubKey(
 	IN const wchar_t* nszName,
 	IN int niNameLen,	// -1 indicate nszName is terminated by '\0' or '\\' or '/', >=0 is the charactar count of nszName
-	OUT int* npNameLen	// ·µ»ØÃû×ÖµÄÓĞĞ§³¤¶È
+	OUT int* npNameLen	// è¿”å›åå­—çš„æœ‰æ•ˆé•¿åº¦
 	)
 {
 	CCfKeyHash loFind;
@@ -1937,10 +1937,10 @@ int CCfKeyInterface::FindSubKey(
 	return liPos;
 }
 
-// ²éÕÒ×Ó½Úµã£¬·µ»Ø×Ó½ÚµãÔÚHashÊı×éÖĞµÄĞòºÅ£¬·µ»Ø-1±íÊ¾Ã»ÓĞÕÒµ½
+// æŸ¥æ‰¾å­èŠ‚ç‚¹ï¼Œè¿”å›å­èŠ‚ç‚¹åœ¨Hashæ•°ç»„ä¸­çš„åºå·ï¼Œè¿”å›-1è¡¨ç¤ºæ²¡æœ‰æ‰¾åˆ°
 int CCfKeyInterface::FindSubKey(
 	ULONG nuHashCode,
-	IN int niPos	// ÔÚÏàÍ¬µÄIDµÄ¼üÖµÖĞµÄÏÈºóÎ»ÖÃ£¬< 0±íÊ¾È¡×îºóÒ»¸ö
+	IN int niPos	// åœ¨ç›¸åŒçš„IDçš„é”®å€¼ä¸­çš„å…ˆåä½ç½®ï¼Œ< 0è¡¨ç¤ºå–æœ€åä¸€ä¸ª
 	)
 {
 	CCfKeyHash loFind;
@@ -1949,11 +1949,11 @@ int CCfKeyInterface::FindSubKey(
 	loFind.HashValue = nuHashCode;
 
 	int liPos = Branch->mpSubKeys->Find(loFind);
-	if(liPos >= 0 && niPos != 0)	// niPos == 0 ±íÊ¾µÚÒ»¸ö¾ÍĞĞÁË
+	if(liPos >= 0 && niPos != 0)	// niPos == 0 è¡¨ç¤ºç¬¬ä¸€ä¸ªå°±è¡Œäº†
 	{
 		if(niPos < 0)
 		{
-			// ÕÒ×îºóÒ»¸ö
+			// æ‰¾æœ€åä¸€ä¸ª
 			liEnd = Branch->mpSubKeys->Size();
 		}
 		else
@@ -1964,14 +1964,14 @@ int CCfKeyInterface::FindSubKey(
 		while(liPos < Branch->mpSubKeys->Size() && liPos < liEnd && (*Branch->mpSubKeys)[liPos].HashValue == loFind.HashValue)
 			liPos++;
 
-		liPos--;	// ÍË»Øµ½¸Õ²ÅÓĞĞ§µÄÎ»ÖÃ
+		liPos--;	// é€€å›åˆ°åˆšæ‰æœ‰æ•ˆçš„ä½ç½®
 	}
 
 	return liPos;
 }
 
 
-// ²åÈëÒ»¸öĞÂµÄ×Ó½Úµã£¬·µ»Ø²åÈëµÄÎ»ÖÃ
+// æ’å…¥ä¸€ä¸ªæ–°çš„å­èŠ‚ç‚¹ï¼Œè¿”å›æ’å…¥çš„ä½ç½®
 int CCfKeyInterface::InsertSubNode(
 	PCFKEY_NODE npNode,
 	ULONG nuHashCode,
@@ -1980,7 +1980,7 @@ int CCfKeyInterface::InsertSubNode(
 {
 	if(mbDeleted != false)
 		return 0;
-	// ¼ì²éµ±Ç°½ÚµãµÄÀà±ğ£¬Èç¹û²»ÊÇBranchÀàĞÍ£¬ÎÒÃÇ¾ÍĞèÒªÖØĞÂ¹¹ÔìNode½Úµã
+	// æ£€æŸ¥å½“å‰èŠ‚ç‚¹çš„ç±»åˆ«ï¼Œå¦‚æœä¸æ˜¯Branchç±»å‹ï¼Œæˆ‘ä»¬å°±éœ€è¦é‡æ–°æ„é€ NodeèŠ‚ç‚¹
 	if(CFKEY_HAS_CHILD(BaseNode)==false)
 	{
 		PCFKEY_NODE lpNewNode;
@@ -1988,7 +1988,7 @@ int CCfKeyInterface::InsertSubNode(
 		if(lpNewNode == NULL)
 			return -1;
 
-		// Ìæ»»×Ô¼ºÔÚ¸¸½ÚµãÖĞµÄÖ¸Ïò¼ÇÂ¼
+		// æ›¿æ¢è‡ªå·±åœ¨çˆ¶èŠ‚ç‚¹ä¸­çš„æŒ‡å‘è®°å½•
 		if(mpParentsKey != NULL)
 			(*mpParentsKey->Branch->mpSubKeys)[miPositionInBrothers].KeyObj = lpNewNode;
 
@@ -1998,7 +1998,7 @@ int CCfKeyInterface::InsertSubNode(
 	CCfKeyHash loNew;
 	if(nuHashCode == 0 )
 	{
-		// ÅĞ¶Ï²åÈëµÄ¶ÔÏóÀàĞÍ
+		// åˆ¤æ–­æ’å…¥çš„å¯¹è±¡ç±»å‹
 		if(CFKEY_HAS_CHILD(npNode)!=false)
 			loNew.GenerateHashCode(((PCFKEY_BRANCH)npNode)->Name,((PCFKEY_BRANCH)npNode)->NameLength);
 		else
@@ -2013,7 +2013,7 @@ int CCfKeyInterface::InsertSubNode(
 }
 
 
-// »ñµÃ×Ó½Úµã
+// è·å¾—å­èŠ‚ç‚¹
 PCFKEY_NODE CCfKeyInterface::GetSubNode(
 	IN int niPosition
 	)
@@ -2021,7 +2021,7 @@ PCFKEY_NODE CCfKeyInterface::GetSubNode(
 	return (*Branch->mpSubKeys)[niPosition].KeyObj;
 }
 
-// ÒÆ³ı×Ó½Úµã
+// ç§»é™¤å­èŠ‚ç‚¹
 bool CCfKeyInterface::RemoveSubNode(
 	IN int niPosition
 	)
@@ -2030,7 +2030,7 @@ bool CCfKeyInterface::RemoveSubNode(
 }
 
 
-// ÓÃ×Ö·û´®Éú³ÉHashÂë,·µ»ØµÄÊÇÃû×ÖµÄÓĞĞ§³¤¶È
+// ç”¨å­—ç¬¦ä¸²ç”ŸæˆHashç ,è¿”å›çš„æ˜¯åå­—çš„æœ‰æ•ˆé•¿åº¦
 int CCfKeyHash::GenerateHashCode(
 	IN const wchar_t* nszName,
 	IN int niNameLen	// -1 indicate that the name was terminated by '\0' or '\\' or '/'
@@ -2057,7 +2057,7 @@ int CCfKeyHash::GenerateHashCode(
 	return liIndex;
 }
 
-// ¸üĞÂ×Ó½Úµã£¬Õâ²»»á¸Ä±äÅÅĞò´ÎĞò
+// æ›´æ–°å­èŠ‚ç‚¹ï¼Œè¿™ä¸ä¼šæ”¹å˜æ’åºæ¬¡åº
 bool CCfKeyInterface::UpdateSubNode(
 	PCFKEY_NODE npNode,
 	IN int niPosition
@@ -2070,8 +2070,8 @@ bool CCfKeyInterface::UpdateSubNode(
 
 
 ULONG CStableConfigFile::InitOnCreate(
-	IN const wchar_t* nszPathName,				// ÎÄ¼şµÄÍêÕûÂ·¾¶Ãû£»ÉèÖÃÎªNULL£¬±íÊ¾½¨Á¢Ò»¸ö¿ÕÎÄ¼şÔİÊ±²»Ö¸¶¨ÎÄ¼şÃû
-	IN ULONG nuCreationDisposition			// Í¬CreateFile APIÀàËÆ£¬¼ûCfgIface.hÎÄ¼şÖĞµÄÏà¹Ø¶¨Òå
+	IN const wchar_t* nszPathName,				// æ–‡ä»¶çš„å®Œæ•´è·¯å¾„åï¼›è®¾ç½®ä¸ºNULLï¼Œè¡¨ç¤ºå»ºç«‹ä¸€ä¸ªç©ºæ–‡ä»¶æš‚æ—¶ä¸æŒ‡å®šæ–‡ä»¶å
+	IN ULONG nuCreationDisposition			// åŒCreateFile APIç±»ä¼¼ï¼Œè§CfgIface.hæ–‡ä»¶ä¸­çš„ç›¸å…³å®šä¹‰
 	)
 {
 	ULONG luResult = (ULONG)-1;
@@ -2094,7 +2094,7 @@ ULONG CStableConfigFile::InitOnCreate(
 
 	do 
 	{
-		// ×¼±¸ÎÄ¼şÃû
+		// å‡†å¤‡æ–‡ä»¶å
 		for (i=0;i<2;i++)
 		{
 			lpFileNameArr[i] = new wchar_t[256];
@@ -2105,7 +2105,7 @@ ULONG CStableConfigFile::InitOnCreate(
 		if(lpFileNameArr[0] == NULL || lpFileNameArr[1] == NULL)
 			break;
 
-		// ĞŞ¸ÄµÚ¶şÎÄ¼şÃû£¬ÔÚºó×ºÃûÇ°Ãæ¼ÓÉÏ'_dup'
+		// ä¿®æ”¹ç¬¬äºŒæ–‡ä»¶åï¼Œåœ¨åç¼€åå‰é¢åŠ ä¸Š'_dup'
 		{
 			wchar_t* lpExtName = NULL;
 			for(i=0;i<256;i++)
@@ -2119,7 +2119,7 @@ ULONG CStableConfigFile::InitOnCreate(
 					break;
 				}
 			}
-			// ÊÇ·ñ»¹ÄÜ¹»½«Ãû×ÖÔö³¤£¿
+			// æ˜¯å¦è¿˜èƒ½å¤Ÿå°†åå­—å¢é•¿ï¼Ÿ
 			if(lpExtName - lpFileNameArr[1] >= 256 - 8)
 				break;
 			*(lpExtName+4) = *lpExtName;
@@ -2139,7 +2139,7 @@ ULONG CStableConfigFile::InitOnCreate(
 
 		for(int i=0;i<2;i++)
 		{
-			// ´ò¿ªÎÄ¼ş£¬¶ÁÈëÎÄ¼şÍ·
+			// æ‰“å¼€æ–‡ä»¶ï¼Œè¯»å…¥æ–‡ä»¶å¤´
 			do 
 			{
 	#ifndef KERNEL_CODE
@@ -2166,7 +2166,7 @@ ULONG CStableConfigFile::InitOnCreate(
 				}
 	#endif
 
-				// ¶ÁÈëÎÄ¼şÍ·
+				// è¯»å…¥æ–‡ä»¶å¤´
 	#ifndef KERNEL_CODE
 				ULONG luRead;
 				if(ReadFile(lhFile,lpHead,sizeof(CF_FILE_HEAD),&luRead,NULL)==FALSE)
@@ -2176,11 +2176,11 @@ ULONG CStableConfigFile::InitOnCreate(
 					break;
 	#endif
 
-				// ¼ì²éÍêÕûĞÔ
+				// æ£€æŸ¥å®Œæ•´æ€§
 				if(lpHead->ShortHead.Signature != CF_SIGNATURE || lpHead->ShortHead.Version > CF_VERSION || lpHead->ShortHead.SequenceA != lpHead->Tail.SequenceB)
 					break;
 
-				// ¸±±¾¼ÇÂ¼
+				// å‰¯æœ¬è®°å½•
 				luDuplicateNumberArr[i] = lpHead->ShortHead.Duplicate;
 
 			} while (false);
@@ -2195,7 +2195,7 @@ ULONG CStableConfigFile::InitOnCreate(
 			}
 		}
 
-		// ÅĞ¶ÏÄÄ¸öÎÄ¼şÊÇ×îºó±£´æµÄ£¬½«ÎÄ¼şÃûµÄ´æ·ÅË³Ğòµ÷»»
+		// åˆ¤æ–­å“ªä¸ªæ–‡ä»¶æ˜¯æœ€åä¿å­˜çš„ï¼Œå°†æ–‡ä»¶åçš„å­˜æ”¾é¡ºåºè°ƒæ¢
 		if( luDuplicateNumberArr[0] == (ULONG)-1 && luDuplicateNumberArr[1]== 1 ||
 			luDuplicateNumberArr[0] < luDuplicateNumberArr[1] && (luDuplicateNumberArr[0]!=1 || luDuplicateNumberArr[1]!=(ULONG)-1)
 			) 
@@ -2211,19 +2211,19 @@ ULONG CStableConfigFile::InitOnCreate(
 		if(luNewDupNumber == 0)
 			luNewDupNumber = 1;
 
-		// ³¢ÊÔ´ò¿ª×îºó±£´æµÄÎÄ¼ş
+		// å°è¯•æ‰“å¼€æœ€åä¿å­˜çš„æ–‡ä»¶
 		luResult = CConfigFile::InitOnCreate(lpFileNameArr[0],nuCreationDisposition);
 		if(luResult == 0)
 		{
-			// ĞŞ¸Ä»ùÀàµÄÎÄ¼şÃûÎªÁíÍâÒ»¸öÎÄ¼ş£¬´Ó¶øÊ¹µÃ±£´æÊ±½«¼ÇÂ¼´æÈëÁíÍâÒ»¸öÎÄ¼ş
+			// ä¿®æ”¹åŸºç±»çš„æ–‡ä»¶åä¸ºå¦å¤–ä¸€ä¸ªæ–‡ä»¶ï¼Œä»è€Œä½¿å¾—ä¿å­˜æ—¶å°†è®°å½•å­˜å…¥å¦å¤–ä¸€ä¸ªæ–‡ä»¶
 			COPYSTR_S(mszFileName,256,lpFileNameArr[1]);
 		}
-		else// Ê§°Ü£¬Ôò³¢ÊÔ´ò¿ªÁíÍâÒ»¸öÎÄ¼ş
+		else// å¤±è´¥ï¼Œåˆ™å°è¯•æ‰“å¼€å¦å¤–ä¸€ä¸ªæ–‡ä»¶
 		{
 			luResult = CConfigFile::InitOnCreate(lpFileNameArr[1],nuCreationDisposition);
 			if(luResult == 0)
 			{
-				// ĞŞ¸Ä»ùÀàµÄÎÄ¼şÃûÎªÁíÍâÒ»¸öÎÄ¼ş£¬´Ó¶øÊ¹µÃ±£´æÊ±½«¼ÇÂ¼´æÈëÁíÍâÒ»¸öÎÄ¼ş
+				// ä¿®æ”¹åŸºç±»çš„æ–‡ä»¶åä¸ºå¦å¤–ä¸€ä¸ªæ–‡ä»¶ï¼Œä»è€Œä½¿å¾—ä¿å­˜æ—¶å°†è®°å½•å­˜å…¥å¦å¤–ä¸€ä¸ªæ–‡ä»¶
 				COPYSTR_S(mszFileName,256,lpFileNameArr[0]);
 			}
 		}
@@ -2242,7 +2242,7 @@ ULONG CStableConfigFile::InitOnCreate(
 	return luResult;
 }
 
-// Ö±½Ó½«Öµ½âÊÍÎªLONG»ñÈ¡£¬Èç¹ûÖµµÄÀàĞÍ²»ÊÇ4×Ö½Ú£¬º¯Êı½«·µ»ØÄ¬ÈÏÖµ
+// ç›´æ¥å°†å€¼è§£é‡Šä¸ºLONGè·å–ï¼Œå¦‚æœå€¼çš„ç±»å‹ä¸æ˜¯4å­—èŠ‚ï¼Œå‡½æ•°å°†è¿”å›é»˜è®¤å€¼
 LONG __stdcall CCfKeyInterface::QueryValueAsLONG(
 	IN LONG niDefault
 	)
@@ -2266,7 +2266,7 @@ LONG __stdcall CCfKeyInterface::QueryValueAsLONG(
 	return liValue;
 }
 
-// Ö±½Ó½«Öµ½âÊÍÎªFLOAT»ñÈ¡£¬Èç¹ûÖµµÄÀàĞÍ²»ÊÇsizeof(FLOAT)×Ö½Ú£¬º¯Êı½«·µ»ØÄ¬ÈÏÖµ
+// ç›´æ¥å°†å€¼è§£é‡Šä¸ºFLOATè·å–ï¼Œå¦‚æœå€¼çš„ç±»å‹ä¸æ˜¯sizeof(FLOAT)å­—èŠ‚ï¼Œå‡½æ•°å°†è¿”å›é»˜è®¤å€¼
 FLOAT __stdcall CCfKeyInterface::QueryValueAsFLOAT(
 	IN FLOAT nfDefault
 	)
@@ -2290,9 +2290,9 @@ FLOAT __stdcall CCfKeyInterface::QueryValueAsFLOAT(
 	return lfValue;
 }
 
-// °´Ãû×Ö²éÕÒ×Ó¼ü£¬Ö±½Ó½«×Ó¼üµÄÖµ½âÊÍÎªLONG»ñÈ¡£¬Èç¹ûÖµµÄÀàĞÍ²»ÊÇ4×Ö½Ú£¬º¯Êı½«·µ»ØÄ¬ÈÏÖµ
+// æŒ‰åå­—æŸ¥æ‰¾å­é”®ï¼Œç›´æ¥å°†å­é”®çš„å€¼è§£é‡Šä¸ºLONGè·å–ï¼Œå¦‚æœå€¼çš„ç±»å‹ä¸æ˜¯4å­—èŠ‚ï¼Œå‡½æ•°å°†è¿”å›é»˜è®¤å€¼
 LONG __stdcall CCfKeyInterface::QuerySubKeyValueAsLONG(
-	IN const wchar_t* nszSubKeyName,	// Ö¸¶¨Òª»ñÈ¡µÄÖµµÄ¼üÃû£¬²»ÄÜÎªNULL»òÕßnszSubKeyName[0]==UNICODE_NULL
+	IN const wchar_t* nszSubKeyName,	// æŒ‡å®šè¦è·å–çš„å€¼çš„é”®åï¼Œä¸èƒ½ä¸ºNULLæˆ–è€…nszSubKeyName[0]==UNICODE_NULL
 	IN LONG niDefault
 	)
 {
@@ -2310,9 +2310,9 @@ LONG __stdcall CCfKeyInterface::QuerySubKeyValueAsLONG(
 	return liValue;
 }
 
-// °´ID²éÕÒ×Ó¼ü£¬Ö±½Ó½«×Ó¼üµÄÖµ½âÊÍÎªLONG»ñÈ¡£¬Èç¹ûÖµµÄÀàĞÍ²»ÊÇ4×Ö½Ú£¬º¯Êı½«·µ»ØÄ¬ÈÏÖµ
+// æŒ‰IDæŸ¥æ‰¾å­é”®ï¼Œç›´æ¥å°†å­é”®çš„å€¼è§£é‡Šä¸ºLONGè·å–ï¼Œå¦‚æœå€¼çš„ç±»å‹ä¸æ˜¯4å­—èŠ‚ï¼Œå‡½æ•°å°†è¿”å›é»˜è®¤å€¼
 LONG __stdcall CCfKeyInterface::QuerySubKeyValueAsLONG(
-	IN ULONG nuID,		// ×Ó¼üµÄ±êÊ¶ID
+	IN ULONG nuID,		// å­é”®çš„æ ‡è¯†ID
 	IN LONG niDefault
 	)
 {
@@ -2330,9 +2330,9 @@ LONG __stdcall CCfKeyInterface::QuerySubKeyValueAsLONG(
 	return liValue;
 }
 
-// °´Ãû×Ö²éÕÒ×Ó¼ü£¬Ö±½Ó½«×Ó¼üµÄÖµ½âÊÍÎªFLOAT»ñÈ¡£¬Èç¹ûÖµµÄÀàĞÍ²»ÊÇsizeof(FLOAT)×Ö½Ú£¬º¯Êı½«·µ»ØÄ¬ÈÏÖµ
+// æŒ‰åå­—æŸ¥æ‰¾å­é”®ï¼Œç›´æ¥å°†å­é”®çš„å€¼è§£é‡Šä¸ºFLOATè·å–ï¼Œå¦‚æœå€¼çš„ç±»å‹ä¸æ˜¯sizeof(FLOAT)å­—èŠ‚ï¼Œå‡½æ•°å°†è¿”å›é»˜è®¤å€¼
 FLOAT __stdcall CCfKeyInterface::QuerySubKeyValueAsFLOAT(
-	IN const wchar_t* nszSubKeyName,	// Ö¸¶¨Òª»ñÈ¡µÄÖµµÄ¼üÃû£¬²»ÄÜÎªNULL»òÕßnszSubKeyName[0]==UNICODE_NULL
+	IN const wchar_t* nszSubKeyName,	// æŒ‡å®šè¦è·å–çš„å€¼çš„é”®åï¼Œä¸èƒ½ä¸ºNULLæˆ–è€…nszSubKeyName[0]==UNICODE_NULL
 	IN FLOAT nfDefault
 	)
 {
@@ -2350,9 +2350,9 @@ FLOAT __stdcall CCfKeyInterface::QuerySubKeyValueAsFLOAT(
 	return lfValue;
 }
 
-// °´ID²éÕÒ×Ó¼ü£¬Ö±½Ó½«×Ó¼üµÄÖµ½âÊÍÎªFLOAT»ñÈ¡£¬Èç¹ûÖµµÄÀàĞÍ²»ÊÇsizeof(FLOAT)×Ö½Ú£¬º¯Êı½«·µ»ØÄ¬ÈÏÖµ
+// æŒ‰IDæŸ¥æ‰¾å­é”®ï¼Œç›´æ¥å°†å­é”®çš„å€¼è§£é‡Šä¸ºFLOATè·å–ï¼Œå¦‚æœå€¼çš„ç±»å‹ä¸æ˜¯sizeof(FLOAT)å­—èŠ‚ï¼Œå‡½æ•°å°†è¿”å›é»˜è®¤å€¼
 FLOAT __stdcall CCfKeyInterface::QuerySubKeyValueAsFLOAT(
-	IN ULONG nuID,		// ×Ó¼üµÄ±êÊ¶ID
+	IN ULONG nuID,		// å­é”®çš„æ ‡è¯†ID
 	IN FLOAT nfDefault
 	)
 {
@@ -2370,9 +2370,9 @@ FLOAT __stdcall CCfKeyInterface::QuerySubKeyValueAsFLOAT(
 	return lfValue;
 }
 
-// °´Ãû×Ö²éÕÒ×Ó¼ü£¬Ö±½Ó»ñÈ¡×Ó¼üµÄÖµ£¬·µ»ØĞ¡ÓÚÁã±íÊ¾Ä¿±ê¼ü²»´æÔÚ£¬µÈÓÚ0±íÊ¾Ä¿±ê¼üÖµÎª¿Õ£¬´óÓÚ0±íÊ¾·µ»ØµÄValue³¤¶È
+// æŒ‰åå­—æŸ¥æ‰¾å­é”®ï¼Œç›´æ¥è·å–å­é”®çš„å€¼ï¼Œè¿”å›å°äºé›¶è¡¨ç¤ºç›®æ ‡é”®ä¸å­˜åœ¨ï¼Œç­‰äº0è¡¨ç¤ºç›®æ ‡é”®å€¼ä¸ºç©ºï¼Œå¤§äº0è¡¨ç¤ºè¿”å›çš„Valueé•¿åº¦
 int __stdcall CCfKeyInterface::QuerySubKeyValue(
-	IN const wchar_t* nszSubKeyName,	// Ö¸¶¨Òª»ñÈ¡µÄÖµµÄ¼üÃû£¬²»ÄÜÎªNULL»òÕßnszSubKeyName[0]==UNICODE_NULL
+	IN const wchar_t* nszSubKeyName,	// æŒ‡å®šè¦è·å–çš„å€¼çš„é”®åï¼Œä¸èƒ½ä¸ºNULLæˆ–è€…nszSubKeyName[0]==UNICODE_NULL
 	OUT PVOID npValueBuf,
 	IN  LONG  niBufLen
 	)
@@ -2393,7 +2393,7 @@ int __stdcall CCfKeyInterface::QuerySubKeyValue(
 }
 
 
-// Ö±½Ó½«Öµ½âÊÍÎªPVOID»ñÈ¡£¬Èç¹ûÖµµÄÀàĞÍ²»ÊÇsizeof(PVOID)×Ö½Ú£¬º¯Êı½«·µ»ØÄ¬ÈÏÖµ
+// ç›´æ¥å°†å€¼è§£é‡Šä¸ºPVOIDè·å–ï¼Œå¦‚æœå€¼çš„ç±»å‹ä¸æ˜¯sizeof(PVOID)å­—èŠ‚ï¼Œå‡½æ•°å°†è¿”å›é»˜è®¤å€¼
 PVOID __stdcall CCfKeyInterface::QueryValueAsPVOID(
 	IN PVOID npDefault
 	)
@@ -2417,9 +2417,9 @@ PVOID __stdcall CCfKeyInterface::QueryValueAsPVOID(
 	return lpValue;
 }
 
-// °´Ãû×Ö²éÕÒ×Ó¼ü£¬Ö±½Ó½«×Ó¼üµÄÖµ½âÊÍÎªPVOID»ñÈ¡£¬Èç¹ûÖµµÄÀàĞÍ²»ÊÇsizeof(PVOID)×Ö½Ú£¬º¯Êı½«·µ»ØÄ¬ÈÏÖµ
+// æŒ‰åå­—æŸ¥æ‰¾å­é”®ï¼Œç›´æ¥å°†å­é”®çš„å€¼è§£é‡Šä¸ºPVOIDè·å–ï¼Œå¦‚æœå€¼çš„ç±»å‹ä¸æ˜¯sizeof(PVOID)å­—èŠ‚ï¼Œå‡½æ•°å°†è¿”å›é»˜è®¤å€¼
 PVOID __stdcall CCfKeyInterface::QuerySubKeyValueAsPVOID(
-	IN const wchar_t* nszSubKeyName,	// Ö¸¶¨Òª»ñÈ¡µÄÖµµÄ¼üÃû£¬²»ÄÜÎªNULL»òÕßnszSubKeyName[0]==UNICODE_NULL
+	IN const wchar_t* nszSubKeyName,	// æŒ‡å®šè¦è·å–çš„å€¼çš„é”®åï¼Œä¸èƒ½ä¸ºNULLæˆ–è€…nszSubKeyName[0]==UNICODE_NULL
 	IN PVOID npDefault
 	)
 {
@@ -2437,9 +2437,9 @@ PVOID __stdcall CCfKeyInterface::QuerySubKeyValueAsPVOID(
 	return lpValue;
 }
 
-// °´ID²éÕÒ×Ó¼ü£¬Ö±½Ó½«×Ó¼üµÄÖµ½âÊÍÎªPVOID»ñÈ¡£¬Èç¹ûÖµµÄÀàĞÍ²»ÊÇsizeof(PVOID)×Ö½Ú£¬º¯Êı½«·µ»ØÄ¬ÈÏÖµ
+// æŒ‰IDæŸ¥æ‰¾å­é”®ï¼Œç›´æ¥å°†å­é”®çš„å€¼è§£é‡Šä¸ºPVOIDè·å–ï¼Œå¦‚æœå€¼çš„ç±»å‹ä¸æ˜¯sizeof(PVOID)å­—èŠ‚ï¼Œå‡½æ•°å°†è¿”å›é»˜è®¤å€¼
 PVOID __stdcall CCfKeyInterface::QuerySubKeyValueAsPVOID(
-	IN ULONG nuID,		// ×Ó¼üµÄ±êÊ¶ID
+	IN ULONG nuID,		// å­é”®çš„æ ‡è¯†ID
 	IN PVOID npDefault
 	)
 {
@@ -2457,7 +2457,7 @@ PVOID __stdcall CCfKeyInterface::QuerySubKeyValueAsPVOID(
 	return lpValue;
 }
 
-// »ñÈ¡Ö¸¶¨µÄÖµ´æ´¢New³öÀ´µÄÄÚ´æÖĞ·µ»ØÀ´£¬Ê§°Ü·µ»ØNULL£¬×¢ÒâÒªÊÍ·Å·µ»ØµÄÖ¸Õë, ¡ª¡ªColin ¼Ó¡£
+// è·å–æŒ‡å®šçš„å€¼å­˜å‚¨Newå‡ºæ¥çš„å†…å­˜ä¸­è¿”å›æ¥ï¼Œå¤±è´¥è¿”å›NULLï¼Œæ³¨æ„è¦é‡Šæ”¾è¿”å›çš„æŒ‡é’ˆ, â€”â€”Colin åŠ ã€‚
 //PVOID __stdcall CCfKeyInterface::QueryValueAsBuffer()
 PVOID __stdcall CCfKeyInterface::QueryValueAsBuffer()
 {
@@ -2481,7 +2481,7 @@ PVOID __stdcall CCfKeyInterface::QueryValueAsBuffer()
 	return lpRetValue;
 }
 
-// »ñÈ¡Ö¸¶¨µÄ×Ó½¡µÄÖµ´æ´¢ÔÚNew³öÀ´µÄÄÚ´æÖĞ·µ»ØÀ´£¬Ê§°Ü·µ»ØNULL£¬×¢ÒâÒªÊÍ·Å·µ»ØµÄÖ¸Õë, ¡ª¡ªColin ¼Ó¡£
+// è·å–æŒ‡å®šçš„å­å¥çš„å€¼å­˜å‚¨åœ¨Newå‡ºæ¥çš„å†…å­˜ä¸­è¿”å›æ¥ï¼Œå¤±è´¥è¿”å›NULLï¼Œæ³¨æ„è¦é‡Šæ”¾è¿”å›çš„æŒ‡é’ˆ, â€”â€”Colin åŠ ã€‚
 PVOID __stdcall CCfKeyInterface::QuerySubKeyValueAsBuffer(
 	IN const wchar_t* nswSubKeyName
 	)
@@ -2504,9 +2504,9 @@ PVOID __stdcall CCfKeyInterface::QuerySubKeyValueAsBuffer(
 	return lpRetValue;
 }
 
-// »ñÈ¡Ö¸¶¨µÄ×Ó½¡µÄÖµ´æ´¢ÔÚNew³öÀ´µÄÄÚ´æÖĞ·µ»ØÀ´£¬Ê§°Ü·µ»ØNULL£¬×¢ÒâÒªÊÍ·Å·µ»ØµÄÖ¸Õë, ¡ª¡ªColin ¼Ó¡£
+// è·å–æŒ‡å®šçš„å­å¥çš„å€¼å­˜å‚¨åœ¨Newå‡ºæ¥çš„å†…å­˜ä¸­è¿”å›æ¥ï¼Œå¤±è´¥è¿”å›NULLï¼Œæ³¨æ„è¦é‡Šæ”¾è¿”å›çš„æŒ‡é’ˆ, â€”â€”Colin åŠ ã€‚
 PVOID __stdcall CCfKeyInterface::QuerySubKeyValueAsBuffer(
-	IN ULONG nuID									// ×Ó¼üµÄ±êÊ¶ID
+	IN ULONG nuID									// å­é”®çš„æ ‡è¯†ID
 	)
 {
 	PVOID lpRetValue = NULL;
@@ -2528,7 +2528,7 @@ PVOID __stdcall CCfKeyInterface::QuerySubKeyValueAsBuffer(
 } 
 
 
-// ÊÍ·ÅÓÉQuery***AsBufferÏµÁĞº¯Êı·µ»ØµÄBuffer  ¡ª¡ªColin ¼Ó¡£
+// é‡Šæ”¾ç”±Query***AsBufferç³»åˆ—å‡½æ•°è¿”å›çš„Buffer  â€”â€”Colin åŠ ã€‚
 void _stdcall CCfKeyInterface::ReleaseBuffer(OUT PVOID npvoBufferToRelease)
 {
 	if(NULL != npvoBufferToRelease)

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -19,17 +19,17 @@
 //	}
 //};
 //
-//class CEsThreadNodeCriterion	// Ä¬ÈÏµÄÅĞ¶Ï×¼Ôò
+//class CEsThreadNodeCriterion	// é»˜è®¤çš„åˆ¤æ–­å‡†åˆ™
 //{
 //public:
-//	bool operator () (const CEsThreadNode& Obj1, const CEsThreadNode& Obj2)const // Ò»¶¨ÒªÓÃÄÚÁªº¯Êı
+//	bool operator () (const CEsThreadNode& Obj1, const CEsThreadNode& Obj2)const // ä¸€å®šè¦ç”¨å†…è”å‡½æ•°
 //	{
-//		// µ±¶ÔÏóOb1Ğ¡ÓÚ¶ÔÏóObj2Ê±£¬·µ»ØTrue£¬·ñÔò·µ»Øfalse
+//		// å½“å¯¹è±¡Ob1å°äºå¯¹è±¡Obj2æ—¶ï¼Œè¿”å›Trueï¼Œå¦åˆ™è¿”å›false
 //		return (Obj1.muThreadID < Obj2.muThreadID);
 //	}
 //};
 //
-//// °´ÕÕIDÅÅĞòµÄÏß³Ì¶ÓÁĞ
+//// æŒ‰ç…§IDæ’åºçš„çº¿ç¨‹é˜Ÿåˆ—
 //typedef cmmSequence<CEsThreadNode, CEsThreadNodeCriterion> TEsThreadSequence;
 
 DECLARE_BUILTIN_NAME(CtxtBitmap)
@@ -43,7 +43,7 @@ public:
 	int32 GetHeight();
 
 protected:
-	// ÄÚ²¿±äÁ¿
+	// å†…éƒ¨å˜é‡
 	int32 mWidth;
 	int32 mHeight;
 	bin_ptr mImageBuffer;
@@ -54,8 +54,8 @@ protected:
 	//DEFINE_CUMSTOMIZE_CREATE(CtxtBitmap, (fz_pixmap* fzImage), (fzImage))
 	DEFINE_CUMSTOMIZE_CREATE(CtxtBitmap, (int32 w,int32 h), (w,h))
 
-	// ³õÊ¼»¯º¯Êı£¬¿ÉÒÔÊµÏÖ¸÷ÖÖ²»Í¬²ÎÊıµÄ³õÊ¼»¯º¯Êı£¬×¢Òâ£¬ÅÉÉúÀàÖØÔØInitOnCreateº¯Êıºó£¬Ò»¶¨Òªµ÷ÓÃ»ùÀàµÄInitOnCreateº¯Êı
-	// ·µ»Ø0±íÊ¾³É¹¦£»·µ»ØÖµ×î¸ßÎ»Îª1±íÊ¾·¢ÉúÑÏÖØ´íÎó£¬Ó¦¸ÃÖÕÖ¹³õÊ¼»¯¹ı³Ì£¬·µ»ØµÄ¾ÍÊÇ´íÎóÂë£»·µ»ØÆäËûÖµ±íÊ¾ÆäËû·Ç´íÎó·µ»ØÂë
+	// åˆå§‹åŒ–å‡½æ•°ï¼Œå¯ä»¥å®ç°å„ç§ä¸åŒå‚æ•°çš„åˆå§‹åŒ–å‡½æ•°ï¼Œæ³¨æ„ï¼Œæ´¾ç”Ÿç±»é‡è½½InitOnCreateå‡½æ•°åï¼Œä¸€å®šè¦è°ƒç”¨åŸºç±»çš„InitOnCreateå‡½æ•°
+	// è¿”å›0è¡¨ç¤ºæˆåŠŸï¼›è¿”å›å€¼æœ€é«˜ä½ä¸º1è¡¨ç¤ºå‘ç”Ÿä¸¥é‡é”™è¯¯ï¼Œåº”è¯¥ç»ˆæ­¢åˆå§‹åŒ–è¿‡ç¨‹ï¼Œè¿”å›çš„å°±æ˜¯é”™è¯¯ç ï¼›è¿”å›å…¶ä»–å€¼è¡¨ç¤ºå…¶ä»–éé”™è¯¯è¿”å›ç 
 	ULONG InitOnCreate(int32 w, int32 h);
 
 };
@@ -97,7 +97,7 @@ public:
 	);
 
 protected:
-	// ÄÚ²¿±äÁ¿
+	// å†…éƒ¨å˜é‡
 	int32 mPageIndexOpenning;
 	int32 incomplete;
 	wchar_t* mCharPtr;
@@ -114,8 +114,8 @@ protected:
 
 	DEFINE_CUMSTOMIZE_CREATE(CtxtPage, (int32 pageNo,wchar_t* charPtr,uint32 charLength, CtxtDocument* docObj), (pageNo,charPtr,charLength,docObj))
 
-	// ³õÊ¼»¯º¯Êı£¬¿ÉÒÔÊµÏÖ¸÷ÖÖ²»Í¬²ÎÊıµÄ³õÊ¼»¯º¯Êı£¬×¢Òâ£¬ÅÉÉúÀàÖØÔØInitOnCreateº¯Êıºó£¬Ò»¶¨Òªµ÷ÓÃ»ùÀàµÄInitOnCreateº¯Êı
-	// ·µ»Ø0±íÊ¾³É¹¦£»·µ»ØÖµ×î¸ßÎ»Îª1±íÊ¾·¢ÉúÑÏÖØ´íÎó£¬Ó¦¸ÃÖÕÖ¹³õÊ¼»¯¹ı³Ì£¬·µ»ØµÄ¾ÍÊÇ´íÎóÂë£»·µ»ØÆäËûÖµ±íÊ¾ÆäËû·Ç´íÎó·µ»ØÂë
+	// åˆå§‹åŒ–å‡½æ•°ï¼Œå¯ä»¥å®ç°å„ç§ä¸åŒå‚æ•°çš„åˆå§‹åŒ–å‡½æ•°ï¼Œæ³¨æ„ï¼Œæ´¾ç”Ÿç±»é‡è½½InitOnCreateå‡½æ•°åï¼Œä¸€å®šè¦è°ƒç”¨åŸºç±»çš„InitOnCreateå‡½æ•°
+	// è¿”å›0è¡¨ç¤ºæˆåŠŸï¼›è¿”å›å€¼æœ€é«˜ä½ä¸º1è¡¨ç¤ºå‘ç”Ÿä¸¥é‡é”™è¯¯ï¼Œåº”è¯¥ç»ˆæ­¢åˆå§‹åŒ–è¿‡ç¨‹ï¼Œè¿”å›çš„å°±æ˜¯é”™è¯¯ç ï¼›è¿”å›å…¶ä»–å€¼è¡¨ç¤ºå…¶ä»–éé”™è¯¯è¿”å›ç 
 	ULONG InitOnCreate(int32 pageNo, wchar_t* charPtr, uint32 charLength, CtxtDocument* docObj);
 };
 

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -57,7 +57,7 @@ public:
 public:
 
 protected:
-	// ÄÚ²¿±äÁ¿
+	// å†…éƒ¨å˜é‡
 	volatile int32Eink documentType;
 	volatile int32Eink pageCount;
 	BaseEngine* volatile documentEngine;
@@ -72,7 +72,7 @@ protected:
 	volatile LONG mExitThread;
 
 
-	//// µ±Ç°Ò³
+	//// å½“å‰é¡µ
 	//int32Eink incomplete;
 
 	CSmtDocument();
@@ -80,8 +80,8 @@ protected:
 	//ED_ERR Open_progressive(const char16_ptr fileName);
 
 
-	// ³õÊ¼»¯º¯Êı£¬¿ÉÒÔÊµÏÖ¸÷ÖÖ²»Í¬²ÎÊıµÄ³õÊ¼»¯º¯Êı£¬×¢Òâ£¬ÅÉÉúÀàÖØÔØInitOnCreateº¯Êıºó£¬Ò»¶¨Òªµ÷ÓÃ»ùÀàµÄInitOnCreateº¯Êı
-	// ·µ»Ø0±íÊ¾³É¹¦£»·µ»ØÖµ×î¸ßÎ»Îª1±íÊ¾·¢ÉúÑÏÖØ´íÎó£¬Ó¦¸ÃÖÕÖ¹³õÊ¼»¯¹ı³Ì£¬·µ»ØµÄ¾ÍÊÇ´íÎóÂë£»·µ»ØÆäËûÖµ±íÊ¾ÆäËû·Ç´íÎó·µ»ØÂë
+	// åˆå§‹åŒ–å‡½æ•°ï¼Œå¯ä»¥å®ç°å„ç§ä¸åŒå‚æ•°çš„åˆå§‹åŒ–å‡½æ•°ï¼Œæ³¨æ„ï¼Œæ´¾ç”Ÿç±»é‡è½½InitOnCreateå‡½æ•°åï¼Œä¸€å®šè¦è°ƒç”¨åŸºç±»çš„InitOnCreateå‡½æ•°
+	// è¿”å›0è¡¨ç¤ºæˆåŠŸï¼›è¿”å›å€¼æœ€é«˜ä½ä¸º1è¡¨ç¤ºå‘ç”Ÿä¸¥é‡é”™è¯¯ï¼Œåº”è¯¥ç»ˆæ­¢åˆå§‹åŒ–è¿‡ç¨‹ï¼Œè¿”å›çš„å°±æ˜¯é”™è¯¯ç ï¼›è¿”å›å…¶ä»–å€¼è¡¨ç¤ºå…¶ä»–éé”™è¯¯è¿”å›ç 
 	ULONG InitOnCreate(const char16_ptr pathName);
 
 	ED_ERR LoadPage(CSmtPage* pageObj);

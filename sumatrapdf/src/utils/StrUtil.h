@@ -206,6 +206,6 @@ const char * IdxToStr(const char *strings, int idx);
 #define _MemToHex(ptr) str::MemToHex((const unsigned char *)(ptr), sizeof(*ptr))
 #define _HexToMem(txt, ptr) str::HexToMem(txt, (unsigned char *)(ptr), sizeof(*ptr))
 
-#define UTF8_BOM    "\xEF\xBB\xBF"
+#define UTF8_BOM    u8"\xEF\xBB\xBF"
 #define UTF16_BOM   "\xFF\xFE"
 #define UTF16BE_BOM "\xFE\xFF"

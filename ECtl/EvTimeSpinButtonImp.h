@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+﻿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -19,25 +19,25 @@ class CEvTimeSpinButton:
 public:
 
 	ULONG InitOnCreate(
-		IN IXuiIterator* npParent = NULL,	// ������ָ��
-		IN ICfKey* npTemplete = NULL,		// npTemplete��Key ID����EID��ֵ��������EType
-		IN ULONG nuEID=MAXULONG32	// �����Ϊ0��MAXULONG32����ָ����Ԫ�ص�EID; ����ȡ��һ��������ģ�������õ�ֵ��ΪEID�����ģ��Ҳû������EID����ʹ��XUIϵͳ�Զ�����
+		IN IXuiIterator* npParent = NULL,	// 父对象指针
+		IN ICfKey* npTemplete = NULL,		// npTemplete的Key ID就是EID，值就是类型EType
+		IN ULONG nuEID=MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
 		) ;
 
 protected:
-	// ֻ���ڱ������ó�ʼֵ����ָ����ΪNULL�����п���ʧ�ܵ������֮������㶼Ӧ����InitOnCreate�н���
+	// 只用于变量设置初始值，如指针设为NULL，所有可能失败的如分配之类的运算都应该在InitOnCreate中进行
 	CEvTimeSpinButton();
-	// �����ͷų�Ա����
+	// 用于释放成员对象
 	virtual ~CEvTimeSpinButton();
-	//��ʼ��������һ��Ԫ�ر�����ʱ���ã�ע�⣺��Ԫ�ػ����ڸ�Ԫ���յ�������Ϣ���Ӷ�ȷ����Ԫ����һ������Ԫ�س�ʼ��֮�����ȫ����ʼ���Ļ���
+	//初始建立，当一个元素被建立时调用，注意：子元素会先于父元素收到这条消息，从而确保父元素有一个在子元素初始化之后完成全部初始化的机会
 	virtual ERESULT OnElementCreate(IXuiIterator* npIterator);
-	//����
+	//绘制
 	virtual ERESULT OnPaint(IXuiPaintBoard* npPaintBoard);
-	// �ֽ���Ϣ���ṩ��Ϣ�ֽ����Ϣ��Ӧ�Ĺ��ܣ������ʵ���ǽ���Ϣ�ֽ�Ϊ��ͬ������󣬵�����Ӧ�Ĵ����麯�������ڲ���ʶ����Ϣ��һ�ɷ���ERESULT_UNEXPECTED_MESSAGE
-	// �������ķ���ֵ���Զ�ͬ�����õ�npMsgָ�����Ϣ������
+	// 分解消息，提供消息分解或消息响应的功能，本类的实现是将消息分解为不同的请求后，调用相应的处理虚函数，对于不认识的消息，一律返回ERESULT_UNEXPECTED_MESSAGE
+	// 本函数的返回值会自动同步设置到npMsg指向的消息对象中
 	virtual ERESULT ParseMessage(IXuiMessage* npMsg);
 
-	//���û�����
+	//禁用或启用
 	virtual ERESULT OnElementEnable(bool nbIsEnable);
 
 private:
@@ -53,21 +53,21 @@ public:
 
 private:
 
-	CEvEditImp*			mpEditMinutes;			//	�༭��
-	CEvEditImp*			mpEditSeconds;			//	�༭��
-	CEvEditImp*			mpEditMilliseconds;		//	�༭����
+	CEvEditImp*			mpEditMinutes;			//	编辑分
+	CEvEditImp*			mpEditSeconds;			//	编辑秒
+	CEvEditImp*			mpEditMilliseconds;		//	编辑毫秒
 
-	CEvImageButton*		mpBtnUpArrow;			//	���ϼ�ͷ
-	CEvImageButton*		mpBtnDownArrow;			//	���¼�ͷ
+	CEvImageButton*		mpBtnUpArrow;			//	向上箭头
+	CEvImageButton*		mpBtnDownArrow;			//	向下箭头
 
-	CEvLabelImp*		mpLabelColonOne;		//	ð��1
-	CEvLabelImp*		mpLabelColonTwo;		//	ð��2
+	CEvLabelImp*		mpLabelColonOne;		//	冒号1
+	CEvLabelImp*		mpLabelColonTwo;		//	冒号2
 
-	XuiTimeFormat		mCurrentTime;			//	��ǰʱ��
+	XuiTimeFormat		mCurrentTime;			//	当前时间
 
-	int					mnCurrentEditID;		//	��¼��ǰ��ȡ����ı༭��
+	int					mnCurrentEditID;		//	记录当前获取焦点的编辑框
 
-	bool				mbSendModifyMsgWhenEditModify;		//���õ��༭���޸�ʱ�Ƿ��� EEVT_TIMESPINBUTTON_TIME_MODIFIED
+	bool				mbSendModifyMsgWhenEditModify;		//设置当编辑框被修改时是否发送 EEVT_TIMESPINBUTTON_TIME_MODIFIED
 };
 
 

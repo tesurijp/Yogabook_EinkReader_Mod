@@ -1,129 +1,129 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
 #pragma once
-//¶¨Òå³ÌĞòËùĞèÒªµÄÏûÏ¢
+//å®šä¹‰ç¨‹åºæ‰€éœ€è¦çš„æ¶ˆæ¯
 
-// ×Ô¶¨ÒåÏûÏ¢
+// è‡ªå®šä¹‰æ¶ˆæ¯
 #define ER_TYPE_BASE	0xEA
 #define EMSG_TS_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(ER_TYPE_BASE,_MJ_NUM,_MN_NUM)
 
-// ´ò¿ªÎÄ¼ş¶Ô»°¿ò
+// æ‰“å¼€æ–‡ä»¶å¯¹è¯æ¡†
 #define EEVT_ER_OPEN_FILE		EMSG_TS_REQUEST(1,1)			
 // input none
 // output none
 // return none
 
-// ÏÔÊ¾¹¦ÄÜÇøÌáÊ¾
+// æ˜¾ç¤ºåŠŸèƒ½åŒºæç¤º
 #define EEVT_ER_SHOW_TIP		EMSG_TS_REQUEST(1,2)			
 // input none
 // output none
 // return none
 
-// Ç°Ì¨/ºóÌ¨
+// å‰å°/åå°
 #define EEVT_HB_ACTIVITE		EMSG_TS_REQUEST(1,3)			
-// input ULONG  wparam 0ºóÌ¨ 1Ç°Ì¨
+// input ULONG  wparam 0åå° 1å‰å°
 // output none
 // return none
 
-// listÏî±»µã»÷
+// listé¡¹è¢«ç‚¹å‡»
 #define EEVT_ER_LIST_CLICK		EMSG_TS_REQUEST(1,4)			
-// input wchat* Â·¾¶
+// input wchat* è·¯å¾„
 // output none
 // return none
 
-// ´ò¿ªÒ³Âë¶Ô»°¿ò
+// æ‰“å¼€é¡µç å¯¹è¯æ¡†
 #define EEVT_ER_OPEN_PAGE_JUMP	EMSG_TS_REQUEST(1,5)			
 // input none
 // output none
 // return none
 
-// ¸æËßÖ÷½çÃæ£¬Ìø×ªµ½Ö¸¶¨Ò³Âë
+// å‘Šè¯‰ä¸»ç•Œé¢ï¼Œè·³è½¬åˆ°æŒ‡å®šé¡µç 
 #define EEVT_ER_PAGE_JUMP	EMSG_TS_REQUEST(1,6)			
 // input int
 // output none
 // return none
 
-// ¸æËßÖ÷½çÃæ£¬Òª´ò¿ªµÄÎÄ¼şÂ·¾¶
+// å‘Šè¯‰ä¸»ç•Œé¢ï¼Œè¦æ‰“å¼€çš„æ–‡ä»¶è·¯å¾„
 #define EEVT_ER_OPEN_FILE_PATH	EMSG_TS_REQUEST(1,7)			
 // input none
 // output wchar_t* 
 // return none
 
-// homebar×´Ì¬·¢Éú±ä»¯
+// homebarçŠ¶æ€å‘ç”Ÿå˜åŒ–
 #define EEVT_ER_HOMEBAR_CHANGED	EMSG_TS_REQUEST(1,8)			
 // input ULONG
 // output none
 // return none
 
-//·­Ò³°´Å¥±»µã»÷
+//ç¿»é¡µæŒ‰é’®è¢«ç‚¹å‡»
 #define EEVT_ER_PRE_NEXT_CLICKED	EMSG_TS_REQUEST(1,9)			
-// input ULONG ÊÇÄÄ¸ö°´Å¥£¬ÉÏÒ»Ò³/ÏÂÒ»Ò³/ÖĞ¼äÏÔÊ¾Òş²ØÇø
+// input ULONG æ˜¯å“ªä¸ªæŒ‰é’®ï¼Œä¸Šä¸€é¡µ/ä¸‹ä¸€é¡µ/ä¸­é—´æ˜¾ç¤ºéšè—åŒº
 // output none
 // return none
 
-//Ëõ·Å¹¤¾ßÀ¸°´Å¥±»µã»÷
+//ç¼©æ”¾å·¥å…·æ æŒ‰é’®è¢«ç‚¹å‡»
 #define EEVT_ER_ZOOM_TOOLBAR_CLICKED	EMSG_TS_REQUEST(1,10)			
 // input ULONG 
 // output none
 // return none
 
-// ½øÈëËõ·ÅÄ£Ê½
+// è¿›å…¥ç¼©æ”¾æ¨¡å¼
 #define EEVT_ER_ENTER_ZOOM	EMSG_TS_REQUEST(1,11)			
-// input bool true½øÈë£¬falseÍË³ö
+// input bool trueè¿›å…¥ï¼Œfalseé€€å‡º
 // output none
 // return none
 
-// ÉèÖÃËõ·Å±¶Êı
+// è®¾ç½®ç¼©æ”¾å€æ•°
 #define EEVT_ER_SET_ZOOM	EMSG_TS_REQUEST(1,12)			
 // input float
-// output RECT 4¸ö·½Ïò£¬0±íÊ¾²»ÄÜÒÆ¶¯ÁË£¬1±íÊ¾»¹ÄÜÒÆ¶¯ 
+// output RECT 4ä¸ªæ–¹å‘ï¼Œ0è¡¨ç¤ºä¸èƒ½ç§»åŠ¨äº†ï¼Œ1è¡¨ç¤ºè¿˜èƒ½ç§»åŠ¨ 
 // return none
 
-// Ë«ÆÁ»òµ¥ÆÁÏÔÊ¾
+// åŒå±æˆ–å•å±æ˜¾ç¤º
 #define EEVT_ER_TWO_SCREEN	EMSG_TS_REQUEST(1,13)			
-// input bool trueË«ÆÁ falseµ¥ÆÁ
+// input bool trueåŒå± falseå•å±
 // output none
 // return none
 
-// ÉèÖÃÒ³ÃæÒÆ¶¯
+// è®¾ç½®é¡µé¢ç§»åŠ¨
 #define EEVT_ER_SET_PAGE_MOVE	EMSG_TS_REQUEST(1,14)			
-// input POINT ÕıÊı±íÊ¾ÏòÓÒÏÂÒÆ¶¯£¬¸ºÊı±íÊ¾Ïò×óÉÏÒÆ¶¯
-// output RECT 4¸ö·½Ïò£¬0±íÊ¾²»ÄÜÒÆ¶¯ÁË£¬1±íÊ¾»¹ÄÜÒÆ¶¯ 
+// input POINT æ­£æ•°è¡¨ç¤ºå‘å³ä¸‹ç§»åŠ¨ï¼Œè´Ÿæ•°è¡¨ç¤ºå‘å·¦ä¸Šç§»åŠ¨
+// output RECT 4ä¸ªæ–¹å‘ï¼Œ0è¡¨ç¤ºä¸èƒ½ç§»åŠ¨äº†ï¼Œ1è¡¨ç¤ºè¿˜èƒ½ç§»åŠ¨ 
 // return none
 
-// ½øÈë½ØÆÁÄ£Ê½
+// è¿›å…¥æˆªå±æ¨¡å¼
 #define EEVT_ER_ENTER_SNAPSHOT	EMSG_TS_REQUEST(1,15)			
 // input none
 // output none
 // return none
 
-// ½ØÆÁµ½¼ôÇĞ°å
+// æˆªå±åˆ°å‰ªåˆ‡æ¿
 #define EEVT_ER_SNAPSHOT_TO_CLIPBRD	EMSG_TS_REQUEST(1,16)			
 // input D2D1_RECT_F
 // output none
 // return none
 
-// ÉèÖÃTXTËõ·Å±¶Êı
+// è®¾ç½®TXTç¼©æ”¾å€æ•°
 #define EEVT_ER_SET_TXT_ZOOM	EMSG_TS_REQUEST(1,17)			
 // input DWORD
 // output none
 // return none
 
-// ¿ªÊ¼Ò³ÃæÅÅ°æ
+// å¼€å§‹é¡µé¢æ’ç‰ˆ
 #define EEVT_TXT_ARRANGED_START		EMSG_TS_REQUEST(1,20)			
 // input none
 // output none
 // return none
 
-// È«²¿Ò³ÃæÅÅ°æÖĞ£¬Ã¿¸öÒ³Ãæ·¢ËÍÒ»Ìõ
+// å…¨éƒ¨é¡µé¢æ’ç‰ˆä¸­ï¼Œæ¯ä¸ªé¡µé¢å‘é€ä¸€æ¡
 #define EEVT_TXT_ARRANGED_DOING		EMSG_TS_REQUEST(1,21)			
 // input ULONG  current count of pages loaded
 // output none
 // return none
 
-// È«²¿Ò³ÃæÅÅ°æÍê±Ï£¬×¢Òâ£¬²»ÄÜ¼ÙÉè¡°ÊÕµ½EEVT_TXT_ARRANGED_START£¬¾ÍÒ»¶¨¹¤»áÊÕµ½EEVT_ARRANGED_COMPLETEÏûÏ¢¡±£¬Ö´ĞĞ¹ı³ÌÓĞ¿ÉÄÜ±»´ò¶Ï
+// å…¨éƒ¨é¡µé¢æ’ç‰ˆå®Œæ¯•ï¼Œæ³¨æ„ï¼Œä¸èƒ½å‡è®¾â€œæ”¶åˆ°EEVT_TXT_ARRANGED_STARTï¼Œå°±ä¸€å®šå·¥ä¼šæ”¶åˆ°EEVT_ARRANGED_COMPLETEæ¶ˆæ¯â€ï¼Œæ‰§è¡Œè¿‡ç¨‹æœ‰å¯èƒ½è¢«æ‰“æ–­
 #define EEVT_ARRANGED_COMPLETE		EMSG_TS_REQUEST(1,22)			
 // input ULONG  count of all pages loaded
 // output none

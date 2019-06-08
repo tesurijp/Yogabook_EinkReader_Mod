@@ -1,8 +1,8 @@
-/* Copyright 2019 - present Lenovo */
+﻿/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
 #pragma once
 
-//��ȡ����BUFFER��С
+//读取数据BUFFER大小
 #define USBHID_BUFFER_SIZE 1024
 #define USBHID_TP_REPORT_ID 0x90
 #define USBHID_EMR_REPORT_ID 0x91
@@ -14,30 +14,30 @@ public:
 	~USBHIDAPI();
 
 	BOOL EnumHIDDevice(WORD uVID, WORD uPID, //USB VID PID
-		BOOL bPresentFlag, //�豸������ڱ�־ 0����Ҫ�����豸
-		TCHAR szDevPath[MAX_PATH + 1] = NULL, //�豸·��
-		int iIndex = 0); //��N���豸 ���Զ����ͬ���豸�������֣�
+		BOOL bPresentFlag, //设备必须存在标志 0不需要插入设备
+		TCHAR szDevPath[MAX_PATH + 1] = NULL, //设备路径
+		int iIndex = 0); //第N个设备 （对多个相同的设备进行区分）
 
 
 private:
-	// ��������ת����
+	// 屏显坐标转换用
 	SIZE mstPanel;
-	//��д���豸��������ڶ�ȡ��������
+	//手写板设备句柄，用于读取输入数据
 	HANDLE mhReadHandle;
-	//���ݶ�ȡ���֪ͨ�¼�
+	//数据读取完成通知事件
 	HANDLE mhEventObject;
-	//�ȴ���ȡ����߳�
+	//等待读取完成线程
 	HANDLE mhReadThread;
-	//��ȡ�ļ��ṹ��
+	//读取文件结构体
 	OVERLAPPED mdHIDOverlapped;
 	wchar_t mszDevPath[MAX_PATH + 1];
-	//��ȡ�����ڴ�
+	//读取输入内存
 	//PVOID mInputReport;
 	BYTE mInputReport[USBHID_BUFFER_SIZE];
 
-	//��ʼ��ȡ����
+	//开始读取数据
 	void BeginRead();
-	//��ȡ�����߳�
+	//读取数据线程
 	static DWORD __stdcall ReadFileThread(LPVOID npParam);
 	
 

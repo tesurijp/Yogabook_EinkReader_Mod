@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -6,29 +6,29 @@
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÔªËØ¹ÜÀíÆ÷´úÀíÔªËØ£¬Ëü½ÓÊÜËùÓĞ·¢ËÍ¸øÔªËØ¹ÜÀíÆ÷µÄÏûÏ¢
+// å…ƒç´ ç®¡ç†å™¨ä»£ç†å…ƒç´ ï¼Œå®ƒæ¥å—æ‰€æœ‰å‘é€ç»™å…ƒç´ ç®¡ç†å™¨çš„æ¶ˆæ¯
 DECLARE_BUILTIN_NAME(CEleMgrProxy)
 class CEleMgrProxy: public cmmBaseObject<CEleMgrProxy,IXsElement,GET_BUILTIN_NAME(CEleMgrProxy)>
 {
 public:
-	// »ñµÃ±¾ÔªËØµÄÔªËØÀàĞÍ
+	// è·å¾—æœ¬å…ƒç´ çš„å…ƒç´ ç±»å‹
 	virtual const wchar_t* __stdcall  GetType(void);
 
-	// ÔÚÈ«¾Ö·¶Î§ÄÚÑéÖ¤´Ë¶ÔÏóÊÇ·ñÊÇnswTypeÖ¸¶¨µÄÀàĞÍ
+	// åœ¨å…¨å±€èŒƒå›´å†…éªŒè¯æ­¤å¯¹è±¡æ˜¯å¦æ˜¯nswTypeæŒ‡å®šçš„ç±»å‹
 	virtual bool __stdcall  GlobleVerification(const wchar_t* nswType);
 
-	// Ä¬ÈÏÏûÏ¢Èë¿Úº¯Êı£¬ÓÃÓÚ½ÓÊÕÊäÈëÏûÏ¢
+	// é»˜è®¤æ¶ˆæ¯å…¥å£å‡½æ•°ï¼Œç”¨äºæ¥æ”¶è¾“å…¥æ¶ˆæ¯
 	virtual ERESULT __stdcall MessageReceiver(IEinkuiMessage* npMsg);
 
-	// »ñµÃ±¾ÔªËØµÄµü´úÆ÷½Ó¿Ú
+	// è·å¾—æœ¬å…ƒç´ çš„è¿­ä»£å™¨æ¥å£
 	virtual IEinkuiIterator* __stdcall GetIterator(void);
 
-	// »ñµÃTab Order, -1 Î´ÉèÖÃ
+	// è·å¾—Tab Order, -1 æœªè®¾ç½®
 	virtual LONG __stdcall GetTabOrder(void) {
 		return 0;
 	}
 
-	// »ñµÃZ Order£¬-1 Î´ÉèÖÃ
+	// è·å¾—Z Orderï¼Œ-1 æœªè®¾ç½®
 	virtual LONG __stdcall GetZOrder(void){
 		return 0;
 	}

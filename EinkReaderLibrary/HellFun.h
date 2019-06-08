@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -9,7 +9,7 @@ public:
 	CHellFun();
 	~CHellFun();
 
-	//ÉèÖÃ×¢²á±íÊı¾İ
+	//è®¾ç½®æ³¨å†Œè¡¨æ•°æ®
 	static bool SetRegData(wchar_t* npszKeyName, DWORD ndwValue, wchar_t* npszData = NULL);
 };
 

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -11,10 +11,10 @@
 #include "XCtl.h"
 #include "EvImageButtonImp.h"
 
-//¶¨Òå³£Á¿
+//å®šä¹‰å¸¸é‡
 #define BUF_SIZE			256
 
-//¶¨Òå¼üÖµ
+//å®šä¹‰é”®å€¼
 
 #define IB_KEY_DEFAULT_CTRL						L"DefaultCtrl"
 #define IB_KEY_IMAGE_BUTTON						L"ImageButton"
@@ -37,7 +37,7 @@
 #define IB_KEY_MENU_ITEM_LIST					L"MenuItemList"
 #define IB_KEY_MENU_ITEM_ID						L"Id"
 #define IB_KEY_MENU_ITEM_PIC_PATH				L"PicPath"
-	//ÏûÏ¢Ïà¹Ø
+	//æ¶ˆæ¯ç›¸å…³
 #define IB_KEY_MESSAGE_INFO							L"MessageInfo"
 #define IB_KEY_MESSAGE_INFO_ID						L"ID"
 #define IB_KEY_MESSAGE_INFO_MESSAGE_TYPE			L"MessageType"
@@ -46,13 +46,13 @@
 #define IB_KEY_MESSAGE_INFO_MESSAGE_TYPE_INT		L"2"
 #define IB_KEY_MESSAGE_INFO_MESSAGE_TYPE_FLOAT		L"3"
 #define IB_KEY_MESSAGE_INFO_MESSAGE_TYPE_STRING		L"4"
-	//ÑÕÉ«±êÖ¾
+	//é¢œè‰²æ ‡å¿—
 #define IB_KEY_COLOR_FLAG							L"ColorFlag"
 #define IB_KEY_COLOR_FLAG_true						L"1"
 #define IB_KEY_COLOR_FLAG_FLASE						L"0"
 
 
-//¶¨Òå·ç¸ñ
+//å®šä¹‰é£æ ¼
 #define IB_STYLE_UNCHECKABLE					L"0"
 #define IB_STYLE_CHECKABLE						L"1"
 
@@ -60,12 +60,12 @@
 #define IB_STYLE_EXPANDABLE						L"1"
 
 
-//¶¨Òå×Ó¿Ø¼ş
-#define	IB_ID_EXPAND_CTRL						10		//À©Õ¹¿Ø¼ş
+//å®šä¹‰å­æ§ä»¶
+#define	IB_ID_EXPAND_CTRL						10		//æ‰©å±•æ§ä»¶
 
 DEFINE_BUILTIN_NAME(ImageButton)
 
-// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓĞ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖĞ½øĞĞ
+// åªç”¨äºå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 CEvImageButton::CEvImageButton() :
 	mpLeftPicture(NULL),
 	mpRightPicture(NULL),
@@ -92,21 +92,21 @@ CEvImageButton::~CEvImageButton()
 }
 
 ULONG CEvImageButton::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID				// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID				// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-		//´´½¨ImageButtonµÄ×Ó¿Ø¼ş
+		//åˆ›å»ºImageButtonçš„å­æ§ä»¶
 		IConfigFile * lpConfigFile = EinkuiGetSystem()->GetCurrentWidget()->GetDefaultFactory()->GetTempleteFile();
 		if (lpConfigFile == NULL) break;
 		ICfKey* lpRootKey = lpConfigFile->GetRootKey();
@@ -119,13 +119,13 @@ ULONG CEvImageButton::InitOnCreate(
 		ICfKey * lpDefaultPictureFrameKey = lpImageButtonKey->GetSubKey(IB_KEY_DEFAULT_PICTURE_FRAME);
 		if (lpDefaultPictureFrameKey == NULL) break;
 
-		//	³õÊ¼»¯UnificSetting
+		//	åˆå§‹åŒ–UnificSetting
 		//mpUnificSetting = GetUnificSetting();
 
-		//´´½¨×ó°ë²¿·ÖPictureFrame
+		//åˆ›å»ºå·¦åŠéƒ¨åˆ†PictureFrame
 		mpLeftPicture = CEvPictureFrame::CreateInstance(mpIterator, lpDefaultPictureFrameKey, IB_ID_CTRL_LEFT_PICTURE);			
 
-		//´´½¨ÓÒ°ë²¿·ÖPictureFrame
+		//åˆ›å»ºå³åŠéƒ¨åˆ†PictureFrame
 		mpRightPicture = CEvPictureFrame::CreateInstance(mpIterator, lpDefaultPictureFrameKey, IB_ID_CTRL_RIGHT_PICTURE);			
 		
 		//mpLeftPicture->GetIterator()->ModifyStyles(NULL, EITR_STYLE_MOUSE);
@@ -160,7 +160,7 @@ ULONG CEvImageButton::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvImageButton::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -189,27 +189,27 @@ ERESULT CEvImageButton::OnElementCreate(IEinkuiIterator* npIterator)
 	return lResult;
 }
 
-//Êó±ê½øÈë»òÀë¿ª
+//é¼ æ ‡è¿›å…¥æˆ–ç¦»å¼€
 void CEvImageButton::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 {
 	if (npState->State != 0)
 	{
-		//Êó±ê½øÈë
+		//é¼ æ ‡è¿›å…¥
 		if(mbIsMouseFocus == false) mbIsMouseFocus = true;
 	}
 	else
 	{
-		//Êó±êÒÆ³ö
+		//é¼ æ ‡ç§»å‡º
 		if(mbIsMouseFocus != false) mbIsMouseFocus = false;
 
-		if(mbIsPressed != false)  //Èç¹ûÊó±êÒÆ×ßÁË£¬¾ÍÈ¥µô°´ÏÂ×´Ì¬
+		if(mbIsPressed != false)  //å¦‚æœé¼ æ ‡ç§»èµ°äº†ï¼Œå°±å»æ‰æŒ‰ä¸‹çŠ¶æ€
 			mbIsPressed = false;
 	}
 
 	EinkuiGetSystem()->UpdateView();
 }
 
-//Êó±ê°´ÏÂ
+//é¼ æ ‡æŒ‰ä¸‹
 ERESULT CEvImageButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -219,19 +219,19 @@ ERESULT CEvImageButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 		BREAK_ON_NULL(npInfo);
 
 		if(mpIterator->IsEnable() == false)
-			break;	//Èç¹ûÊÇ½ûÓÃ×´Ì¬£¬¾Í²»½ÓÊÕÊäÈë
+			break;	//å¦‚æœæ˜¯ç¦ç”¨çŠ¶æ€ï¼Œå°±ä¸æ¥æ”¶è¾“å…¥
 
-		if((npInfo->ActKey & MK_LBUTTON) == 0)  //Èç¹û²»ÊÇÊó±ê×ó¼ü¾Í²»´¦Àí
+		if((npInfo->ActKey & MK_LBUTTON) == 0)  //å¦‚æœä¸æ˜¯é¼ æ ‡å·¦é”®å°±ä¸å¤„ç†
 			break;
 
 		if ( (npInfo->Presssed == false) && (mbIsPressed == true) )
 		{
-			//Êó±êÌ§Æğ
+			//é¼ æ ‡æŠ¬èµ·
 			mbIsPressed = false;	
 
-			if (mnStyle == 1) mbChecked = !mbChecked;		//ÉèÖÃ°´Å¥ Ñ¡ÖĞ / È¡ÏûÑ¡ÖĞ
+			if (mnStyle == 1) mbChecked = !mbChecked;		//è®¾ç½®æŒ‰é’® é€‰ä¸­ / å–æ¶ˆé€‰ä¸­
 
-			//µ½ÕâÀï²ÅËãÒ»´ÎClick
+			//åˆ°è¿™é‡Œæ‰ç®—ä¸€æ¬¡Click
 			PostMessageToParent(EEVT_IMAGEBUTTON_CLICK, CExMessage::DataInvalid);
 
 			if (mnStyle == 1)
@@ -285,7 +285,7 @@ ERESULT CEvImageButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 		}
 		else
 		{
-			//Êó±ê°´ÏÂ
+			//é¼ æ ‡æŒ‰ä¸‹
 			mbIsPressed = true;
 		}
 
@@ -298,7 +298,7 @@ ERESULT CEvImageButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 	return lResult;
 }
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CEvImageButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -312,7 +312,7 @@ ERESULT CEvImageButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	return luResult;
 }
 
-//»æÖÆ
+//ç»˜åˆ¶
 ERESULT CEvImageButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 
@@ -399,11 +399,11 @@ ERESULT CEvImageButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	return lResult;
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvImageButton::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -413,11 +413,11 @@ ERESULT CEvImageButton::ParseMessage(IEinkuiMessage* npMsg)
 
 		switch (npMsg->GetMessageID())
 		{
-		case EEVT_MENUITEM_CLICK:			//À©Õ¹¿Ø¼şµÄ²Ëµ¥Ïî±»µã»÷
+		case EEVT_MENUITEM_CLICK:			//æ‰©å±•æ§ä»¶çš„èœå•é¡¹è¢«ç‚¹å‡»
 			{	
 				//if (mpVecExpandMenuItem.Size() != 0)
 				{
-					//¶ÁÈ¡ID
+					//è¯»å–ID
 					if(npMsg->GetInputDataSize()!=sizeof(int) || npMsg->GetInputData()==NULL)
 						luResult = ERESULT_WRONG_PARAMETERS;
 					int lItemID = *(int*)(npMsg->GetInputData());
@@ -431,7 +431,7 @@ ERESULT CEvImageButton::ParseMessage(IEinkuiMessage* npMsg)
 
 							if (pPicPath && (*pPicPath != '\0'))
 							{	
-								//¸ü»»°´Å¥×ó°ë²¿·ÖÍ¼Æ¬
+								//æ›´æ¢æŒ‰é’®å·¦åŠéƒ¨åˆ†å›¾ç‰‡
 								if (mpLeftPicture)
 								{
 									EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
@@ -444,7 +444,7 @@ ERESULT CEvImageButton::ParseMessage(IEinkuiMessage* npMsg)
 						}
 					}
 
-					//·¢ËÍtoolbar×ÓÏîµã»÷ÏûÏ¢
+					//å‘é€toolbarå­é¡¹ç‚¹å‡»æ¶ˆæ¯
 					if (mMsgInfo.mnMsgParaType == TMPT_INT)
 					{
 						//mMsgInfo.mpMsgBuf = (int*)(npMsg->GetInputData());
@@ -470,13 +470,13 @@ ERESULT CEvImageButton::ParseMessage(IEinkuiMessage* npMsg)
 
 		case EMSG_ELEMENT_ACTIVATED:
 			{
-				//¼¤»î×´Ì¬¸Ä±ä
+				//æ¿€æ´»çŠ¶æ€æ”¹å˜
 				STEMS_ELEMENT_ACTIVATION* lpActive;
 				luResult = CExMessage::GetInputDataBuffer(npMsg,lpActive);
 				if(luResult != ERESULT_SUCCESS)
 					break;
 
-				if (lpActive->State == 0 && mpIterExpandCtrl->IsVisible() != false)			// ¿É¼û×´Ì¬ÏÂÊ§È¥¼¤»î×´Ì¬£¬ĞèÒªÒş²Øµ±Ç°Õ¹¿ªµÄ²Ëµ¥
+				if (lpActive->State == 0 && mpIterExpandCtrl->IsVisible() != false)			// å¯è§çŠ¶æ€ä¸‹å¤±å»æ¿€æ´»çŠ¶æ€ï¼Œéœ€è¦éšè—å½“å‰å±•å¼€çš„èœå•
 				{
 					mbShowExpandCtrl = false;
 					if (mpIterExpandCtrl)
@@ -542,7 +542,7 @@ ERESULT CEvImageButton::ParseMessage(IEinkuiMessage* npMsg)
 					luResult = ERESULT_WRONG_PARAMETERS;
 					break;
 				}
-				// »ñÈ¡ÊäÈëÊı¾İ
+				// è·å–è¾“å…¥æ•°æ®
 				bool* lpValue = (bool*)npMsg->GetInputData();
 				SetChecked(*lpValue);
 
@@ -616,7 +616,7 @@ ERESULT CEvImageButton::ParseMessage(IEinkuiMessage* npMsg)
 					luResult = ERESULT_WRONG_PARAMETERS;
 					break;
 				}
-				// »ñÈ¡ÊäÈëÊı¾İ
+				// è·å–è¾“å…¥æ•°æ®
 				bool* lpValue = (bool*)npMsg->GetInputData();
 				mbDrawShape = *lpValue;
 			}
@@ -629,7 +629,7 @@ ERESULT CEvImageButton::ParseMessage(IEinkuiMessage* npMsg)
 
 		if(luResult == ERESULT_NOT_SET)
 		{
-			luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+			luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 		}
 
 	} while (false);
@@ -655,7 +655,7 @@ BOOL CEvImageButton::SetChildCtrlPara()
 			ULONG lWidth = lpLeftPictureKey->QuerySubKeyValueAsLONG(IB_KEY_WIDTH);
 			mpLeftPicture->GetIterator()->SetSize((FLOAT)(lWidth), (FLOAT)(lHeight));
 
-			//»»±³¾°Í¼
+			//æ¢èƒŒæ™¯å›¾
 			wchar_t lpPicBackGround[BUF_SIZE] = {0};
 			lpLeftPictureKey->QuerySubKeyValue(IB_KEY_BACKGROUND, lpPicBackGround, BUF_SIZE * sizeof(wchar_t));
 			EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
@@ -673,7 +673,7 @@ BOOL CEvImageButton::SetChildCtrlPara()
 			ULONG lWidth = lpRightPictureKey->QuerySubKeyValueAsLONG(IB_KEY_WIDTH);
 			mpRightPicture->GetIterator()->SetSize((FLOAT)(lWidth), (FLOAT)(lHeight));
 
-			//»»±³¾°Í¼
+			//æ¢èƒŒæ™¯å›¾
 			wchar_t lpPicBackGround[BUF_SIZE] = {0};
 			lpRightPictureKey->QuerySubKeyValue(IB_KEY_BACKGROUND, lpPicBackGround, BUF_SIZE * sizeof(wchar_t));
 			EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
@@ -681,34 +681,34 @@ BOOL CEvImageButton::SetChildCtrlPara()
 				(wcslen(lpPicBackGround) + 1) * sizeof(wchar_t), NULL, 0);
 		}
 
-		//±³¾°¿ò
+		//èƒŒæ™¯æ¡†
 		wchar_t lpSelectFrame[BUF_SIZE] = {0};
 		mpTemplete->QuerySubKeyValue(IB_KEY_SELECT_FRAME, lpSelectFrame, BUF_SIZE * sizeof(wchar_t));
 		mpBitmapSelectOrOver = EinkuiGetSystem()->GetAllocator()->LoadImageFile(lpSelectFrame);
 
-		//ÅäÖÃÎÄ¼ş¶ÁÈ¡¿Ø¼ş·ç¸ñ
+		//é…ç½®æ–‡ä»¶è¯»å–æ§ä»¶é£æ ¼
 		wchar_t lpStyle[BUF_SIZE] = {0};
 		mpTemplete->QuerySubKeyValue(IB_KEY_STYLE, lpStyle, BUF_SIZE * sizeof(wchar_t));
 		if (wcscmp(lpStyle, IB_STYLE_UNCHECKABLE) == 0)
 		{
-			// UNCHECKABLE ·ç¸ñ
+			// UNCHECKABLE é£æ ¼
 			mnStyle = 0;
 		}
 		else
 		{
-			// CHECKABLE ·ç¸ñ
+			// CHECKABLE é£æ ¼
 			mnStyle = 1;
 		}
 
-		//ÅäÖÃÎÄ¼ş¶ÁÈ¡À©Õ¹ÊôĞÔ
+		//é…ç½®æ–‡ä»¶è¯»å–æ‰©å±•å±æ€§
 		wchar_t lpExpandable[BUF_SIZE] = {0};
 		mpTemplete->QuerySubKeyValue(IB_KEY_EXPANDABLE, lpExpandable, BUF_SIZE * sizeof(wchar_t));
 		if (wcscmp(lpExpandable, IB_STYLE_EXPANDABLE) == 0)
 		{			
-			//Ö§³ÖÀ©Õ¹
+			//æ”¯æŒæ‰©å±•
 			mbExpandable = true;
 			
-			//¶ÁÈ¡¸ü»»Í¼Æ¬Â·¾¶ÁĞ±í
+			//è¯»å–æ›´æ¢å›¾ç‰‡è·¯å¾„åˆ—è¡¨
 			ICfKey* lpExpandMenuItemListKey = mpTemplete->GetSubKey(IB_KEY_MENU_ITEM_LIST);
 			ICfKey* lpItemKey = NULL;
 
@@ -716,7 +716,7 @@ BOOL CEvImageButton::SetChildCtrlPara()
 			{
 				lpItemKey = lpExpandMenuItemListKey->MoveToSubKey();	
 				int nCount = 0;
-				while (lpItemKey != NULL)	//Ñ­»·¶ÁÈ¡¸ü»»Í¼Æ¬Â·¾¶ÁĞ±í
+				while (lpItemKey != NULL)	//å¾ªç¯è¯»å–æ›´æ¢å›¾ç‰‡è·¯å¾„åˆ—è¡¨
 				{
 					ExpandMenuItem MenuItem;
 					lpItemKey->QuerySubKeyValue(IB_KEY_MENU_ITEM_ID, &(MenuItem.id), sizeof(int));
@@ -729,11 +729,11 @@ BOOL CEvImageButton::SetChildCtrlPara()
 		}
 		else
 		{
-			// ²»Ö§³ÖÀ©Õ¹
+			// ä¸æ”¯æŒæ‰©å±•
 			mbExpandable = false;
 		}
 
-		//ÅäÖÃÎÄ¼ş¶ÁÈ¡ÏûÏ¢ÊôĞÔ
+		//é…ç½®æ–‡ä»¶è¯»å–æ¶ˆæ¯å±æ€§
 		ICfKey* lpMessageInfoKey = mpTemplete->GetSubKey(IB_KEY_MESSAGE_INFO);
 		if (lpMessageInfoKey)
 		{
@@ -775,7 +775,7 @@ BOOL CEvImageButton::SetChildCtrlPara()
 			}
 		}
 
-		//ÅäÖÃÎÄ¼ş¶ÁÈ¡ÑÕÉ«±ê¼ÇÊôĞÔ
+		//é…ç½®æ–‡ä»¶è¯»å–é¢œè‰²æ ‡è®°å±æ€§
 		wchar_t lpColorFlag[BUF_SIZE] = {0};
 		mpTemplete->QuerySubKeyValue(IB_KEY_COLOR_FLAG, lpColorFlag, BUF_SIZE * sizeof(wchar_t));
 		if (wcscmp(lpColorFlag, IB_KEY_COLOR_FLAG_true) == 0)
@@ -813,11 +813,11 @@ bool CEvImageButton::SetValue()
 
 	if (false == mpIterator->IsEnable()) return false;
 
-	//	¶ÁÈ¡Öµ
+	//	è¯»å–å€¼
 	//eValueType ValueType;
 	//wstring lwValue = mpUnificSetting->GetItemValue(mMsgInfo.mnCtrlID, &ValueType);
 	wchar_t lwValue[] = L"1";
-	if (1 == mnStyle)		// ¿É check ·ç¸ñ
+	if (1 == mnStyle)		// å¯ check é£æ ¼
 	{
 		if (L"1" == lwValue)
 		{
@@ -842,7 +842,7 @@ bool CEvImageButton::SetValue()
 
 				if (pPicPath && (*pPicPath != '\0'))
 				{	
-					//¸ü»»°´Å¥×ó°ë²¿·ÖÍ¼Æ¬
+					//æ›´æ¢æŒ‰é’®å·¦åŠéƒ¨åˆ†å›¾ç‰‡
 					if (mpLeftPicture)
 					{
 						EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
@@ -883,7 +883,7 @@ bool CEvImageButton::SetImageButtonEnable(bool nbEnable)
 	return true;
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CEvImageButton::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -902,7 +902,7 @@ ERESULT CEvImageButton::OnElementResized(D2D1_SIZE_F nNewSize)
 	return lResult;
 }
 
-//½ûÓÃ»òÆôÓÃ
+//ç¦ç”¨æˆ–å¯ç”¨
 ERESULT CEvImageButton::OnElementEnable(bool nbIsEnable)
 {
 	SetImageButtonEnable(nbIsEnable);
@@ -925,7 +925,7 @@ bool CEvImageButton::SetItemSelected(int nID)
 
 				if (pPicPath && (*pPicPath != '\0'))
 				{	
-					//¸ü»»°´Å¥×ó°ë²¿·ÖÍ¼Æ¬
+					//æ›´æ¢æŒ‰é’®å·¦åŠéƒ¨åˆ†å›¾ç‰‡
 					if (mpLeftPicture)
 					{
 						EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(

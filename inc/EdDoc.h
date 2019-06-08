@@ -1,10 +1,10 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 #ifndef _EDDOC_H_
 #define _EDDOC_H_
 #include "cmmBaseObj.h"
 
-// Ä¬ÈÏ¶¨Òå
+// é»˜è®¤å®šä¹‰
 #ifndef IN
 #define IN
 #endif//IN
@@ -14,14 +14,14 @@
 
 
 //////////////////////////////////////////////////////////////////////////
-// Ç°ÖÃÉùÃ÷£¬ÎŞĞè¹Ø×¢
+// å‰ç½®å£°æ˜ï¼Œæ— éœ€å…³æ³¨
 //////////////////////////////////////////////////////////////////////////
 
-__interface IEdModule; // Ä£¿é
-__interface IEdDocument; // ÎÄµµ
-__interface IEdPage;		// Ò³
-__interface IEdComment;  // ×¢ÊÍ
-__interface IEdBitmap;	// Î»Í¼
+__interface IEdModule; // æ¨¡å—
+__interface IEdDocument; // æ–‡æ¡£
+__interface IEdPage;		// é¡µ
+__interface IEdComment;  // æ³¨é‡Š
+__interface IEdBitmap;	// ä½å›¾
 
 typedef IEdModule* IEdModule_ptr;
 typedef IEdDocument* IEdDocument_ptr;
@@ -31,18 +31,18 @@ typedef IEdBitmap* IEdBitmap_ptr;
 
 
 //////////////////////////////////////////////////////////////////////////
-// Ç°ÖÃÉùÃ÷½áÊø
+// å‰ç½®å£°æ˜ç»“æŸ
 //////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////
-// Êı¾İÀàĞÍ¶¨Òå
+// æ•°æ®ç±»å‹å®šä¹‰
 //////////////////////////////////////////////////////////////////////////
 typedef unsigned char bin;
 typedef unsigned char* bin_ptr;
 typedef unsigned long bool32;
 typedef unsigned long uint32Eink;
 typedef long int32Eink;
-#ifndef _INTTYPE_CONFLICT	//$ax$ ´Ë´¦ºÍSumatra¿â³åÍ»£¬°ÑËü¸ÄÃûÁË£¬×¢Òâ£¬Õâ¸öEdDoc.hÎÄ¼şºÍEinkReader´¦µÄÍ¬ÃûÎÄ¼ş´æÔÚÕâ¸ö²îÒì
+#ifndef _INTTYPE_CONFLICT	//$ax$ æ­¤å¤„å’ŒSumatraåº“å†²çªï¼ŒæŠŠå®ƒæ”¹åäº†ï¼Œæ³¨æ„ï¼Œè¿™ä¸ªEdDoc.hæ–‡ä»¶å’ŒEinkReaderå¤„çš„åŒåæ–‡ä»¶å­˜åœ¨è¿™ä¸ªå·®å¼‚
 #define uint32 uint32Eink
 #define int32 int32Eink
 #endif
@@ -58,7 +58,7 @@ typedef void* void_ptr;
 #define false32 (int32Eink)		0
 #define success32(int32Eink)	1
 //////////////////////////////////////////////////////////////////////////
-// º¯ÊıÀàĞÍ¶¨Òå
+// å‡½æ•°ç±»å‹å®šä¹‰
 //////////////////////////////////////////////////////////////////////////
 
 typedef void(__stdcall *PEDDOC_CALLBACK)(uint32Eink loadingStep, uint32Eink pageCount, void_ptr npContext);
@@ -68,18 +68,18 @@ typedef void(__stdcall *PEDDOC_CALLBACK)(uint32Eink loadingStep, uint32Eink page
 //		otherwise	loading
 
 //typedef ERESULT(__stdcall IBaseObject::*PXUI_CALLBACK)(ULONG nuFlag, LPVOID npContext);
-//typedef ERESULT(__stdcall *PXUI_CUSTOM_DRAW_CALLBACK)(unsigned char* npPixels, ULONG nuWidth, ULONG nuHeight, bool nbRefresh);//nbRefreshÉèÖÃ£¬Ôò±ØĞëÌá½»Êı¾İ
+//typedef ERESULT(__stdcall *PXUI_CUSTOM_DRAW_CALLBACK)(unsigned char* npPixels, ULONG nuWidth, ULONG nuHeight, bool nbRefresh);//nbRefreshè®¾ç½®ï¼Œåˆ™å¿…é¡»æäº¤æ•°æ®
 
 
 //////////////////////////////////////////////////////////////////////////
-// ³£Êı¶¨Òå
+// å¸¸æ•°å®šä¹‰
 //////////////////////////////////////////////////////////////////////////
 
 
 
 
 //////////////////////////////////////////////////////////////////////////
-// ·µ»ØÖµ
+// è¿”å›å€¼
 //////////////////////////////////////////////////////////////////////////
 typedef uint32Eink ED_ERR;
 
@@ -104,7 +104,7 @@ typedef uint32Eink ED_ERR;
 
 
 
-// ³£ÓÃºê
+// å¸¸ç”¨å®
 #define BOOL_TRUE(_X) (_X!=0)
 #define BOOL_FALSE(_X) (_X==0)
 
@@ -112,7 +112,7 @@ typedef uint32Eink ED_ERR;
 #define ERR_FAILED(_X) (_X>0x7fffffff)
 
 //////////////////////////////////////////////////////////////////////////
-// ½á¹¹Ìå¶¨Òå£¬´Ë´¦¶¨ÒåµÄ½á¹¹ÌåÓÃÓÚ¿çÄ£¿é½»»»Êı¾İ
+// ç»“æ„ä½“å®šä¹‰ï¼Œæ­¤å¤„å®šä¹‰çš„ç»“æ„ä½“ç”¨äºè·¨æ¨¡å—äº¤æ¢æ•°æ®
 //////////////////////////////////////////////////////////////////////////
 
 #pragma pack(4)
@@ -161,23 +161,23 @@ typedef struct _PAGE_PDF_CONTEXT {
 
 #pragma pack()
 //////////////////////////////////////////////////////////////////////////
-// ½á¹¹Ìå¶¨Òå½áÊø
+// ç»“æ„ä½“å®šä¹‰ç»“æŸ
 //////////////////////////////////////////////////////////////////////////
 
 
 //////////////////////////////////////////////////////////////////////////
-// ½Ó¿Ú¶¨Òå
+// æ¥å£å®šä¹‰
 //////////////////////////////////////////////////////////////////////////
 
-// Ä£¿é½Ó¿Ú¶¨Òå
+// æ¨¡å—æ¥å£å®šä¹‰
 __interface IEdModule :public IBaseObject
 {
-	// »ñÈ¡Ö§³ÖµÄÎÄ¼ş¸ñÊ½ÊıÁ¿
+	// è·å–æ”¯æŒçš„æ–‡ä»¶æ ¼å¼æ•°é‡
 	virtual int32Eink GetTypeCount(void) = NULL;
-	// »ñÈ¡Ö§³ÖµÄÎÄ¼ş¸ñÊ½µÄÀ©Õ¹Ãû
+	// è·å–æ”¯æŒçš„æ–‡ä»¶æ ¼å¼çš„æ‰©å±•å
 	virtual const char16_ptr GetTypeName(int32Eink index=0) = NULL;
 
-	// ´ò¿ªÎÄµµ
+	// æ‰“å¼€æ–‡æ¡£
 	virtual ED_ERR OpenDocument(
 		IN char16_ptr pathName,
 		OUT IEdDocument_ptr* documentPtrPtr,
@@ -187,7 +187,7 @@ __interface IEdModule :public IBaseObject
 };
 
 
-// ÎÄµµ¶ÔÏó
+// æ–‡æ¡£å¯¹è±¡
 __interface IEdDocument :public IBaseObject
 {
 	virtual bool32 LoadAllPage(PEDDOC_CALLBACK callBackFun, void_ptr contextPtr)=NULL;
@@ -249,7 +249,7 @@ __interface IEdDocument :public IBaseObject
 //	'info:ModDate'
 
 
-// Ò³ÀàĞÍ
+// é¡µç±»å‹
 __interface IEdPage :public IBaseObject
 {
 	virtual bool32 GetMediaBox(
@@ -273,7 +273,7 @@ __interface IEdPage :public IBaseObject
 
 };
 
-// Î»Í¼ÀàĞÍ
+// ä½å›¾ç±»å‹
 __interface IEdBitmap :public IBaseObject
 {
 	virtual bin_ptr GetBuffer() = NULL;
@@ -283,7 +283,7 @@ __interface IEdBitmap :public IBaseObject
 
 
 //////////////////////////////////////////////////////////////////////////
-// ½Ó¿Ú¶¨Òå½áÊø
+// æ¥å£å®šä¹‰ç»“æŸ
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -294,13 +294,13 @@ __interface IEdBitmap :public IBaseObject
 
 
 ////////////////////////////////////////////////////////////////////////////
-//// ²å¼şÈë¿Úº¯Êı¶¨Òå
+//// æ’ä»¶å…¥å£å‡½æ•°å®šä¹‰
 ////////////////////////////////////////////////////////////////////////////
 //#ifdef __cplusplus
 //extern "C" {
 //#endif
 //
-//	// »ñÈ¡Ä£¿é¶ÔÏó
+//	// è·å–æ¨¡å—å¯¹è±¡
 //	IEdModule_ptr __stdcall EdGetModule(void);
 //
 //#ifdef __cplusplus
@@ -310,6 +310,6 @@ typedef IEdModule_ptr(__stdcall *GetModule_Proc)(void);
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÎÄ¼ş½áÊø
+// æ–‡ä»¶ç»“æŸ
 //////////////////////////////////////////////////////////////////////////
 #endif//_XUI_H_

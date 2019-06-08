@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+﻿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -28,7 +28,7 @@ CLoadingView::~CLoadingView(void)
 {
 }
 
-//��ʼ��������һ��Ԫ�ر�����ʱ���ã�ע�⣺��Ԫ�ػ����ڸ�Ԫ���յ�������Ϣ���Ӷ�ȷ����Ԫ����һ������Ԫ�س�ʼ��֮�����ȫ����ʼ���Ļ���
+//初始建立，当一个元素被建立时调用，注意：子元素会先于父元素收到这条消息，从而确保父元素有一个在子元素初始化之后完成全部初始化的机会
 ERESULT CLoadingView::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -50,9 +50,9 @@ ERESULT CLoadingView::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 ULONG CLoadingView::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ������ָ��
-	IN ICfKey* npTemplete,		// npTemplete��Key ID����EID��ֵ��������EType
-	IN ULONG nuEID	// �����Ϊ0��MAXULONG32����ָ����Ԫ�ص�EID; ����ȡ��һ��������ģ�������õ�ֵ��ΪEID�����ģ��Ҳû������EID����ʹ��XUIϵͳ�Զ�����
+	IN IEinkuiIterator* npParent,	// 父对象指针
+	IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
+	IN ULONG nuEID	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -60,13 +60,13 @@ ULONG CLoadingView::InitOnCreate(
 
 	do 
 	{
-		//���ȵ��û���
+		//首先调用基类
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
 
-		//��ȡ������
+		//获取对像句柄
 		mpIterDd = mpIterator->GetSubElementByID(2);
 		BREAK_ON_NULL(mpIterDd);
 
@@ -86,11 +86,11 @@ ULONG CLoadingView::InitOnCreate(
 
 	CMM_SAFE_RELEASE(lpSubKey);
 
-	// ��ϵͳע����Ҫ�յ�����Ϣ
+	// 向系统注册需要收到的消息
 	return leResult;
 }
 
-//�����Ѽ���ҳ��
+//设置已加载页数
 void CLoadingView::SetPage(LONG niIndex)
 {
 	IConfigFile* lpProfile = NULL;
@@ -103,8 +103,8 @@ void CLoadingView::SetPage(LONG niIndex)
 
 		wchar_t lszString[MAX_PATH] = { 0 };
 
-		//��ȡ�������ַ���
-		//Ϊ�˷��뷽�㣬�ַ��������root/string
+		//获取多语言字符串
+		//为了翻译方便，字符串存放在root/string
 		lpProfile = EinkuiGetSystem()->GetCurrentWidget()->GetDefaultFactory()->GetTempleteFile();
 		ICfKey* lpCfKey = NULL;
 		if (lpProfile != NULL)
@@ -131,7 +131,7 @@ void CLoadingView::SetPage(LONG niIndex)
 	
 }
 
-//��ť�����¼�
+//按钮单击事件
 ERESULT CLoadingView::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -175,7 +175,7 @@ void CLoadingView::ExitModal()
 	EinkuiGetSystem()->ExitModal(mpIterator, 0);
 }
 
-//��Ϣ��������
+//消息处理函数
 ERESULT CLoadingView::ParseMessage(IEinkuiMessage* npMsg)
 {
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
@@ -184,7 +184,7 @@ ERESULT CLoadingView::ParseMessage(IEinkuiMessage* npMsg)
 	{
 	case EMSG_MODAL_ENTER:
 	{
-		//// ����Ҫ�����ĶԻ���
+		//// 创建要弹出的对话框
 		//mpIterator->SetVisible(true);
 		luResult = ERESULT_SUCCESS;
 		break;
@@ -196,20 +196,20 @@ ERESULT CLoadingView::ParseMessage(IEinkuiMessage* npMsg)
 
 	if (luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // ���û����ͬ��������ע�⣺һ��Ҫ��������ֱ�ӻ���
+		luResult = CXuiElement::ParseMessage(npMsg); // 调用基类的同名函数；注意：一定要调用自身直接基类
 	}
 
 	return luResult;
 }
 
-//��ʱ��
+//定时器
 void CLoadingView::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
 {
 	if (npStatus->TimerID == LOAD_TIMER_MOVE)
 	{
-		//�ƶ�
+		//移动
 		float lfMoved = mpIterDd->GetPositionX() + 51.0f;
 		if ((lfMoved + mpIterDd->GetSizeX()) > (mpIterDi->GetPositionX() + mpIterDi->GetSizeX()))
 			lfMoved = mpIterDi->GetPositionX()+2.0f;
@@ -220,17 +220,17 @@ void CLoadingView::OnTimer(
 		mpIterDd->SetPosition(lfMoved, mpIterDd->GetPositionY());
 
 		if (mplStep != NULL && *mplStep == 0)
-			ExitModal(); //�˳�
+			ExitModal(); //退出
 
 		if (mWaitHandle != NULL && WaitForSingleObject(mWaitHandle,100) == WAIT_OBJECT_0)
-			ExitModal(); //�˳�
+			ExitModal(); //退出
 	}
 }
 
-//������Ϣ
+//绘制消息
 ERESULT CLoadingView::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
-	// ���Ʊ���
+	// 绘制背景
 	if (mpBgBitmap != NULL)
 		npPaintBoard->DrawBitmap(D2D1::RectF(0, 0, mpIterator->GetSizeX(), mpIterator->GetSizeY()),
 			mpBgBitmap,
@@ -239,10 +239,10 @@ ERESULT CLoadingView::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	return ERESULT_SUCCESS;
 }
 
-//Ԫ�زο��ߴ緢���仯
+//元素参考尺寸发生变化
 ERESULT CLoadingView::OnElementResized(D2D1_SIZE_F nNewSize)
 {
-	//��λ
+	//定位
 	if(mpIterFileName != NULL)
 		mpIterFileName->SetPosition((nNewSize.width - mpIterFileName->GetSizeX()) / 2.0f, nNewSize.height/2.0f-100);
 
@@ -258,7 +258,7 @@ ERESULT CLoadingView::OnElementResized(D2D1_SIZE_F nNewSize)
 }
 
 
-//�����ļ���
+//设置文件名
 void CLoadingView::SetData(wchar_t* npszFileName)
 {
 	do 
@@ -266,13 +266,13 @@ void CLoadingView::SetData(wchar_t* npszFileName)
 		BREAK_ON_NULL(npszFileName);
 		CExMessage::SendMessageWithText(mpIterFileName, mpIterator, EACT_LABEL_SET_TEXT, npszFileName);
 
-		//���¶�λ
+		//重新定位
 		mpIterFileName->SetPosition((mpIterator->GetSizeX()-mpIterFileName->GetSizeX()) / 2.0f,mpIterFileName->GetPositionY());
 
 	} while (false);
 }
 
-//֪ͨԪ�ء���ʾ/���ء������ı�
+//通知元素【显示/隐藏】发生改变
 ERESULT CLoadingView::OnElementShow(bool nbIsShow)
 {
 	return ERESULT_SUCCESS;

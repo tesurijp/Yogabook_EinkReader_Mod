@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -33,7 +33,7 @@ CtxtDocument::CtxtDocument()
 
 CtxtDocument::~CtxtDocument()
 {
-	// Ê×ÏÈĞèÒªÍ£µô¹¤×÷Ïß³Ì
+	// é¦–å…ˆéœ€è¦åœæ‰å·¥ä½œçº¿ç¨‹
 	if (mpArrangeThread != NULL)
 		delete mpArrangeThread;
 
@@ -58,7 +58,7 @@ ULONG CtxtDocument::InitOnCreate(const char16_ptr pathName)
 		//mpFont = new Gdiplus::Font(L"Arial", 12);
 		//THROW_ON_NULL(mpFont);
 
-		// Ó³ÉäÎÄ¼ş½øÄÚ´æ
+		// æ˜ å°„æ–‡ä»¶è¿›å†…å­˜
 		mhTxtFile = CreateFile(pathName, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, NULL, NULL);
 		if (mhTxtFile == INVALID_HANDLE_VALUE)
 			THROW_INVALID;
@@ -72,7 +72,7 @@ ULONG CtxtDocument::InitOnCreate(const char16_ptr pathName)
 		if (mFileSize.LowPart == 0)
 			THROW_EMPTY;
 
-		//Ö¸¶¨ÎÄ¼ş´óĞ¡
+		//æŒ‡å®šæ–‡ä»¶å¤§å°
 		mhTxtFileMap = CreateFileMapping(mhTxtFile, NULL, PAGE_READONLY, 0,mFileSize.LowPart, NULL);
 		THROW_ON_INVALID(mhTxtFileMap);
 
@@ -82,15 +82,15 @@ ULONG CtxtDocument::InitOnCreate(const char16_ptr pathName)
 		if (GetBomInfor() == CtxtDocument::un)
 			THROW_WRONG_FORMAT;
 
-		// Èç¹ûÊÇUtf8¸ñÊ½
+		// å¦‚æœæ˜¯Utf8æ ¼å¼
 		if ((mBom == u8 || mBom == u8NoBOM)&& UnpackU8()!= EDERR_SUCCESS)
 			THROW_WRONG_FORMAT;
 
-		// Èç¹ûÊÇAnsi¸ñÊ½
+		// å¦‚æœæ˜¯Ansiæ ¼å¼
 		if (mBom == ansi && UnpackAnsi() != EDERR_SUCCESS)
 			THROW_WRONG_FORMAT;
 
-		// Èç¹ûÊÇUNIDOE big ending¸ñÊ½
+		// å¦‚æœæ˜¯UNIDOE big endingæ ¼å¼
 		if (mBom == u16b && UnpackBigEnding16() != EDERR_SUCCESS)
 			THROW_WRONG_FORMAT;
 
@@ -118,7 +118,7 @@ ED_ERR CtxtDocument::UnpackU8(void)
 	//if (mpTextBuffer != NULL && (bin_ptr)mpTextBuffer != mpTxtMappedBase)
 	//	HeapFree(GetProcessHeap(), 0, mpTextBuffer);
 
-	// ¼ÆËãÒ»ÏÂ³ß´ç
+	// è®¡ç®—ä¸€ä¸‹å°ºå¯¸
 	auto nextChar = mpTxtMappedBase;
 	auto endChar = nextChar + mFileSize.LowPart;
 	uint32 wideCharCount = 0;
@@ -142,7 +142,7 @@ ED_ERR CtxtDocument::UnpackU8(void)
 				{
 					// two bytes
 					if (nextChar + 1 >= endChar || (nextChar[1] & 0xC0) != 0x80)
-						THROW_UNKNOWN;	// ´íÎóÊı¾İ
+						THROW_UNKNOWN;	// é”™è¯¯æ•°æ®
 					nextChar += 2;
 				}
 				else
@@ -150,7 +150,7 @@ ED_ERR CtxtDocument::UnpackU8(void)
 				{
 					// three bytes
 					if (nextChar + 2 >= endChar || (nextChar[1] & 0xC0) != 0x80 || (nextChar[2] & 0xC0) != 0x80)
-						THROW_UNKNOWN;	// ´íÎóÊı¾İ
+						THROW_UNKNOWN;	// é”™è¯¯æ•°æ®
 
 					nextChar += 3;
 				}
@@ -159,11 +159,11 @@ ED_ERR CtxtDocument::UnpackU8(void)
 				{
 					// four bytes
 					if (nextChar + 3 >= endChar || (nextChar[1] & 0xC0) != 0x80 || (nextChar[2] & 0xC0) != 0x80 || (nextChar[3] & 0xC0) != 0x80)
-						THROW_UNKNOWN;	// ´íÎóÊı¾İ
+						THROW_UNKNOWN;	// é”™è¯¯æ•°æ®
 					nextChar += 4;
 				}
 				else
-				THROW_UNKNOWN;	// ´íÎóÊı¾İ
+				THROW_UNKNOWN;	// é”™è¯¯æ•°æ®
 
 				wideCharCount++;
 			}
@@ -172,16 +172,16 @@ ED_ERR CtxtDocument::UnpackU8(void)
 		{
 			while (++nextChar < endChar)
 			{
-				// ²éÕÒÏÂÒ»¸öÓĞĞ§×Ö·û
+				// æŸ¥æ‰¾ä¸‹ä¸€ä¸ªæœ‰æ•ˆå­—ç¬¦
 				if ((nextChar[0] & 0x80) == 0 || (nextChar[0] & 0xC0) == 0xC0)
 					break;
 			}
 		}
 	}
-	wideCharCount += 10;	// Ôö¼ÓÒ»µã»º³åÇø
+	wideCharCount += 10;	// å¢åŠ ä¸€ç‚¹ç¼“å†²åŒº
 
 
-	// ·ÖÅäÄÚ´æÓÃÓÚ½â°ü
+	// åˆ†é…å†…å­˜ç”¨äºè§£åŒ…
 	mpTextBuffer = (wchar_t*)HeapAlloc(GetProcessHeap(),0,wideCharCount * 2);
 	if (mpTextBuffer == NULL)
 		return EDERR_NOTENOUGH_MEMORY;
@@ -207,7 +207,7 @@ ED_ERR CtxtDocument::UnpackU8(void)
 				{
 					// two bytes
 					if(nextChar+1 >= endChar || (nextChar[1] & 0xC0) != 0x80)
-						THROW_UNKNOWN;	// ´íÎóÊı¾İ
+						THROW_UNKNOWN;	// é”™è¯¯æ•°æ®
 
 					*crtWideChar = (((wchar_t)(nextChar[0] & 0X1F)) << 6) | ((wchar_t)(nextChar[1] & 0X3F));
 					nextChar += 2;
@@ -217,7 +217,7 @@ ED_ERR CtxtDocument::UnpackU8(void)
 				{
 					// three bytes
 					if (nextChar + 2 >= endChar || (nextChar[1] & 0xC0) != 0x80 || (nextChar[2] & 0xC0) != 0x80)
-						THROW_UNKNOWN;	// ´íÎóÊı¾İ
+						THROW_UNKNOWN;	// é”™è¯¯æ•°æ®
 
 					*crtWideChar = (((wchar_t)(nextChar[0] & 0X1F)) << 12) | (((wchar_t)(nextChar[1] & 0X3F)) << 6) | ((wchar_t)(nextChar[2] & 0X3F));
 					nextChar += 3;
@@ -227,13 +227,13 @@ ED_ERR CtxtDocument::UnpackU8(void)
 				{
 					// four bytes
 					if (nextChar + 3 >= endChar || (nextChar[1] & 0xC0) != 0x80 || (nextChar[2] & 0xC0) != 0x80 || (nextChar[3] & 0xC0) != 0x80)
-						THROW_UNKNOWN;	// ´íÎóÊı¾İ
-					// Õâ¸öµØ·½ÊÇÓĞÎÊÌâµÄ£¬wide charÖ»ÓĞ16Î»£¬ÎŞ·¨±£´æºóÃæµÄ21¸öbits£¬ËùÒÔÔİÊ±²»Ö§³Ö£¬Ìø¹ıÕâ¸ö×Ö·û£¬$ax$
+						THROW_UNKNOWN;	// é”™è¯¯æ•°æ®
+					// è¿™ä¸ªåœ°æ–¹æ˜¯æœ‰é—®é¢˜çš„ï¼Œwide charåªæœ‰16ä½ï¼Œæ— æ³•ä¿å­˜åé¢çš„21ä¸ªbitsï¼Œæ‰€ä»¥æš‚æ—¶ä¸æ”¯æŒï¼Œè·³è¿‡è¿™ä¸ªå­—ç¬¦ï¼Œ$ax$
 					//*crtWideChar = (((uint16)(nextChar[0] & 0X1F)) << 18) | (((uint16)(nextChar[1] & 0X3F)) << 12) | (((uint16)(nextChar[2] & 0X3F)) << 6) | ((uint16)(nextChar[3] & 0X3F));
 					nextChar += 4;
 				}
 				else
-					THROW_UNKNOWN;	// ´íÎóÊı¾İ
+					THROW_UNKNOWN;	// é”™è¯¯æ•°æ®
 
 				crtWideChar++;
 			}
@@ -243,7 +243,7 @@ ED_ERR CtxtDocument::UnpackU8(void)
 		{
 			while (++nextChar < endChar)
 			{
-				// ²éÕÒÏÂÒ»¸öÓĞĞ§×Ö·û
+				// æŸ¥æ‰¾ä¸‹ä¸€ä¸ªæœ‰æ•ˆå­—ç¬¦
 				if ((nextChar[0]&0x80)==0 || (nextChar[0] & 0xC0) == 0xC0)
 					break;
 			}
@@ -256,7 +256,7 @@ ED_ERR CtxtDocument::UnpackU8(void)
 	return EDERR_SUCCESS;
 }
 
-//ÅĞ¶ÏÎÄ¼şÊÇ·ñÊÇutf8ÎÄ¼ş
+//åˆ¤æ–­æ–‡ä»¶æ˜¯å¦æ˜¯utf8æ–‡ä»¶
 bool CtxtDocument::IsU8File(const void* npBuffer, long nlSize)
 {
 	bool lbIsUTF8 = false;
@@ -265,17 +265,17 @@ bool CtxtDocument::IsU8File(const void* npBuffer, long nlSize)
 	unsigned char* lpEnd = (unsigned char*)npBuffer + nlSize;
 	while (lpStart < lpEnd)
 	{
-		if (*lpStart < 0x80) // (10000000): ÖµĞ¡ÓÚ0x80µÄÎªASCII×Ö·û    
+		if (*lpStart < 0x80) // (10000000): å€¼å°äº0x80çš„ä¸ºASCIIå­—ç¬¦    
 		{
 			lpStart++;
 		}
-		else if (*lpStart < (0xC0)) // (11000000): Öµ½éÓÚ0x80Óë0xC0Ö®¼äµÄÎªÎŞĞ§UTF-8×Ö·û    
+		else if (*lpStart < (0xC0)) // (11000000): å€¼ä»‹äº0x80ä¸0xC0ä¹‹é—´çš„ä¸ºæ— æ•ˆUTF-8å­—ç¬¦    
 		{
 			lbIsUTF8 = false;
 			liUtf8Count = 0;
 			break;
 		}
-		else if (*lpStart < (0xE0)) // (11100000): ´Ë·¶Î§ÄÚÎª2×Ö½ÚUTF-8×Ö·û    
+		else if (*lpStart < (0xE0)) // (11100000): æ­¤èŒƒå›´å†…ä¸º2å­—èŠ‚UTF-8å­—ç¬¦    
 		{
 			if (lpStart >= lpEnd - 1)
 			{
@@ -292,7 +292,7 @@ bool CtxtDocument::IsU8File(const void* npBuffer, long nlSize)
 			liUtf8Count++;
 			lpStart += 2;
 		}
-		else if (*lpStart < (0xF0)) // (11110000): ´Ë·¶Î§ÄÚÎª3×Ö½ÚUTF-8×Ö·û    
+		else if (*lpStart < (0xF0)) // (11110000): æ­¤èŒƒå›´å†…ä¸º3å­—èŠ‚UTF-8å­—ç¬¦    
 		{
 			if (lpStart >= lpEnd - 2)
 			{
@@ -320,7 +320,7 @@ bool CtxtDocument::IsU8File(const void* npBuffer, long nlSize)
 	return liUtf8Count>0;
 }
 
-//Õâ¸öº¯ÊıÓĞÊ±»áÎóÅĞ£¬»á°Ñansi¸ñÊ½ÎÄ¼şÈÏÎªÊÇutf8
+//è¿™ä¸ªå‡½æ•°æœ‰æ—¶ä¼šè¯¯åˆ¤ï¼Œä¼šæŠŠansiæ ¼å¼æ–‡ä»¶è®¤ä¸ºæ˜¯utf8
 ED_ERR CtxtDocument::IsU8File(void)
 {
 	auto nextChar = mpTxtMappedBase;
@@ -341,7 +341,7 @@ ED_ERR CtxtDocument::IsU8File(void)
 			{
 				// two bytes
 				if (nextChar + 1 >= endChar || (nextChar[1] & 0xC0) != 0x80)
-					THROW_UNKNOWN;	// ´íÎóÊı¾İ
+					THROW_UNKNOWN;	// é”™è¯¯æ•°æ®
 				nextChar += 2;
 				u8FlagCount++;
 			}
@@ -350,7 +350,7 @@ ED_ERR CtxtDocument::IsU8File(void)
 			{
 				// three bytes
 				if (nextChar + 2 >= endChar || (nextChar[1] & 0xC0) != 0x80 || (nextChar[2] & 0xC0) != 0x80)
-					THROW_UNKNOWN;	// ´íÎóÊı¾İ
+					THROW_UNKNOWN;	// é”™è¯¯æ•°æ®
 
 				nextChar += 3;
 				u8FlagCount++;
@@ -360,23 +360,23 @@ ED_ERR CtxtDocument::IsU8File(void)
 			{
 				// four bytes
 				if (nextChar + 3 >= endChar || (nextChar[1] & 0xC0) != 0x80 || (nextChar[2] & 0xC0) != 0x80 || (nextChar[3] & 0xC0) != 0x80)
-					THROW_UNKNOWN;	// ´íÎóÊı¾İ
+					THROW_UNKNOWN;	// é”™è¯¯æ•°æ®
 				nextChar += 4;
 				u8FlagCount++;
 			}
 			else
-			THROW_UNKNOWN;	// ´íÎóÊı¾İ
+			THROW_UNKNOWN;	// é”™è¯¯æ•°æ®
 
 			wideCharCount++;
 		}
 	}
 	catch (...)
 	{
-		// ³ö´íÁË£¬ÒòÎªÃ»ÓĞBOMÍ·£¬ÄÇ¾Í²»ÄÜ±»ÈÏ×÷utf8£¬ÉÏÃæµÄÕıÊ½µÄ½âÑ¹º¯ÊıÄÜ¹»Èİ´í´¦Àíutf8ÖĞµÄ´íÎó
+		// å‡ºé”™äº†ï¼Œå› ä¸ºæ²¡æœ‰BOMå¤´ï¼Œé‚£å°±ä¸èƒ½è¢«è®¤ä½œutf8ï¼Œä¸Šé¢çš„æ­£å¼çš„è§£å‹å‡½æ•°èƒ½å¤Ÿå®¹é”™å¤„ç†utf8ä¸­çš„é”™è¯¯
 		nextChar = endChar;
 	}
 
-	return u8FlagCount>=2;	// ÕÒµ½ÁËu8µÄÊı¾İ¿é¶à´Î²ÅÄÜÈÏ¶¨ÊÇu8ÎÄ¼ş£¬·ñÔò¾ÍÊÇansiÎÄ¼ş
+	return u8FlagCount>=2;	// æ‰¾åˆ°äº†u8çš„æ•°æ®å—å¤šæ¬¡æ‰èƒ½è®¤å®šæ˜¯u8æ–‡ä»¶ï¼Œå¦åˆ™å°±æ˜¯ansiæ–‡ä»¶
 }
 
 ED_ERR CtxtDocument::UnpackAnsi(void)
@@ -387,7 +387,7 @@ ED_ERR CtxtDocument::UnpackAnsi(void)
 	if (wideCharCount == 0)
 		return EDERR_UNSUCCESSFUL;
 
-	// ·ÖÅäÄÚ´æÓÃÓÚ½â°ü
+	// åˆ†é…å†…å­˜ç”¨äºè§£åŒ…
 	mpTextBuffer = (wchar_t*)HeapAlloc(GetProcessHeap(), 0, (wideCharCount+10) * 2);
 	if (mpTextBuffer == NULL)
 		return EDERR_NOTENOUGH_MEMORY;
@@ -405,7 +405,7 @@ ED_ERR CtxtDocument::UnpackAnsi(void)
 ED_ERR CtxtDocument::UnpackBigEnding16(void)
 {
 	uint32 wideCharCount = mFileSize.LowPart / 2;
-	// ·ÖÅäÄÚ´æÓÃÓÚ½â°ü
+	// åˆ†é…å†…å­˜ç”¨äºè§£åŒ…
 	mpTextBuffer = (wchar_t*)HeapAlloc(GetProcessHeap(), 0, (wideCharCount +10) * 2);
 	if (mpTextBuffer == NULL)
 		return EDERR_NOTENOUGH_MEMORY;
@@ -485,7 +485,7 @@ IEdPage_ptr CtxtDocument::GetPage(PPAGE_PDF_CONTEXT contextPtr)
 	if (contextPtr != NULL)
 	{
 		if(defaultContext.pageContext < mTextCharCount)
-			defaultContext = *contextPtr;	// ÓĞĞ§ÔòÊ¹ÓÃËü
+			defaultContext = *contextPtr;	// æœ‰æ•ˆåˆ™ä½¿ç”¨å®ƒ
 
 		contextPtr = &defaultContext;
 	}
@@ -567,7 +567,7 @@ IEdPage_ptr CtxtDocument::GetPage(IEdPage_ptr currentPage, int32 pagesOff)
 
 	pageIndex = (int32)pageContext.pageIndex;
 	if (pageIndex >= mAllPages.Size() || mAllPages[pageIndex].charBegin != pageContext.pageContext)
-	{	// Èç¹ûindex²»¶Ô£¬ÔòÈ¥Êı¾İÖĞ²éÑ¯µ½¸üĞÂµÄindex
+	{	// å¦‚æœindexä¸å¯¹ï¼Œåˆ™å»æ•°æ®ä¸­æŸ¥è¯¢åˆ°æ›´æ–°çš„index
 		for (int i = 0; i < mAllPages.Size(); i++)
 		{
 			if (mAllPages[i].charBegin == pageContext.pageContext)
@@ -625,7 +625,7 @@ IEdPage_ptr CtxtDocument::Rearrange(PPAGE_PDF_CONTEXT contextPtr)
 	viewPort.Height = mViewPort.Y;
 
 
-	// ÊÍ·ÅÇ°Ò»¸öÏß³Ì¶ÔÏó
+	// é‡Šæ”¾å‰ä¸€ä¸ªçº¿ç¨‹å¯¹è±¡
 	CTxdArrangeThread* lpThreadObj = (CTxdArrangeThread*)InterlockedExchangePointer((void**)&mpArrangeThread, NULL);
 	if (lpThreadObj != NULL)
 		delete lpThreadObj;
@@ -638,12 +638,12 @@ IEdPage_ptr CtxtDocument::Rearrange(PPAGE_PDF_CONTEXT contextPtr)
 
 	mThreadNumber = lpThreadObj->mThreadNumber;
 
-	//Çå¿Õµ±Ç°Ò³Ãæ
+	//æ¸…ç©ºå½“å‰é¡µé¢
 	mThreadDataLock.Enter();
 	mAllPages.Clear();
 	mThreadDataLock.Leave();
 
-	// ¿ªÊ¼ÅÅ°æ
+	// å¼€å§‹æ’ç‰ˆ
 	lpThreadObj->Start();
 
 	if (lpThreadObj->mResult != EDERR_SUCCESS)
@@ -704,9 +704,9 @@ CtxtDocument::BOM CtxtDocument::GetBomInfor()
 {
 	const unsigned char* const stringHead = (const unsigned char*)mpTxtMappedBase;
 	mBom = CtxtDocument::ansi;
-//	WCHAR string[] = L"Ë½¤Ï4ÄêÇ°¤Ë–|¾©¤ËĞĞ¤Ã¤Æ¤­¤Ş¤·¤¿¡£ Ë½¤¬µ½×Å¤·¤¿¤Î¤Ïº®¤¤Çï¤Ç¤¹¡£ ¤½¤Îšİ³Ö¤Á¤Ï¤È¤Æ¤â™¤¤¹ú¤Ë¤Ï›Q¤·¤Æ×¡¤ó¤Ç¤¤¤Ê¤¤¤Î¤Ç¡¢Ë½¤Îšİ³Ö¤Á¤Ï¤È¤Æ¤âëy¤·¤¤¤Ç¤¹¡£×î³õ¤Î1¥öÔÂ¤Ï–|¾©¤Ë×¡¤ó¤Ç¤¤¤Ş¤·¤¿¡£";
-	//WCHAR string[] = L"´ó´óÅİÅİÌÇ";
-	//char ss[] = "´ó´óAAA";
+//	WCHAR string[] = L"ç§ã¯4å¹´å‰ã«æ±äº¬ã«è¡Œã£ã¦ãã¾ã—ãŸã€‚ ç§ãŒåˆ°ç€ã—ãŸã®ã¯å¯’ã„ç§‹ã§ã™ã€‚ ãã®æ°—æŒã¡ã¯ã¨ã¦ã‚‚æ‚ªã„å›½ã«ã¯æ±ºã—ã¦ä½ã‚“ã§ã„ãªã„ã®ã§ã€ç§ã®æ°—æŒã¡ã¯ã¨ã¦ã‚‚é›£ã—ã„ã§ã™ã€‚æœ€åˆã®1ãƒ¶æœˆã¯æ±äº¬ã«ä½ã‚“ã§ã„ã¾ã—ãŸã€‚";
+	//WCHAR string[] = L"å¤§å¤§æ³¡æ³¡ç³–";
+	//char ss[] = "å¤§å¤§AAA";
 
 	do 
 	{
@@ -731,14 +731,14 @@ CtxtDocument::BOM CtxtDocument::GetBomInfor()
 			break;
 		}
 
-		// Ä¿Ç°²»Ö§³ÖUtf7¸ñÊ½
+		// ç›®å‰ä¸æ”¯æŒUtf7æ ¼å¼
 		//if (stringHead[0] == 0x2B && stringHead[1] == 0x2F && stringHead[2] == 0x76 )
 		//{
 		//	mBom = u7;
 		//	break;
 		//}
 
-		// ³¢ÊÔ·ÖÎöÒ»ÏÂ£¬Õâ¸öÄ¿±êÊÇ²»ÊÇutf8
+		// å°è¯•åˆ†æä¸€ä¸‹ï¼Œè¿™ä¸ªç›®æ ‡æ˜¯ä¸æ˜¯utf8
 		if (IsU8File(mpTxtMappedBase,mFileSize.LowPart) != false)
 		{
 			mBom = u8NoBOM;
@@ -760,7 +760,7 @@ void __stdcall CtxtDocument::PageArrangedCallBack(LONG threadNumber, uint32 load
 	{
 		if (loadingStep == 0xCFFFFFFF)
 		{
-			// ÌØÊâÓÃ·¨£¬Ö±½Ó¸´ÖÆÕû¸öÏòÁ¿
+			// ç‰¹æ®Šç”¨æ³•ï¼Œç›´æ¥å¤åˆ¶æ•´ä¸ªå‘é‡
 			PageControl_Vector* pageVector = (PageControl_Vector*)pageCtl;
 
 			thisDoc->mAllPages.Insert(0, *pageVector);
@@ -776,7 +776,7 @@ void __stdcall CtxtDocument::PageArrangedCallBack(LONG threadNumber, uint32 load
 
 	thisDoc->mThreadDataLock.Leave();
 
-	// µ÷ÓÃ
+	// è°ƒç”¨
 	thisDoc->mPageLoadCallbackFun(loadingStep, pageCount, thisDoc->mPageLoadCallbackContext);
 }
 

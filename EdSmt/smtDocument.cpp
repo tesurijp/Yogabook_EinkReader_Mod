@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -127,7 +127,7 @@ bool32 CSmtDocument::LoadAllPage(PEDDOC_CALLBACK callBackFun, void_ptr contextPt
 
 	mThreadHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)CSmtDocument::LoadingThread, (void*)&mThreadData, 0 /*CREATE_SUSPENDED*/, &luThreadID);
 	Events[0] = mThreadHandle;
-	Events[1] = mPageLoadEvent;		// Ö»Òª×°ÈëÒ»Ò³ÁË£¬¾Í·µ»Ø
+	Events[1] = mPageLoadEvent;		// åªè¦è£…å…¥ä¸€é¡µäº†ï¼Œå°±è¿”å›ž
 	if (mThreadHandle == NULL || WaitForMultipleObjects(2,Events,FALSE,INFINITE) == WAIT_TIMEOUT)
 	{
 		return false;
@@ -252,7 +252,7 @@ bool __stdcall CSmtDocument::PageLoadCallBack(uint32 loadingStep, CSmtDocument* 
 	if (loadingStep != MAXULONG32 && loadingStep != 0 && (loadingStep%9)!=0 )
 		return true;
 
-	// µ÷ÓÃ
+	// è°ƒç”¨
 	thisDoc->mPageLoadCallbackFun(loadingStep, thisDoc->pageCount,thisDoc->mPageLoadCallbackContext);
 
 	return true;

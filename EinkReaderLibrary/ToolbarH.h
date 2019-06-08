@@ -1,11 +1,11 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
 #pragma once
 
 /*
-	ºáÆÁÊ±µÄ¹¤¾ßÀ¸
+	æ¨ªå±æ—¶çš„å·¥å…·æ 
 */
 
 DECLARE_BUILTIN_NAME(ToolbarH)
@@ -17,52 +17,52 @@ class CToolbarH:
 
 public:
 	ULONG InitOnCreate(
-		IN IEinkuiIterator* npParent = NULL,	// ¸¸¶ÔÏóÖ¸Õë
-		IN ICfKey* npTemplete = NULL,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-		IN ULONG nuEID = MAXULONG32	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+		IN IEinkuiIterator* npParent = NULL,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+		IN ICfKey* npTemplete = NULL,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+		IN ULONG nuEID = MAXULONG32	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 		);
 
-	//ÉèÖÃÎÄ¼şÃû³Æ
+	//è®¾ç½®æ–‡ä»¶åç§°
 	void SetFileName(wchar_t* npszString);
-	//ÉèÖÃÒ³Âë×Ö·û´®
+	//è®¾ç½®é¡µç å­—ç¬¦ä¸²
 	void SetPage(wchar_t* npszString);
-	//ÉèÖÃË«Ò³ÏÔÊ¾°´Å¥×´Ì¬
+	//è®¾ç½®åŒé¡µæ˜¾ç¤ºæŒ‰é’®çŠ¶æ€
 	void SetDuopageButton(bool nbSingle);
-	//»ñÈ¡µ±Ç°Ë«Ò³ÏÔÊ¾×´Ì¬
+	//è·å–å½“å‰åŒé¡µæ˜¾ç¤ºçŠ¶æ€
 	bool GetDuopageStatus(void);
 
 protected:
 	CToolbarH(void);
 	~CToolbarH(void);
 
-	//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+	//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 	virtual ERESULT OnElementCreate(IEinkuiIterator* npIterator);
-	//¶¨Ê±Æ÷
+	//å®šæ—¶å™¨
 	virtual void OnTimer(
 		PSTEMS_TIMER npStatus
 		);
-	//ÏûÏ¢´¦Àíº¯Êı
+	//æ¶ˆæ¯å¤„ç†å‡½æ•°
 	virtual ERESULT ParseMessage(IEinkuiMessage* npMsg);
-	//°´Å¥µ¥»÷ÊÂ¼ş
+	//æŒ‰é’®å•å‡»äº‹ä»¶
 	virtual ERESULT OnCtlButtonClick(IEinkuiIterator* npSender);
-	//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+	//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 	virtual ERESULT OnElementResized(D2D1_SIZE_F nNewSize);
-	//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òş²Ø¡¿·¢Éú¸Ä±ä
+	//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 	virtual ERESULT OnElementShow(bool nbIsShow);
-	// Êó±êÂäµã¼ì²â
+	// é¼ æ ‡è½ç‚¹æ£€æµ‹
 	virtual ERESULT OnMouseOwnerTest(const D2D1_POINT_2F& rPoint);
 private:
-	IEinkuiIterator* mpIterFileName;	//ÎÄ¼şÃû
-	IEinkuiIterator* mpIterPage;		//Ò³Âë
-	IEinkuiIterator* mpIterBtFileOpen;	//´ò¿ªÎÄ¼ş¶Ô»°¿ò
-	IEinkuiIterator* mpIterBtTwo;		//Ë«ÆÁÏÔÊ¾
-	IEinkuiIterator* mpIterBtOne;		//µ¥ÆÁÏÔÊ¾
-	IEinkuiIterator* mpIterBtJump;		//Ò³ÂëÌø×ª
-	IEinkuiIterator* mpIterBtSnap;		//½ØÆÁ
-	IEinkuiIterator* mpIterBtSuofang;		//Ëõ·Å
-	IEinkuiIterator* mpIterBackground;	//±³¾°Í¼
+	IEinkuiIterator* mpIterFileName;	//æ–‡ä»¶å
+	IEinkuiIterator* mpIterPage;		//é¡µç 
+	IEinkuiIterator* mpIterBtFileOpen;	//æ‰“å¼€æ–‡ä»¶å¯¹è¯æ¡†
+	IEinkuiIterator* mpIterBtTwo;		//åŒå±æ˜¾ç¤º
+	IEinkuiIterator* mpIterBtOne;		//å•å±æ˜¾ç¤º
+	IEinkuiIterator* mpIterBtJump;		//é¡µç è·³è½¬
+	IEinkuiIterator* mpIterBtSnap;		//æˆªå±
+	IEinkuiIterator* mpIterBtSuofang;		//ç¼©æ”¾
+	IEinkuiIterator* mpIterBackground;	//èƒŒæ™¯å›¾
 
-	bool mbIsTwoScreen;//true±íÊ¾Ë«ÆÁ
+	bool mbIsTwoScreen;//trueè¡¨ç¤ºåŒå±
 	bool mbIsTxt;
 };
 

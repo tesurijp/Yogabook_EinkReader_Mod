@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -43,11 +43,11 @@ void CXsWgtContext::PopWidget(void)
 {
 	moLock.Enter();
 
-	if(moStack.Size() > 1)	// ±£Áô×îºóÒ»¸ö¶ÔÏó
+	if(moStack.Size() > 1)	// ä¿ç•™æœ€åä¸€ä¸ªå¯¹è±¡
 	{
 		moStack.Pop();
 	}
-	moStack.Top().SetTickCount();	// ÖØĞÂÉèÖÃTickµã
+	moStack.Top().SetTickCount();	// é‡æ–°è®¾ç½®Tickç‚¹
 
 	moLock.Leave();
 }
@@ -90,7 +90,7 @@ void CXsWgtContext::EnableTickDetection(bool nbEnalbe)
 
 	if(nbEnalbe == false)
 	{
-		// ½«ËùÓĞµÄ¼ÇÂ¼µÄTickReachedÉèÖÃÎª×î´óÖµ£¬±ÜÃâÏµÍ³»Ö¸´ÔËĞĞºó£¬µÃµ½´íÎóµÄÔËĞĞÊ±¼ä
+		// å°†æ‰€æœ‰çš„è®°å½•çš„TickReachedè®¾ç½®ä¸ºæœ€å¤§å€¼ï¼Œé¿å…ç³»ç»Ÿæ¢å¤è¿è¡Œåï¼Œå¾—åˆ°é”™è¯¯çš„è¿è¡Œæ—¶é—´
 		for (liIndex =0;liIndex < moStack.Size();liIndex++)
 		{
 			moStack.GetEntry(liIndex).muTickReached = (ULONG)-1;

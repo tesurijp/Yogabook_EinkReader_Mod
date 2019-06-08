@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -66,12 +66,12 @@ ULONG CXuiTextBitmap::InitOnCreate(STETXT_BMP_INIT& rdBmpInit)
 	{
 		__try
 		{
-			// ¼ÆËãDIPµ¥Î»²ÎÊý
+			// è®¡ç®—DIPå•ä½å‚æ•°
 			FLOAT lfFontSize = CalcDIPFromPixel(NULL, mdwFontSizePixel);
 			FLOAT lfWidthLimit = CalcDIPFromPixel(NULL, mdwWidthLimit);
 			FLOAT lfHeightLimit = CalcDIPFromPixel(NULL, mdwHeightLimit);
 
-			// ´´½¨FontFormat
+			// åˆ›å»ºFontFormat
 			m_hResult = EinkuiGetSystem()->GetDWriteFactory()->CreateTextFormat(
 				mpaFontName,
 				NULL,
@@ -86,13 +86,13 @@ ULONG CXuiTextBitmap::InitOnCreate(STETXT_BMP_INIT& rdBmpInit)
 			lpTextFormat->SetTextAlignment(meTextAlignMode);
 			lpTextFormat->SetParagraphAlignment(meParaAlignMode);
 
-			// ´´½¨FontLayout
+			// åˆ›å»ºFontLayout
 			if(STETXT_BMP_INIT::EL_FREESIZE == meSizeLimit)
 			{
-				lfWidthLimit = 60000.0f; // ÉèÖÃÎªÒ»¸ö³¬´óµÄÖµ
+				lfWidthLimit = 60000.0f; // è®¾ç½®ä¸ºä¸€ä¸ªè¶…å¤§çš„å€¼
 			} else if(STETXT_BMP_INIT::EL_FIXEDWIDTH != meSizeLimit && STETXT_BMP_INIT::EL_FIXEDSIZE != meSizeLimit)
 			{
-				return ERESULT_NOT_SET; // ²»Ö§³ÖÖ®ÍâµÄÏÞÖÆ·½Ê½
+				return ERESULT_NOT_SET; // ä¸æ”¯æŒä¹‹å¤–çš„é™åˆ¶æ–¹å¼
 			}
 
 
@@ -127,13 +127,13 @@ ULONG CXuiTextBitmap::InitOnCreate(STETXT_BMP_INIT& rdBmpInit)
 				}
 			}
 
-			// »ñÈ¡Êµ¼Ê¿í¸ß
+			// èŽ·å–å®žé™…å®½é«˜
 			DWRITE_TEXT_METRICS dtm;
 			m_hResult = lpTextLayout->GetMetrics(&dtm);
 			if(FAILED(m_hResult))
 				return ERESULT_BMP_GETMETRICS;
 
-			// ´´½¨WICBitmap
+			// åˆ›å»ºWICBitmap
 			D2D1_SIZE_U lstLayoutSize = D2D1::SizeU(static_cast<UINT32>(dtm.width), static_cast<UINT32>(dtm.height));
 			if(STETXT_BMP_INIT::EL_FIXEDWIDTH == meSizeLimit)
 			{

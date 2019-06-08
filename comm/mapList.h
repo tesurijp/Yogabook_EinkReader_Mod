@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -8,7 +8,7 @@
 #include "MapDefine.h"
 #include "cmmstruct.h"
 
-// ´Ó×Ö·û´®µÄÇ°ËÄ¸ö×Ö·ûÌáÈ¡HASHÖµ
+// ä»å­—ç¬¦ä¸²çš„å‰å››ä¸ªå­—ç¬¦æå–HASHå€¼
 class CHashFront
 {
 public:
@@ -19,14 +19,14 @@ public:
 		int liLen = wcslen(nswString);
 		wchar_t lcCrt;
 
-		liLen = liLen>4?4:liLen;	// Èç¹ûliLen>4,ÔòÈ¡4¸ö×Ö½Ú
+		liLen = liLen>4?4:liLen;	// å¦‚æœliLen>4,åˆ™å–4ä¸ªå­—èŠ‚
 		
 		for (int liIndex = 0; liIndex < liLen; liIndex++)
 		{
 			if (nswString[liIndex] == 0)
 				break;
 
-			// Éú³ÉHASHÖµ
+			// ç”ŸæˆHASHå€¼
 			lcCrt = nswString[liIndex];
 			if((lcCrt|0x20) >= L'a' && (lcCrt|0x20) <= L'z')
 					lcCrt |= 0x20;
@@ -40,7 +40,7 @@ public:
 
 };
 
-// ´Ó×Ö·û´®µÄ×îºóËÄ¸ö×Ö·ûÌáÈ¡HASHÖµ
+// ä»å­—ç¬¦ä¸²çš„æœ€åå››ä¸ªå­—ç¬¦æå–HASHå€¼
 class CHashEnd
 {
 public:
@@ -50,14 +50,14 @@ public:
 		int liLen = wcslen(nswString);
 		wchar_t lcCrt;
 
-		liLen = (liLen-4)>0?(liLen-4):0;	// Èç¹ûliLen>4,ÔòÈ¡4¸ö×Ö½Ú
+		liLen = (liLen-4)>0?(liLen-4):0;	// å¦‚æœliLen>4,åˆ™å–4ä¸ªå­—èŠ‚
 
 		for (int liIndex = wcslen(nswString)-1; liIndex >= liLen; liIndex--)
 		{
 			if (nswString[liIndex] == 0)
 				break;
 
-			// Éú³ÉHASHÖµ
+			// ç”ŸæˆHASHå€¼
 			lcCrt = nswString[liIndex];
 			if((lcCrt|0x20) >= L'a' && (lcCrt|0x20) <= L'z')
 				lcCrt |= 0x20;
@@ -71,7 +71,7 @@ public:
 
 };
 
-// ´Ó×Ö·û´®µÄÈ«²¿×Ö½ÚÄÚÈİÉÏ¼ÆËãHASHÖµ
+// ä»å­—ç¬¦ä¸²çš„å…¨éƒ¨å­—èŠ‚å†…å®¹ä¸Šè®¡ç®—HASHå€¼
 class CHashFull
 {
 public:
@@ -89,7 +89,7 @@ public:
 			if (nswString[liIndex] == 0)
 				break;
 
-			// Éú³ÉHASHÖµ
+			// ç”ŸæˆHASHå€¼
 			lcCrt = nswString[liIndex];
 			if((lcCrt|0x20) >= L'a' && (lcCrt|0x20) <= L'z')
 				lcCrt |= 0x20;
@@ -104,7 +104,7 @@ public:
 };
 
 
-// ×Ö·û´®Óëº¯ÊıµØÖ·ÔÚÄÚ´æÖĞµÄpair½á¹¹Ìå
+// å­—ç¬¦ä¸²ä¸å‡½æ•°åœ°å€åœ¨å†…å­˜ä¸­çš„pairç»“æ„ä½“
 template<typename DataType>
 class CPairNode{
 public:
@@ -143,7 +143,7 @@ public:
 
 		return true;
 	}
-	void FreePath(void)	// µ±Ò»¸ö¶ÔÏó´ÓÈİÆ÷¶ÔÏóÖĞÉ¾³ıºó£¬²ÅÄÜµ÷ÓÃ±¾·½·¨ÊÍ·Åµô¶îÍâµÄÄÚ´æ
+	void FreePath(void)	// å½“ä¸€ä¸ªå¯¹è±¡ä»å®¹å™¨å¯¹è±¡ä¸­åˆ é™¤åï¼Œæ‰èƒ½è°ƒç”¨æœ¬æ–¹æ³•é‡Šæ”¾æ‰é¢å¤–çš„å†…å­˜
 	{
 		if((mswString)!=NULL)
 		{
@@ -155,21 +155,21 @@ public:
 };
 
 template<typename DataType>
-class CMapNodeCriterion	// Ä¬ÈÏµÄÅĞ¶Ï×¼Ôò
+class CMapNodeCriterion	// é»˜è®¤çš„åˆ¤æ–­å‡†åˆ™
 {
 public:
-	bool operator () (const CPairNode<DataType>& Obj1,const CPairNode<DataType>& Obj2)const // Ò»¶¨ÒªÓÃÄÚÁªº¯Êı
+	bool operator () (const CPairNode<DataType>& Obj1,const CPairNode<DataType>& Obj2)const // ä¸€å®šè¦ç”¨å†…è”å‡½æ•°
 	{
-		// µ±¶ÔÏóOb1Ğ¡ÓÚ¶ÔÏóObj2Ê±£¬·µ»ØTrue£¬·ñÔò·µ»Øfalse
+		// å½“å¯¹è±¡Ob1å°äºå¯¹è±¡Obj2æ—¶ï¼Œè¿”å›Trueï¼Œå¦åˆ™è¿”å›false
 		return (Obj1.muHash < Obj2.muHash || (Obj1.muHash == Obj2.muHash && _wcsicmp(Obj1.mswString,Obj2.mswString)<0));
 	}
 };
 
 
 
-// ¸ÃÀàÎ¬»¤pair¼¯ºÏ£¬pair{string, funcAddr}
-// Ö÷ÒªÓÃÍ¾£¬¸ø¶¨Ò»¸östring,ÄÜ¿ìËÙµÄ²éÕÒ³ö¶ÔÓ¦µÄº¯ÊıµØÖ·
-// DataType²»ÄÜ·Å¹ı¹ı´óµÄÊı¾İ»ú¹¹£¬±ÈÈç´óÓÚ16¸ö×Ö½Ú£»×ÜµÄÊı¾İÁ¿Ò²²»ÒË¹ı´ó£¬×îºÃÔÚ1Ç§¸öµ¥ÔªÒÔÄÚ
+// è¯¥ç±»ç»´æŠ¤pairé›†åˆï¼Œpair{string, funcAddr}
+// ä¸»è¦ç”¨é€”ï¼Œç»™å®šä¸€ä¸ªstring,èƒ½å¿«é€Ÿçš„æŸ¥æ‰¾å‡ºå¯¹åº”çš„å‡½æ•°åœ°å€
+// DataTypeä¸èƒ½æ”¾è¿‡è¿‡å¤§çš„æ•°æ®æœºæ„ï¼Œæ¯”å¦‚å¤§äº16ä¸ªå­—èŠ‚ï¼›æ€»çš„æ•°æ®é‡ä¹Ÿä¸å®œè¿‡å¤§ï¼Œæœ€å¥½åœ¨1åƒä¸ªå•å…ƒä»¥å†…
 
 
 template<typename DataType,class CHashValue>
@@ -180,37 +180,37 @@ public:
 	~CMapList(){};
 
 public:
-	// Ìí¼ÓÒ»¶ÔpairÊı¾İ
-	// ÈôÊ§°Ü£¬Ôò·µ»Øfalse,Ê§°ÜµÄÔ­Òò¿ÉÄÜÊÇÒòÎªÒÑ¾­´æÔÚ£¬»òÕßÄÚ´æ·ÖÅä´íÎó
+	// æ·»åŠ ä¸€å¯¹pairæ•°æ®
+	// è‹¥å¤±è´¥ï¼Œåˆ™è¿”å›false,å¤±è´¥çš„åŸå› å¯èƒ½æ˜¯å› ä¸ºå·²ç»å­˜åœ¨ï¼Œæˆ–è€…å†…å­˜åˆ†é…é”™è¯¯
 	bool AddList(const wchar_t* nswString,DataType UserData);
 
-	// É¾³ıÒ»¶ÔpairÊı¾İ
+	// åˆ é™¤ä¸€å¯¹pairæ•°æ®
 	bool DelList(const wchar_t* nswString);
 
-	// ¸üĞÂÒ»¶ÔpairÊı¾İ
+	// æ›´æ–°ä¸€å¯¹pairæ•°æ®
 	bool UpdataList(const wchar_t* nswString,DataType UserData);
 
-	// ²éÕÒÖ¸¶¨µÄ½Úµã¼ÇÂ¼ÊÇ·ñ´æÔÚ
-	// ·µ»Ø-1£¬±íÊ¾²»´æÔÚ£»ÆäËûÖµ£¬±íÊ¾ÕÒµ½µÄÔªËØ½ÚµãĞòºÅ
+	// æŸ¥æ‰¾æŒ‡å®šçš„èŠ‚ç‚¹è®°å½•æ˜¯å¦å­˜åœ¨
+	// è¿”å›-1ï¼Œè¡¨ç¤ºä¸å­˜åœ¨ï¼›å…¶ä»–å€¼ï¼Œè¡¨ç¤ºæ‰¾åˆ°çš„å…ƒç´ èŠ‚ç‚¹åºå·
 	int LookupRecord(const wchar_t* nswString);
 
-	//// Í¨¹ı¸ø¶¨µÄnswString,·µ»Ø¶ÔÓ¦µÄº¯ÊıµØÖ·
+	//// é€šè¿‡ç»™å®šçš„nswString,è¿”å›å¯¹åº”çš„å‡½æ•°åœ°å€
 	//AFX_MAPCALL GetFuncAddr(const wchar_t* nswString);
 
-	// »ñµÃÓÃ»§Êı¾İ£¬Èç¹û²»´æÔÚ½«·µ»ØÉèÖÃµÄÄ¬ÈÏÖµ
+	// è·å¾—ç”¨æˆ·æ•°æ®ï¼Œå¦‚æœä¸å­˜åœ¨å°†è¿”å›è®¾ç½®çš„é»˜è®¤å€¼
 	DataType GetUserData(const wchar_t* nswString,DataType Default);
 
-	// »ñµÃÓ³ÉäÌõÄ¿×ÜÊı
+	// è·å¾—æ˜ å°„æ¡ç›®æ€»æ•°
 	int GetCount(void){
 		return moData.Size();
 	}
 
-	// »ñµÃniIndexÖ¸¶¨µÄÌõÄ¿µÄÓ³Éä×Ö·û´®£¬0 <= niIndex < GetCount()
+	// è·å¾—niIndexæŒ‡å®šçš„æ¡ç›®çš„æ˜ å°„å­—ç¬¦ä¸²ï¼Œ0 <= niIndex < GetCount()
 	const wchar_t* GetMappedString(int niIndex){
 		return moData[niIndex].mswString;
 	}
 
-	// »ñµÃniIndexÖ¸¶¨µÄÌõÄ¿µÄÓ³ÉäÄÚÈİ£¬0 <= niIndex < GetCount()
+	// è·å¾—niIndexæŒ‡å®šçš„æ¡ç›®çš„æ˜ å°„å†…å®¹ï¼Œ0 <= niIndex < GetCount()
 	DataType GetDataByIndex(int niIndex){
 		return moData[niIndex].mdUserData;
 	}
@@ -268,7 +268,7 @@ bool CMapList<DataType,CHashValue>::AddList(
 	CHashValue	loHashValue;
 
 
-	// Ê×ÏÈÅĞ¶Ï£¬¸Ã½Úµã¼ÇÂ¼ÊÇ·ñ´æÔÚ,>=0±íÊ¾´æÔÚ£¬ÔòÖ±½Ó·µ»Ø
+	// é¦–å…ˆåˆ¤æ–­ï¼Œè¯¥èŠ‚ç‚¹è®°å½•æ˜¯å¦å­˜åœ¨,>=0è¡¨ç¤ºå­˜åœ¨ï¼Œåˆ™ç›´æ¥è¿”å›
 	if(LookupRecord(nswString)>= 0)
 		return false;
 
@@ -291,7 +291,7 @@ bool CMapList<DataType,CHashValue>::DelList(
 
 	int liIndex = LookupRecord(nswString);
 	if (liIndex < 0)
-		return false;	// ²»ĞèÒªÉ¾³ı
+		return false;	// ä¸éœ€è¦åˆ é™¤
 
 	moData[liIndex].FreePath();
 	moData.RemoveByIndex(liIndex);
@@ -308,14 +308,14 @@ bool CMapList<DataType,CHashValue>::UpdataList(
 	)
 {
 	int liIndex = LookupRecord(nswString);
-	if (liIndex < 0)	// ±íÊ¾²»´æÔÚ¸ÃÔªËØ£¬ÔòÖ±½ÓÌí¼Ó
+	if (liIndex < 0)	// è¡¨ç¤ºä¸å­˜åœ¨è¯¥å…ƒç´ ï¼Œåˆ™ç›´æ¥æ·»åŠ 
 		return AddList(nswString, UserData);	
 
 	CPairNode<DataType>	loPairNode;
 	CHashValue	loHashValue;
 
-	// ´æÔÚÒÑÖªÔªËØ£¬Ôò¸ü¸Ä¼ÇÂ¼
-	moData[liIndex].muHash = loHashValue.operator()(nswString);// ???ÊÇ·ñ²»ĞèÒªĞŞ¸Ä
+	// å­˜åœ¨å·²çŸ¥å…ƒç´ ï¼Œåˆ™æ›´æ”¹è®°å½•
+	moData[liIndex].muHash = loHashValue.operator()(nswString);// ???æ˜¯å¦ä¸éœ€è¦ä¿®æ”¹
 	//moData[liIndex].muStringLen = wcslen(nswString);
 	//moData[liIndex].pfnFuncAddr = npFuncAddr;
 	moData[liIndex].mdUserData = UserData;
@@ -326,12 +326,12 @@ bool CMapList<DataType,CHashValue>::UpdataList(
 }
 
 
-// »ñµÃÓÃ»§Êı¾İ£¬Èç¹û²»´æÔÚ½«·µ»ØÉèÖÃµÄÄ¬ÈÏÖµ
+// è·å¾—ç”¨æˆ·æ•°æ®ï¼Œå¦‚æœä¸å­˜åœ¨å°†è¿”å›è®¾ç½®çš„é»˜è®¤å€¼
 template<typename DataType,class CHashValue>
 DataType CMapList<DataType,CHashValue>::GetUserData(const wchar_t* nswString,DataType Default)
 {
 	int liIndex = LookupRecord(nswString);
-	if (liIndex < 0)	// ±íÊ¾²»´æÔÚ¸ÃÔªËØ
+	if (liIndex < 0)	// è¡¨ç¤ºä¸å­˜åœ¨è¯¥å…ƒç´ 
 		return Default;
 
 	return moData[liIndex].mdUserData;
@@ -339,7 +339,7 @@ DataType CMapList<DataType,CHashValue>::GetUserData(const wchar_t* nswString,Dat
 
 
 
-//// templateÊÇÄÚ²¿Á´½Ó£¬ÉùÃ÷ºÍ¶¨ÒåÊµÏÖ±ØĞëÔÚÒ»¸öµ¥ÔªÎÄ¼şÀï
+//// templateæ˜¯å†…éƒ¨é“¾æ¥ï¼Œå£°æ˜å’Œå®šä¹‰å®ç°å¿…é¡»åœ¨ä¸€ä¸ªå•å…ƒæ–‡ä»¶é‡Œ
 //#include "mapList.cpp"
 //
 

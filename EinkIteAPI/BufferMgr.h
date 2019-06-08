@@ -1,7 +1,7 @@
-/* Copyright 2019 - present Lenovo */
+ï»¿/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
 #pragma once
-//¹ÜÀíAPPÏÔÊ¾ÄÚ´æ
+//ç®¡ç†APPæ˜¾ç¤ºå†…å­˜
 #include "cmmstruct.h"
 #include "EinkIteAPI.h"
 
@@ -18,28 +18,28 @@ public:
 		ULONG BufferOffset;
 	}BUFFER_BLOCK,*PBUFFER_BLOCK;
 
-	//ÉèÖÃÄÚ´æÆğÊ¼µØÖ·¼°·ÖÅä¿é´óĞ¡
-	//nulBufferSizeÎªBuffer´óĞ¡
-	//nulWidthÎªÃ¿´ÎÒª·ÖÅäµÄ´óĞ¡µÄ¿í¶È
-	//nulHeightÎªÃ¿´ÎÒª·ÖÅäµÄ´óĞ¡µÄ¸ß¶È¶È
+	//è®¾ç½®å†…å­˜èµ·å§‹åœ°å€åŠåˆ†é…å—å¤§å°
+	//nulBufferSizeä¸ºBufferå¤§å°
+	//nulWidthä¸ºæ¯æ¬¡è¦åˆ†é…çš„å¤§å°çš„å®½åº¦
+	//nulHeightä¸ºæ¯æ¬¡è¦åˆ†é…çš„å¤§å°çš„é«˜åº¦åº¦
 	void Initialize(const BYTE* npBuffer,ULONG nulBufferSize, ULONG nulWidth,ULONG nulHeight);
-	//»ñÈ¡Buffer,µ±²»ĞèÒªÊ±ĞèÒªµ÷ÓÃFreeBuffer
-	//Õı³£·µ»ØBufferµØÖ·£¬Èç¹ûBufferÒÑ¾­ÓÃÍêÔò·µ»ØNULL
+	//è·å–Buffer,å½“ä¸éœ€è¦æ—¶éœ€è¦è°ƒç”¨FreeBuffer
+	//æ­£å¸¸è¿”å›Bufferåœ°å€ï¼Œå¦‚æœBufferå·²ç»ç”¨å®Œåˆ™è¿”å›NULL
 	EI_BUFFER* GetBuffer();
-	//ÊÍ·ÅBuffer
+	//é‡Šæ”¾Buffer
 	bool FreeBuffer(const EI_BUFFER* npBuffer);
-	//»ñÈ¡BufferµÄoffset
+	//è·å–Bufferçš„offset
 	ULONG GetBufferOffset(const EI_BUFFER* npBuffer);
 
 private:
-	//·ÖÅä¸ø×Ô¼ºµÄÄÚ´æÆğÊ¼µØÖ·
+	//åˆ†é…ç»™è‡ªå·±çš„å†…å­˜èµ·å§‹åœ°å€
 	const BYTE* mpBufferBase;
-	//BUFFER×Ü´óĞ¡
+	//BUFFERæ€»å¤§å°
 	ULONG mulSize;
-	//·ÖÅä¿é´óĞ¡
+	//åˆ†é…å—å¤§å°
 	ULONG mulBlockSize;
 
-	//Buffer³Ø
+	//Bufferæ± 
 	cmmVector<BUFFER_BLOCK*> mdBufferList;
 };
 

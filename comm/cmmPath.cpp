@@ -1,9 +1,9 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
 //////////////////////////////////////////////////////////////////////////
-// ³£ÓÃÎÄ¼şºÍÄ¿Â¼×ª»»¹¤¾ßº¯Êı
+// å¸¸ç”¨æ–‡ä»¶å’Œç›®å½•è½¬æ¢å·¥å…·å‡½æ•°
 #include "stdafx.h"
 #include "Windows.h"
 #include "cmmPath.h"
@@ -27,21 +27,21 @@ CFilePathName::CFilePathName(const wchar_t* nszPathName)
 }
 
 
-// ¶¯Ì¬¿½±´¶ÔÏó
+// åŠ¨æ€æ‹·è´å¯¹è±¡
 CFilePathName* CFilePathName::Create(const wchar_t* nszPathName)
 {
 	CFilePathName* lpObj = new CFilePathName(nszPathName);
 	return lpObj;
 }
 
-// ¶¯Ì¬´´½¨¶ÔÏó
+// åŠ¨æ€åˆ›å»ºå¯¹è±¡
 CFilePathName* CFilePathName::Duplicate()
 {
 	CFilePathName* lpObj = new CFilePathName(*this);
 	return lpObj;
 }
 
-// µ±Ç°Ä¿Â¼
+// å½“å‰ç›®å½•
 bool CFilePathName::SetByCurrentPath(void)
 {
 	int liLength;
@@ -62,7 +62,7 @@ bool CFilePathName::SetByCurrentPath(void)
 	return true;
 }
 
-// Ä£¿éËùÔÚÄ¿Â¼ºÍÎÄ¼şÃû
+// æ¨¡å—æ‰€åœ¨ç›®å½•å’Œæ–‡ä»¶å
 bool CFilePathName::SetByModulePathName(void)
 {
 	int liLength;
@@ -80,15 +80,15 @@ bool CFilePathName::SetByModulePathName(void)
 	return true;
 }
 
-// »ñµÃµ±Ç°ÓÃ»§µÄAppData\Roaming Ä¿Â¼ ÀıÈç£ºC:\Users\UserName\AppData\Roaming
-// µ÷ÓÃ¸Ãº¯Êıºó£¬Â·¾¶×îºó´øÓĞ"\"
+// è·å¾—å½“å‰ç”¨æˆ·çš„AppData\Roaming ç›®å½• ä¾‹å¦‚ï¼šC:\Users\UserName\AppData\Roaming
+// è°ƒç”¨è¯¥å‡½æ•°åï¼Œè·¯å¾„æœ€åå¸¦æœ‰"\"
 bool CFilePathName::SetByUserAppData(void)
 {
 	bool lbRet = false;
 
 	do 
 	{
-		//»ñÈ¡Ä¿Â¼
+		//è·å–ç›®å½•
 		if(SHGetSpecialFolderPath(NULL,mszPathName,CSIDL_LOCAL_APPDATA,FALSE) == FALSE)
 			break;
 
@@ -111,7 +111,7 @@ bool CFilePathName::SetByUserAppData(void)
 	return lbRet;
 }
 
-// ÉèÖÃÎªÄ¿Â¼£¬Èç¹û½áÎ²Ã»ÓĞ'\\'¾Í¼ÓÉÏ
+// è®¾ç½®ä¸ºç›®å½•ï¼Œå¦‚æœç»“å°¾æ²¡æœ‰'\\'å°±åŠ ä¸Š
 void CFilePathName::AssurePath(void)
 {
 	if(msiLength>0 && mszPathName[msiLength-1]!=L'\\' && msiLength < MAX_PATH)
@@ -121,13 +121,13 @@ void CFilePathName::AssurePath(void)
 	}
 }
 
-// ¸½¼ÓÄ¿Â¼»òÕßÎÄ¼şÃû£¬·µ»ØfalseÊ§°Ü£¬¿ÉÄÜµÄÔ­ÒòÎŞ·¨×ª»»Î»ÖÃ£¬»òÕß½á¹û³¬³¤
-//	ÊµÓÃÓÃ·¨£ºÈ¡Í¬²ãÄ¿Â¼´«ÈëL".\\"£»È¡ÉÏ²ãÄ¿Â¼´«Èë"..\\'
+// é™„åŠ ç›®å½•æˆ–è€…æ–‡ä»¶åï¼Œè¿”å›falseå¤±è´¥ï¼Œå¯èƒ½çš„åŸå› æ— æ³•è½¬æ¢ä½ç½®ï¼Œæˆ–è€…ç»“æœè¶…é•¿
+//	å®ç”¨ç”¨æ³•ï¼šå–åŒå±‚ç›®å½•ä¼ å…¥L".\\"ï¼›å–ä¸Šå±‚ç›®å½•ä¼ å…¥"..\\'
 bool CFilePathName::Transform(const wchar_t* nszTransTo,bool nbForceBePath)
 {
 	cmmStack<wchar_t*> loSeparators;
 
-	// Ê×ÏÈÉ¨ÃèÒ»±éµ±Ç°Êı¾İ
+	// é¦–å…ˆæ‰«æä¸€éå½“å‰æ•°æ®
 	USHORT i;
 
 	for (i=0;i<msiLength;i++)
@@ -140,7 +140,7 @@ bool CFilePathName::Transform(const wchar_t* nszTransTo,bool nbForceBePath)
 		}
 	}
 
-	// ´¦Àí×ª»»ÇëÇó
+	// å¤„ç†è½¬æ¢è¯·æ±‚
 	for(i=0;i<MAX_PATH;i++)
 	{
 		if(nszTransTo[i]==L'.')
@@ -159,9 +159,9 @@ bool CFilePathName::Transform(const wchar_t* nszTransTo,bool nbForceBePath)
 	}
 
 	if(loSeparators.Size() <= 0)
-		return false;// ´íÎóµÄ²ã´Î
+		return false;// é”™è¯¯çš„å±‚æ¬¡
 
-	// ¸´ÖÆÄ¿Â¼ºóÃæµÄÄÚÈİ
+	// å¤åˆ¶ç›®å½•åé¢çš„å†…å®¹
 	short j = (short)(loSeparators.Top() - mszPathName)+1;
 	for(;i<MAX_PATH && j<MAX_PATH;i++,j++)
 	{
@@ -183,8 +183,8 @@ bool CFilePathName::Transform(const wchar_t* nszTransTo,bool nbForceBePath)
 
 	return true;
 }
-// ¸½¼ÓÄ¿Â¼»òÕßÎÄ¼şÃû£¬·µ»ØfalseÊ§°Ü£¬¿ÉÄÜµÄÔ­ÒòÎŞ·¨×ª»»Î»ÖÃ£¬»òÕß½á¹û³¬³¤
-//	ÊµÓÃÓÃ·¨£ºÈ¡Í¬²ãÄ¿Â¼´«ÈëL".\\"£»È¡ÉÏ²ãÄ¿Â¼´«Èë"..\\'
+// é™„åŠ ç›®å½•æˆ–è€…æ–‡ä»¶åï¼Œè¿”å›falseå¤±è´¥ï¼Œå¯èƒ½çš„åŸå› æ— æ³•è½¬æ¢ä½ç½®ï¼Œæˆ–è€…ç»“æœè¶…é•¿
+//	å®ç”¨ç”¨æ³•ï¼šå–åŒå±‚ç›®å½•ä¼ å…¥L".\\"ï¼›å–ä¸Šå±‚ç›®å½•ä¼ å…¥"..\\'
 bool CFilePathName::Transform(const CFilePathName& roPath)
 {
 	return Transform(roPath.mszPathName);
@@ -199,16 +199,16 @@ void CFilePathName::UnlockBuffer()
 	}
 }
 
-// Çå³ı
+// æ¸…é™¤
 void CFilePathName::Clean(void)
 {
 	mszPathName[0] = UNICODE_NULL;
 	msiLength = 0;
 }
 
-// È¡ÎÄ¼şÃû£¬Èç¹ûµ±Ç°±£´æµÄÊÇÒ»¸öÄ¿Â¼£¬Ôò·µ»ØL"\0"
+// å–æ–‡ä»¶åï¼Œå¦‚æœå½“å‰ä¿å­˜çš„æ˜¯ä¸€ä¸ªç›®å½•ï¼Œåˆ™è¿”å›L"\0"
 const wchar_t* CFilePathName::GetFileName(
-	int* npLength	// ·µ»ØÃû×ÖµÄ×Ö·ûÊı£¬²»°üÀ¨'\0'½áÎ²
+	int* npLength	// è¿”å›åå­—çš„å­—ç¬¦æ•°ï¼Œä¸åŒ…æ‹¬'\0'ç»“å°¾
 	)const
 {
 	int i;
@@ -218,7 +218,7 @@ const wchar_t* CFilePathName::GetFileName(
 			break;
 	}
 	if(i<0)
-		i=0;	// ²»°üº¬Ä¿Â¼
+		i=0;	// ä¸åŒ…å«ç›®å½•
 	else
 		i++;
 
@@ -228,7 +228,7 @@ const wchar_t* CFilePathName::GetFileName(
 	return mszPathName+i;
 }
 
-// È¡À©Õ¹Ãû£¬Èç¹ûµ±Ç°±£´æµÄ²»ÊÇÒ»¸öÎÄ¼ş£¬»òÕß²»¾ßÓĞÀ©Õ¹Ãû£¬Ôò·µ»ØL"\0"
+// å–æ‰©å±•åï¼Œå¦‚æœå½“å‰ä¿å­˜çš„ä¸æ˜¯ä¸€ä¸ªæ–‡ä»¶ï¼Œæˆ–è€…ä¸å…·æœ‰æ‰©å±•åï¼Œåˆ™è¿”å›L"\0"
 const wchar_t* CFilePathName::GetExtName(void)const
 {
 	int i;
@@ -243,14 +243,14 @@ const wchar_t* CFilePathName::GetExtName(void)const
 			break;
 	}
 	if(i<0)
-		i = msiLength;	// ¸ÕºÃÖ¸ÏòL'\0'
+		i = msiLength;	// åˆšå¥½æŒ‡å‘L'\0'
 	else
 		i++;
 
 	return mszPathName+i;
 }
 
-// ¸´ÖÆ
+// å¤åˆ¶
 void CFilePathName::operator=(const class CFilePathName& src)
 {
 	msiLength = src.msiLength;
@@ -258,7 +258,7 @@ void CFilePathName::operator=(const class CFilePathName& src)
 		RtlCopyMemory(mszPathName,src.mszPathName,(msiLength+1)*sizeof(wchar_t));
 }
 
-// ´Ó×Ö·û´®¸³Öµ
+// ä»å­—ç¬¦ä¸²èµ‹å€¼
 void CFilePathName::operator=(const wchar_t* nswSrc)
 {
 	for (msiLength =0;msiLength < MAX_PATH;msiLength++)
@@ -269,13 +269,13 @@ void CFilePathName::operator=(const wchar_t* nswSrc)
 }
 
 
-// Ö»¸´ÖÆÈ«²¿Ä¿Â¼£¬½á¹û»á±£Áô'\\'
+// åªå¤åˆ¶å…¨éƒ¨ç›®å½•ï¼Œç»“æœä¼šä¿ç•™'\\'
 bool CFilePathName::CopyPath(const class CFilePathName& src)
 {
 	*this = src;
 	return Transform(L".\\");
 }
-// ÅĞ¶ÏÎÄ¼şÀ©Õ¹ÃûÊÇ·ñµÈÓÚÖ¸¶¨µÄÀàĞÍ£¬Ê¹ÓÃ\0·Ö¸îÀàĞÍÃû£¬Á½¸ö\0±íÊ¾ÀàĞÍ½áÊø£¬·µ»ØÖµ<0²»Ïà·ûºÏ£¬·ñÔò·µ»ØµÄÊÇÏà·ûºÏµÄÀàĞÍ±àºÅ£¬´Ó0¿ªÊ¼
+// åˆ¤æ–­æ–‡ä»¶æ‰©å±•åæ˜¯å¦ç­‰äºæŒ‡å®šçš„ç±»å‹ï¼Œä½¿ç”¨\0åˆ†å‰²ç±»å‹åï¼Œä¸¤ä¸ª\0è¡¨ç¤ºç±»å‹ç»“æŸï¼Œè¿”å›å€¼<0ä¸ç›¸ç¬¦åˆï¼Œå¦åˆ™è¿”å›çš„æ˜¯ç›¸ç¬¦åˆçš„ç±»å‹ç¼–å·ï¼Œä»0å¼€å§‹
 int CFilePathName::ExtNameMatch(const wchar_t* nszFilter)const
 {
 	int liIndex;
@@ -293,7 +293,7 @@ int CFilePathName::ExtNameMatch(const wchar_t* nszFilter)const
 	return -1;
 }
 
-// Ö±½Ó¸½¼Ó×Ö·û´®
+// ç›´æ¥é™„åŠ å­—ç¬¦ä¸²
 void CFilePathName::operator+=(const class CFilePathName& src)throw(...)
 {
 	if(msiLength+src.msiLength >= MAX_PATH)

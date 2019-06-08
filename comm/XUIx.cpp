@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -23,8 +23,8 @@ void* CExMessage::DataInvalid=NULL;
 
 DEFINE_BUILTIN_NAME(CExWinPromptBox)
 
-// PostÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒĞ¯´øÒ»¸ö×Ö·û´®£¬×¢Òâ£¬×Ö·û´®Ò»¶¨Òª´øÓĞ\0½áÎ²
-// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid;		nuFastÏûÏ¢µÄÓÅÏÈ¼¶£¬EMSG_POST_NORMAL,EMSG_POST_FAST,EMSG_POST_REVERSE
+// Postæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”æºå¸¦ä¸€ä¸ªå­—ç¬¦ä¸²ï¼Œæ³¨æ„ï¼Œå­—ç¬¦ä¸²ä¸€å®šè¦å¸¦æœ‰\0ç»“å°¾
+// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid;		nuFastæ¶ˆæ¯çš„ä¼˜å…ˆçº§ï¼ŒEMSG_POST_NORMAL,EMSG_POST_FAST,EMSG_POST_REVERSE
 ERESULT CExMessage::PostMessageWithText(IEinkuiIterator* npReceiver,IEinkuiIterator* npSender,ULONG nuMsgID,const wchar_t* nswText,ULONG nuFast)
 {
 	ERESULT luResult;
@@ -48,8 +48,8 @@ ERESULT CExMessage::PostMessageWithText(IEinkuiIterator* npReceiver,IEinkuiItera
 	return luResult;
 }
 
-// SendÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒĞ¯´øÒ»¸ö×Ö·û´®£¬×¢Òâ£¬×Ö·û´®Ò»¶¨Òª´øÓĞ\0½áÎ²
-// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid
+// Sendæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”æºå¸¦ä¸€ä¸ªå­—ç¬¦ä¸²ï¼Œæ³¨æ„ï¼Œå­—ç¬¦ä¸²ä¸€å®šè¦å¸¦æœ‰\0ç»“å°¾
+// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid
 ERESULT CExMessage::SendMessageWithText(IEinkuiIterator* npReceiver,IEinkuiIterator* npSender,ULONG nuMsgID,const wchar_t* nswText,void* npBufferForReceive,int niBytesOfBuffer)
 {
 	ERESULT luResult;
@@ -73,8 +73,8 @@ ERESULT CExMessage::SendMessageWithText(IEinkuiIterator* npReceiver,IEinkuiItera
 	return luResult;
 }
 
-// PostÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒĞ¯´ø»º³åÇøÊı¾İ
-// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid;		nuFastÏûÏ¢µÄÓÅÏÈ¼¶£¬EMSG_POST_NORMAL,EMSG_POST_FAST,EMSG_POST_REVERSE
+// Postæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”æºå¸¦ç¼“å†²åŒºæ•°æ®
+// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid;		nuFastæ¶ˆæ¯çš„ä¼˜å…ˆçº§ï¼ŒEMSG_POST_NORMAL,EMSG_POST_FAST,EMSG_POST_REVERSE
 ERESULT CExMessage::PostMessageWithBuffer(IEinkuiIterator* npReceiver,IEinkuiIterator* npSender,ULONG nuMsgID,const void* npBuffer,int niBytes,ULONG nuFast)
 {
 	ERESULT luResult;
@@ -95,7 +95,7 @@ ERESULT CExMessage::PostMessageWithBuffer(IEinkuiIterator* npReceiver,IEinkuiIte
 
 
 
-// ÏÔÊ¾WindowsµÄMessageBox£¬²ÎÊıÍ¬WindowsµÄÍêÈ«Ò»ÖÂ
+// æ˜¾ç¤ºWindowsçš„MessageBoxï¼Œå‚æ•°åŒWindowsçš„å®Œå…¨ä¸€è‡´
 int CExWinPromptBox::MessageBox(const wchar_t* nswText,const wchar_t* nswTitle,UINT nuType)
 {
 	ST_MESSAGEBOX ldContext;
@@ -121,7 +121,7 @@ ERESULT __stdcall CExWinPromptBox::MessageBoxCallBack(ULONG nuFlag,LPVOID npCont
 }
 
 
-// ÏÔÊ¾WindowsµÄMessageBox£¬²ÎÊıÍ¬WindowsµÄÍêÈ«Ò»ÖÂ
+// æ˜¾ç¤ºWindowsçš„MessageBoxï¼Œå‚æ•°åŒWindowsçš„å®Œå…¨ä¸€è‡´
 int CExWinPromptBox::MessageBoxEx(const wchar_t* nswText,const wchar_t* nswTitle,UINT nuType,WORD nsuLanguage)
 {
 	ST_MESSAGEBOX ldContext;
@@ -147,7 +147,7 @@ ERESULT __stdcall CExWinPromptBox::MessageBoxExCallBack(ULONG nuFlag,LPVOID npCo
 	return ERESULT_SUCCESS;
 }
 
-// ÉèÖÃÊó±ê¹â±ê
+// è®¾ç½®é¼ æ ‡å…‰æ ‡
 HCURSOR CExWinPromptBox::SetCursor(HCURSOR nhCursor)
 {
 	if(EinkuiGetSystem()->CallBackByWinUiThread(NULL,(PXUI_CALLBACK)&CExWinPromptBox::SetCursorCallBack,0,&nhCursor,true)!= ERESULT_SUCCESS)
@@ -170,12 +170,12 @@ ERESULT __stdcall CExWinPromptBox::SetCursorCallBack(ULONG nuFlag,LPVOID npConte
 
 
 
-//ÓÃÓÚ¼ÆËã±»·Å´óÍ¼ÉÏµÄ×ø±ê¶ÔÓ¦ÓÚÔ­Í¼µÄ×ø±ê
-//rdSrcSizeÔ­Í¼´óĞ¡
-//rdDestSizeµ±Ç°µÄÏÔÊ¾´óĞ¡
-//rdPointÒª×ª»»µÄ×ø±ê
-//nuMethodÊ¹ÓÃµÄ·Å´ó·½Ê½£º1¡¢ESPB_DRAWBMP_EXTEND£¨ÑÓÕ¹Ïß·½Ê½£© 2¡¢ÆäËüÖµ±íÊ¾Ö±½ÓËõ·Å 
-//rdExtendLineÈç¹ûÊ¹ÓÃµÄÊÇESPB_DRAWBMP_EXTEND·Å´ó·½Ê½£¬ĞèÒª¸ø³öÑÓÕ¹Ïß×ø±ê
+//ç”¨äºè®¡ç®—è¢«æ”¾å¤§å›¾ä¸Šçš„åæ ‡å¯¹åº”äºåŸå›¾çš„åæ ‡
+//rdSrcSizeåŸå›¾å¤§å°
+//rdDestSizeå½“å‰çš„æ˜¾ç¤ºå¤§å°
+//rdPointè¦è½¬æ¢çš„åæ ‡
+//nuMethodä½¿ç”¨çš„æ”¾å¤§æ–¹å¼ï¼š1ã€ESPB_DRAWBMP_EXTENDï¼ˆå»¶å±•çº¿æ–¹å¼ï¼‰ 2ã€å…¶å®ƒå€¼è¡¨ç¤ºç›´æ¥ç¼©æ”¾ 
+//rdExtendLineå¦‚æœä½¿ç”¨çš„æ˜¯ESPB_DRAWBMP_EXTENDæ”¾å¤§æ–¹å¼ï¼Œéœ€è¦ç»™å‡ºå»¶å±•çº¿åæ ‡
 D2D1_POINT_2F CExPoint::BigToOldPoint(D2D1_SIZE_F& rdSrcSize,D2D1_SIZE_F& rdDestSize,D2D1_POINT_2F& rdPoint,ULONG nuMethod,D2D1_POINT_2F& rdExtendLine)
 {
 	D2D1_POINT_2F ldPoint = rdPoint;
@@ -183,11 +183,11 @@ D2D1_POINT_2F CExPoint::BigToOldPoint(D2D1_SIZE_F& rdSrcSize,D2D1_SIZE_F& rdDest
 	do 
 	{
 		if((rdDestSize.width - rdSrcSize.width) < 1.0f && (rdDestSize.height - rdSrcSize.height) < 1.0f)
-			break; //Ã»ÓĞ·Å´ó
+			break; //æ²¡æœ‰æ”¾å¤§
 
 		if (nuMethod == ESPB_DRAWBMP_EXTEND)
 		{
-			//ÑÓÕ¹Ïß·½Ê½
+			//å»¶å±•çº¿æ–¹å¼
 			if (rdPoint.x > rdExtendLine.x)
 			{
 				ldPoint.x = rdPoint.x - (rdDestSize.width-rdSrcSize.width);
@@ -212,7 +212,7 @@ D2D1_POINT_2F CExPoint::BigToOldPoint(D2D1_SIZE_F& rdSrcSize,D2D1_SIZE_F& rdDest
 		}
 		else
 		{
-			//Ö±½Ó·Å´óµÄ·½Ê½
+			//ç›´æ¥æ”¾å¤§çš„æ–¹å¼
 			rdPoint.x *= rdDestSize.width / rdSrcSize.width;
 			rdPoint.y *= rdDestSize.height / rdSrcSize.height;
 		}
@@ -224,9 +224,9 @@ D2D1_POINT_2F CExPoint::BigToOldPoint(D2D1_SIZE_F& rdSrcSize,D2D1_SIZE_F& rdDest
 
 
 bool CExHotkey::RegisterHotKey(
-	IEinkuiIterator* npFocusOn,	// ¹Ø×¢´Ë¶ÔÏóºÍËüµÄ×Ó¶ÔÏó£¬NULL±íÊ¾¸ù¶ÔÏó
-	IEinkuiIterator* npReceiver,	// ÓÃÀ´½ÓÊÕ¿ì½İ¼üµÄ¶ÔÏó
-	ULONG nuSysHotkeyID		// ÏµÍ³Ä¬ÈÏµÄID£¬¼ûlwUIÎÄ¼şIXelManager¶¨ÒåÄ©Î²µÄÏµÍ³Ä¬ÈÏ¿ì½İ¼üID±í
+	IEinkuiIterator* npFocusOn,	// å…³æ³¨æ­¤å¯¹è±¡å’Œå®ƒçš„å­å¯¹è±¡ï¼ŒNULLè¡¨ç¤ºæ ¹å¯¹è±¡
+	IEinkuiIterator* npReceiver,	// ç”¨æ¥æ¥æ”¶å¿«æ·é”®çš„å¯¹è±¡
+	ULONG nuSysHotkeyID		// ç³»ç»Ÿé»˜è®¤çš„IDï¼Œè§lwUIæ–‡ä»¶IXelManagerå®šä¹‰æœ«å°¾çš„ç³»ç»Ÿé»˜è®¤å¿«æ·é”®IDè¡¨
 	)
 {
 	bool lbOK = false;

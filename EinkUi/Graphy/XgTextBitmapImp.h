@@ -1,10 +1,10 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 #pragma once
 
 
-#define MAX_SUPPORT_TEXT_LEN		(1 * 1024 * 1024) // ×î´óÖ§³Ö³¤¶ÈÎª1MµÄ×Ö·û´®
+#define MAX_SUPPORT_TEXT_LEN		(1 * 1024 * 1024) // æœ€å¤§æ”¯æŒé•¿åº¦ä¸º1Mçš„å­—ç¬¦ä¸²
 
 DECLARE_BUILTIN_NAME(CXuiTextBitmap)
 
@@ -17,7 +17,7 @@ public:
 
 	ULONG InitOnCreate(STETXT_BMP_INIT& rdBmpInit);
 
-	// Í¨¹ıÎÄ×ÖÊµÀı»¯Î»Í¼¶ÔÏó
+	// é€šè¿‡æ–‡å­—å®ä¾‹åŒ–ä½å›¾å¯¹è±¡
 	DEFINE_CUMSTOMIZE_CREATE(CXuiTextBitmap,(STETXT_BMP_INIT& rdBmpInit), (rdBmpInit));
 
 	ERESULT __stdcall GetD2DObject(IN ID2D1RenderTarget *npRT, OUT ID2D1Bitmap **nppParentBitmap);
@@ -29,8 +29,8 @@ private:
 	DWRITE_TEXT_ALIGNMENT meTextAlignMode;
 	DWRITE_PARAGRAPH_ALIGNMENT meParaAlignMode;
 
-	DWORD mdwFontSizePixel;	// ÎïÀíÏñËØÖ¸¶¨µÄ×ÖÌå´óĞ¡
-	wchar_t *mpaFontName; // ×ÖÌåÃû×Ö
+	DWORD mdwFontSizePixel;	// ç‰©ç†åƒç´ æŒ‡å®šçš„å­—ä½“å¤§å°
+	wchar_t *mpaFontName; // å­—ä½“åå­—
 	wchar_t *mpText;
 	DWORD mdwTextLen;
 	DWORD mdwFontColor;

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -41,7 +41,7 @@ CReaderBaseFrame::CReaderBaseFrame(void)
 	mpToolbarH = NULL;
 	mbIsTxt = false;
 
-	//txt×ÖºÅ
+	//txtå­—å·
 	mdwFontsizeIndex = 1;
 	mdwFontSizeArray[0] = 9;
 	mdwFontSizeArray[1] = 12;
@@ -68,7 +68,7 @@ CReaderBaseFrame::~CReaderBaseFrame(void)
 	}
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CReaderBaseFrame::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -78,7 +78,7 @@ ERESULT CReaderBaseFrame::OnElementCreate(IEinkuiIterator* npIterator)
 		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
-		// ÉèÖÃ·ç¸ñÖ§³ÖÍÏ×§
+		// è®¾ç½®é£æ ¼æ”¯æŒæ‹–æ‹½
 		mpIterator->ModifyStyles(EITR_STYLE_POPUP);
 		
 
@@ -93,13 +93,13 @@ ERESULT CReaderBaseFrame::OnElementCreate(IEinkuiIterator* npIterator)
 		EinkuiGetSystem()->CaptureWindowsMessage(WM_EI_RESET_TP_AREA, this, (PWINMSG_CALLBACK)&CReaderBaseFrame::OnNotifyResetTpArea);
 		EinkuiGetSystem()->CaptureWindowsMessage(WM_POWERBROADCAST, this, (PWINMSG_CALLBACK)&CReaderBaseFrame::OnPowerChangeMsg);
 		//mpIterator->SetTimer(EINK_SETTINGS_TIMER_ID_PAINT, MAXULONG32, 1000, NULL);
-		//ImmDisableIME(-1);	//¹Ø±ÕÊäÈë·¨
+		//ImmDisableIME(-1);	//å…³é—­è¾“å…¥æ³•
 
 		//mpIterator->SetTimer(1,MAXULONG32,3000,NULL);
 
 		EiSetWaveformMode(GI_WAVEFORM_DU2);
 		EiCleanupScreen(0xff);
-		Sleep(585); //DU260+15*5   ·Ö16Ö¡Ë¢£¬Ã¿Ö¡¼ä¸ô5ms
+		Sleep(585); //DU260+15*5   åˆ†16å¸§åˆ·ï¼Œæ¯å¸§é—´éš”5ms
 		EiSetWaveformMode(GI_WAVEFORM_GC16);
 
 		ShowToolBar(true);
@@ -115,9 +115,9 @@ ERESULT CReaderBaseFrame::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 ULONG CReaderBaseFrame::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -125,7 +125,7 @@ ULONG CReaderBaseFrame::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -150,33 +150,33 @@ ULONG CReaderBaseFrame::InitOnCreate(
 		mpIterBackground = mpIterator->GetSubElementByID(1);
 		BREAK_ON_NULL(mpIterBackground);
 
-		//·­Ò³
+		//ç¿»é¡µ
 		lpSubKey = mpTemplete->OpenKey(L"PreNextButton");
 		mpPreNextButton = CPreNextButton::CreateInstance(mpIterator, lpSubKey);
 		CMM_SAFE_RELEASE(lpSubKey);
 		BREAK_ON_NULL(mpPreNextButton);
 
-		//PDFÍ¼Æ¬
+		//PDFå›¾ç‰‡
 		lpSubKey = mpTemplete->OpenKey(L"PicturePreview");
 		mpPdfPicture = CPdfPicture::CreateInstance(mpIterator, lpSubKey);
 		CMM_SAFE_RELEASE(lpSubKey);
 		BREAK_ON_NULL(mpPdfPicture);
 
-		//ºáÆÁ¹¤¾ßÀ¸
+		//æ¨ªå±å·¥å…·æ 
 		lpSubKey = mpTemplete->OpenKey(L"ToolbarH");
 		mpToolbarH = CToolbarH::CreateInstance(mpIterator, lpSubKey);
 		CMM_SAFE_RELEASE(lpSubKey);
 		BREAK_ON_NULL(mpToolbarH);
 		mpToolbarH->GetIterator()->BringToTop();
 		
-		//Ëõ·Å
+		//ç¼©æ”¾
 		lpSubKey = mpTemplete->OpenKey(L"ZoomControl");
 		mpZoomControl = CZoomControl::CreateInstance(mpIterator, lpSubKey);
 		CMM_SAFE_RELEASE(lpSubKey);
 		BREAK_ON_NULL(mpZoomControl);
 		mpZoomControl->GetIterator()->SetVisible(false);
 
-		//TxtËõ·Å
+		//Txtç¼©æ”¾
 		lpSubKey = mpTemplete->OpenKey(L"ZoomControlTxt");
 		mpZoomControlTxt = CZoomControlTxt::CreateInstance(mpIterator, lpSubKey);
 		CMM_SAFE_RELEASE(lpSubKey);
@@ -193,12 +193,12 @@ ULONG CReaderBaseFrame::InitOnCreate(
 
 	CMM_SAFE_RELEASE(lpSubKey);
 
-	// ÏòÏµÍ³×¢²áĞèÒªÊÕµ½µÄÏûÏ¢
+	// å‘ç³»ç»Ÿæ³¨å†Œéœ€è¦æ”¶åˆ°çš„æ¶ˆæ¯
 	return leResult;
 }
 
 
-//½øÈëÏµÍ³ÏûÏ¢
+//è¿›å…¥ç³»ç»Ÿæ¶ˆæ¯
 ERESULT __stdcall CReaderBaseFrame::OnPowerChangeMsg(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result)
 {
 	do
@@ -236,7 +236,7 @@ ERESULT __stdcall CReaderBaseFrame::OnPowerChangeMsg(HWND hwnd, UINT uMsg, WPARA
 	return ERESULT_WINMSG_SENDTO_NEXT;
 }
 
-//·şÎñÍ¨ÖªÓ¦ÓÃÇĞ»»µ½Ç°Ì¨»òºóÌ¨
+//æœåŠ¡é€šçŸ¥åº”ç”¨åˆ‡æ¢åˆ°å‰å°æˆ–åå°
 ERESULT __stdcall CReaderBaseFrame::OnActivity(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result)
 {
 	do
@@ -248,7 +248,7 @@ ERESULT __stdcall CReaderBaseFrame::OnActivity(HWND hwnd, UINT uMsg, WPARAM wPar
 	return ERESULT_WINMSG_SENDTO_NEXT;
 }
 
-//homebar×´Ì¬±ä»¯Í¨Öª
+//homebarçŠ¶æ€å˜åŒ–é€šçŸ¥
 ERESULT __stdcall CReaderBaseFrame::OnHomebarChanged(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result)
 {
 	do
@@ -260,7 +260,7 @@ ERESULT __stdcall CReaderBaseFrame::OnHomebarChanged(HWND hwnd, UINT uMsg, WPARA
 	return ERESULT_WINMSG_SENDTO_NEXT;
 }
 
-//Tp±»resetÁË£¬ĞèÒªÖØĞÂÉèÖÃtp area
+//Tpè¢«resetäº†ï¼Œéœ€è¦é‡æ–°è®¾ç½®tp area
 ERESULT __stdcall CReaderBaseFrame::OnNotifyResetTpArea(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result)
 {
 	do
@@ -282,7 +282,7 @@ ERESULT __stdcall CReaderBaseFrame::OnNotifyResetTpArea(HWND hwnd, UINT uMsg, WP
 	return ERESULT_WINMSG_SENDTO_NEXT;
 }
 
-//°´Å¥µ¥»÷ÊÂ¼ş
+//æŒ‰é’®å•å‡»äº‹ä»¶
 ERESULT CReaderBaseFrame::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -298,16 +298,16 @@ void CReaderBaseFrame::HoldInput(bool nbSet)
 	{
 		EinkuiGetSystem()->GetElementManager()->CleanHumanInput(true);
 		InterlockedExchange(&mlHoldInput, 1);
-		mpIterator->SetTimer(RBF_TIMER_HOLDINPUT, 1, 2000, NULL);	// Èç¹ûÃ»ÓĞË¢ĞÂ£¬2ÃëºóÒ²½«×Ô¶¯½â³ı
+		mpIterator->SetTimer(RBF_TIMER_HOLDINPUT, 1, 2000, NULL);	// å¦‚æœæ²¡æœ‰åˆ·æ–°ï¼Œ2ç§’åä¹Ÿå°†è‡ªåŠ¨è§£é™¤
 	}
 	else
 	{
-		if (InterlockedExchange(&mlHoldInput, 0) == 1) // Ö»ÓĞµ±Ç°´¦ÓÚËø¶¨×´Ì¬£¬²Åµ÷ÓÃ¹ÜÀíÆ÷µÄÇåÀí·şÎñ
+		if (InterlockedExchange(&mlHoldInput, 0) == 1) // åªæœ‰å½“å‰å¤„äºé”å®šçŠ¶æ€ï¼Œæ‰è°ƒç”¨ç®¡ç†å™¨çš„æ¸…ç†æœåŠ¡
 			EinkuiGetSystem()->GetElementManager()->CleanHumanInput(false);
 	}
 }
 
-//ÏûÏ¢´¦Àíº¯Êı
+//æ¶ˆæ¯å¤„ç†å‡½æ•°
 ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 {
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
@@ -342,7 +342,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_ER_OPEN_FILE:
 	{
-		//Ñ¡ÔñÎÄ¼ş
+		//é€‰æ‹©æ–‡ä»¶
 		if (mpFileOpenDlg != NULL)
 		{
 			mpFileOpenDlg->ExitModal();
@@ -359,7 +359,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 			mpFileOpenDlg->SetHistoryList(&mdHistroyPath);
 
 			//EiSetPartialUpdate(TRUE);
-			//Èç¹ûµ±Ç°Ã»ÓĞ´ò¿ªÎÄ¼ş£¬ÎÄ¼ş´ò¿ª¶Ô»°¿òµÄÈ¡Ïû°´Å¥¾ÍÖÃ»Ò
+			//å¦‚æœå½“å‰æ²¡æœ‰æ‰“å¼€æ–‡ä»¶ï¼Œæ–‡ä»¶æ‰“å¼€å¯¹è¯æ¡†çš„å–æ¶ˆæŒ‰é’®å°±ç½®ç°
 			bool lbEnable = true;
 			if (mszSrcFile[0] == UNICODE_NULL || GetFileAttributes(mszSrcFile) == INVALID_FILE_ATTRIBUTES)
 				lbEnable = false;
@@ -370,7 +370,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 
 			if (mpPdfPicture->GetPageCount() == 0)
 			{
-				//ÖØĞÂ´ò¿ªÎÄ¼ş
+				//é‡æ–°æ‰“å¼€æ–‡ä»¶
 				Init();
 			}
 		}
@@ -379,7 +379,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_ER_OPEN_PAGE_JUMP:
 	{
-		//Ò³ÂëÌø×ª
+		//é¡µç è·³è½¬
 		ICfKey* lpSubKey = mpTemplete->OpenKey(L"JumpPage");
 		mpJumpPage = CJumpPage::CreateInstance(mpIterator, lpSubKey);
 		ULONG secondPage;
@@ -410,7 +410,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_HB_ACTIVITE:
 	{
-		//Ó¦ÓÃÇĞ»»µ½Ç°Ì¨»òºóÌ¨
+		//åº”ç”¨åˆ‡æ¢åˆ°å‰å°æˆ–åå°
 		ULONG lulActivity = 0;
 		luResult = CExMessage::GetInputData(npMsg, lulActivity);
 		if (luResult != ERESULT_SUCCESS)
@@ -418,35 +418,35 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 
 		if (lulActivity == 1)
 		{
-			//ÇĞ»»µ½Ç°Ì¨
+			//åˆ‡æ¢åˆ°å‰å°
 			//mpIterator->KillTimer(RBF_TIMER_EXIT);
 
 			EiSetWaveformMode(GI_WAVEFORM_DU2);
 			EiCleanupScreen(0xff);
-			Sleep(585); //DU260+15*5   ·Ö16Ö¡Ë¢£¬Ã¿Ö¡¼ä¸ô5ms
+			Sleep(585); //DU260+15*5   åˆ†16å¸§åˆ·ï¼Œæ¯å¸§é—´éš”5ms
 			EiSetWaveformMode(GI_WAVEFORM_GC16);
 			EiSetPartialUpdate(FALSE);
 
 			mpIterator->SetTimer(RBF_TIMER_ENABL_PARTIAL, 1, 1800, NULL);
 			mpIterator->SetTimer(RBF_TIMER_TSHOW_TOOLBAR, 1, 5000, NULL);
 
-			//Èç¹û¸Õ²Å´ò¿ªµÄÎÄ¼ş±»É¾³ıÁË£¬¾Í½øÈë´ò¿ªÎÄ¼ş¶Ô»°¿ò
+			//å¦‚æœåˆšæ‰æ‰“å¼€çš„æ–‡ä»¶è¢«åˆ é™¤äº†ï¼Œå°±è¿›å…¥æ‰“å¼€æ–‡ä»¶å¯¹è¯æ¡†
 			if (mszSrcFile[0] != UNICODE_NULL && GetFileAttributes(mszSrcFile) == INVALID_FILE_ATTRIBUTES)
 			{
 				mpPdfPicture->CloseFile();
 
-				if(mpFileOpenDlg == NULL) //Ö»ÓĞÔÚÃ»ÓĞµ¯³öµÄÇé¿öÏÂ²Å´ò¿ª
+				if(mpFileOpenDlg == NULL) //åªæœ‰åœ¨æ²¡æœ‰å¼¹å‡ºçš„æƒ…å†µä¸‹æ‰æ‰“å¼€
 					CExMessage::PostMessage(mpIterator, mpIterator, EEVT_ER_OPEN_FILE, CExMessage::DataInvalid);
 			}
 		}
 		else
 		{
-			//ÇĞ»»µ½ºóÌ¨
-			//±£´æÊı¾İ
+			//åˆ‡æ¢åˆ°åå°
+			//ä¿å­˜æ•°æ®
 			//ExitProcess(0);
 			mpIterator->KillTimer(RBF_TIMER_TSHOW_TOOLBAR);
 			//mpToolbarH->GetIterator()->SetVisible(true);
-			 //ÕâÑù¾Í¿ÉÒÔÔÚÇĞ»»¹ıÀ´µÚÒ»Ö¡Ê±¹Ø±ÕpartialË¢ĞÂÒ»´Î
+			 //è¿™æ ·å°±å¯ä»¥åœ¨åˆ‡æ¢è¿‡æ¥ç¬¬ä¸€å¸§æ—¶å…³é—­partialåˆ·æ–°ä¸€æ¬¡
 
 			
 			//mpIterator->SetTimer(RBF_TIMER_EXIT, 1, 400, NULL);
@@ -457,7 +457,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_ER_HOMEBAR_CHANGED:
 	{
-		//homebar×´Ì¬·¢Éú±ä»¯
+		//homebarçŠ¶æ€å‘ç”Ÿå˜åŒ–
 		ULONG lulHomebarMode = 0;
 		luResult = CExMessage::GetInputData(npMsg, lulHomebarMode);
 		if (luResult != ERESULT_SUCCESS)
@@ -466,19 +466,19 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 		//EiSetPartialUpdate(TRUE);
 		if (lulHomebarMode == GI_HOMEBAR_EXPAND)
 		{
-			//homebarÕ¹¿ª¾ÍÒş²Ø×Ô¼ºµÄ¹¤¾ßÀ¸
+			//homebarå±•å¼€å°±éšè—è‡ªå·±çš„å·¥å…·æ 
 			mpToolbarH->GetIterator()->SetVisible(false);
 		}
 		else if(lulHomebarMode == GI_HOMEBAR_COLLAPSE)
 		{
-			//homebarÊÕËõ¾ÍÏÔÊ¾×Ô¼ºµÄ¹¤¾ßÀ¸
+			//homebaræ”¶ç¼©å°±æ˜¾ç¤ºè‡ªå·±çš„å·¥å…·æ 
 			mpToolbarH->GetIterator()->SetVisible(true);
 			mpIterator->KillTimer(RBF_TIMER_TSHOW_TOOLBAR);
 			mpIterator->SetTimer(RBF_TIMER_TSHOW_TOOLBAR, 1, 5000, NULL);
 		}
 		else if (lulHomebarMode == GI_HOMEBAR_HIDE)
 		{
-			//Òş²ØÁË
+			//éšè—äº†
 		}
 		//EiSetPartialUpdate(FALSE);
 
@@ -486,7 +486,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_ER_PAGE_JUMP:
 	{
-		//Ò³ÂëÌø×ª
+		//é¡µç è·³è½¬
 		int liPage = 1;
 		luResult = CExMessage::GetInputData(npMsg, liPage);
 		if (luResult != ERESULT_SUCCESS)
@@ -501,11 +501,11 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_ER_OPEN_FILE_PATH:
 	{
-		//Òª´ò¿ªµÄÎÄ¼şÂ·¾¶
+		//è¦æ‰“å¼€çš„æ–‡ä»¶è·¯å¾„
 		wchar_t* lpszFilePath = (wchar_t*)npMsg->GetInputData();
 		bool lbRet = OpenFile(lpszFilePath);
 
-		// ÉèÖÃÊä³öÊı¾İ
+		// è®¾ç½®è¾“å‡ºæ•°æ®
 		bool* lpOut = (bool*)npMsg->GetOutputBuffer();
 		*lpOut = lbRet;
 		npMsg->SetOutputDataSize(sizeof(bool));
@@ -514,7 +514,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_ER_PRE_NEXT_CLICKED:
 	{
-		//Ò³ÂëÌø×ª
+		//é¡µç è·³è½¬
 		ULONG lulFlag = 1;
 		luResult = CExMessage::GetInputData(npMsg, lulFlag);
 		if (luResult != ERESULT_SUCCESS)
@@ -533,7 +533,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 			}
 			else if (lulFlag == PNB_BT_MIDDLE)
 			{
-				//ÏÔÊ¾»òÒş²Ø¹¤×÷À¸
+				//æ˜¾ç¤ºæˆ–éšè—å·¥ä½œæ 
 				ShowToolBar(!mpToolbarH->GetIterator()->IsVisible());
 			}
 			else
@@ -543,13 +543,13 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 
 		} while (false);
 
-		//???niu Ôö¼Ó¶ÔPageFoward()Ê§°ÜµÄÅĞ¶ÏºÍ´¦Àí
+		//???niu å¢åŠ å¯¹PageFoward()å¤±è´¥çš„åˆ¤æ–­å’Œå¤„ç†
 
 		break;
 	}
 	case EEVT_ER_TWO_SCREEN:
 	{
-		//ÇĞ»»Ë«ÆÁ»òµ¥ÆÁ
+		//åˆ‡æ¢åŒå±æˆ–å•å±
 		bool lbIsDoubleScreen = false;
 		luResult = CExMessage::GetInputData(npMsg, lbIsDoubleScreen);
 		if (luResult != ERESULT_SUCCESS)
@@ -569,7 +569,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_ER_ENTER_ZOOM:
 	{
-		//½øÈëËõ·ÅÄ£Ê½
+		//è¿›å…¥ç¼©æ”¾æ¨¡å¼
 		bool lbIsZoom = false;
 		luResult = CExMessage::GetInputData(npMsg, lbIsZoom);
 		if (luResult != ERESULT_SUCCESS)
@@ -577,7 +577,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 
 		if (lbIsZoom == false)
 		{
-			//ÏÔÊ¾¹¤¾ßÀ¸
+			//æ˜¾ç¤ºå·¥å…·æ 
 			//mpToolbarH->GetIterator()->SetVisible(true);
 
 			mpZoomControl->GetIterator()->SetVisible(false);
@@ -587,7 +587,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 		}
 		else
 		{
-			//Òş²Ø¹¤¾ßÀ¸
+			//éšè—å·¥å…·æ 
 			mpToolbarH->GetIterator()->SetVisible(false);
 
 			if (mbIsTxt == false)
@@ -610,7 +610,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_ER_SET_PAGE_MOVE:
 	{
-		//Ò³ÃæÒÆ¶¯
+		//é¡µé¢ç§»åŠ¨
 		POINT ldPos;
 		luResult = CExMessage::GetInputData(npMsg, ldPos);
 		if (luResult != ERESULT_SUCCESS)
@@ -618,12 +618,12 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 
 		RECT ldRect;
 		mpPdfPicture->MovePage(ldPos.x, ldPos.y, ldRect);
-		// ÉèÖÃÊä³öÊı¾İ
+		// è®¾ç½®è¾“å‡ºæ•°æ®
 		RECT* lpOut = (RECT*)npMsg->GetOutputBuffer();
 		*lpOut = ldRect;
 		npMsg->SetOutputDataSize(sizeof(RECT));
 
-		//»ñÈ¡ÕæÊµ´óĞ¡
+		//è·å–çœŸå®å¤§å°
 		D2D1_SIZE_F ldMaxSize;
 		D2D1_RECT_F ldViewRect;
 		mpPdfPicture->GetRectOfViewportOnPage(ldMaxSize, ldViewRect);
@@ -633,7 +633,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_ER_SET_ZOOM:
 	{
-		//ÉèÖÃ·Å´ó±ÈÀı
+		//è®¾ç½®æ”¾å¤§æ¯”ä¾‹
 		float lfRotio = 1.0f;
 		luResult = CExMessage::GetInputData(npMsg, lfRotio);
 		if (luResult != ERESULT_SUCCESS)
@@ -643,12 +643,12 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 		mpPdfPicture->SetScaleRatio(lfRotio, ldRect);
 		CHellFun::SetRegData(RbF_REG_RATIO, DWORD(lfRotio*100));
 
-		// ÉèÖÃÊä³öÊı¾İ
+		// è®¾ç½®è¾“å‡ºæ•°æ®
 		RECT* lpOut = (RECT*)npMsg->GetOutputBuffer();
 		*lpOut = ldRect;
 		npMsg->SetOutputDataSize(sizeof(RECT));
 
-		//»ñÈ¡ÕæÊµ´óĞ¡
+		//è·å–çœŸå®å¤§å°
 		D2D1_SIZE_F ldMaxSize;
 		D2D1_RECT_F ldViewRect;
 		mpPdfPicture->GetRectOfViewportOnPage(ldMaxSize, ldViewRect);
@@ -658,7 +658,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_ER_ENTER_SNAPSHOT:
 	{
-		//½ØÆÁ
+		//æˆªå±
 		ICfKey* lpSubKey = mpTemplete->OpenKey(L"SnapShot");
 		mpSnapShot = CSnapShot::CreateInstance(mpIterator, lpSubKey);;
 		//mpFileOpenDlg->SetSelect(mulKeyboardLanguageIndex);
@@ -685,7 +685,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_ER_SET_TXT_ZOOM:
 	{
-		//ÉèÖÃtxt·Å´ó
+		//è®¾ç½®txtæ”¾å¤§
 		luResult = CExMessage::GetInputData(npMsg, mdwFontsizeIndex);
 		if (luResult != ERESULT_SUCCESS)
 			break;
@@ -693,21 +693,21 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 		mpPdfPicture->SetFontSize(mdwFontSizeArray[mdwFontsizeIndex]);
 		ShowPageInfo();
 
-		//°ÑÉèÖÃ±£´æµ½×¢²á±íÖĞ
+		//æŠŠè®¾ç½®ä¿å­˜åˆ°æ³¨å†Œè¡¨ä¸­
 		CHellFun::SetRegData(RbF_REG_TXT_FONT_SIZE_INDEX, mdwFontsizeIndex);
 
 		break;
 	}
 	case EEVT_TXT_ARRANGED_START:
 	{
-		//txt¿ªÊ¼Ò³Ãæ¼ÓÔØ
+		//txtå¼€å§‹é¡µé¢åŠ è½½
 		
 		
 		break;
 	}
 	case EEVT_TXT_ARRANGED_DOING:
 	{
-		//txtÒ³ÃæÕıÔÚ¼ÓÔØÖĞ
+		//txté¡µé¢æ­£åœ¨åŠ è½½ä¸­
 		ShowPageInfo();
 		mbIsSetPartial = false;
 
@@ -722,7 +722,7 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EEVT_ARRANGED_COMPLETE:
 	{
-		//Ò³Ãæ¼ÓÔØÍê±Ï
+		//é¡µé¢åŠ è½½å®Œæ¯•
 		mbIsSetPartial = true;
 		break;
 	}
@@ -733,13 +733,13 @@ ERESULT CReaderBaseFrame::ParseMessage(IEinkuiMessage* npMsg)
 
 	if (luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-//»æÖÆ
+//ç»˜åˆ¶
 ERESULT CReaderBaseFrame::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	HoldInput(false);
@@ -747,30 +747,30 @@ ERESULT CReaderBaseFrame::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	return CXuiElement::OnPaint(npPaintBoard);
 }
 
-////ÇĞÒ³
+////åˆ‡é¡µ
 //void CReaderBaseFrame::GotoPage(ULONG nulPage)
 //{
 //	mpPdfPicture->GoToPage(nulPage);
 //
 //	wchar_t lszString[MAX_PATH] = { 0 };
-//	swprintf_s(lszString, MAX_PATH, L"(µÚ%dÒ³/¹²%dÒ³)", nulPage, mpPdfPicture->GetPageCount());
+//	swprintf_s(lszString, MAX_PATH, L"(ç¬¬%dé¡µ/å…±%dé¡µ)", nulPage, mpPdfPicture->GetPageCount());
 //	mpToolbarH->SetPage(lszString);
 //
 //	mulCurrentPageNumber = nulPage;
 //}
 
-//ÏÔÊ¾»òÒş²Ø¹¤¾ßÀ¸
+//æ˜¾ç¤ºæˆ–éšè—å·¥å…·æ 
 void CReaderBaseFrame::ShowToolBar(bool nbIsShow)
 {
 	if (nbIsShow == false)
 	{
-		//Òş²Ø
+		//éšè—
 		mpToolbarH->GetIterator()->SetVisible(false);
 		mpIterator->KillTimer(RBF_TIMER_TSHOW_TOOLBAR);
 	}
 	else
 	{
-		//ÏÔÊ¾
+		//æ˜¾ç¤º
 		mpToolbarH->GetIterator()->SetVisible(true);
 		mpIterator->KillTimer(RBF_TIMER_TSHOW_TOOLBAR);
 		mpIterator->SetTimer(RBF_TIMER_TSHOW_TOOLBAR,1,5000,NULL);
@@ -794,8 +794,8 @@ void CReaderBaseFrame::ShowPageInfo(void)
 
 		do
 		{
-			//»ñÈ¡¶àÓïÑÔ×Ö·û´®
-			//ÎªÁË·­Òë·½±ã£¬×Ö·û´®´æ·ÅÔÚroot/string
+			//è·å–å¤šè¯­è¨€å­—ç¬¦ä¸²
+			//ä¸ºäº†ç¿»è¯‘æ–¹ä¾¿ï¼Œå­—ç¬¦ä¸²å­˜æ”¾åœ¨root/string
 			lpProfile = EinkuiGetSystem()->GetCurrentWidget()->GetDefaultFactory()->GetTempleteFile();
 			ICfKey* lpCfKey = NULL;
 			if (lpProfile != NULL)
@@ -826,7 +826,7 @@ void CReaderBaseFrame::ShowPageInfo(void)
 
 		if (mulPageIndex != pageNo1)
 		{
-			//¸üĞÂ¼ÇÂ¼Êı¾İ
+			//æ›´æ–°è®°å½•æ•°æ®
 			mulPageIndex = pageNo1;
 
 			
@@ -843,7 +843,7 @@ void CReaderBaseFrame::ShowPageInfo(void)
 	}
 }
 
-//ÏÔÊ¾toast
+//æ˜¾ç¤ºtoast
 void CReaderBaseFrame::ShowToast(wchar_t* npszKeyName)
 {
 	IConfigFile* lpProfile = NULL;
@@ -852,8 +852,8 @@ void CReaderBaseFrame::ShowToast(wchar_t* npszKeyName)
 	{
 		BREAK_ON_NULL(npszKeyName);
 
-		//»ñÈ¡¶àÓïÑÔ×Ö·û´®
-		//ÎªÁË·­Òë·½±ã£¬×Ö·û´®´æ·ÅÔÚroot/string
+		//è·å–å¤šè¯­è¨€å­—ç¬¦ä¸²
+		//ä¸ºäº†ç¿»è¯‘æ–¹ä¾¿ï¼Œå­—ç¬¦ä¸²å­˜æ”¾åœ¨root/string
 		wchar_t lszText[MAX_PATH] = { 0 };
 		lpProfile = EinkuiGetSystem()->GetCurrentWidget()->GetDefaultFactory()->GetTempleteFile();
 		ICfKey* lpCfKey = NULL;
@@ -882,7 +882,7 @@ void CReaderBaseFrame::ShowToast(wchar_t* npszKeyName)
 }
 
 
-// ÓÃÓÚ¸øeink¹¤×÷Ïß³Ì·¢ËÍÏûÏ¢£¬±ÜÃâ×èÈû·şÎñÖ÷Ïß³Ì
+// ç”¨äºç»™einkå·¥ä½œçº¿ç¨‹å‘é€æ¶ˆæ¯ï¼Œé¿å…é˜»å¡æœåŠ¡ä¸»çº¿ç¨‹
 bool CReaderBaseFrame::CopyFileThread(LPVOID npData)
 {
 	CReaderBaseFrame* lpThis = (CReaderBaseFrame*)npData;
@@ -892,7 +892,7 @@ bool CReaderBaseFrame::CopyFileThread(LPVOID npData)
 	return true;
 }
 
-//°ÑÒª´ò¿ªµÄÎÄ¼şcopyµ½ÁÙÊ±Ä¿Â¼
+//æŠŠè¦æ‰“å¼€çš„æ–‡ä»¶copyåˆ°ä¸´æ—¶ç›®å½•
 void CReaderBaseFrame::CopyFileToTemp(IN wchar_t* npszSrc, OUT wchar_t* npszDest, IN LONG nlLen)
 {
 	do 
@@ -903,8 +903,8 @@ void CReaderBaseFrame::CopyFileToTemp(IN wchar_t* npszSrc, OUT wchar_t* npszDest
 		{
 			wchar_t lszTemp[MAX_PATH] = { 0 };
 			wcscpy_s(lszTemp, MAX_PATH, npszDest);
-			lszTemp[wcslen(lszTemp) + 1] = UNICODE_NULL; //Ë«0½áÎ²
-			//Èç´ËÒÑ´æÔÚ£¬ÏÈÉ¾³ı
+			lszTemp[wcslen(lszTemp) + 1] = UNICODE_NULL; //åŒ0ç»“å°¾
+			//å¦‚æ­¤å·²å­˜åœ¨ï¼Œå…ˆåˆ é™¤
 			SHFILEOPSTRUCT ldShfile;
 			memset(&ldShfile, 0, sizeof(ldShfile));
 			ldShfile.pFrom = lszTemp;
@@ -948,7 +948,7 @@ void CReaderBaseFrame::CopyFileToTemp(IN wchar_t* npszSrc, OUT wchar_t* npszDest
 
 }
 
-//ÓÃ»§Ñ¡ÔñÁËÒª´ò¿ªµÄÎÄ¼ş
+//ç”¨æˆ·é€‰æ‹©äº†è¦æ‰“å¼€çš„æ–‡ä»¶
 bool CReaderBaseFrame::OpenFile(wchar_t* npszFilePath)
 {
 	bool lbRet = false;
@@ -979,7 +979,7 @@ bool CReaderBaseFrame::OpenFile(wchar_t* npszFilePath)
 		{
 			if (mbIsTxt == false || GetFileSize(npszFilePath) > 0)
 			{
-				//´ò¿ªÎÄ¼şÊ§°Ü
+				//æ‰“å¼€æ–‡ä»¶å¤±è´¥
 				ShowToast(L"OpenFileFail");
 				mszSrcFile[0] = UNICODE_NULL;
 
@@ -996,15 +996,15 @@ bool CReaderBaseFrame::OpenFile(wchar_t* npszFilePath)
 		ShowPageInfo();
 		mpToolbarH->SetFileName(lpszFileName);
 
-		//¼ÇÂ¼´ò¿ªÀúÊ·
-		//ÏÈ¿´ÏÂÕâ¸öÊÇ²»ÊÇÒÑ¾­¼ÇÂ¼¹ıÁË
+		//è®°å½•æ‰“å¼€å†å²
+		//å…ˆçœ‹ä¸‹è¿™ä¸ªæ˜¯ä¸æ˜¯å·²ç»è®°å½•è¿‡äº†
 		bool lbIsHave = false;
 		for (int i=0;i<mdHistroyPath.Size();i++)
 		{
 			wchar_t* lpszPath = mdHistroyPath.GetEntry(i);
 			if (_wcsicmp(npszFilePath, lpszPath) == 0)
 			{
-				//ÒÑ¾­ÓĞÁË£¬°ÑËüÌáµ½µÚÒ»¾ÍĞĞÁË
+				//å·²ç»æœ‰äº†ï¼ŒæŠŠå®ƒæåˆ°ç¬¬ä¸€å°±è¡Œäº†
 				mdHistroyPath.RemoveByIndex(i);
 				mdHistroyPath.Insert(0, lpszPath);
 
@@ -1015,20 +1015,20 @@ bool CReaderBaseFrame::OpenFile(wchar_t* npszFilePath)
 
 		if (lbIsHave == false)
 		{
-			//Ôö¼Óµ½ÁĞ±í
+			//å¢åŠ åˆ°åˆ—è¡¨
 			wchar_t* lpszPath = new wchar_t[MAX_PATH];
 			wcscpy_s(lpszPath, MAX_PATH, npszFilePath);
 			mdHistroyPath.Insert(0, lpszPath);
 
 			if (mdHistroyPath.Size() > RBF_HISTROY_MAX)
 			{
-				//³¬³ö×î´óÊıÁË£¬É¾³ı×îºóÒ»¸ö
+				//è¶…å‡ºæœ€å¤§æ•°äº†ï¼Œåˆ é™¤æœ€åä¸€ä¸ª
 				delete[] mdHistroyPath.GetEntry(mdHistroyPath.Size() - 1);
 				mdHistroyPath.RemoveByIndex(mdHistroyPath.Size() - 1);
 			}
 		}
 
-		//±£´æµ½×¢²á±í
+		//ä¿å­˜åˆ°æ³¨å†Œè¡¨
 		wchar_t lszText[MAX_PATH];
 		DWORD ldwLen = 0;
 		for (int i = 0; i < mdHistroyPath.Size(); i++)
@@ -1044,7 +1044,7 @@ bool CReaderBaseFrame::OpenFile(wchar_t* npszFilePath)
 	return lbRet;
 }
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CReaderBaseFrame::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
@@ -1080,7 +1080,7 @@ void CReaderBaseFrame::OnTimer(
 
 
 
-//ÏµÍ³ÆÁÄ»·¢ÉúĞı×ª
+//ç³»ç»Ÿå±å¹•å‘ç”Ÿæ—‹è½¬
 void CReaderBaseFrame::OnRotated(ULONG nuOrient)
 {
 	EI_SIZE ldPaintSize;
@@ -1089,7 +1089,7 @@ void CReaderBaseFrame::OnRotated(ULONG nuOrient)
 	
 	if (mpPdfPicture != NULL)
 	{
-		//mpPdfPicture->GetIterator()->SetSize((FLOAT)ldPaintSize.w, (FLOAT)ldPaintSize.h);ÉÏÒ»ĞĞÉèÖÃ±¾´°Ìå´óĞ¡ºó£¬±¾´°ÌåµÄ´óĞ¡¸Ä±äÏàÓ¦º¯ÊıÒÑ¾­¶Ôpdfpicture¶ÔÏó×öÁË´óĞ¡µ÷ÕûÁË
+		//mpPdfPicture->GetIterator()->SetSize((FLOAT)ldPaintSize.w, (FLOAT)ldPaintSize.h);ä¸Šä¸€è¡Œè®¾ç½®æœ¬çª—ä½“å¤§å°åï¼Œæœ¬çª—ä½“çš„å¤§å°æ”¹å˜ç›¸åº”å‡½æ•°å·²ç»å¯¹pdfpictureå¯¹è±¡åšäº†å¤§å°è°ƒæ•´äº†
 		mpPdfPicture->SetRotation(nuOrient);
 	}
 
@@ -1120,20 +1120,20 @@ void CReaderBaseFrame::OnRotated(ULONG nuOrient)
 
 	if (nuOrient == GIR_90 || nuOrient == GIR_270)
 	{
-		//¼áÆÁ
+		//åšå±
 	}
 	else
 	{
-		//ºáÆÁ
+		//æ¨ªå±
 			
 	}
 
 	ShowPageInfo();
-	////ÖØ»æ×Ô¼º
+	////é‡ç»˜è‡ªå·±
 	//EinkuiGetSystem()->UpdateView();
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CReaderBaseFrame::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	do 
@@ -1165,7 +1165,7 @@ ERESULT CReaderBaseFrame::OnElementResized(D2D1_SIZE_F nNewSize)
 		if(mpSnapShot != NULL)
 			mpSnapShot->GetIterator()->SetSize(mpIterator->GetSize());
 	
-		////ºá¼áÆÁÏÂ×ó²à°´Å¥¿í¶È²»Ò»Ñù
+		////æ¨ªåšå±ä¸‹å·¦ä¾§æŒ‰é’®å®½åº¦ä¸ä¸€æ ·
 		//ULONG lulWidth = 600;
 		//if (nNewSize.width > nNewSize.height)
 		//	lulWidth = 600;
@@ -1202,7 +1202,7 @@ ERESULT CReaderBaseFrame::OnElementResized(D2D1_SIZE_F nNewSize)
 }
 
 
-//ÉèÖÃ´ò¿ªÎÄ¼ş´°¿ÚµÄÎ»ÖÃ
+//è®¾ç½®æ‰“å¼€æ–‡ä»¶çª—å£çš„ä½ç½®
 void CReaderBaseFrame::SetOpenFilePos(void)
 {
 	if (mpFileOpenDlg != NULL)
@@ -1227,7 +1227,7 @@ void CReaderBaseFrame::SetOpenFilePos(void)
 
 }
 
-//ÉèÖÃÒ³ÂëÌø×ª´°¿ÚµÄÎ»ÖÃ
+//è®¾ç½®é¡µç è·³è½¬çª—å£çš„ä½ç½®
 void CReaderBaseFrame::SetJumpPagePos(void)
 {
 	if (mpJumpPage != NULL)
@@ -1252,7 +1252,7 @@ void CReaderBaseFrame::SetJumpPagePos(void)
 
 }
 
-//»ñÈ¡ÎÄ¼ş´óĞ¡
+//è·å–æ–‡ä»¶å¤§å°
 ULONG CReaderBaseFrame::GetFileSize(wchar_t* npszFilePath)
 {
 	ULONG lulRet = 1;
@@ -1278,7 +1278,7 @@ ULONG CReaderBaseFrame::GetFileSize(wchar_t* npszFilePath)
 	return lulRet;
 }
 
-//³õÊ¼»¯
+//åˆå§‹åŒ–
 void CReaderBaseFrame::Init(void)
 {
 	DWORD ldwRet = 0, ldwLen = 0;;
@@ -1292,7 +1292,7 @@ void CReaderBaseFrame::Init(void)
 		ldwRet = RegOpenKeyEx(HKEY_CURRENT_USER, L"SOFTWARE\\Lenovo\\Eink-PdfReader", 0, KEY_ALL_ACCESS | KEY_WOW64_64KEY, &lhKey);
 		if (ldwRet == ERROR_SUCCESS)
 		{
-			//»ñÈ¡ÀúÊ·¼ÇÂ¼
+			//è·å–å†å²è®°å½•
 			for (int i=0;i<RBF_HISTROY_MAX; i++)
 			{
 				swprintf_s(lszText, MAX_PATH, L"history%d", i);
@@ -1310,7 +1310,7 @@ void CReaderBaseFrame::Init(void)
 
 		if (mdHistroyPath.Size() > 0)
 		{
-			//ÉÏ´Î¿´µ½µÚ¼¸Ò³ÁË
+			//ä¸Šæ¬¡çœ‹åˆ°ç¬¬å‡ é¡µäº†
 			ldwLen = sizeof(DWORD);
 			DWORD ldwPageNumber = 1;
 			RegQueryValueEx(lhKey, RbF_REG_PAGE_NUMBER, NULL, NULL, (BYTE*)&ldwPageNumber, &ldwLen);
@@ -1320,17 +1320,17 @@ void CReaderBaseFrame::Init(void)
 			DWORD ldwPageContent2 = 0;
 			RegQueryValueEx(lhKey, RbF_REG_PAGE_CONTENT2, NULL, NULL, (BYTE*)&ldwPageContent2, &ldwLen);
 
-			//ÉÏ´ÎÉèÖÃµÄtxt×ÖºÅ
+			//ä¸Šæ¬¡è®¾ç½®çš„txtå­—å·
 			mdwFontsizeIndex = 1;
 			RegQueryValueEx(lhKey, RbF_REG_TXT_FONT_SIZE_INDEX, NULL, NULL, (BYTE*)&mdwFontsizeIndex, &ldwLen);
 			if (mdwFontsizeIndex > ZCT_FONTSIZE_LEVEL || mdwFontsizeIndex < 0)
 				mdwFontsizeIndex = 1;
 
-			//ËµÃ÷´ò¿ª¹ıÎÄ¼ş,»Ö¸´ÉÏ´Î´ò¿ª×´Ì¬
+			//è¯´æ˜æ‰“å¼€è¿‡æ–‡ä»¶,æ¢å¤ä¸Šæ¬¡æ‰“å¼€çŠ¶æ€
 			mpPdfPicture->SetFontSize(mdwFontSizeArray[mdwFontsizeIndex]);
 			if (GetFileAttributes(mdHistroyPath.GetEntry(0)) == INVALID_FILE_ATTRIBUTES)
 			{
-				//ÎÄ¼ş²»´æÔÚÁË
+				//æ–‡ä»¶ä¸å­˜åœ¨äº†
 				CExMessage::PostMessage(mpIterator, mpIterator, EEVT_ER_OPEN_FILE, CExMessage::DataInvalid);
 				break;
 			}
@@ -1338,7 +1338,7 @@ void CReaderBaseFrame::Init(void)
 			CopyFileToTemp(mdHistroyPath.GetEntry(0), mszTempFile, MAX_PATH);
 			
 
-			//ÎÄ¼şÃû
+			//æ–‡ä»¶å
 			wchar_t* lpszFileName = wcsrchr(mdHistroyPath.GetEntry(0), L'\\');
 			if (lpszFileName == NULL)
 				lpszFileName = mdHistroyPath.GetEntry(0);
@@ -1361,14 +1361,14 @@ void CReaderBaseFrame::Init(void)
 			{
 				if (mbIsTxt == false || GetFileSize(mdHistroyPath.GetEntry(0)) > 0)
 				{
-					//´ò¿ªÊ§°ÜÁË£¬¿ÉÄÜÎÄ¼ş²»´æÔÚÁË
+					//æ‰“å¼€å¤±è´¥äº†ï¼Œå¯èƒ½æ–‡ä»¶ä¸å­˜åœ¨äº†
 					mszSrcFile[0] = UNICODE_NULL;
 					CExMessage::PostMessage(mpIterator, mpIterator, EEVT_ER_OPEN_FILE, CExMessage::DataInvalid);
 					break;
 				}
 			}
 
-			//ÊÇ·ñË«ÆÁ
+			//æ˜¯å¦åŒå±
 			ldwLen = sizeof(DWORD);
 			RegQueryValueEx(lhKey, RbF_REG_DOUBLE_SCREEN, NULL, NULL, (BYTE*)&ldwValue, &ldwLen);
 			mpPdfPicture->EnableDuopageView(ldwValue==0?false:true);
@@ -1387,14 +1387,14 @@ void CReaderBaseFrame::Init(void)
 				mpPdfPicture->EnableDuopageView(false);
 			}
 
-			//²»ÄÜ±ä»»Õâ¸ö´úÂëºÍÉÏÃæ´úÂëµÄÎ»ÖÃ£¬ÇĞ¼Ç
+			//ä¸èƒ½å˜æ¢è¿™ä¸ªä»£ç å’Œä¸Šé¢ä»£ç çš„ä½ç½®ï¼Œåˆ‡è®°
 			if (ldwPageNumber > 1 && ldwPageContent == 0 && ldwPageContent2 == 0)
 			{
 				mpPdfPicture->GoToPage(ldwPageNumber);
 			}
 			else
 			{
-				//Ö»ÓĞtxt¸ñÊ½ÎÄ¼ş²ÅÊÊÓÃÓÚÕâÖÖ·½Ê½
+				//åªæœ‰txtæ ¼å¼æ–‡ä»¶æ‰é€‚ç”¨äºè¿™ç§æ–¹å¼
 				mpPdfPicture->GoToPage((IEdPage_ptr)NULL);
 			}
 
@@ -1403,7 +1403,7 @@ void CReaderBaseFrame::Init(void)
 		}
 		else
 		{
-			//ËµÃ÷ÊÇµÚÒ»´Î´ò¿ª£¬Ö±½Óµ¯³ö´ò¿ªÎÄ¼ş¿ò£¬ÆäËüµÄ¾Í²»ĞèÒª³õÊ¼»¯ÁË
+			//è¯´æ˜æ˜¯ç¬¬ä¸€æ¬¡æ‰“å¼€ï¼Œç›´æ¥å¼¹å‡ºæ‰“å¼€æ–‡ä»¶æ¡†ï¼Œå…¶å®ƒçš„å°±ä¸éœ€è¦åˆå§‹åŒ–äº†
 			CExMessage::PostMessage(mpIterator,mpIterator, EEVT_ER_OPEN_FILE, CExMessage::DataInvalid);
 			break;
 		}
@@ -1411,22 +1411,22 @@ void CReaderBaseFrame::Init(void)
 	} while (false);
 }
 
-ERESULT __stdcall CReaderBaseFrame::EinkUpdating(ULONGLONG nxNumber, CReaderBaseFrame* npThis)	// nuNumberÊÇ¸üĞÂĞòºÅ£¬Ã¿´Î¸üĞÂ¼ÓÒ»£¬´ïµ½×î´óÖµºó»Øµ½Áã
+ERESULT __stdcall CReaderBaseFrame::EinkUpdating(ULONGLONG nxNumber, CReaderBaseFrame* npThis)	// nuNumberæ˜¯æ›´æ–°åºå·ï¼Œæ¯æ¬¡æ›´æ–°åŠ ä¸€ï¼Œè¾¾åˆ°æœ€å¤§å€¼åå›åˆ°é›¶
 {
 	do 
 	{
 		if (npThis->mbIsSetPartial == false)
 		{
 			//npThis->mbIsSetPartial = true;
-			break; //´ËÊ±²»Òª¹Ø±Õpartial,ÕıÔÚ´¦ÓÚ½çÃæÆµ·±±ä»¯½×¶Î
+			break; //æ­¤æ—¶ä¸è¦å…³é—­partial,æ­£åœ¨å¤„äºç•Œé¢é¢‘ç¹å˜åŒ–é˜¶æ®µ
 		}
 			
 
 		ULONG luCrtTick = GetTickCount();
 
-		if ((nxNumber - npThis->mxLastGcUiNumber >= 10 && luCrtTick - npThis->muLastGcTick > 1000*5) || luCrtTick - npThis->muLastGcTick > 1000 * 60 * 5)	// Ê®Ö¡»òÕßÎå·ÖÖÓ
+		if ((nxNumber - npThis->mxLastGcUiNumber >= 10 && luCrtTick - npThis->muLastGcTick > 1000*5) || luCrtTick - npThis->muLastGcTick > 1000 * 60 * 5)	// åå¸§æˆ–è€…äº”åˆ†é’Ÿ
 		{
-			// ÉèÖÃ½øÈëGCÄ£Ê½ ???niu
+			// è®¾ç½®è¿›å…¥GCæ¨¡å¼ ???niu
 			EinkuiGetSystem()->ClearEinkBuffer();
 			EiSetPartialUpdate(FALSE);
 
@@ -1438,7 +1438,7 @@ ERESULT __stdcall CReaderBaseFrame::EinkUpdating(ULONGLONG nxNumber, CReaderBase
 		{
 			if (npThis->mbGcMode != FALSE)
 			{
-				// ÉèÖÃÍË³öGCÄ£Ê½ ???niu
+				// è®¾ç½®é€€å‡ºGCæ¨¡å¼ ???niu
 				EiSetPartialUpdate(TRUE);
 
 				npThis->mbGcMode = false;

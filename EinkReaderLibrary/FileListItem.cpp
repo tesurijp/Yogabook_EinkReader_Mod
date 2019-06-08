@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -24,7 +24,7 @@ CFileListItem::~CFileListItem(void)
 	delete mpszFilePath;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CFileListItem::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -46,9 +46,9 @@ ERESULT CFileListItem::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 ULONG CFileListItem::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -57,15 +57,15 @@ ULONG CFileListItem::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
 		do
 		{
-			//»ñÈ¡¶àÓïÑÔ×Ö·û´®
-			//ÎªÁË·­Òë·½±ã£¬×Ö·û´®´æ·ÅÔÚroot/string
+			//è·å–å¤šè¯­è¨€å­—ç¬¦ä¸²
+			//ä¸ºäº†ç¿»è¯‘æ–¹ä¾¿ï¼Œå­—ç¬¦ä¸²å­˜æ”¾åœ¨root/string
 			lpProfile = EinkuiGetSystem()->GetCurrentWidget()->GetDefaultFactory()->GetTempleteFile();
 			ICfKey* lpCfKey = NULL;
 			if (lpProfile != NULL)
@@ -80,7 +80,7 @@ ULONG CFileListItem::InitOnCreate(
 
 		
 
-		//»ñÈ¡¶ÔÏñ¾ä±ú
+		//è·å–å¯¹åƒå¥æŸ„
 		mpIterFolderIcon = mpIterator->GetSubElementByID(1);
 		BREAK_ON_NULL(mpIterFolderIcon);
 
@@ -103,21 +103,21 @@ ULONG CFileListItem::InitOnCreate(
 	CMM_SAFE_RELEASE(lpSubKey);
 	CMM_SAFE_RELEASE(lpProfile);
 
-	// ÏòÏµÍ³×¢²áĞèÒªÊÕµ½µÄÏûÏ¢
+	// å‘ç³»ç»Ÿæ³¨å†Œéœ€è¦æ”¶åˆ°çš„æ¶ˆæ¯
 	return leResult;
 }
 
-//ÉèÖÃÂ·¾¶
+//è®¾ç½®è·¯å¾„
 void CFileListItem::SetPath(wchar_t* npszPath, wchar_t* npszDisplayName)
 {
 	do 
 	{
 		BREAK_ON_NULL(npszPath);
 
-		//Ê×ÏÈ³¢ÊÔ»ñÈ¡ÎÄ¼şÊôĞÔ
+		//é¦–å…ˆå°è¯•è·å–æ–‡ä»¶å±æ€§
 		if ((GetFileAttributes(npszPath)&FILE_ATTRIBUTE_DIRECTORY) == false)
 		{
-			//ÊÇÎÄ¼ş
+			//æ˜¯æ–‡ä»¶
 			mpIterFolderIcon->SetVisible(false);
 			mpIterPdfIcon->SetVisible(true);
 
@@ -125,7 +125,7 @@ void CFileListItem::SetPath(wchar_t* npszPath, wchar_t* npszDisplayName)
 		}
 		else
 		{
-			//ÊÇÎÄ¼ş¼Ğ
+			//æ˜¯æ–‡ä»¶å¤¹
 			mpIterFolderIcon->SetVisible(true);
 			mpIterPdfIcon->SetVisible(false);
 
@@ -137,7 +137,7 @@ void CFileListItem::SetPath(wchar_t* npszPath, wchar_t* npszDisplayName)
 	} while (false);
 }
 
-//ÊÇÎÄ¼şµÄ´¦Àí
+//æ˜¯æ–‡ä»¶çš„å¤„ç†
 void CFileListItem::ProcFile(wchar_t* npszPath)
 {
 	do 
@@ -160,7 +160,7 @@ void CFileListItem::ProcFile(wchar_t* npszPath)
 	} while (false);
 }
 
-//»ñÈ¡Ä¿Â¼ÏÂÖ¸¶¨ÎÄ¼ş¼°Ä¿Â¼¸öÊı
+//è·å–ç›®å½•ä¸‹æŒ‡å®šæ–‡ä»¶åŠç›®å½•ä¸ªæ•°
 DWORD CFileListItem::GetFolderCount(wchar_t* npszPath, wchar_t* npszName)
 {
 	DWORD ldwCount = 0;
@@ -187,33 +187,33 @@ DWORD CFileListItem::GetFolderCount(wchar_t* npszPath, wchar_t* npszName)
 
 		while (bContinue != false)
 		{
-			//bIsDotsÎªÕæ±íÊ¾ÊÇ.»ò..
+			//bIsDotsä¸ºçœŸè¡¨ç¤ºæ˜¯.æˆ–..
 			bool lbIsDots = (wcscmp(FindFileData.cFileName, L".") == 0 || wcscmp(FindFileData.cFileName, L"..") == 0);
 
 			if (lbIsDots == false)
 			{
 				if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
 				{
-					//ÊÇÄ¿Â¼
+					//æ˜¯ç›®å½•
 					wchar_t* lpPath = new wchar_t[MAX_PATH];
 					wcscpy_s(lpPath, MAX_PATH, npszPath);
 					wcscat_s(lpPath, MAX_PATH, L"\\");
 					wcscat_s(lpPath, MAX_PATH, FindFileData.cFileName);
-					//ÅĞ¶ÏÒ»ÏÂ£¬Èç¹ûÊÇÒş²Ø»òÏµÍ³ÎÄ¼ş¼Ğ£¬¾Í²»Õ¹Ê¾ÁË
+					//åˆ¤æ–­ä¸€ä¸‹ï¼Œå¦‚æœæ˜¯éšè—æˆ–ç³»ç»Ÿæ–‡ä»¶å¤¹ï¼Œå°±ä¸å±•ç¤ºäº†
 					if ((GetFileAttributes(lpPath)&FILE_ATTRIBUTE_HIDDEN) == 0 && (GetFileAttributes(lpPath)&FILE_ATTRIBUTE_SYSTEM) == 0)
 						if (npszName == NULL)
 							ldwCount++;
 				}
 				else
 				{
-					//ÊÇÎÄ¼ş,npszName=null±íÃ÷Ö»ÏëÒªÄ¿Â¼µÄÊıÁ¿
+					//æ˜¯æ–‡ä»¶,npszName=nullè¡¨æ˜åªæƒ³è¦ç›®å½•çš„æ•°é‡
 					if (npszName != NULL)
 						ldwCount++;
 
 				}
 			}
 
-			//Ñ°ÕÒÏÂÒ»ÎÄ¼ş
+			//å¯»æ‰¾ä¸‹ä¸€æ–‡ä»¶
 			bContinue = FindNextFile(hFindFile, &FindFileData);
 
 		}
@@ -225,20 +225,20 @@ DWORD CFileListItem::GetFolderCount(wchar_t* npszPath, wchar_t* npszName)
 	return ldwCount;
 }
 
-//ÊÇÎÄ¼ş¼ĞµÄ´¦Àí
+//æ˜¯æ–‡ä»¶å¤¹çš„å¤„ç†
 void CFileListItem::ProcFolder(wchar_t* npszPath, wchar_t* npszDisplayName)
 {
 	do
 	{
 		BREAK_ON_NULL(npszPath);
 
-		//»ñÈ¡Ê±¼ä
+		//è·å–æ—¶é—´
 		WIN32_FILE_ATTRIBUTE_DATA ldData;
 		GetFileAttributesEx(npszPath, GetFileExInfoStandard, &ldData);
 		SYSTEMTIME ldSystime;
 		FileTimeToSystemTime(&ldData.ftLastWriteTime, &ldSystime);
 
-		//»ñÈ¡ÎÄ¼şÊıÄ¿£¬Ö»¼ÆËãÄ¿Â¼¼°pdfÎÄ¼ş
+		//è·å–æ–‡ä»¶æ•°ç›®ï¼Œåªè®¡ç®—ç›®å½•åŠpdfæ–‡ä»¶
 		DWORD ldwCount = GetFolderCount(npszPath, NULL);
 		ldwCount += GetFolderCount(npszPath, L"\\*.pdf");
 		ldwCount += GetFolderCount(npszPath, L"\\*.epub");
@@ -257,7 +257,7 @@ void CFileListItem::ProcFolder(wchar_t* npszPath, wchar_t* npszDisplayName)
 		else
 			lpszFileName = lpszFileName + 1;
 
-		//Èç¹ûÖ¸¶¨ÁËÏÔÊ¾Ãû³Æ¾ÍÊ¹ÓÃÖ¸¶¨µÄ
+		//å¦‚æœæŒ‡å®šäº†æ˜¾ç¤ºåç§°å°±ä½¿ç”¨æŒ‡å®šçš„
 		if (npszDisplayName != NULL)
 			lpszFileName = npszDisplayName;
 		CExMessage::SendMessageWithText(mpIterName, mpIterator, EACT_LABEL_SET_TEXT, lpszFileName, NULL, 0);
@@ -266,7 +266,7 @@ void CFileListItem::ProcFolder(wchar_t* npszPath, wchar_t* npszDisplayName)
 	} while (false);
 }
 
-//°´Å¥µ¥»÷ÊÂ¼ş
+//æŒ‰é’®å•å‡»äº‹ä»¶
 ERESULT CFileListItem::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -278,10 +278,10 @@ ERESULT CFileListItem::OnCtlButtonClick(IEinkuiIterator* npSender)
 		{
 		case FLI_BT:
 		{
-			//×Ô¼º±»µã»÷
+			//è‡ªå·±è¢«ç‚¹å‡»
 			if (GetTickCount() - mdwClickTicount > 400)
 			{
-				//ÎªÁË·ÀÖ¹Ë«»÷
+				//ä¸ºäº†é˜²æ­¢åŒå‡»
 				mdwClickTicount = GetTickCount();
 				CExMessage::PostMessageWithText(mpIterator->GetParent(), mpIterator, EEVT_ER_LIST_CLICK, mpszFilePath);
 			}
@@ -300,7 +300,7 @@ ERESULT CFileListItem::OnCtlButtonClick(IEinkuiIterator* npSender)
 }
 
 
-//ÏûÏ¢´¦Àíº¯Êı
+//æ¶ˆæ¯å¤„ç†å‡½æ•°
 //ERESULT CFileListItem::ParseMessage(IEinkuiMessage* npMsg)
 //{
 //	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
@@ -314,13 +314,13 @@ ERESULT CFileListItem::OnCtlButtonClick(IEinkuiIterator* npSender)
 //
 //	if (luResult == ERESULT_NOT_SET)
 //	{
-//		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+//		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 //	}
 //
 //	return luResult;
 //}
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CFileListItem::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
@@ -328,7 +328,7 @@ void CFileListItem::OnTimer(
 
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CFileListItem::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	//CExMessage::SendMessage(mpIterBtFull, mpIterator, EACT_BUTTON_SET_ACTION_RECT, nNewSize);
@@ -340,7 +340,7 @@ ERESULT CFileListItem::OnElementResized(D2D1_SIZE_F nNewSize)
 }
 
 
-//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òş²Ø¡¿·¢Éú¸Ä±ä
+//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 ERESULT CFileListItem::OnElementShow(bool nbIsShow)
 {
 	//EiSetHomebarStatus(nbIsShow == false ? GI_HOMEBAR_SHOW : GI_HOMEBAR_HIDE);

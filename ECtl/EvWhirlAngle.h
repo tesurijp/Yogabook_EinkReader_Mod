@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -11,73 +11,73 @@ class CEvWhirlAngleImp:
 	friend CXuiElement<CEvWhirlAngleImp,GET_BUILTIN_NAME(WhirlAngle)>;
 public:
 	ULONG InitOnCreate(
-		IN IEinkuiIterator* npParent = NULL,	// ¸¸¶ÔÏóÖ¸Õë
-		IN ICfKey* npTemplete = NULL,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-		IN ULONG nuEID=MAXULONG32	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+		IN IEinkuiIterator* npParent = NULL,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+		IN ICfKey* npTemplete = NULL,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+		IN ULONG nuEID=MAXULONG32	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 		);
 
 protected:
 	CEvWhirlAngleImp(void);
 	~CEvWhirlAngleImp(void);
 
-	//»æÖÆÏûÏ¢
+	//ç»˜åˆ¶æ¶ˆæ¯
 	virtual ERESULT OnPaint(IEinkuiPaintBoard* npPaintBoard);
 
 	ERESULT ParseMessage(IEinkuiMessage* npMsg);
 
-	// Êó±êÂäµã¼ì²â
+	// é¼ æ ‡è½ç‚¹æ£€æµ‹
 	virtual ERESULT OnMouseOwnerTest(const D2D1_POINT_2F& rPoint);
 
 	//virtual ERESULT OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo);
 
-	//ÔªËØÍÏ×§
+	//å…ƒç´ æ‹–æ‹½
 	virtual ERESULT OnDragging(const STMS_DRAGGING_ELE* npInfo);
 
-	//ÍÏ×§¿ªÊ¼
+	//æ‹–æ‹½å¼€å§‹
 	virtual ERESULT OnDragBegin(const STMS_DRAGGING_ELE* npInfo);
 
-	//ÍÏ×§½áÊø
+	//æ‹–æ‹½ç»“æŸ
 	virtual ERESULT OnDragEnd(const STMS_DRAGGING_ELE* npInfo);
 
-	//Êó±ê½øÈë»òÀë¿ª
+	//é¼ æ ‡è¿›å…¥æˆ–ç¦»å¼€
 	virtual void OnMouseFocus(PSTEMS_STATE_CHANGE npState);
 
-	//½ûÓÃ»òÆôÓÃ
+	//ç¦ç”¨æˆ–å¯ç”¨
 	virtual ERESULT OnElementEnable(bool nbIsEnable);
 
-	// ÃèÊö£º
-	//		¸ü¸ÄÍ¼Æ¬Ö¡Êı
+	// æè¿°ï¼š
+	//		æ›´æ”¹å›¾ç‰‡å¸§æ•°
 	void SetPicIndex(
-		IN size_t niIndex			// Ë÷Òı
+		IN size_t niIndex			// ç´¢å¼•
 		);
 
-	// ÃèÊö£º
-	//		Í¨¹ıµ±Ç°Î»ÖÃ£¬¼ÆËãĞı×ªÁËµÄ»¡¶ÈÖµ
+	// æè¿°ï¼š
+	//		é€šè¿‡å½“å‰ä½ç½®ï¼Œè®¡ç®—æ—‹è½¬äº†çš„å¼§åº¦å€¼
 	double GetRadian(
 		IN D2D1_POINT_2F nfCrtPoint
 		);
 
-	// ÃèÊö£º
-	//		»ñÈ¡Á½µãÖ®¼äµÄ¾àÀë
+	// æè¿°ï¼š
+	//		è·å–ä¸¤ç‚¹ä¹‹é—´çš„è·ç¦»
 	double GetDistance(
 		IN D2D1_POINT_2F ndfPointA,
 		IN D2D1_POINT_2F ndfPointB
 		);
 
-	// ÃèÊö£º
-	//		¸üĞÂĞı×ªµãÎ»ÖÃ
+	// æè¿°ï¼š
+	//		æ›´æ–°æ—‹è½¬ç‚¹ä½ç½®
 	void UpdateDotPosition(
 		IN double ndbRadian
 		);
 
-	// ÃèÊö£º
-	//		»¡¶È×ª»»³É½Ç¶È
+	// æè¿°ï¼š
+	//		å¼§åº¦è½¬æ¢æˆè§’åº¦
 	double RadianToAngle(
 		IN double ndbRandian
 		);
 
-	// ÃèÊö£º
-	//		½Ç¶È×ª»»³É»¡¶È
+	// æè¿°ï¼š
+	//		è§’åº¦è½¬æ¢æˆå¼§åº¦
 	double AngleToRadian(
 		IN double ndbAngle
 		);
@@ -85,13 +85,13 @@ protected:
 private:
 	void LoadResource();
 
-	IEinkuiIterator* mpoWhirlBg;			// Ğı×ª±³¾°
-	IEinkuiIterator* mpoWhirlDot;			// Ğı×ªµã
+	IEinkuiIterator* mpoWhirlBg;			// æ—‹è½¬èƒŒæ™¯
+	IEinkuiIterator* mpoWhirlDot;			// æ—‹è½¬ç‚¹
 
-	D2D1_POINT_2F mdWhirlCenter;		// Ğı×ªÖĞĞÄ	
-	D2D1_POINT_2F mdDotPoint;			// Ğı×ªµã×ø±ê£¨Ä¬ÈÏÎªĞı×ªµãµÄÖĞĞÄ×ø±ê£©
+	D2D1_POINT_2F mdWhirlCenter;		// æ—‹è½¬ä¸­å¿ƒ	
+	D2D1_POINT_2F mdDotPoint;			// æ—‹è½¬ç‚¹åæ ‡ï¼ˆé»˜è®¤ä¸ºæ—‹è½¬ç‚¹çš„ä¸­å¿ƒåæ ‡ï¼‰
 
-	double mdbRadian;						// µ±Ç°Ğı×ªµÄ»¡¶È
+	double mdbRadian;						// å½“å‰æ—‹è½¬çš„å¼§åº¦
 };
 
 #define CONST_VALUE_PI					3.141592
@@ -100,10 +100,10 @@ private:
 #define ID_OF_SUB_WHIRL_BG				1
 #define ID_OF_SUB_WHIRL_DOT				2
 
-#define TF_ID_WHIRLANGLE_WHIRL_CENTER_X			L"WhirlCenterX"			// Ğı×ªÖĞĞÄX
-#define TF_ID_WHIRLANGLE_WHIRL_CENTER_Y			L"WhirlCenterY"			// Ğı×ªÖĞĞÄY
-#define TF_ID_WHIRLANGLE_DOT_POINT_X			L"DotPointX"			// Ğı×ªµãX
-#define TF_ID_WHIRLANGLE_DOT_POINT_Y			L"DotPointY"			// Ğı×ªµãY
+#define TF_ID_WHIRLANGLE_WHIRL_CENTER_X			L"WhirlCenterX"			// æ—‹è½¬ä¸­å¿ƒX
+#define TF_ID_WHIRLANGLE_WHIRL_CENTER_Y			L"WhirlCenterY"			// æ—‹è½¬ä¸­å¿ƒY
+#define TF_ID_WHIRLANGLE_DOT_POINT_X			L"DotPointX"			// æ—‹è½¬ç‚¹X
+#define TF_ID_WHIRLANGLE_DOT_POINT_Y			L"DotPointY"			// æ—‹è½¬ç‚¹Y
 
 
 

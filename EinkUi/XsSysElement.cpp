@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -17,18 +17,18 @@ const wchar_t* CEleMgrProxy::GetType(void)
 	return GetObjectName();
 }
 
-bool CEleMgrProxy::GlobleVerification(const wchar_t* nswType)	// ÑéÖ¤´Ë¶ÔÏóÊÇ·ñÊÇnswTypeÖ¸¶¨µÄÀàĞÍ
+bool CEleMgrProxy::GlobleVerification(const wchar_t* nswType)	// éªŒè¯æ­¤å¯¹è±¡æ˜¯å¦æ˜¯nswTypeæŒ‡å®šçš„ç±»å‹
 {
 	return (_wcsicmp(nswType,GetObjectName())==0);
 }
 
-// Ä¬ÈÏÏûÏ¢Èë¿Úº¯Êı£¬ÓÃÓÚ½ÓÊÕÊäÈëÏûÏ¢
+// é»˜è®¤æ¶ˆæ¯å…¥å£å‡½æ•°ï¼Œç”¨äºæ¥æ”¶è¾“å…¥æ¶ˆæ¯
 ERESULT __stdcall CEleMgrProxy::MessageReceiver(IEinkuiMessage* npMsg)
 {
 	return CEinkuiSystem::gpXuiSystem->SystemMessageReceiver(npMsg);
 }
 
-// »ñµÃ±¾ÔªËØµÄµü´úÆ÷½Ó¿Ú
+// è·å¾—æœ¬å…ƒç´ çš„è¿­ä»£å™¨æ¥å£
 IEinkuiIterator* __stdcall CEleMgrProxy::GetIterator(void)
 {
 	return NULL;

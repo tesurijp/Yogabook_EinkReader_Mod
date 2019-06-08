@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -10,7 +10,7 @@ modify:
 add the loading progress callback function
 */
 
-#include "EbookEngine.cpp"	// ÓÉÓÚÕâ¸ö¿â½«Àà¶¨Òå·ÅÔÚÁËcppÖÐ£¬ÎªÁËÖØÔØ²¿·ÖÀà£¬Ö»ºÃ¼ÓÔÚÕâÀïÁË
+#include "EbookEngine.cpp"	// ç”±äºŽè¿™ä¸ªåº“å°†ç±»å®šä¹‰æ”¾åœ¨äº†cppä¸­ï¼Œä¸ºäº†é‡è½½éƒ¨åˆ†ç±»ï¼Œåªå¥½åŠ åœ¨è¿™é‡Œäº†
 // utils
 #include "BaseUtil.h"
 // rendering engines
@@ -24,8 +24,8 @@ add the loading progress callback function
 
 /*
 	Ax Jun.6,2019
-	Ö§³ÖÒì²½×°ÈëÍ¬Ê±´ò¿ªµÄ½â¾öË¼Â·£¨ÉÐÎ´ÊµÏÖ£©£º
-		EpubFormatOverride::FormatAllPagesº¯ÊýÖ±½Ó·ÃÎÊEpubOverrideÀàµÄpages¶ÔÏó£¬Ìí¼ÓÒ³½øÈëÆäÖÐ¡£Ö÷Òª×öºÃ¶Ôpage¶ÔÏó·ÃÎÊÊ±µÄÊý¾Ý²¢·¢·ÃÎÊ³åÍ»
+	æ”¯æŒå¼‚æ­¥è£…å…¥åŒæ—¶æ‰“å¼€çš„è§£å†³æ€è·¯ï¼ˆå°šæœªå®žçŽ°ï¼‰ï¼š
+		EpubFormatOverride::FormatAllPageså‡½æ•°ç›´æŽ¥è®¿é—®EpubOverrideç±»çš„pageså¯¹è±¡ï¼Œæ·»åŠ é¡µè¿›å…¥å…¶ä¸­ã€‚ä¸»è¦åšå¥½å¯¹pageå¯¹è±¡è®¿é—®æ—¶çš„æ•°æ®å¹¶å‘è®¿é—®å†²çª
 */
 
 
@@ -37,7 +37,7 @@ namespace EngineLoad {
 
 	static const WCHAR *GetDefaultFontName()
 	{
-		return gDefaultFontName ? gDefaultFontName : L"Î¢ÈíÑÅºÚ";
+		return gDefaultFontName ? gDefaultFontName : L"å¾®è½¯é›…é»‘";
 	}
 
 
@@ -60,7 +60,7 @@ namespace EngineLoad {
 			for (HtmlPage *pd = Next(skipEmptyPages); pd; pd = Next(skipEmptyPages)) {
 				pages->Append(pd);
 
-				//if(stepLoad <= 1) //ÎªÁËÐ§ÂÊ£¬ÔÝÊ±Ö»Í¨ÖªÒ»´Î ????niu ÎªÊ²Ã´µ÷ÓÃÒ»´Î³ÌÐò»á³ö´í£¿
+				//if(stepLoad <= 1) //ä¸ºäº†æ•ˆçŽ‡ï¼Œæš‚æ—¶åªé€šçŸ¥ä¸€æ¬¡ ????niu ä¸ºä»€ä¹ˆè°ƒç”¨ä¸€æ¬¡ç¨‹åºä¼šå‡ºé”™ï¼Ÿ
 					if(InvokeCallbackFunction(stepLoad++)==false)
 						break;//exit
 

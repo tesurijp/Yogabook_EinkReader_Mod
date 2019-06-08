@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -6,7 +6,7 @@
 #include "FileListItem.h"
 #include "cmmstruct.h"
 
-//´ò¿ªÎÄ¼ş¶Ô»°¿ò
+//æ‰“å¼€æ–‡ä»¶å¯¹è¯æ¡†
 
 DECLARE_BUILTIN_NAME(FileOpenDlg)
 
@@ -14,20 +14,20 @@ class CFileOpenDlg:
 	public CXuiElement<CFileOpenDlg,GET_BUILTIN_NAME(FileOpenDlg)>
 {
 public:
-	// Èç¹û½«¹¹Ôìº¯ÊıÉè¶¨Îªprotected£¬¾ÍĞèÒª¼ÓÕâ¾ä»°; ·ñÔò£¬²»ĞèÒªÏÂÃæÕâ¾ä
+	// å¦‚æœå°†æ„é€ å‡½æ•°è®¾å®šä¸ºprotectedï¼Œå°±éœ€è¦åŠ è¿™å¥è¯; å¦åˆ™ï¼Œä¸éœ€è¦ä¸‹é¢è¿™å¥
 	friend CXuiElement<CFileOpenDlg,GET_BUILTIN_NAME(FileOpenDlg)>;
 
-	//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+	//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 	virtual ERESULT OnElementCreate(IEinkuiIterator* npIterator);
-	// ÅÉÉú±¾Àà¼°ÅÉÉú±¾º¯ÊıÊ±£¬ÇëÌØ±ğ×¢Òâ!!! Ò»¶¨ÒªÊ×ÏÈµ÷ÓÃ»ùÀàµÄ·½·¨
-	// ±¾º¯Êı½öÓÃÓÚ½¨Á¢×ÓÔªËØ¶ÔÏó¡¢³õÊ¼»¯×ÔÉíÊı¾İ£¨Î»ÖÃ¡¢´óĞ¡¡¢±³¾°Í¼µÈ£©
+	// æ´¾ç”Ÿæœ¬ç±»åŠæ´¾ç”Ÿæœ¬å‡½æ•°æ—¶ï¼Œè¯·ç‰¹åˆ«æ³¨æ„!!! ä¸€å®šè¦é¦–å…ˆè°ƒç”¨åŸºç±»çš„æ–¹æ³•
+	// æœ¬å‡½æ•°ä»…ç”¨äºå»ºç«‹å­å…ƒç´ å¯¹è±¡ã€åˆå§‹åŒ–è‡ªèº«æ•°æ®ï¼ˆä½ç½®ã€å¤§å°ã€èƒŒæ™¯å›¾ç­‰ï¼‰
 	ULONG InitOnCreate(
-		IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-		IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-		IN ULONG nuEID=MAXULONG32		// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃEUIÏµÍ³×Ô¶¯·ÖÅä
+		IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+		IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+		IN ULONG nuEID=MAXULONG32		// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨EUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 		);
 
-	//¶¨Ê±Æ÷
+	//å®šæ—¶å™¨
 	virtual void OnTimer(
 		PSTEMS_TIMER npStatus
 		);
@@ -36,9 +36,9 @@ public:
 	CFileOpenDlg();
 	~CFileOpenDlg(void);
 
-	// Ä£Ì¬ÏÔÊ¾¸Ã¶Ô»°¿ò
+	// æ¨¡æ€æ˜¾ç¤ºè¯¥å¯¹è¯æ¡†
 	void DoModal(bool nbIsEnableCancel = true);
-	//ÉèÖÃÀúÊ·¼ÇÂ¼
+	//è®¾ç½®å†å²è®°å½•
 	void SetHistoryList(cmmVector<wchar_t*>* npdHistroyPath);
 
 	void ExitModal();
@@ -46,11 +46,11 @@ public:
 protected:
 	
 
-	//ÏûÏ¢´¦Àíº¯Êı
+	//æ¶ˆæ¯å¤„ç†å‡½æ•°
 	virtual ERESULT ParseMessage(IEinkuiMessage* npMsg);
-	//°´Å¥µ¥»÷ÊÂ¼ş
+	//æŒ‰é’®å•å‡»äº‹ä»¶
 	virtual ERESULT OnCtlButtonClick(IEinkuiIterator* npSender);
-	//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+	//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 	virtual ERESULT OnElementResized(D2D1_SIZE_F nNewSize);
 	
 
@@ -59,43 +59,43 @@ private:
 	IEinkuiIterator* mpIteratorPre;
 	IEinkuiIterator* mpIteratorNext;
 	IEinkuiIterator* mpIteratorPage;
-	IEinkuiIterator* mpIteratorPath; //ÏÔÊ¾µ±Ç°Â·¾¶
-	IEinkuiIterator* mpIteratorImBack; //·µ»ØÉÏ¼¶µÄÍ¼±ê
-	IEinkuiIterator* mpIteratorBtBack; //·µ»ØÉÏÒ»¼¶
+	IEinkuiIterator* mpIteratorPath; //æ˜¾ç¤ºå½“å‰è·¯å¾„
+	IEinkuiIterator* mpIteratorImBack; //è¿”å›ä¸Šçº§çš„å›¾æ ‡
+	IEinkuiIterator* mpIteratorBtBack; //è¿”å›ä¸Šä¸€çº§
 
-	cmmVector<CFileListItem*> mdList; //´æ·Ålist¶ÔÏó
-	ULONG mulCurrentPage; //µ±Ç°ÏÔÊ¾Ò³Âë
-	ULONG mulMaxPage;	//×î´óÒ³Âë
-	wchar_t mszCurrentPath[MAX_PATH]; //µ±Ç°Â·¾¶
-	wchar_t mszDisplayPath[MAX_PATH]; //ÓÃÓÚÔÚÉÏ·½ÏÔÊ¾Â·¾¶
+	cmmVector<CFileListItem*> mdList; //å­˜æ”¾listå¯¹è±¡
+	ULONG mulCurrentPage; //å½“å‰æ˜¾ç¤ºé¡µç 
+	ULONG mulMaxPage;	//æœ€å¤§é¡µç 
+	wchar_t mszCurrentPath[MAX_PATH]; //å½“å‰è·¯å¾„
+	wchar_t mszDisplayPath[MAX_PATH]; //ç”¨äºåœ¨ä¸Šæ–¹æ˜¾ç¤ºè·¯å¾„
 
-	cmmVector<wchar_t*> mdFolderPathList; //´æ·ÅÄ³¸öÎÄ¼ş¼ĞÀïÃæËùÓĞ×ÓÎÄ¼ş¼Ğ
+	cmmVector<wchar_t*> mdFolderPathList; //å­˜æ”¾æŸä¸ªæ–‡ä»¶å¤¹é‡Œé¢æ‰€æœ‰å­æ–‡ä»¶å¤¹
 
-	cmmVector<wchar_t*>* mpdHistroyPath; //ÀúÊ·ÎÄ¼ş
-	cmmVector<ULONG> mdFolderLevel;//ÓÃÓÚ´æ·ÅÉÏ´Î½øÈëÄ¿Â¼Ê±µÄÒ³Âë
+	cmmVector<wchar_t*>* mpdHistroyPath; //å†å²æ–‡ä»¶
+	cmmVector<ULONG> mdFolderLevel;//ç”¨äºå­˜æ”¾ä¸Šæ¬¡è¿›å…¥ç›®å½•æ—¶çš„é¡µç 
 
-	//³õÊ¼»¯list,Ä¬ÈÏÏÔÊ¾¼¸¸ö³£ÓÃÎÄ¼ş¼Ğ¼°ÅÌ·û
+	//åˆå§‹åŒ–list,é»˜è®¤æ˜¾ç¤ºå‡ ä¸ªå¸¸ç”¨æ–‡ä»¶å¤¹åŠç›˜ç¬¦
 	void InitList(void);
-	//listÏî±»µã»÷
+	//listé¡¹è¢«ç‚¹å‡»
 	void ListClick(wchar_t* npszFilePath);
-	//½øÈëÎÄ¼ş¼Ğ
+	//è¿›å…¥æ–‡ä»¶å¤¹
 	void EnterFolder(wchar_t* npszPath,bool nbIsBack = false);
-	//»ñÈ¡Ä¿Â¼ÏÂÖ¸¶¨ÎÄ¼ş¼°Ä¿Â¼
+	//è·å–ç›®å½•ä¸‹æŒ‡å®šæ–‡ä»¶åŠç›®å½•
 	DWORD GetFolderPath(wchar_t* npszPath, wchar_t* npszName);
 
-	//Ìø×ªµ½Ö¸¶¨Ò³Ãæ
+	//è·³è½¬åˆ°æŒ‡å®šé¡µé¢
 	void SetPage(ULONG nulPage);
-	//ÉÏÒ»Ò³»òÏÂÒ»Ò³
+	//ä¸Šä¸€é¡µæˆ–ä¸‹ä¸€é¡µ
 	void NextPage(bool nbIsNext);
-	//·µ»ØÉÏÒ»¼¶Ä¿Â¼
+	//è¿”å›ä¸Šä¸€çº§ç›®å½•
 	void BackFolder(void);
-	//ÇåÀíÔ­À´µÄÂ·¾¶Êı¾İ
+	//æ¸…ç†åŸæ¥çš„è·¯å¾„æ•°æ®
 	void ClearFilePath(void);
-	//»ñÈ¡ÌØÊâÄ¿Â¼µÄ¶àÓïÑÔ×Ö·û´®
+	//è·å–ç‰¹æ®Šç›®å½•çš„å¤šè¯­è¨€å­—ç¬¦ä¸²
 	bool GetDisplayName(GUID niCSIDL, OUT wchar_t* npszName, IN int niLen);
 };
 
-#define FP_LIST_MAX 4	//LISTÒ»Ò³×î¶à¼¸¸ö¶ÔÏó
+#define FP_LIST_MAX 4	//LISTä¸€é¡µæœ€å¤šå‡ ä¸ªå¯¹è±¡
 
 #define FP_ID_BT_OPEN 1
 #define FP_ID_BT_CLOSE 1
@@ -103,8 +103,8 @@ private:
 #define FP_ID_BT_NEXT 4
 #define FP_ID_BT_Back 11
 
-#define FP_ID_GROUP_FILE 1  //ÎÄ¼ş
-#define FP_ID_GROUP_HISTORY 2 //ÀúÊ·¼ÇÂ¼
+#define FP_ID_GROUP_FILE 1  //æ–‡ä»¶
+#define FP_ID_GROUP_HISTORY 2 //å†å²è®°å½•
 
 #define FP_TIMER_ID_SHOW 1
 

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -6,7 +6,7 @@
 
 #include "cmmstruct.h"
 
-//Ò³ÂëÌø×ª¶Ô»°¿ò
+//é¡µç è·³è½¬å¯¹è¯æ¡†
 
 DECLARE_BUILTIN_NAME(JumpPage)
 
@@ -14,20 +14,20 @@ class CJumpPage:
 	public CXuiElement<CJumpPage,GET_BUILTIN_NAME(JumpPage)>
 {
 public:
-	// Èç¹û½«¹¹Ôìº¯ÊıÉè¶¨Îªprotected£¬¾ÍĞèÒª¼ÓÕâ¾ä»°; ·ñÔò£¬²»ĞèÒªÏÂÃæÕâ¾ä
+	// å¦‚æœå°†æ„é€ å‡½æ•°è®¾å®šä¸ºprotectedï¼Œå°±éœ€è¦åŠ è¿™å¥è¯; å¦åˆ™ï¼Œä¸éœ€è¦ä¸‹é¢è¿™å¥
 	friend CXuiElement<CJumpPage,GET_BUILTIN_NAME(JumpPage)>;
 
-	//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+	//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 	virtual ERESULT OnElementCreate(IEinkuiIterator* npIterator);
-	// ÅÉÉú±¾Àà¼°ÅÉÉú±¾º¯ÊıÊ±£¬ÇëÌØ±ğ×¢Òâ!!! Ò»¶¨ÒªÊ×ÏÈµ÷ÓÃ»ùÀàµÄ·½·¨
-	// ±¾º¯Êı½öÓÃÓÚ½¨Á¢×ÓÔªËØ¶ÔÏó¡¢³õÊ¼»¯×ÔÉíÊı¾İ£¨Î»ÖÃ¡¢´óĞ¡¡¢±³¾°Í¼µÈ£©
+	// æ´¾ç”Ÿæœ¬ç±»åŠæ´¾ç”Ÿæœ¬å‡½æ•°æ—¶ï¼Œè¯·ç‰¹åˆ«æ³¨æ„!!! ä¸€å®šè¦é¦–å…ˆè°ƒç”¨åŸºç±»çš„æ–¹æ³•
+	// æœ¬å‡½æ•°ä»…ç”¨äºå»ºç«‹å­å…ƒç´ å¯¹è±¡ã€åˆå§‹åŒ–è‡ªèº«æ•°æ®ï¼ˆä½ç½®ã€å¤§å°ã€èƒŒæ™¯å›¾ç­‰ï¼‰
 	ULONG InitOnCreate(
-		IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-		IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-		IN ULONG nuEID=MAXULONG32		// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃEUIÏµÍ³×Ô¶¯·ÖÅä
+		IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+		IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+		IN ULONG nuEID=MAXULONG32		// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨EUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 		);
 
-	//¶¨Ê±Æ÷
+	//å®šæ—¶å™¨
 	virtual void OnTimer(
 		PSTEMS_TIMER npStatus
 		);
@@ -36,42 +36,42 @@ public:
 	CJumpPage();
 	~CJumpPage(void);
 
-	// Ä£Ì¬ÏÔÊ¾¸Ã¶Ô»°¿ò
+	// æ¨¡æ€æ˜¾ç¤ºè¯¥å¯¹è¯æ¡†
 	void DoModal();
 
 	void ExitModal();
-	//ÉèÖÃµ±Ç°Ò³Âë
+	//è®¾ç½®å½“å‰é¡µç 
 	void SetCurrentPage(int niPage, int niMaxPage);
 
 protected:
 	
 
-	//ÏûÏ¢´¦Àíº¯Êı
+	//æ¶ˆæ¯å¤„ç†å‡½æ•°
 	virtual ERESULT ParseMessage(IEinkuiMessage* npMsg);
-	//°´Å¥µ¥»÷ÊÂ¼ş
+	//æŒ‰é’®å•å‡»äº‹ä»¶
 	virtual ERESULT OnCtlButtonClick(IEinkuiIterator* npSender);
-	//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+	//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 	virtual ERESULT OnElementResized(D2D1_SIZE_F nNewSize);
 	
 
 private:
 	IEinkuiIterator* mpIteratorClose;
 	IEinkuiIterator* mpIteratorOk;
-	IEinkuiIterator* mpIteratorBackspace; //É¾³ı°´Å¥
-	IEinkuiIterator* mpIteratorCurrentPage;//µ±Ç°Î»ÖÃ
-	IEinkuiIterator* mpIteratorPageMax; //ÊäÈëÒ³Âë
-	IEinkuiIterator* mpIteratorPageMaxText; //×î´óÒ³Âë·¶Î§
-	IEinkuiIterator* mpIteratorInput; //ÊäÈëµÄÒ³Âë
-	IEinkuiIterator* mpIteratorCur; //ÊäÈëÊ±ÉÁË¸µÄ¹â±ê
-	wchar_t mszInputNumber[MAX_PATH];	//ÊäÈëµÄÊı×Ö
+	IEinkuiIterator* mpIteratorBackspace; //åˆ é™¤æŒ‰é’®
+	IEinkuiIterator* mpIteratorCurrentPage;//å½“å‰ä½ç½®
+	IEinkuiIterator* mpIteratorPageMax; //è¾“å…¥é¡µç 
+	IEinkuiIterator* mpIteratorPageMaxText; //æœ€å¤§é¡µç èŒƒå›´
+	IEinkuiIterator* mpIteratorInput; //è¾“å…¥çš„é¡µç 
+	IEinkuiIterator* mpIteratorCur; //è¾“å…¥æ—¶é—ªçƒçš„å…‰æ ‡
+	wchar_t mszInputNumber[MAX_PATH];	//è¾“å…¥çš„æ•°å­—
 	int miMaxPage;
-	int miInputPage; //ÊäÈëµÄÒ³Âë
+	int miInputPage; //è¾“å…¥çš„é¡µç 
 
-	//´¦ÀíÊäÈëµÄÊı×Ö
+	//å¤„ç†è¾“å…¥çš„æ•°å­—
 	void InputNumber(ULONG nulNumber);
-	//É¾³ıÒ»Î»Êı¾İ
+	//åˆ é™¤ä¸€ä½æ•°æ®
 	void DeleteNumber();
-	//Çå¿Õµ±Ç°ÊäÈë
+	//æ¸…ç©ºå½“å‰è¾“å…¥
 	void ClearNumber();
 };
 

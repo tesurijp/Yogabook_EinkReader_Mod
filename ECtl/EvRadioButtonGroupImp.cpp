@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -16,34 +16,34 @@
 //using namespace D2D1;
 DEFINE_BUILTIN_NAME(RadioButtonGroup)
 
-// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓĞ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖĞ½øĞĞ
+// åªç”¨äºå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 CEvRadioButtonGroup::CEvRadioButtonGroup()
 {
 	mpCheckedItem = NULL;
 }
 
-// ÓÃÓÚÊÍ·Å³ÉÔ±¶ÔÏó
+// ç”¨äºé‡Šæ”¾æˆå‘˜å¯¹è±¡
 CEvRadioButtonGroup::~CEvRadioButtonGroup()
 {
 
 }
 
 ULONG CEvRadioButtonGroup::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-		//ÉèÖÃ×Ô¼ºµÄÀàĞÍ
+		//è®¾ç½®è‡ªå·±çš„ç±»å‹
 		mpIterator->ModifyStyles(/*EITR_STYLE_CONTROL|*/EITR_STYLE_DRAG);
 
 
@@ -55,7 +55,7 @@ ULONG CEvRadioButtonGroup::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvRadioButtonGroup::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -65,12 +65,12 @@ ERESULT CEvRadioButtonGroup::OnElementCreate(IEinkuiIterator* npIterator)
 		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
-		//¿´Ò»ÏÂÓĞÃ»ÓĞÄ¬ÈÏÑ¡ÖĞµÄ£¬Èç¹ûÃ»ÓĞ£¬¾ÍÑ¡ÖĞµÚÒ»¸ö
+		//çœ‹ä¸€ä¸‹æœ‰æ²¡æœ‰é»˜è®¤é€‰ä¸­çš„ï¼Œå¦‚æœæ²¡æœ‰ï¼Œå°±é€‰ä¸­ç¬¬ä¸€ä¸ª
 		bool lbChecked = false;
 		for (int i=0;i<mpIterator->GetSubElementCount();i++)
 		{
 			if(CExMessage::SendMessage(mpIterator->GetSubElementByZOder(i),mpIterator,EACT_BUTTON_GET_CHECKED,CExMessage::DataInvalid,&lbChecked,sizeof(bool)) != ERESULT_SUCCESS)
-				continue;	//²»ÊÇCheckButton
+				continue;	//ä¸æ˜¯CheckButton
 
 			if(lbChecked != false)
 			{
@@ -80,7 +80,7 @@ ERESULT CEvRadioButtonGroup::OnElementCreate(IEinkuiIterator* npIterator)
 				}
 				else
 				{
-					lbChecked = false;	//ÒÑ¾­ÓĞÑ¡ÖĞµÄÁË£¬¾ÍÈ¡ÏûºóÃæµÄÑ¡ÖĞ
+					lbChecked = false;	//å·²ç»æœ‰é€‰ä¸­çš„äº†ï¼Œå°±å–æ¶ˆåé¢çš„é€‰ä¸­
 					CExMessage::SendMessage(mpIterator->GetSubElementByZOder(i),mpIterator,EACT_BUTTON_SET_CHECKED,lbChecked);
 				}
 			}
@@ -88,7 +88,7 @@ ERESULT CEvRadioButtonGroup::OnElementCreate(IEinkuiIterator* npIterator)
 
 		if(mpCheckedItem == NULL)
 		{
-			lbChecked = true;	//Ã»ÓĞÑ¡ÖĞµÄ£¬¾ÍÑ¡ÖĞµÚÒ»¸ö¶ÔÏó
+			lbChecked = true;	//æ²¡æœ‰é€‰ä¸­çš„ï¼Œå°±é€‰ä¸­ç¬¬ä¸€ä¸ªå¯¹è±¡
 			CExMessage::SendMessage(mpIterator->GetSubElementByZOder(0),mpIterator,EACT_BUTTON_SET_CHECKED,lbChecked);
 			mpCheckedItem = mpIterator->GetSubElementByZOder(0);
 		}
@@ -100,11 +100,11 @@ ERESULT CEvRadioButtonGroup::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvRadioButtonGroup::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 	ULONG lulId = 0;
@@ -114,26 +114,26 @@ ERESULT CEvRadioButtonGroup::ParseMessage(IEinkuiMessage* npMsg)
 	{
 	case EEVT_BUTTON_CLICK:
 		{
-			//×éÀïÓĞÒ»¸ö°´¼üÍê³ÉÁËÒ»´Îµ¥»÷
+			//ç»„é‡Œæœ‰ä¸€ä¸ªæŒ‰é”®å®Œæˆäº†ä¸€æ¬¡å•å‡»
 			OnItemClick(npMsg->GetMessageSender());
-			luResult = ERESULT_MSG_SENDTO_NEXT;	//ÈÃÏûÏ¢¼ÌĞøÍùÉÏ·¢
+			luResult = ERESULT_MSG_SENDTO_NEXT;	//è®©æ¶ˆæ¯ç»§ç»­å¾€ä¸Šå‘
 			break;
 		}
 	case EACT_RBG_SET_SELECT:
 		{
-			//ÒªÇó¸ü»»Ñ¡ÖĞ¶ÔÏó
+			//è¦æ±‚æ›´æ¢é€‰ä¸­å¯¹è±¡
 			bool lbChecked = false;
 			luResult = CExMessage::GetInputData(npMsg,lulId);
 			if(luResult != ERESULT_SUCCESS)
 				break;
 
-			//È¡ÏûÑ¡ÖĞ
+			//å–æ¶ˆé€‰ä¸­
 			if(mpCheckedItem != NULL)
 				CExMessage::SendMessage(mpCheckedItem,mpIterator,EACT_BUTTON_SET_CHECKED,lbChecked);
 
 			mpCheckedItem = mpIterator->GetSubElementByID(lulId);
 			lbChecked = true;
-			if(mpCheckedItem != NULL)	//Ñ¡ÖĞ
+			if(mpCheckedItem != NULL)	//é€‰ä¸­
 				CExMessage::SendMessage(mpCheckedItem,mpIterator,EACT_BUTTON_SET_CHECKED,lbChecked);
 
 			EinkuiGetSystem()->UpdateView(true);
@@ -144,7 +144,7 @@ ERESULT CEvRadioButtonGroup::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_RBG_GET_SELECT:
 		{
-			//»ñÈ¡Ñ¡ÖĞ¶ÔÏóID
+			//è·å–é€‰ä¸­å¯¹è±¡ID
 			if(npMsg->GetOutputBufferSize() != sizeof(ULONG))
 				break;
 
@@ -166,7 +166,7 @@ ERESULT CEvRadioButtonGroup::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_RBG_DISABLE:
 		{
-			//ÉèÖÃÄ³Ïî½ûÓÃ
+			//è®¾ç½®æŸé¡¹ç¦ç”¨
 			luResult = CExMessage::GetInputData(npMsg,lulId);
 			if(luResult != ERESULT_SUCCESS)
 				break;
@@ -181,7 +181,7 @@ ERESULT CEvRadioButtonGroup::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_RBG_ENABLE:
 		{
-			//ÉèÖÃÄ³ÏîÆôÓÃ
+			//è®¾ç½®æŸé¡¹å¯ç”¨
 			luResult = CExMessage::GetInputData(npMsg,lulId);
 			if(luResult != ERESULT_SUCCESS)
 				break;
@@ -201,13 +201,13 @@ ERESULT CEvRadioButtonGroup::ParseMessage(IEinkuiMessage* npMsg)
 
 	if(luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-//ÓĞÒ»ÏîÍê³ÉÁËÒ»´Îµ¥»÷
+//æœ‰ä¸€é¡¹å®Œæˆäº†ä¸€æ¬¡å•å‡»
 ERESULT CEvRadioButtonGroup::OnItemClick(IEinkuiIterator* npItem)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
@@ -216,7 +216,7 @@ ERESULT CEvRadioButtonGroup::OnItemClick(IEinkuiIterator* npItem)
 	do 
 	{
 // 		if(mArrayGroup.Size() <= 0)
-// 			break;	//Ã»ÓĞ¶ÔÏó
+// 			break;	//æ²¡æœ‰å¯¹è±¡
 
 		
 
@@ -226,13 +226,13 @@ ERESULT CEvRadioButtonGroup::OnItemClick(IEinkuiIterator* npItem)
 			CExMessage::SendMessage(mpCheckedItem,mpIterator,EACT_BUTTON_SET_CHECKED,lbChecked);
 
 			PostMessageToParent(EEVT_RBG_SELECTED_ITEM_CLICK, npItem->GetID());
-			break;	//±¾À´¾ÍÑ¡ÖĞÁË
+			break;	//æœ¬æ¥å°±é€‰ä¸­äº†
 		}
-		//È¡ÏûÑ¡ÖĞ
+		//å–æ¶ˆé€‰ä¸­
 		if(mpCheckedItem != NULL)
 			CExMessage::SendMessage(mpCheckedItem,mpIterator,EACT_BUTTON_SET_CHECKED,lbChecked);
 
-		//¸Ä±äÑ¡ÖĞ¼ÇÂ¼
+		//æ”¹å˜é€‰ä¸­è®°å½•
 		mpCheckedItem = npItem;
 
 		PostMessageToParent(EEVT_RBG_SELECTED_CHANGED,mpCheckedItem->GetID());
@@ -244,7 +244,7 @@ ERESULT CEvRadioButtonGroup::OnItemClick(IEinkuiIterator* npItem)
 	return luResult;
 }
 
-//½ûÓÃ»òÆôÓÃ
+//ç¦ç”¨æˆ–å¯ç”¨
 ERESULT CEvRadioButtonGroup::OnElementEnable(bool nbIsEnable)
 {
 	for (int i=0;i<mpIterator->GetSubElementCount();i++)

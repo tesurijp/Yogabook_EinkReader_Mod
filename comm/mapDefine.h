@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -10,9 +10,9 @@ __interface IEinkuiIterator;
 __interface ICfKey;
 
 
-// ¶¨Òå¹©²âÊÔµÄº¯ÊıÖ¸ÕëÀàĞÍ
+// å®šä¹‰ä¾›æµ‹è¯•çš„å‡½æ•°æŒ‡é’ˆç±»å‹
 
-// º¯ÊıÖ¸ÕëÀàĞÍ£¬¶ÔÓ¦º¯Êıµ÷ÓÃĞÎÊ½Îª£ºCEvXXX::CreateInstance(npParent, npTemplete,nuEID)
+// å‡½æ•°æŒ‡é’ˆç±»å‹ï¼Œå¯¹åº”å‡½æ•°è°ƒç”¨å½¢å¼ä¸ºï¼šCEvXXX::CreateInstance(npParent, npTemplete,nuEID)
 typedef IXsElement* (_cdecl *AFX_MAPCALL )(IEinkuiIterator*, ICfKey*, ULONG);
 
 template <typename Type>

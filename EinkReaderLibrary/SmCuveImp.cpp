@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -25,9 +25,9 @@ CSmCuveImp::~CSmCuveImp()
 }
 
 ULONG CSmCuveImp::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàÐÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊýµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓÐÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»åž‹EType
+	IN ULONG nuEID	// å¦‚æžœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æžœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -37,7 +37,7 @@ ULONG CSmCuveImp::InitOnCreate(
 		if(npTemplete == NULL)
 			return ERESULT_UNSUCCESSFUL;
 
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -52,7 +52,7 @@ ULONG CSmCuveImp::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓÐÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºŽçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»Žè€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åŽå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CSmCuveImp::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
@@ -78,8 +78,8 @@ ERESULT CSmCuveImp::OnElementCreate(IEinkuiIterator* npIterator)
 	return luResult;
 }
 
-// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓÐÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+// é”€æ¯å…ƒç´ ï¼Œç”¨äºŽé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+// ä»Žè€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€ŒåŽå†å°†è‡ªå·±ä»Žå…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 ERESULT CSmCuveImp::OnElementDestroy()
 {
 	CMM_SAFE_RELEASE(mpLineBrush);
@@ -89,11 +89,11 @@ ERESULT CSmCuveImp::OnElementDestroy()
 	return ERESULT_SUCCESS;
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíÐéº¯Êý£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊýµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖÐ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®žçŽ°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åŽï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºŽä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›žERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›žå€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CSmCuveImp::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®žçŽ°åŽŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€ŒåŽå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -115,17 +115,17 @@ ERESULT CSmCuveImp::ParseMessage(IEinkuiMessage* npMsg)
 			moPointArr.RemoveByIndex(0);
 	}
 	else
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êý£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æŽ¥åŸºç±»
 
 	return luResult;
 }
 
-//»æÖÆÏûÏ¢
+//ç»˜åˆ¶æ¶ˆæ¯
 ERESULT CSmCuveImp::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	FLOAT lfX = mpIterator->GetSizeX();
 
-	// ÏÂÃæ½¨Á¢»­Ë¢
+	// ä¸‹é¢å»ºç«‹ç”»åˆ·
 	if(mpLineBrush ==NULL)
 	{
 		mpLineBrush = EinkuiGetSystem()->CreateBrush(XuiSolidBrush,D2D1::ColorF(D2D1::ColorF::Green,1.0f));

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -41,8 +41,8 @@ public:
 	HICON GetIconHandle();
 	int GetIconSize();
 
-	// nwIconIdx >= 0£¬ËµÃ÷ÎªÍ¼±êË÷Òı
-	// nwIconIdx <0£¬ ËµÃ÷Æä¾ø¶ÔÖµÎªÍ¼±ê×ÊÔ´ID
+	// nwIconIdx >= 0ï¼Œè¯´æ˜ä¸ºå›¾æ ‡ç´¢å¼•
+	// nwIconIdx <0ï¼Œ è¯´æ˜å…¶ç»å¯¹å€¼ä¸ºå›¾æ ‡èµ„æºID
 	BOOL GetSizedIcon(wchar_t *npPeFile, int nwIconIdx, int cx, int cy);
 
 };
@@ -170,7 +170,7 @@ CXD2dBitmap::CXD2dBitmap()
 	meBitmapType = None;
 	mcIsInit = false;
 
-	// Î»Í¼Êı¾İ³õÊ¼»¯
+	// ä½å›¾æ•°æ®åˆå§‹åŒ–
 	memset(mswFileName, 0, MAX_PATH*sizeof(wchar_t));
 
 	//mpText = NULL;
@@ -202,11 +202,11 @@ ERESULT CXD2dBitmap::InitBitmap(IWICImagingFactory* npWICFactory, ID2D1Factory* 
 
 	ERESULT luStatus = ERESULT_UNSUCCESSFUL;
 	
-	// Èç¹ûÒÑ¾­³õÊ¼»¯£¬ÔòÖ±½Ó·µ»Ø³É¹¦
+	// å¦‚æœå·²ç»åˆå§‹åŒ–ï¼Œåˆ™ç›´æ¥è¿”å›æˆåŠŸ
 	if (mcIsInit == true)
 		return ERESULT_SUCCESS;
 
-	// Ôİ´æäÖÈ¾¶ÔÏó
+	// æš‚å­˜æ¸²æŸ“å¯¹è±¡
 	mpTempRenderTarget = npRenderTarget;
 
 	UNREFERENCED_PARAMETER(npWICFactory);
@@ -229,7 +229,7 @@ ERESULT CXD2dBitmap::InitBitmap(IWICImagingFactory* npWICFactory, ID2D1Factory* 
 		}
 	//case TextBitmap:
 	//	{
-	//		// Í¨¹ıÎÄ×ÖÊµÀı»¯Î»Í¼£¬ĞèÒª²ÉÓÃºó¼ÓÔØÄ£ĞÍ
+	//		// é€šè¿‡æ–‡å­—å®ä¾‹åŒ–ä½å›¾ï¼Œéœ€è¦é‡‡ç”¨ååŠ è½½æ¨¡å‹
 	//		luStatus = InitTextBitmap(npWICFactory, npD2D1Factory);
 	//		break;
 	//	}
@@ -246,7 +246,7 @@ ERESULT CXD2dBitmap::InitBitmap(IWICImagingFactory* npWICFactory, ID2D1Factory* 
 		}
 	}
 	
-	// Èç¹û³õÊ¼»¯³É¹¦£¬ÔòÖÃÎ»
+	// å¦‚æœåˆå§‹åŒ–æˆåŠŸï¼Œåˆ™ç½®ä½
 	if (ERESULT_SUCCEEDED(luStatus))
 		mcIsInit = true;
 
@@ -254,7 +254,7 @@ ERESULT CXD2dBitmap::InitBitmap(IWICImagingFactory* npWICFactory, ID2D1Factory* 
 
 }
 
-// ¸´ÖÆ³öÒ»¸öĞÂµÄ¶ÔÏó,¸´ÖÆ³öÀ´µÄ¶ÔÏó£¬ĞèÒªÊ¹ÓÃÕß×Ô¼ºÊÍ·Å
+// å¤åˆ¶å‡ºä¸€ä¸ªæ–°çš„å¯¹è±¡,å¤åˆ¶å‡ºæ¥çš„å¯¹è±¡ï¼Œéœ€è¦ä½¿ç”¨è€…è‡ªå·±é‡Šæ”¾
 IEinkuiBitmap* __stdcall CXD2dBitmap::DuplicateBitmap(void)
 {
 
@@ -262,7 +262,7 @@ IEinkuiBitmap* __stdcall CXD2dBitmap::DuplicateBitmap(void)
 	void*	lpBitmapBuffer = NULL;
 	bool	lbStatus = false;
 
-	// ²»¹ÜÊÇÄÄÖÖÀàĞÍµÄÎ»Í¼£¬¶¼Í³Ò»×ª»»³ÉÄÚ´æĞÍÎ»Í¼´¦Àí
+	// ä¸ç®¡æ˜¯å“ªç§ç±»å‹çš„ä½å›¾ï¼Œéƒ½ç»Ÿä¸€è½¬æ¢æˆå†…å­˜å‹ä½å›¾å¤„ç†
 	do 
 	{
 		lpBitmapBuffer = new char[m_nWidth * m_nHeight*4+4];
@@ -282,7 +282,7 @@ IEinkuiBitmap* __stdcall CXD2dBitmap::DuplicateBitmap(void)
 }
 
 
-// Ö¸¶¨Î»Í¼´óĞ¡£¬ÒÔ¼°Î»Í¼Êı¾İ£¬´´½¨Ò»¸öÎ»Í¼¶ÔÏó
+// æŒ‡å®šä½å›¾å¤§å°ï¼Œä»¥åŠä½å›¾æ•°æ®ï¼Œåˆ›å»ºä¸€ä¸ªä½å›¾å¯¹è±¡
 ULONG CXD2dBitmap::InitOnCreate(LONG nuWidth, LONG nuHeight,LONG PixelSize, LONG Stride, void* npRawData)
 {
 	ERESULT luStatus = ERESULT_UNSUCCESSFUL;
@@ -291,7 +291,7 @@ ULONG CXD2dBitmap::InitOnCreate(LONG nuWidth, LONG nuHeight,LONG PixelSize, LONG
 
 	do 
 	{
-		// ÏòÏµÍ³×¢²áÕâ¸ö¶ÔÏó£¬ÓÃÓÚÍ³Ò»ÊÍ·ÅÉè±¸Ïà¹Ø×ÊÔ´
+		// å‘ç³»ç»Ÿæ³¨å†Œè¿™ä¸ªå¯¹è±¡ï¼Œç”¨äºç»Ÿä¸€é‡Šæ”¾è®¾å¤‡ç›¸å…³èµ„æº
 		CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(this);
 
 		BREAK_ON_NULL(npRawData);
@@ -302,11 +302,11 @@ ULONG CXD2dBitmap::InitOnCreate(LONG nuWidth, LONG nuHeight,LONG PixelSize, LONG
 			break;
 		}
 
-		// »ñÈ¡WIC¹¤³§Àà
+		// è·å–WICå·¥å‚ç±»
 		lpWicFactory = EinkuiGetSystem()->GetWICFactory();
 		BREAK_ON_NULL(lpWicFactory);
 
-		// ÓÃWIC½Ó¿Ú´ÓÄÚ´æÊı¾İÖ±½ÓÉú³ÉÎ»Í¼
+		// ç”¨WICæ¥å£ä»å†…å­˜æ•°æ®ç›´æ¥ç”Ÿæˆä½å›¾
 		luStatus = EinkuiGetSystem()->GetWICFactory()->CreateBitmapFromMemory(
 			static_cast<unsigned int>(nuWidth), static_cast<unsigned int>(nuHeight),
 			(PixelSize==3?GUID_WICPixelFormat24bppBGR:GUID_WICPixelFormat32bppPBGRA),
@@ -316,7 +316,7 @@ ULONG CXD2dBitmap::InitOnCreate(LONG nuWidth, LONG nuHeight,LONG PixelSize, LONG
 		BREAK_ON_FAILED(luStatus);
 		BREAK_ON_NULL(m_pWICBitmap);
 
-		// ÀûÓÃWIC½Ó¿Ú»ñÈ¡Í¼Æ¬¿í¸ß
+		// åˆ©ç”¨WICæ¥å£è·å–å›¾ç‰‡å®½é«˜
 		GetBitmapDimension();
 		GenTransparentInfo();
 
@@ -333,7 +333,7 @@ ERESULT CXD2dBitmap::InitMemoryBitmap(ID2D1RenderTarget* npRenderTarget)
 
 	ERESULT luStatus = ERESULT_UNSUCCESSFUL;
 
-	// ÄÚ´æĞÍÎ»Í¼£¬Ã»±ØÒª²ÉÓÃºó¼ÓÔØÄ£ĞÍ
+	// å†…å­˜å‹ä½å›¾ï¼Œæ²¡å¿…è¦é‡‡ç”¨ååŠ è½½æ¨¡å‹
 	do 
 	{
 		UNREFERENCED_PARAMETER(npRenderTarget);
@@ -344,7 +344,7 @@ ERESULT CXD2dBitmap::InitMemoryBitmap(ID2D1RenderTarget* npRenderTarget)
 	return luStatus;
 }
 
-// Í¨¹ıIcon´´½¨Î»Í¼¶ÔÏó
+// é€šè¿‡Iconåˆ›å»ºä½å›¾å¯¹è±¡
 ULONG CXD2dBitmap::InitOnCreate(wchar_t *npPeFileName, int niIconIdx, int niXSize, int niYSize)
 {
 
@@ -353,12 +353,12 @@ ULONG CXD2dBitmap::InitOnCreate(wchar_t *npPeFileName, int niIconIdx, int niXSiz
 
 	do 
 	{
-		// ÏòÏµÍ³×¢²áÕâ¸ö¶ÔÏó£¬ÓÃÓÚÍ³Ò»ÊÍ·ÅÉè±¸Ïà¹Ø×ÊÔ´
+		// å‘ç³»ç»Ÿæ³¨å†Œè¿™ä¸ªå¯¹è±¡ï¼Œç”¨äºç»Ÿä¸€é‡Šæ”¾è®¾å¤‡ç›¸å…³èµ„æº
 		CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(this);
 
 		BREAK_ON_FALSE(oIcon.GetSizedIcon(npPeFileName, niIconIdx, niXSize, niYSize));
 		
-		// Í¨¹ıWIC½Ó¿Ú£¬´ÓICONÍ¼±ê´´½¨Î»Í¼
+		// é€šè¿‡WICæ¥å£ï¼Œä»ICONå›¾æ ‡åˆ›å»ºä½å›¾
 		luResult = EinkuiGetSystem()->GetWICFactory()->CreateBitmapFromHICON(oIcon.GetIconHandle(), &m_pWICBitmap);
 		BREAK_ON_FAILED(luResult);
 
@@ -373,13 +373,13 @@ ULONG CXD2dBitmap::InitOnCreate(wchar_t *npPeFileName, int niIconIdx, int niXSiz
 
 }
 
-// ³õÊ¼»¯ICONĞÍÎ»Í¼¶ÔÏó
+// åˆå§‹åŒ–ICONå‹ä½å›¾å¯¹è±¡
 ERESULT CXD2dBitmap::InitIconBitmap(IWICImagingFactory* npWICFactory)
 {
 
 	ERESULT luStatus = ERESULT_UNSUCCESSFUL;
 
-	// ICONĞÍÎ»Í¼£¬Ã»±ØÒª²ÉÓÃºó¼ÓÔØÄ£ĞÍ
+	// ICONå‹ä½å›¾ï¼Œæ²¡å¿…è¦é‡‡ç”¨ååŠ è½½æ¨¡å‹
 	do 
 	{
 
@@ -390,10 +390,10 @@ ERESULT CXD2dBitmap::InitIconBitmap(IWICImagingFactory* npWICFactory)
 
 }
 
-// Í¨¹ıÎ»Í¼ÎÄ¼şÊµÀı»¯Î»Í¼¶ÔÏó
+// é€šè¿‡ä½å›¾æ–‡ä»¶å®ä¾‹åŒ–ä½å›¾å¯¹è±¡
 ULONG CXD2dBitmap::InitOnCreate(IN const wchar_t *npFileName) 
 {
-	// ÏòÏµÍ³×¢²áÕâ¸ö¶ÔÏó£¬ÓÃÓÚÍ³Ò»ÊÍ·ÅÉè±¸Ïà¹Ø×ÊÔ´
+	// å‘ç³»ç»Ÿæ³¨å†Œè¿™ä¸ªå¯¹è±¡ï¼Œç”¨äºç»Ÿä¸€é‡Šæ”¾è®¾å¤‡ç›¸å…³èµ„æº
 	CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(this);
 
 	meBitmapType = CommonBitmap;
@@ -403,7 +403,7 @@ ULONG CXD2dBitmap::InitOnCreate(IN const wchar_t *npFileName)
 
 }
 
-// ³õÊ¼»¯ÆÕÍ¨Î»Í¼¶ÔÏó
+// åˆå§‹åŒ–æ™®é€šä½å›¾å¯¹è±¡
 ERESULT CXD2dBitmap::InitCommonBitmap(IWICImagingFactory* npWICFactory)
 {
 
@@ -412,7 +412,7 @@ ERESULT CXD2dBitmap::InitCommonBitmap(IWICImagingFactory* npWICFactory)
 
 	ULONG ulResult = ERESULT_UNSUCCESSFUL;
 	//////////////////////////////////////////////////////////////////////////
-	// ´ÓÎÄ¼ş´´½¨IWICBitmapDecoder½Ó¿Ú
+	// ä»æ–‡ä»¶åˆ›å»ºIWICBitmapDecoderæ¥å£
 	SafeRelease(m_pIDecoderFrame);
 	m_hResult = npWICFactory->CreateDecoderFromFilename(
 		mswFileName, 
@@ -423,12 +423,12 @@ ERESULT CXD2dBitmap::InitCommonBitmap(IWICImagingFactory* npWICFactory)
 
 	if(SUCCEEDED(m_hResult)) {
 		//////////////////////////////////////////////////////////////////////////
-		// ´ÓIWICBitmapDecoderÖĞ»ñÈ¡µÚÒ»Ö¡
+		// ä»IWICBitmapDecoderä¸­è·å–ç¬¬ä¸€å¸§
 		SafeRelease(m_pIDecoderFrame);
 		m_hResult = m_pIDecoder->GetFrame(0, &m_pIDecoderFrame);
 		if(SUCCEEDED(m_hResult)) {
 			//////////////////////////////////////////////////////////////////////////
-			// ½«IWICBitmapDecoder×ª»»ÎªIWICBitmap½Ó¿Ú
+			// å°†IWICBitmapDecoderè½¬æ¢ä¸ºIWICBitmapæ¥å£
 			SafeRelease(m_pWICBitmap);
 			m_hResult = npWICFactory->CreateBitmapFromSource(
 				m_pIDecoderFrame,
@@ -437,7 +437,7 @@ ERESULT CXD2dBitmap::InitCommonBitmap(IWICImagingFactory* npWICFactory)
 			if(SUCCEEDED(m_hResult)) 
 			{
 				//////////////////////////////////////////////////////////////////////////
-				// »ñÈ¡IWICBitmapLock¶ÔÏó£¬È¡Î»Í¼¿í¸ßĞÅÏ¢
+				// è·å–IWICBitmapLockå¯¹è±¡ï¼Œå–ä½å›¾å®½é«˜ä¿¡æ¯
 				m_hResult = m_pWICBitmap->GetSize(&m_nWidth, &m_nHeight);
 				if(SUCCEEDED(m_hResult)) 
 				{
@@ -459,10 +459,10 @@ ERESULT CXD2dBitmap::InitCommonBitmap(IWICImagingFactory* npWICFactory)
 
 }
 
-//	ºÃÏñ´ÓÀ´Ã»ÓĞÓÃ¹ı£¬ÆÁ±ÎÁË ax nov.28,2017
+//	å¥½åƒä»æ¥æ²¡æœ‰ç”¨è¿‡ï¼Œå±è”½äº† ax nov.28,2017
 //ULONG CXD2dBitmap::InitOnCreate(IN const wchar_t *npText, IN DWORD dwTextColor, IN const wchar_t *npFont, IN DWORD dwFontSize) 
 //{
-//	// ÏòÏµÍ³×¢²áÕâ¸ö¶ÔÏó£¬ÓÃÓÚÍ³Ò»ÊÍ·ÅÉè±¸Ïà¹Ø×ÊÔ´
+//	// å‘ç³»ç»Ÿæ³¨å†Œè¿™ä¸ªå¯¹è±¡ï¼Œç”¨äºç»Ÿä¸€é‡Šæ”¾è®¾å¤‡ç›¸å…³èµ„æº
 //	CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(this);
 //
 //	if(npText == NULL || npFont == NULL)
@@ -470,7 +470,7 @@ ERESULT CXD2dBitmap::InitCommonBitmap(IWICImagingFactory* npWICFactory)
 //
 //	meBitmapType = TextBitmap;
 //
-//	// ·ÖÅäÎÄ×ÖÄÚÈİËùÕ¼ÓÃµÄÄÚ´æ
+//	// åˆ†é…æ–‡å­—å†…å®¹æ‰€å ç”¨çš„å†…å­˜
 //	mpText = new wchar_t[(int)wcslen(npText)];
 //	memcpy(mpText, npText, (int)wcslen(npText)*sizeof(wchar_t));
 //
@@ -485,7 +485,7 @@ ERESULT CXD2dBitmap::InitCommonBitmap(IWICImagingFactory* npWICFactory)
 //
 //}
 
-//// ³õÊ¼»¯ÎÄ×ÖĞÍÎ»Í¼¶ÔÏó			ºÃÏñ´ÓÀ´Ã»ÓĞÓÃ¹ı£¬ÆÁ±ÎÁË ax nov.28,2017
+//// åˆå§‹åŒ–æ–‡å­—å‹ä½å›¾å¯¹è±¡			å¥½åƒä»æ¥æ²¡æœ‰ç”¨è¿‡ï¼Œå±è”½äº† ax nov.28,2017
 //ERESULT CXD2dBitmap::InitTextBitmap(IWICImagingFactory* npWICFactory, ID2D1Factory* npD2D1Factory)
 //{
 //	ID2D1RenderTarget* lpBitmapRT = NULL;
@@ -536,7 +536,7 @@ ERESULT CXD2dBitmap::InitCommonBitmap(IWICImagingFactory* npWICFactory)
 //			return ERESULT_BMP_GETMETRICS;
 //
 //		m_hResult = npWICFactory->CreateBitmap(static_cast<UINT>(dtm.width+1),
-//			static_cast<UINT>(dtm.height + 1), // È¡Õû
+//			static_cast<UINT>(dtm.height + 1), // å–æ•´
 //			GUID_WICPixelFormat32bppPBGRA,
 //			WICBitmapCacheOnLoad,
 //			&m_pWICBitmap);
@@ -559,7 +559,7 @@ ERESULT CXD2dBitmap::InitCommonBitmap(IWICImagingFactory* npWICFactory)
 //			&lpBlackBrush
 //			);
 //
-//		//lpBitmapRT->SetTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE); ??? ÊÇ·ñĞèÒªÌí¼Ó£¬Õâ¸öÀàÊÇ¸øË­ÓÃµÄ£¿Jun.14,2012
+//		//lpBitmapRT->SetTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE); ??? æ˜¯å¦éœ€è¦æ·»åŠ ï¼Œè¿™ä¸ªç±»æ˜¯ç»™è°ç”¨çš„ï¼ŸJun.14,2012
 //
 //		D2D1_SIZE_F renderTargetSize = lpBitmapRT->GetSize();
 //		lpBitmapRT->BeginDraw();
@@ -590,7 +590,7 @@ int __stdcall CXD2dBitmap::Release(void)
 {
 
 	int liCount = cmmBaseObject<CXD2dBitmap, IEinkuiBitmap, GET_BUILTIN_NAME(CXD2dBitmap)>::Release();
-	// Èç¹û·µ»ØÖµÊÇ0£¬±íÊ¾ĞèÒª±»É¾³ı
+	// å¦‚æœè¿”å›å€¼æ˜¯0ï¼Œè¡¨ç¤ºéœ€è¦è¢«åˆ é™¤
 	if(liCount == 0)
 	{
 		CEinkuiSystem::gpXuiSystem->GetBitmapList().UnregisteBitmap(this);
@@ -627,9 +627,9 @@ ERESULT CXD2dBitmap::GenTransparentInfo() {
 			BYTE *pBuf = NULL;
 			m_hResult = pLocker->GetDataPointer(&nSize, &pBuf);
 			if(SUCCEEDED(m_hResult)) {
-				// Ê¹ÓÃÏÂÃæ·½·¨ÅĞ¶ÏÃ¿¸öµãµÄÍ¸Ã÷¶È
-				// ±ÜÃâÃ¿´ÎÔÚÑ­»·ÄÚÅĞ¶ÏGUIDÓ°ÏìÍ¼ĞÎ¼ÓÔØĞ§ÂÊ
-				// µ«´úÂë¿´ÆğÀ´±È½ÏÈßÓà
+				// ä½¿ç”¨ä¸‹é¢æ–¹æ³•åˆ¤æ–­æ¯ä¸ªç‚¹çš„é€æ˜åº¦
+				// é¿å…æ¯æ¬¡åœ¨å¾ªç¯å†…åˆ¤æ–­GUIDå½±å“å›¾å½¢åŠ è½½æ•ˆç‡
+				// ä½†ä»£ç çœ‹èµ·æ¥æ¯”è¾ƒå†—ä½™
 				if(IsEqualGUID(GUID_WICPixelFormat32bppBGRA, pf)) {
 					for(UINT n=0; n< m_nWidth*m_nHeight; n++) {
 						mpTransparentInfo->SetBit(n, (pBuf[n*4 + 3] > TRANSPARENT_THRESHOLD_VALUE) ? true : false);
@@ -765,7 +765,7 @@ ERESULT CXD2dBitmap::CreateD2DObjFromBmpSource(IN ID2D1RenderTarget *npRT, IN IW
 	{
 		pWicBmpToGet = m_pBmpScaler;
 	}
-	// Ìí¼ÓÒì³£²¶»ñ
+	// æ·»åŠ å¼‚å¸¸æ•è·
 
 	try
 	{
@@ -806,7 +806,7 @@ ERESULT CXD2dBitmap::CreateD2DObjFromBmpSource(IN ID2D1RenderTarget *npRT, IN IW
 }
 
 
-// ¹©ÏµÍ³ÄÚ²¿µ÷ÓÃ£¬·ÏÆúDirect2DµÄÉè±¸Ïà¹Ø×ÊÔ´
+// ä¾›ç³»ç»Ÿå†…éƒ¨è°ƒç”¨ï¼ŒåºŸå¼ƒDirect2Dçš„è®¾å¤‡ç›¸å…³èµ„æº
 void __stdcall CXD2dBitmap::DiscardsBitmapResource(void)
 {
 	CMM_SAFE_RELEASE(mpBitmap2D);
@@ -852,27 +852,27 @@ ERESULT __stdcall CXD2dBitmap::Scale(UINT npWidth, UINT npHeight) {
 	return ulResult;
 }
 
-//ÉèÖÃÑÓÕ¹Ïß
+//è®¾ç½®å»¶å±•çº¿
 void __stdcall CXD2dBitmap::SetExtendLine(IN LONG nlX,IN LONG nlY)
 {
 	m_lExtendLineX = nlX;
 	m_lExtendLineY = nlY;
 }
 
-//»ñÈ¡ºáÏòÑÓÕ¹Ïß
+//è·å–æ¨ªå‘å»¶å±•çº¿
 LONG __stdcall CXD2dBitmap::GetExtnedLineX(void)
 {
 	return m_lExtendLineX;
 }
 
-//»ñÈ¡×İÏòÑÓÕ¹Ïß
+//è·å–çºµå‘å»¶å±•çº¿
 LONG __stdcall CXD2dBitmap::GetExtnedLineY(void)
 {
 	return m_lExtendLineY;
 }
 
 
-// »ñÈ¡Ö¸¶¨ÇøÓòµÄÎ»Í¼Êı¾İ
+// è·å–æŒ‡å®šåŒºåŸŸçš„ä½å›¾æ•°æ®
 bool __stdcall CXD2dBitmap::GetBitmapBuffer(IN D2D1_RECT_F ndSrcRect, OUT void* npRawData)
 {
 	bool lbStatus = false;
@@ -881,7 +881,7 @@ bool __stdcall CXD2dBitmap::GetBitmapBuffer(IN D2D1_RECT_F ndSrcRect, OUT void* 
 
 	do 
 	{
-		// Èç¹ûÍ¼ĞÎ¶ÔÏóÃ»ÓĞ³õÊ¼»¯£¬ÔòÖ±½Ó·µ»ØÊ§°Ü
+		// å¦‚æœå›¾å½¢å¯¹è±¡æ²¡æœ‰åˆå§‹åŒ–ï¼Œåˆ™ç›´æ¥è¿”å›å¤±è´¥
 		//BREAK_ON_FALSE(mcIsInit);
 		BREAK_ON_NULL(m_pWICBitmap);
 		BREAK_ON_NULL(npRawData);
@@ -892,11 +892,11 @@ bool __stdcall CXD2dBitmap::GetBitmapBuffer(IN D2D1_RECT_F ndSrcRect, OUT void* 
 		ldSrcWicRect.Width = (INT)(ndSrcRect.right - ndSrcRect.left);
 		ldSrcWicRect.Height = (INT)(ndSrcRect.bottom - ndSrcRect.top);
 
-		// ²Ã¼ôÇøÓò²»ÄÜ´óÓÚÔ­Ê¼ÇøÓò
+		// è£å‰ªåŒºåŸŸä¸èƒ½å¤§äºåŸå§‹åŒºåŸŸ
 		BREAK_ON_FALSE(m_nWidth >= (UINT)ldSrcWicRect.Width);
 		BREAK_ON_FALSE(m_nHeight >= (UINT)ldSrcWicRect.Height);
 
-		// Ê×ÏÈ½âÂë£¬Êä³öÊ±×ª³ÉBGRAµÄÏñËØ¸ñÊ½
+		// é¦–å…ˆè§£ç ï¼Œè¾“å‡ºæ—¶è½¬æˆBGRAçš„åƒç´ æ ¼å¼
 		hr = EinkuiGetSystem()->GetWICFactory()->CreateFormatConverter(&lpFormatConverter);
 		BREAK_ON_FAILED(hr);
 
@@ -910,7 +910,7 @@ bool __stdcall CXD2dBitmap::GetBitmapBuffer(IN D2D1_RECT_F ndSrcRect, OUT void* 
 			);
 		BREAK_ON_FAILED(hr);
 
-		// µÚ¶ş¸ö²ÎÊıÊÇstride,²½·ù£¨¿ç¾à)£¬±íÊ¾Î»Í¼ÖĞÒ»ĞĞµÄÏñËØÊıÊÇ¶àÉÙ£¬ÓÃÓÚÇø·ÖĞĞÓëĞĞµÄ·Ö¸î
+		// ç¬¬äºŒä¸ªå‚æ•°æ˜¯stride,æ­¥å¹…ï¼ˆè·¨è·)ï¼Œè¡¨ç¤ºä½å›¾ä¸­ä¸€è¡Œçš„åƒç´ æ•°æ˜¯å¤šå°‘ï¼Œç”¨äºåŒºåˆ†è¡Œä¸è¡Œçš„åˆ†å‰²
 		hr = lpFormatConverter->CopyPixels(
 			&ldSrcWicRect, 
 			ldSrcWicRect.Width*4,		
@@ -948,7 +948,7 @@ bool __stdcall CXD2dBitmap::SaveAsThumbnail(IN LONG nuWidth, IN LONG nuHeight,  
 
 	do 
 	{
-		// ´´½¨WIC¶ÔÏóºÍRT¶ÔÏó
+		// åˆ›å»ºWICå¯¹è±¡å’ŒRTå¯¹è±¡
 		hr = EinkuiGetSystem()->GetWICFactory()->CreateBitmap(
 			sc_bitmapWidth,
 			sc_bitmapHeight,
@@ -965,29 +965,29 @@ bool __stdcall CXD2dBitmap::SaveAsThumbnail(IN LONG nuWidth, IN LONG nuHeight,  
 			);
 		BREAK_ON_FAILED(hr);
 
-		// ¸ù¾İÔ­Ê¼Í¼ÏñµÄWIC¶ÔÏó£¬´´½¨D2DÎ»Í¼¶ÔÏó
+		// æ ¹æ®åŸå§‹å›¾åƒçš„WICå¯¹è±¡ï¼Œåˆ›å»ºD2Dä½å›¾å¯¹è±¡
 		luResult = CreateD2DObjFromBmpSource(lpRT, m_pWICBitmap,&lpBmp2d);
 		BREAK_ON_FAILED(luResult);
 
-		// ½«Ô­Ê¼Î»Í¼»æÖÆµ½RenderTarget,»æÖÆºóµÄÇøÓòºÍËõÂÔÍ¼´óĞ¡Ò»Ñù
+		// å°†åŸå§‹ä½å›¾ç»˜åˆ¶åˆ°RenderTarget,ç»˜åˆ¶åçš„åŒºåŸŸå’Œç¼©ç•¥å›¾å¤§å°ä¸€æ ·
 		{
 			lpRT->BeginDraw();
 
-			// ±ØĞëÒªÇåÆÁ£¬Èç¹ûÏë´´½¨´øÍ¸Ã÷¶ÈĞÅÏ¢µÄÍ¼£¬±ØĞëÒª°ÑalphaÈ«²¿Çå0
+			// å¿…é¡»è¦æ¸…å±ï¼Œå¦‚æœæƒ³åˆ›å»ºå¸¦é€æ˜åº¦ä¿¡æ¯çš„å›¾ï¼Œå¿…é¡»è¦æŠŠalphaå…¨éƒ¨æ¸…0
 			lpRT->Clear(D2D1::ColorF(D2D1::ColorF::White, 0.0f));
 
 			lpRT->DrawBitmap(
 				lpBmp2d,
-				D2D1::RectF(0.0f,0.0f,(FLOAT)nuWidth,(FLOAT)nuHeight),		// Ä¿±êÇøÓò´óĞ¡
+				D2D1::RectF(0.0f,0.0f,(FLOAT)nuWidth,(FLOAT)nuHeight),		// ç›®æ ‡åŒºåŸŸå¤§å°
 				1.0f,
 				(D2D1_BITMAP_INTERPOLATION_MODE)ESPB_DRAWBMP_LINEAR,
-				ndSampleRect		// Ô­Ê¼ÇøÓò´óĞ¡
+				ndSampleRect		// åŸå§‹åŒºåŸŸå¤§å°
 				);
 
 			lpRT->EndDraw();
 		}
 
-		// ±£´æµ½ÎÄ¼ş£¬ÏÖÔÚ£¬RenderTargetÉÏµÄÄÚÈİ¾ÍÊÇËõÂÔÍ¼
+		// ä¿å­˜åˆ°æ–‡ä»¶ï¼Œç°åœ¨ï¼ŒRenderTargetä¸Šçš„å†…å®¹å°±æ˜¯ç¼©ç•¥å›¾
 		hr = EinkuiGetSystem()->GetWICFactory()->CreateStream(&lpStream);
 		BREAK_ON_FAILED(hr);
 
@@ -1000,7 +1000,7 @@ bool __stdcall CXD2dBitmap::SaveAsThumbnail(IN LONG nuWidth, IN LONG nuHeight,  
 
 		std::wstring lpFileExtention = PathFindExtension(nswOutputFilePath);
 		
-		// ¸ù¾İÎÄ¼şºó×º£¬ÅĞ¶Ï±àÂë¸ñÊ½
+		// æ ¹æ®æ–‡ä»¶åç¼€ï¼Œåˆ¤æ–­ç¼–ç æ ¼å¼
 		if (lpFileExtention.compare(L".jpg") == 0 ||
 			lpFileExtention.compare(L".jpeg") == 0 ||
 			lpFileExtention.compare(L".jpe") == 0 ||
@@ -1062,7 +1062,7 @@ bool __stdcall CXD2dBitmap::SaveAsThumbnail(IN LONG nuWidth, IN LONG nuHeight,  
 	} while (false);
 
 
-	// ÊÍ·Å×ÊÔ´
+	// é‡Šæ”¾èµ„æº
 	CMM_SAFE_RELEASE(lpWICBitmap);
 	CMM_SAFE_RELEASE(lpRT);
 	CMM_SAFE_RELEASE(lpEncoder);

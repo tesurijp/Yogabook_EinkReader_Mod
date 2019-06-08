@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -12,7 +12,7 @@
 
 DEFINE_BUILTIN_NAME(PdfPicture)
 
-// Çá¶ÈÑÕÉ«¼ÓÉî
+// è½»åº¦é¢œè‰²åŠ æ·±
 const unsigned char pixelGradeImprovement1[256] = \
 	{	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -31,7 +31,7 @@ const unsigned char pixelGradeImprovement1[256] = \
 		0xf2, 0xf4, 0xf5, 0xf7, 0xf8, 0xf9, 0xfb, 0xfc, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
 		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };
 
-// ÖØ¶ÈÑÕÉ«¼ÓÉî
+// é‡åº¦é¢œè‰²åŠ æ·±
 const unsigned char pixelGradeImprovement2[256] = \
 	{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -76,7 +76,7 @@ CPdfPicture::CPdfPicture(void)
 		//L"EdPdf.dll",
 		L"EdSmt.dll",
 		L"EdTxt.dll"
-	};	// ²»Òª´óÓÚpdfModuleArrÊý×é£¬Ä¿Ç°ÊÇ10
+	};	// ä¸è¦å¤§äºŽpdfModuleArræ•°ç»„ï¼Œç›®å‰æ˜¯10
 
 	for (auto &i : pdfModuleArr)
 		i = NULL;
@@ -109,7 +109,7 @@ CPdfPicture::~CPdfPicture(void)
 	CloseFile(false);
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓÐÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºŽçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»Žè€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åŽå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CPdfPicture::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -129,9 +129,9 @@ ERESULT CPdfPicture::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 ULONG CPdfPicture::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàÐÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊýµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓÐÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»åž‹EType
+	IN ULONG nuEID	// å¦‚æžœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æžœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -139,18 +139,18 @@ ULONG CPdfPicture::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
 
-		//»ñÈ¡¶ÔÏñ¾ä±ú
+		//èŽ·å–å¯¹åƒå¥æŸ„
 		/*mpIterBtShowTip = mpIterator->GetSubElementByID(PP_BT_SHOW_TIP);
 		BREAK_ON_NULL(mpIterBtShowTip);*/
 		
 
-		// ´´½¨»­Ë¢
+		// åˆ›å»ºç”»åˆ·
 		mpXuiBrush = EinkuiGetSystem()->CreateBrush(XuiSolidBrush, D2D1::ColorF(0.0f, 0.0f, 0.0f));
 		BREAK_ON_NULL(mpXuiBrush);
 
@@ -173,7 +173,7 @@ ULONG CPdfPicture::InitOnCreate(
 
 	CMM_SAFE_RELEASE(lpSubKey);
 
-	// ÏòÏµÍ³×¢²áÐèÒªÊÕµ½µÄÏûÏ¢
+	// å‘ç³»ç»Ÿæ³¨å†Œéœ€è¦æ”¶åˆ°çš„æ¶ˆæ¯
 	return leResult;
 }
 
@@ -196,12 +196,12 @@ void CPdfPicture::OnPageLoaded(int32 loadingStep, int32 pagecount)
 	switch (loadingStep)
 	{
 	case 0:
-		// Õâ¶ù±íÊ¾ÅÅ°æ¿ªÊ¼
+		// è¿™å„¿è¡¨ç¤ºæŽ’ç‰ˆå¼€å§‹
 		PostMessageToParent(EEVT_TXT_ARRANGED_START, CExMessage::DataInvalid);
 		break;
 	case MAXULONG32:
 		{
-			// Õâ¶ù±íÊ¾ÅÅ°æÍê±Ï
+			// è¿™å„¿è¡¨ç¤ºæŽ’ç‰ˆå®Œæ¯•
 			PostMessageToParent(EEVT_ARRANGED_COMPLETE, pagecount);
 
 			if (mpLoadingView != NULL)
@@ -210,7 +210,7 @@ void CPdfPicture::OnPageLoaded(int32 loadingStep, int32 pagecount)
 				mpLoadingView = NULL;
 			}
 
-			// ¸øÉÏCPdfPicture::OpenFile(wchar_t* npszPath, PPAGE_PDF_CONTEXT npPageContext)ÖÐ×èÈû´¦½¨Á¢µÄÄ£Ì¬¶Ô»°¿ò·¢ËÍÏûÏ¢£¬ÈÃÕâ¸ö¶Ô»°¿òÍË³ö
+			// ç»™ä¸ŠCPdfPicture::OpenFile(wchar_t* npszPath, PPAGE_PDF_CONTEXT npPageContext)ä¸­é˜»å¡žå¤„å»ºç«‹çš„æ¨¡æ€å¯¹è¯æ¡†å‘é€æ¶ˆæ¯ï¼Œè®©è¿™ä¸ªå¯¹è¯æ¡†é€€å‡º
 			// ???niu???
 			break;
 		}
@@ -229,7 +229,7 @@ void CPdfPicture::SetLoadingPageIndex(LONG nlPageIndex)
 	}
 }
 
-//°´Å¥µ¥»÷ÊÂ¼þ
+//æŒ‰é’®å•å‡»äº‹ä»¶
 ERESULT CPdfPicture::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -255,7 +255,7 @@ ERESULT CPdfPicture::OnCtlButtonClick(IEinkuiIterator* npSender)
 	return lResult;
 }
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CPdfPicture::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
@@ -263,7 +263,7 @@ void CPdfPicture::OnTimer(
 
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CPdfPicture::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	//CExMessage::SendMessage(mpIterBtFull, mpIterator, EACT_BUTTON_SET_ACTION_RECT, nNewSize);
@@ -280,7 +280,7 @@ ERESULT CPdfPicture::OnElementResized(D2D1_SIZE_F nNewSize)
 	mViewCtl.SetViewPort(viewPort);
 	if (pdfDoc != NULL && pdfCrtPage !=NULL)
 	{
-		pdfDoc -> SetViewPort(CExFloat::ToLong(viewPort.x-176.0f), CExFloat::ToLong(viewPort.y - 176.0f - mTitleBarHeight));	// Í¼Ïñ¸ßµÍËõÐ¡Ò»¶¨ÏñËØ
+		pdfDoc -> SetViewPort(CExFloat::ToLong(viewPort.x-176.0f), CExFloat::ToLong(viewPort.y - 176.0f - mTitleBarHeight));	// å›¾åƒé«˜ä½Žç¼©å°ä¸€å®šåƒç´ 
 
 		//if (IsTxtDocument() != false)
 		//{
@@ -299,7 +299,7 @@ ERESULT CPdfPicture::OnElementResized(D2D1_SIZE_F nNewSize)
 	return ERESULT_SUCCESS;
 }
 
-//ÉèÖÃÒªÔ¤ÀÀµÄÍ¼Æ¬,ºÍ½ÓÊÕÏûÏ¢µÄ¶ÔÏó
+//è®¾ç½®è¦é¢„è§ˆçš„å›¾ç‰‡,å’ŒæŽ¥æ”¶æ¶ˆæ¯çš„å¯¹è±¡
 ULONG CPdfPicture::OpenFile(wchar_t* npszPath, PPAGE_PDF_CONTEXT npPageContext)
 {
 	ULONG lulRet = EDERR_UNSUCCESSFUL;
@@ -343,7 +343,7 @@ ULONG CPdfPicture::OpenFile(wchar_t* npszPath, PPAGE_PDF_CONTEXT npPageContext)
 
 						if (mLoading != 0)
 						{
-							// ???niu???ÔÚ´ËÏÔÊ¾Ò»¸ö×Ô¼ºui¿âµÄÄ£Ì¬¶Ô»°¿ò£¬×èµ²×¡³ÌÐòÏÂÐÐ£¬ÔÚÄ£Ì¬¶Ô»°¿òÖÐÏÔÊ¾½ø¶È
+							// ???niu???åœ¨æ­¤æ˜¾ç¤ºä¸€ä¸ªè‡ªå·±uiåº“çš„æ¨¡æ€å¯¹è¯æ¡†ï¼Œé˜»æŒ¡ä½ç¨‹åºä¸‹è¡Œï¼Œåœ¨æ¨¡æ€å¯¹è¯æ¡†ä¸­æ˜¾ç¤ºè¿›åº¦
 							ICfKey* lpSubKey = mpTemplete->OpenKey(L"Loading");
 							mpLoadingView = CLoadingView::CreateInstance(EinkuiGetSystem()->GetCurrentWidget()->GetHomePage(), lpSubKey);
 							wchar_t* lpszFileName = wcsrchr(npszPath, L'\\');
@@ -357,7 +357,7 @@ ULONG CPdfPicture::OpenFile(wchar_t* npszPath, PPAGE_PDF_CONTEXT npPageContext)
 							
 						}
 
-						// ÔÚÏÂÃæµÄPageLoadedCallBackº¯ÊýÖÐ£¬¸ø±¾Ä£Ì¬¶Ô»°¿ò·¢ËÍÏûÏ¢£¬ÈÃÕâ¸ö¶Ô»°¿òÍË³ö
+						// åœ¨ä¸‹é¢çš„PageLoadedCallBackå‡½æ•°ä¸­ï¼Œç»™æœ¬æ¨¡æ€å¯¹è¯æ¡†å‘é€æ¶ˆæ¯ï¼Œè®©è¿™ä¸ªå¯¹è¯æ¡†é€€å‡º
 					}
 					break;
 				}
@@ -376,13 +376,13 @@ ULONG CPdfPicture::OpenFile(wchar_t* npszPath, PPAGE_PDF_CONTEXT npPageContext)
 
 		if (mViewCtl.GetViewPort().x > 0 && mViewCtl.GetViewPort().y > 0)
 		{
-			pdfDoc->SetViewPort(CExFloat::ToLong(mViewCtl.GetViewPort().x - 176.0f), CExFloat::ToLong(mViewCtl.GetViewPort().y - 176.0f - mTitleBarHeight));	// Í¼Ïñ¸ßµÍËõÐ¡Ò»¶¨ÏñËØ
+			pdfDoc->SetViewPort(CExFloat::ToLong(mViewCtl.GetViewPort().x - 176.0f), CExFloat::ToLong(mViewCtl.GetViewPort().y - 176.0f - mTitleBarHeight));	// å›¾åƒé«˜ä½Žç¼©å°ä¸€å®šåƒç´ 
 		}
 		else
 			updateLayout = false;
 
 		if (mFontSize > 0)
-			pdfDoc->SetFont(L"Î¢ÈíÑÅºÚ", mFontSize);
+			pdfDoc->SetFont(L"å¾®è½¯é›…é»‘", mFontSize);
 		else
 			updateLayout = false;
 
@@ -391,13 +391,13 @@ ULONG CPdfPicture::OpenFile(wchar_t* npszPath, PPAGE_PDF_CONTEXT npPageContext)
 			pdfCrtPage = pdfDoc->Rearrange(&defaultContext);
 			if (pdfCrtPage == NULL)
 			{
-				//´ò¿ªÎÄ¼þÊ§°Ü
+				//æ‰“å¼€æ–‡ä»¶å¤±è´¥
 				CloseFile();
 				lulRet = EDERR_UNSUCCESSFUL;
 				break;
 			}
 
-			//ÎÄ¼þ×ÜÒ³Êý
+			//æ–‡ä»¶æ€»é¡µæ•°
 			mulPageCount = pdfDoc->GetPageCount();
 		}
 		else
@@ -442,11 +442,11 @@ bool CPdfPicture::IsTxtDocument(void)
 	return mIsTxtDoc;
 }
 
-//Ò³ÃæÌø×ª
+//é¡µé¢è·³è½¬
 bool CPdfPicture::GoToPage(ULONG nulPageNumber)
 {
 	if (nulPageNumber > mulPageCount)
-		return false; //ÎÞÐ§Ò³Âë
+		return false; //æ— æ•ˆé¡µç 
 
 	IEdPage_ptr pageGoto;
 
@@ -469,21 +469,21 @@ bool CPdfPicture::GoToPage(IEdPage_ptr pageGoto)
 			return false;
 
 		pageGoto = pdfCrtPage;
-		pageGoto->AddRefer();	// Ôö¼ÓÒýÓÃ£¬·ÀÖ¹ÏÂÃæµÄÊÍ·ÅpdfCrtPage£¬½«²»Í¬ÃûµÄÍ¬Ò»¶ÔÏóÉ¾³ý
+		pageGoto->AddRefer();	// å¢žåŠ å¼•ç”¨ï¼Œé˜²æ­¢ä¸‹é¢çš„é‡Šæ”¾pdfCrtPageï¼Œå°†ä¸åŒåçš„åŒä¸€å¯¹è±¡åˆ é™¤
 	}
 
-	// Èç¹ûÊÇË«Ò³ÏÔÊ¾Ä£Ê½£¬Ôò´ÓÆæÊýÒ³¶ÔÆä£¬´ò¿ªÁ½Ò³
+	// å¦‚æžœæ˜¯åŒé¡µæ˜¾ç¤ºæ¨¡å¼ï¼Œåˆ™ä»Žå¥‡æ•°é¡µå¯¹å…¶ï¼Œæ‰“å¼€ä¸¤é¡µ
 	if (landScope != false && duopageMode != false)
 	{
-		if ((pageGoto->GetPageIndex() % 2) != 0)		// Õâ¸öµØ·½²»ÄÜÕâÑù¸Ä£¬ÏÖÔÚµÄÐÐºÅÊÇ²»ÄÜ×÷Îª×¼È·ÅÐ¶Ï£¬ÒòÎª×°Èë¹ý³ÌÔÚ±ä»¯£¬ÄãÐèÒª¸æËßÎÒ£¬ÐÞ¸ÄµÄÄ¿µÄ£¬ÎÒ°ïÄã¸Ä³ÉÏëÒªµÄÐ§¹û¡£ ???niu???
+		if ((pageGoto->GetPageIndex() % 2) != 0)		// è¿™ä¸ªåœ°æ–¹ä¸èƒ½è¿™æ ·æ”¹ï¼ŒçŽ°åœ¨çš„è¡Œå·æ˜¯ä¸èƒ½ä½œä¸ºå‡†ç¡®åˆ¤æ–­ï¼Œå› ä¸ºè£…å…¥è¿‡ç¨‹åœ¨å˜åŒ–ï¼Œä½ éœ€è¦å‘Šè¯‰æˆ‘ï¼Œä¿®æ”¹çš„ç›®çš„ï¼Œæˆ‘å¸®ä½ æ”¹æˆæƒ³è¦çš„æ•ˆæžœã€‚ ???niu???
 		{
-			//Ë«Ò³ÏÔÊ¾Òª´ÓÆæÊýÒ³¿ªÊ¼
+			//åŒé¡µæ˜¾ç¤ºè¦ä»Žå¥‡æ•°é¡µå¼€å§‹
 			pageDuo = pageGoto;
 			pageGoto = pdfDoc->GetPage(pageGoto, -1);
 		}
 		else
 		{
-			pageDuo = pdfDoc->GetPage(pageGoto, 1);	// È¡ÏÂÒ»Ò³
+			pageDuo = pdfDoc->GetPage(pageGoto, 1);	// å–ä¸‹ä¸€é¡µ
 		}
 	}
 
@@ -536,7 +536,7 @@ bool CPdfPicture::PageFoward(bool forward)
 
 	if (duopageMode != false && landScope != false)
 	{
-		//Ö»ÓÐÔÚË«Ò³²¢ÇÒºáÆÁÏÂ
+		//åªæœ‰åœ¨åŒé¡µå¹¶ä¸”æ¨ªå±ä¸‹
 		if (forward != false)
 			pageJump = pdfDoc->GetPage(pdfCrtPage, 2);
 		else
@@ -571,7 +571,7 @@ ULONG CPdfPicture::GetCurrentPageNumber(ULONG& secondPage)
 	return PAGEID_USER(pdfCrtPage->GetPageIndex());
 }
 
-//»ñµÃµ±Ç°µÚÒ»Ò³µÄÉÏÏÂÎÄ£¬µ±Ç°Ò³µÄÒ³ÂëÔÚ½á¹¹ÌåµÄpageIndex·µ»Ø
+//èŽ·å¾—å½“å‰ç¬¬ä¸€é¡µçš„ä¸Šä¸‹æ–‡ï¼Œå½“å‰é¡µçš„é¡µç åœ¨ç»“æž„ä½“çš„pageIndexè¿”å›ž
 bool CPdfPicture::GetCrtPageContext(PPAGE_PDF_CONTEXT npPageContext)
 {
 	if (pdfCrtPage == NULL)
@@ -584,8 +584,8 @@ bool CPdfPicture::GetCrtPageContext(PPAGE_PDF_CONTEXT npPageContext)
 	return true;
 }
 
-//ÉèÖÃËõ·Å
-//rMove4¸ö·½Ïò£¬0±íÊ¾²»ÄÜÒÆ¶¯ÁË£¬1±íÊ¾»¹ÄÜÒÆ¶¯
+//è®¾ç½®ç¼©æ”¾
+//rMove4ä¸ªæ–¹å‘ï¼Œ0è¡¨ç¤ºä¸èƒ½ç§»åŠ¨äº†ï¼Œ1è¡¨ç¤ºè¿˜èƒ½ç§»åŠ¨
 bool CPdfPicture::SetScaleRatio(float nfScale, OUT RECT& rMove)
 {
 	bool lbRet = false;
@@ -612,9 +612,9 @@ bool CPdfPicture::SetScaleRatio(float nfScale, OUT RECT& rMove)
 	return lbRet;
 }
 
-//ÒÆ¶¯Ò³Ãæ
-//niXOffset,niYOffsetÕýÊý±íÊ¾ÏòÓÒÏÂÒÆ¶¯£¬¸ºÊý±íÊ¾Ïò×óÉÏÒÆ¶¯
-//rMove4¸ö·½Ïò£¬0±íÊ¾²»ÄÜÒÆ¶¯ÁË£¬1±íÊ¾»¹ÄÜÒÆ¶¯
+//ç§»åŠ¨é¡µé¢
+//niXOffset,niYOffsetæ­£æ•°è¡¨ç¤ºå‘å³ä¸‹ç§»åŠ¨ï¼Œè´Ÿæ•°è¡¨ç¤ºå‘å·¦ä¸Šç§»åŠ¨
+//rMove4ä¸ªæ–¹å‘ï¼Œ0è¡¨ç¤ºä¸èƒ½ç§»åŠ¨äº†ï¼Œ1è¡¨ç¤ºè¿˜èƒ½ç§»åŠ¨
 bool CPdfPicture::MovePage(int niXOffset, int niYOffset, OUT RECT& rMove)
 {
 	bool lbRet = false;
@@ -639,7 +639,7 @@ bool CPdfPicture::MovePage(int niXOffset, int niYOffset, OUT RECT& rMove)
 }
 
 
-//»ñÈ¡×ÜÒ³Êý
+//èŽ·å–æ€»é¡µæ•°
 ULONG CPdfPicture::GetPageCount(void)
 {
 	return mulPageCount;
@@ -651,7 +651,7 @@ bool CPdfPicture::SetFontSize(int fontSize)
 	
 	if (pdfDoc != NULL)
 	{
-		pdfDoc->SetFont(L"Î¢ÈíÑÅºÚ", mFontSize);
+		pdfDoc->SetFont(L"å¾®è½¯é›…é»‘", mFontSize);
 
 		PAGE_PDF_CONTEXT pageConText = { 0,0,0 };
 
@@ -668,7 +668,7 @@ bool CPdfPicture::SetFontSize(int fontSize)
 	return true;
 }
 
-//ÆÁÄ»·¢ÉúÐý×ª
+//å±å¹•å‘ç”Ÿæ—‹è½¬
 void CPdfPicture::SetRotation(ULONG nulRotation)
 {
 	do 
@@ -723,7 +723,7 @@ bool CPdfPicture::CopyToClipboard(const D2D1_RECT_F& rRegion)
 		if (mpElBitmap == NULL || CExRect::Intersect(rRegion,mRecentDst,intersectRect) == false)
 			break;
 
-		//²»ÄÜ³¬³öÔ­Í¼´óÐ¡
+		//ä¸èƒ½è¶…å‡ºåŽŸå›¾å¤§å°
 		if (mpElBitmap->GetWidth() < (intersectRect.right- intersectRect.left))
 			intersectRect.right = mpElBitmap->GetWidth() + intersectRect.left;
 		if (mpElBitmap->GetHeight() < (intersectRect.bottom- intersectRect.top))
@@ -779,7 +779,7 @@ float CPdfPicture::GetFatRatio(void)
 	return mViewCtl.GetFatRatio() / mViewCtl.GetBaseRatio();
 }
 
-//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òþ²Ø¡¿·¢Éú¸Ä±ä
+//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 ERESULT CPdfPicture::OnElementShow(bool nbIsShow)
 {
 	//EiSetHomebarStatus(nbIsShow == false ? GI_HOMEBAR_SHOW : GI_HOMEBAR_HIDE);
@@ -936,7 +936,7 @@ bool CPdfPicture::RenderPages(void)
 			}
 
 			//////////////////////////////////////////////////////////////////////////
-			// Í¼ÏñÔöÇ¿Ëã·¨£¬¶ÔÓÚÏÔÊ¾Í¼Æ¬ÄÚÈÝÊ®·ÖÓÐÐ§
+			// å›¾åƒå¢žå¼ºç®—æ³•ï¼Œå¯¹äºŽæ˜¾ç¤ºå›¾ç‰‡å†…å®¹ååˆ†æœ‰æ•ˆ
 			//LONG stride = imageSize.x * 4;
 
 			//RtlCopyMemory(imageBuffer, src, stride);
@@ -1037,7 +1037,7 @@ void CPdfPicture::CalcMovalbe(OUT RECT& rMove)
 	}
 }
 
-//»æÖÆ
+//ç»˜åˆ¶
 ERESULT CPdfPicture::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -1056,8 +1056,8 @@ ERESULT CPdfPicture::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 		{
 			mRecentDst.left = (float32)dstRect.left;
 			mRecentDst.right = (float32)dstRect.right;
-			mRecentDst.top = (float32)dstRect.top + mTitleBarHeight/2.0f;// ÏÂÒÆÒ»°ë
-			mRecentDst.bottom = (float32)dstRect.bottom + mTitleBarHeight / 2.0f;// ÏÂÒÆÒ»°ë
+			mRecentDst.top = (float32)dstRect.top + mTitleBarHeight/2.0f;// ä¸‹ç§»ä¸€åŠ
+			mRecentDst.bottom = (float32)dstRect.bottom + mTitleBarHeight / 2.0f;// ä¸‹ç§»ä¸€åŠ
 			mRecentSrc.left = (float32)srcRect.left;
 			mRecentSrc.right = (float32)srcRect.right;
 			mRecentSrc.top = (float32)srcRect.top;

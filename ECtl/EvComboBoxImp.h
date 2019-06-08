@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -12,7 +12,7 @@
 #include "EvImageButtonImp.h"
 
 
-//¶¨Òå³£Á¿
+//å®šä¹‰å¸¸é‡
 #define BUF_SIZE	256
 
 
@@ -25,36 +25,36 @@ class CEvComboBox:
 public:
 
 	ULONG InitOnCreate(
-		IN IEinkuiIterator* npParent = NULL,	// ¸¸¶ÔÏóÖ¸Õë
-		IN ICfKey* npTemplete = NULL,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-		IN ULONG nuEID=MAXULONG32	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+		IN IEinkuiIterator* npParent = NULL,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+		IN ICfKey* npTemplete = NULL,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+		IN ULONG nuEID=MAXULONG32	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 		) ;
 
 protected:
-	// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓĞ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖĞ½øĞĞ
+	// åªç”¨äºå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 	CEvComboBox();
-	// ÓÃÓÚÊÍ·Å³ÉÔ±¶ÔÏó
+	// ç”¨äºé‡Šæ”¾æˆå‘˜å¯¹è±¡
 	virtual ~CEvComboBox();
-	//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+	//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 	virtual ERESULT OnElementCreate(IEinkuiIterator* npIterator);
-	//»æÖÆ
+	//ç»˜åˆ¶
 	//virtual ERESULT OnPaint(IEinkuiPaintBoard* npPaintBoard);
-	// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-	// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+	// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+	// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 	virtual ERESULT ParseMessage(IEinkuiMessage* npMsg);
 
 	virtual ERESULT OnCtlButtonClick(IEinkuiIterator* npSender);
 
-	//½ûÓÃ»òÆôÓÃ
+	//ç¦ç”¨æˆ–å¯ç”¨
 	virtual ERESULT OnElementEnable(bool nbIsEnable);
 
-	//×°ÔØÅäÖÃ×ÊÔ´
+	//è£…è½½é…ç½®èµ„æº
 	//ERESULT LoadResource();
 
 public:
 	BOOL InsertItem(wchar_t* lswName);
 
-	// É¾³ıÖ¸¶¨Ïî£¬Ğ¡ÓÚ0±íÊ¾É¾³ıÈ«²¿¡£ ¡ª¡ª¡ª¡ªAdd by colin
+	// åˆ é™¤æŒ‡å®šé¡¹ï¼Œå°äº0è¡¨ç¤ºåˆ é™¤å…¨éƒ¨ã€‚ â€”â€”â€”â€”Add by colin
 	bool DeleteItem(IN int niIndexToDel);
 
 private:
@@ -62,7 +62,7 @@ private:
 
 	BOOL SetDefaultValueList();
 
-	//	¶ÁÈ¡UnificSettingÊı¾İ£¬ÖØÖÃĞĞÎª
+	//	è¯»å–UnificSettingæ•°æ®ï¼Œé‡ç½®è¡Œä¸º
 	bool SetValue();
 
 	bool SetComboBoxEnable(bool lbEnalbe);
@@ -90,30 +90,30 @@ public:
 
 private:
 
-	CEvPictureFrame*	mpUpperPicture;				//±à¼­ÇøÓòµÄ±³¾°£¨ÉÏ±³¾°£©
-	CEvEditImp*			mpCurrentItemEdit;			//×éºÏ¿òÖĞµ±Ç°Ïî£¨±à¼­Ä£Ê½£©
-	CEvButton*			mpCurrentItemButton;		//×éºÏ¿òÖĞµ±Ç°Ïî£¨·Ç±à¼­Ä£Ê½£©
-	CEvImageButton*		mpDropDownButton;			//×éºÏ¿òÖĞµÄÏÂÀ­°´Å¥
+	CEvPictureFrame*	mpUpperPicture;				//ç¼–è¾‘åŒºåŸŸçš„èƒŒæ™¯ï¼ˆä¸ŠèƒŒæ™¯ï¼‰
+	CEvEditImp*			mpCurrentItemEdit;			//ç»„åˆæ¡†ä¸­å½“å‰é¡¹ï¼ˆç¼–è¾‘æ¨¡å¼ï¼‰
+	CEvButton*			mpCurrentItemButton;		//ç»„åˆæ¡†ä¸­å½“å‰é¡¹ï¼ˆéç¼–è¾‘æ¨¡å¼ï¼‰
+	CEvImageButton*		mpDropDownButton;			//ç»„åˆæ¡†ä¸­çš„ä¸‹æ‹‰æŒ‰é’®
 	
-	//wchar_t*			mpCurItem;					//µ±Ç°Ñ¡ÖĞÏîµÄÎÄ±¾
+	//wchar_t*			mpCurItem;					//å½“å‰é€‰ä¸­é¡¹çš„æ–‡æœ¬
 
-	//ULONG				mpNumItem;					//ÏîµÄ¸öÊı
+	//ULONG				mpNumItem;					//é¡¹çš„ä¸ªæ•°
 
-	ICfKey*				mpComboBoxKey;				//Ä¬ÈÏComboBox¼üÖµ
+	ICfKey*				mpComboBoxKey;				//é»˜è®¤ComboBoxé”®å€¼
 
-	int					mnStyle;					//¿Ø¼ş·ç¸ñ 0£º¿É±à¼­Ä£Ê½ 1£º²»¿É±à¼­Ä£Ê½
+	int					mnStyle;					//æ§ä»¶é£æ ¼ 0ï¼šå¯ç¼–è¾‘æ¨¡å¼ 1ï¼šä¸å¯ç¼–è¾‘æ¨¡å¼
 
-	IEinkuiIterator*		mpIterPopMenu;				//µ¯³ö²Ëµ¥
+	IEinkuiIterator*		mpIterPopMenu;				//å¼¹å‡ºèœå•
 	IEinkuiIterator*		mpIterList;
 
 	cmmVector<ComboMenuItem>	mpVecComboMenuItem;
 
 	COMBOBOX_MSG			mMsgInfo;	
 
-	//¿Ø¼şÏûÏ¢
+	//æ§ä»¶æ¶ˆæ¯
 	TOOLBAR_MSG			mToolbarMsgInfo;
 
-	bool				mbOnlyAcceptNum;			//	±à¼­×´Ì¬ÏÂÊÇ¹»Ö»½ÓÊÕÊı×ÖÊäÈë
+	bool				mbOnlyAcceptNum;			//	ç¼–è¾‘çŠ¶æ€ä¸‹æ˜¯å¤Ÿåªæ¥æ”¶æ•°å­—è¾“å…¥
 	int					mnMaxInputNum;
 	int					mnMinInputNum;
 

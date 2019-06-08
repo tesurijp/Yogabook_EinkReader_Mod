@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -15,37 +15,37 @@ public:
 	};
 	~CXuiMessageQueue(){};
 
-	// ²åÈë±¾¶ÓÁĞÇ°²¿
+	// æ’å…¥æœ¬é˜Ÿåˆ—å‰éƒ¨
 	bool Push_Front(IEinkuiMessage* npMsg);
 
-	// ²åÈë±¾¶ÓÁĞÎ²²¿
+	// æ’å…¥æœ¬é˜Ÿåˆ—å°¾éƒ¨
 	bool Push_Back(IEinkuiMessage* npMsg);
 
-	//// ²åÈë±¾¶ÓÁĞÎ²²¿£¬µ«Ö´ĞĞReduceÔËËã
+	//// æ’å…¥æœ¬é˜Ÿåˆ—å°¾éƒ¨ï¼Œä½†æ‰§è¡ŒReduceè¿ç®—
 	//bool Push_Back_Reduce(IEinkuiMessage* npMsg);
 
 	IEinkuiMessage* GetMessage(void);
 
-	// »ñÈ¡¶ÔÏóÊı
+	// è·å–å¯¹è±¡æ•°
 	int Size(void);
 
-	// Çå³ıÈ«²¿ÏûÏ¢
+	// æ¸…é™¤å…¨éƒ¨æ¶ˆæ¯
 	void Clear(void);
 
-	//// ·ÖÀëÏûÏ¢£¬½«·ûºÏÌõ¼şµÄÏûÏ¢ÒÀ´Î·ÖÀëµ½Ò»¸öĞÂµÄÏûÏ¢¶ÓÁĞÖĞ
+	//// åˆ†ç¦»æ¶ˆæ¯ï¼Œå°†ç¬¦åˆæ¡ä»¶çš„æ¶ˆæ¯ä¾æ¬¡åˆ†ç¦»åˆ°ä¸€ä¸ªæ–°çš„æ¶ˆæ¯é˜Ÿåˆ—ä¸­
 	//void DispartMessage(
 	//	IN ULONG nuMsgID,
-	//	IN IEinkuiIterator* npItr,	// ÏûÏ¢µÄ·¢ËÍÄ¿±êÊÇ´Ë¶ÔÏó¼°Æä×Ó¶ÔÏó
-	//	OUT CXuiMessageQueue& rSaveTo	// ÓÃÓÚ½ÓÊÕÏûÏ¢µÄÆäËû¶ÓÁĞ£¬ÀïÃæµÄÄÚÈİÓ¦¸Ã±»Çå¿Õ
+	//	IN IEinkuiIterator* npItr,	// æ¶ˆæ¯çš„å‘é€ç›®æ ‡æ˜¯æ­¤å¯¹è±¡åŠå…¶å­å¯¹è±¡
+	//	OUT CXuiMessageQueue& rSaveTo	// ç”¨äºæ¥æ”¶æ¶ˆæ¯çš„å…¶ä»–é˜Ÿåˆ—ï¼Œé‡Œé¢çš„å†…å®¹åº”è¯¥è¢«æ¸…ç©º
 	//	);
 
-	// »ñÈ¡ÌØ¶¨ÏûÏ¢
+	// è·å–ç‰¹å®šæ¶ˆæ¯
 	IEinkuiMessage* GetMessage(
 		IN ULONG nuMsgID,
-		IN IEinkuiIterator* npItr	// ÏûÏ¢µÄ·¢ËÍÄ¿±êÊÇ´Ë¶ÔÏó¼°Æä×Ó¶ÔÏó
+		IN IEinkuiIterator* npItr	// æ¶ˆæ¯çš„å‘é€ç›®æ ‡æ˜¯æ­¤å¯¹è±¡åŠå…¶å­å¯¹è±¡
 		);
 
-	//// Çå³ıÖ¸¶¨ÒªÇóµÄÈ«²¿ÏûÏ¢
+	//// æ¸…é™¤æŒ‡å®šè¦æ±‚çš„å…¨éƒ¨æ¶ˆæ¯
 	//int RemoveMessages(
 	//	unsigned short nusType,
 	//	unsigned short nusMajNum,
@@ -53,7 +53,7 @@ public:
 	//	unsigned long nusMask	// combination of the values that they are defined below
 	//	);
 
-	// Çå³ıµôÖ¸¶¨µÄ¶¨Ê±Æ÷ÏûÏ¢
+	// æ¸…é™¤æ‰æŒ‡å®šçš„å®šæ—¶å™¨æ¶ˆæ¯
 	int RemoveTimerMessage(
 		const IEinkuiIterator* npTarget,	// null for all targets
 		unsigned long nuTimerID		// 0 for all timer-message sending to the target

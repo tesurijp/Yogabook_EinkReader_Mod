@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -6,7 +6,7 @@
 #define _ELEITERATORIMP_H_
 #include <d2d1.h>
 /*
-	±¾ÎÄ¶¨ÒåÔªËØµü´úÆ÷µÄÊµÏÖÀà
+	æœ¬æ–‡å®šä¹‰å…ƒç´ è¿­ä»£å™¨çš„å®ç°ç±»
 
 */
 
@@ -22,21 +22,21 @@ public:
 	}
 };
 
-class CEoSubItrNodeCriterion	// Ä¬ÈÏµÄÅĞ¶Ï×¼Ôò
+class CEoSubItrNodeCriterion	// é»˜è®¤çš„åˆ¤æ–­å‡†åˆ™
 {
 public:
-	bool operator () (const CEoSubItrNode& Obj1,const CEoSubItrNode& Obj2)const // Ò»¶¨ÒªÓÃÄÚÁªº¯Êı
+	bool operator () (const CEoSubItrNode& Obj1,const CEoSubItrNode& Obj2)const // ä¸€å®šè¦ç”¨å†…è”å‡½æ•°
 	{
-		// µ±¶ÔÏóOb1Ğ¡ÓÚ¶ÔÏóObj2Ê±£¬·µ»ØTrue£¬·ñÔò·µ»Øfalse
+		// å½“å¯¹è±¡Ob1å°äºå¯¹è±¡Obj2æ—¶ï¼Œè¿”å›Trueï¼Œå¦åˆ™è¿”å›false
 		return (Obj1.muID < Obj2.muID);
 	}
 };
 
-// °´ÕÕIDÅÅĞòµÄµü´úÆ÷¶ÓÁĞ
+// æŒ‰ç…§IDæ’åºçš„è¿­ä»£å™¨é˜Ÿåˆ—
 typedef cmmSequence<CEoSubItrNode,CEoSubItrNodeCriterion> TSubItrSequence;
 
 
-// ÓÃÓÚ°´ÕÕTabOrder»òZOrderÅÅÁĞ×ÓÔªËØµü´úÆ÷µÄÊı¾İ½á¹¹
+// ç”¨äºæŒ‰ç…§TabOrderæˆ–ZOrderæ’åˆ—å­å…ƒç´ è¿­ä»£å™¨çš„æ•°æ®ç»“æ„
 typedef cmmVector<CXuiIterator*>  TElIteratorVector;
 
 
@@ -47,8 +47,8 @@ public:
 		eShit=2,
 		eAlt=4
 	};
-	ULONG muHotKeyID;		//×¢²áÊ±Ìá¹©µÄID
-	USHORT msuVkCode;	// ¿ì½İ¼üµÄÆÕÍ¨°´¼ü
+	ULONG muHotKeyID;		//æ³¨å†Œæ—¶æä¾›çš„ID
+	USHORT msuVkCode;	// å¿«æ·é”®çš„æ™®é€šæŒ‰é”®
 	UCHAR mcuExKey;
 	IEinkuiIterator* mpApplicant;
 
@@ -60,12 +60,12 @@ public:
 	}
 };
 
-class CXuiHotkeyEntryCriterion	// Ä¬ÈÏµÄÅĞ¶Ï×¼Ôò
+class CXuiHotkeyEntryCriterion	// é»˜è®¤çš„åˆ¤æ–­å‡†åˆ™
 {
 public:
-	bool operator () (const CXuiHotkeyEntry& Obj1,const CXuiHotkeyEntry& Obj2)const // Ò»¶¨ÒªÓÃÄÚÁªº¯Êı
+	bool operator () (const CXuiHotkeyEntry& Obj1,const CXuiHotkeyEntry& Obj2)const // ä¸€å®šè¦ç”¨å†…è”å‡½æ•°
 	{
-		// µ±¶ÔÏóOb1Ğ¡ÓÚ¶ÔÏóObj2Ê±£¬·µ»ØTrue£¬·ñÔò·µ»Øfalse
+		// å½“å¯¹è±¡Ob1å°äºå¯¹è±¡Obj2æ—¶ï¼Œè¿”å›Trueï¼Œå¦åˆ™è¿”å›false
 		return (Obj1.msuVkCode < Obj2.msuVkCode || (Obj1.msuVkCode == Obj2.msuVkCode && Obj1.mcuExKey < Obj2.mcuExKey));
 	}
 };
@@ -75,33 +75,33 @@ typedef cmmSequence<CXuiHotkeyEntry,CXuiHotkeyEntryCriterion,0,8> THotKeyTable;
 
 
 
-// µü´úÆ÷À©Õ¹°ü
+// è¿­ä»£å™¨æ‰©å±•åŒ…
 class CXuiIteratorExtension{
 public:
-	TSubItrSequence moIDOrder;	// °´ÕÕIDÅÅĞòµÄÏßĞÔ±í
-	TElIteratorVector moZOrder;	// °´ÕÕÔªËØµÄ²ãµş¹ØÏµÅÅÁĞµÄÁ´±í
-	TElIteratorVector moTabOder;	// °´ÕÕTab°´¼üµÄ½¹µãÑ¡Ôñ´ÎĞòÀ´ÅÅĞòµÄÁ´±í
-	// Direct2DµÄLayer
-	// Direct32µÄÏà¹Ø²ÎÊı
+	TSubItrSequence moIDOrder;	// æŒ‰ç…§IDæ’åºçš„çº¿æ€§è¡¨
+	TElIteratorVector moZOrder;	// æŒ‰ç…§å…ƒç´ çš„å±‚å å…³ç³»æ’åˆ—çš„é“¾è¡¨
+	TElIteratorVector moTabOder;	// æŒ‰ç…§TabæŒ‰é”®çš„ç„¦ç‚¹é€‰æ‹©æ¬¡åºæ¥æ’åºçš„é“¾è¡¨
+	// Direct2Dçš„Layer
+	// Direct32çš„ç›¸å…³å‚æ•°
 
 };
 
-// ÏÂÃæµÄ±êÖ¾ÊÇÓÃÀ´ÅĞ¶ÏIteratorµÄÄÚÈİµÄ±êÖ¾Î»
+// ä¸‹é¢çš„æ ‡å¿—æ˜¯ç”¨æ¥åˆ¤æ–­Iteratorçš„å†…å®¹çš„æ ‡å¿—ä½
 #define EITR_FLAG_INIT		1
-#define EITR_FLAG_DIRTY		2	//´ËÔªËØµÄÎ»ÖÃºÍÆäËûÏÔÊ¾ÊôĞÔ·¢Éú¹ı¸Ä±ä£¬²¢ÇÒÉĞÎ´ÖØĞÂË¢ĞÂ
-#define EITR_FLAG_VISIBLE	3	//ÊÇ·ñ¿ÉÊÓ
-#define EITR_FLAG_DISABLE	4	//ÊÇ·ñÊ¹ÄÜ
-#define EITR_FLAG_ALPHA		5	//ÊÇ·ñÉèÖÃÁËÍ¸Ã÷¶È
-#define EITR_FLAG_ROTATION	6	//ÊÇ·ñÉèÖÃÁËÆ½ÃæĞı×ª	'rtal' 'rtcn'
-#define EITR_FLAG_WIDGET_HOME	7	//ÊÇ²»ÊÇÒ»¸öWidgetµÄHome Page
-#define EITR_FLAG_ENHANCER	8	//ÊÇ·ñÓĞÔöĞ§Æ÷	'ehcr'
-#define EITR_FLAG_HOOK		9	//ÊÇ·ñ±»Hook		'hook'
-#define EITR_FLAG_VREGION	10	//ÊÇ·ñÉèÖÃÁË¿ÉÊÓÇø 'vrgn'
-#define EITR_FLAG_TIP		11	//ÊÇ·ñÉèÖÃÁËTip	'tip'
-#define EITR_FLAG_HOTKEY	12  //ÊÇ·ñ×¢²áÁË¿ì½İ¼ü 'htky'
-#define EITR_FLAG_DELETED	13	//ÒÑ¾­±»É¾³ı
-#define EITR_FLAG_PAINTLEVEL_HOST 14 //ÄÚ½¨Àà»æÖÆ²ã£¬²ãÊıÍ¨¹ı'plvc'»ñµÃ
-#define EITR_FLAG_CRT_PAINTLEVEL  15 //Éè¶¨ÁË»æÖÆ²ã´Î£¬µ±Ç°²ãÍ¨¹ı'plvn'»ñµÃ
+#define EITR_FLAG_DIRTY		2	//æ­¤å…ƒç´ çš„ä½ç½®å’Œå…¶ä»–æ˜¾ç¤ºå±æ€§å‘ç”Ÿè¿‡æ”¹å˜ï¼Œå¹¶ä¸”å°šæœªé‡æ–°åˆ·æ–°
+#define EITR_FLAG_VISIBLE	3	//æ˜¯å¦å¯è§†
+#define EITR_FLAG_DISABLE	4	//æ˜¯å¦ä½¿èƒ½
+#define EITR_FLAG_ALPHA		5	//æ˜¯å¦è®¾ç½®äº†é€æ˜åº¦
+#define EITR_FLAG_ROTATION	6	//æ˜¯å¦è®¾ç½®äº†å¹³é¢æ—‹è½¬	'rtal' 'rtcn'
+#define EITR_FLAG_WIDGET_HOME	7	//æ˜¯ä¸æ˜¯ä¸€ä¸ªWidgetçš„Home Page
+#define EITR_FLAG_ENHANCER	8	//æ˜¯å¦æœ‰å¢æ•ˆå™¨	'ehcr'
+#define EITR_FLAG_HOOK		9	//æ˜¯å¦è¢«Hook		'hook'
+#define EITR_FLAG_VREGION	10	//æ˜¯å¦è®¾ç½®äº†å¯è§†åŒº 'vrgn'
+#define EITR_FLAG_TIP		11	//æ˜¯å¦è®¾ç½®äº†Tip	'tip'
+#define EITR_FLAG_HOTKEY	12  //æ˜¯å¦æ³¨å†Œäº†å¿«æ·é”® 'htky'
+#define EITR_FLAG_DELETED	13	//å·²ç»è¢«åˆ é™¤
+#define EITR_FLAG_PAINTLEVEL_HOST 14 //å†…å»ºç±»ç»˜åˆ¶å±‚ï¼Œå±‚æ•°é€šè¿‡'plvc'è·å¾—
+#define EITR_FLAG_CRT_PAINTLEVEL  15 //è®¾å®šäº†ç»˜åˆ¶å±‚æ¬¡ï¼Œå½“å‰å±‚é€šè¿‡'plvn'è·å¾—
 
 #define ITR_CHECK() //CMMASSERT(gpElementManager->VerifyIterator(this)==ERESULT_SUCCESS)
 
@@ -115,226 +115,226 @@ class CXuiIterator: public cmmBaseObject<CXuiIterator,IEinkuiIterator,GET_BUILTI
 public:
 	DEFINE_CUMSTOMIZE_CREATE(CXuiIterator,(),())
 
-	// Æô¶¯Iterator£¬×¼±¸½ÓÊÜÏûÏ¢£¬µ÷ÓÃÕâ¸ö·½·¨ºó£¬ElementÊ×ÏÈ»áÊÕµ½EMSG_CREATEÏûÏ¢£¬Õâ¸ö·½·¨Í¨³£ÔÚElementµÄÊµÀı»¯º¯ÊıÍË³öÇ°µ÷ÓÃ
+	// å¯åŠ¨Iteratorï¼Œå‡†å¤‡æ¥å—æ¶ˆæ¯ï¼Œè°ƒç”¨è¿™ä¸ªæ–¹æ³•åï¼ŒElementé¦–å…ˆä¼šæ”¶åˆ°EMSG_CREATEæ¶ˆæ¯ï¼Œè¿™ä¸ªæ–¹æ³•é€šå¸¸åœ¨Elementçš„å®ä¾‹åŒ–å‡½æ•°é€€å‡ºå‰è°ƒç”¨
 	virtual void __stdcall Start(void);
 
-	// ¹Ø±ÕÒ»¸öÔªËØ
+	// å…³é—­ä¸€ä¸ªå…ƒç´ 
 	virtual void __stdcall Close(void);
 
-	// ÖØÔØÔö¼ÓÒıÓÃ½Ó¿Ú£¬½ûÓÃËü
+	// é‡è½½å¢åŠ å¼•ç”¨æ¥å£ï¼Œç¦ç”¨å®ƒ
 	virtual int __stdcall AddRefer(void){
 		return 1;
 	}
-	// ÖØÔØÊÍ·Å½Ó¿Ú£¬½ûÓÃËü
+	// é‡è½½é‡Šæ”¾æ¥å£ï¼Œç¦ç”¨å®ƒ
 	virtual int __stdcall Release(void){
 		return 1;
 	}
 
-	// »ñµÃ±¾ElementµÄEID
+	// è·å¾—æœ¬Elementçš„EID
 	virtual ULONG __stdcall  GetID(void);
 
-	// »ñµÃ±¾ElementËùÊôµÄEtype
+	// è·å¾—æœ¬Elementæ‰€å±çš„Etype
 	virtual const wchar_t* __stdcall  GetType(void);
 
-	// »ñµÃ¸¸¶ÔÏó
+	// è·å¾—çˆ¶å¯¹è±¡
 	virtual IEinkuiIterator* __stdcall  GetParent(void);
 
-	// »ñµÃ±¾µü´úÆ÷¶ÔÓ¦µÄElement¶ÔÏó
+	// è·å¾—æœ¬è¿­ä»£å™¨å¯¹åº”çš„Elementå¯¹è±¡
 	virtual IXsElement* __stdcall GetElementObject(void);
 
-	// »ñµÃÏÂÒ»²ãµÄ×Ó¶ÔÏóµÄ×ÜÊı
+	// è·å¾—ä¸‹ä¸€å±‚çš„å­å¯¹è±¡çš„æ€»æ•°
 	virtual int __stdcall GetSubElementCount(void);
 
-	// Ñ¯ÎÊÄ³¸öIteratorÔÚ²ã´Î½á¹¹ÉÏÊÇ²»ÊÇµ±Ç°IteratorµÄ×æÏÈ
+	// è¯¢é—®æŸä¸ªIteratoråœ¨å±‚æ¬¡ç»“æ„ä¸Šæ˜¯ä¸æ˜¯å½“å‰Iteratorçš„ç¥–å…ˆ
 	virtual bool __stdcall FindAncestor(const IEinkuiIterator* npIsAncestor);
 
-	// Í¨¹ıZOderµÄÅÅÁĞ´ÎĞò»ñµÃ×Ó½Úµã£¬·µ»ØµÄ½Ó¿ÚĞèÒªÊÍ·Å
+	// é€šè¿‡ZOderçš„æ’åˆ—æ¬¡åºè·å¾—å­èŠ‚ç‚¹ï¼Œè¿”å›çš„æ¥å£éœ€è¦é‡Šæ”¾
 	virtual IEinkuiIterator* __stdcall  GetSubElementByZOder(
 		int niPos	// zero base index value to indicate the position in z-order array
 		);
 
-	// Í¨¹ıID»ñµÃ×Ó½Úµã£¬·µ»ØµÄ½Ó¿ÚĞèÒªÊÍ·Å
+	// é€šè¿‡IDè·å¾—å­èŠ‚ç‚¹ï¼Œè¿”å›çš„æ¥å£éœ€è¦é‡Šæ”¾
 	virtual IEinkuiIterator* __stdcall  GetSubElementByID(ULONG nuEid);
 
-	// ¸ø´ËÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍÄ£Ê½ÊÇSend
-	// ÏûÏ¢·¢ËÍºó£¬·¢ËÍÕßÈÔÈ»ĞèÒªÊÍ·Å£»Èç¹ûÏ£ÍûÒÔ¸ü¼Ó¼òµ¥µÄ·½Ê½·¢ËÍÏûÏ¢£¬²Î¿¼IXelManagerµÄSimplePostMessage·½·¨
+	// ç»™æ­¤å…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€æ¨¡å¼æ˜¯Send
+	// æ¶ˆæ¯å‘é€åï¼Œå‘é€è€…ä»ç„¶éœ€è¦é‡Šæ”¾ï¼›å¦‚æœå¸Œæœ›ä»¥æ›´åŠ ç®€å•çš„æ–¹å¼å‘é€æ¶ˆæ¯ï¼Œå‚è€ƒIXelManagerçš„SimplePostMessageæ–¹æ³•
 	virtual ERESULT __stdcall SendMessage(IEinkuiMessage* npMsg);
 
-	// ¸ø´ËÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍÄ£Ê½ÊÇPost
-	// ÏûÏ¢·¢ËÍºó£¬·¢ËÍÕßÈÔÈ»ĞèÒªÊÍ·Å£»Èç¹ûÏ£ÍûÒÔ¸ü¼Ó¼òµ¥µÄ·½Ê½·¢ËÍÏûÏ¢£¬²Î¿¼IXelManagerµÄSimplePostMessage·½·¨
+	// ç»™æ­¤å…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€æ¨¡å¼æ˜¯Post
+	// æ¶ˆæ¯å‘é€åï¼Œå‘é€è€…ä»ç„¶éœ€è¦é‡Šæ”¾ï¼›å¦‚æœå¸Œæœ›ä»¥æ›´åŠ ç®€å•çš„æ–¹å¼å‘é€æ¶ˆæ¯ï¼Œå‚è€ƒIXelManagerçš„SimplePostMessageæ–¹æ³•
 	virtual ERESULT __stdcall PostMessage(IEinkuiMessage* npMsg);
 
-	// ¸ø´ËÔªËØµÄ¸¸ÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍµÄÄ£Ê½ÊÇFastPost
-	// ÏûÏ¢·¢ËÍºó£¬·¢ËÍÕßÈÔÈ»ĞèÒªÊÍ·Å
-	// !!!×¢Òâ!!! ½öÓÃÓÚ·¢ËÍÕßÊÇ±¾µü´úÆ÷¶ÔÓ¦µÄÔªËØÖ®Çé¿ö
+	// ç»™æ­¤å…ƒç´ çš„çˆ¶å…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€çš„æ¨¡å¼æ˜¯FastPost
+	// æ¶ˆæ¯å‘é€åï¼Œå‘é€è€…ä»ç„¶éœ€è¦é‡Šæ”¾
+	// !!!æ³¨æ„!!! ä»…ç”¨äºå‘é€è€…æ˜¯æœ¬è¿­ä»£å™¨å¯¹åº”çš„å…ƒç´ ä¹‹æƒ…å†µ
 	virtual ERESULT __stdcall PostMessageToParent(IEinkuiMessage* npMsg);
 
-	// ÉêÇë¼üÅÌ½¹µã£¬Èç¹û¸ÃÔªËØ¾ßÓĞpopupÊôĞÔ£¬Ò²½«±»µ÷Õûµ½ºÏÊÊµÄÉÏ²ã
+	// ç”³è¯·é”®ç›˜ç„¦ç‚¹ï¼Œå¦‚æœè¯¥å…ƒç´ å…·æœ‰popupå±æ€§ï¼Œä¹Ÿå°†è¢«è°ƒæ•´åˆ°åˆé€‚çš„ä¸Šå±‚
 	virtual ERESULT __stdcall SetKeyBoardFocus(void);
 
-	// ÊÍ·Å¼üÅÌ½¹µã£¬Õâ½«µ¼ÖÂTab OrderµÄÏÂÒ»¸ö¼üÅÌ½ÓÊÕÕß»ñµÃ½¹µã
+	// é‡Šæ”¾é”®ç›˜ç„¦ç‚¹ï¼Œè¿™å°†å¯¼è‡´Tab Orderçš„ä¸‹ä¸€ä¸ªé”®ç›˜æ¥æ”¶è€…è·å¾—ç„¦ç‚¹
 	virtual void __stdcall ReleaseKeyBoardFocus(bool nbShiftFocus);
 
-	// ÉèÖÃÔªËØÎª»îÔ¾£¬Èç¹û±¾ÔªËØ²»¾ßÓĞEITR_STYLE_POPUP»òEITR_STYLE_ACTIVE·ç¸ñ£¬ÄÇÃ´×îµÍµÄÒ»¸ö¾ßÓĞEITR_STYLE_POPUP»òEITR_STYLE_ACTIVE·ç¸ñµÄÉÏ²ãÔªËØ½«±»¼¤»î
+	// è®¾ç½®å…ƒç´ ä¸ºæ´»è·ƒï¼Œå¦‚æœæœ¬å…ƒç´ ä¸å…·æœ‰EITR_STYLE_POPUPæˆ–EITR_STYLE_ACTIVEé£æ ¼ï¼Œé‚£ä¹ˆæœ€ä½çš„ä¸€ä¸ªå…·æœ‰EITR_STYLE_POPUPæˆ–EITR_STYLE_ACTIVEé£æ ¼çš„ä¸Šå±‚å…ƒç´ å°†è¢«æ¿€æ´»
 	virtual void __stdcall SetActive(void);
 
-	// ÉèÖÃStyle
+	// è®¾ç½®Style
 	virtual void __stdcall SetStyles(ULONG nuStyles);
 
-	// ĞŞ¸ÄStyle£¬Ç°Ò»¸ö²ÎÊıÊÇÏ£ÍûÔö¼ÓµÄStyle£¬ºóÒ»¸ö²ÎÊıÊÇÏ£ÍûÒÆ³ıµÄStyle£¬µ±Ç°ºóÁ½¸ö²ÎÊıÖĞ°üÀ¨ÏàÍ¬StyleÊ±£¬¸ÃStyle²»»á±»ÒÆ³ı 
+	// ä¿®æ”¹Styleï¼Œå‰ä¸€ä¸ªå‚æ•°æ˜¯å¸Œæœ›å¢åŠ çš„Styleï¼Œåä¸€ä¸ªå‚æ•°æ˜¯å¸Œæœ›ç§»é™¤çš„Styleï¼Œå½“å‰åä¸¤ä¸ªå‚æ•°ä¸­åŒ…æ‹¬ç›¸åŒStyleæ—¶ï¼Œè¯¥Styleä¸ä¼šè¢«ç§»é™¤ 
 	virtual void __stdcall ModifyStyles(ULONG nuSet,ULONG nuClear=0);
 
-	// ¶ÁÈ¡Style
+	// è¯»å–Style
 	virtual ULONG __stdcall GetStyles(void);
 
-	// ÉêÇë¶¨Ê±Æ÷£¬¶ÔÓÚÓÀ¾Ã´¥·¢µÄ¶¨Ê±Æ÷£¬ĞèÒª×¢Ïú
+	// ç”³è¯·å®šæ—¶å™¨ï¼Œå¯¹äºæ°¸ä¹…è§¦å‘çš„å®šæ—¶å™¨ï¼Œéœ€è¦æ³¨é”€
 	virtual ERESULT __stdcall SetTimer(
-		IN ULONG nuID,	  // ¶¨Ê±Æ÷ID
-		IN ULONG nuRepeat,// ĞèÒªÖØ¸´´¥·¢µÄ´ÎÊı£¬MAXULONG32±íÊ¾ÓÀÔ¶ÖØ¸´
-		IN ULONG nuDuration,	// ´¥·¢ÖÜÆÚ
-		IN void* npContext//ÉÏÏÂÎÄ£¬½«Ëæ×Å¶¨Ê±Æ÷ÏûÏ¢·¢ËÍ¸øÉêÇëÕß
+		IN ULONG nuID,	  // å®šæ—¶å™¨ID
+		IN ULONG nuRepeat,// éœ€è¦é‡å¤è§¦å‘çš„æ¬¡æ•°ï¼ŒMAXULONG32è¡¨ç¤ºæ°¸è¿œé‡å¤
+		IN ULONG nuDuration,	// è§¦å‘å‘¨æœŸ
+		IN void* npContext//ä¸Šä¸‹æ–‡ï¼Œå°†éšç€å®šæ—¶å™¨æ¶ˆæ¯å‘é€ç»™ç”³è¯·è€…
 		);
 
-	// Ïú»Ù¶¨Ê±Æ÷
+	// é”€æ¯å®šæ—¶å™¨
 	virtual ERESULT __stdcall KillTimer(
-		IN ULONG nuID	  // ¶¨Ê±Æ÷ID
+		IN ULONG nuID	  // å®šæ—¶å™¨ID
 		);
 
-	// HookÄ¿±ê£¬µ±Ç°½öÖ§³Öµ¥²ã´ÎµÄHook£¬¼´£¬Ò»¸öÔªËØÔÚÍ¬Ò»Ê±¿Ì½ö±»Ò»¸öÔªËØHook£»ÊÔÍ¼HookÒ»¸öÒÑ¾­±»HookµÄÔªËØÊ±£¬½«»á·µ»ØÊ§°ÜERESULT_ACCESS_CONFLICT
+	// Hookç›®æ ‡ï¼Œå½“å‰ä»…æ”¯æŒå•å±‚æ¬¡çš„Hookï¼Œå³ï¼Œä¸€ä¸ªå…ƒç´ åœ¨åŒä¸€æ—¶åˆ»ä»…è¢«ä¸€ä¸ªå…ƒç´ Hookï¼›è¯•å›¾Hookä¸€ä¸ªå·²ç»è¢«Hookçš„å…ƒç´ æ—¶ï¼Œå°†ä¼šè¿”å›å¤±è´¥ERESULT_ACCESS_CONFLICT
 	virtual ERESULT __stdcall SetHook(
-		IN IEinkuiIterator* npHooker,	// HookÇëÇóÕß£¬Ò»µ©ÉèÖÃÁËHook£¬±¾¶ÔÏóµÄËùÓĞÏûÏ¢£¬¶¼»áÏÈ·¢ËÍ¸øHooker´¦Àí£¬Hooker¿ÉÒÔĞŞ¸ÄÈÎÒâµÄÏûÏ¢£¬Ò²¿ÉÒÔ×èÖ¹ÏûÏ¢·¢ËÍ¸ø±¾¶ÔÏó
+		IN IEinkuiIterator* npHooker,	// Hookè¯·æ±‚è€…ï¼Œä¸€æ—¦è®¾ç½®äº†Hookï¼Œæœ¬å¯¹è±¡çš„æ‰€æœ‰æ¶ˆæ¯ï¼Œéƒ½ä¼šå…ˆå‘é€ç»™Hookerå¤„ç†ï¼ŒHookerå¯ä»¥ä¿®æ”¹ä»»æ„çš„æ¶ˆæ¯ï¼Œä¹Ÿå¯ä»¥é˜»æ­¢æ¶ˆæ¯å‘é€ç»™æœ¬å¯¹è±¡
 		IN bool nbSet		// true to set ,false to remove
 		);
 
-	// »ñµÃHooker£¬»ñÈ¡±¾ÔªËØ±»Ë­Hook
+	// è·å¾—Hookerï¼Œè·å–æœ¬å…ƒç´ è¢«è°Hook
 	virtual IEinkuiIterator* __stdcall GetHooker(void);
 
-	// ÉèÖÃäÖÈ¾ÔöĞ§Æ÷£¬ÔöĞ§Æ÷ÓÃÓÚ¸øÄ³¸öÔªËØºÍËüµÄ×ÓÔªËØÌá¹©ÌØ¶¨µÄäÖÈ¾£¬ÔöĞ§Æ÷¿ÉÒÔÑ¡ÔñDirect2D£¬Direct3D¼¼ÊõÍêÉÆXUIÏµÍ³µÄäÖÈ¾
-	// Í¬Ò»¸öÔªËØÔÚÍ¬Ò»Ê±¿ÌÖ»ÄÜÓĞÒ»¸öÔöĞ§Æ÷ÔÚ¹¤×÷£»²¢ÇÒ£¬Í¨³£ÔöĞ§Æ÷¶¼ÊÇ¶ÔÆä¸¸ÔªËØ·¢Éú×÷ÓÃ
-	// ·µ»ØERESULT_ACCESS_CONFLICT±íÊ¾¶à¸öÔöĞ§Æ÷·¢Éú³åÍ»£»ÔöĞ§Æ÷ÉèÖÃ£¬ÇëÔÚ½ÓÊÕµ½EMSG_PREPARE_PAINTÊ±´¦Àí£¬ÆäËûµØ·½×öÉèÖÃ£¬ÓĞ¿ÉÄÜµ¼ÖÂÑÏÖØ´íÎó
+	// è®¾ç½®æ¸²æŸ“å¢æ•ˆå™¨ï¼Œå¢æ•ˆå™¨ç”¨äºç»™æŸä¸ªå…ƒç´ å’Œå®ƒçš„å­å…ƒç´ æä¾›ç‰¹å®šçš„æ¸²æŸ“ï¼Œå¢æ•ˆå™¨å¯ä»¥é€‰æ‹©Direct2Dï¼ŒDirect3DæŠ€æœ¯å®Œå–„XUIç³»ç»Ÿçš„æ¸²æŸ“
+	// åŒä¸€ä¸ªå…ƒç´ åœ¨åŒä¸€æ—¶åˆ»åªèƒ½æœ‰ä¸€ä¸ªå¢æ•ˆå™¨åœ¨å·¥ä½œï¼›å¹¶ä¸”ï¼Œé€šå¸¸å¢æ•ˆå™¨éƒ½æ˜¯å¯¹å…¶çˆ¶å…ƒç´ å‘ç”Ÿä½œç”¨
+	// è¿”å›ERESULT_ACCESS_CONFLICTè¡¨ç¤ºå¤šä¸ªå¢æ•ˆå™¨å‘ç”Ÿå†²çªï¼›å¢æ•ˆå™¨è®¾ç½®ï¼Œè¯·åœ¨æ¥æ”¶åˆ°EMSG_PREPARE_PAINTæ—¶å¤„ç†ï¼Œå…¶ä»–åœ°æ–¹åšè®¾ç½®ï¼Œæœ‰å¯èƒ½å¯¼è‡´ä¸¥é‡é”™è¯¯
 	virtual ERESULT __stdcall SetEnhancer(
 		IN IEinkuiIterator* npEnhancer,
-		IN bool nbEnable		// true ÆôÓÃ£¬false È¡Ïû
+		IN bool nbEnable		// true å¯ç”¨ï¼Œfalse å–æ¶ˆ
 		);
 
-	// »ñµÃÔöĞ§Æ÷
+	// è·å¾—å¢æ•ˆå™¨
 	virtual IEinkuiIterator* __stdcall GetEnhancer(void);
 
 	//////////////////////////////////////////////////////////////////////////
-	// ÏÂÃæÊÇËùÓĞÓëÏÔÊ¾ºÍÎ»ÖÃÏà¹ØµÄ·½·¨
+	// ä¸‹é¢æ˜¯æ‰€æœ‰ä¸æ˜¾ç¤ºå’Œä½ç½®ç›¸å…³çš„æ–¹æ³•
 
-	// ÉèÖÃÏÔÊ¾/Òş²Ø
+	// è®¾ç½®æ˜¾ç¤º/éšè—
 	virtual void __stdcall SetVisible(bool nbVisible);
 
-	// ¶ÁÈ¡ÏÔÊ¾/Òş²Ø×´Ì¬
+	// è¯»å–æ˜¾ç¤º/éšè—çŠ¶æ€
 	virtual bool __stdcall IsVisible(void);
 
-	// Éè¶¨ÕûÌåÍ¸Ã÷¶È
+	// è®¾å®šæ•´ä½“é€æ˜åº¦
 	virtual void __stdcall SetAlpha(FLOAT nfAlpha);
 
-	// ¶ÁÈ¡ÕûÌåÍ¸Ã÷¶È
+	// è¯»å–æ•´ä½“é€æ˜åº¦
 	virtual FLOAT __stdcall GetAlpha(void);
 
-	// ÉèÖÃÆ½Ãæ×ø±ê
+	// è®¾ç½®å¹³é¢åæ ‡
 	virtual void __stdcall SetPosition(FLOAT nfX,FLOAT nfY);
 	virtual void __stdcall SetPosition(const D2D1_POINT_2F& rPosition);
 
-	// ¶ÁÈ¡Æ½Ãæ×ø±ê
+	// è¯»å–å¹³é¢åæ ‡
 	virtual FLOAT __stdcall GetPositionX(void);
 	virtual FLOAT __stdcall GetPositionY(void);
 	virtual D2D1_POINT_2F __stdcall GetPosition(void);
 	virtual void __stdcall GetRect(D2D1_RECT_F& rRect);
 
-	// ÉèÖÃ¿ÉÊÓÇøÓò
+	// è®¾ç½®å¯è§†åŒºåŸŸ
 	virtual void __stdcall SetVisibleRegion(
-		IN const D2D1_RECT_F& rRegion		// »ùÓÚÏà¶Ô×ø±êµÄ¿ÉÊÓÇøÓò£¬´ËÇøÓòÖ®Íâ²»»áÏÔÊ¾±¾ÔªËØ¼°×ÓÔªËØµÄÄÚÈİ£»Èç¹ûrRegion.left > region.right ±íÊ¾È¡Ïû¿ÉÊÓÇøÉèÖÃ
+		IN const D2D1_RECT_F& rRegion		// åŸºäºç›¸å¯¹åæ ‡çš„å¯è§†åŒºåŸŸï¼Œæ­¤åŒºåŸŸä¹‹å¤–ä¸ä¼šæ˜¾ç¤ºæœ¬å…ƒç´ åŠå­å…ƒç´ çš„å†…å®¹ï¼›å¦‚æœrRegion.left > region.right è¡¨ç¤ºå–æ¶ˆå¯è§†åŒºè®¾ç½®
 		);
 
-	// »ñÈ¡¿ÉÊÓÇøÓò£¬·µ»Øfalse±íÊ¾Ã»ÓĞÉèÖÃ¿ÉÊÇÇøÓò
+	// è·å–å¯è§†åŒºåŸŸï¼Œè¿”å›falseè¡¨ç¤ºæ²¡æœ‰è®¾ç½®å¯æ˜¯åŒºåŸŸ
 	virtual bool __stdcall GetVisibleRegion(
-		OUT D2D1_RECT_F& rRegion	// ·µ»Ø¿ÉÊÓÇøÓò£¬Èç¹ûÃ»ÓĞÉèÖÃ¿ÉÊÓÇøÓò£¬Ôò²»»áĞŞ¸ÄÕâ¸ö¶ÔÏó
+		OUT D2D1_RECT_F& rRegion	// è¿”å›å¯è§†åŒºåŸŸï¼Œå¦‚æœæ²¡æœ‰è®¾ç½®å¯è§†åŒºåŸŸï¼Œåˆ™ä¸ä¼šä¿®æ”¹è¿™ä¸ªå¯¹è±¡
 		);
 
-	// ÉèÖÃÆ½Ãæ×ª½Ç
+	// è®¾ç½®å¹³é¢è½¬è§’
 	virtual void __stdcall SetRotation(
-		FLOAT nfAngle,			// ½Ç¶Èµ¥Î» -359 -> +359¶È
+		FLOAT nfAngle,			// è§’åº¦å•ä½ -359 -> +359åº¦
 		D2D1_POINT_2F ndCenter
 		);
-	// ÉèÖÃÆ½Ãæ×ª½Ç£¬ÒÔÔªËØÖĞĞÄÎªĞı×ªÖĞĞÄ
+	// è®¾ç½®å¹³é¢è½¬è§’ï¼Œä»¥å…ƒç´ ä¸­å¿ƒä¸ºæ—‹è½¬ä¸­å¿ƒ
 	virtual void __stdcall SetRotation(
-		FLOAT nfAngle			// ½Ç¶Èµ¥Î» -359 -> +359¶È
+		FLOAT nfAngle			// è§’åº¦å•ä½ -359 -> +359åº¦
 		);
 
-	// ¶ÁÈ¡Æ½Ãæ×ª½Ç
+	// è¯»å–å¹³é¢è½¬è§’
 	virtual FLOAT __stdcall GetRotationAngle(void);
 	virtual D2D1_POINT_2F __stdcall GetRotationCenter(void);
 	virtual FLOAT __stdcall GetRotation(D2D1_POINT_2F& rCenter);
 
-	// ÉèÖÃ²Î¿¼³ß´ç
+	// è®¾ç½®å‚è€ƒå°ºå¯¸
 	virtual void __stdcall SetSize(FLOAT nfCx,FLOAT nfCy);
 	virtual void __stdcall SetSize(const D2D1_SIZE_F& rSize);
 
-	// ¶ÁÈ¡²Î¿¼³ß´ç
+	// è¯»å–å‚è€ƒå°ºå¯¸
 	virtual FLOAT __stdcall GetSizeX(void);
 	virtual FLOAT __stdcall GetSizeY(void);
 	virtual D2D1_SIZE_F __stdcall GetSize(void);
 
-	// ÉèÖÃÊÇ·ñÓĞĞ§
+	// è®¾ç½®æ˜¯å¦æœ‰æ•ˆ
 	virtual void __stdcall SetEnable(bool nbSet);
 
-	// ¶ÁÈ¡ÊÇ·ñÓĞĞ§
+	// è¯»å–æ˜¯å¦æœ‰æ•ˆ
 	virtual bool __stdcall IsEnable(void);
 
-	// ½«±¾ÔªËØµ÷Õûµ½Í¬¼¶´°¿Ú×î¸ß²ã
+	// å°†æœ¬å…ƒç´ è°ƒæ•´åˆ°åŒçº§çª—å£æœ€é«˜å±‚
 	virtual void __stdcall BringToTop(void);
 
-	// ½«±¾ÔªËØÔÚ¸¸ÔªËØµÄZ OrderĞòÁĞÖĞ£¬ÏòÏÂÒÆ¶¯Ò»Î»
+	// å°†æœ¬å…ƒç´ åœ¨çˆ¶å…ƒç´ çš„Z Orderåºåˆ—ä¸­ï¼Œå‘ä¸‹ç§»åŠ¨ä¸€ä½
 	virtual bool __stdcall MoveDown(void);
 
-	// ½«±¾ÔªËØÔÚ¸¸ÔªËØµÄZ OrderĞòÁĞÖĞ£¬ÏòÉÏÒÆ¶¯Ò»Î»
+	// å°†æœ¬å…ƒç´ åœ¨çˆ¶å…ƒç´ çš„Z Orderåºåˆ—ä¸­ï¼Œå‘ä¸Šç§»åŠ¨ä¸€ä½
 	virtual bool __stdcall MoveUp(void);
 
-	// ÕûÀíËùÓĞ×ÓÔªËØµÄµş·Å´ÎĞòÎªÔ­Ê¼ÉèÖÃ£¨¼´ÅäÖÃÎÄ¼şÖÆ¶¨µÄ´ÎĞò£©
+	// æ•´ç†æ‰€æœ‰å­å…ƒç´ çš„å æ”¾æ¬¡åºä¸ºåŸå§‹è®¾ç½®ï¼ˆå³é…ç½®æ–‡ä»¶åˆ¶å®šçš„æ¬¡åºï¼‰
 	virtual bool __stdcall ResetChildrenByDefualtZOrder(void);
 
-	// ÖØĞÂÉèÖÃ±¾ÔªËØµÄZ OrderµÄÖµ£¬Èç¹ûÁ½¸öĞÖµÜElement¾ßÓĞÏàÍ¬µÄZ Order½«ÎŞ·¨È·¶¨ËüÃÇµÄÏÈºóÑ­Ğò£¬µ«ÏµÍ³±¾ÉíÔËĞĞ²»»á³ö´í
+	// é‡æ–°è®¾ç½®æœ¬å…ƒç´ çš„Z Orderçš„å€¼ï¼Œå¦‚æœä¸¤ä¸ªå…„å¼ŸElementå…·æœ‰ç›¸åŒçš„Z Orderå°†æ— æ³•ç¡®å®šå®ƒä»¬çš„å…ˆåå¾ªåºï¼Œä½†ç³»ç»Ÿæœ¬èº«è¿è¡Œä¸ä¼šå‡ºé”™
 	virtual void __stdcall SetDefaultZOrder(const LONG nlDefaultZOrder);
 
-	// »ñµÃÄ¬ÈÏµÄZOrderÖµ
+	// è·å¾—é»˜è®¤çš„ZOrderå€¼
 	virtual LONG __stdcall GetDefaultZOrder(void);
 
-	//ÉèÖÃToolTip£¬Êó±êÔÚ±¾¶ÔÏóÉÏĞüÍ££¬½«»á×Ô¶¯ÏÔÊ¾µÄµ¥ĞĞ¼ò¶ÌÎÄ×ÖÌáÊ¾£¬Êó±êÒ»µ©ÒÆ¿ªÏÔÊ¾µÄToolTip£¬Ëü×Ô¶¯ÏûÊ§
+	//è®¾ç½®ToolTipï¼Œé¼ æ ‡åœ¨æœ¬å¯¹è±¡ä¸Šæ‚¬åœï¼Œå°†ä¼šè‡ªåŠ¨æ˜¾ç¤ºçš„å•è¡Œç®€çŸ­æ–‡å­—æç¤ºï¼Œé¼ æ ‡ä¸€æ—¦ç§»å¼€æ˜¾ç¤ºçš„ToolTipï¼Œå®ƒè‡ªåŠ¨æ¶ˆå¤±
 	virtual void __stdcall SetToolTip(const wchar_t* nswTip);
 
-	//ÉèÖÃIMEÊäÈë´°¿ÚÎ»ÖÃ£¬ndPositionÊÇ±¾ÔªËØ¾Ö²¿×ø±êÖĞµÄÎ»ÖÃ; Ö»ÓĞµ±Ô­ÔªËØ¾ßÓĞEITR_STYLE_IMEÊôĞÔÊ±£¬²ÅÓĞĞ§
+	//è®¾ç½®IMEè¾“å…¥çª—å£ä½ç½®ï¼ŒndPositionæ˜¯æœ¬å…ƒç´ å±€éƒ¨åæ ‡ä¸­çš„ä½ç½®; åªæœ‰å½“åŸå…ƒç´ å…·æœ‰EITR_STYLE_IMEå±æ€§æ—¶ï¼Œæ‰æœ‰æ•ˆ
 	virtual void __stdcall SetIMECompositionWindow(D2D1_POINT_2F ndPosition);
 
-	// ´Ó¾Ö²¿µØÖ·µ½ÊÀ½çµØÖ·
+	// ä»å±€éƒ¨åœ°å€åˆ°ä¸–ç•Œåœ°å€
 	virtual bool __stdcall LocalToWorld(const D2D1_POINT_2F& crLocalPoint,D2D1_POINT_2F& rWorldPoint);
 
-	// ´ÓÊÀ½çµØÖ·×ª»»Îª¾Ö²¿µØÖ·
+	// ä»ä¸–ç•Œåœ°å€è½¬æ¢ä¸ºå±€éƒ¨åœ°å€
 	virtual bool __stdcall WorldToLocal(const D2D1_POINT_2F& crWorldPoint,D2D1_POINT_2F& rLocalPoint);
 
-	// ¶Ô×ÓÔªËØ½¨Á¢»æÖÆ²ã£¬»æÖÆ²ãÊÇÒ»¸ö¸Ä±ä×ÓÔªËØ»æÖÆÊ±µş·Å´ÎĞòµÄ·½·¨£¬Í¨³£µÄ×ÓÔªËØ°´ÕÕ´ÓÊô¹ØÏµÅÅÁĞÎªÊ÷ĞÎ½á¹¹£¬»æÖÆÊ±Ò²ÊÇ°´ÕÕÊ÷ĞÎ½á¹¹ÏÈ¸ù±éÀúÖ´ĞĞ£»
-	//		ÒıÈë»æÖÆ²ã¼¼Êõºó£¬×ÓÔªËØ½«ÔÚ²»Í¬²ãÉÏÖğ´Î»æÖÆ£¬Í¬Ò»¸ö²ãµÄ×ÓÔªËØ£¬ÈÔÈ»°´ÕÕ´ÓÊô¹ØÏµµÄÊ÷ĞÎ½á¹¹ÏÈ¸ù±éÀú£»
-	//		¿ÉÒÔÉè¶¨ÈÎÒâµÄ»æÖÆ²ã£¬µ«²»ÄÜ´óÓÚmax-ulong£»Êó±êÂäµãµÄÅĞ¶¨Ò²ÊÕµ½»æÖÆ²ãµÄÓ°Ïì£¬²ã´Î¸ßµÄÔªËØÊ×ÏÈ±»ÅĞ¶¨»ñµÃÊó±ê
-	//		Èç¹ûÔÚÒ»¸öÒÑ¾­Éè¶¨ÁË»æÖÆ²ã´ÎµÄ×ÓÊ÷ÖĞµÄÄ³¸öÔªËØÔÙ´Î½¨Á¢»æÖÆ²ã´Î£¬ÄÇÃ´ËüµÄ×ÓÊ÷ÖĞµÄËùÓĞ×ÓÔªËØ½«²»ÊÜµ½ÉÏÒ»¸ö»æÖÆ²ã´ÎµÄÓ°Ïì£¬°´ÕÕĞÂµÄ²ã´Î¹¤×÷£»
-	//		ÎªÁË±ÜÃâ´íÎó£¬Çë¾¡¿ÉÄÜ±ÜÃâÊ¹ÓÃÇ¶Ì×µÄ»æÖÆ²ã´Î;
+	// å¯¹å­å…ƒç´ å»ºç«‹ç»˜åˆ¶å±‚ï¼Œç»˜åˆ¶å±‚æ˜¯ä¸€ä¸ªæ”¹å˜å­å…ƒç´ ç»˜åˆ¶æ—¶å æ”¾æ¬¡åºçš„æ–¹æ³•ï¼Œé€šå¸¸çš„å­å…ƒç´ æŒ‰ç…§ä»å±å…³ç³»æ’åˆ—ä¸ºæ ‘å½¢ç»“æ„ï¼Œç»˜åˆ¶æ—¶ä¹Ÿæ˜¯æŒ‰ç…§æ ‘å½¢ç»“æ„å…ˆæ ¹éå†æ‰§è¡Œï¼›
+	//		å¼•å…¥ç»˜åˆ¶å±‚æŠ€æœ¯åï¼Œå­å…ƒç´ å°†åœ¨ä¸åŒå±‚ä¸Šé€æ¬¡ç»˜åˆ¶ï¼ŒåŒä¸€ä¸ªå±‚çš„å­å…ƒç´ ï¼Œä»ç„¶æŒ‰ç…§ä»å±å…³ç³»çš„æ ‘å½¢ç»“æ„å…ˆæ ¹éå†ï¼›
+	//		å¯ä»¥è®¾å®šä»»æ„çš„ç»˜åˆ¶å±‚ï¼Œä½†ä¸èƒ½å¤§äºmax-ulongï¼›é¼ æ ‡è½ç‚¹çš„åˆ¤å®šä¹Ÿæ”¶åˆ°ç»˜åˆ¶å±‚çš„å½±å“ï¼Œå±‚æ¬¡é«˜çš„å…ƒç´ é¦–å…ˆè¢«åˆ¤å®šè·å¾—é¼ æ ‡
+	//		å¦‚æœåœ¨ä¸€ä¸ªå·²ç»è®¾å®šäº†ç»˜åˆ¶å±‚æ¬¡çš„å­æ ‘ä¸­çš„æŸä¸ªå…ƒç´ å†æ¬¡å»ºç«‹ç»˜åˆ¶å±‚æ¬¡ï¼Œé‚£ä¹ˆå®ƒçš„å­æ ‘ä¸­çš„æ‰€æœ‰å­å…ƒç´ å°†ä¸å—åˆ°ä¸Šä¸€ä¸ªç»˜åˆ¶å±‚æ¬¡çš„å½±å“ï¼ŒæŒ‰ç…§æ–°çš„å±‚æ¬¡å·¥ä½œï¼›
+	//		ä¸ºäº†é¿å…é”™è¯¯ï¼Œè¯·å°½å¯èƒ½é¿å…ä½¿ç”¨åµŒå¥—çš„ç»˜åˆ¶å±‚æ¬¡;
 	virtual ERESULT __stdcall CreatePaintLevel(LONG nlLevelCount);
 
 
-	// »ñµÃ×ÓÔªËØ»æÖÆ²ãÊıÁ¿
+	// è·å¾—å­å…ƒç´ ç»˜åˆ¶å±‚æ•°é‡
 	virtual LONG __stdcall GetPaintLevelCount(void);
 
-	// É¾³ı»æÖÆ²ã´ÎÉè¶¨
+	// åˆ é™¤ç»˜åˆ¶å±‚æ¬¡è®¾å®š
 	virtual ERESULT __stdcall DeletePaintLevel(void
-		//bool nbClearAll=true		// Çå³ıµôËùÓĞ×ÓÔªËØµÄ»æÖÆ²ã´ÎÉè¶¨
+		//bool nbClearAll=true		// æ¸…é™¤æ‰æ‰€æœ‰å­å…ƒç´ çš„ç»˜åˆ¶å±‚æ¬¡è®¾å®š
 		);
 
-	// Éè¶¨×ÔÉíµÄ»æÖÆ²ã´Î
+	// è®¾å®šè‡ªèº«çš„ç»˜åˆ¶å±‚æ¬¡
 	virtual ERESULT __stdcall SetPaintLevel(LONG nlLevel);
 
-	// »ñµÃ×ÔÉíµÄ»æÖÆ²ã´Î
+	// è·å¾—è‡ªèº«çš„ç»˜åˆ¶å±‚æ¬¡
 	virtual LONG __stdcall GetPaintLevel(void);
 
 
@@ -352,12 +352,12 @@ public:
 		mbInverted = false;
 	}
 
-	// »ñÈ¡×îºóÒ»´Î»æÖÆÊ±ÓÃµÄWorld Matrix
+	// è·å–æœ€åä¸€æ¬¡ç»˜åˆ¶æ—¶ç”¨çš„World Matrix
 	const D2D1::Matrix3x2F& GetWorldMatrix(void){
 		return mdWorldMatrix;
 	}
 
-	// ¹©LaunchWidget·½·¨µ÷ÓÃ£¬ÓÃÓÚÉè¶¨Õâ¸öÒ³ÊÇ²»ÊÇWidgetµÄÖ÷Ò³£¬ÆäËûÄ¿µÄ²»ÒªÊ¹ÓÃ
+	// ä¾›LaunchWidgetæ–¹æ³•è°ƒç”¨ï¼Œç”¨äºè®¾å®šè¿™ä¸ªé¡µæ˜¯ä¸æ˜¯Widgetçš„ä¸»é¡µï¼Œå…¶ä»–ç›®çš„ä¸è¦ä½¿ç”¨
 	void SetWidgetHomeFlag(bool nbSet){
 		SetFlags(EITR_FLAG_WIDGET_HOME,nbSet);
 	}
@@ -365,35 +365,35 @@ public:
 		return TestFlag(EITR_FLAG_WIDGET_HOME);
 	}
 
-	// ¼ì²é³õÊ¼»¯±êÖ¾
+	// æ£€æŸ¥åˆå§‹åŒ–æ ‡å¿—
 	bool HasInitialized(void){
 		return TestFlag(EITR_FLAG_INIT);
 	}
 
-	// ¼ì²éStyle£¬Ö´ĞĞ¡®Óë¡¯ÔËËãºÍÏàµÈ±È½Ï£¬¼ì²éÊÇ·ñÉèÖÃÁË¶ÔÓ¦µÄStyle×éºÏ
+	// æ£€æŸ¥Styleï¼Œæ‰§è¡Œâ€˜ä¸â€™è¿ç®—å’Œç›¸ç­‰æ¯”è¾ƒï¼Œæ£€æŸ¥æ˜¯å¦è®¾ç½®äº†å¯¹åº”çš„Styleç»„åˆ
 	bool CheckStyle(ULONG nuStyle){
 		return ((muStyle&nuStyle)==nuStyle);
 	}
 
-	// ÉèÖÃÎªÒÑ±»É¾³ı
+	// è®¾ç½®ä¸ºå·²è¢«åˆ é™¤
 	void SetAsDeleted(void){
 		SetFlags(EITR_FLAG_DELETED,true);
 	}
 
-	// ÊÇ·ñÒÑ¾­±»É¾³ı
+	// æ˜¯å¦å·²ç»è¢«åˆ é™¤
 	bool IsDeleted(void){
 		return TestFlag(EITR_FLAG_DELETED);
 	}
 
-	// »ñµÃÏÂÒ»»æÖÆ²ã£¬·µ»ØÖµĞ¡ÓÚµÈÓÚnuCrtLevel£¬±íÊ¾Ã»ÓĞÏÂÒ»»æÖÆ²ã
+	// è·å¾—ä¸‹ä¸€ç»˜åˆ¶å±‚ï¼Œè¿”å›å€¼å°äºç­‰äºnuCrtLevelï¼Œè¡¨ç¤ºæ²¡æœ‰ä¸‹ä¸€ç»˜åˆ¶å±‚
 	LONG GetNextPaintLevel(LONG nlCrtLevel);
 
 private:
 	static CXelManager* gpElementManager;
 
-	// ÄÚ²¿³ÉÔ±
+	// å†…éƒ¨æˆå‘˜
 	cmmAttributes<16> moAtts;
-	static CExclusiveAccess goAttributesLock;	// ËùÓĞ¶ÔÏó·ÃÎÊAttributeÊ¹ÓÃÍ¬Ò»¸ö»¥³âÇø
+	static CExclusiveAccess goAttributesLock;	// æ‰€æœ‰å¯¹è±¡è®¿é—®Attributeä½¿ç”¨åŒä¸€ä¸ªäº’æ–¥åŒº
 	CXuiIteratorExtension* mpExtension;
 	ULONG muEID;
 	LONG mlTabOrder;
@@ -404,111 +404,111 @@ private:
 	D2D1_SIZE_F mdSize;
 //	FLOAT mfRotation;
 	FLOAT mfAlpha;
-	D2D1::Matrix3x2F mdWorldMatrix;	// ×îºóÒ»´Î»æÖÆÊ±ÓÃµÄWorld Matrix
-	D2D1::Matrix3x2F mdWMInverted;	// ÉÏÃæµÄ¾ØÕómdWorldMatrixµÄÄæÕó
-	bool mbInverted;	// ÊÇ·ñÒÑ¾­ÇĞ»»³ÉÁËÄæÕó
+	D2D1::Matrix3x2F mdWorldMatrix;	// æœ€åä¸€æ¬¡ç»˜åˆ¶æ—¶ç”¨çš„World Matrix
+	D2D1::Matrix3x2F mdWMInverted;	// ä¸Šé¢çš„çŸ©é˜µmdWorldMatrixçš„é€†é˜µ
+	bool mbInverted;	// æ˜¯å¦å·²ç»åˆ‡æ¢æˆäº†é€†é˜µ
 	IXsElement* mpElement;
 	CXuiIterator* mpParent;
 	IXsWidget* mpWidget;
-	//IEinkuiIterator* mpEnhancer;	// ¹Ò½ÓµÄÔöĞ§Æ÷£¬Í¬Ò»¸öÔªËØÔÚÍ¬Ò»Ê±¿ÌÖ»ÄÜÓĞÒ»¸öÔöĞ§Æ÷ÔÚ¹¤×÷£»²¢ÇÒ£¬Í¨³£ÔöĞ§Æ÷¶¼ÊÇ¶ÔÆä¸¸ÔªËØ·¢Éú×÷ÓÃ
+	//IEinkuiIterator* mpEnhancer;	// æŒ‚æ¥çš„å¢æ•ˆå™¨ï¼ŒåŒä¸€ä¸ªå…ƒç´ åœ¨åŒä¸€æ—¶åˆ»åªèƒ½æœ‰ä¸€ä¸ªå¢æ•ˆå™¨åœ¨å·¥ä½œï¼›å¹¶ä¸”ï¼Œé€šå¸¸å¢æ•ˆå™¨éƒ½æ˜¯å¯¹å…¶çˆ¶å…ƒç´ å‘ç”Ÿä½œç”¨
 
 	
 	CXuiIterator();
 	~CXuiIterator();
 
-	// Êµ¼ÊÔö¼ÓÒıÓÃ½Ó¿Ú
+	// å®é™…å¢åŠ å¼•ç”¨æ¥å£
 	virtual int __stdcall KAddRefer(void){
 		return cmmBaseObject::AddRefer();
 	}
-	// Êµ¼ÊÊÍ·Å½Ó¿Ú
+	// å®é™…é‡Šæ”¾æ¥å£
 	virtual int __stdcall KRelease(void){
 		return cmmBaseObject::Release();
 	}
 	
 
-	// ÉèÖÃ±êÖ¾£¬¹²ÓĞ31Î»¿ÉÓÃ£»ÉèÎªË½ÓĞ£¬ÅÉÉúÀà²»ÄÜµ÷ÓÃ
+	// è®¾ç½®æ ‡å¿—ï¼Œå…±æœ‰31ä½å¯ç”¨ï¼›è®¾ä¸ºç§æœ‰ï¼Œæ´¾ç”Ÿç±»ä¸èƒ½è°ƒç”¨
 	bool SetFlags(
-		int niIndex,		// ±êÖ¾µÄĞòºÅ£¬´Ó0¿ªÊ¼£»Èç¹ûÅÉÉúÀàÖØÔØÕâ¸öº¯Êı£¬²¢ÇÒ¸ÃÅÉÉúÀàÓĞ2¸ö²»Ï£Íû±»ºóĞøÀàºÍÓÃ»§ĞŞ¸ÄµÄ±êÖ¾£¬ÄÇÃ´ËüµÄº¯Êıµ÷ÓÃÊ±µÄniIndex=0±íÊ¾µÄÊÇËüµÄ»ùÀàµÄ2
-		bool nbSet=true		// ÉèÖÃ»òÕßÇå³ı±êÖ¾
+		int niIndex,		// æ ‡å¿—çš„åºå·ï¼Œä»0å¼€å§‹ï¼›å¦‚æœæ´¾ç”Ÿç±»é‡è½½è¿™ä¸ªå‡½æ•°ï¼Œå¹¶ä¸”è¯¥æ´¾ç”Ÿç±»æœ‰2ä¸ªä¸å¸Œæœ›è¢«åç»­ç±»å’Œç”¨æˆ·ä¿®æ”¹çš„æ ‡å¿—ï¼Œé‚£ä¹ˆå®ƒçš„å‡½æ•°è°ƒç”¨æ—¶çš„niIndex=0è¡¨ç¤ºçš„æ˜¯å®ƒçš„åŸºç±»çš„2
+		bool nbSet=true		// è®¾ç½®æˆ–è€…æ¸…é™¤æ ‡å¿—
 		){
 			return false;
 	}
 
-	// »ñÈ¡±êÖ¾£¬ÉèÎªË½ÓĞ£¬ÅÉÉúÀà²»ÄÜµ÷ÓÃ
+	// è·å–æ ‡å¿—ï¼Œè®¾ä¸ºç§æœ‰ï¼Œæ´¾ç”Ÿç±»ä¸èƒ½è°ƒç”¨
 	bool TestFlag(int niIndex){
 		return false;
 	}
 
-	// Ìí¼ÓÒ»¸ö×Ó½Úµã
+	// æ·»åŠ ä¸€ä¸ªå­èŠ‚ç‚¹
 	ERESULT AddSubElement(
 		CXuiIterator* npSubElement
 		);
 
-	// É¾³ıÒ»¸ö×Ó½Úµã
+	// åˆ é™¤ä¸€ä¸ªå­èŠ‚ç‚¹
 	void RemoveSubElement(
 		CXuiIterator* npSubElement
 		);
 
-	// ½«Ä³¸ö×ÓÔªËØµ÷Õûµ½ZOder×î¸ß²ã
+	// å°†æŸä¸ªå­å…ƒç´ è°ƒæ•´åˆ°ZOderæœ€é«˜å±‚
 	void BringSubElementToTop(
 		CXuiIterator* npSubElement
 		);
 
-	// ½«ÔªËØ²åÈëµ½ZOrderÖĞ
+	// å°†å…ƒç´ æ’å…¥åˆ°ZOrderä¸­
 	void InsertToZOder(
 		CXuiIterator* npSubElement
 		);
 
-	// ÔÚ×Ó½ÚµãÖĞ²éÕÒĞ¯´øÄ¿±êµÄµü´úÆ÷
+	// åœ¨å­èŠ‚ç‚¹ä¸­æŸ¥æ‰¾æºå¸¦ç›®æ ‡çš„è¿­ä»£å™¨
 	CXuiIterator* SeekIteratorInChild(IXsElement* npElement);
 
-	// ¹©ÔªËØ¹ÜÀíÆ÷ÓÃ£¬Ôö¼ÓÒıÓÃ½Ó¿Ú
+	// ä¾›å…ƒç´ ç®¡ç†å™¨ç”¨ï¼Œå¢åŠ å¼•ç”¨æ¥å£
 	int ProtectedAddRefer(void){
 		return cmmBaseObject<CXuiIterator,IEinkuiIterator,GET_BUILTIN_NAME(CXuiIterator)>::AddRefer();
 	}
-	// ¹©ÔªËØ¹ÜÀíÆ÷ÓÃ£¬ÊÍ·Å½Ó¿Ú
+	// ä¾›å…ƒç´ ç®¡ç†å™¨ç”¨ï¼Œé‡Šæ”¾æ¥å£
 	int ProtectedRelease(void){
 		return cmmBaseObject<CXuiIterator,IEinkuiIterator,GET_BUILTIN_NAME(CXuiIterator)>::Release();
 	}
 
-	// µ÷ÕûTabOrderºÍZOrder£¬³õÊ¼»¯Ö®¼ÊÓĞElement¹ÜÀíÆ÷µ÷ÓÃ
+	// è°ƒæ•´TabOrderå’ŒZOrderï¼Œåˆå§‹åŒ–ä¹‹é™…æœ‰Elementç®¡ç†å™¨è°ƒç”¨
 	void UpdateOrder(void);
 
-	// µ÷Õû×ÓÔªËØÔÚZOrderµÄË³Ğò
+	// è°ƒæ•´å­å…ƒç´ åœ¨ZOrderçš„é¡ºåº
 	bool MoveOnZOrder(bool nbUp,CXuiIterator* npChild);
 
-	// »ñµÃÏÂÒ»¸öEITR_STYLE_KEYBOARDµÄÔªËØ£¬²»»á½øÈëIteratorÁÙ½çÇø
+	// è·å¾—ä¸‹ä¸€ä¸ªEITR_STYLE_KEYBOARDçš„å…ƒç´ ï¼Œä¸ä¼šè¿›å…¥Iteratorä¸´ç•ŒåŒº
 	CXuiIterator* GetNextKeyBoardAccepter(CXuiIterator* npCurrent);
 
 	void ClearTip();
 
-	// »ñµÃTip
+	// è·å¾—Tip
 	const wchar_t* GetToolTip(void);
 
-	// ×¢²á¿ì½İ¼ü£¬µ±¿ì½İ¼ü±»´¥·¢£¬×¢²á¿ì½İ¼üµÄElement½«»áÊÜµ½£»
-	// Èç¹ûÆÕÍ¨°´¼ü×éºÏ£¨²»°üº¬Alt¼ü)°´ÏÂµÄµ±Ê±£¬´æÔÚ¼üÅÌ½¹µã£¬°´¼üÏûÏ¢»áÊ×ÏÈ·¢ËÍ¸ø¼üÅÌ½¹µã£¬Èç¹û½¹µã·µ»ØERESULT_KEY_UNEXPECTED²Å»áÅĞ¶ÏÊÇ·ñ´æÔÚ¿ì½İ¼üĞĞÎª
+	// æ³¨å†Œå¿«æ·é”®ï¼Œå½“å¿«æ·é”®è¢«è§¦å‘ï¼Œæ³¨å†Œå¿«æ·é”®çš„Elementå°†ä¼šå—åˆ°ï¼›
+	// å¦‚æœæ™®é€šæŒ‰é”®ç»„åˆï¼ˆä¸åŒ…å«Alté”®)æŒ‰ä¸‹çš„å½“æ—¶ï¼Œå­˜åœ¨é”®ç›˜ç„¦ç‚¹ï¼ŒæŒ‰é”®æ¶ˆæ¯ä¼šé¦–å…ˆå‘é€ç»™é”®ç›˜ç„¦ç‚¹ï¼Œå¦‚æœç„¦ç‚¹è¿”å›ERESULT_KEY_UNEXPECTEDæ‰ä¼šåˆ¤æ–­æ˜¯å¦å­˜åœ¨å¿«æ·é”®è¡Œä¸º
 	bool RegisterHotKey(
-		IN IEinkuiIterator* npApplicant,	// ×¢²áµÄÔªËØ£¬½«ÓĞËüÊÕµ½×¢²áÊÇ¿ì½İ¼üÏûÏ¢
-		IN ULONG nuHotKeyID,	// ÊÂÏÈ¶¨ÒåºÃµÄ³£Êı£¬ÓÃÀ´Çø·ÖHotkey£»²»ÄÜ³öÏÖÏàÍ¬µÄID£¬ÊÔÍ¼×¢²áÒÑÓĞµÄHotkey½«»áÊ§°Ü
-		IN ULONG nuVkNumber,	// ĞéÄâ¼üÂë
-		IN bool nbControlKey,	// ÊÇ·ñĞèÒªControl×éºÏ
-		IN bool nbShiftKey,		// ÊÇ·ñĞèÒªShift×éºÏ
-		IN bool nbAltKey		// ÊÇ·ñĞèÒªAlt×éºÏ
+		IN IEinkuiIterator* npApplicant,	// æ³¨å†Œçš„å…ƒç´ ï¼Œå°†æœ‰å®ƒæ”¶åˆ°æ³¨å†Œæ˜¯å¿«æ·é”®æ¶ˆæ¯
+		IN ULONG nuHotKeyID,	// äº‹å…ˆå®šä¹‰å¥½çš„å¸¸æ•°ï¼Œç”¨æ¥åŒºåˆ†Hotkeyï¼›ä¸èƒ½å‡ºç°ç›¸åŒçš„IDï¼Œè¯•å›¾æ³¨å†Œå·²æœ‰çš„Hotkeyå°†ä¼šå¤±è´¥
+		IN ULONG nuVkNumber,	// è™šæ‹Ÿé”®ç 
+		IN bool nbControlKey,	// æ˜¯å¦éœ€è¦Controlç»„åˆ
+		IN bool nbShiftKey,		// æ˜¯å¦éœ€è¦Shiftç»„åˆ
+		IN bool nbAltKey		// æ˜¯å¦éœ€è¦Altç»„åˆ
 		);
 
-	// ×¢Ïú¿ì½İ¼ü
+	// æ³¨é”€å¿«æ·é”®
 	bool UnregisterHotKey(
-		IN IEinkuiIterator* npApplicant,	// ×¢²áÕß
+		IN IEinkuiIterator* npApplicant,	// æ³¨å†Œè€…
 		IN ULONG UnuKeyNumber
 		);
 
-	// ¼ì²éÊÇ·ñ¾ßÓĞ·ûºÏµÄHotKey
+	// æ£€æŸ¥æ˜¯å¦å…·æœ‰ç¬¦åˆçš„HotKey
 	bool DetectHotKey(
 		CXuiHotkeyEntry& rToDetect
 		);
 
-	// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-	// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓĞÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+	// é”€æ¯å…ƒç´ ï¼Œç”¨äºé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+	// ä»è€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€Œåå†å°†è‡ªå·±ä»å…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 	virtual ERESULT OnElementDestroy();
 };
 

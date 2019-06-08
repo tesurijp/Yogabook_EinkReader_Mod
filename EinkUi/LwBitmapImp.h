@@ -1,11 +1,11 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
 #ifndef _ELBITMAPIMP_H
 #define _ELBITMAPIMP_H
 
-// Í¸Ã÷¶ÈãĞÖµ£¬³¬³ö´ËÖµÔòÅĞ¶ÏÎªÍ¸Ã÷
+// é€æ˜åº¦é˜ˆå€¼ï¼Œè¶…å‡ºæ­¤å€¼åˆ™åˆ¤æ–­ä¸ºé€æ˜
 #define  TRANSPARENT_THRESHOLD_VALUE	12
 
 
@@ -17,50 +17,50 @@ public:
 	CElBitmap();
 	~CElBitmap();
 
-	// ÊÍ·Å¶ÔÏó
+	// é‡Šæ”¾å¯¹è±¡
 	virtual int __stdcall Release(void);
 
-	// »ñÈ¡IWICBitmap½Ó¿ÚÖ¸Õë£¬Ê¹ÓÃÕßĞèÒª×ÔĞĞÊÍ·Å´Ë½Ó¿ÚÖ¸Õë
+	// è·å–IWICBitmapæ¥å£æŒ‡é’ˆï¼Œä½¿ç”¨è€…éœ€è¦è‡ªè¡Œé‡Šæ”¾æ­¤æ¥å£æŒ‡é’ˆ
 	virtual ERESULT __stdcall GetWICObject(OUT IWICBitmap** ppWicBitmap);
 
-	// »ñÈ¡ID2D1Bitmap½Ó¿ÚÖ¸Õë£¬Ê¹ÓÃÕßĞèÒª×ÔĞĞÊÍ·Å´Ë½Ó¿ÚÖ¸Õë
+	// è·å–ID2D1Bitmapæ¥å£æŒ‡é’ˆï¼Œä½¿ç”¨è€…éœ€è¦è‡ªè¡Œé‡Šæ”¾æ­¤æ¥å£æŒ‡é’ˆ
 	virtual ERESULT __stdcall GetD2DObject(IN ID2D1RenderTarget *npRT,
 		OUT ID2D1Bitmap **nppParentBitmap);
 
-	// »ñÈ¡Ö¸¶¨×ø±êµÄÍ¸Ã÷¶È
+	// è·å–æŒ‡å®šåæ ‡çš„é€æ˜åº¦
 	virtual ERESULT __stdcall GetPixel(IN DWORD x, IN DWORD y, DWORD &nPixel);
 
 	virtual ERESULT __stdcall GetBmpInfo(OUT BITMAP* npBmpInfo);
 
-	// »ñÈ¡Î»Í¼¿í£¨ÏñËØ£©
+	// è·å–ä½å›¾å®½ï¼ˆåƒç´ ï¼‰
 	virtual UINT __stdcall GetWidth();
-	// »ñÈ¡Î»Í¼¸ß£¨ÏñËØ£©
+	// è·å–ä½å›¾é«˜ï¼ˆåƒç´ ï¼‰
 	virtual UINT __stdcall GetHeight();
-	//ÉèÖÃÑÓÕ¹Ïß
+	//è®¾ç½®å»¶å±•çº¿
 	virtual void __stdcall SetExtendLine(IN LONG nlX,IN LONG nlY);
-	//»ñÈ¡ºáÏòÑÓÕ¹Ïß
+	//è·å–æ¨ªå‘å»¶å±•çº¿
 	virtual LONG __stdcall GetExtnedLineX(void);
-	//»ñÈ¡×İÏòÑÓÕ¹Ïß
+	//è·å–çºµå‘å»¶å±•çº¿
 	virtual LONG __stdcall GetExtnedLineY(void);
 
-	// ¶ÔÎ»Í¼½øĞĞËõ·Å£¬Ê¹ÓÃÕßĞèÒªÖØĞÂµ÷ÓÃGetWICObject/GetD2DObjectÒÔ»ñÈ¡
-	// Ëõ·ÅºóµÄÎ»Í¼²Ù×÷½Ó¿Ú
+	// å¯¹ä½å›¾è¿›è¡Œç¼©æ”¾ï¼Œä½¿ç”¨è€…éœ€è¦é‡æ–°è°ƒç”¨GetWICObject/GetD2DObjectä»¥è·å–
+	// ç¼©æ”¾åçš„ä½å›¾æ“ä½œæ¥å£
 	virtual ERESULT __stdcall Scale(UINT npWidth, UINT npHeight);
 
-	//// ¶ÔÎ»Í¼½øĞĞËõ·Å£¬²¢»ñÈ¡Ëõ·Å½á¹ûµÄID2D1Bitmap½Ó¿ÚÖ¸Õë
+	//// å¯¹ä½å›¾è¿›è¡Œç¼©æ”¾ï¼Œå¹¶è·å–ç¼©æ”¾ç»“æœçš„ID2D1Bitmapæ¥å£æŒ‡é’ˆ
 	//virtual ERESULT GetScaledD2DObject(IN UINT npWidth, IN UINT npHeight,
 	//	IN ID2D1RenderTarget *npRT,
 	//	OUT ID2D1Bitmap **nppParentBitmap);
 
-	// ²»Òª×Ô¶¯»ØÊÕÏÔ´æ¶ÔÏó£¬EUIÏµÍ³»á¸ù¾İÔËĞĞÖĞÎ»Í¼µÄÊ¹ÓÃÇé¿ö£¨µ÷ÓÃPaintboardµÄDrawBitmap£©À´ÅĞ¶ÏÒ»¸öÎ»Í¼ÊÇ·ñ¿ÉÒÔÊÍ·ÅÏÔ´æ¶ÔÏó£¬Èç¹ûÒ»¸öÎ»Í¼µÄÏÔ´æ¶ÔÏó²¢²»ÊÇÊ¹ÓÃÔÚ(Paintboard::DrawBitmap£©·½·¨ÖĞ,
-	// ¶øÊÇÓĞ×Ô¼ºµÄÌØ¶¨ÓÃ·¨£¬ÄÇÃ´¾Íµ÷ÓÃ±¾·½·¨£¬¹Ø±ÕÎ»Í¼µÄ×Ô¶¯»ØÊÕAuto video object management;
-	// ·µ»ØÖµÊÇµ÷ÓÃ±¾·½·¨Ç°µÄ×´Ì¬
+	// ä¸è¦è‡ªåŠ¨å›æ”¶æ˜¾å­˜å¯¹è±¡ï¼ŒEUIç³»ç»Ÿä¼šæ ¹æ®è¿è¡Œä¸­ä½å›¾çš„ä½¿ç”¨æƒ…å†µï¼ˆè°ƒç”¨Paintboardçš„DrawBitmapï¼‰æ¥åˆ¤æ–­ä¸€ä¸ªä½å›¾æ˜¯å¦å¯ä»¥é‡Šæ”¾æ˜¾å­˜å¯¹è±¡ï¼Œå¦‚æœä¸€ä¸ªä½å›¾çš„æ˜¾å­˜å¯¹è±¡å¹¶ä¸æ˜¯ä½¿ç”¨åœ¨(Paintboard::DrawBitmapï¼‰æ–¹æ³•ä¸­,
+	// è€Œæ˜¯æœ‰è‡ªå·±çš„ç‰¹å®šç”¨æ³•ï¼Œé‚£ä¹ˆå°±è°ƒç”¨æœ¬æ–¹æ³•ï¼Œå…³é—­ä½å›¾çš„è‡ªåŠ¨å›æ”¶Auto video object management;
+	// è¿”å›å€¼æ˜¯è°ƒç”¨æœ¬æ–¹æ³•å‰çš„çŠ¶æ€
 	virtual bool __stdcall SetAVOM(
 		bool nbEnable	// false to disable AVOM,true to enable AVOM
 		){return false;}
 
 
-	// ¹©ÏµÍ³ÄÚ²¿µ÷ÓÃ£¬·ÏÆúDirect2DµÄÉè±¸Ïà¹Ø×ÊÔ´
+	// ä¾›ç³»ç»Ÿå†…éƒ¨è°ƒç”¨ï¼ŒåºŸå¼ƒDirect2Dçš„è®¾å¤‡ç›¸å…³èµ„æº
 	virtual void __stdcall Discards2DResource(void); 
 
 	ULONG InitOnCreate(
@@ -76,21 +76,21 @@ public:
 
 	ULONG InitOnCreate(ID2D1RenderTarget* npRt, FLOAT nfWidth, FLOAT nfHeight);
 
-	// Í¨¹ıD3D SurfaceÊµÀı»¯Î»Í¼¶ÔÏó
+	// é€šè¿‡D3D Surfaceå®ä¾‹åŒ–ä½å›¾å¯¹è±¡
 	DEFINE_CUMSTOMIZE_CREATE(CElBitmap, (ID2D1RenderTarget* npRt, FLOAT nfWidth, FLOAT nfHeight), (npRt, nfWidth, nfHeight))
 
-	// Í¨¹ıEXEÎÄ¼şÃûÊµÀı»¯Î»Í¼¶ÔÏó
+	// é€šè¿‡EXEæ–‡ä»¶åå®ä¾‹åŒ–ä½å›¾å¯¹è±¡
 	DEFINE_CUMSTOMIZE_CREATE(CElBitmap, (wchar_t *npPeFileName, int nwIconIdx, int niXSize, int niYSize), (npPeFileName, nwIconIdx, niXSize, niYSize))
 
-	// Í¨¹ıÎ»Í¼ÎÄ¼şÃûÊµÀı»¯Î»Í¼¶ÔÏó
+	// é€šè¿‡ä½å›¾æ–‡ä»¶åå®ä¾‹åŒ–ä½å›¾å¯¹è±¡
 	DEFINE_CUMSTOMIZE_CREATE(CElBitmap,(const wchar_t *npFileName),(npFileName))
 
-	// Í¨¹ıÎÄ×ÖÊµÀı»¯Î»Í¼¶ÔÏó
-	// Ìá¹©²ÎÊıÈçÏÂ£º
-	//	npText -- ¿í×Ö·ûÎÄ×Ö´®£¨Ä¿Ç°²»Ö§³Ö»»ĞĞ£©
-	//	dwColor -- RGB¸ñÊ½µÄÑÕÉ«Öµ
-	//	npFont -- Ö¸¶¨×ÖÌåÃû£¬Èç"Tahoma"
-	//	dwFontSize -- Ö¸¶¨×ÖÌå´óĞ¡
+	// é€šè¿‡æ–‡å­—å®ä¾‹åŒ–ä½å›¾å¯¹è±¡
+	// æä¾›å‚æ•°å¦‚ä¸‹ï¼š
+	//	npText -- å®½å­—ç¬¦æ–‡å­—ä¸²ï¼ˆç›®å‰ä¸æ”¯æŒæ¢è¡Œï¼‰
+	//	dwColor -- RGBæ ¼å¼çš„é¢œè‰²å€¼
+	//	npFont -- æŒ‡å®šå­—ä½“åï¼Œå¦‚"Tahoma"
+	//	dwFontSize -- æŒ‡å®šå­—ä½“å¤§å°
 	DEFINE_CUMSTOMIZE_CREATE(CElBitmap, (const wchar_t *npText, DWORD dwColor, const wchar_t *npFont, DWORD dwFontSize), (npText, dwColor, npFont, dwFontSize));
 protected:
 //private:

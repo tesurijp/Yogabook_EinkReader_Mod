@@ -1,10 +1,10 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
 
 #include "stdafx.h"
-#include <CommDlg.h>		//µ÷É«°å
+#include <CommDlg.h>		//è°ƒè‰²æ¿
 #include "cmmstruct.h"
 #include "Einkui.h"
 #include "ElementImp.h"
@@ -16,7 +16,7 @@
 using namespace LT_ENVIROMENT_MGR;
 #pragma comment(lib,"designerEnvironmentmgr.lib")
 
-//¶¨Òå×ÓPane ID
+//å®šä¹‰å­Pane ID
 
 #define ID_PANE_A	1
 #define ID_PANE_B	2
@@ -28,7 +28,7 @@ using namespace LT_ENVIROMENT_MGR;
 
 DEFINE_BUILTIN_NAME(ToolBar)
 
-// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓĞ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖĞ½øĞĞ
+// åªç”¨äºå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 CEvToolBar::CEvToolBar() :
 	mbChangeFontColor(false),
 	mbChangeFontBkgColor(false)
@@ -40,16 +40,16 @@ CEvToolBar::~CEvToolBar()
 }
 
 ULONG CEvToolBar::InitOnCreate(
-	IN IXuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID				// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IXuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID				// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -62,7 +62,7 @@ ULONG CEvToolBar::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvToolBar::OnElementCreate(IXuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -84,11 +84,11 @@ ERESULT CEvToolBar::OnElementCreate(IXuiIterator* npIterator)
 	return lResult;
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvToolBar::ParseMessage(IXuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -185,7 +185,7 @@ ERESULT CEvToolBar::ParseMessage(IXuiMessage* npMsg)
 
 		if(luResult == ERESULT_NOT_SET)
 		{
-			luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+			luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 		}
 
 	} while (false);
@@ -194,7 +194,7 @@ ERESULT CEvToolBar::ParseMessage(IXuiMessage* npMsg)
 }
 
 
-//»æÖÆÏûÏ¢
+//ç»˜åˆ¶æ¶ˆæ¯
 ERESULT CEvToolBar::OnPaint(IXuiPaintBoard* npPaintBoard)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -224,7 +224,7 @@ bool CEvToolBar::ProcessMsg(TOOLBAR_MSG* npMsgInfo)
 			OpenChooseFontColorWnd();
 			mulFontColor |= 0xFF000000;
 			npMsgInfo->muColor = mulFontColor;
-			//ÑÕÉ«Ñ¡Ôñ¿Ø¼ş£¬×ª»»ÏûÏ¢ÀàĞÍÎªÕûÊı
+			//é¢œè‰²é€‰æ‹©æ§ä»¶ï¼Œè½¬æ¢æ¶ˆæ¯ç±»å‹ä¸ºæ•´æ•°
 			npMsgInfo->mnMsgParaType = TMPT_INT;
 
 			if (mbChangeFontColor)
@@ -238,7 +238,7 @@ bool CEvToolBar::ProcessMsg(TOOLBAR_MSG* npMsgInfo)
 		{
 			if (npMsgInfo->mlInterge == 1)
 			{
-				//ÎŞÑÕÉ«
+				//æ— é¢œè‰²
 				mluFontBkgColor = 0;
 				EinkuiGetSystem()->GetElementManager()->SimplePostMessage(
 					mpIterator->GetSubElementByID(3)->GetSubElementByID(15), 
@@ -249,14 +249,14 @@ bool CEvToolBar::ProcessMsg(TOOLBAR_MSG* npMsgInfo)
 			else if (npMsgInfo->mlInterge == 2)
 			{
 				OpenChooseFontBkgColorWnd();
-				mluFontBkgColor |= 0xFF000000;	//Èç¹ûÓĞ±³¾°É«µÄ»°
+				mluFontBkgColor |= 0xFF000000;	//å¦‚æœæœ‰èƒŒæ™¯è‰²çš„è¯
 			}
 
 			if (mbChangeFontBkgColor)
 			{
 				npMsgInfo->mnMsgParaType = TMPT_INT;
 				npMsgInfo->muColor = mluFontBkgColor;
-				//ÑÕÉ«Ñ¡Ôñ¿Ø¼ş£¬×ª»»ÏûÏ¢ÀàĞÍÎªÕûÊı
+				//é¢œè‰²é€‰æ‹©æ§ä»¶ï¼Œè½¬æ¢æ¶ˆæ¯ç±»å‹ä¸ºæ•´æ•°
 				CExMessage::PostMessage(mpIterator->GetParent(),mpIterator,
 					EEVT_TOOLBARITEM_CLICK, *npMsgInfo, EMSG_POSTTYPE_FAST);
 			}
@@ -284,9 +284,9 @@ UINT_PTR CALLBACK CEvToolBar::CCHookProc(
 	{
 	case WM_INITDIALOG:
 		{
-			// »ñÈ¡Ö÷´°¿Ú´óĞ¡
+			// è·å–ä¸»çª—å£å¤§å°
 			D2D1_SIZE_F ldMainFrameSize = EinkuiGetSystem()->GetElementManager()->GetDesktop()->GetSize();
-			// ÉèÖÃ´°¿ÚÎ»ÖÃ
+			// è®¾ç½®çª—å£ä½ç½®
 			::SetWindowPos(hdlg, NULL, (int)ldMainFrameSize.width/4, (int)ldMainFrameSize.height/4, 0, 0, SW_SHOWNORMAL/*SWP_SHOWWINDOW*/);
 
 			break;
@@ -308,7 +308,7 @@ ERESULT __stdcall CEvToolBar::ChooseFontColorWnd(ULONG nuFlag,LPVOID npContext)
 	CHOOSECOLOR		cc;
 	COLORREF		crCustColors[16];
 
-	// Í¨¹ı»·¾³±äÁ¿¹ÜÀíÆ÷£¬»ñÈ¡×Ô¶¨ÒåÑÕÉ«
+	// é€šè¿‡ç¯å¢ƒå˜é‡ç®¡ç†å™¨ï¼Œè·å–è‡ªå®šä¹‰é¢œè‰²
 	IEnviromentMgr* lpEnvMgr = GetEnviromentMgr();
 	sDesignerEnviroment* lpdDesignEnv = lpEnvMgr->GetDesignerEnviroment();
 	if (NULL == lpdDesignEnv) return lhr;
@@ -338,10 +338,10 @@ ERESULT __stdcall CEvToolBar::ChooseFontColorWnd(ULONG nuFlag,LPVOID npContext)
 			mpIterator->GetSubElementByID(3)->GetSubElementByID(16), 
 			EACT_IMAGEBUTTON_SET_COLOR, &mulFontColor, sizeof(ULONG));
 
-		// ÖØĞÂÉèÖÃ×Ô¶¨ÒåÑÕÉ«µ½»·¾³±äÁ¿¹ÜÀíÆ÷
+		// é‡æ–°è®¾ç½®è‡ªå®šä¹‰é¢œè‰²åˆ°ç¯å¢ƒå˜é‡ç®¡ç†å™¨
 		for (int liLoop = 0; liLoop < MAX_CUSTOM_COLOR_NUM; liLoop++)
 			lpdDesignEnv->muCustColorArr[liLoop] = crCustColors[liLoop];
-		// µ÷ÓÃ±£´æ
+		// è°ƒç”¨ä¿å­˜
 		lpEnvMgr->SaveEnviroment();
 	}
 	else

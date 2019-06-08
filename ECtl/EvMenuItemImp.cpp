@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -81,16 +81,16 @@ CEvMenuItem::~CEvMenuItem(void)
 
 
 ULONG CEvMenuItem::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -101,7 +101,7 @@ ULONG CEvMenuItem::InitOnCreate(
 
 	return leResult;
 }
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvMenuItem::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -125,7 +125,7 @@ ERESULT CEvMenuItem::OnElementCreate(IEinkuiIterator* npIterator)
 //	return lResult;
 //}
 //
-//»æÖÆÏûÏ¢
+//ç»˜åˆ¶æ¶ˆæ¯
 ERESULT CEvMenuItem::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -136,13 +136,13 @@ ERESULT CEvMenuItem::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 		if(NULL == mpoMenuItemInfo)
 			break;
 
-		// ·Ö¸îÏß
+		// åˆ†å‰²çº¿
 		if(ENUM_MENUITEM_TYPE_SEPARATION == meMemuItemType)
 		{
 			if(mpoSeparation == NULL)
 				break;
 
-			// ÏÔÊ¾·Ö¸îÏß
+			// æ˜¾ç¤ºåˆ†å‰²çº¿
 			npPaintBoard->DrawBitmap(D2D1::RectF((FLOAT)mpoMenuItemInfo->LeftWidth, 0, 
 				(FLOAT)(mpIterator->GetSizeX()), (FLOAT)mpIterator->GetSizeY()),
 				mpoSeparation,ESPB_DRAWBMP_EXTEND);
@@ -153,35 +153,35 @@ ERESULT CEvMenuItem::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 
 
 		FLOAT lfL = mpIterator->GetSizeX();
-		// ÏÔÊ¾±³¾°
+		// æ˜¾ç¤ºèƒŒæ™¯
 		if(mpoItemBgBmp != NULL)
 		{
-			// Èç¹ûµ±Ç°»ñµÃÁËÊó±ê½¹µã£¬ÔòÓÃµÚ¶şÖ¡×ö±³¾°Í¼
+			// å¦‚æœå½“å‰è·å¾—äº†é¼ æ ‡ç„¦ç‚¹ï¼Œåˆ™ç”¨ç¬¬äºŒå¸§åšèƒŒæ™¯å›¾
 			FLOAT lfOrgX = (FLOAT)(false != mbIsFocused? CExFloat::Round((FLOAT)mpoItemBgBmp->GetWidth() / miItemFrameCount) : 0);
 			npPaintBoard->DrawBitmap(D2D1::RectF(0,0,(FLOAT)mpIterator->GetSizeX(),(FLOAT)mpIterator->GetSizeY()),
 				D2D1::RectF(lfOrgX,0,CExFloat::Round(lfOrgX + mpoItemBgBmp->GetWidth() / miItemFrameCount), (FLOAT)(mpoItemBgBmp->GetHeight())),
 				mpoItemBgBmp,ESPB_DRAWBMP_EXTEND);
 		}
 
-		// ·Ç¸îÏßÀàĞÍ
+		// éå‰²çº¿ç±»å‹
 		if(ENUM_MENUITEM_TYPE_SEPARATION != meMemuItemType)
 		{
-			// ÏÔÊ¾Ãû³Æ
+			// æ˜¾ç¤ºåç§°
 			if(NULL != mpoTextImage)
 			{
 				FLOAT lfX = (FLOAT)mpoMenuItemInfo->LeftWidth;										
-				FLOAT lfY =  CExFloat::Round((mpIterator->GetSizeY() - mpoTextImage->GetHeight()) / 2.0f);		// ´¹Ö±¾ÓÖĞÏÔÊ¾
+				FLOAT lfY =  CExFloat::Round((mpIterator->GetSizeY() - mpoTextImage->GetHeight()) / 2.0f);		// å‚ç›´å±…ä¸­æ˜¾ç¤º
 				npPaintBoard->DrawBitmap(D2D1::RectF(lfX, lfY,
 					(FLOAT)mpoTextImage->GetWidth() + lfX, (FLOAT)mpoTextImage->GetHeight() + lfY),
 					false != mbIsFocused? mpoFocusTextImage : mpoTextImage, ESPB_DRAWBMP_NEAREST);
 			}
 
-			// ÏÔÊ¾ÈÈ¼ü
+			// æ˜¾ç¤ºçƒ­é”®
 			if(NULL != mpoHotKeyImage)
 			{
 				FLOAT lfX = (FLOAT)(mpoMenuItemInfo->LeftWidth + miNameAreaWidth + mpoMenuItemInfo->MiddleWidth 
 					+ miHotKeyAreaWidth - mpoHotKeyImage->GetWidth());
-				FLOAT lfY =  CExFloat::Round((mpIterator->GetSizeY() - mpoHotKeyImage->GetHeight()) / 2.0f);		// ´¹Ö±¾ÓÖĞÏÔÊ¾
+				FLOAT lfY =  CExFloat::Round((mpIterator->GetSizeY() - mpoHotKeyImage->GetHeight()) / 2.0f);		// å‚ç›´å±…ä¸­æ˜¾ç¤º
 				npPaintBoard->DrawBitmap(D2D1::RectF(lfX, lfY,
 					(FLOAT)mpoHotKeyImage->GetWidth() + lfX, (FLOAT)mpoHotKeyImage->GetHeight() + lfY),
 					false != mbIsFocused? mpoFocusHotKeyImage : mpoHotKeyImage, ESPB_DRAWBMP_NEAREST);
@@ -189,12 +189,12 @@ ERESULT CEvMenuItem::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 
 
 
-			// ÏÂÃæÒª¸ù¾İ²»Í¬µÄÀàĞÍÏÔÊ¾²»Í¬µÄÀàÈİ
+			// ä¸‹é¢è¦æ ¹æ®ä¸åŒçš„ç±»å‹æ˜¾ç¤ºä¸åŒçš„ç±»å®¹
 			FLOAT lfX = 0.0f;
 			FLOAT lfY = 0.0f;
 			FLOAT lfRight = 0.0f;
 			FLOAT lfBottom = 0.0f;
-			// ÓĞÍ¼±ê·ç¸ñ
+			// æœ‰å›¾æ ‡é£æ ¼
 			if(ENUM_MENUITEM_TYPE_ICON == meMemuItemType
  				&& NULL != mpoLeftImage)
 			{
@@ -261,14 +261,14 @@ void CEvMenuItem::LoadResource()
 		if(NULL == mpoMenuItemInfo)
 			break;
 
-		// ¶ÁÈ¡ID
+		// è¯»å–ID
 		miCommandID = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_MENUITEM_COMMAND_ID, -1);
 
-		// ¶ÁÈ¡ÀàĞÍ
+		// è¯»å–ç±»å‹
 		int liType = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_MENUITEM_TYPE, 1);
 		meMemuItemType = (ENUM_MENUITEM_TYPE)liType;
 
-		if(ENUM_MENUITEM_TYPE_SEPARATION == meMemuItemType)			// ·Ö¸îÏß
+		if(ENUM_MENUITEM_TYPE_SEPARATION == meMemuItemType)			// åˆ†å‰²çº¿
 		{
 			wchar_t* lswSeparationImagePath = (wchar_t*)mpTemplete->QuerySubKeyValueAsBuffer(TF_ID_MENUITEM_SEPARATION);
 			if(NULL != lswSeparationImagePath)
@@ -276,7 +276,7 @@ void CEvMenuItem::LoadResource()
 				mpoSeparation = EinkuiGetSystem()->GetAllocator()->LoadImageFile(lswSeparationImagePath, lswSeparationImagePath[0]!=L'.'? true:false);
 				mpTemplete->ReleaseBuffer((PVOID)lswSeparationImagePath);
 
-				// Èç¹ûÊÇ·Ö¸îÏß£¬ÔòÒªÒÔ·Ö¸îÏßµÄ¸ß¶È×÷ÎªÏî¸ß¶È
+				// å¦‚æœæ˜¯åˆ†å‰²çº¿ï¼Œåˆ™è¦ä»¥åˆ†å‰²çº¿çš„é«˜åº¦ä½œä¸ºé¡¹é«˜åº¦
 				mpoMenuItemInfo->ItemHeight = (int)mpoSeparation->GetHeight();
 			}
 
@@ -284,7 +284,7 @@ void CEvMenuItem::LoadResource()
 			break;
 		}
 
-		// ÆäËûÀàĞÍ¹²ÓĞÊôĞÔ
+		// å…¶ä»–ç±»å‹å…±æœ‰å±æ€§
 		FLOAT lfHeight = 0;
 		if(NULL != mpoItemBgBmp)
 		{
@@ -294,7 +294,7 @@ void CEvMenuItem::LoadResource()
 		if(meMemuItemType == ENUM_MENUITEM_TYPE_ICON
 			|| meMemuItemType == ENUM_MENUITEM_TYPE_CHECK)
 		{
-			// ¶ÁÈ¡×óÍ¼±ê
+			// è¯»å–å·¦å›¾æ ‡
 			wchar_t* lswLeftImage =(wchar_t*)mpTemplete->QuerySubKeyValueAsBuffer(TF_ID_MENUITEM_LEFT_ICON);
 			if(NULL != lswLeftImage)
 			{
@@ -312,7 +312,7 @@ void CEvMenuItem::LoadResource()
 			}
 
 
-			// ¶ÁÈ¡CheckedÌ¬Í¼±ê
+			// è¯»å–Checkedæ€å›¾æ ‡
 			if(meMemuItemType == ENUM_MENUITEM_TYPE_CHECK)
 			{
 				wchar_t* lswCheckedImage =(wchar_t*)mpTemplete->QuerySubKeyValueAsBuffer(TF_ID_MENUITEM_LEFT_CHECKED_ICON);
@@ -326,7 +326,7 @@ void CEvMenuItem::LoadResource()
 		else if(meMemuItemType == ENUM_MENUITEM_TYPE_APPLE_EXTEND ||
 			meMemuItemType == ENUM_MENUITEM_TYPE_EXTEND)
 		{
-			// ¶ÁÈ¡ÓÒÍ¼±ê
+			// è¯»å–å³å›¾æ ‡
 			wchar_t* lswRightImage =(wchar_t*)mpTemplete->QuerySubKeyValueAsBuffer(TF_ID_MENUITEM_RIGHT_ICON);
 			if(NULL != lswRightImage)
 			{
@@ -344,16 +344,16 @@ void CEvMenuItem::LoadResource()
 				}
 			}
 
-			// ¶ÁÈ¡µ¯³ö²Ëµ¥ID
+			// è¯»å–å¼¹å‡ºèœå•ID
 			miExtendMenuID = (int)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_MENUITEM_POPUPMENU_ID, -1);
 
 
-			// ¶ÁÈ¡ÖÜÆÚ
+			// è¯»å–å‘¨æœŸ
 			miDuration = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_MENUITEM_DURATION, DEFAULT_TIMER_DURATION);
 
 		}
 
-		// ¶ÁÈ¡²Ëµ¥Ãû³Æ
+		// è¯»å–èœå•åç§°
 		wchar_t* lswMenuText = (wchar_t*)mpTemplete->QuerySubKeyValueAsBuffer(TF_ID_MENUITEM_TEXT);
 		long llResult = LoadTextImage(lswMenuText);
 		mpTemplete->ReleaseBuffer((PVOID)lswMenuText);
@@ -361,7 +361,7 @@ void CEvMenuItem::LoadResource()
 			lfHeight = (FLOAT)llResult;
 
 
-		// ÉèÖÃ²Ëµ¥ÈÈ¼ü
+		// è®¾ç½®èœå•çƒ­é”®
 		wchar_t* lswHotKey = (wchar_t*)mpTemplete->QuerySubKeyValueAsBuffer(TF_ID_MENUITEM_HOTKEY);
 		if(NULL != lswHotKey && UNICODE_NULL != lswHotKey[0])
 		{
@@ -399,7 +399,7 @@ void CEvMenuItem::LoadResource()
 			}	
 		}
 
-		// ÉèÖÃ²Ëµ¥Ïî¸ß¶È
+		// è®¾ç½®èœå•é¡¹é«˜åº¦
 		if(-1 == mpoMenuItemInfo->ItemHeight)
 			mpoMenuItemInfo->ItemHeight = (int)lfHeight;
 
@@ -409,11 +409,11 @@ void CEvMenuItem::LoadResource()
 
 	if(false == lbResult)
 	{
-		PrintDebugString(L"MenuItem_LoadResource Ê§°Ü.");
+		PrintDebugString(L"MenuItem_LoadResource å¤±è´¥.");
 	}
 }
 
-// ¼ÓÔØ×Ó²Ëµ¥ÁĞ±í
+// åŠ è½½å­èœå•åˆ—è¡¨
 void CEvMenuItem::LoadSubPopupMenu()
 {
 	if(-1 == miExtendMenuID)
@@ -421,11 +421,11 @@ void CEvMenuItem::LoadSubPopupMenu()
 		return;
 	}
 
-	// ÏÈÅĞ¶Ï¸¸´°¿ÚÊÇ·ñ´æÔÚ
+	// å…ˆåˆ¤æ–­çˆ¶çª—å£æ˜¯å¦å­˜åœ¨
 	if(NULL == mpIterator->GetParent())
 		return;
 
-	// ²éÕÒ×Ó²Ëµ¥Ä£°å£¬²¢´´½¨
+	// æŸ¥æ‰¾å­èœå•æ¨¡æ¿ï¼Œå¹¶åˆ›å»º
 	ICfKey* lpoPopupMenuKey = mpTemplete->GetParentsKey();
 	while(NULL != lpoPopupMenuKey->GetParentsKey())
 		lpoPopupMenuKey = lpoPopupMenuKey->GetParentsKey();
@@ -433,7 +433,7 @@ void CEvMenuItem::LoadSubPopupMenu()
 	if(NULL == lpoPopupMenuKey)
 		return;
 
-	// ÕÒÑ°³öIDÎªmiExtendMenuIDµÄ×Ó²Ëµ¥
+	// æ‰¾å¯»å‡ºIDä¸ºmiExtendMenuIDçš„å­èœå•
 	lpoPopupMenuKey = lpoPopupMenuKey->MoveToSubKey();
 	while(NULL != lpoPopupMenuKey)
 	{
@@ -455,8 +455,8 @@ void CEvMenuItem::LoadSubPopupMenu()
 }
 
 
-// ÃèÊö£º
-//		ÉèÖÃ³õÊ¼»¯½á¹¹ÌåµÄÖ¸Õë£¨ÕâÀïÖ®ËùÒÔËµÊÇÉèÖÃÖ¸Õë£¬ÊÇÎªÁË±íÊ¾²»ĞèÒªÈ¥ÊÍ·Å£©
+// æè¿°ï¼š
+//		è®¾ç½®åˆå§‹åŒ–ç»“æ„ä½“çš„æŒ‡é’ˆï¼ˆè¿™é‡Œä¹‹æ‰€ä»¥è¯´æ˜¯è®¾ç½®æŒ‡é’ˆï¼Œæ˜¯ä¸ºäº†è¡¨ç¤ºä¸éœ€è¦å»é‡Šæ”¾ï¼‰
 void CEvMenuItem::SetMenuItemInfo(IN PST_MENUITEM_INFO npoMenuItemInfo)
 {
 	CMM_SAFE_DELETE(mpoMenuItemInfo);
@@ -467,14 +467,14 @@ void CEvMenuItem::SetMenuItemInfo(IN PST_MENUITEM_INFO npoMenuItemInfo)
 
 }
 
-// Êó±ê°´ÏÂ
+// é¼ æ ‡æŒ‰ä¸‹
 ERESULT CEvMenuItem::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
 
 	do
 	{
-		// Êó±ê×ó¼üµ¯Æğ
+		// é¼ æ ‡å·¦é”®å¼¹èµ·
 		if(npInfo->ActKey & MK_LBUTTON
 			&& false == npInfo->Presssed && false != mpIterator->IsEnable())
 		{
@@ -482,10 +482,10 @@ ERESULT CEvMenuItem::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 				|| ENUM_MENUITEM_TYPE_ICON == meMemuItemType
 				|| ENUM_MENUITEM_TYPE_CHECK == meMemuItemType)
 			{
-				// Ïò¸¸´°¿Ú·¢ËÍÏûÏ¢
+				// å‘çˆ¶çª—å£å‘é€æ¶ˆæ¯
 				PostMessageToParent(EEVT_MENUITEM_CLICK, miCommandID);
 
-				// »Ö¸´Õı³£ÏÔÊ¾×´Ì¬
+				// æ¢å¤æ­£å¸¸æ˜¾ç¤ºçŠ¶æ€
 				mbIsFocused = false;
 			}
 		}
@@ -498,7 +498,7 @@ ERESULT CEvMenuItem::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 
 ERESULT CEvMenuItem::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
 	switch (npMsg->GetMessageID())
@@ -520,7 +520,7 @@ ERESULT CEvMenuItem::ParseMessage(IEinkuiMessage* npMsg)
 				break;
 			mbIsChecked = *(bool*)npMsg->GetInputData();
 
-			// ¶ÁÈ¡²Ëµ¥Ãû³ÆºÍÈÈ¼ü
+			// è¯»å–èœå•åç§°å’Œçƒ­é”®
 			wchar_t* lswMenuText = NULL;
 			if(false == mbIsChecked )
 			{
@@ -549,7 +549,7 @@ ERESULT CEvMenuItem::ParseMessage(IEinkuiMessage* npMsg)
 
 			wchar_t* lswMenuText = (wchar_t*)npMsg->GetInputData();
 
-			// ÉèÖÃ²Ëµ¥Ãû³Æ
+			// è®¾ç½®èœå•åç§°
 			long llResult = LoadTextImage(lswMenuText);
 			if(-1 == llResult)
 				break;
@@ -573,7 +573,7 @@ ERESULT CEvMenuItem::ParseMessage(IEinkuiMessage* npMsg)
 				break;
 			}	
 
-			// ÉèÖÃÈÈ¼ü
+			// è®¾ç½®çƒ­é”®
 			long llResult = LoadHotkeyImage(lpdHotKeyInfo);
 			if(-1 == llResult)
 				break;
@@ -597,13 +597,13 @@ ERESULT CEvMenuItem::ParseMessage(IEinkuiMessage* npMsg)
 
 	if(luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CEvMenuItem::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
@@ -612,33 +612,33 @@ void CEvMenuItem::OnTimer(
 	{
 		if(NULL != mpoSubPopupMenu)
 		{
-			// Òş²ØµÄÊ±ºòÒªÈ·±£µ±Ç°Êó±ê²»ÔÚ¸Ã²Ëµ¥ÏîËùÔÚµÄPopupMenuÉÏ
+			// éšè—çš„æ—¶å€™è¦ç¡®ä¿å½“å‰é¼ æ ‡ä¸åœ¨è¯¥èœå•é¡¹æ‰€åœ¨çš„PopupMenuä¸Š
 			mpoSubPopupMenu->GetIterator()->SetVisible(mbIsSubMenuShow);
 			EinkuiGetSystem()->UpdateView();
 		}
 	}
 }
 
-//Êó±ê½øÈë»òÀë¿ª
+//é¼ æ ‡è¿›å…¥æˆ–ç¦»å¼€
 void CEvMenuItem::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 {
 	if(ENUM_MENUITEM_TYPE_SEPARATION == meMemuItemType || false == mpIterator->IsEnable())
 		return;
 
-	// ¶ÔÓÚËùÓĞ·Ç·Ö¸îÏßÀàĞÍµÄ²Ëµ¥Ïî
-	// Ö»ÒªÊó±ê½øÈë£¬Ôò½øÈë½¹µãÌ¬¡£
+	// å¯¹äºæ‰€æœ‰éåˆ†å‰²çº¿ç±»å‹çš„èœå•é¡¹
+	// åªè¦é¼ æ ‡è¿›å…¥ï¼Œåˆ™è¿›å…¥ç„¦ç‚¹æ€ã€‚
 	if(0 != npState->State)
 	{
 		mbIsFocused = true;
 
-		// Í¬Ê±Í¨ÖªPopupMenu£¬È¥¶áÈ¡ÆäËûÏîµÄ½¹µã
+		// åŒæ—¶é€šçŸ¥PopupMenuï¼Œå»å¤ºå–å…¶ä»–é¡¹çš„ç„¦ç‚¹
 		if(NULL != mpIterator->GetParent() 
 			&& false != mpIterator->GetParent()->GetElementObject()->IsKindOf(GET_BUILTIN_NAME(PopupMenu))
 			)
 		{
 			PostMessageToParent(EEVT_MENUITEM_GET_FOCUS, CExMessage::DataInvalid);
 
-			// Óë´ËÍ¬Ê±£¬Èôµ±Ç°²Ëµ¥Ïî¶ÔÓ¦µÄPopupMenuÊÇÒ»¸ö¶ş¼¶²Ëµ¥£¬ÔòĞèÒªÉèÖÃ¸ÃPopupMenu¸¸´°¿ÚÎª»ñÈ¡½¹µã×´Ì¬
+			// ä¸æ­¤åŒæ—¶ï¼Œè‹¥å½“å‰èœå•é¡¹å¯¹åº”çš„PopupMenuæ˜¯ä¸€ä¸ªäºŒçº§èœå•ï¼Œåˆ™éœ€è¦è®¾ç½®è¯¥PopupMenuçˆ¶çª—å£ä¸ºè·å–ç„¦ç‚¹çŠ¶æ€
 			IEinkuiIterator* lpPopupMenuParent = mpIterator->GetParent()->GetParent();
 			if(NULL != lpPopupMenuParent
 				&& false != lpPopupMenuParent->GetElementObject()->IsKindOf(GET_BUILTIN_NAME(MenuItem))
@@ -648,22 +648,22 @@ void CEvMenuItem::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 				ldStateChange.Related = NULL;
 				ldStateChange.State = 1;
 
-				// ·¢ËÍÏûÏ¢¸ø¶ÔÓ¦µÄ¸¸MenuItem£¬Éè¶¨ÆäÎªÑ¡ÖĞ×´Ì¬¡£
+				// å‘é€æ¶ˆæ¯ç»™å¯¹åº”çš„çˆ¶MenuItemï¼Œè®¾å®šå…¶ä¸ºé€‰ä¸­çŠ¶æ€ã€‚
 				EinkuiGetSystem()->GetElementManager()->SimplePostMessage(
 					lpPopupMenuParent, EMSG_MOUSE_FOCUS, &ldStateChange, sizeof(STEMS_STATE_CHANGE));
 			}
 		}
 	}
-	// ·ñÔòÊó±êÀë¿ªÁË²¢ÇÒ²»ÊÇ±»×ÓËïËù¶áÈ¡Ê±£¬¶¼Ê§È¥½¹µã
+	// å¦åˆ™é¼ æ ‡ç¦»å¼€äº†å¹¶ä¸”ä¸æ˜¯è¢«å­å­™æ‰€å¤ºå–æ—¶ï¼Œéƒ½å¤±å»ç„¦ç‚¹
 	else if(NULL != npState->Related && false == npState->Related->FindAncestor(mpIterator))
 	{
 		mbIsFocused = false;
 	}
 
-	// Èç¹ûµ±Ç°²Ëµ¥ÏîÎªÀ©Õ¹ÀàĞÍ
+	// å¦‚æœå½“å‰èœå•é¡¹ä¸ºæ‰©å±•ç±»å‹
 	if(ENUM_MENUITEM_TYPE_EXTEND == meMemuItemType || ENUM_MENUITEM_TYPE_APPLE_EXTEND == meMemuItemType)
 	{
-		// È·±£×Ó²Ëµ¥ÒÑ¾­´´½¨
+		// ç¡®ä¿å­èœå•å·²ç»åˆ›å»º
 		if(NULL == mpoSubPopupMenu)
 		{
 			LoadSubPopupMenu();
@@ -671,35 +671,35 @@ void CEvMenuItem::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 				return;
 		}
 
-		// µ±Êó±ê½øÈëµÄÊ±ºò
+		// å½“é¼ æ ‡è¿›å…¥çš„æ—¶å€™
 		if(0 != npState->State)
 		{
-			// Ê×ÏÈÒª¹Ø±Õ¶¨Ê±Æ÷£¬±ÜÃâÊó±ê¸ÕÀë¿ª¾Í½øÈëÊ±£¬¿ªÆôµÄÒş²Ø×Ó²Ëµ¥µÄ¶¨Ê±Æ÷
+			// é¦–å…ˆè¦å…³é—­å®šæ—¶å™¨ï¼Œé¿å…é¼ æ ‡åˆšç¦»å¼€å°±è¿›å…¥æ—¶ï¼Œå¼€å¯çš„éšè—å­èœå•çš„å®šæ—¶å™¨
 			mpIterator->KillTimer(TIMER_ID_SHOW_POPUPMENU);
 
-			// Èç¹û×Ó²Ëµ¥ÊÇÒş²Ø×´Ì¬£¬Ôò¿ªÆô¶¨Ê±Æ÷ÓÃÀ´ÏÔÊ¾×Ó²Ëµ¥¡£
+			// å¦‚æœå­èœå•æ˜¯éšè—çŠ¶æ€ï¼Œåˆ™å¼€å¯å®šæ—¶å™¨ç”¨æ¥æ˜¾ç¤ºå­èœå•ã€‚
 			if(false == mpoSubPopupMenu->GetIterator()->IsVisible())
 			{
-				// Æô¶¯¶¨Ê±Æ÷£¬´ò¿ª×Ó²Ëµ¥
+				// å¯åŠ¨å®šæ—¶å™¨ï¼Œæ‰“å¼€å­èœå•
 				mbIsSubMenuShow = true;
 				mpIterator->SetTimer(TIMER_ID_SHOW_POPUPMENU, 1, miDuration, NULL);
 			}
 
 		}
-		else		// Êó±êÀë¿ªµÄÊ±ºò
+		else		// é¼ æ ‡ç¦»å¼€çš„æ—¶å€™
 		{
-			// Ê×ÏÈÆô¶¯¶¨Ê±Æ÷£¬ÒÔ±ÜÃâ¸Õ²Å½øÈë¸ÃÏîÊ±¿ªÆôµÄÏÔÊ¾×Ó²Ëµ¥µÄ¶¨Ê±Æ÷»¹ÔÚÔËĞĞ
+			// é¦–å…ˆå¯åŠ¨å®šæ—¶å™¨ï¼Œä»¥é¿å…åˆšæ‰è¿›å…¥è¯¥é¡¹æ—¶å¼€å¯çš„æ˜¾ç¤ºå­èœå•çš„å®šæ—¶å™¨è¿˜åœ¨è¿è¡Œ
 			mpIterator->KillTimer(TIMER_ID_SHOW_POPUPMENU);
 
-			// Èô¶áÈ¡½¹µãµÄ²»ÊÇµ±Ç°ÏîµÄ×ÓËï£¬ÔòÆô¶¯¶¨Ê±Æ÷£¬Òş²Ø¶ş¼¶²Ëµ¥¡£
+			// è‹¥å¤ºå–ç„¦ç‚¹çš„ä¸æ˜¯å½“å‰é¡¹çš„å­å­™ï¼Œåˆ™å¯åŠ¨å®šæ—¶å™¨ï¼Œéšè—äºŒçº§èœå•ã€‚
 			if(NULL != npState->Related && false == npState->Related->FindAncestor(mpIterator))
 			{
 				mbIsSubMenuShow = false;
-				// ×Ó²Ëµ¥ÊÇÏÔÊ¾×´Ì¬£¬
+				// å­èœå•æ˜¯æ˜¾ç¤ºçŠ¶æ€ï¼Œ
 				if(false != mpoSubPopupMenu->GetIterator()->IsVisible())
 					mpIterator->SetTimer(TIMER_ID_SHOW_POPUPMENU, 1, miDuration, NULL);
 			}
-			else			// ÊÇ±»×ÓËï¶áÈ¡ÁË½¹µã£¬ÔòÈÔÈ»ÏÔÊ¾Ñ¡ÖĞ×´Ì¬
+			else			// æ˜¯è¢«å­å­™å¤ºå–äº†ç„¦ç‚¹ï¼Œåˆ™ä»ç„¶æ˜¾ç¤ºé€‰ä¸­çŠ¶æ€
 			{
 				mbIsFocused = true;
 			}
@@ -709,7 +709,7 @@ void CEvMenuItem::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 	EinkuiGetSystem()->UpdateView();
 }
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CEvMenuItem::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -722,13 +722,13 @@ ERESULT CEvMenuItem::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	return luResult;
 }
 
-//½ûÓÃ»òÆôÓÃ
+//ç¦ç”¨æˆ–å¯ç”¨
 ERESULT CEvMenuItem::OnElementEnable(bool nbIsEnable)
 {
 	CMM_SAFE_RELEASE(mpoTextImage);
 	if(GetMenuItemType() != ENUM_MENUITEM_TYPE_SEPARATION)
 	{
-		//¹¹½¨½á¹¹Ìå
+		//æ„å»ºç»“æ„ä½“
 		STETXT_BMP_INIT ldInit;
 		ZeroMemory(&ldInit,sizeof(STETXT_BMP_INIT));
 		ldInit.FontName = mpoMenuItemInfo->FontName;
@@ -758,7 +758,7 @@ ERESULT CEvMenuItem::OnElementEnable(bool nbIsEnable)
 	return ERESULT_SUCCESS;
 }
 
-//Êó±êĞüÍ£
+//é¼ æ ‡æ‚¬åœ
 ERESULT CEvMenuItem::OnMouseHover()
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -779,20 +779,20 @@ ERESULT CEvMenuItem::OnMouseHover()
 	return lResult;
 }
 
-//¿ì½İ¼üÏûÏ¢
+//å¿«æ·é”®æ¶ˆæ¯
 ERESULT CEvMenuItem::OnHotKey(const STEMS_HOTKEY* npHotKey)
 {
 	if(npHotKey->HotKeyID == mlHotKeyID)
 	{
-		// Ä£Äâµã»÷ÏûÏ¢
-		// Êó±ê×ó¼üµ¯Æğ
+		// æ¨¡æ‹Ÿç‚¹å‡»æ¶ˆæ¯
+		// é¼ æ ‡å·¦é”®å¼¹èµ·
 		if(false != mpIterator->IsEnable())
 		{
 			if(ENUM_MENUITEM_TYPE_NORMAL == meMemuItemType
 				|| ENUM_MENUITEM_TYPE_ICON == meMemuItemType
 				|| ENUM_MENUITEM_TYPE_CHECK == meMemuItemType)
 			{
-				// Ïò¸¸´°¿Ú·¢ËÍÏûÏ¢
+				// å‘çˆ¶çª—å£å‘é€æ¶ˆæ¯
 				PostMessageToParent(EEVT_MENUITEM_CLICK, miCommandID);
 			}
 		}
@@ -802,11 +802,11 @@ ERESULT CEvMenuItem::OnHotKey(const STEMS_HOTKEY* npHotKey)
 }
 
 
-// ÃèÊö£º
-//		¼ÓÔØ²Ëµ¥ÏîÎÄ×ÖÍ¼Æ¬£¬µ÷ÓÃÕâ¸öº¯Êıºó³õÊ¼»¯Á½¸ö²ÎÊımpoTextImage poFocusTextImage
-// ·µ»ØÖµ£º
-//		-1 ±íÊ¾Ê§°Ü£¬·ñÔò·µ»Ø´´½¨µÄÍ¼Æ¬ÖĞ×î´ó¸ß¶È
-//		×¢Òâ£ºÈô´«Èë¿ÕÖ¸Õë»òÕßÖ¸Ïò¿Õ×Ö·ûµÄÖ¸Õë£¬Ôò»áÇå¿ÕÎÄ×ÖÍ¼Æ¬£¬·µ»Ø¸ß¶ÈÎª0
+// æè¿°ï¼š
+//		åŠ è½½èœå•é¡¹æ–‡å­—å›¾ç‰‡ï¼Œè°ƒç”¨è¿™ä¸ªå‡½æ•°ååˆå§‹åŒ–ä¸¤ä¸ªå‚æ•°mpoTextImage poFocusTextImage
+// è¿”å›å€¼ï¼š
+//		-1 è¡¨ç¤ºå¤±è´¥ï¼Œå¦åˆ™è¿”å›åˆ›å»ºçš„å›¾ç‰‡ä¸­æœ€å¤§é«˜åº¦
+//		æ³¨æ„ï¼šè‹¥ä¼ å…¥ç©ºæŒ‡é’ˆæˆ–è€…æŒ‡å‘ç©ºå­—ç¬¦çš„æŒ‡é’ˆï¼Œåˆ™ä¼šæ¸…ç©ºæ–‡å­—å›¾ç‰‡ï¼Œè¿”å›é«˜åº¦ä¸º0
 long CEvMenuItem::LoadTextImage(IN wchar_t* nswMenuName)
 {
 	long lfHeight = -1;
@@ -814,13 +814,13 @@ long CEvMenuItem::LoadTextImage(IN wchar_t* nswMenuName)
 	{
 		if(NULL == nswMenuName || UNICODE_NULL == nswMenuName[0])
 		{
-			CMM_SAFE_RELEASE(mpoTextImage);	//È¥µôÔ­À´µÄÍ¼Æ¬
-			CMM_SAFE_RELEASE(mpoFocusTextImage);	//È¥µôÔ­À´µÄÍ¼Æ¬
+			CMM_SAFE_RELEASE(mpoTextImage);	//å»æ‰åŸæ¥çš„å›¾ç‰‡
+			CMM_SAFE_RELEASE(mpoFocusTextImage);	//å»æ‰åŸæ¥çš„å›¾ç‰‡
 			lfHeight = 0;
 			break;
 		}
 
-		// ½âÎö³ö¿ì½İ¼ü
+		// è§£æå‡ºå¿«æ·é”®
 		wchar_t* lswShotcutKeyBegin = wcsstr(nswMenuName, L"(&");
 		if(NULL != lswShotcutKeyBegin)
 		{
@@ -832,7 +832,7 @@ long CEvMenuItem::LoadTextImage(IN wchar_t* nswMenuName)
 				{
 					miShotcutKey = liShotcutKey;
 
-					// ¹¹ÔìÏÔÊ¾ÄÚÈİ
+					// æ„é€ æ˜¾ç¤ºå†…å®¹
 					*(++lswShotcutKeyBegin) = liShotcutKey;
 					*(++lswShotcutKeyBegin) = L')';
 					*lswShotcutKeyEnd = UNICODE_NULL;
@@ -840,7 +840,7 @@ long CEvMenuItem::LoadTextImage(IN wchar_t* nswMenuName)
 			}
 		}
 
-		// ´´½¨²Ëµ¥Ãû³ÆÍ¼Æ¬
+		// åˆ›å»ºèœå•åç§°å›¾ç‰‡
 		STETXT_BMP_INIT ldNormalInit;
 		ZeroMemory(&ldNormalInit,sizeof(STETXT_BMP_INIT));
 		ldNormalInit.FontName = mpoMenuItemInfo->FontName;
@@ -850,13 +850,13 @@ long CEvMenuItem::LoadTextImage(IN wchar_t* nswMenuName)
 
 		if (mpIterator->GetSizeX() > 0.0f && mpIterator->GetSizeY() > 0.0f)
 		{
-			//Ö»ÓĞÉèÖÃÁË¿í¸ß²ÅÉèÖÃÕâ¼¸Ïî
+			//åªæœ‰è®¾ç½®äº†å®½é«˜æ‰è®¾ç½®è¿™å‡ é¡¹
 			ldNormalInit.Width = (DWORD)mpIterator->GetSizeX();
 			ldNormalInit.Height = (DWORD)mpIterator->GetSizeY();
 			ldNormalInit.Limit = STETXT_BMP_INIT::EL_FIXEDSIZE;
 		}
 
-		CMM_SAFE_RELEASE(mpoTextImage);	//È¥µôÔ­À´µÄÍ¼Æ¬
+		CMM_SAFE_RELEASE(mpoTextImage);	//å»æ‰åŸæ¥çš„å›¾ç‰‡
 		mpoTextImage = EinkuiGetSystem()->GetAllocator()->CreateImageByText(ldNormalInit);
 		BREAK_ON_NULL(mpoTextImage);
 		miNameAreaWidth = mpoTextImage->GetWidth();
@@ -867,20 +867,20 @@ long CEvMenuItem::LoadTextImage(IN wchar_t* nswMenuName)
 		}
 
 		ldNormalInit.TextColor = mpoMenuItemInfo->FontFocusColor;
-		CMM_SAFE_RELEASE(mpoFocusTextImage);	//È¥µôÔ­À´µÄÍ¼Æ¬
+		CMM_SAFE_RELEASE(mpoFocusTextImage);	//å»æ‰åŸæ¥çš„å›¾ç‰‡
 		mpoFocusTextImage = EinkuiGetSystem()->GetAllocator()->CreateImageByText(ldNormalInit);
-		StringCchCopyW(mswMenuTittle, MAX_TITTLE_LENGTH, ldNormalInit.Text);				// ±£´æ²Ëµ¥±êÌâ
+		StringCchCopyW(mswMenuTittle, MAX_TITTLE_LENGTH, ldNormalInit.Text);				// ä¿å­˜èœå•æ ‡é¢˜
 		if(lfHeight < (long)mpoFocusTextImage->GetHeight())
 		{
 			lfHeight = (long)mpoFocusTextImage->GetHeight();
 		}
 
-		// ·¢ËÍÏûÏ¢¸ø¸¸´°¿Ú£¬ÒªÇóÖØĞÂ²¼¾Ö
+		// å‘é€æ¶ˆæ¯ç»™çˆ¶çª—å£ï¼Œè¦æ±‚é‡æ–°å¸ƒå±€
 		PostMessageToParent(EACT_POPUPMENU_RELAYOUT_MENUITEM, CExMessage::DataInvalid);
 
 	} while (false);
 
-	// Èç¹û³ıÁË±³¾°ÍâÃ»ÓĞ¿ÉÏÔÊ¾µÄÄÚÈİ£¬ÔòÒş²Ø¸ÃÏî
+	// å¦‚æœé™¤äº†èƒŒæ™¯å¤–æ²¡æœ‰å¯æ˜¾ç¤ºçš„å†…å®¹ï¼Œåˆ™éšè—è¯¥é¡¹
 	if(NULL == mpoFocusTextImage && NULL == mpoTextImage
 		&& NULL == mpoHotKeyImage && NULL == mpoFocusHotKeyImage
 		&& NULL == mpoLeftImage && NULL == mpoCheckedImage
@@ -893,11 +893,11 @@ long CEvMenuItem::LoadTextImage(IN wchar_t* nswMenuName)
 }
 
 
-// ÃèÊö£º
-//		¼ÓÔØ²Ëµ¥ÏîÈÈ¼üÍ¼Æ¬£¬µ÷ÓÃÕâ¸öº¯Êıºó³õÊ¼»¯Á½¸ö²ÎÊımpoHotKeyImage poFocusHotKeyImage
-// ·µ»ØÖµ£º
-//		-1 ±íÊ¾Ê§°Ü£¬·ñÔò·µ»Ø´´½¨µÄÍ¼Æ¬ÖĞ×î´ó¸ß¶È
-//		×¢Òâ£ºÈô´«Èë¿ÕÖ¸Õë»òÕßÖ¸Ïò¿Õ×Ö·ûµÄÖ¸Õë£¬Ôò»áÇå¿ÕÈÈ¼üÍ¼Æ¬£¬·µ»Ø¸ß¶ÈÎª0
+// æè¿°ï¼š
+//		åŠ è½½èœå•é¡¹çƒ­é”®å›¾ç‰‡ï¼Œè°ƒç”¨è¿™ä¸ªå‡½æ•°ååˆå§‹åŒ–ä¸¤ä¸ªå‚æ•°mpoHotKeyImage poFocusHotKeyImage
+// è¿”å›å€¼ï¼š
+//		-1 è¡¨ç¤ºå¤±è´¥ï¼Œå¦åˆ™è¿”å›åˆ›å»ºçš„å›¾ç‰‡ä¸­æœ€å¤§é«˜åº¦
+//		æ³¨æ„ï¼šè‹¥ä¼ å…¥ç©ºæŒ‡é’ˆæˆ–è€…æŒ‡å‘ç©ºå­—ç¬¦çš„æŒ‡é’ˆï¼Œåˆ™ä¼šæ¸…ç©ºçƒ­é”®å›¾ç‰‡ï¼Œè¿”å›é«˜åº¦ä¸º0
 long CEvMenuItem::LoadHotkeyImage(IN PSTCTL_MENUITEM_HOTKEY npdHotKeyInfo)
 {
 	long lfHeight = -1;
@@ -913,11 +913,11 @@ long CEvMenuItem::LoadHotkeyImage(IN PSTCTL_MENUITEM_HOTKEY npdHotKeyInfo)
 			break;
 		}
 
-		// ±ØĞëÓĞĞéÄâ¼üÖµ
+		// å¿…é¡»æœ‰è™šæ‹Ÿé”®å€¼
 		if(0 == npdHotKeyInfo->VirtualKey)
 			break;
 
-		// ´´½¨ÈÈ¼üÍ¼Æ¬
+		// åˆ›å»ºçƒ­é”®å›¾ç‰‡
 		STETXT_BMP_INIT ldNormalInit;
 		ZeroMemory(&ldNormalInit,sizeof(STETXT_BMP_INIT));
 		ldNormalInit.FontName = mpoMenuItemInfo->FontName;
@@ -935,12 +935,12 @@ long CEvMenuItem::LoadHotkeyImage(IN PSTCTL_MENUITEM_HOTKEY npdHotKeyInfo)
 			lfHeight = (long)mpoHotKeyImage->GetHeight();
 		}
 
-		// ´´½¨½¹µãÌ¬ÈÈ¼üÍ¼Æ¬
+		// åˆ›å»ºç„¦ç‚¹æ€çƒ­é”®å›¾ç‰‡
 		ldNormalInit.TextColor = mpoMenuItemInfo->FontFocusColor;
 		CMM_SAFE_DELETE(mpoFocusHotKeyImage);
 		mpoFocusHotKeyImage = EinkuiGetSystem()->GetAllocator()->CreateImageByText(ldNormalInit);
 
-		// ¼ÇÂ¼²Ëµ¥ÈÈ¼ü
+		// è®°å½•èœå•çƒ­é”®
 		StringCchCopyW(mswHotKey, MAX_HOTKEY_LENGTH, ldNormalInit.Text);
 
 		if(lfHeight < (long)mpoFocusHotKeyImage->GetHeight())
@@ -948,11 +948,11 @@ long CEvMenuItem::LoadHotkeyImage(IN PSTCTL_MENUITEM_HOTKEY npdHotKeyInfo)
 			lfHeight = (long)mpoFocusHotKeyImage->GetHeight();
 		}
 
-		// ·¢ËÍÏûÏ¢¸ø¸¸´°¿Ú£¬ÒªÇóÖØĞÂ²¼¾Ö
+		// å‘é€æ¶ˆæ¯ç»™çˆ¶çª—å£ï¼Œè¦æ±‚é‡æ–°å¸ƒå±€
 		PostMessageToParent(EACT_POPUPMENU_RELAYOUT_MENUITEM, CExMessage::DataInvalid);
 
-		// ĞÂ×¢²áÈÈ¼ü
-		// ±ØĞëÓĞĞéÄâ¼üÖµ
+		// æ–°æ³¨å†Œçƒ­é”®
+		// å¿…é¡»æœ‰è™šæ‹Ÿé”®å€¼
 		mlHotKeyID = npdHotKeyInfo->VirtualKey;
 
 		// Ctrl
@@ -973,13 +973,13 @@ long CEvMenuItem::LoadHotkeyImage(IN PSTCTL_MENUITEM_HOTKEY npdHotKeyInfo)
 			mlHotKeyID |= MENUITEM_HOTKEY_ATL;
 		}
 
-		// Ïò¿ò¼Ü×¢²áÈ«¾ÖÈÈ¼ü
+		// å‘æ¡†æ¶æ³¨å†Œå…¨å±€çƒ­é”®
 		EinkuiGetSystem()->GetElementManager()->RegisterHotKey(mpIterator, mlHotKeyID, 
 			npdHotKeyInfo->VirtualKey, npdHotKeyInfo->NeedCtrl, npdHotKeyInfo->NeedShift, npdHotKeyInfo->NeedAlt, NULL);
 
 
 
-		//// ×¢²á±¸ÓÃÈÈ¼ü£¬ÔÊĞíÊ§°Ü
+		//// æ³¨å†Œå¤‡ç”¨çƒ­é”®ï¼Œå…è®¸å¤±è´¥
 		ICfKey* lpoKey = this->mpTemplete->OpenKey(TF_ID_MENUITEM_RESERVE_HOTKEY);
 		if(NULL != lpoKey)
 		{
@@ -1001,7 +1001,7 @@ long CEvMenuItem::LoadHotkeyImage(IN PSTCTL_MENUITEM_HOTKEY npdHotKeyInfo)
 				lpoKey = mpTemplete->OpenKey(TF_ID_MENUITEM_HOTKEY_ALT_KEY);
 				bool lbIsNeedAlt = NULL != lpoKey? true:false;
 
-				// Ïò¿ò¼Ü×¢²áÈ«¾ÖÈÈ¼ü
+				// å‘æ¡†æ¶æ³¨å†Œå…¨å±€çƒ­é”®
 				bool lbIsOk = EinkuiGetSystem()->GetElementManager()->RegisterHotKey(mpIterator, mlHotKeyID, 
 					liReverseVk, lbIsNeedCtrl, lbIsNeedShift, lbIsNeedAlt, NULL);
 
@@ -1015,7 +1015,7 @@ long CEvMenuItem::LoadHotkeyImage(IN PSTCTL_MENUITEM_HOTKEY npdHotKeyInfo)
 
 	} while (false);
 
-	// Èç¹û³ıÁË±³¾°ÍâÃ»ÓĞ¿ÉÏÔÊ¾µÄÄÚÈİ£¬ÔòÒş²Ø¸ÃÏî
+	// å¦‚æœé™¤äº†èƒŒæ™¯å¤–æ²¡æœ‰å¯æ˜¾ç¤ºçš„å†…å®¹ï¼Œåˆ™éšè—è¯¥é¡¹
 	if(NULL == mpoFocusTextImage && NULL == mpoTextImage
 		&& NULL == mpoHotKeyImage && NULL == mpoFocusHotKeyImage
 		&& NULL == mpoLeftImage && NULL == mpoCheckedImage
@@ -1028,8 +1028,8 @@ long CEvMenuItem::LoadHotkeyImage(IN PSTCTL_MENUITEM_HOTKEY npdHotKeyInfo)
 }
 
 
-// ÃèÊö£º
-//		Òş²Ø¼¶Áª²Ëµ¥
+// æè¿°ï¼š
+//		éšè—çº§è”èœå•
 void CEvMenuItem::HideCascadeMenu()
 {
 	if(NULL != mpoSubPopupMenu)

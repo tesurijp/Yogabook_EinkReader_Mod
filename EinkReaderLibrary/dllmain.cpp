@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -15,10 +15,10 @@
 
 
 
-//ÔÂtryÈÃËû
+//æœˆtryè®©ä»–
 
 
-//¸ü·ûºÏ¹æ»®
+//æ›´ç¬¦åˆè§„åˆ’
 //BOOL APIENTRY DllMain( HMODULE hModule,
 //                       DWORD  ul_reason_for_call,
 //                       LPVOID lpReserved
@@ -36,17 +36,17 @@
 //}
 
 
-// ÊµÀı»¯¹¤³§Àà£¬´«³ö½Ó¿ÚÖ¸Õë
+// å®ä¾‹åŒ–å·¥å‚ç±»ï¼Œä¼ å‡ºæ¥å£æŒ‡é’ˆ
 IElementFactory* XuiGetFactory()
 {
 	return CFactoryImp::GetUniqueObject();
 
 }
 
-void GetWidgetInformation(OUT wchar_t* npIconName,				//ÔÚÌí¼ÓÒ³ÖĞÏÔÊ¾µÄÍ¼±êÃû³Æ
-	OUT wchar_t* npPreviewPicName,		//Ìí¼ÓµÄÊ±ºòÏÔÊ¾µÄÔ¤ÀÀÍ¼Ãû³Æ
-	OUT LONG& rlWidth,					//Ò³¿í
-	OUT LONG& rlHeight					//Ò³¸ß
+void GetWidgetInformation(OUT wchar_t* npIconName,				//åœ¨æ·»åŠ é¡µä¸­æ˜¾ç¤ºçš„å›¾æ ‡åç§°
+	OUT wchar_t* npPreviewPicName,		//æ·»åŠ çš„æ—¶å€™æ˜¾ç¤ºçš„é¢„è§ˆå›¾åç§°
+	OUT LONG& rlWidth,					//é¡µå®½
+	OUT LONG& rlHeight					//é¡µé«˜
 	)
 {
 

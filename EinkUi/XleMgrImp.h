@@ -1,11 +1,11 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
 #ifndef _ELEMGRIMP_H_
 #define _ELEMGRIMP_H_
 /*
-	±¾ÎÄ¼ş¶¨ÒåÔªËØ¹ÜÀíÆ÷ÊµÏÖÀà
+	æœ¬æ–‡ä»¶å®šä¹‰å…ƒç´ ç®¡ç†å™¨å®ç°ç±»
 
 */
 #include "BpTree.h"
@@ -23,39 +23,39 @@ class CXuiIterator;
 #pragma pack(4)
 
 
-// ²Ù×÷Ïß³Ì»½ĞÑÏûÏ¢£¬ÎŞĞèÓ¦´ğ
+// æ“ä½œçº¿ç¨‹å”¤é†’æ¶ˆæ¯ï¼Œæ— éœ€åº”ç­”
 #define EMSG_WAKE_UP EMSG_DEFINE(LMSG_TP_SYSTEM,100,1)
 // input none
 // output none
 
-// ÏµÍ³ÍË³öÏûÏ¢£¬·¢ËÍ¸øÔªËØ¹ÜÀíÆ÷£¬Í¨ÖªÍË³ö
+// ç³»ç»Ÿé€€å‡ºæ¶ˆæ¯ï¼Œå‘é€ç»™å…ƒç´ ç®¡ç†å™¨ï¼Œé€šçŸ¥é€€å‡º
 #define EMSG_QUIT_XUI EMSG_DEFINE(LMSG_TP_SYSTEM,100,2)
 // input none
 // output none
 
-// ÏµÍ³ÆÁÄ»Ğı×ª
+// ç³»ç»Ÿå±å¹•æ—‹è½¬
 #define EMSG_SCREEN_ROTATION EMSG_DEFINE(LMSG_TP_SYSTEM,100,5)
 // input ULONG as screen-orientation
 // output NONE
 
-// äÖÈ¾»­°å
+// æ¸²æŸ“ç”»æ¿
 #define EMSG_SYSTEM_RENDER EMSG_DEFINE(LMSG_TP_SYSTEM,100,10)
 // input ULONG : 0 render,1 stop discarding render message
 // output none
 
-// Windows ½»»¥Ïß³Ì»Øµ÷Íê³É
+// Windows äº¤äº’çº¿ç¨‹å›è°ƒå®Œæˆ
 #define EMSG_WINCALL_COMPLETED EMSG_DEFINE(LMSG_TP_SYSTEM,101,1)
 // input ULONG[2]  CallBackID and ERESULT
 // output none
 // result na
 
-// Ä£Ì¬¶Ô»°Íê³É
+// æ¨¡æ€å¯¹è¯å®Œæˆ
 #define EMSG_MODAL_COMPLETED EMSG_DEFINE(LMSG_TP_SYSTEM,101,2)
-// input ULONG£¬ERESULT produce by the MODAL
+// input ULONGï¼ŒERESULT produce by the MODAL
 // output none
 // result na
 
-// Ëø×¡²Ù×÷Ïß³Ì
+// é”ä½æ“ä½œçº¿ç¨‹
 #define EMSG_OPTHREAD_LOCK EMSG_DEFINE(LMSG_TP_SYSTEM,101,3)
 // input HEVENT[2],the first the OPThread is waiting to proceed
 struct _STEMS_OPT_LOCK{
@@ -66,13 +66,13 @@ typedef _STEMS_OPT_LOCK STEMS_OPT_LOCK,* PSTEMS_OPT_LOCK;
 // output 
 // result 
 
-// ¹Ø±ÕWidget
+// å…³é—­Widget
 #define EMSG_CLOSE_WIDGET EMSG_DEFINE(LMSG_TP_SYSTEM,101,10)
 // input IXsWidget* the pointer to the widget to close
 // output none 
 // result na
 
-// ÉêÇëÏú»ÙÔªËØ£¬Sender¾ÍÊÇÉêÇëÏú»ÙµÄÔªËØ
+// ç”³è¯·é”€æ¯å…ƒç´ ï¼ŒSenderå°±æ˜¯ç”³è¯·é”€æ¯çš„å…ƒç´ 
 #define EMSG_APPLY_DESTROY  EMSG_DEFINE(LMSG_TP_SYSTEM,102,1)
 // input none
 // output none
@@ -80,24 +80,24 @@ typedef _STEMS_OPT_LOCK STEMS_OPT_LOCK,* PSTEMS_OPT_LOCK;
 
 
 
-// »ñµÃ¼üÅÌ½¹µã
+// è·å¾—é”®ç›˜ç„¦ç‚¹
 #define EMSG_SET_KEYBOARD_FOCUS EMSG_DEFINE(LMSG_TP_SYSTEM,105,1)
 // input IEinkuiIterator*, Element to get keyboard focus
 // output none
 // result na
 
-// ÊÍ·Å¼üÅÌ½¹µã
+// é‡Šæ”¾é”®ç›˜ç„¦ç‚¹
 #define EMSG_RELEASE_KEYBOARD_FOCUS EMSG_DEFINE(LMSG_TP_SYSTEM,105,2)
 // input 
 struct _ST_RELEASE_KEYFOCUS{
 	IEinkuiIterator* CrtFocus;	// Element to release keyboard focus
-	bool ShiftTab;	// ×ªÒÆµ½ÏÂÒ»¸ö½ÓÊÜ¼üÅÌµÄÄ¿±ê£¬ÈçÍ¬°´ÏÂTab¼ü
+	bool ShiftTab;	// è½¬ç§»åˆ°ä¸‹ä¸€ä¸ªæ¥å—é”®ç›˜çš„ç›®æ ‡ï¼Œå¦‚åŒæŒ‰ä¸‹Tabé”®
 };
 typedef _ST_RELEASE_KEYFOCUS ST_RELEASE_KEYFOCUS,* PST_RELEASE_KEYFOCUS;
 // output none
 // result na
 
-// ÉèÖÃ¼¤»î
+// è®¾ç½®æ¿€æ´»
 #define EMSG_SET_ACTIVE	EMSG_DEFINE(LMSG_TP_SYSTEM,105,5)
 // input IEinkuiIterator*
 // output none
@@ -105,7 +105,7 @@ typedef _ST_RELEASE_KEYFOCUS ST_RELEASE_KEYFOCUS,* PST_RELEASE_KEYFOCUS;
 
 
 //////////////////////////////////////////////////////////////////////////
-// Êó±ê×ª·¢
+// é¼ æ ‡è½¬å‘
 #define EMSG_MOUSE_FORWARD		EMSG_DEFINE(LMSG_TP_WIN_INPUT,1,1)
 //intput
 struct _STELEMGR_WINMSG_FORWARD{
@@ -117,30 +117,30 @@ typedef _STELEMGR_WINMSG_FORWARD STELEMGR_WINMSG_FORWARD,* PSTELEMGR_WINMSG_FORW
 //output none
 
 //////////////////////////////////////////////////////////////////////////
-// ¼üÅÌÏûÏ¢×ª·¢
+// é”®ç›˜æ¶ˆæ¯è½¬å‘
 #define EMSG_KEYBOARD_FORWARD		EMSG_DEFINE(LMSG_TP_WIN_INPUT,1,2)
 // input STELEMGR_WINMSG_FORWARD
 // output none
 // result na
 
 //////////////////////////////////////////////////////////////////////////
-// ÔÊĞí´¦ÀíÊäÈëÏûÏ¢LMSG_GET_TYPE() == LMSG_TP_WIN_INPUT
+// å…è®¸å¤„ç†è¾“å…¥æ¶ˆæ¯LMSG_GET_TYPE() == LMSG_TP_WIN_INPUT
 #define EMSG_INPUT_ENABLE			EMSG_DEFINE(LMSG_TP_WIN_INPUT,2,1)
 // INPUT NONE
 // OUTPUT NONE
 // RESULT NA
 
-// ĞŞ¸Ä´Ë´úÂë£¬½«´¥ÆÁÏûÏ¢°´ÕÕÊó±êÏûÏ¢×ª·¢£¬´¥ÆÁÂß¼­Î´ÍêÕû£¬Ax.2017.08.16
+// ä¿®æ”¹æ­¤ä»£ç ï¼Œå°†è§¦å±æ¶ˆæ¯æŒ‰ç…§é¼ æ ‡æ¶ˆæ¯è½¬å‘ï¼Œè§¦å±é€»è¾‘æœªå®Œæ•´ï¼ŒAx.2017.08.16
 ////////////////////////////////////////////////////////////////////////////
-//// ´¥ÃşÆÁÏûÏ¢×ª·¢
+//// è§¦æ‘¸å±æ¶ˆæ¯è½¬å‘
 //#define EMSG_TOUCH_FORWARD			EMSG_DEFINE(LMSG_TP_WIN_INPUT,1,4)
 //// input STEMS_TOUCH
 //// output none
 //// result na
 
-// »ñÈ¡Ò»¸öµ±Ç°µÄ»­°åÏÖ×´
+// è·å–ä¸€ä¸ªå½“å‰çš„ç”»æ¿ç°çŠ¶
 #define EMSG_MAIN_GET_CURRENT_BITMAP EMSG_DEFINE(LMSG_TP_SYSTEM,103,2)
-// intput LPARAM Í¬Êó±êÏûÏ¢
+// intput LPARAM åŒé¼ æ ‡æ¶ˆæ¯
 // output HBITMAP
 // result na
 
@@ -162,7 +162,7 @@ typedef cmmStack<IEinkuiMessage*,ELMGR_MAX_FREE_MESSAGE,ELMGR_MAX_FREE_MESSAGE> 
 class CElMouseFootPrint{
 public:
 	D2D1_POINT_2F Point;
-	ULONG KeyFlag;		// ´ËÊ±ÆäËûµÄÏà¹Ø°´Å¥µÄ×´¿ö£¬ÉèÖÃ±íÊ¾Îª°´ÏÂ£¬¿ÉÒÔÊÇËüÃÇµÄÈÎÒâ×éºÏ£¬MK_LBUTTON/MK_RBUTTON/MK_MBUTTON/MK_XBUTTON1/MK_XBUTTON2/MK_CONTROL/MK_SHIFT
+	ULONG KeyFlag;		// æ­¤æ—¶å…¶ä»–çš„ç›¸å…³æŒ‰é’®çš„çŠ¶å†µï¼Œè®¾ç½®è¡¨ç¤ºä¸ºæŒ‰ä¸‹ï¼Œå¯ä»¥æ˜¯å®ƒä»¬çš„ä»»æ„ç»„åˆï¼ŒMK_LBUTTON/MK_RBUTTON/MK_MBUTTON/MK_XBUTTON1/MK_XBUTTON2/MK_CONTROL/MK_SHIFT
 	ULONG TickCount;
 	void operator=(const CElMouseFootPrint& src){
 		Point.x = src.Point.x;
@@ -190,7 +190,7 @@ public:
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÔªËØ¹ÜÀíÆ÷
+// å…ƒç´ ç®¡ç†å™¨
 DECLARE_BUILTIN_NAME(CXelManager)
 class CXelManager: public cmmBaseObject<CXelManager,IXelManager,GET_BUILTIN_NAME(CXelManager)>
 {
@@ -202,180 +202,180 @@ public:
 	DEFINE_CUMSTOMIZE_CREATE(CXelManager,(),())
 
 
-	// ÏòÏµÍ³¹ÜÀíÆ÷×¢²áÒ»¸öElement£¬·µ»Øµü´úÆ÷¶ÔÏó£»Ê§°Ü·µ»ØNULL
-	// ³É¹¦·µ»ØµÄ½Ó¿Ú¶ÔÏó
+	// å‘ç³»ç»Ÿç®¡ç†å™¨æ³¨å†Œä¸€ä¸ªElementï¼Œè¿”å›è¿­ä»£å™¨å¯¹è±¡ï¼›å¤±è´¥è¿”å›NULL
+	// æˆåŠŸè¿”å›çš„æ¥å£å¯¹è±¡
 	virtual IEinkuiIterator* __stdcall  RegisterElement(
-		IN IEinkuiIterator* npParent,	// ¸¸ÔªËØµÄµü´úÆ÷
-		IN IXsElement* npElement,	// ´ı×¢²áµÄ×ÓÔªËØ
-		IN ULONG nuEID=0	// ±¾ÔªËØµÄEID£¬ÔÚÍ¬Ò»¸ö¸¸ÔªËØÏÂ£¬¸÷×ÓÔªËØµÄEID±ØĞëÎ¨Ò»£¬Èç¹û²»¹ØĞÄEID£¬ÇëÉèÖÃ=0£¬ÏµÍ³×Ô¶¯·ÖÅä
+		IN IEinkuiIterator* npParent,	// çˆ¶å…ƒç´ çš„è¿­ä»£å™¨
+		IN IXsElement* npElement,	// å¾…æ³¨å†Œçš„å­å…ƒç´ 
+		IN ULONG nuEID=0	// æœ¬å…ƒç´ çš„EIDï¼Œåœ¨åŒä¸€ä¸ªçˆ¶å…ƒç´ ä¸‹ï¼Œå„å­å…ƒç´ çš„EIDå¿…é¡»å”¯ä¸€ï¼Œå¦‚æœä¸å…³å¿ƒEIDï¼Œè¯·è®¾ç½®=0ï¼Œç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 		);
 
-	// ÏòÏµÍ³¹ÜÀíÆ÷×¢ÏúÒ»¸öElement£¬´Ë¹¦ÄÜ½öÓ¦¸Ã±»´ı×¢ÏúElement×ÔÉí»òÕßXUIÏµÍ³µ÷ÓÃ£»Õâ¸ö·½·¨ÒÑ¾­·ÏÆú
+	// å‘ç³»ç»Ÿç®¡ç†å™¨æ³¨é”€ä¸€ä¸ªElementï¼Œæ­¤åŠŸèƒ½ä»…åº”è¯¥è¢«å¾…æ³¨é”€Elementè‡ªèº«æˆ–è€…XUIç³»ç»Ÿè°ƒç”¨ï¼›è¿™ä¸ªæ–¹æ³•å·²ç»åºŸå¼ƒ
 	virtual ERESULT __stdcall UnregisterElement(
-		IN IEinkuiIterator* npElementIterator	// ¸ÃÔªËØ¶ÔÓ¦µÄµü´úÆ÷
+		IN IEinkuiIterator* npElementIterator	// è¯¥å…ƒç´ å¯¹åº”çš„è¿­ä»£å™¨
 		);
 
-	// ÑéÖ¤Ò»¸öIteratorÊÇ·ñÓĞĞ§£¬·µ»ØERESULT_SUCCESSÓĞĞ§£¬·µ»ØERESULT_ITERATOR_INVALIDÎŞĞ§
+	// éªŒè¯ä¸€ä¸ªIteratoræ˜¯å¦æœ‰æ•ˆï¼Œè¿”å›ERESULT_SUCCESSæœ‰æ•ˆï¼Œè¿”å›ERESULT_ITERATOR_INVALIDæ— æ•ˆ
 	virtual ERESULT __stdcall VerifyIterator(
-		IN IEinkuiIterator* npIterator	// µü´úÆ÷
+		IN IEinkuiIterator* npIterator	// è¿­ä»£å™¨
 		);
 
-	// ÔÚ¶ÔÏó¹ÜÀíÆ÷ÖĞ²éÕÒÒ»¸öElement£¬·µ»Ø¸ÃElementµÄµü´úÆ÷¶ÔÏó£»Ê§°Ü·µ»ØNULL
-	// ³É¹¦·µ»ØµÄ½Ó¿Ú¶ÔÏó£¬²»Ê¹ÓÃÊ±ĞèÒªÊÍ·Å£» Èç¹û¾­³£ĞèÒªÍ¨¹ıÔªËØ»ñµÃËüµÄ×¢²áµü´úÆ÷£¬Çë±£´æµü´úÆ÷µÄÖ¸Õë£¬ÒòÎªµ÷ÓÃ±¾·½·¨Ê¹ÓÃÈ«Ê÷±éÀú²éÕÒ»ñÈ¡µü´úÆ÷¶ÔÏó£¬ºÄÊ±½Ï´ó£»
+	// åœ¨å¯¹è±¡ç®¡ç†å™¨ä¸­æŸ¥æ‰¾ä¸€ä¸ªElementï¼Œè¿”å›è¯¥Elementçš„è¿­ä»£å™¨å¯¹è±¡ï¼›å¤±è´¥è¿”å›NULL
+	// æˆåŠŸè¿”å›çš„æ¥å£å¯¹è±¡ï¼Œä¸ä½¿ç”¨æ—¶éœ€è¦é‡Šæ”¾ï¼› å¦‚æœç»å¸¸éœ€è¦é€šè¿‡å…ƒç´ è·å¾—å®ƒçš„æ³¨å†Œè¿­ä»£å™¨ï¼Œè¯·ä¿å­˜è¿­ä»£å™¨çš„æŒ‡é’ˆï¼Œå› ä¸ºè°ƒç”¨æœ¬æ–¹æ³•ä½¿ç”¨å…¨æ ‘éå†æŸ¥æ‰¾è·å–è¿­ä»£å™¨å¯¹è±¡ï¼Œè€—æ—¶è¾ƒå¤§ï¼›
 	virtual IEinkuiIterator* __stdcall FindElement(
 		IN IXsElement* npElement
 		);
 
-	// »ñµÃ¸ùÔªËØ£»Èç¹ûÊÇÎªÁË¸ø¶ÔÏó¹ÜÀíÆ÷·¢ËÍÏûÏ¢£¬Ò²¿ÉÒÔÖ±½ÓÊ¹ÓÃNULLÖ¸Õë±íÊ¾¶ÔÏó¹ÜÀíÆ÷
-	// ³É¹¦·µ»ØµÄ½Ó¿Ú¶ÔÏó£¬²»Ê¹ÓÃÊ±ĞèÒªÊÍ·Å
+	// è·å¾—æ ¹å…ƒç´ ï¼›å¦‚æœæ˜¯ä¸ºäº†ç»™å¯¹è±¡ç®¡ç†å™¨å‘é€æ¶ˆæ¯ï¼Œä¹Ÿå¯ä»¥ç›´æ¥ä½¿ç”¨NULLæŒ‡é’ˆè¡¨ç¤ºå¯¹è±¡ç®¡ç†å™¨
+	// æˆåŠŸè¿”å›çš„æ¥å£å¯¹è±¡ï¼Œä¸ä½¿ç”¨æ—¶éœ€è¦é‡Šæ”¾
 	virtual IEinkuiIterator* __stdcall GetRootElement(void);
 
-	// »ñµÃ²Ëµ¥Ò³£¬ËùÓĞµÄ²Ëµ¥¶¼½¨Á¢ÔÚÕâ¸öÒ³
+	// è·å¾—èœå•é¡µï¼Œæ‰€æœ‰çš„èœå•éƒ½å»ºç«‹åœ¨è¿™ä¸ªé¡µ
 	virtual IEinkuiIterator* __stdcall GetMenuPage(void);
 
-	// »ñµÃToolTipÆ½Ãæ£¬Õâ¸ö×î¸ßµÄÒ³
+	// è·å¾—ToolTipå¹³é¢ï¼Œè¿™ä¸ªæœ€é«˜çš„é¡µ
 	virtual IEinkuiIterator* __stdcall GetToolTipPage(void);
 
-	// »ñµÃ×ÀÃæÔªËØ£»×ÀÃæÔªËØÔÚÆô¶¯XUIÒıÇæÊ±Ö¸¶¨£¬×ÀÃæÔªËØÊµÏÖ¾ßÌåÓ¦ÓÃµÄÈ«¾Ö¹¦ÄÜ£¬Èç£ºIdealifeµÄÈ«¾ÖÓ¦ÓÃÓÉ"Idealife"ÔªËØÀàµÄÊµÀıÌá¹©£¬
-	// Í¨¹ı¸øËü·¢IdealifeµÄÓ¦ÓÃÏûÏ¢Ö´ĞĞIdealifeµÄÏµÍ³µ÷ÓÃ
-	// ³É¹¦·µ»ØµÄ½Ó¿Ú¶ÔÏó£¬²»Ê¹ÓÃÊ±ĞèÒªÊÍ·Å
+	// è·å¾—æ¡Œé¢å…ƒç´ ï¼›æ¡Œé¢å…ƒç´ åœ¨å¯åŠ¨XUIå¼•æ“æ—¶æŒ‡å®šï¼Œæ¡Œé¢å…ƒç´ å®ç°å…·ä½“åº”ç”¨çš„å…¨å±€åŠŸèƒ½ï¼Œå¦‚ï¼šIdealifeçš„å…¨å±€åº”ç”¨ç”±"Idealife"å…ƒç´ ç±»çš„å®ä¾‹æä¾›ï¼Œ
+	// é€šè¿‡ç»™å®ƒå‘Idealifeçš„åº”ç”¨æ¶ˆæ¯æ‰§è¡ŒIdealifeçš„ç³»ç»Ÿè°ƒç”¨
+	// æˆåŠŸè¿”å›çš„æ¥å£å¯¹è±¡ï¼Œä¸ä½¿ç”¨æ—¶éœ€è¦é‡Šæ”¾
 	virtual IEinkuiIterator* __stdcall GetDesktop(void);
 
-	// ÖØĞÂÉè¶¨¸¸ÔªËØ£¬nbZTop==trueÉèÖÃÓÚZoder¶¥²ã£¬falseÉèÖÃÔÚµ×²ã
+	// é‡æ–°è®¾å®šçˆ¶å…ƒç´ ï¼ŒnbZTop==trueè®¾ç½®äºZoderé¡¶å±‚ï¼Œfalseè®¾ç½®åœ¨åº•å±‚
 	virtual ERESULT __stdcall SetParentElement(IEinkuiIterator* npParent,IEinkuiIterator* npChild,bool nbZTop);
 
-	// ·ÖÅäÒ»¸öÏûÏ¢
-	// ÏûÏ¢·¢ËÍºó£¬·¢ËÍÕßÈÔÈ»ĞèÒªÊÍ·Å
+	// åˆ†é…ä¸€ä¸ªæ¶ˆæ¯
+	// æ¶ˆæ¯å‘é€åï¼Œå‘é€è€…ä»ç„¶éœ€è¦é‡Šæ”¾
 	virtual IEinkuiMessage* __stdcall  AllocateMessage(void);
 
-	// ·ÖÅäÒ»¸öÏûÏ¢£¬³õÊ¼»¯Ïà¹Ø²ÎÊı
-	// ÏûÏ¢·¢ËÍºó£¬·¢ËÍÕßÈÔÈ»ĞèÒªÊÍ·Å
+	// åˆ†é…ä¸€ä¸ªæ¶ˆæ¯ï¼Œåˆå§‹åŒ–ç›¸å…³å‚æ•°
+	// æ¶ˆæ¯å‘é€åï¼Œå‘é€è€…ä»ç„¶éœ€è¦é‡Šæ”¾
 	virtual IEinkuiMessage* __stdcall AllocateMessage(
-		IN ULONG nuMsgID,	// ÏûÏ¢±àÂë
-		IN const void* npInputBuffer,	// ÊäÈëÊı¾İµÄ»º³åÇø
-		IN int niInputSize,	// ÊäÈëÊı¾İµÄ´óĞ¡
-		OUT void* npOutputBuffer,	// Êä³ö»º³åÇø(·µ»Ø»º³åÇø)
-		IN int niOutputSize,	// Êä³ö»º³åÇø´óĞ¡
-		IN bool nbInputVolatile=true	// ÊäÈë»º³åÇøÊÇ·ñÊÇÒ×Ê§µÄ£¬²Î¼ûIXuiMessage::SetInputData»ñµÃ¸ü¶àĞÅÏ¢
+		IN ULONG nuMsgID,	// æ¶ˆæ¯ç¼–ç 
+		IN const void* npInputBuffer,	// è¾“å…¥æ•°æ®çš„ç¼“å†²åŒº
+		IN int niInputSize,	// è¾“å…¥æ•°æ®çš„å¤§å°
+		OUT void* npOutputBuffer,	// è¾“å‡ºç¼“å†²åŒº(è¿”å›ç¼“å†²åŒº)
+		IN int niOutputSize,	// è¾“å‡ºç¼“å†²åŒºå¤§å°
+		IN bool nbInputVolatile=true	// è¾“å…¥ç¼“å†²åŒºæ˜¯å¦æ˜¯æ˜“å¤±çš„ï¼Œå‚è§IXuiMessage::SetInputDataè·å¾—æ›´å¤šä¿¡æ¯
 		);
 
-	// ¸øÖ¸¶¨ÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍÄ£Ê½ÊÇSend
-	// ÏûÏ¢·¢ËÍºó£¬·¢ËÍÕßÈÔÈ»ĞèÒªÊÍ·Å
+	// ç»™æŒ‡å®šå…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€æ¨¡å¼æ˜¯Send
+	// æ¶ˆæ¯å‘é€åï¼Œå‘é€è€…ä»ç„¶éœ€è¦é‡Šæ”¾
 	virtual ERESULT __stdcall SendMessage(
-		IEinkuiIterator* npDestElement,	// ½ÓÊÕÏûÏ¢µÄÄ¿±êÔªËØ
+		IEinkuiIterator* npDestElement,	// æ¥æ”¶æ¶ˆæ¯çš„ç›®æ ‡å…ƒç´ 
 		IEinkuiMessage* npMsg
 		);
 
-	// ¸øÖ¸¶¨ÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍÄ£Ê½ÊÇPost
-	// ÏûÏ¢·¢ËÍºó£¬·¢ËÍÕßÈÔÈ»ĞèÒªÊÍ·Å
+	// ç»™æŒ‡å®šå…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€æ¨¡å¼æ˜¯Post
+	// æ¶ˆæ¯å‘é€åï¼Œå‘é€è€…ä»ç„¶éœ€è¦é‡Šæ”¾
 	virtual ERESULT __stdcall PostMessage(
-		IEinkuiIterator* npDestElement,	// ½ÓÊÕÏûÏ¢µÄÄ¿±êÔªËØ
+		IEinkuiIterator* npDestElement,	// æ¥æ”¶æ¶ˆæ¯çš„ç›®æ ‡å…ƒç´ 
 		IEinkuiMessage* npMsg,
-		IN ULONG nuPostType=EMSG_POSTTYPE_NORMAL	// ÏûÏ¢µÄÓÅÏÈ¼¶£¬EMSG_POST_FAST,EMSG_POST_REVERSE
+		IN ULONG nuPostType=EMSG_POSTTYPE_NORMAL	// æ¶ˆæ¯çš„ä¼˜å…ˆçº§ï¼ŒEMSG_POST_FAST,EMSG_POST_REVERSE
 		);
 
-	// ¼òµ¥µØ¸øÖ¸¶¨ÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍÄ£Ê½ÊÇSend£»´Ëº¯ÊıµÄ·µ»Ø³É¹¦¾ÍÊÇÏûÏ¢´¦ÀíµÄ·µ»ØÖµ£¬´íÎóµÄÔ­Òò¾Í²»Ò»¶¨ÊÇÏûÏ¢´¦ÀíµÄ·µ»ØÖµ£¬¿ÉÄÜÊÇÏûÏ¢·¢ËÍÊ§°Ü
+	// ç®€å•åœ°ç»™æŒ‡å®šå…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€æ¨¡å¼æ˜¯Sendï¼›æ­¤å‡½æ•°çš„è¿”å›æˆåŠŸå°±æ˜¯æ¶ˆæ¯å¤„ç†çš„è¿”å›å€¼ï¼Œé”™è¯¯çš„åŸå› å°±ä¸ä¸€å®šæ˜¯æ¶ˆæ¯å¤„ç†çš„è¿”å›å€¼ï¼Œå¯èƒ½æ˜¯æ¶ˆæ¯å‘é€å¤±è´¥
 	virtual ERESULT __stdcall SimpleSendMessage(
-		IEinkuiIterator* npDestElement,	// ½ÓÊÕÏûÏ¢µÄÄ¿±êÔªËØ
-		IN ULONG nuMsgID,	// ÏûÏ¢±àÂë
-		IN const void* npInputBuffer,	// ÊäÈëÊı¾İµÄ»º³åÇø
-		IN int niInputSize,	// ÊäÈëÊı¾İµÄ´óĞ¡
-		OUT void* npOutputBuffer,	// Êä³ö»º³åÇø(·µ»Ø»º³åÇø)
-		IN int niOutputSize	// Êä³ö»º³åÇø´óĞ¡
+		IEinkuiIterator* npDestElement,	// æ¥æ”¶æ¶ˆæ¯çš„ç›®æ ‡å…ƒç´ 
+		IN ULONG nuMsgID,	// æ¶ˆæ¯ç¼–ç 
+		IN const void* npInputBuffer,	// è¾“å…¥æ•°æ®çš„ç¼“å†²åŒº
+		IN int niInputSize,	// è¾“å…¥æ•°æ®çš„å¤§å°
+		OUT void* npOutputBuffer,	// è¾“å‡ºç¼“å†²åŒº(è¿”å›ç¼“å†²åŒº)
+		IN int niOutputSize	// è¾“å‡ºç¼“å†²åŒºå¤§å°
 		);
 
-	// ¼òµ¥µØ¸øÖ¸¶¨ÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍÄ£Ê½ÊÇPost£»ÎŞ·¨»ñµÃÏûÏ¢´¦ÀíµÄ·µ»ØÖµ£»´Ëº¯ÊıµÄ·µ»ØÖµ½ö±íÊ¾ÏûÏ¢ÊÇ·ñ±»³É¹¦ÌîÈëÏûÏ¢¶ÓÁĞ
+	// ç®€å•åœ°ç»™æŒ‡å®šå…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€æ¨¡å¼æ˜¯Postï¼›æ— æ³•è·å¾—æ¶ˆæ¯å¤„ç†çš„è¿”å›å€¼ï¼›æ­¤å‡½æ•°çš„è¿”å›å€¼ä»…è¡¨ç¤ºæ¶ˆæ¯æ˜¯å¦è¢«æˆåŠŸå¡«å…¥æ¶ˆæ¯é˜Ÿåˆ—
 	virtual ERESULT __stdcall SimplePostMessage(
-		IEinkuiIterator* npDestElement,	// ½ÓÊÕÏûÏ¢µÄÄ¿±êÔªËØ
-		IN ULONG nuMsgID,	// ÏûÏ¢±àÂë
-		IN const void* npInputBuffer,	// ÊäÈëÊı¾İµÄ»º³åÇø
-		IN int niInputSize,	// ÊäÈëÊı¾İµÄ´óĞ¡
-		IN ULONG nuPostType=EMSG_POSTTYPE_NORMAL	// ÏûÏ¢µÄÓÅÏÈ¼¶£¬EMSG_POST_FAST,EMSG_POST_REVERSE
+		IEinkuiIterator* npDestElement,	// æ¥æ”¶æ¶ˆæ¯çš„ç›®æ ‡å…ƒç´ 
+		IN ULONG nuMsgID,	// æ¶ˆæ¯ç¼–ç 
+		IN const void* npInputBuffer,	// è¾“å…¥æ•°æ®çš„ç¼“å†²åŒº
+		IN int niInputSize,	// è¾“å…¥æ•°æ®çš„å¤§å°
+		IN ULONG nuPostType=EMSG_POSTTYPE_NORMAL	// æ¶ˆæ¯çš„ä¼˜å…ˆçº§ï¼ŒEMSG_POST_FAST,EMSG_POST_REVERSE
 		);
 
-	// Ã¶¾ÙÈ«²¿ÔªËØ£¬Ã¿µ±·¢ÏÖÒ»¸öElementÊ±µ÷ÓÃÃ¶¾ÙÇëÇóÕßÌá¹©µÄElementEnterº¯Êı£»µ±Ò»¸öÔªËØÃ»ÓĞ×ÓÔªËØÊ±£¬½«µ÷ÓÃÌá¹©µÄElementLeave
-	// ÒòÎª¸ù½ÚµãÊÇXUIÏµÍ³µÄĞéÄâ¶ÔÏó£¬Ã¶¾Ù²»»á´¥¼°¸ù½Úµã
+	// æšä¸¾å…¨éƒ¨å…ƒç´ ï¼Œæ¯å½“å‘ç°ä¸€ä¸ªElementæ—¶è°ƒç”¨æšä¸¾è¯·æ±‚è€…æä¾›çš„ElementEnterå‡½æ•°ï¼›å½“ä¸€ä¸ªå…ƒç´ æ²¡æœ‰å­å…ƒç´ æ—¶ï¼Œå°†è°ƒç”¨æä¾›çš„ElementLeave
+	// å› ä¸ºæ ¹èŠ‚ç‚¹æ˜¯XUIç³»ç»Ÿçš„è™šæ‹Ÿå¯¹è±¡ï¼Œæšä¸¾ä¸ä¼šè§¦åŠæ ¹èŠ‚ç‚¹
 	virtual ERESULT __stdcall EnumAllElement(
-		bool nbReverse,				// ·´Ïò£¬Ö¸µÄÊÇÃ¶¾Ù×Ó½ÚµãÊ±£¬°´ÕÕZorderµÄË³ĞòÃ¶¾Ù£¬»òÕß°´ÕÕZorderµÄÄæĞòÃ¶¾Ù
-		IBaseObject* npApplicant,	// ·¢Æğ¶ÔÏó
-		ERESULT (__stdcall IBaseObject::*ElementEnter)(IEinkuiIterator* npRecipient),//Èç¹û·µ»ØERESULT_ENUM_CHILD¼ÌĞøÃ¶¾Ù£»·µ»ØERESULT_STOP_ENUM_CHILD»òÈÎÒâÆäËûÖµ½«Í£Ö¹Ã¶¾Ù´ËÔªËØµÄ´ËÔªËØµÄ×ÓÔªËØ
-		ERESULT (__stdcall IBaseObject::*ElementLeave)(IEinkuiIterator* npRecipient) //·µ»ØÖµÎŞÒâÒå
+		bool nbReverse,				// åå‘ï¼ŒæŒ‡çš„æ˜¯æšä¸¾å­èŠ‚ç‚¹æ—¶ï¼ŒæŒ‰ç…§Zorderçš„é¡ºåºæšä¸¾ï¼Œæˆ–è€…æŒ‰ç…§Zorderçš„é€†åºæšä¸¾
+		IBaseObject* npApplicant,	// å‘èµ·å¯¹è±¡
+		ERESULT (__stdcall IBaseObject::*ElementEnter)(IEinkuiIterator* npRecipient),//å¦‚æœè¿”å›ERESULT_ENUM_CHILDç»§ç»­æšä¸¾ï¼›è¿”å›ERESULT_STOP_ENUM_CHILDæˆ–ä»»æ„å…¶ä»–å€¼å°†åœæ­¢æšä¸¾æ­¤å…ƒç´ çš„æ­¤å…ƒç´ çš„å­å…ƒç´ 
+		ERESULT (__stdcall IBaseObject::*ElementLeave)(IEinkuiIterator* npRecipient) //è¿”å›å€¼æ— æ„ä¹‰
 		);
 
-	// Ôö¼ÓIteratorµÄÒıÓÃ£¬ÓÉÓÚXUIµÄ¿Í»§³ÌĞò¿ÉÄÜ»áÒÅÂ©¶ÔIteratorµÄÊÍ·ÅºÍÒıÓÃ²Ù×÷£¬ËùÒÔÄ¬ÈÏµÄIterator->AddRef()ºÍIterator->Release()·½·¨ÊÇ¼ÙµÄ£¬²¢²»»á²úÉúÊµ¼ÊµÄµ÷ÓÃ£¬µ«Element±»Closeºó£¬¶ÔÓ¦µÄIteratorÒ»¶¨
-	// »á±»ÊÍ·Å£»ÔÚ±¾½Ó¿ÚÖĞÌá¹©ÁËÕæÊµµÄÒıÓÃºÍÊÍ·ÅµÄ·½·¨²Ù×÷Iterator¶ÔÏó£¬ÇĞ¼ÇÒª½÷É÷²Ù×÷£¬¹ı¶àµØÊÍ·Å½«»áµ¼ÖÂXUI±ÀÀ££»
-	// Ôö¼ÓIteratorÒıÓÃ
+	// å¢åŠ Iteratorçš„å¼•ç”¨ï¼Œç”±äºXUIçš„å®¢æˆ·ç¨‹åºå¯èƒ½ä¼šé—æ¼å¯¹Iteratorçš„é‡Šæ”¾å’Œå¼•ç”¨æ“ä½œï¼Œæ‰€ä»¥é»˜è®¤çš„Iterator->AddRef()å’ŒIterator->Release()æ–¹æ³•æ˜¯å‡çš„ï¼Œå¹¶ä¸ä¼šäº§ç”Ÿå®é™…çš„è°ƒç”¨ï¼Œä½†Elementè¢«Closeåï¼Œå¯¹åº”çš„Iteratorä¸€å®š
+	// ä¼šè¢«é‡Šæ”¾ï¼›åœ¨æœ¬æ¥å£ä¸­æä¾›äº†çœŸå®çš„å¼•ç”¨å’Œé‡Šæ”¾çš„æ–¹æ³•æ“ä½œIteratorå¯¹è±¡ï¼Œåˆ‡è®°è¦è°¨æ…æ“ä½œï¼Œè¿‡å¤šåœ°é‡Šæ”¾å°†ä¼šå¯¼è‡´XUIå´©æºƒï¼›
+	// å¢åŠ Iteratorå¼•ç”¨
 	virtual int __stdcall AddRefIterator(IEinkuiIterator* npIterator); 
 
-	// ÊÍ·ÅIterator
+	// é‡Šæ”¾Iterator
 	virtual int __stdcall ReleaseIterator(IEinkuiIterator* npIterator);
 
-	// »ñµÃÊó±ê½¹µã£¬!!!×¢Òâ!!!£¬·µ»ØµÄ¶ÔÏóÒ»¶¨Òªµ÷ÓÃReleaseIteratorÊÍ·Å£»
-	// ÒòÎªÊó±ê½¹µãËæÊ±¿ÉÄÜ¸Ä±ä£¬ËùÓĞ£¬·µ»ØµÄ¶ÔÏó²»Ò»¶¨ÄÜÍêÈ«ÕæÊµµÄ·´Ó¦µ±Ç°µÄÇé¿ö£»
+	// è·å¾—é¼ æ ‡ç„¦ç‚¹ï¼Œ!!!æ³¨æ„!!!ï¼Œè¿”å›çš„å¯¹è±¡ä¸€å®šè¦è°ƒç”¨ReleaseIteratoré‡Šæ”¾ï¼›
+	// å› ä¸ºé¼ æ ‡ç„¦ç‚¹éšæ—¶å¯èƒ½æ”¹å˜ï¼Œæ‰€æœ‰ï¼Œè¿”å›çš„å¯¹è±¡ä¸ä¸€å®šèƒ½å®Œå…¨çœŸå®çš„ååº”å½“å‰çš„æƒ…å†µï¼›
 	virtual IEinkuiIterator* __stdcall GetMouseFocus(void);
 
-	// »ñµÃ¼üÅÌ½¹µã£¬!!!×¢Òâ!!!£¬·µ»ØµÄ¶ÔÏóÒ»¶¨Òªµ÷ÓÃReleaseIteratorÊÍ·Å£»
-	// ÒòÎª¼üÅÌ½¹µãËæÊ±¿ÉÄÜ¸Ä±ä£¬ËùÓĞ£¬·µ»ØµÄ¶ÔÏó²»Ò»¶¨ÄÜÍêÈ«ÕæÊµµÄ·´Ó¦µ±Ç°µÄÇé¿ö£»
+	// è·å¾—é”®ç›˜ç„¦ç‚¹ï¼Œ!!!æ³¨æ„!!!ï¼Œè¿”å›çš„å¯¹è±¡ä¸€å®šè¦è°ƒç”¨ReleaseIteratoré‡Šæ”¾ï¼›
+	// å› ä¸ºé”®ç›˜ç„¦ç‚¹éšæ—¶å¯èƒ½æ”¹å˜ï¼Œæ‰€æœ‰ï¼Œè¿”å›çš„å¯¹è±¡ä¸ä¸€å®šèƒ½å®Œå…¨çœŸå®çš„ååº”å½“å‰çš„æƒ…å†µï¼›
 	virtual IEinkuiIterator* __stdcall GetKeyboardFocus(void);
 
-	// ÖØÖÃÍÏ×§Æğµã£¬½öµ±ÏµÍ³Õı´¦ÓÚÍÏ×§ĞĞÎªÖĞÊ±£¬¿ÉÒÔ½«ÍÏ×ª×ªÒÆ¸øËûÈË
-	// Èç¹ûÊÔÍ¼×ªÒÆµ½µÄÄ¿±êÔªËØ²»ÄÜÖ§³ÖÍÏ×§ĞĞÎª£¬µ±Ç°µÄÍÏ×§ĞĞÎªÒ²»áÖÕÖ¹£¬µ±Ç°ÍÏ×§µÄÄ¿±êÔªËØ»áÊÕµ½Drag_endÏûÏ¢
+	// é‡ç½®æ‹–æ‹½èµ·ç‚¹ï¼Œä»…å½“ç³»ç»Ÿæ­£å¤„äºæ‹–æ‹½è¡Œä¸ºä¸­æ—¶ï¼Œå¯ä»¥å°†æ‹–è½¬è½¬ç§»ç»™ä»–äºº
+	// å¦‚æœè¯•å›¾è½¬ç§»åˆ°çš„ç›®æ ‡å…ƒç´ ä¸èƒ½æ”¯æŒæ‹–æ‹½è¡Œä¸ºï¼Œå½“å‰çš„æ‹–æ‹½è¡Œä¸ºä¹Ÿä¼šç»ˆæ­¢ï¼Œå½“å‰æ‹–æ‹½çš„ç›®æ ‡å…ƒç´ ä¼šæ”¶åˆ°Drag_endæ¶ˆæ¯
 	virtual ERESULT __stdcall ResetDragBegin(IEinkuiIterator* npToDrag);
 
-	// ÇåÀíÊäÈëÏûÏ¢LMSG_GET_TYPE(MsgId) == LMSG_TP_WIN_INPUT
+	// æ¸…ç†è¾“å…¥æ¶ˆæ¯LMSG_GET_TYPE(MsgId) == LMSG_TP_WIN_INPUT
 	virtual void __stdcall CleanHumanInput(bool nbStallInput = false);
 
-	// ×¢²á¿ì½İ¼ü£¬µ±¿ì½İ¼ü±»´¥·¢£¬×¢²á¿ì½İ¼üµÄElement½«»áÊÜµ½£»
-	// Èç¹ûÆÕÍ¨°´¼ü×éºÏ£¨²»°üº¬Alt¼ü)°´ÏÂµÄµ±Ê±£¬´æÔÚ¼üÅÌ½¹µã£¬°´¼üÏûÏ¢»áÊ×ÏÈ·¢ËÍ¸ø¼üÅÌ½¹µã£¬Èç¹û½¹µã·µ»ØERESULT_KEY_UNEXPECTED²Å»áÅĞ¶ÏÊÇ·ñ´æÔÚ¿ì½İ¼üĞĞÎª
+	// æ³¨å†Œå¿«æ·é”®ï¼Œå½“å¿«æ·é”®è¢«è§¦å‘ï¼Œæ³¨å†Œå¿«æ·é”®çš„Elementå°†ä¼šå—åˆ°ï¼›
+	// å¦‚æœæ™®é€šæŒ‰é”®ç»„åˆï¼ˆä¸åŒ…å«Alté”®)æŒ‰ä¸‹çš„å½“æ—¶ï¼Œå­˜åœ¨é”®ç›˜ç„¦ç‚¹ï¼ŒæŒ‰é”®æ¶ˆæ¯ä¼šé¦–å…ˆå‘é€ç»™é”®ç›˜ç„¦ç‚¹ï¼Œå¦‚æœç„¦ç‚¹è¿”å›ERESULT_KEY_UNEXPECTEDæ‰ä¼šåˆ¤æ–­æ˜¯å¦å­˜åœ¨å¿«æ·é”®è¡Œä¸º
 	virtual bool __stdcall RegisterHotKey(
-		IN IEinkuiIterator* npApplicant,	// ×¢²áµÄÔªËØ£¬½«ÓĞËüÊÕµ½×¢²áÊÇ¿ì½İ¼üÏûÏ¢
-		IN ULONG nuHotKeyID,	// ÊÂÏÈ¶¨ÒåºÃµÄ³£Êı£¬ÓÃÀ´Çø·ÖHotkey£»²»ÄÜ³öÏÖÏàÍ¬µÄID£¬ÊÔÍ¼×¢²áÒÑÓĞµÄHotkey½«»áÊ§°Ü
-		IN ULONG nuVkNumber,	// ĞéÄâ¼üÂë
-		IN bool nbControlKey,	// ÊÇ·ñĞèÒªControl×éºÏ
-		IN bool nbShiftKey,		// ÊÇ·ñĞèÒªShift×éºÏ
-		IN bool nbAltKey,		// ÊÇ·ñĞèÒªAlt×éºÏ
-		IN IEinkuiIterator* npFocus=NULL	// Ö¸¶¨½¹µã·¶Î§£¬½öµ±¸ÃÔªËØ¼°Æä×ÓÔªËØ»ñµÃ¼üÅÌ½¹µãÊ±£¬²Å»á´¥·¢±¾´Î×¢²áµÄ¿ì½İ¼ü;
-		// Ê¹ÓÃNULL×÷Îª²ÎÊı¶ø²»Ö¸¶¨½¹µã·¶Î§£¬ÔòÎŞÂÛ¼üÅÌ½¹µãÔÚºÎ´¦¶¼ÄÜ¹»ÊÕµ½×¢²áµÄ¿ì½İ¼üµÄÏûÏ¢£»
+		IN IEinkuiIterator* npApplicant,	// æ³¨å†Œçš„å…ƒç´ ï¼Œå°†æœ‰å®ƒæ”¶åˆ°æ³¨å†Œæ˜¯å¿«æ·é”®æ¶ˆæ¯
+		IN ULONG nuHotKeyID,	// äº‹å…ˆå®šä¹‰å¥½çš„å¸¸æ•°ï¼Œç”¨æ¥åŒºåˆ†Hotkeyï¼›ä¸èƒ½å‡ºç°ç›¸åŒçš„IDï¼Œè¯•å›¾æ³¨å†Œå·²æœ‰çš„Hotkeyå°†ä¼šå¤±è´¥
+		IN ULONG nuVkNumber,	// è™šæ‹Ÿé”®ç 
+		IN bool nbControlKey,	// æ˜¯å¦éœ€è¦Controlç»„åˆ
+		IN bool nbShiftKey,		// æ˜¯å¦éœ€è¦Shiftç»„åˆ
+		IN bool nbAltKey,		// æ˜¯å¦éœ€è¦Altç»„åˆ
+		IN IEinkuiIterator* npFocus=NULL	// æŒ‡å®šç„¦ç‚¹èŒƒå›´ï¼Œä»…å½“è¯¥å…ƒç´ åŠå…¶å­å…ƒç´ è·å¾—é”®ç›˜ç„¦ç‚¹æ—¶ï¼Œæ‰ä¼šè§¦å‘æœ¬æ¬¡æ³¨å†Œçš„å¿«æ·é”®;
+		// ä½¿ç”¨NULLä½œä¸ºå‚æ•°è€Œä¸æŒ‡å®šç„¦ç‚¹èŒƒå›´ï¼Œåˆ™æ— è®ºé”®ç›˜ç„¦ç‚¹åœ¨ä½•å¤„éƒ½èƒ½å¤Ÿæ”¶åˆ°æ³¨å†Œçš„å¿«æ·é”®çš„æ¶ˆæ¯ï¼›
 		);
 
-	// ×¢Ïú¿ì½İ¼ü
+	// æ³¨é”€å¿«æ·é”®
 	virtual bool __stdcall UnregisterHotKey(
-		IN IEinkuiIterator* npApplicant,	// ×¢²áÕß
+		IN IEinkuiIterator* npApplicant,	// æ³¨å†Œè€…
 		IN ULONG UnuKeyNumber
 		);
 
-	// Ëø¶¨XUIÔªËØÊ÷£¬¿ÉÒÔÖØÈë£¬µ«ÒªºÍUnlockIteratorsÅä¶Ô
+	// é”å®šXUIå…ƒç´ æ ‘ï¼Œå¯ä»¥é‡å…¥ï¼Œä½†è¦å’ŒUnlockIteratorsé…å¯¹
 	void LockIterators(void);
 
-	// ½â³ıËø¶¨XUIÔªËØÊ÷
+	// è§£é™¤é”å®šXUIå…ƒç´ æ ‘
 	void UnlockIterators(void);
 
-	// ¹©ÏûÏ¢¶ÔÏó±¾Éíµ÷ÓÃ£¬ÊÍ·Å¿ØÖÆ
+	// ä¾›æ¶ˆæ¯å¯¹è±¡æœ¬èº«è°ƒç”¨ï¼Œé‡Šæ”¾æ§åˆ¶
 	void ReleaseMessage(IEinkuiMessage* npMsg);
 
-	// Æô¶¯Ò»¸öIteratorµÄÏûÏ¢½ÓÊÕ
+	// å¯åŠ¨ä¸€ä¸ªIteratorçš„æ¶ˆæ¯æ¥æ”¶
 	void StartMessageReceiver(IEinkuiIterator* npIterator);
 
-	// ÉêÇë¼üÅÌ½¹µã£¬Èç¹û¸ÃÔªËØ¾ßÓĞpopupÊôĞÔ£¬Ò²½«±»µ÷Õûµ½ºÏÊÊµÄÉÏ²ã
+	// ç”³è¯·é”®ç›˜ç„¦ç‚¹ï¼Œå¦‚æœè¯¥å…ƒç´ å…·æœ‰popupå±æ€§ï¼Œä¹Ÿå°†è¢«è°ƒæ•´åˆ°åˆé€‚çš„ä¸Šå±‚
 	ERESULT ApplyKeyBoard(IEinkuiIterator* npIterator);
 
-	// ÊÍ·Å¼üÅÌ½¹µã£¬Õâ½«µ¼ÖÂTab OrderµÄÏÂÒ»¸ö¼üÅÌ½ÓÊÕÕß»ñµÃ½¹µã
+	// é‡Šæ”¾é”®ç›˜ç„¦ç‚¹ï¼Œè¿™å°†å¯¼è‡´Tab Orderçš„ä¸‹ä¸€ä¸ªé”®ç›˜æ¥æ”¶è€…è·å¾—ç„¦ç‚¹
 	void ReleaseKeyBoard(PST_RELEASE_KEYFOCUS npRelease);
 
 	LONG GetProbeMode(void){
 		return mlProbeMode;
 	}
 
-	// »ñµÃ¼üÅÌ½¹µã£¬ĞèÒªÊÍ·Å
+	// è·å¾—é”®ç›˜ç„¦ç‚¹ï¼Œéœ€è¦é‡Šæ”¾
 	CXuiIterator* InnerGetKeyFocus(void);
 
-	// »ñµÃÊó±ê½¹µã£¬ĞèÒªÊÍ·Å
+	// è·å¾—é¼ æ ‡ç„¦ç‚¹ï¼Œéœ€è¦é‡Šæ”¾
 	CXuiIterator* InnerGetMouseFocus(void);
 
-	// »ñµÃ»îÔ¾ÔªËØ
+	// è·å¾—æ´»è·ƒå…ƒç´ 
 	CXuiIterator* GetActiveElement(void);
 
-	// ÉèÖÃActive PopupÔªËØ
+	// è®¾ç½®Active Popupå…ƒç´ 
 	ERESULT AssignActivation(IEinkuiIterator* npToSet);
 
 	D2D1_POINT_2F GetCurrentMousePosition(void) {
@@ -393,15 +393,15 @@ public:
 		return ldPos;
 	}
 
-	// Ïú»ÙÔªËØ
+	// é”€æ¯å…ƒç´ 
 	ERESULT DestroyElement(
-		IN IEinkuiIterator* npElementIterator	// ¸ÃÔªËØ¶ÔÓ¦µÄµü´úÆ÷
+		IN IEinkuiIterator* npElementIterator	// è¯¥å…ƒç´ å¯¹åº”çš„è¿­ä»£å™¨
 		);
 
-	// ·¢ËÍÃüÁîµ½ºÏÊÊµÄÔªËØ
+	// å‘é€å‘½ä»¤åˆ°åˆé€‚çš„å…ƒç´ 
 	ERESULT SendCommand(nes_command::ESCOMMAND neCmd);
 
-	// Ö´ĞĞÍÆ³öXUI²Ù×÷
+	// æ‰§è¡Œæ¨å‡ºXUIæ“ä½œ
 	void EndMessageQueue(void){
 		mbExitXui = true;
 
@@ -418,18 +418,18 @@ public:
 	}
 
 protected:
-	// ¸ùÔªËØµü´úÆ÷
+	// æ ¹å…ƒç´ è¿­ä»£å™¨
 	CXuiIterator moIteratorRoot;
 	CEleMgrProxy moElementRoot;
 	CExclusiveAccess moIteratorLock;
 
-	// ±£´æËùÓĞµü´úÆ÷£¬ÓÃÓÚÑéÖ¤
+	// ä¿å­˜æ‰€æœ‰è¿­ä»£å™¨ï¼Œç”¨äºéªŒè¯
 	TEIteratorVerification moIteratorVerification;
 
-	// ×ÀÃæÔªËØ
+	// æ¡Œé¢å…ƒç´ 
 	CXuiIterator* mpDesktopIterator;
 
-	// ÏûÏ¢¶ÓÁĞ
+	// æ¶ˆæ¯é˜Ÿåˆ—
 	//CXuiMessageQueue moMessages;
 	CXuiMessageQueue moFastMessages;
 	CXuiMessageQueue moNormalMessages;
@@ -439,34 +439,34 @@ protected:
 	bool mbExitXui;
 	volatile LONG mlCleanHumanInput;
 
-	// ¿ÕÏĞµÄÏûÏ¢
+	// ç©ºé—²çš„æ¶ˆæ¯
 	TElMessageStack moFreeMessagePool;
 	CExclusiveAccess moFreeMessageLock;
 
-	// Êó±ê¿ØÖÆÆ÷
-	CXuiIterator* mpMouseFocus;	// µ±Ç°Êó±ê½¹µã
+	// é¼ æ ‡æ§åˆ¶å™¨
+	CXuiIterator* mpMouseFocus;	// å½“å‰é¼ æ ‡ç„¦ç‚¹
 	CXuiIterator* mpActivatedElement;
 	CExclusiveAccess moMFocusLock;
 	bool mbHoverTest;
 	bool mbTopDrawTest;
 	TElMouseTrace moMouseTrace;
-	CXuiIterator* mpMouseMoveOn;	// Êó±ê¿ÉÄÜÒÆ¶¯µ½µÄĞÂÄ¿±ê£¬ÓÉÂäµã¼ì²â³ÌĞò·µ»Ø£¬µ«£¬Ëü²»Ò»¶¨ÊÇÊó±ê½¹µãµÄ»ñµÃÕß
+	CXuiIterator* mpMouseMoveOn;	// é¼ æ ‡å¯èƒ½ç§»åŠ¨åˆ°çš„æ–°ç›®æ ‡ï¼Œç”±è½ç‚¹æ£€æµ‹ç¨‹åºè¿”å›ï¼Œä½†ï¼Œå®ƒä¸ä¸€å®šæ˜¯é¼ æ ‡ç„¦ç‚¹çš„è·å¾—è€…
 	LONG mlMouseMoveOnLevel;
-	D2D1_POINT_2F mdPointRelative;	// ÓëÉÏÖµ¶ÔÓ¦µÄÊó±êÎ»ÓÚÆäÏà¶Ô×ø±êÏµµÄÎ»ÖÃ
+	D2D1_POINT_2F mdPointRelative;	// ä¸ä¸Šå€¼å¯¹åº”çš„é¼ æ ‡ä½äºå…¶ç›¸å¯¹åæ ‡ç³»çš„ä½ç½®
 	cmmStack<CElMouseTestState,32> moPointToTest;
 	bool mbTrackMouse;
-	D2D1_POINT_2F mdTopLeftInPanel;	// ÔÚEink PanelÉÏµÄ×óÉÏ½Ç
+	D2D1_POINT_2F mdTopLeftInPanel;	// åœ¨Eink Panelä¸Šçš„å·¦ä¸Šè§’
 
 	// Tip
 	CXuiIterator* mpTipOwner;
 	ULONG muTickOnTipShow;
 	bool mbTipHide;
 
-	// ÍÏ×§
+	// æ‹–æ‹½
 	bool mbDragging;
 	bool mbXuiDragDrop;
-	ULONG muKeyWithDragging;	// Í¨¹ıÄÄ¸ö°´¼üÍÏ×§
-	D2D1_POINT_2F mdDragFrom;	// ¿ªÊ¼ÍÏ×§Ê±µÄ×ø±ê
+	ULONG muKeyWithDragging;	// é€šè¿‡å“ªä¸ªæŒ‰é”®æ‹–æ‹½
+	D2D1_POINT_2F mdDragFrom;	// å¼€å§‹æ‹–æ‹½æ—¶çš„åæ ‡
 	STMS_EDRGDRP_REQUEST mdDrgdrpRequest;
 	CXuiIterator* mpDraggingElement;
 	CXuiIterator* mpDragMsgReceiver;
@@ -474,103 +474,103 @@ protected:
 	CXuiIterator* mpLastAccepter;
 
 
-	// ¼üÅÌ¿ØÖÆ
-	CXuiIterator* mpKbFocus;	// µ±Ç°¼üÅÌ½¹µã
+	// é”®ç›˜æ§åˆ¶
+	CXuiIterator* mpKbFocus;	// å½“å‰é”®ç›˜ç„¦ç‚¹
 	CExclusiveAccess moKFocusLock;
 
 
-	// ¼ì²éÄ£Ê½±äÁ¿
-	LONG mlProbeMode;	// ÊÇ·ñ½øÈë¼ì²éÄ£Ê½
-	LONG mlProbePass;	// ¼ì²éÃÜÂëÍ¨¹ı×ÖÊı£¬¡®esi'
+	// æ£€æŸ¥æ¨¡å¼å˜é‡
+	LONG mlProbeMode;	// æ˜¯å¦è¿›å…¥æ£€æŸ¥æ¨¡å¼
+	LONG mlProbePass;	// æ£€æŸ¥å¯†ç é€šè¿‡å­—æ•°ï¼Œâ€˜esi'
 
 
-	// ³õÊ¼»¯º¯Êı£¬¿ÉÒÔÊµÏÖ¸÷ÖÖ²»Í¬²ÎÊıµÄ³õÊ¼»¯º¯Êı£¬×¢Òâ£¬ÅÉÉúÀàÖØÔØInitOnCreateº¯Êıºó£¬Ò»¶¨Òªµ÷ÓÃ»ùÀàµÄInitOnCreateº¯Êı
-	// ·µ»Ø0±íÊ¾³É¹¦£»·µ»ØÖµ×î¸ßÎ»Îª1±íÊ¾·¢ÉúÑÏÖØ´íÎó£¬Ó¦¸ÃÖÕÖ¹³õÊ¼»¯¹ı³Ì£¬·µ»ØµÄ¾ÍÊÇ´íÎóÂë£»·µ»ØÆäËûÖµ±íÊ¾ÆäËû·Ç´íÎó·µ»ØÂë
+	// åˆå§‹åŒ–å‡½æ•°ï¼Œå¯ä»¥å®ç°å„ç§ä¸åŒå‚æ•°çš„åˆå§‹åŒ–å‡½æ•°ï¼Œæ³¨æ„ï¼Œæ´¾ç”Ÿç±»é‡è½½InitOnCreateå‡½æ•°åï¼Œä¸€å®šè¦è°ƒç”¨åŸºç±»çš„InitOnCreateå‡½æ•°
+	// è¿”å›0è¡¨ç¤ºæˆåŠŸï¼›è¿”å›å€¼æœ€é«˜ä½ä¸º1è¡¨ç¤ºå‘ç”Ÿä¸¥é‡é”™è¯¯ï¼Œåº”è¯¥ç»ˆæ­¢åˆå§‹åŒ–è¿‡ç¨‹ï¼Œè¿”å›çš„å°±æ˜¯é”™è¯¯ç ï¼›è¿”å›å…¶ä»–å€¼è¡¨ç¤ºå…¶ä»–éé”™è¯¯è¿”å›ç 
 	ULONG InitOnCreate(void);
 
-	// ´ÓÏûÏ¢¶ÓÁĞÌáÈ¡Ò»ÌõÏûÏ¢£¬²¢ÇÒ·Ö·¢´¦Àí
+	// ä»æ¶ˆæ¯é˜Ÿåˆ—æå–ä¸€æ¡æ¶ˆæ¯ï¼Œå¹¶ä¸”åˆ†å‘å¤„ç†
 	ERESULT ProcessNextMessage(
-		IEinkuiMessage* npMsg=NULL		//²»Îª¿Õ£¬±íÊ¾Ö±½Ó´¦ÀíÕâÌõÏûÏ¢£¬¶ø²»´ÓÏûÏ¢¶ÓÁĞ¶ÁÈ¡
+		IEinkuiMessage* npMsg=NULL		//ä¸ä¸ºç©ºï¼Œè¡¨ç¤ºç›´æ¥å¤„ç†è¿™æ¡æ¶ˆæ¯ï¼Œè€Œä¸ä»æ¶ˆæ¯é˜Ÿåˆ—è¯»å–
 		);
 
-	// µÈ´ıÏûÏ¢ÆìÓï£¬ÄÚ²¿½«µ÷ÓÃWaitForSingleObjectµÈ´ıÆìÓï£¬·µ»ØÖµÍ¬WaitForSingleObjectÒ»ÖÂ
+	// ç­‰å¾…æ¶ˆæ¯æ——è¯­ï¼Œå†…éƒ¨å°†è°ƒç”¨WaitForSingleObjectç­‰å¾…æ——è¯­ï¼Œè¿”å›å€¼åŒWaitForSingleObjectä¸€è‡´
 	ULONG WaitMessageReach(ULONG nuMilliseconds);
 
-	// ÉèÖÃ¸ùÔªËØµÄWidgetÊôĞÔ£¬¼´System Widget
+	// è®¾ç½®æ ¹å…ƒç´ çš„Widgetå±æ€§ï¼Œå³System Widget
 	void SetRootWidget(IXsWidget* npWidget);
 
-	// ¸Ä±ä¼üÅÌ½¹µã
+	// æ”¹å˜é”®ç›˜ç„¦ç‚¹
 	void ChangeKeyFocus(CXuiIterator* npNewFocus);
 
-	// ¸Ä±äÊó±ê½¹µã
+	// æ”¹å˜é¼ æ ‡ç„¦ç‚¹
 	void ChangeMouseFocus(CXuiIterator* npNewFocus);
 
-	// ´ÓnpSeekFrom¿ªÊ¼²éÕÒ¿ÉÒÔ¼¤»îµÄÔªËØ£¬ÆäËûÀà²»ÒªÖ±½Óµ÷ÓÃ
+	// ä»npSeekFromå¼€å§‹æŸ¥æ‰¾å¯ä»¥æ¿€æ´»çš„å…ƒç´ ï¼Œå…¶ä»–ç±»ä¸è¦ç›´æ¥è°ƒç”¨
 	void ChangeActiveElement(CXuiIterator* npSeekFrom);
 
-	// ½øÈëÄ£Ì¬¶Ô»°×´Ì¬
+	// è¿›å…¥æ¨¡æ€å¯¹è¯çŠ¶æ€
 	void EnterModal(void);
 
-	// ´¦ÀíÊó±êÊäÈë×ª·¢
+	// å¤„ç†é¼ æ ‡è¾“å…¥è½¬å‘
 	ERESULT OnMsgMouseForward(const PSTELEMGR_WINMSG_FORWARD npMouseInput);
 
-	// ´¦Àí¼üÅÌÊäÈë×ª·¢
+	// å¤„ç†é”®ç›˜è¾“å…¥è½¬å‘
 	ERESULT OnMsgKeyboardForward(const PSTELEMGR_WINMSG_FORWARD npKeyStrike);
 
-	// ÔÊĞíÊäÈë
+	// å…è®¸è¾“å…¥
 	ERESULT OnMsgEnalbeInput(void);
 
-	// ´¦ÀíEink TouchÊäÈë×ª·¢
+	// å¤„ç†Eink Touchè¾“å…¥è½¬å‘
 	//ERESULT OnMsgEinkTouchForward(const PSTEMS_TOUCH npEinkTouchInput);
 
-	// Êó±êÂäµã¼ì²âÔ¤´¦Àí
+	// é¼ æ ‡è½ç‚¹æ£€æµ‹é¢„å¤„ç†
 	ERESULT __stdcall EnterForMouseTest(IEinkuiIterator* npRecipient);
 
-	// Êó±êÂäµã¼ì²âºó´¦Àí
+	// é¼ æ ‡è½ç‚¹æ£€æµ‹åå¤„ç†
 	ERESULT __stdcall LeaveForMouseTest(IEinkuiIterator* npRecipient);
 
-	// ·¢ËÍÊó±ê°´¼üÏûÏ¢
+	// å‘é€é¼ æ ‡æŒ‰é”®æ¶ˆæ¯
 	__inline void SendMouseButtonPressed(IEinkuiIterator* npFocus,bool nbPressed,ULONG nuActKey,ULONG nuKeyFlag,ULONG nuTickCount,const D2D1_POINT_2F& rPosition);
 
-	// ·¢ËÍÊó±ê°´¼üË«»÷ÏûÏ¢
+	// å‘é€é¼ æ ‡æŒ‰é”®åŒå‡»æ¶ˆæ¯
 	void SendMouseButtonDbClick(IEinkuiIterator* npFocus,ULONG nuActKey,ULONG nuKeyFlag,ULONG nuTickCount,const D2D1_POINT_2F& rPosition);
 
-	// ¼ì²éÊÇ·ñÆô¶¯ÍÏ×§²¢ÇÒ·¢ËÍ¿ªÊ¼ÍÏ×§ÏûÏ¢
+	// æ£€æŸ¥æ˜¯å¦å¯åŠ¨æ‹–æ‹½å¹¶ä¸”å‘é€å¼€å§‹æ‹–æ‹½æ¶ˆæ¯
 	__inline void DetectMouseDragBegin(CXuiIterator* npFocus,ULONG nuActKey,ULONG nuKeyFlag,const D2D1_POINT_2F& rPosition);
 
-	// ½«Ä¿±êÔªËØ´Ó×ÓËïµ½×æÏÈÈ«²¿µ÷Õûµ½Zorder×î¸ß²ã
+	// å°†ç›®æ ‡å…ƒç´ ä»å­å­™åˆ°ç¥–å…ˆå…¨éƒ¨è°ƒæ•´åˆ°Zorderæœ€é«˜å±‚
 	__inline void BringFocusedPopupToTop(CXuiIterator* npFocus);
 
-	// ¼ì²éÊÇ·ñ»á»ñµÃ¼üÅÌ½¹µã£¬Èç¹ûÄ¿±êÇ¡ºÃÊÇµ±Ç°¼üÅÌ½¹µãÔòÖ±½Ó·µ»Ø£¬·ñÔò½«ÊÍ·Åµ±Ç°¼üÅÌ½¹µã
+	// æ£€æŸ¥æ˜¯å¦ä¼šè·å¾—é”®ç›˜ç„¦ç‚¹ï¼Œå¦‚æœç›®æ ‡æ°å¥½æ˜¯å½“å‰é”®ç›˜ç„¦ç‚¹åˆ™ç›´æ¥è¿”å›ï¼Œå¦åˆ™å°†é‡Šæ”¾å½“å‰é”®ç›˜ç„¦ç‚¹
 	__inline void DetectKeyboardFocus(CXuiIterator* npToDetect);
 
-	// ·¢ËÍ¼üÅÌÏûÏ¢¸øÄ¿±ê£¬Èç¹ûÄ¿±ê·´À¡ERESULT_UNEXPECTED_KEY£¬Ôò£¬ÏòÉÏ´«µİ²»Ö§³ÖµÄ¼üÅÌ°´¼üĞÅÏ¢£¬µ½PopupÔªËØÎªÖ¹
+	// å‘é€é”®ç›˜æ¶ˆæ¯ç»™ç›®æ ‡ï¼Œå¦‚æœç›®æ ‡åé¦ˆERESULT_UNEXPECTED_KEYï¼Œåˆ™ï¼Œå‘ä¸Šä¼ é€’ä¸æ”¯æŒçš„é”®ç›˜æŒ‰é”®ä¿¡æ¯ï¼Œåˆ°Popupå…ƒç´ ä¸ºæ­¢
 	ERESULT KeyStrike(CXuiIterator* npKeyFocus,const PSTEMS_KEY_PRESSED npStrike);
 
-	//// ½«KeyÏûÏ¢×ª»»ÎªCommand
+	//// å°†Keyæ¶ˆæ¯è½¬æ¢ä¸ºCommand
 	//bool KeyToCommand(const PSTEMS_KEY_PRESSED npStrike);
 
-	// ¼üÅÌ½¹µã×ªÒÆµ½ÏÂÒ»¸ö¶ÔÏó
+	// é”®ç›˜ç„¦ç‚¹è½¬ç§»åˆ°ä¸‹ä¸€ä¸ªå¯¹è±¡
 	bool ShiftKeyBoardFocus(CXuiIterator* npKeyFocus);
 
-	// Ñ¯ÎÊÊÇ·ñÖ§³ÖDrop
+	// è¯¢é—®æ˜¯å¦æ”¯æŒDrop
 	__inline void DropDetect(CXuiIterator* npToDetect);
 
-	// Ö´ĞĞDrop down
+	// æ‰§è¡ŒDrop down
 	__inline void TryDropDown(CXuiIterator* npToTry);
 
-	// µİ¹éÏú»ÙÄ³¸öÔªËØ£¬Ê×ÏÈÏú»Ù¸¸ÔªËØ£¬ºóÏú»Ù×ÓÔªËØ
+	// é€’å½’é”€æ¯æŸä¸ªå…ƒç´ ï¼Œé¦–å…ˆé”€æ¯çˆ¶å…ƒç´ ï¼Œåé”€æ¯å­å…ƒç´ 
 	void DestroyElementSubTree(IEinkuiIterator* npToDestroy);
 
-	// ·¢ËÍMouse wheelÏûÏ¢£¬Èç¹ûµ±Ç°Êó±ê½¹µã²»½ÓÊÜÕâÌõÏûÏ¢£¬ÄÇÃ´¾ÍÅĞ¶ÏÔÚµ½´ïµÚÒ»¸öPopup(°üÀ¨µÚÒ»¸öpopup)Ö®Ç°ÊÇ·ñÓĞEITR_STYLE_ALL_MWHEELµÄÔªËØ£¬ĞèÒª½ÓÊÜMouse WheelÏûÏ¢
+	// å‘é€Mouse wheelæ¶ˆæ¯ï¼Œå¦‚æœå½“å‰é¼ æ ‡ç„¦ç‚¹ä¸æ¥å—è¿™æ¡æ¶ˆæ¯ï¼Œé‚£ä¹ˆå°±åˆ¤æ–­åœ¨åˆ°è¾¾ç¬¬ä¸€ä¸ªPopup(åŒ…æ‹¬ç¬¬ä¸€ä¸ªpopup)ä¹‹å‰æ˜¯å¦æœ‰EITR_STYLE_ALL_MWHEELçš„å…ƒç´ ï¼Œéœ€è¦æ¥å—Mouse Wheelæ¶ˆæ¯
 	void TransferMouseWheel(CXuiIterator* npMouseFocus,STEMS_MOUSE_WHEEL& rInfor);
 
 	__inline void CalculateMouseMoving(IEinkuiIterator* npOwner,const D2D1_POINT_2F& rCrtPos,const D2D1_POINT_2F& rLastPos,D2D1_POINT_2F& rResult);
 
-	// ÔÚ¶ÔÏóÉÏ¼ì²â»á¼Æ°´¼ü
+	// åœ¨å¯¹è±¡ä¸Šæ£€æµ‹ä¼šè®¡æŒ‰é”®
 	bool DetectHotKey(CXuiIterator* npHost,CXuiHotkeyEntry& rToFind);
 
-	// ¿ì½İ¼ü£¬·µ»Øfalse±íÊ¾²»ÊÇ¿ì½İ¼ü
+	// å¿«æ·é”®ï¼Œè¿”å›falseè¡¨ç¤ºä¸æ˜¯å¿«æ·é”®
 	bool HotKeyProcessor(CXuiIterator*npKeyFocus,const PSTELEMGR_WINMSG_FORWARD npKeyStrike);
 
 };

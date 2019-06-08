@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -14,34 +14,34 @@
 //using namespace D2D1;
 DEFINE_BUILTIN_NAME(CheckButton)
 
-// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓĞ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖĞ½øĞĞ
+// åªç”¨äºå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 CEvCheckButton::CEvCheckButton()
 {
 
 }
 
-// ÓÃÓÚÊÍ·Å³ÉÔ±¶ÔÏó
+// ç”¨äºé‡Šæ”¾æˆå‘˜å¯¹è±¡
 CEvCheckButton::~CEvCheckButton()
 {
 
 }
 
 ULONG CEvCheckButton::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-		//ÉèÖÃ×Ô¼ºµÄÀàĞÍ
+		//è®¾ç½®è‡ªå·±çš„ç±»å‹
 		mpIterator->ModifyStyles(/*EITR_STYLE_CONTROL|*/EITR_STYLE_DRAG);
 
 		LoadResource();
@@ -53,7 +53,7 @@ ULONG CEvCheckButton::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvCheckButton::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -63,7 +63,7 @@ ERESULT CEvCheckButton::OnElementCreate(IEinkuiIterator* npIterator)
 		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
-		//¼ÆËãÎÄ×ÖÎ»ÖÃ
+		//è®¡ç®—æ–‡å­—ä½ç½®
 		if (mpBgBitmap != NULL && mpTextBitmap != NULL)
 		{
 			mdTextDestRect.left = mdFrameSize.width + 5.0f;
@@ -72,7 +72,7 @@ ERESULT CEvCheckButton::OnElementCreate(IEinkuiIterator* npIterator)
 			mdTextDestRect.right = mdTextDestRect.left + mpTextBitmap->GetWidth();
 			mdTextDestRect.bottom = mdTextDestRect.top + mpTextBitmap->GetHeight();
 
-			//ÉèÖÃ¸ĞÓ¦ÇøÓò
+			//è®¾ç½®æ„Ÿåº”åŒºåŸŸ
 			mdAcionSize.width = mdTextDestRect.right;
 			mdAcionSize.height = mdTextDestRect.bottom;
 		}
@@ -83,7 +83,7 @@ ERESULT CEvCheckButton::OnElementCreate(IEinkuiIterator* npIterator)
 		ICfKey* lpCheckedKey = mpTemplete->OpenKey(TF_ID_CHECK_BT_CHECKED);
 		if (lpCheckedKey != NULL)
 		{
-			//Ä¬ÈÏÑ¡ÖĞ
+			//é»˜è®¤é€‰ä¸­
 			SetChecked(true);
 			CMM_SAFE_RELEASE(lpCheckedKey);
 		}
@@ -95,7 +95,7 @@ ERESULT CEvCheckButton::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 
-//»æÖÆ
+//ç»˜åˆ¶
 ERESULT CEvCheckButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -106,14 +106,14 @@ ERESULT CEvCheckButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 		
 		if (mpBgBitmap != NULL)
 		{
-			//»æÖÆ±³¾°Í¼
+			//ç»˜åˆ¶èƒŒæ™¯å›¾
 			float lfX = 0;
 			ULONG lulMethod = ESPB_DRAWBMP_LINEAR;
-			LONG llIndex = GetCurrentStatesArrayIndex();		//»ñÈ¡µ±Ç°×´Ì¬Í¼Æ¬ĞÅÏ¢ËùÔÚµÄÊı×éÏÂ±ê
+			LONG llIndex = GetCurrentStatesArrayIndex();		//è·å–å½“å‰çŠ¶æ€å›¾ç‰‡ä¿¡æ¯æ‰€åœ¨çš„æ•°ç»„ä¸‹æ ‡
 
 			if (llIndex != -1)
 			{
-				lfX = (mdArrayFrame[llIndex].Index + mlCurrentPage) * mdFrameSize.width; //´ÓÄÄ¸öÎ»ÖÃ¿ªÊ¼ÏÔÊ¾
+				lfX = (mdArrayFrame[llIndex].Index + mlCurrentPage) * mdFrameSize.width; //ä»å“ªä¸ªä½ç½®å¼€å§‹æ˜¾ç¤º
 
 				npPaintBoard->DrawBitmap(D2D1::RectF(0.0f,0.0f,mpIterator->GetSizeX(),mpIterator->GetSizeY()),
 										 D2D1::RectF(lfX,0,lfX + mdFrameSize.width,mdFrameSize.height),
@@ -125,7 +125,7 @@ ERESULT CEvCheckButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 
 		if(mpTextBitmap != NULL)
 		{
-			//»æÖÆÎÄ×Ö
+			//ç»˜åˆ¶æ–‡å­—
 			FLOAT lfValue = 0.0f;
 			npPaintBoard->DrawBitmap(D2D1::RectF(mdTextDestRect.left + lfValue,mdTextDestRect.top + lfValue,mdTextDestRect.right + lfValue,mdTextDestRect.bottom + lfValue),
 				mpTextBitmap,
@@ -141,7 +141,7 @@ ERESULT CEvCheckButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 }
 
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CEvCheckButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -154,24 +154,24 @@ ERESULT CEvCheckButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 
 		if (mdAcionSize.width > 1.0f && mdAcionSize.height > 1.0f)
 		{
-			//Èç¹ûÓĞ¸ĞÓ¦Çø£¬¾ÍÒÔ¸ĞÓ¦ÇøÎªÖ÷
+			//å¦‚æœæœ‰æ„Ÿåº”åŒºï¼Œå°±ä»¥æ„Ÿåº”åŒºä¸ºä¸»
 			if(rPoint.x < 0.0f || rPoint.x >= mdAcionSize.width || rPoint.y < 0.0f || rPoint.y >= mdAcionSize.height)
 				break;
 		}
 		else if (mpBgBitmap != NULL)
 		{
-			//ÓĞ±³¾°Í¼µÄÊ±ºò
+			//æœ‰èƒŒæ™¯å›¾çš„æ—¶å€™
 			if(rPoint.x < 0.0f || (UINT)rPoint.x >= mpIterator->GetSizeX() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpIterator->GetSizeY())
 				break;
 
 			float lfX = 0;
-			LONG llIndex = GetCurrentStatesArrayIndex();		//»ñÈ¡µ±Ç°×´Ì¬Í¼Æ¬ĞÅÏ¢ËùÔÚµÄÊı×éÏÂ±ê
+			LONG llIndex = GetCurrentStatesArrayIndex();		//è·å–å½“å‰çŠ¶æ€å›¾ç‰‡ä¿¡æ¯æ‰€åœ¨çš„æ•°ç»„ä¸‹æ ‡
 			if(llIndex < 0)
 				break;
-			lfX = (mdArrayFrame[llIndex].Index + mlCurrentPage) * mdFrameSize.width;  	//´ÓÄÄ¸öÎ»ÖÃ¿ªÊ¼ÏÔÊ¾
+			lfX = (mdArrayFrame[llIndex].Index + mlCurrentPage) * mdFrameSize.width;  	//ä»å“ªä¸ªä½ç½®å¼€å§‹æ˜¾ç¤º
 
 			D2D1_POINT_2F ldPoint = CExPoint::BigToOldPoint(mdFrameSize,mpIterator->GetSize(),D2D1::Point2(rPoint.x,rPoint.y),ESPB_DRAWBMP_EXTEND,D2D1::Point2((FLOAT)mpBgBitmap->GetExtnedLineX(),(FLOAT)mpBgBitmap->GetExtnedLineY()));
-			//Í¨¹ıÏñËØAlphaÖµ¼ì²â????
+			//é€šè¿‡åƒç´ Alphaå€¼æ£€æµ‹????
 			DWORD luPixel;
 			if(ERESULT_SUCCEEDED(mpBgBitmap->GetPixel(DWORD(lfX+ldPoint.x),(DWORD)ldPoint.y,luPixel)))
 			{
@@ -181,7 +181,7 @@ ERESULT CEvCheckButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 		}
 		else if (mpTextBitmap != NULL)
 		{
-			//Ö»ÓĞÎÄ×ÖµÄÊ±ºò
+			//åªæœ‰æ–‡å­—çš„æ—¶å€™
 			if(rPoint.x < 0.0f || (UINT)rPoint.x >= mpTextBitmap->GetWidth() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpTextBitmap->GetHeight())
 				break;
 		}
@@ -197,7 +197,7 @@ ERESULT CEvCheckButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	return luResult;
 }
 
-//¶¨Î»ÎÄ×ÖÍ¼Æ¬ÏÔÊ¾Î»ÖÃ
+//å®šä½æ–‡å­—å›¾ç‰‡æ˜¾ç¤ºä½ç½®
 void CEvCheckButton::RelocateText(void)
 {
 

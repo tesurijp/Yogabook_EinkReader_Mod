@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -20,7 +20,7 @@ DEFINE_BUILTIN_NAME(CXD2dEngine)
 
 CXD2dEngine::CXD2dEngine()
 {
-	// ³õÊ¼»¯Éè±¸ÎŞ¹Ø×ÊÔ´
+	// åˆå§‹åŒ–è®¾å¤‡æ— å…³èµ„æº
 	mpD2dFactory = NULL;
 	mpWicFactory = NULL;
 	mpWriteFactory = NULL;
@@ -29,13 +29,13 @@ CXD2dEngine::CXD2dEngine()
 	mpEinkBuf = NULL;
 	mpCustomDraw = NULL;
 
-	// ³õÊ¼»¯Éè±¸Ïà¹Ø×ÊÔ´
+	// åˆå§‹åŒ–è®¾å¤‡ç›¸å…³èµ„æº
 	mpTarget2D = NULL;
 	mpTargetBitmap = NULL;
 	mpDbgTextBrush = NULL;
 	mpFogBrush = NULL;
 
-	// »æÍ¼ÉÏÏÂÎÄ
+	// ç»˜å›¾ä¸Šä¸‹æ–‡
 	mpElementManager = NULL;
 	mpMessage = NULL;
 	mfFpsIndx = 0.0f;
@@ -74,10 +74,10 @@ CXD2dEngine::~CXD2dEngine()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// ´´½¨»æÍ¼×ÊÔ´
+// åˆ›å»ºç»˜å›¾èµ„æº
 //////////////////////////////////////////////////////////////////////////
 
-// ´´½¨µ¥Ò»ÑÕÉ«µÄ»­Ë¢
+// åˆ›å»ºå•ä¸€é¢œè‰²çš„ç”»åˆ·
 IEinkuiBrush* __stdcall CXD2dEngine::CreateBrush(
 	XuiBrushType niBrushType,
 	D2D1_COLOR_F noColor
@@ -98,7 +98,7 @@ IEinkuiBrush* __stdcall CXD2dEngine::CreateBrush(
 
 }
 
-// ½¥±ä»­Ë¢Ê±£¬ĞèÒª´«Èë¶à¸öÑÕÉ«µã
+// æ¸å˜ç”»åˆ·æ—¶ï¼Œéœ€è¦ä¼ å…¥å¤šä¸ªé¢œè‰²ç‚¹
 IEinkuiBrush* __stdcall CXD2dEngine::CreateBrush(
 	XuiBrushType niBrushType, 
 	D2D1_GRADIENT_STOP* npGradientStop, 
@@ -124,7 +124,7 @@ IEinkuiBrush* __stdcall CXD2dEngine::CreateBrush(
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÊµÀı»¯ÒıÇæÀà
+// å®ä¾‹åŒ–å¼•æ“ç±»
 //////////////////////////////////////////////////////////////////////////
 
 ULONG CXD2dEngine::InitOnCreate(ULONG Width, ULONG Height)
@@ -139,15 +139,15 @@ ULONG CXD2dEngine::InitOnCreate(ULONG Width, ULONG Height)
 		muFixedH = Height;
 		RelocationPainboard();
 
-		//½¨Á¢Éè±¸ÎŞ¹Ø×ÊÔ´
+		//å»ºç«‹è®¾å¤‡æ— å…³èµ„æº
 		luResult = CreateIndependentResource();
 		BREAK_ON_FAILED(luResult);
 
-		//½¨Á¢Éè±¸Ïà¹Ø×ÊÔ´
+		//å»ºç«‹è®¾å¤‡ç›¸å…³èµ„æº
 		luResult = CreateDeviceResource();
 		BREAK_ON_FAILED(luResult);
 
-		// ¿ªÊ¼Ö¡ÂÊÍ³¼Æ
+		// å¼€å§‹å¸§ç‡ç»Ÿè®¡
 		muLastTick = GetCurrentTickCount();
 
 		luResult = ERESULT_SUCCESS;
@@ -158,7 +158,7 @@ ULONG CXD2dEngine::InitOnCreate(ULONG Width, ULONG Height)
 
 }
 
-// ½¨Á¢Éè±¸ÎŞ¹Ø×ÊÔ´
+// å»ºç«‹è®¾å¤‡æ— å…³èµ„æº
 ERESULT CXD2dEngine::CreateIndependentResource()
 {
 	static const WCHAR msc_fontName[] = L"Tahoma";
@@ -207,7 +207,7 @@ ERESULT CXD2dEngine::CreateIndependentResource()
 
 }
 
-// ½¨Á¢Éè±¸Ïà¹Ø×ÊÔ´
+// å»ºç«‹è®¾å¤‡ç›¸å…³èµ„æº
 ERESULT CXD2dEngine::CreateDeviceResource()
 {
 	if (mpTarget2D != NULL)
@@ -225,7 +225,7 @@ ERESULT CXD2dEngine::CreateDeviceResource()
 		lhDefaultDC = ::GetDC(NULL);
 		BREAK_ON_NULL(lhDefaultDC);
 
-		//½¨Á¢¼æÈİÎ»Í¼
+		//å»ºç«‹å…¼å®¹ä½å›¾
 		BmpInfo.bmiHeader.biSize = sizeof(BITMAPINFO);
 		BmpInfo.bmiHeader.biWidth = muEinkPanelW;
 		BmpInfo.bmiHeader.biHeight = -(int)muEinkPanelH;
@@ -241,15 +241,15 @@ ERESULT CXD2dEngine::CreateDeviceResource()
 			, NULL, 0);
 		BREAK_ON_NULL(mhForeBmp);
 
-		//½¨Á¢¼æÈİDC
+		//å»ºç«‹å…¼å®¹DC
 		mhForeDc = CreateCompatibleDC(lhDefaultDC);
 		BREAK_ON_NULL(mhForeDc);
 
-		//Ìæ»»Î»Í¼¶ÔÏó
+		//æ›¿æ¢ä½å›¾å¯¹è±¡
 		mhOldForeBmp = (HBITMAP)SelectObject(mhForeDc, mhForeBmp);
 		BREAK_ON_NULL(mhOldForeBmp);
 
-		//½¨Á¢D2d target
+		//å»ºç«‹D2d target
 		ld2DTargetProt = D2D1::RenderTargetProperties(
 			D2D1_RENDER_TARGET_TYPE_DEFAULT,
 			D2D1::PixelFormat(
@@ -271,7 +271,7 @@ ERESULT CXD2dEngine::CreateDeviceResource()
 
 		mpTarget2D = lpDcTarget;
 
-		//½¨Á¢2DÉè±¸Ïà¹Ø×ÊÔ´
+		//å»ºç«‹2Dè®¾å¤‡ç›¸å…³èµ„æº
 		luResult = CreateD2dResource();
 		if (ERESULT_FAILED(luResult))
 			break;
@@ -286,7 +286,7 @@ ERESULT CXD2dEngine::CreateDeviceResource()
 	return SUCCEEDED(hr) ? ERESULT_SUCCESS : ERESULT_UNSUCCESSFUL;
 }
 
-// ´´½¨D2DÏà¹Ø×ÊÔ´
+// åˆ›å»ºD2Dç›¸å…³èµ„æº
 ERESULT CXD2dEngine::CreateD2dResource()
 {
 	HRESULT hr = S_OK;
@@ -302,14 +302,14 @@ ERESULT CXD2dEngine::CreateD2dResource()
 		&mpFogBrush
 		);
 
-	return ERESULT_SUCCESS;// SUCCEEDED(hr)?ERESULT_SUCCESS:ERESULT_UNSUCCESSFUL; ÉÏÃæÁ½¸ö»­Ë¢²»ÖØÒª£¬ÎŞĞè·µ»Ø´íÎó
+	return ERESULT_SUCCESS;// SUCCEEDED(hr)?ERESULT_SUCCESS:ERESULT_UNSUCCESSFUL; ä¸Šé¢ä¸¤ä¸ªç”»åˆ·ä¸é‡è¦ï¼Œæ— éœ€è¿”å›é”™è¯¯
 }
 
-// »ØÊÕÊÍ·Å×ÊÔ´
+// å›æ”¶é‡Šæ”¾èµ„æº
 void CXD2dEngine::ReleaseDeviceResource(bool nbBroadcastToElement/* =true */)
 {
-	// Ê×ÏÈ¸øËùÓĞElement·¢ËÍÏûÏ¢£¬Í¨ÖªËûÃÇÊÍ·ÅÉè±¸Ïà¹Ø×ÊÔ´
-	if(nbBroadcastToElement != false && mpTarget2D != NULL && mpElementManager != NULL) // mpTarget2D != NULL·ÀÖ¹¶à´Î·¢ËÍÊÍ·ÅÏûÏ¢
+	// é¦–å…ˆç»™æ‰€æœ‰Elementå‘é€æ¶ˆæ¯ï¼Œé€šçŸ¥ä»–ä»¬é‡Šæ”¾è®¾å¤‡ç›¸å…³èµ„æº
+	if(nbBroadcastToElement != false && mpTarget2D != NULL && mpElementManager != NULL) // mpTarget2D != NULLé˜²æ­¢å¤šæ¬¡å‘é€é‡Šæ”¾æ¶ˆæ¯
 		mpElementManager->EnumAllElement(
 		false,
 		this,
@@ -317,13 +317,13 @@ void CXD2dEngine::ReleaseDeviceResource(bool nbBroadcastToElement/* =true */)
 		(ERESULT (__stdcall IBaseObject::*)(IEinkuiIterator* npRecipient))&CXD2dEngine::LeaveForDiscardDeviceRes
 		);
 
-	// ÊÍ·ÅÎ»Í¼¶ÔÏóËù³ÖÓĞµÄÏÔ´æÎ»Í¼
+	// é‡Šæ”¾ä½å›¾å¯¹è±¡æ‰€æŒæœ‰çš„æ˜¾å­˜ä½å›¾
 	CEinkuiSystem::gpXuiSystem->GetBitmapList().ReleaseDeviceResource();
-	// ÊÍ·ÅÈ«²¿Brush¶ÔÏó
+	// é‡Šæ”¾å…¨éƒ¨Brushå¯¹è±¡
 	CEinkuiSystem::gpXuiSystem->GetBrushList().ReleaseDeviceResource();
 
 
-	// ÊÍ·ÅÆäËûDeviceÏà¹Ø×ÊÔ´
+	// é‡Šæ”¾å…¶ä»–Deviceç›¸å…³èµ„æº
 	CMM_SAFE_RELEASE(mpDbgTextBrush);
 	CMM_SAFE_RELEASE(mpFogBrush);
 	CMM_SAFE_RELEASE(mpTarget2D);
@@ -345,7 +345,7 @@ void CXD2dEngine::ReleaseDeviceResource(bool nbBroadcastToElement/* =true */)
 
 
 //////////////////////////////////////////////////////////////////////////
-// ĞèÒªÊµÏÖµÄ»ùÀà½Ó¿Ú
+// éœ€è¦å®ç°çš„åŸºç±»æ¥å£
 //////////////////////////////////////////////////////////////////////////
 
 ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN const D2D1_RECT_F& rSrcRect, IN IEinkuiBitmap* npBitmap, IN ULONG nuMethod,IN float nfAlpha)
@@ -360,7 +360,7 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN c
 	{
 		BREAK_ON_NULL(lpXuiD2DBitmap);
 
-		// ³õÊ¼»¯Î»Í¼¶ÔÏó
+		// åˆå§‹åŒ–ä½å›¾å¯¹è±¡
 		luResult = lpXuiD2DBitmap->InitBitmap(mpWicFactory, mpD2dFactory, mpTarget2D);
 		BREAK_ON_FAILED(luResult);
 
@@ -373,12 +373,12 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN c
 			((rDestRect.right - rDestRect.left - 1.0f > rSrcRect.right - rSrcRect.left) || 
 			(rDestRect.bottom - rDestRect.top - 1.0f > rSrcRect.bottom - rSrcRect.top)))
 		{
-			//ÑÓÕ¹Ïß·½Ê½
-			//Èç¹ûÒªÑÓÕ¹µÄ¶ÔÏóÖ»ÓĞ¿í»ò¸ßÄ³Ò»Ïî±ÈÔ­Í¼´ó£¬ÑÓÕ¹Ëã·¨¾Í»á³ö´í 2018-5-2 jaryee ????
-			FLOAT lfExtendLineX = CExFloat::Round((FLOAT)npBitmap->GetExtnedLineX());	//¶ÁÈ¡ÑÓÕ¹Ïß×ø±ê£¬Èç¹ûÎª-1±íÊ¾Ê¹ÓÃÖĞÏß
+			//å»¶å±•çº¿æ–¹å¼
+			//å¦‚æœè¦å»¶å±•çš„å¯¹è±¡åªæœ‰å®½æˆ–é«˜æŸä¸€é¡¹æ¯”åŸå›¾å¤§ï¼Œå»¶å±•ç®—æ³•å°±ä¼šå‡ºé”™ 2018-5-2 jaryee ????
+			FLOAT lfExtendLineX = CExFloat::Round((FLOAT)npBitmap->GetExtnedLineX());	//è¯»å–å»¶å±•çº¿åæ ‡ï¼Œå¦‚æœä¸º-1è¡¨ç¤ºä½¿ç”¨ä¸­çº¿
 			FLOAT lfExtendLineY = CExFloat::Round((FLOAT)npBitmap->GetExtnedLineY());
 
-			if(lfExtendLineX <= 0)	//Èç¹ûÑÓÕ¹ÏßÉèÖÃĞ¡ÓÚ0£¬ÒÔÍ¼Æ¬ÖĞÏßÎªÑÓÕ¹Ïß
+			if(lfExtendLineX <= 0)	//å¦‚æœå»¶å±•çº¿è®¾ç½®å°äº0ï¼Œä»¥å›¾ç‰‡ä¸­çº¿ä¸ºå»¶å±•çº¿
 				lfExtendLineX = CExFloat::Round((rSrcRect.right - rSrcRect.left) / 2.0f);
 			if(lfExtendLineY <= 0)
 				lfExtendLineY = CExFloat::Round((rSrcRect.bottom - rSrcRect.top) / 2.0f);
@@ -386,13 +386,13 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN c
 			D2D1_RECT_F lDestRect,lSrcRect;
 			D2D1_SIZE_F lDestSize,lSrcSize;
 
-			lDestSize.width = CExFloat::Round(rDestRect.right - rDestRect.left);	//¼ÆËãÄ¿±êºÍÔ´Í¼µÄ¿íºÍ¸ß
+			lDestSize.width = CExFloat::Round(rDestRect.right - rDestRect.left);	//è®¡ç®—ç›®æ ‡å’Œæºå›¾çš„å®½å’Œé«˜
 			lDestSize.height = CExFloat::Round(rDestRect.bottom - rDestRect.top);
 			lSrcSize.width = CExFloat::Round(rSrcRect.right - rSrcRect.left);
 			lSrcSize.height = CExFloat::Round(rSrcRect.bottom - rSrcRect.top);
 
 			//////////////////////////////////////////////////////////////////////////
-			//×óÉÏ½Ç ÕâÀï²»»áÒòÎªÑÓÕ¹µÄ²»Í¬¶ø±ä»¯
+			//å·¦ä¸Šè§’ è¿™é‡Œä¸ä¼šå› ä¸ºå»¶å±•çš„ä¸åŒè€Œå˜åŒ–
 			lDestRect.left = rDestRect.left;
 			lDestRect.right = lfExtendLineX + lDestRect.left;
 			lDestRect.top = rDestRect.top;
@@ -409,10 +409,10 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN c
 				mpTarget2D->DrawBitmap(lpBmp,&lDestRect,moRenderState.Top().mfAlpha * nfAlpha,(D2D1_BITMAP_INTERPOLATION_MODE)ESPB_DRAWBMP_LINEAR,&lSrcRect);
 
 			//////////////////////////////////////////////////////////////////////////
-			//×óÉÏ½ÇºÍÓÒÉÏ½ÇÖĞ¼äµÄ²¿·Ö
+			//å·¦ä¸Šè§’å’Œå³ä¸Šè§’ä¸­é—´çš„éƒ¨åˆ†
 			if (lDestSize.width > lSrcSize.width)
 			{
-				//Èç¹ûÊÇ±ä¿í£¬²ÅĞèÒªÖ´ĞĞÕâÀï
+				//å¦‚æœæ˜¯å˜å®½ï¼Œæ‰éœ€è¦æ‰§è¡Œè¿™é‡Œ
 				lDestRect.left = lDestRect.right;
 				lDestRect.right = lDestSize.width - lSrcSize.width + lDestRect.left + 1.0f;
 				//lDestRect.top = rDestRect.top;
@@ -431,7 +431,7 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN c
 
 
 			//////////////////////////////////////////////////////////////////////////
-			//ÓÒÉÏ½Ç
+			//å³ä¸Šè§’
 			lDestRect.left = lDestRect.right;
 			lDestRect.right = rDestRect.right;
 			//lDestRect.top = rDestRect.top;
@@ -450,9 +450,9 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN c
 			//////////////////////////////////////////////////////////////////////////
 			if (lDestSize.height > lSrcSize.height)
 			{
-				//Èç¹ûĞèÒª±ä¸ß²ÅÖ´ĞĞÕâÀï
+				//å¦‚æœéœ€è¦å˜é«˜æ‰æ‰§è¡Œè¿™é‡Œ
 				//////////////////////////////////////////////////////////////////////////
-				//×óÉÏºÍ×óÏÂÖĞ¼ä²¿·Ö
+				//å·¦ä¸Šå’Œå·¦ä¸‹ä¸­é—´éƒ¨åˆ†
 				lDestRect.left = rDestRect.left;
 				lDestRect.right = lfExtendLineX + lDestRect.left;
 				lDestRect.top = lDestRect.bottom;
@@ -469,7 +469,7 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN c
 					mpTarget2D->DrawBitmap(lpBmp,&lDestRect,moRenderState.Top().mfAlpha*nfAlpha,(D2D1_BITMAP_INTERPOLATION_MODE)ESPB_DRAWBMP_LINEAR,&lSrcRect);
 
 				//////////////////////////////////////////////////////////////////////////
-				//ÖĞ¼äÒ»´ó¿é
+				//ä¸­é—´ä¸€å¤§å—
 				if (lDestSize.width > lSrcSize.width && lDestSize.height > lSrcSize.height)
 				{
 					lDestRect.left = lDestRect.right;
@@ -489,7 +489,7 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN c
 				}
 
 				//////////////////////////////////////////////////////////////////////////
-				//ÓÒÉÏºÍÓÒÏÂµÄÖĞ¼ä²¿·Ö
+				//å³ä¸Šå’Œå³ä¸‹çš„ä¸­é—´éƒ¨åˆ†
 				lDestRect.left = lDestRect.right;
 				lDestRect.right = rDestRect.right;
 
@@ -506,7 +506,7 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN c
 			}
 
 			//////////////////////////////////////////////////////////////////////////
-			//×óÏÂ½Ç
+			//å·¦ä¸‹è§’
 			lDestRect.left = rDestRect.left;
 			lDestRect.right = lfExtendLineX + lDestRect.left;
 			lDestRect.top = lDestRect.bottom;
@@ -524,10 +524,10 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN c
 				mpTarget2D->DrawBitmap(lpBmp,&lDestRect,moRenderState.Top().mfAlpha*nfAlpha,(D2D1_BITMAP_INTERPOLATION_MODE)ESPB_DRAWBMP_LINEAR,&lSrcRect);
 
 			//////////////////////////////////////////////////////////////////////////
-			//×óÏÂ½ÇºÍÓÒÏÂ½ÇÖĞ¼äµÄ²¿·Ö
+			//å·¦ä¸‹è§’å’Œå³ä¸‹è§’ä¸­é—´çš„éƒ¨åˆ†
 			if (lDestSize.width > lSrcSize.width)
 			{
-				//Èç¹ûÊÇ±ä¿í£¬²ÅĞèÒªÖ´ĞĞÕâÀï
+				//å¦‚æœæ˜¯å˜å®½ï¼Œæ‰éœ€è¦æ‰§è¡Œè¿™é‡Œ
 				lDestRect.left = lDestRect.right;
 				lDestRect.right = lDestRect.left + (lDestSize.width - lSrcSize.width) + 1.0f;
 
@@ -542,7 +542,7 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN c
 			}
 
 			//////////////////////////////////////////////////////////////////////////
-			//ÓÒÏÂ½Ç
+			//å³ä¸‹è§’
 			lDestRect.left = lDestRect.right;
 			lDestRect.right = rDestRect.right;
 
@@ -558,7 +558,7 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN c
 		else
 		{
 			if(nuMethod == ESPB_DRAWBMP_EXTEND)
-				nuMethod = ESPB_DRAWBMP_LINEAR;	//ÕâÊÇ±¾À´Ê¹ÓÃÑÓÕ¹Ëã·¨£¬µ«µ±Ç°ĞèÇóÊÇ²»ĞèÒª·Å´óµÄ£¬ËùÒÔÊ¹ÓÃÕâÀï¼òµ¥»æÖÆ£¬½«Method²ÎÊıĞŞ¸ÄÎªÆÕÍ¨¡¡
+				nuMethod = ESPB_DRAWBMP_LINEAR;	//è¿™æ˜¯æœ¬æ¥ä½¿ç”¨å»¶å±•ç®—æ³•ï¼Œä½†å½“å‰éœ€æ±‚æ˜¯ä¸éœ€è¦æ”¾å¤§çš„ï¼Œæ‰€ä»¥ä½¿ç”¨è¿™é‡Œç®€å•ç»˜åˆ¶ï¼Œå°†Methodå‚æ•°ä¿®æ”¹ä¸ºæ™®é€šã€€
 
 			if (nfAlpha >= 0.999f)	
 				mpTarget2D->DrawBitmap(lpBmp,&rDestRect,moRenderState.Top().mfAlpha,(D2D1_BITMAP_INTERPOLATION_MODE)nuMethod,&rSrcRect);
@@ -597,7 +597,7 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_RECT_F& rDestRect, IN I
 	{
 		BREAK_ON_NULL(lpXuiD2DBitmap);
 
-		// ³õÊ¼»¯Î»Í¼¶ÔÏó
+		// åˆå§‹åŒ–ä½å›¾å¯¹è±¡
 		luResult = lpXuiD2DBitmap->InitBitmap(mpWicFactory, mpD2dFactory, mpTarget2D);
 		BREAK_ON_FAILED(luResult);
 
@@ -636,7 +636,7 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_POINT_2F& rDestLeftTop,
 	{
 		BREAK_ON_NULL(lpXuiD2DBitmap);
 
-		// ³õÊ¼»¯Î»Í¼¶ÔÏó
+		// åˆå§‹åŒ–ä½å›¾å¯¹è±¡
 		luResult = lpXuiD2DBitmap->InitBitmap(mpWicFactory, mpD2dFactory, mpTarget2D);
 		BREAK_ON_FAILED(luResult);
 
@@ -653,7 +653,7 @@ ERESULT __stdcall CXD2dEngine::DrawBitmap( IN const D2D1_POINT_2F& rDestLeftTop,
 		ldDstRect.right = rDestLeftTop.x + ldSrcRect.right;
 		ldDstRect.bottom = rDestLeftTop.y + ldSrcRect.bottom;
 
-		// ¾ØĞÎ±íÊ¾ĞÎÊ½µÄ×ª»»
+		// çŸ©å½¢è¡¨ç¤ºå½¢å¼çš„è½¬æ¢
 		luResult = DrawBitmap(ldDstRect,ldSrcRect,npBitmap,D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, nfAlpha);
 
 	} while (false);
@@ -680,16 +680,16 @@ ERESULT __stdcall CXD2dEngine::DrawLine( IN const D2D1_POINT_2F& noPointArray, I
 		luResult = lpXuiD2DBrush->InitBrush(mpTarget2D, mpD2dFactory);
 		BREAK_ON_FAILED(luResult);
 
-		// »ñÈ¡brush
+		// è·å–brush
 		luResult = lpXuiD2DBrush->GetBrushObject(&lpD2DBrush);
 		BREAK_ON_FAILED(luResult);
 
-		// ³¢ÊÔ»ñÈ¡stroke
+		// å°è¯•è·å–stroke
 		luResult = lpXuiD2DBrush->GetStrokeObject(&lpStrokeStyle);
 		BREAK_ON_FAILED(luResult);
 
 
-		// µ÷ÓÃD2DµÄ»­Ïßº¯Êı
+		// è°ƒç”¨D2Dçš„ç”»çº¿å‡½æ•°
 		if (lpStrokeStyle != NULL)
 		{
 			mpTarget2D->DrawLine(noPointArray, noEndPoint, lpD2DBrush, lpXuiD2DBrush->GetStrokeWidth(), lpStrokeStyle);
@@ -727,11 +727,11 @@ ERESULT __stdcall CXD2dEngine::DrawPlogon( IN const D2D1_POINT_2F* noPointArray,
 		luResult = lpXuiD2DBrush->InitBrush(mpTarget2D, mpD2dFactory);
 		BREAK_ON_FAILED(luResult);
 
-		// »ñÈ¡brush
+		// è·å–brush
 		luResult = lpXuiD2DBrush->GetBrushObject(&lpD2DBrush);
 		BREAK_ON_FAILED(luResult);
 
-		// ³¢ÊÔ»ñÈ¡stroke
+		// å°è¯•è·å–stroke
 		luResult = lpXuiD2DBrush->GetStrokeObject(&lpStrokeStyle);
 		BREAK_ON_FAILED(luResult);
 
@@ -792,7 +792,7 @@ ERESULT __stdcall CXD2dEngine::FillPlogon( IN const D2D1_POINT_2F* noPointArray,
 		luResult = lpXuiD2DBrush->InitBrush(mpTarget2D, mpD2dFactory);
 		BREAK_ON_FAILED(luResult);
 
-		// »ñÈ¡brush
+		// è·å–brush
 		luResult = lpXuiD2DBrush->GetBrushObject(&lpD2DBrush);
 		BREAK_ON_FAILED(luResult);
 
@@ -850,11 +850,11 @@ ERESULT __stdcall CXD2dEngine::DrawEllipse( IN const D2D1_RECT_F& noRect, IN IEi
 		BREAK_ON_FAILED(hr);
 
 
-		// »ñÈ¡brush
+		// è·å–brush
 		luResult = lpXuiD2DBrush->GetBrushObject(&lpD2DBrush);
 		BREAK_ON_FAILED(luResult);
 
-		// ³¢ÊÔ»ñÈ¡stroke
+		// å°è¯•è·å–stroke
 		luResult = lpXuiD2DBrush->GetStrokeObject(&lpStrokeStyle);
 		BREAK_ON_FAILED(luResult);
 
@@ -872,7 +872,7 @@ ERESULT __stdcall CXD2dEngine::DrawEllipse( IN const D2D1_RECT_F& noRect, IN IEi
 
 	} while (false);
 
-	// ÊÍ·Å×ÊÔ´
+	// é‡Šæ”¾èµ„æº
 	CMM_SAFE_RELEASE(lpEllipseGeometry);
 
 	return luResult;
@@ -902,18 +902,18 @@ ERESULT __stdcall CXD2dEngine::FillEllipse( IN const D2D1_RECT_F& noRect, IN IEi
 			);
 		BREAK_ON_FAILED(hr);
 
-		// »ñÈ¡brush
+		// è·å–brush
 		luResult = lpXuiD2DBrush->GetBrushObject(&lpD2DBrush);
 		BREAK_ON_FAILED(luResult);
 
-		// Ìî³äÍÖÔ²ÇøÓò
+		// å¡«å……æ¤­åœ†åŒºåŸŸ
 		mpTarget2D->FillGeometry(lpEllipseGeometry, lpD2DBrush);
 
 		luResult = ERESULT_SUCCESS;
 
 	} while (false);
 
-	// ÊÍ·Å×ÊÔ´
+	// é‡Šæ”¾èµ„æº
 	CMM_SAFE_RELEASE(lpEllipseGeometry);
 
 	return luResult;
@@ -941,11 +941,11 @@ ERESULT __stdcall CXD2dEngine::DrawRect( IN const D2D1_RECT_F& noRect, IN IEinku
 			&lpRectGeometry);
 		BREAK_ON_FAILED(hr);
 
-		// »ñÈ¡brush
+		// è·å–brush
 		luResult = lpXuiD2DBrush->GetBrushObject(&lpD2DBrush);
 		BREAK_ON_FAILED(luResult);
 
-		// ³¢ÊÔ»ñÈ¡stroke
+		// å°è¯•è·å–stroke
 		luResult = lpXuiD2DBrush->GetStrokeObject(&lpStrokeStyle);
 		BREAK_ON_FAILED(luResult);
 
@@ -989,12 +989,12 @@ ERESULT __stdcall CXD2dEngine::FillRect( IN const D2D1_RECT_F& noRect, IN IEinku
 			&lpRectGeometry);
 		BREAK_ON_FAILED(hr);
 
-		// »ñÈ¡brush
+		// è·å–brush
 		luResult = lpXuiD2DBrush->GetBrushObject(&lpD2DBrush);
 		BREAK_ON_FAILED(luResult);
 
 
-		// Ìî³äÍÖÔ²ÇøÓò
+		// å¡«å……æ¤­åœ†åŒºåŸŸ
 		mpTarget2D->FillGeometry(lpRectGeometry, lpD2DBrush);
 
 		luResult = ERESULT_SUCCESS;
@@ -1034,11 +1034,11 @@ ERESULT __stdcall CXD2dEngine::DrawRoundRect( IN const D2D1_RECT_F& noRect, FLOA
 			&lpRoundedRectGeometry);
 		BREAK_ON_FAILED(hr);
 
-		// »ñÈ¡brush
+		// è·å–brush
 		luResult = lpXuiD2DBrush->GetBrushObject(&lpD2DBrush);
 		BREAK_ON_FAILED(luResult);
 
-		// ³¢ÊÔ»ñÈ¡stroke
+		// å°è¯•è·å–stroke
 		luResult = lpXuiD2DBrush->GetStrokeObject(&lpStrokeStyle);
 		BREAK_ON_FAILED(luResult);
 
@@ -1087,12 +1087,12 @@ ERESULT __stdcall CXD2dEngine::FillRoundRect( IN const D2D1_RECT_F& noRect, FLOA
 			&lpRoundedRectGeometry);
 		BREAK_ON_FAILED(hr);
 
-		// »ñÈ¡brush
+		// è·å–brush
 		luResult = lpXuiD2DBrush->GetBrushObject(&lpD2DBrush);
 		BREAK_ON_FAILED(luResult);
 
 
-		// Ìî³äÍÖÔ²ÇøÓò
+		// å¡«å……æ¤­åœ†åŒºåŸŸ
 		mpTarget2D->FillGeometry(lpRoundedRectGeometry, lpD2DBrush);
 
 		luResult = ERESULT_SUCCESS;
@@ -1107,38 +1107,38 @@ ERESULT __stdcall CXD2dEngine::FillRoundRect( IN const D2D1_RECT_F& noRect, FLOA
 
 
 //////////////////////////////////////////////////////////////////////////
-// ¸¨Öú¹¦ÄÜº¯Êı
+// è¾…åŠ©åŠŸèƒ½å‡½æ•°
 //////////////////////////////////////////////////////////////////////////
 
-// »ñµÃDirect2DµÄRenderTarget£¬²»ÓÃÊÍ·Å£¬Ö»ÄÜ¹»ÔÚ»ñµÃ±¾IXuiPaintBoard½Ó¿ÚµÄÏûÏ¢ÏìÓ¦ÆÚ¼äÊ¹ÓÃ·µ»ØµÄRenderTarget½Ó¿Ú£¬²»Òª³¤ÆÚ±£´æ´Ë´¦·µ»ØµÄ½Ó¿Ú£¬ÒÔÃâÊ§Ğ§Ôì³ÉÎ´Öª´íÎó
-// ½öÓ¦¸ÃÔÚEMSG_PAINT/EMSG_RENDER_ENHANCERÏûÏ¢´¦ÀíÆÚ¼äÖ´ĞĞ»æÖÆ¶¯×÷£¬²»ÄÜÔÚPrepareÏûÏ¢ÆÚ¼ä»æÖÆ£¬ÒÔÃâÆÆ»µäÖÈ¾ÒıÇæµÄÎÈ¶¨
+// è·å¾—Direct2Dçš„RenderTargetï¼Œä¸ç”¨é‡Šæ”¾ï¼Œåªèƒ½å¤Ÿåœ¨è·å¾—æœ¬IXuiPaintBoardæ¥å£çš„æ¶ˆæ¯å“åº”æœŸé—´ä½¿ç”¨è¿”å›çš„RenderTargetæ¥å£ï¼Œä¸è¦é•¿æœŸä¿å­˜æ­¤å¤„è¿”å›çš„æ¥å£ï¼Œä»¥å…å¤±æ•ˆé€ æˆæœªçŸ¥é”™è¯¯
+// ä»…åº”è¯¥åœ¨EMSG_PAINT/EMSG_RENDER_ENHANCERæ¶ˆæ¯å¤„ç†æœŸé—´æ‰§è¡Œç»˜åˆ¶åŠ¨ä½œï¼Œä¸èƒ½åœ¨Prepareæ¶ˆæ¯æœŸé—´ç»˜åˆ¶ï¼Œä»¥å…ç ´åæ¸²æŸ“å¼•æ“çš„ç¨³å®š
 ID2D1RenderTarget* __stdcall CXD2dEngine::GetD2dRenderTarget(void)
 {
 	return mpTarget2D;
 }
 
-// »ñµÃDirect2DµÄ¹¤³§½Ó¿Ú£¬²»ÓÃÊÍ·Å£¬Ö»ÄÜ¹»ÔÚ»ñµÃ±¾IXuiPaintBoard½Ó¿ÚµÄÏûÏ¢ÏìÓ¦ÆÚ¼äÊ¹ÓÃ·µ»ØµÄRenderTarget½Ó¿Ú£¬²»Òª³¤ÆÚ±£´æ´Ë´¦·µ»ØµÄ½Ó¿Ú£¬ÒÔÃâÊ§Ğ§Ôì³ÉÎ´Öª´íÎó
+// è·å¾—Direct2Dçš„å·¥å‚æ¥å£ï¼Œä¸ç”¨é‡Šæ”¾ï¼Œåªèƒ½å¤Ÿåœ¨è·å¾—æœ¬IXuiPaintBoardæ¥å£çš„æ¶ˆæ¯å“åº”æœŸé—´ä½¿ç”¨è¿”å›çš„RenderTargetæ¥å£ï¼Œä¸è¦é•¿æœŸä¿å­˜æ­¤å¤„è¿”å›çš„æ¥å£ï¼Œä»¥å…å¤±æ•ˆé€ æˆæœªçŸ¥é”™è¯¯
 ID2D1Factory* __stdcall CXD2dEngine::GetD2dFactory(void)
 {
 	return mpD2dFactory;
 }
 
-// »ñµÃWIC¹¤³§£¬²»ÓÃÊÍ·Å£¬Ö»ÄÜ¹»ÔÚ»ñµÃ±¾IXuiPaintBoard½Ó¿ÚµÄÏûÏ¢ÏìÓ¦ÆÚ¼äÊ¹ÓÃ·µ»ØµÄRenderTarget½Ó¿Ú£¬²»Òª³¤ÆÚ±£´æ´Ë´¦·µ»ØµÄ½Ó¿Ú£¬ÒÔÃâÊ§Ğ§Ôì³ÉÎ´Öª´íÎó
+// è·å¾—WICå·¥å‚ï¼Œä¸ç”¨é‡Šæ”¾ï¼Œåªèƒ½å¤Ÿåœ¨è·å¾—æœ¬IXuiPaintBoardæ¥å£çš„æ¶ˆæ¯å“åº”æœŸé—´ä½¿ç”¨è¿”å›çš„RenderTargetæ¥å£ï¼Œä¸è¦é•¿æœŸä¿å­˜æ­¤å¤„è¿”å›çš„æ¥å£ï¼Œä»¥å…å¤±æ•ˆé€ æˆæœªçŸ¥é”™è¯¯
 IWICImagingFactory* __stdcall CXD2dEngine::GetWICFactory(void)
 {
 	return mpWicFactory;
 }
 
-// »ñµÃDirect Write¹¤³§£¬²»ÓÃÊÍ·Å£¬Ö»ÄÜ¹»ÔÚ»ñµÃ±¾IXuiPaintBoard½Ó¿ÚµÄÏûÏ¢ÏìÓ¦ÆÚ¼äÊ¹ÓÃ·µ»ØµÄRenderTarget½Ó¿Ú£¬²»Òª³¤ÆÚ±£´æ´Ë´¦·µ»ØµÄ½Ó¿Ú£¬ÒÔÃâÊ§Ğ§Ôì³ÉÎ´Öª´íÎó
+// è·å¾—Direct Writeå·¥å‚ï¼Œä¸ç”¨é‡Šæ”¾ï¼Œåªèƒ½å¤Ÿåœ¨è·å¾—æœ¬IXuiPaintBoardæ¥å£çš„æ¶ˆæ¯å“åº”æœŸé—´ä½¿ç”¨è¿”å›çš„RenderTargetæ¥å£ï¼Œä¸è¦é•¿æœŸä¿å­˜æ­¤å¤„è¿”å›çš„æ¥å£ï¼Œä»¥å…å¤±æ•ˆé€ æˆæœªçŸ¥é”™è¯¯
 IDWriteFactory* __stdcall CXD2dEngine::GetDWriteFactory(void)
 {
 	return mpWriteFactory;
 }
 
 
-// »ñµÃEinkÆÁµÄ´óĞ¡
+// è·å¾—Einkå±çš„å¤§å°
 void CXD2dEngine::GetPaintboardSize(
-	OUT EI_SIZE* npSize	// »ñÈ¡»­°å´óĞ¡
+	OUT EI_SIZE* npSize	// è·å–ç”»æ¿å¤§å°
 )	
 {
 	if (npSize != NULL)
@@ -1148,7 +1148,7 @@ void CXD2dEngine::GetPaintboardSize(
 	}
 }
 
-// »ñµÃµ±Ç°µÄD2d»æÖÆÓÃ£¬¾Ö²¿×ø±êµ½ÊÀ½ç×ø±êµÄ×ª»»¾ØÕó
+// è·å¾—å½“å‰çš„D2dç»˜åˆ¶ç”¨ï¼Œå±€éƒ¨åæ ‡åˆ°ä¸–ç•Œåæ ‡çš„è½¬æ¢çŸ©é˜µ
 const D2D1::Matrix3x2F& __stdcall CXD2dEngine::GetCurrent2DWorldMatrix(void)
 {
 	if(moRenderState.Size()>0)
@@ -1157,8 +1157,8 @@ const D2D1::Matrix3x2F& __stdcall CXD2dEngine::GetCurrent2DWorldMatrix(void)
 		return mdIdentyMatrix;
 }
 
-// »ñµÃµ±Ç°¿ÉÊÓÇøÉèÖÃ£¬¿ÉÊÓÇøÓÃÊÀ½ç×ø±êÃèÊö£¬Èç¹ûD2dTarget±»ÇĞ»»£¬½«¸ø³öµÄÊÇÇĞ»»ºóµÄTarget¶ÔÓ¦µÄÊÀ½ç×ø±ê
-// ·µ»ØERESULT_SUCCESSµ±Ç°´æÔÚ¿ÉÊÓÇøÉèÖÃ£¬²¢ÇÒ³É¹¦È¡µÃ£¬ERESULT_UNSUCCESS²»´æÔÚ¿ÉÊÓÇøÉèÖÃ£¬ÆäËûÖµ±íÊ¾´íÎó
+// è·å¾—å½“å‰å¯è§†åŒºè®¾ç½®ï¼Œå¯è§†åŒºç”¨ä¸–ç•Œåæ ‡æè¿°ï¼Œå¦‚æœD2dTargetè¢«åˆ‡æ¢ï¼Œå°†ç»™å‡ºçš„æ˜¯åˆ‡æ¢åçš„Targetå¯¹åº”çš„ä¸–ç•Œåæ ‡
+// è¿”å›ERESULT_SUCCESSå½“å‰å­˜åœ¨å¯è§†åŒºè®¾ç½®ï¼Œå¹¶ä¸”æˆåŠŸå–å¾—ï¼ŒERESULT_UNSUCCESSä¸å­˜åœ¨å¯è§†åŒºè®¾ç½®ï¼Œå…¶ä»–å€¼è¡¨ç¤ºé”™è¯¯
 ERESULT __stdcall CXD2dEngine::GetVisibleRegion(
 	OUT D2D1_RECT_F* npRegion
 	)
@@ -1169,9 +1169,9 @@ ERESULT __stdcall CXD2dEngine::GetVisibleRegion(
 
 	for (i=moRenderState.Size()-1;i>=0;i--)
 	{
-		if(moRenderState[i].mpD2dTarget != NULL)	// Èç¹ûÇĞ»»¹ı·Ö2DTarget¾Í²»ĞèÒª¼ÌĞø²éÕÒÁË
+		if(moRenderState[i].mpD2dTarget != NULL)	// å¦‚æœåˆ‡æ¢è¿‡åˆ†2DTargetå°±ä¸éœ€è¦ç»§ç»­æŸ¥æ‰¾äº†
 			break;
-		if(moRenderState[i].mbHasClipRect != false)	// ´æÔÚ¿ÉÊÓÇø
+		if(moRenderState[i].mbHasClipRect != false)	// å­˜åœ¨å¯è§†åŒº
 		{
 			luResult = ERESULT_SUCCESS;
 			if(npRegion != NULL)
@@ -1197,16 +1197,16 @@ ERESULT __stdcall CXD2dEngine::GetVisibleRegion(
 	return luResult;
 }
 
-// ¶ÔÓÚÖ±½Ó·ÃÎÊD3dºÍD2d¶ÔÏóµÄÔªËØ£¬Ê¹ÓÃ±¾½Ó¿ÚÏòÏµÍ³»ã±¨Éè±¸´íÎó£¬ÏµÍ³·µ»ØERESULT_SUCCESS±íÊ¾¿ÉÒÔ¼ÌĞøÖ´ĞĞ£¬·µ»ØÖµÂú×ãºêERESULT_FAILEDÔòÖĞÖ¹¼ÌĞøÖ´ĞĞ
+// å¯¹äºç›´æ¥è®¿é—®D3då’ŒD2då¯¹è±¡çš„å…ƒç´ ï¼Œä½¿ç”¨æœ¬æ¥å£å‘ç³»ç»Ÿæ±‡æŠ¥è®¾å¤‡é”™è¯¯ï¼Œç³»ç»Ÿè¿”å›ERESULT_SUCCESSè¡¨ç¤ºå¯ä»¥ç»§ç»­æ‰§è¡Œï¼Œè¿”å›å€¼æ»¡è¶³å®ERESULT_FAILEDåˆ™ä¸­æ­¢ç»§ç»­æ‰§è¡Œ
 ERESULT __stdcall CXD2dEngine::CheckDeviceResult(
 	IN HRESULT nhrDeviceResult
 	)
 {
 	if(nhrDeviceResult != S_OK)
 	{
-		//²»ÊÇOKµÄDirectX·µ»ØÖµ
+		//ä¸æ˜¯OKçš„DirectXè¿”å›å€¼
 		/*if(nhrDeviceResult == DXGI_STATUS_OCCLUDED)
-			StopPainting(true);*/ //close by niu 2017-12-5 Éè±¸¶ªÊ§²»ÒªÍ£Ö¹£¬ÏÂ´Î»æÖÆÊ±»áÖØ½¨Éè±¸
+			StopPainting(true);*/ //close by niu 2017-12-5 è®¾å¤‡ä¸¢å¤±ä¸è¦åœæ­¢ï¼Œä¸‹æ¬¡ç»˜åˆ¶æ—¶ä¼šé‡å»ºè®¾å¤‡
 
 		if (
 			nhrDeviceResult == DXGI_STATUS_OCCLUDED ||
@@ -1215,7 +1215,7 @@ ERESULT __stdcall CXD2dEngine::CheckDeviceResult(
 			nhrDeviceResult == DXGI_ERROR_DEVICE_RESET ||
 			nhrDeviceResult == D2DERR_RECREATE_TARGET)
 		{
-			//ÏÔÊ¾Éè±¸¶ªÊ§
+			//æ˜¾ç¤ºè®¾å¤‡ä¸¢å¤±
 
 			ReleaseDeviceResource();
 			return ERESULT_DIRECTX_ERROR;
@@ -1226,33 +1226,33 @@ ERESULT __stdcall CXD2dEngine::CheckDeviceResult(
 }
 
 
-// »ñµÃµ±Ç°Ö¡ÂÊ
+// è·å¾—å½“å‰å¸§ç‡
 ULONG __stdcall CXD2dEngine::GetCurrentFps(void)
 {
 	return (ULONG)mfFpsIndx;
 }
 
-// »ñµÃµ±Ç°µÄäÖÈ¾ĞòÁĞºÅ£¬»æÖÆĞòÁĞºÅÊÇÓÃÀ´Ğ­µ÷ºÍ¼ÆËãµ±Ç°µÄäÖÈ¾´ÎÊı£¬Ã¿Ö´ĞĞÒ»´ÎäÖÈ¾¸ÃĞòºÅ¼ÓÒ»£¬Ä³Ğ©Çé¿öÏÂ£¬ÔªËØ¿ÉÒÔ»á±»ÒªÇó»æÖÆ2´Î£¬¼ÆÊı´ïµ½×î´óÖµºó»á´Ó0¿ªÊ¼
+// è·å¾—å½“å‰çš„æ¸²æŸ“åºåˆ—å·ï¼Œç»˜åˆ¶åºåˆ—å·æ˜¯ç”¨æ¥åè°ƒå’Œè®¡ç®—å½“å‰çš„æ¸²æŸ“æ¬¡æ•°ï¼Œæ¯æ‰§è¡Œä¸€æ¬¡æ¸²æŸ“è¯¥åºå·åŠ ä¸€ï¼ŒæŸäº›æƒ…å†µä¸‹ï¼Œå…ƒç´ å¯ä»¥ä¼šè¢«è¦æ±‚ç»˜åˆ¶2æ¬¡ï¼Œè®¡æ•°è¾¾åˆ°æœ€å¤§å€¼åä¼šä»0å¼€å§‹
 ULONG __stdcall CXD2dEngine::GetRenderNumber(void)
 {
 	return muRenderCount;
 }
 
-// »ñµÃµ±Ç°µÄTickCount
+// è·å¾—å½“å‰çš„TickCount
 ULONG __stdcall CXD2dEngine::GetCurrentTickCount()
 {
 	return muCrtTick;
 }
 
-// ÇåÀí»­°å
+// æ¸…ç†ç”»æ¿
 void CXD2dEngine::Clear()
 {
 	mpTarget2D->Clear(D2D1::ColorF(D2D1::ColorF::White, 0.0f));
 }
 
-// Ìá½»µ½ÆÁÄ»
+// æäº¤åˆ°å±å¹•
 HRESULT CXD2dEngine::Present(
-	IN bool nbRefresh	// ±ØĞëÌá½»È«ÆÁ
+	IN bool nbRefresh	// å¿…é¡»æäº¤å…¨å±
 	)
 {
 	if (mbStopPainting != false)
@@ -1267,10 +1267,10 @@ HRESULT CXD2dEngine::Present(
 }
 
 void CXD2dEngine::DrawEink(
-	IN bool nbRefresh	// ±ØĞëÌá½»È«ÆÁ
+	IN bool nbRefresh	// å¿…é¡»æäº¤å…¨å±
 	)
 {
-	// »ñÈ¡Eink»æÖÆ»º³åÇø
+	// è·å–Einkç»˜åˆ¶ç¼“å†²åŒº
 	if (mpEinkBuf == NULL)
 	{
 		mpEinkBuf = EiGetDrawBuffer(FALSE, FALSE);
@@ -1287,7 +1287,7 @@ void CXD2dEngine::DrawEink(
 
 	moEiUpdate.SetPanel(muEinkPanelW,muEinkPanelH);
 
-	// ½«RGB32×ª»»Îª»Ò¶ÈÍ¼Ïñ
+	// å°†RGB32è½¬æ¢ä¸ºç°åº¦å›¾åƒ
 	// Gray = R*0.299 + G*0.587 + B*0.114
 #ifdef EI_PARALLEL
 	parallel_for(size_t(0), (size_t)muEinkPanelH, [&](size_t i)
@@ -1302,10 +1302,10 @@ void CXD2dEngine::DrawEink(
 		register ULONG luBegin;
 		register ULONG luEnd;
 		int j;
-		//int liWidthMin = (int)(mpEinkBuf->ulWidth < muEinkPanelW ? mpEinkBuf->ulWidth : muEinkPanelW);// ???ax Î´À´±ØĞëÏàµÈ
+		//int liWidthMin = (int)(mpEinkBuf->ulWidth < muEinkPanelW ? mpEinkBuf->ulWidth : muEinkPanelW);// ???ax æœªæ¥å¿…é¡»ç›¸ç­‰
 		luBegin = (ULONG)muEinkPanelW;// liWidthMin;
 		luEnd = 0;
-		// ×ª»»ÑÕÉ«¿Õ¼ä£¬Í¬Ê±£¬ÕÒÑ°µÚÒ»´¦²»ÏàµÈ
+		// è½¬æ¢é¢œè‰²ç©ºé—´ï¼ŒåŒæ—¶ï¼Œæ‰¾å¯»ç¬¬ä¸€å¤„ä¸ç›¸ç­‰
 		for (j = 0; j < muEinkPanelW; j++, lpSrc += 4, lpDst++)
 		{
 			//lucNew = (((USHORT(lpSrc[0]) * 19 + USHORT(lpSrc[1]) * 38 + USHORT(lpSrc[2]) * 7) >> 6) & 0xF0);
@@ -1313,34 +1313,34 @@ void CXD2dEngine::DrawEink(
 			if (lucNew != *lpDst)
 			{
 				luBegin = j;
-				j = muEinkPanelW; // µ¼ÖÂÍË³ö´ËÑ­»·
+				j = muEinkPanelW; // å¯¼è‡´é€€å‡ºæ­¤å¾ªç¯
 				*lpDst = lucNew;
 			}
 		}
 
-		// ´æÔÚĞĞÖĞ²»µÈµÄÇé¿ö
+		// å­˜åœ¨è¡Œä¸­ä¸ç­‰çš„æƒ…å†µ
 		if (luBegin < (ULONG)muEinkPanelW)
 		{
-			j = luBegin + 1; // »Øµ½¸Õ²ÅµÄÎ»ÖÃ
+			j = luBegin + 1; // å›åˆ°åˆšæ‰çš„ä½ç½®
 			luEnd = luBegin;
 
-			// ×ª»»ÑÕÉ«¿Õ¼ä£¬Í¬Ê±£¬¼ÇÂ¼²»ÏàµÈµÄÄ©Î²
+			// è½¬æ¢é¢œè‰²ç©ºé—´ï¼ŒåŒæ—¶ï¼Œè®°å½•ä¸ç›¸ç­‰çš„æœ«å°¾
 			for (; j < muEinkPanelW; j++, lpSrc += 4, lpDst++)
 			{
 				//lucNew = (((USHORT(lpSrc[0]) * 19 + USHORT(lpSrc[1]) * 38 + USHORT(lpSrc[2]) * 7) >> 6) & 0xF0);
 				lucNew = ((USHORT(lpSrc[0]) * 19 + USHORT(lpSrc[1]) * 38 + USHORT(lpSrc[2]) * 7) >> 6);
 				if (lucNew != *lpDst)
 				{
-					luEnd = (short)j; // ¼ÇÂ¼×îºóÒ»¸öÎ»ÖÃ
+					luEnd = (short)j; // è®°å½•æœ€åä¸€ä¸ªä½ç½®
 					*lpDst = lucNew;
 				}
 			}
 			
-			luEnd = luEnd + 1;	// ½«EndÖ¸Ïò¡®²»Í¬ÇøÓò¡¯Ö®ºóµÄÒ»¸öÏñËØ
+			luEnd = luEnd + 1;	// å°†EndæŒ‡å‘â€˜ä¸åŒåŒºåŸŸâ€™ä¹‹åçš„ä¸€ä¸ªåƒç´ 
 		}
 
 		if (luEnd > luBegin)
-			moEiUpdate.SaveLineDiff((int)i, luBegin, luEnd); // Õâ¸öº¯Êı¶àÏß³Ì°²È« 
+			moEiUpdate.SaveLineDiff((int)i, luBegin, luEnd); // è¿™ä¸ªå‡½æ•°å¤šçº¿ç¨‹å®‰å…¨ 
 	}
 #ifdef EI_PARALLEL
 	);
@@ -1350,7 +1350,7 @@ void CXD2dEngine::DrawEink(
 	//luTick = GetTickCount() - luTick;
 
 	//////////////////////////////////////////////////////////////////////////
-	// Ğ´ÈëÎÄ¼ş£¬²âÊÔÊı¾İ¸Ä±ä
+	// å†™å…¥æ–‡ä»¶ï¼Œæµ‹è¯•æ•°æ®æ”¹å˜
 	//static int gliTraceNumber = 0;
 	//wchar_t glszTrackName[256];
 
@@ -1438,26 +1438,26 @@ void CXD2dEngine::DrawEink(
 	//}
 }
 
-// Ö´ĞĞ»æÖÆÈÎÎñ
+// æ‰§è¡Œç»˜åˆ¶ä»»åŠ¡
 ERESULT CXD2dEngine::DoRender(
-	IN ULONG nuCrtTick,	// µ±Ç°µÄTickCount
-	IN bool nbRefresh,	// ±ØĞëÌá½»È«ÆÁ
-	IN IEinkuiIterator* npToCapture	// ´ËÖµ±»ÉèÖÃÓÃÓÚ×¥È¡¸ÃÔªËØÓë×ÓÔªËØµÄÍ¼Ïñ£¬²¢²»»áÓ°ÏìÆÁÄ»ÏÔÊ¾
+	IN ULONG nuCrtTick,	// å½“å‰çš„TickCount
+	IN bool nbRefresh,	// å¿…é¡»æäº¤å…¨å±
+	IN IEinkuiIterator* npToCapture	// æ­¤å€¼è¢«è®¾ç½®ç”¨äºæŠ“å–è¯¥å…ƒç´ ä¸å­å…ƒç´ çš„å›¾åƒï¼Œå¹¶ä¸ä¼šå½±å“å±å¹•æ˜¾ç¤º
 	)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
 
-	 //¼ì²éÊÇ·ñ´¦ÓÚ²Ù×÷Ïß³Ì
+	 //æ£€æŸ¥æ˜¯å¦å¤„äºæ“ä½œçº¿ç¨‹
 	if (CEinkuiSystem::gpXuiSystem->IsRunningInOperationThread() == false)
 	{
 		return ERESULT_WRONG_THREAD;
 	}
 
-	// ÅĞ¶Ï´°¿ÚÊÇ·ñÒş²Ø
+	// åˆ¤æ–­çª—å£æ˜¯å¦éšè—
 	if(mbStopPainting != false && npToCapture == NULL)
 		return ERESULT_NOT_PAINT;
 	
-	//¿ªÊ¼»æÖÆ
+	//å¼€å§‹ç»˜åˆ¶
 
 	InterlockedExchange(&mlRenderStep,CEinkuiSystem::eRenderBegin);
 	InterlockedExchangePointer(reinterpret_cast<PVOID*>(&mpToCapture),npToCapture);
@@ -1475,17 +1475,17 @@ ERESULT CXD2dEngine::DoRender(
 		if(luResult != ERESULT_SUCCESS)
 			THROW_FALSE;
 
-		//·ÖÅä»æÖÆ×¼±¸ÏûÏ¢
+		//åˆ†é…ç»˜åˆ¶å‡†å¤‡æ¶ˆæ¯
 		CMM_SAFE_RELEASE(mpMessage);
 		mpMessage = mpElementManager->AllocateMessage();
 		if(mpMessage == NULL)
 			THROW_NULL;
 
-		//»æÖÆ×´Ì¬Çå¿Õ£¬±íÊ¾ÏÖÔÚÊÇ´¦Àí¡®×¼±¸»æÖÆ¡¯ÏûÏ¢ÆÚ¼ä
+		//ç»˜åˆ¶çŠ¶æ€æ¸…ç©ºï¼Œè¡¨ç¤ºç°åœ¨æ˜¯å¤„ç†â€˜å‡†å¤‡ç»˜åˆ¶â€™æ¶ˆæ¯æœŸé—´
 		moRenderState.Clear();
 		muCrtTick = nuCrtTick;
 
-		//¹ã²¥»æÖÆ×¼±¸ÏûÏ¢
+		//å¹¿æ’­ç»˜åˆ¶å‡†å¤‡æ¶ˆæ¯
 		InterlockedExchange(&mlRenderStep, CEinkuiSystem::eRenderParepare);
 
 		luResult = mpElementManager->EnumAllElement(
@@ -1496,17 +1496,17 @@ ERESULT CXD2dEngine::DoRender(
 				);
 		if(ERESULT_FAILED(luResult))
 		{
-			//×¼±¸»æÖÆÊ§°Ü
+			//å‡†å¤‡ç»˜åˆ¶å¤±è´¥
 			THROW_FALSE;
 		}
 
-		//·ÖÅä»æÖÆÏûÏ¢
+		//åˆ†é…ç»˜åˆ¶æ¶ˆæ¯
 		CMM_SAFE_RELEASE(mpMessage);
 		mpMessage = mpElementManager->AllocateMessage();
 		if(mpMessage == NULL)
 			THROW_NULL;
 
-		//³õÊ¼»¯»æÖÆ×´Ì¬
+		//åˆå§‹åŒ–ç»˜åˆ¶çŠ¶æ€
 		{
 			CErdState loState;
 			loState.mdWorld = mdIdentyMatrix;
@@ -1523,15 +1523,15 @@ ERESULT CXD2dEngine::DoRender(
 		}
 
 		if (mpTarget2D == NULL)
-			EinkuiGetSystem()->ExitXui(); //???? niuÔİÊ±²»ÖªµÀÊ²Ã´Ô­Òò»áÕâÑù£¬ÎªÁËÄÜÕı³£¹¤×÷£¬Ö±½ÓÍË³ö½ø³Ì
+			EinkuiGetSystem()->ExitXui(); //???? niuæš‚æ—¶ä¸çŸ¥é“ä»€ä¹ˆåŸå› ä¼šè¿™æ ·ï¼Œä¸ºäº†èƒ½æ­£å¸¸å·¥ä½œï¼Œç›´æ¥é€€å‡ºè¿›ç¨‹
 
 		mpTarget2D->BeginDraw();
 		//mbD2dBeginCalled = true;
 
-		// ÇåÆÁ
+		// æ¸…å±
 		Clear();
 	
-		//¹ã²¥»æÖÆÏûÏ¢
+		//å¹¿æ’­ç»˜åˆ¶æ¶ˆæ¯
 		InterlockedExchange(&mlRenderStep, CEinkuiSystem::eRenderRender);
 
 		if(mpToCapture == NULL)
@@ -1554,7 +1554,7 @@ ERESULT CXD2dEngine::DoRender(
 				);
 		}
 
-		// ¼ÆËãÖ¡ÂÊ
+		// è®¡ç®—å¸§ç‡
 		{
 
 			FLOAT lfTick = (FLOAT)(nuCrtTick - muLastTick);
@@ -1621,7 +1621,7 @@ ERESULT CXD2dEngine::DoRender(
 
 		if(ERESULT_FAILED(luResult))
 		{
-			//»æÖÆÊ§°Ü
+			//ç»˜åˆ¶å¤±è´¥
 			THROW_FALSE;
 		}
 	}
@@ -1642,17 +1642,17 @@ ERESULT CXD2dEngine::DoRender(
 
 	if(ERESULT_FAILED(luResult))
 	{
-		//»æÖÆÊ§°Ü
+		//ç»˜åˆ¶å¤±è´¥
 
 		if(ERESULT_SUCCEEDED(luResult))
 			luResult = ERESULT_UNSUCCESSFUL;
 	}
 	else
 	{
-		// »»ÔÚµ÷ÓÃ±¾º¯ÊıDoRenderÖ®ºóµÄÍâ²¿£¬Í¨¹ıWindowsUIÏß³Ìµ÷ÓÃ
-		////ÒòÎªÎÒÃÇµÄ½çÃæÖØĞÂ»æÖÆÁË£¬ËùÒÔĞèÒª¼¤·¢ÏµÍ³ÏÂ´ÎÈÔÈ»ÏòÎÒÃÇË÷ÒªÏÔÊ¾µÄÔ¤ÀÀÍ¼Ïñ
+		// æ¢åœ¨è°ƒç”¨æœ¬å‡½æ•°DoRenderä¹‹åçš„å¤–éƒ¨ï¼Œé€šè¿‡WindowsUIçº¿ç¨‹è°ƒç”¨
+		////å› ä¸ºæˆ‘ä»¬çš„ç•Œé¢é‡æ–°ç»˜åˆ¶äº†ï¼Œæ‰€ä»¥éœ€è¦æ¿€å‘ç³»ç»Ÿä¸‹æ¬¡ä»ç„¶å‘æˆ‘ä»¬ç´¢è¦æ˜¾ç¤ºçš„é¢„è§ˆå›¾åƒ
 		//DwmInvalidateIconicBitmaps(mhWindow);
-		//»æÖÆÍê³É
+		//ç»˜åˆ¶å®Œæˆ
 	}
 
 	InterlockedIncrement((LONG*)&muRenderCount);
@@ -1664,17 +1664,17 @@ ERESULT CXD2dEngine::DoRender(
 
 }
 
-// ¹©Windows´°¿Ú¹ı³Ìµ÷ÓÃ£¬±£´æ´°¿Ú×îĞ¡»¯ĞÅÏ¢
+// ä¾›Windowsçª—å£è¿‡ç¨‹è°ƒç”¨ï¼Œä¿å­˜çª—å£æœ€å°åŒ–ä¿¡æ¯
 void CXD2dEngine::StopPainting(bool nbMin){
 
 	if(mbStopPainting != nbMin)
 		mbStopPainting = nbMin;
 }
 
-// ¸Ä±ä´°¿Ú´óĞ¡
+// æ”¹å˜çª—å£å¤§å°
 void CXD2dEngine::ResetPaintboard(void)
 {
-	// ¼ì²éÊÇ·ñ´¦ÓÚ²Ù×÷Ïß³Ì
+	// æ£€æŸ¥æ˜¯å¦å¤„äºæ“ä½œçº¿ç¨‹
 	CMMASSERT(CEinkuiSystem::gpXuiSystem->IsRunningInOperationThread() != false);
 
 	ClearEinkBuffer(true);
@@ -1683,13 +1683,13 @@ void CXD2dEngine::ResetPaintboard(void)
 	RelocationPainboard();
 }
 
-// ÖØĞÂ¶¨Î»
+// é‡æ–°å®šä½
 void CXD2dEngine::RelocationPainboard(void)
 {
 	EI_APP_CONTEXT ldContext;
 	EiGetAppContext(&ldContext);
 	if (ldContext.ulWidth == 0)
-		return;	// Ê§°Ü
+		return;	// å¤±è´¥
 
 	muEinkPanelW = ldContext.ulWidth;
 	muEinkPanelH = ldContext.ulHeight;
@@ -1702,7 +1702,7 @@ void CXD2dEngine::RelocationPainboard(void)
 		muEinkPanelH = muFixedH;
 }
 
-// ·¢ËÍPrepare PaintÇ°Ô¤´¦Àí
+// å‘é€Prepare Paintå‰é¢„å¤„ç†
 ERESULT __stdcall CXD2dEngine::EnterForPrepare(IEinkuiIterator* npRecipient)
 {
 	if(npRecipient->IsVisible()==false)
@@ -1714,19 +1714,19 @@ ERESULT __stdcall CXD2dEngine::EnterForPrepare(IEinkuiIterator* npRecipient)
 
 	ERESULT luResult = mpElementManager->SendMessage(npRecipient,mpMessage);
 
-	if(ERESULT_FAILED(luResult))	// Èç¹û³ö´íÁË£¬¾Í²»¼ÌĞøÃ¶¾ÙÁË£¬·µ»Ø´íÎó
+	if(ERESULT_FAILED(luResult))	// å¦‚æœå‡ºé”™äº†ï¼Œå°±ä¸ç»§ç»­æšä¸¾äº†ï¼Œè¿”å›é”™è¯¯
 		return luResult;
 
 	return ERESULT_ENUM_CHILD;
 }
 
-// ·¢ËÍPrepare Paintºó´¦Àí
+// å‘é€Prepare Paintåå¤„ç†
 ERESULT __stdcall CXD2dEngine::LeaveForPrepare(IEinkuiIterator* npRecipient)
 {
 	return ERESULT_SUCCESS;
 }
 
-// ·¢ËÍPaintÇ°Ô¤´¦Àí
+// å‘é€Paintå‰é¢„å¤„ç†
 ERESULT __stdcall CXD2dEngine::EnterForPaint(IEinkuiIterator* npRecipient)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -1745,8 +1745,8 @@ ERESULT __stdcall CXD2dEngine::EnterForPaint(IEinkuiIterator* npRecipient)
 	llLevelCount = lpRecipient->GetPaintLevelCount();
 	llMyLevel = lpRecipient->GetPaintLevel();
 
-	// ¾ö¶¨ÊÇ·ñĞèÒª»æÖÆ±¾¶ÔÏó¼°×Ó¶ÔÏó
-	// Èç¹ûÒş²Ø£¬¾ÍÑ¹ÈëÒ»¸ö¿Õ×´Ì¬£¬È»ºóÍË³ö; ĞÂ½¨ÁË»æÖÆ²ã´Î£¬µ±Ç°¶ÔÏó×ÔÉí²»ÏÔÊ¾Ê±£¬²»½øÈëÄÚ²¿
+	// å†³å®šæ˜¯å¦éœ€è¦ç»˜åˆ¶æœ¬å¯¹è±¡åŠå­å¯¹è±¡
+	// å¦‚æœéšè—ï¼Œå°±å‹å…¥ä¸€ä¸ªç©ºçŠ¶æ€ï¼Œç„¶åé€€å‡º; æ–°å»ºäº†ç»˜åˆ¶å±‚æ¬¡ï¼Œå½“å‰å¯¹è±¡è‡ªèº«ä¸æ˜¾ç¤ºæ—¶ï¼Œä¸è¿›å…¥å†…éƒ¨
 	if(lpRecipient->IsVisible()==false || llLevelCount > 0 && (llMyLevel != moRenderState.Top().mlCrtPtLevel && (llMyLevel != -1 || moRenderState.Top().mlCrtPtLevel != 0)))
 	{
 		loState.mpEnhancer = NULL;
@@ -1756,11 +1756,11 @@ ERESULT __stdcall CXD2dEngine::EnterForPaint(IEinkuiIterator* npRecipient)
 		return ERESULT_STOP_ENUM_CHILD;
 	}
 
-	// ¼ÆËãµ±Ç°µÄÊÀ½ç¾ØÕóºÍÍ¸Ã÷¶È£¬²¢ÇÒÑ¹Èë×´Ì¬Õ»
+	// è®¡ç®—å½“å‰çš„ä¸–ç•ŒçŸ©é˜µå’Œé€æ˜åº¦ï¼Œå¹¶ä¸”å‹å…¥çŠ¶æ€æ ˆ
 	ldPosition = lpRecipient->GetPosition();
 	lfAngle = lpRecipient->GetRotation(ldCenter);
 
-	// Èç¹ûÓĞÎ»ÒÆ¾Í¼ÓÉÏÎ»ÒÆµÄ¾ØÕó
+	// å¦‚æœæœ‰ä½ç§»å°±åŠ ä¸Šä½ç§»çš„çŸ©é˜µ
 	if(ldPosition.x != 0.0f || ldPosition.y != 0.0f)
 	{
 		//loState.mdTransLation = moRenderState.Top().mdTransLation * D2D1::Matrix3x2F::Translation(ldPosition.x,ldPosition.y);
@@ -1774,26 +1774,26 @@ ERESULT __stdcall CXD2dEngine::EnterForPaint(IEinkuiIterator* npRecipient)
 		loState.mdOffset = moRenderState.Top().mdOffset;
 	}
 
-	// ´ÓÉÏ²ãÔªËØ¸´ÖÆ¾ØÕó
+	// ä»ä¸Šå±‚å…ƒç´ å¤åˆ¶çŸ©é˜µ
 	loState.mbRotated = moRenderState.Top().mbRotated;
 	loState.mdRotation = moRenderState.Top().mdRotation;
-	loState.mdWorld = loState.mdTransLation * loState.mdRotation;	// ¼ÆËãÉÏ²ãÔªËØĞı×ªºóµÄ¾ØÕó£¬Èç¹ûÉÏ²ãÔªËØ¶¼Ã»ÓĞĞı×ª£¬Õâ¶ù¾ÍÊÇ³ËÒÔµ¥Î»Õó
+	loState.mdWorld = loState.mdTransLation * loState.mdRotation;	// è®¡ç®—ä¸Šå±‚å…ƒç´ æ—‹è½¬åçš„çŸ©é˜µï¼Œå¦‚æœä¸Šå±‚å…ƒç´ éƒ½æ²¡æœ‰æ—‹è½¬ï¼Œè¿™å„¿å°±æ˜¯ä¹˜ä»¥å•ä½é˜µ
 	//loState.mbTopDraw = (moRenderState.Top().mbTopDraw || lpRecipient->CheckStyle(EITR_STYLE_TOPDRAW));
-	// Èç¹û±¾¶ÔÏó½¨Á¢ÁËĞÂµÄ»æÖÆ²ã´Î
+	// å¦‚æœæœ¬å¯¹è±¡å»ºç«‹äº†æ–°çš„ç»˜åˆ¶å±‚æ¬¡
 	if(llLevelCount > 0)
 	{
-		// »ñÈ¡ĞÂµÄ»æÖÆ²ã´Î±àºÅ
-		// ´Óµ±Ç°¶ÑÕ»È¡µ½Ç°´Î±éÀú±£´æµÄ»æÖÆ²ã±àºÅ,µÃµ½ĞÂµÄ»æÖÆ²ã´Î±àºÅ
+		// è·å–æ–°çš„ç»˜åˆ¶å±‚æ¬¡ç¼–å·
+		// ä»å½“å‰å †æ ˆå–åˆ°å‰æ¬¡éå†ä¿å­˜çš„ç»˜åˆ¶å±‚ç¼–å·,å¾—åˆ°æ–°çš„ç»˜åˆ¶å±‚æ¬¡ç¼–å·
 		loState.mlCrtPtLevel = lpRecipient->GetNextPaintLevel(moRenderState.Top().mlPlLevelHost);
 		if(loState.mlCrtPtLevel > 0)
 			loState.mbPaintItself = false;
 	}
 	else
 	{
-		// ´ÓÉÏ²ã¸´ÖÆ»æÖÆ²ã´Î
+		// ä»ä¸Šå±‚å¤åˆ¶ç»˜åˆ¶å±‚æ¬¡
 		loState.mlCrtPtLevel = moRenderState.Top().mlCrtPtLevel;
 
-		// ÏÂÃæ¾ö¶¨±¾¶ÔÏó×ÔÉíÊÇ·ñĞèÒªÏÔÊ¾
+		// ä¸‹é¢å†³å®šæœ¬å¯¹è±¡è‡ªèº«æ˜¯å¦éœ€è¦æ˜¾ç¤º
 		if(llMyLevel >= 0)
 		{
 			if(llMyLevel != loState.mlCrtPtLevel)
@@ -1804,19 +1804,19 @@ ERESULT __stdcall CXD2dEngine::EnterForPaint(IEinkuiIterator* npRecipient)
 			loState.mbPaintItself = moRenderState.Top().mbPaintItself;
 		}
 	}
-	// Îª×ÓÊ÷Éè¶¨Ëü¿ÉÄÜÕ¹¿ªµÄ»æÖÆ²ã´ÎµÄ³õÊ¼Öµ
+	// ä¸ºå­æ ‘è®¾å®šå®ƒå¯èƒ½å±•å¼€çš„ç»˜åˆ¶å±‚æ¬¡çš„åˆå§‹å€¼
 	loState.mlPlLevelHost = -1;
 
 
 
-	// Èç¹ûµ±Ç°Ôö¼ÓĞÂµÄĞı×ªÉè¶¨
+	// å¦‚æœå½“å‰å¢åŠ æ–°çš„æ—‹è½¬è®¾å®š
 	if(lfAngle >= 0.01f)
 	{
-		// Ê×ÏÈ¼ÆËãĞÂµÄÖĞĞÄÎ»ÖÃ
+		// é¦–å…ˆè®¡ç®—æ–°çš„ä¸­å¿ƒä½ç½®
 		ldCenter = ldCenter * loState.mdWorld;
-		//ldCenter = D2D1::Matrix3x2F::ReinterpretBaseType(&loState.mdWorld)->TransformPoint(ldCenter);µã×ª»»³Ë·¨
+		//ldCenter = D2D1::Matrix3x2F::ReinterpretBaseType(&loState.mdWorld)->TransformPoint(ldCenter);ç‚¹è½¬æ¢ä¹˜æ³•
 
-		loState.mdRotation = loState.mdRotation * D2D1::Matrix3x2F::Rotation(lfAngle,ldCenter);	// Á½¸öĞı×ª¾ØÕóµ¥¶ÀÏà³Ë
+		loState.mdRotation = loState.mdRotation * D2D1::Matrix3x2F::Rotation(lfAngle,ldCenter);	// ä¸¤ä¸ªæ—‹è½¬çŸ©é˜µå•ç‹¬ç›¸ä¹˜
 		loState.mdWorld = loState.mdTransLation * loState.mdRotation;
 		loState.mbRotated = true;
 	}
@@ -1831,23 +1831,23 @@ ERESULT __stdcall CXD2dEngine::EnterForPaint(IEinkuiIterator* npRecipient)
 	else
 		loState.mfAlpha = 1.0f;
 
-	// ¸úËæ¸¸¶ÔÏóĞĞÎª
+	// è·Ÿéšçˆ¶å¯¹è±¡è¡Œä¸º
 	if(loState.mlCrtPtLevel == 0)
 	{
 		loState.mpEnhancer = lpRecipient->GetEnhancer();
 	}
 
-	//// ²âÊÔÓÃ´úÂë£¬ÕıÊ½»æÖÆÃ»ÓĞÖ§³ÖËõ·ÅµÄ±ØÒª
-	// 	// ×ÜµÄËõ·Å¿ØÖÆ
+	//// æµ‹è¯•ç”¨ä»£ç ï¼Œæ­£å¼ç»˜åˆ¶æ²¡æœ‰æ”¯æŒç¼©æ”¾çš„å¿…è¦
+	// 	// æ€»çš„ç¼©æ”¾æ§åˆ¶
 	// 	loState.mdWorld =  loState.mdWorld * mdScalMatrixToCapture;
 
 	moRenderState.Push(loState);
 
-	// ÉèÖÃ»æÖÆÓÃµÄÊÀ½ç×ª»»¾ØÕó
+	// è®¾ç½®ç»˜åˆ¶ç”¨çš„ä¸–ç•Œè½¬æ¢çŸ©é˜µ
 	mpTarget2D->SetTransform(loState.mdWorld);
 	lpRecipient->SaveWorldMatrix(loState.mdWorld);
 
-	// ÅĞ¶ÏÊÇ·ñ×¢²áÁËäÖÈ¾ÔöĞ§Æ÷
+	// åˆ¤æ–­æ˜¯å¦æ³¨å†Œäº†æ¸²æŸ“å¢æ•ˆå™¨
 	if(loState.mpEnhancer != NULL)
 	{
 		STEMS_ENHANCER_RENDER ldEnhanceRender;
@@ -1857,12 +1857,12 @@ ERESULT __stdcall CXD2dEngine::EnterForPaint(IEinkuiIterator* npRecipient)
 		luResult = mpElementManager->SimpleSendMessage(loState.mpEnhancer,EMSG_PREPARE_ENHANCER,&ldEnhanceRender,sizeof(ldEnhanceRender),NULL,0);
 		if(luResult == ERESULT_SKIP_RENDER_CONTENT || ERESULT_FAILED(luResult))
 		{
-			// ³ö´í»òÕßÎŞĞè»æÖÆ£¬Ö»Òª²»ÊÇERESULT_ENUM_CHILD¾Í±ØÈ»»áÌø¹ıÄÚÈİ»æÖÆ
+			// å‡ºé”™æˆ–è€…æ— éœ€ç»˜åˆ¶ï¼Œåªè¦ä¸æ˜¯ERESULT_ENUM_CHILDå°±å¿…ç„¶ä¼šè·³è¿‡å†…å®¹ç»˜åˆ¶
 			return luResult;
 		}
 	}
 
-	// ÉèÖÃ¼ô²ÃÇø
+	// è®¾ç½®å‰ªè£åŒº
 	if(npRecipient->GetVisibleRegion(ldClipRect)!=false)
 	{
 		moRenderState.Top().mbHasClipRect = true;
@@ -1871,10 +1871,10 @@ ERESULT __stdcall CXD2dEngine::EnterForPaint(IEinkuiIterator* npRecipient)
 	}
 
 
-	// Èç¹û¸ÃÔªËØÒªÇóTopDrawÔò£¬ÔİÊ±²»·¢ËÍÏûÏ¢
+	// å¦‚æœè¯¥å…ƒç´ è¦æ±‚TopDrawåˆ™ï¼Œæš‚æ—¶ä¸å‘é€æ¶ˆæ¯
 	//if(loState.mbTopDraw == false)
 	//{
-		//// ·¢ËÍ»æÖÆÏûÏ¢
+		//// å‘é€ç»˜åˆ¶æ¶ˆæ¯
 		//mpMessage->SetMessageID(EMSG_PAINT);
 		//PVOID lpThis = this;
 		//mpMessage->SetInputData(&lpThis,sizeof(lpThis));
@@ -1883,10 +1883,10 @@ ERESULT __stdcall CXD2dEngine::EnterForPaint(IEinkuiIterator* npRecipient)
 	//}
 	//else
 	//	luResult = ERESULT_SUCCESS;
-	// ½öÔÚµÚÒ»´Î»æÖÆÊ±£¬»æÖÆ±¾
+	// ä»…åœ¨ç¬¬ä¸€æ¬¡ç»˜åˆ¶æ—¶ï¼Œç»˜åˆ¶æœ¬
 	if(loState.mbPaintItself != false)
 	{
-		// ·¢ËÍ»æÖÆÏûÏ¢
+		// å‘é€ç»˜åˆ¶æ¶ˆæ¯
 		mpMessage->SetMessageID(EMSG_PAINT);
 		PVOID lpThis = this;
 		mpMessage->SetInputData(&lpThis,sizeof(lpThis));
@@ -1899,18 +1899,18 @@ ERESULT __stdcall CXD2dEngine::EnterForPaint(IEinkuiIterator* npRecipient)
 		return ERESULT_ENUM_CHILD;
 
 //	return luResult;
-	// modified by ax ·ÀÖ¹Ä³Ğ©ElementĞ´µÄ²»±ê×¼£¬·µ»Ø´íÎó£¬ÏÖÔÚÒ»ÂÉ¸ÄÎª²»³É¹¦ÔòÍ£Ö¹»æÖÆËüµÄ×ÓÔªËØ£¬µ«²»µ¢ÎóÆäËû¶ÔÏóµÄ»æÖÆ
+	// modified by ax é˜²æ­¢æŸäº›Elementå†™çš„ä¸æ ‡å‡†ï¼Œè¿”å›é”™è¯¯ï¼Œç°åœ¨ä¸€å¾‹æ”¹ä¸ºä¸æˆåŠŸåˆ™åœæ­¢ç»˜åˆ¶å®ƒçš„å­å…ƒç´ ï¼Œä½†ä¸è€½è¯¯å…¶ä»–å¯¹è±¡çš„ç»˜åˆ¶
 	return ERESULT_SUCCESS;
 }
 
-// ·¢ËÍPaintºó´¦Àí
+// å‘é€Paintåå¤„ç†
 ERESULT __stdcall CXD2dEngine::LeaveForPaint(IEinkuiIterator* npRecipient)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
 	LONG llCrtPaintLevel = -1;
 	LONG llNext;
 
-	// »Ö¸´¼ô²ÃÇø
+	// æ¢å¤å‰ªè£åŒº
 	if(moRenderState.Top().mbHasClipRect != false)
 	{
 		mpTarget2D->PopAxisAlignedClip();
@@ -1933,19 +1933,19 @@ ERESULT __stdcall CXD2dEngine::LeaveForPaint(IEinkuiIterator* npRecipient)
 		ldEnhanceRender.mpDestElement = npRecipient;
 
 		luResult = mpElementManager->SimpleSendMessage(moRenderState.Top().mpEnhancer,EMSG_RENDER_ENHANCER,&ldEnhanceRender,sizeof(ldEnhanceRender),NULL,0);
-		if(luResult == ERESULT_REDO_RENDER_CONTENT)	// ÔÙ´ÎÖ´ĞĞ»æÖÆ
+		if(luResult == ERESULT_REDO_RENDER_CONTENT)	// å†æ¬¡æ‰§è¡Œç»˜åˆ¶
 			luResult = ERESULT_REDO_ENUM;
 		else
-			if(luResult != ERESULT_DIRECTX_ERROR)	// Èç¹ûÊÇDx´íÎó£¬¾Í²»ÄÜ¼ÌĞøÖ´ĞĞ»æÖÆÁË
-				luResult = ERESULT_SUCCESS;	// ºöÂÔµôÒ»°ãĞÔµØ´íÎó£¬ÎÒÃÇ²»Ó¦¸ÃÖĞÖ¹¶ÔÆäËû¶ÔÏóµÄ»æÖÆ
+			if(luResult != ERESULT_DIRECTX_ERROR)	// å¦‚æœæ˜¯Dxé”™è¯¯ï¼Œå°±ä¸èƒ½ç»§ç»­æ‰§è¡Œç»˜åˆ¶äº†
+				luResult = ERESULT_SUCCESS;	// å¿½ç•¥æ‰ä¸€èˆ¬æ€§åœ°é”™è¯¯ï¼Œæˆ‘ä»¬ä¸åº”è¯¥ä¸­æ­¢å¯¹å…¶ä»–å¯¹è±¡çš„ç»˜åˆ¶
 
 	}
 
 
 	moRenderState.Pop();
 
-	// Èç¹ûµ±Ç°¶ÔÏó½¨Á¢µÄ»æÖÆ²ã´Î£¬²¢ÇÒ»¹ÓĞÃ»ÓĞÖ´ĞĞÍêµÄ»æÖÆ²ã´Î£¬Ôò·µ»ØÖØĞÂÃ¶¾Ù
-	if(luResult != ERESULT_REDO_ENUM && ERESULT_SUCCEEDED(luResult))// Èç¹û»æÖÆÄÚÈİÌá³öµÄÖØĞÂÃ¶¾Ù£¬¾ÍÎŞĞèÅĞ¶ÏÁË
+	// å¦‚æœå½“å‰å¯¹è±¡å»ºç«‹çš„ç»˜åˆ¶å±‚æ¬¡ï¼Œå¹¶ä¸”è¿˜æœ‰æ²¡æœ‰æ‰§è¡Œå®Œçš„ç»˜åˆ¶å±‚æ¬¡ï¼Œåˆ™è¿”å›é‡æ–°æšä¸¾
+	if(luResult != ERESULT_REDO_ENUM && ERESULT_SUCCEEDED(luResult))// å¦‚æœç»˜åˆ¶å†…å®¹æå‡ºçš„é‡æ–°æšä¸¾ï¼Œå°±æ— éœ€åˆ¤æ–­äº†
 	{
 		llNext = ((CXuiIterator*)npRecipient)->GetNextPaintLevel(llCrtPaintLevel);
 		if(llNext > llCrtPaintLevel)
@@ -1959,7 +1959,7 @@ ERESULT __stdcall CXD2dEngine::LeaveForPaint(IEinkuiIterator* npRecipient)
 }
 
 
-// ·¢ËÍCaptureÇ°Ô¤´¦Àí
+// å‘é€Captureå‰é¢„å¤„ç†
 ERESULT __stdcall CXD2dEngine::EnterForCapture(IEinkuiIterator* npRecipient)
 {
 	ERESULT luResult;
@@ -1970,7 +1970,7 @@ ERESULT __stdcall CXD2dEngine::EnterForCapture(IEinkuiIterator* npRecipient)
 	CXuiIterator* lpRecipient;
 	D2D1_RECT_F ldClipRect;
 
-	// Èç¹û»¹Ã»ÓĞ¿ªÊ¼²¶»ñ£¬Ôò¼ì²éÊÇ²»ÊÇ×æÏÈ£»Èç¹ûÒÑ¾­¿ªÊ¼²¶»ñ£¬Ôò¼ì²éÊÇ·ñÒş²Ø£»¶ÔÓÚÎŞĞè´¦ÀíµÄ×´Ì¬£¬¾ÍÑ¹ÈëÒ»¸ö¿Õ×´Ì¬£¬È»ºóÍË³ö
+	// å¦‚æœè¿˜æ²¡æœ‰å¼€å§‹æ•è·ï¼Œåˆ™æ£€æŸ¥æ˜¯ä¸æ˜¯ç¥–å…ˆï¼›å¦‚æœå·²ç»å¼€å§‹æ•è·ï¼Œåˆ™æ£€æŸ¥æ˜¯å¦éšè—ï¼›å¯¹äºæ— éœ€å¤„ç†çš„çŠ¶æ€ï¼Œå°±å‹å…¥ä¸€ä¸ªç©ºçŠ¶æ€ï¼Œç„¶åé€€å‡º
 	if(mbCapturing == false && mpToCapture->FindAncestor(npRecipient)==false || mbCapturing != false && npRecipient->IsVisible()==false)
 	{
 		loState.mpEnhancer = NULL;
@@ -1984,7 +1984,7 @@ ERESULT __stdcall CXD2dEngine::EnterForCapture(IEinkuiIterator* npRecipient)
 	if(mpToCapture == npRecipient)
 	{
 		mbCapturing = true;
-		// ºöÂÔ¾Ö²¿×ø±ê×ª»»£¬Ö±½Ó¶¨Î»µ½ÊÀ½ç×ø±êÔ­µã
+		// å¿½ç•¥å±€éƒ¨åæ ‡è½¬æ¢ï¼Œç›´æ¥å®šä½åˆ°ä¸–ç•Œåæ ‡åŸç‚¹
 
 		loState.mdOffset.x = CExFloat::Round(-mdCaptureRegion.left);
 		loState.mdOffset.y = CExFloat::Round(-mdCaptureRegion.top);
@@ -1999,11 +1999,11 @@ ERESULT __stdcall CXD2dEngine::EnterForCapture(IEinkuiIterator* npRecipient)
 	}
 	else
 	{
-		// ¼ÆËãµ±Ç°µÄÊÀ½ç¾ØÕóºÍÍ¸Ã÷¶È£¬²¢ÇÒÑ¹Èë×´Ì¬Õ»
+		// è®¡ç®—å½“å‰çš„ä¸–ç•ŒçŸ©é˜µå’Œé€æ˜åº¦ï¼Œå¹¶ä¸”å‹å…¥çŠ¶æ€æ ˆ
 		ldPosition = lpRecipient->GetPosition();
 		lfAngle = lpRecipient->GetRotation(ldCenter);
 
-		// Èç¹ûÓĞÎ»ÒÆ¾Í¼ÓÉÏÎ»ÒÆµÄ¾ØÕó
+		// å¦‚æœæœ‰ä½ç§»å°±åŠ ä¸Šä½ç§»çš„çŸ©é˜µ
 		if(ldPosition.x != 0.0f || ldPosition.y != 0.0f)
 		{
 			//loState.mdTransLation = moRenderState.Top().mdTransLation * D2D1::Matrix3x2F::Translation(ldPosition.x,ldPosition.y);
@@ -2017,20 +2017,20 @@ ERESULT __stdcall CXD2dEngine::EnterForCapture(IEinkuiIterator* npRecipient)
 			loState.mdOffset = moRenderState.Top().mdOffset;
 		}
 
-		// ´ÓÉÏ²ãÔªËØ¸´ÖÆ¾ØÕó
+		// ä»ä¸Šå±‚å…ƒç´ å¤åˆ¶çŸ©é˜µ
 		loState.mbRotated = moRenderState.Top().mbRotated;
 		loState.mdRotation = moRenderState.Top().mdRotation;
-		loState.mdWorld = loState.mdTransLation * loState.mdRotation;	// ¼ÆËãÉÏ²ãÔªËØĞı×ªºóµÄ¾ØÕó£¬Èç¹ûÉÏ²ãÔªËØ¶¼Ã»ÓĞĞı×ª£¬Õâ¶ù¾ÍÊÇ³ËÒÔµ¥Î»Õó
+		loState.mdWorld = loState.mdTransLation * loState.mdRotation;	// è®¡ç®—ä¸Šå±‚å…ƒç´ æ—‹è½¬åçš„çŸ©é˜µï¼Œå¦‚æœä¸Šå±‚å…ƒç´ éƒ½æ²¡æœ‰æ—‹è½¬ï¼Œè¿™å„¿å°±æ˜¯ä¹˜ä»¥å•ä½é˜µ
 		//loState.mbTopDraw = (moRenderState.Top().mbTopDraw || lpRecipient->CheckStyle(EITR_STYLE_TOPDRAW));
 
-		// Èç¹ûµ±Ç°Ôö¼ÓĞÂµÄĞı×ªÉè¶¨
+		// å¦‚æœå½“å‰å¢åŠ æ–°çš„æ—‹è½¬è®¾å®š
 		if(lfAngle >= 0.01f)
 		{
-			// Ê×ÏÈ¼ÆËãĞÂµÄÖĞĞÄÎ»ÖÃ
+			// é¦–å…ˆè®¡ç®—æ–°çš„ä¸­å¿ƒä½ç½®
 			ldCenter = ldCenter * loState.mdWorld;
-			//ldCenter = D2D1::Matrix3x2F::ReinterpretBaseType(&loState.mdWorld)->TransformPoint(ldCenter);µã×ª»»³Ë·¨
+			//ldCenter = D2D1::Matrix3x2F::ReinterpretBaseType(&loState.mdWorld)->TransformPoint(ldCenter);ç‚¹è½¬æ¢ä¹˜æ³•
 
-			loState.mdRotation = loState.mdRotation * D2D1::Matrix3x2F::Rotation(lfAngle,ldCenter);	// Á½¸öĞı×ª¾ØÕóµ¥¶ÀÏà³Ë
+			loState.mdRotation = loState.mdRotation * D2D1::Matrix3x2F::Rotation(lfAngle,ldCenter);	// ä¸¤ä¸ªæ—‹è½¬çŸ©é˜µå•ç‹¬ç›¸ä¹˜
 			loState.mdWorld = loState.mdTransLation * loState.mdRotation;
 			loState.mbRotated = true;
 
@@ -2042,21 +2042,21 @@ ERESULT __stdcall CXD2dEngine::EnterForCapture(IEinkuiIterator* npRecipient)
 
 		loState.mpEnhancer = lpRecipient->GetEnhancer();
 	}
-	// ×ÜµÄËõ·Å¿ØÖÆ
+	// æ€»çš„ç¼©æ”¾æ§åˆ¶
 	loState.mdWorld =  loState.mdWorld * mdScalMatrixToCapture;
 
 	moRenderState.Push(loState);
 
-	// ÉèÖÃ»æÖÆÓÃµÄÊÀ½ç×ª»»¾ØÕó
+	// è®¾ç½®ç»˜åˆ¶ç”¨çš„ä¸–ç•Œè½¬æ¢çŸ©é˜µ
 	mpTarget2D->SetTransform(loState.mdWorld);
-	//lpRecipient->SaveWorldMatrix(loState.mdWorld); ²¶×½Í¼Ïñ£¬²»ÄÜ½«×ø±ê×ª»»±£´æÒÅÁô
+	//lpRecipient->SaveWorldMatrix(loState.mdWorld); æ•æ‰å›¾åƒï¼Œä¸èƒ½å°†åæ ‡è½¬æ¢ä¿å­˜é—ç•™
 
-	if(mbCapturing == false)	// »¹Ã»¿ªÊ¼²¶×½£¬Èç¹û²»Ï£Íû×¥È¡±³¾° Ax Jul.09,2012
+	if(mbCapturing == false)	// è¿˜æ²¡å¼€å§‹æ•æ‰ï¼Œå¦‚æœä¸å¸Œæœ›æŠ“å–èƒŒæ™¯ Ax Jul.09,2012
 	{
 		return ERESULT_ENUM_CHILD;
 	}
 
-	// ÉèÖÃ¼ô²ÃÇø
+	// è®¾ç½®å‰ªè£åŒº
 	if(npRecipient->GetVisibleRegion(ldClipRect)!=false)	
 	{
 		moRenderState.Top().mbHasClipRect = true;
@@ -2065,10 +2065,10 @@ ERESULT __stdcall CXD2dEngine::EnterForCapture(IEinkuiIterator* npRecipient)
 	}
 
 
-	// Èç¹û¸ÃÔªËØÒªÇóÅÄÕÕÊ±Òş²Ø£¬ÔİÊ±²»·¢ËÍÏûÏ¢
+	// å¦‚æœè¯¥å…ƒç´ è¦æ±‚æ‹ç…§æ—¶éšè—ï¼Œæš‚æ—¶ä¸å‘é€æ¶ˆæ¯
 	if(lpRecipient->CheckStyle(EITR_STYLE_SNAPSHOT_HIDE) == false)
 	{
-		 //·¢ËÍ»æÖÆÏûÏ¢
+		 //å‘é€ç»˜åˆ¶æ¶ˆæ¯
 		mpMessage->SetMessageID(EMSG_PAINT);
 		PVOID lpThis = this;
 		mpMessage->SetInputData(&lpThis,sizeof(lpThis));
@@ -2080,11 +2080,11 @@ ERESULT __stdcall CXD2dEngine::EnterForCapture(IEinkuiIterator* npRecipient)
 	}
 
 	//	return luResult;
-	// modified by ax ·ÀÖ¹Ä³Ğ©ElementĞ´µÄ²»±ê×¼£¬·µ»Ø´íÎó£¬ÏÖÔÚÒ»ÂÉ¸ÄÎª²»³É¹¦ÔòÍ£Ö¹»æÖÆËüµÄ×ÓÔªËØ£¬µ«²»µ¢ÎóÆäËû¶ÔÏóµÄ»æÖÆ
+	// modified by ax é˜²æ­¢æŸäº›Elementå†™çš„ä¸æ ‡å‡†ï¼Œè¿”å›é”™è¯¯ï¼Œç°åœ¨ä¸€å¾‹æ”¹ä¸ºä¸æˆåŠŸåˆ™åœæ­¢ç»˜åˆ¶å®ƒçš„å­å…ƒç´ ï¼Œä½†ä¸è€½è¯¯å…¶ä»–å¯¹è±¡çš„ç»˜åˆ¶
 	return ERESULT_SUCCESS;
 }
 
-// ·¢ËÍCaptureºó´¦Àí
+// å‘é€Captureåå¤„ç†
 ERESULT __stdcall CXD2dEngine::LeaveForCapture(IEinkuiIterator* npRecipient)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -2094,7 +2094,7 @@ ERESULT __stdcall CXD2dEngine::LeaveForCapture(IEinkuiIterator* npRecipient)
 		mbCapturing = false;
 	}
 
-	// »Ö¸´¼ô²ÃÇø
+	// æ¢å¤å‰ªè£åŒº
 	if(moRenderState.Top().mbHasClipRect != false)
 	{
 		mpTarget2D->PopAxisAlignedClip();
@@ -2105,20 +2105,20 @@ ERESULT __stdcall CXD2dEngine::LeaveForCapture(IEinkuiIterator* npRecipient)
 	return luResult;
 }
 
-// ·¢ËÍEMSG_DISCARD_DEVICE_RESOURCEÇ°Ô¤´¦Àí
+// å‘é€EMSG_DISCARD_DEVICE_RESOURCEå‰é¢„å¤„ç†
 ERESULT __stdcall CXD2dEngine::EnterForDiscardDeviceRes(IEinkuiIterator* npRecipient)
 {
 	mpElementManager->SimpleSendMessage(npRecipient,EMSG_DISCARD_DEVICE_RESOURCE,NULL,0,NULL,0);
 	return ERESULT_ENUM_CHILD;
 }
 
-// ·¢ËÍEMSG_DISCARD_DEVICE_RESOURCEºó´¦Àí
+// å‘é€EMSG_DISCARD_DEVICE_RESOURCEåå¤„ç†
 ERESULT __stdcall CXD2dEngine::LeaveForDiscardDeviceRes(IEinkuiIterator* npRecipient)
 {
 	return ERESULT_SUCCESS;
 }
 
-//»ñÈ¡µ±Ç°»­°åÍ¼Ïñ£¬»ñÈ¡µÄHBITMAP¶ÔÏó£¬ÓÉµ÷ÓÃÕßÀ´ÊÍ·Å
+//è·å–å½“å‰ç”»æ¿å›¾åƒï¼Œè·å–çš„HBITMAPå¯¹è±¡ï¼Œç”±è°ƒç”¨è€…æ¥é‡Šæ”¾
 HBITMAP CXD2dEngine::GetCurrentBitmap(LONG nlWidth,LONG nlHeight)
 {
 	BITMAPINFO BmpInfo;
@@ -2149,7 +2149,7 @@ HBITMAP CXD2dEngine::GetCurrentBitmap(LONG nlWidth,LONG nlHeight)
 			lfHeight = muEinkPanelH * lfW;
 		}
 
-		// Ê×ÏÈÖ´ĞĞ»æÖÆ²Ù×÷
+		// é¦–å…ˆæ‰§è¡Œç»˜åˆ¶æ“ä½œ
 		mdCaptureRegion.left = mdCaptureRegion.top = 0.0f;
 		mdCaptureRegion.right = (FLOAT)muEinkPanelW;
 		mdCaptureRegion.bottom = (FLOAT)muEinkPanelH;
@@ -2159,7 +2159,7 @@ HBITMAP CXD2dEngine::GetCurrentBitmap(LONG nlWidth,LONG nlHeight)
 
 
 
-		// °´ÕÕËõ·Å±ÈÀı£¬×¼±¸Ò»¸ö×ª»»¾ØÕó
+		// æŒ‰ç…§ç¼©æ”¾æ¯”ä¾‹ï¼Œå‡†å¤‡ä¸€ä¸ªè½¬æ¢çŸ©é˜µ
 		mdScalMatrixToCapture = D2D1::Matrix3x2F::Scale(mdCaptureBriefSize.width / (mdCaptureRegion.right - mdCaptureRegion.left), mdCaptureBriefSize.height / (mdCaptureRegion.bottom - mdCaptureRegion.top),
 			D2D1::Point2F(0.0f, 0.0f));
 		//mdScalMatrixToCapture = D2D1::Matrix3x2F::Identity();
@@ -2201,28 +2201,28 @@ HBITMAP CXD2dEngine::GetCurrentBitmap(LONG nlWidth,LONG nlHeight)
 	return lhBmpHandle;
 }
 
-// Éè¶¨×Ô»æº¯Êı£¬Éè¶¨ºóXuiÏµÍ³²»ÔÚµ÷ÓÃEink»æÖÆ£¬½ö½ö½«rgb32µÄ»º³åÇøÌá¹©¸ø´Ë´¦Éè¶¨µÄ»Øµ÷º¯Êı
+// è®¾å®šè‡ªç»˜å‡½æ•°ï¼Œè®¾å®šåXuiç³»ç»Ÿä¸åœ¨è°ƒç”¨Einkç»˜åˆ¶ï¼Œä»…ä»…å°†rgb32çš„ç¼“å†²åŒºæä¾›ç»™æ­¤å¤„è®¾å®šçš„å›è°ƒå‡½æ•°
 void CXD2dEngine::SetCustomDraw(PXUI_CUSTOM_DRAW_CALLBACK CustomDraw)
 {
 	InterlockedExchangePointer(reinterpret_cast<PVOID*>(&mpCustomDraw), CustomDraw);
 }
 
-// Ö´ĞĞÅÄÕÕÈÎÎñ
+// æ‰§è¡Œæ‹ç…§ä»»åŠ¡
 IEinkuiBitmap* CXD2dEngine::TakeSnapshot(
 	IEinkuiIterator* npToShot,
-	const D2D1_RECT_F& crSourceRegion,	// ²ÉÑùÇøÓò£¬Ä¿±êÔªËØµÄ¾Ö²¿×ø±êÏµ
-	const D2D_SIZE_F& crBriefSize,		// ËõÂÔÍ¼³ß´ç£¬¿ìÕÕµÄ½á¹ûÊÇÒ»¸±ËõÂÔÍ¼
+	const D2D1_RECT_F& crSourceRegion,	// é‡‡æ ·åŒºåŸŸï¼Œç›®æ ‡å…ƒç´ çš„å±€éƒ¨åæ ‡ç³»
+	const D2D_SIZE_F& crBriefSize,		// ç¼©ç•¥å›¾å°ºå¯¸ï¼Œå¿«ç…§çš„ç»“æœæ˜¯ä¸€å‰¯ç¼©ç•¥å›¾
 	const FLOAT* ColorRGBA
 )
 {
 	ERESULT luResult;
 	D2D1_COLOR_F ldOldBackColor;
 	IEinkuiBitmap* lpBitmap = NULL;
-	// Ê×ÏÈÖ´ĞĞ»æÖÆ²Ù×÷
+	// é¦–å…ˆæ‰§è¡Œç»˜åˆ¶æ“ä½œ
 	mdCaptureRegion = crSourceRegion;
 	mdCaptureBriefSize = crBriefSize;
 
-	// °´ÕÕËõ·Å±ÈÀı£¬×¼±¸Ò»¸ö×ª»»¾ØÕó
+	// æŒ‰ç…§ç¼©æ”¾æ¯”ä¾‹ï¼Œå‡†å¤‡ä¸€ä¸ªè½¬æ¢çŸ©é˜µ
 	mdScalMatrixToCapture = D2D1::Matrix3x2F::Scale(crBriefSize.width / (crSourceRegion.right - crSourceRegion.left), crBriefSize.height / (crSourceRegion.bottom - crSourceRegion.top),
 		D2D1::Point2F(0.0f, 0.0f));
 
@@ -2251,19 +2251,19 @@ IEinkuiBitmap* CXD2dEngine::TakeSnapshot(
 	LONG liStrideSrc = muEinkPanelW * 4;
 	LONG liStrideDst = liBrfW * 4;
 
-	// ·ÖÅäËõÂÔÍ¼µÄÄÚ´æ
+	// åˆ†é…ç¼©ç•¥å›¾çš„å†…å­˜
 	lpBitmapBuffer = new char[liStrideDst * liBrfH + 4];
 	RETURN_ON_NULL(lpBitmapBuffer,NULL);
 
-	// ¸´ÖÆÔ­Ê¼Êı¾İ
+	// å¤åˆ¶åŸå§‹æ•°æ®
 	for (LONG Line = 0; Line < liBrfH; Line++)
 		RtlCopyMemory(lpBitmapBuffer + liStrideDst*Line, mpForeBuffer + liStrideSrc*Line, liStrideDst);
 
-	// ½¨Á¢Î»Í¼¶ÔÏó
+	// å»ºç«‹ä½å›¾å¯¹è±¡
 	lpBitmap = CXD2dBitmap::CreateInstance(liBrfW,liBrfH, 4,liStrideDst, lpBitmapBuffer);
 
 	CMM_SAFE_DELETE(lpBitmapBuffer);
 
-	// ·µ»ØĞÂ½¨µÄ¶ÔÏó
+	// è¿”å›æ–°å»ºçš„å¯¹è±¡
 	return lpBitmap;
 }

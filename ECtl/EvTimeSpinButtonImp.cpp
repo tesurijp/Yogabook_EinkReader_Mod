@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -10,7 +10,7 @@
 #include "EvTimeSpinButtonImp.h"
 
 
-//¶¨Òå¼üÖµ
+//å®šä¹‰é”®å€¼
 #define TSB_KEY_DEFAULT_CTRL					L"DefaultCtrl"
 #define TSB_KEY_TIME_SPIN_BUTTON				L"TimeSpinButton"
 #define TSB_KEY_DEFAULT_EDIT					L"DefaultEdit"
@@ -32,7 +32,7 @@
 #define TSB_KEY_X								L"X"
 #define TSB_KEY_Y								L"Y"
 
-//³£Á¿
+//å¸¸é‡
 #define TSB_MAX_MINUTES							60
 #define TSB_MAX_SECONDS							60
 #define TSB_MAX_MILLISECONDS					1000
@@ -41,7 +41,7 @@
 DEFINE_BUILTIN_NAME(TimeSpinButton)
 
 
-// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓÐ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖÐ½øÐÐ
+// åªç”¨äºŽå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 CEvTimeSpinButton::CEvTimeSpinButton() : 
 	mpEditMinutes(NULL),
 	mpEditSeconds(NULL),
@@ -58,21 +58,21 @@ CEvTimeSpinButton::CEvTimeSpinButton() :
 CEvTimeSpinButton::~CEvTimeSpinButton() {}
 
 ULONG CEvTimeSpinButton::InitOnCreate(
-	IN IXuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàÐÍEType
-	IN ULONG nuEID				// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊýµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓÐÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IXuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»åž‹EType
+	IN ULONG nuEID				// å¦‚æžœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æžœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-		//´´½¨TimeSpinButtonµÄ×Ó¿Ø¼þ
+		//åˆ›å»ºTimeSpinButtonçš„å­æŽ§ä»¶
 
 		IConfigFile * lpConfigFile = EinkuiGetSystem()->GetCurrentWidget()->GetDefaultFactory()->GetTempleteFile();
 		if (lpConfigFile == NULL) break;
@@ -82,43 +82,43 @@ ULONG CEvTimeSpinButton::InitOnCreate(
 		if (lpDefaultCtrlKey == NULL) break;
 		ICfKey* lpTimeSpinButtonKey = lpDefaultCtrlKey->GetSubKey(TSB_KEY_TIME_SPIN_BUTTON);
 		if (lpTimeSpinButtonKey == NULL) break;
-		//´´½¨ÉÏ¼ýÍ·
+		//åˆ›å»ºä¸Šç®­å¤´
 		ICfKey * lpButtonUpKey = lpTimeSpinButtonKey->GetSubKey(TSB_KEY_DEFAULT_IMAGE_BUTTON_UP);
 		if(lpButtonUpKey)
 		{
 			mpBtnUpArrow = CEvImageButton::CreateInstance(mpIterator, lpButtonUpKey, TSB_ID_CTRL_BUTTON_UP);			
 		}
-		//´´½¨ÏÂ¼ýÍ·
+		//åˆ›å»ºä¸‹ç®­å¤´
 		ICfKey * lpButtonDownKey = lpTimeSpinButtonKey->GetSubKey(TSB_KEY_DEFAULT_IMAGE_BUTTON_DOWN);
 		if(lpButtonDownKey)
 		{
 			mpBtnDownArrow = CEvImageButton::CreateInstance(mpIterator, lpButtonDownKey, TSB_ID_CTRL_BUTTON_DOWN);			
 		}
-		//´´½¨Ã°ºÅ1
+		//åˆ›å»ºå†’å·1
 		ICfKey * lpLabelColonOneKey = lpTimeSpinButtonKey->GetSubKey(TSB_KEY_DEFAULT_LABEL);
 		if(lpLabelColonOneKey)
 		{
 			mpLabelColonOne = CEvLabelImp::CreateInstance(mpIterator, lpLabelColonOneKey, TSB_ID_CTRL_LABEL_COLON_ONE);			
 		}
-		//´´½¨Ã°ºÅ2
+		//åˆ›å»ºå†’å·2
 		ICfKey * lpLabelColonTwoKey = lpTimeSpinButtonKey->GetSubKey(TSB_KEY_DEFAULT_LABEL);
 		if(lpLabelColonTwoKey)
 		{
 			mpLabelColonTwo = CEvLabelImp::CreateInstance(mpIterator, lpLabelColonTwoKey, TSB_ID_CTRL_LABEL_COLON_TWO);			
 		}
-		//´´½¨±à¼­¿ò·Ö
+		//åˆ›å»ºç¼–è¾‘æ¡†åˆ†
 		ICfKey * lpEditMinutesKey = lpTimeSpinButtonKey->GetSubKey(TSB_KEY_DEFAULT_EDIT);
 		if (lpEditMinutesKey)
 		{
 			mpEditMinutes = CEvEditImp::CreateInstance(mpIterator, lpEditMinutesKey, TSB_ID_CTRL_EDIT_MINUTES);			
 		}
-		//´´½¨±à¼­¿òÃë
+		//åˆ›å»ºç¼–è¾‘æ¡†ç§’
 		ICfKey * lpEditSecondsKey = lpTimeSpinButtonKey->GetSubKey(TSB_KEY_DEFAULT_EDIT);
 		if (lpEditSecondsKey)
 		{
 			mpEditSeconds = CEvEditImp::CreateInstance(mpIterator, lpEditSecondsKey, TSB_ID_CTRL_EDIT_SECONDS);			
 		}
-		//´´½¨±à¼­¿òºÁÃë
+		//åˆ›å»ºç¼–è¾‘æ¡†æ¯«ç§’
 		ICfKey * lpEditMillisecondsKey = lpTimeSpinButtonKey->GetSubKey(TSB_KEY_DEFAULT_EDIT);
 		if (lpEditMillisecondsKey)
 		{
@@ -132,7 +132,7 @@ ULONG CEvTimeSpinButton::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓÐÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºŽçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»Žè€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åŽå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvTimeSpinButton::OnElementCreate(IXuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -154,7 +154,7 @@ ERESULT CEvTimeSpinButton::OnElementCreate(IXuiIterator* npIterator)
 	return lResult;
 }
 
-//»æÖÆ
+//ç»˜åˆ¶
 ERESULT CEvTimeSpinButton::OnPaint(IXuiPaintBoard* npPaintBoard)
 {
 
@@ -180,11 +180,11 @@ ERESULT CEvTimeSpinButton::OnPaint(IXuiPaintBoard* npPaintBoard)
 	return lResult;
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíÐéº¯Êý£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊýµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖÐ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®žçŽ°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åŽï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºŽä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›žERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›žå€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvTimeSpinButton::ParseMessage(IXuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®žçŽ°åŽŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€ŒåŽå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -331,7 +331,7 @@ ERESULT CEvTimeSpinButton::ParseMessage(IXuiMessage* npMsg)
 
 				IXuiIterator* iter = npMsg->GetMessageSender();
 
-				if(llFlag == 0)	//Ê§È¥½¹µã
+				if(llFlag == 0)	//å¤±åŽ»ç„¦ç‚¹
 				{
 				}
 				else
@@ -359,7 +359,7 @@ ERESULT CEvTimeSpinButton::ParseMessage(IXuiMessage* npMsg)
 
 		if(luResult == ERESULT_NOT_SET)
 		{
-			luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êý£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+			luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æŽ¥åŸºç±»
 		}
 
 	} while (false);
@@ -367,7 +367,7 @@ ERESULT CEvTimeSpinButton::ParseMessage(IXuiMessage* npMsg)
 	return luResult;
 }
 
-//½ûÓÃ»òÆôÓÃ
+//ç¦ç”¨æˆ–å¯ç”¨
 ERESULT CEvTimeSpinButton::OnElementEnable(bool nbIsEnable)
 {
 	SetTimeSpinButtonEnable(nbIsEnable);
@@ -425,7 +425,7 @@ void CEvTimeSpinButton::UpdateView()
 	}
 	lwsMilliseconds += lwBuf;
 
-	//¸üÐÂ½çÃæ¿Ø¼þ
+	//æ›´æ–°ç•Œé¢æŽ§ä»¶
 	CExMessage::SendMessageWithText(mpEditMinutes->GetIterator(), mpIterator, 
 		EACT_EDIT_SET_TEXT, lwsMinutes.c_str());
 	CExMessage::SendMessageWithText(mpEditSeconds->GetIterator(), mpIterator, 
@@ -463,7 +463,7 @@ BOOL CEvTimeSpinButton::SetChildCtrlPara()
 	ICfKey* lpKeyArrow = mpTemplete->GetSubKey(TSB_KEY_ARROW);
 	if (lpKeyArrow == NULL) return FALSE;
 
-	//ÉèÖÃÉÏ¼ýÍ·°´Å¥
+	//è®¾ç½®ä¸Šç®­å¤´æŒ‰é’®
 	if (mpBtnUpArrow)
 	{
 		IXuiIterator* pIter = mpBtnUpArrow->GetIterator();
@@ -480,7 +480,7 @@ BOOL CEvTimeSpinButton::SetChildCtrlPara()
 		}
 	}
 
-	//ÉèÖÃÏÂ¼ýÍ·°´Å¥
+	//è®¾ç½®ä¸‹ç®­å¤´æŒ‰é’®
 	if (mpBtnDownArrow)
 	{
 		IXuiIterator* pIter = mpBtnDownArrow->GetIterator();
@@ -501,14 +501,14 @@ BOOL CEvTimeSpinButton::SetChildCtrlPara()
 	if (lpKeyColonOne == NULL) return FALSE;
 	ICfKey* lpKeyColonTwo = mpTemplete->GetSubKey(TSB_KEY_COLON_TWO);
 	if (lpKeyColonTwo == NULL) return FALSE;
-	//ÉèÖÃÃ°ºÅ1
+	//è®¾ç½®å†’å·1
 	if (mpLabelColonOne)
 	{
 		ULONG lPosX = lpKeyColonOne->QuerySubKeyValueAsLONG(TSB_KEY_X);
 		ULONG lPosY = lpKeyColonOne->QuerySubKeyValueAsLONG(TSB_KEY_Y);
 		mpLabelColonOne->GetIterator()->SetPosition((FLOAT)lPosX, (FLOAT)lPosY);
 	}
-	//ÉèÖÃÃ°ºÅ2
+	//è®¾ç½®å†’å·2
 	if (mpLabelColonTwo)
 	{
 		ULONG lPosX = lpKeyColonTwo->QuerySubKeyValueAsLONG(TSB_KEY_X);
@@ -522,7 +522,7 @@ BOOL CEvTimeSpinButton::SetChildCtrlPara()
 	if (lpKeySecendsEdit == NULL) return FALSE;
 	ICfKey* lpKeyMillisecondsEdit = mpTemplete->GetSubKey(TSB_KEY_EDIT_MILLISECONDS);
 	if (lpKeyMillisecondsEdit == NULL) return FALSE;
-	//ÉèÖÃ·Ö±à¼­¿ò
+	//è®¾ç½®åˆ†ç¼–è¾‘æ¡†
 	if (mpEditMinutes)
 	{
 		ULONG lPosX = lpKeyMinutesEdit->QuerySubKeyValueAsLONG(TSB_KEY_X);
@@ -533,7 +533,7 @@ BOOL CEvTimeSpinButton::SetChildCtrlPara()
 		ULONG lHeight = lpKeyMinutesEdit->QuerySubKeyValueAsLONG(TSB_KEY_HEIGHT);
 		mpEditMinutes->GetIterator()->SetSize((FLOAT)lWidth, (FLOAT)lHeight);
 	}
-	//ÉèÖÃÃë±à¼­¿ò
+	//è®¾ç½®ç§’ç¼–è¾‘æ¡†
 	if (mpEditSeconds)
 	{
 		ULONG lPosX = lpKeySecendsEdit->QuerySubKeyValueAsLONG(TSB_KEY_X);
@@ -544,7 +544,7 @@ BOOL CEvTimeSpinButton::SetChildCtrlPara()
 		ULONG lHeight = lpKeySecendsEdit->QuerySubKeyValueAsLONG(TSB_KEY_HEIGHT);
 		mpEditSeconds->GetIterator()->SetSize((FLOAT)lWidth, (FLOAT)lHeight);
 	}
-	//ÉèÖÃºÁÃë±à¼­¿ò
+	//è®¾ç½®æ¯«ç§’ç¼–è¾‘æ¡†
 	if (mpEditMilliseconds)
 	{
 		ULONG lPosX = lpKeyMillisecondsEdit->QuerySubKeyValueAsLONG(TSB_KEY_X);
@@ -556,7 +556,7 @@ BOOL CEvTimeSpinButton::SetChildCtrlPara()
 		mpEditMilliseconds->GetIterator()->SetSize((FLOAT)lWidth, (FLOAT)lHeight);
 	}
 
-	//ÏÞÖÆÊäÈë¿ò³¤¶È
+	//é™åˆ¶è¾“å…¥æ¡†é•¿åº¦
 	LONG lLimit = 2;
 	EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(mpEditMinutes->GetIterator(),
 		EACT_EDIT_SET_LENGTH_LIMIT, &lLimit, sizeof(LONG), NULL, 0);
@@ -566,7 +566,7 @@ BOOL CEvTimeSpinButton::SetChildCtrlPara()
 	EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(mpEditMilliseconds->GetIterator(),
 		EACT_EDIT_SET_LENGTH_LIMIT, &lLimit, sizeof(LONG), NULL, 0);
 
-	//Ö»½ÓÊÜÊý×Ö
+	//åªæŽ¥å—æ•°å­—
 	int liAccept = 1;
 	CExMessage::PostMessageW(mpEditMinutes->GetIterator(), mpIterator, EACT_EDIT_NUMBER_ONLY, liAccept);
 	CExMessage::PostMessageW(mpEditSeconds->GetIterator(), mpIterator, EACT_EDIT_NUMBER_ONLY, liAccept);

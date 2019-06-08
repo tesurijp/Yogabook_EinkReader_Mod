@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -25,8 +25,8 @@ public:
 
 
 
-// ElementµÄ»ù´¡ÊµÏÖ£¬¿ª·¢ÆäËûElementÊ±£¬ÇëÒÔ´ËÎªÀı£»²»Òª³¢ÊÔ´Ó´ËÀà×Ö½ÚÅÉÉúĞÂÀà£¬ÒòÎª£¬ĞÂÀàÍùÍùÓÃÓÚÊµÏÖÅÉÉúµÄ½Ó¿Ú£¬Ö±½ÓÅÉÉúÏÂÃæµÄCEvEditImp½«½ö½öÊÇÌá¹©IXsElement½Ó¿Ú
-// Èç¹ûÊµÏÖµÄÊÇÏàÍ¬½Ó¿ÚµÄÀà±ğ£¬¾Í¿ÉÒÔÖ±½Ó´ÓÄ³¸öÊµÀı»¯ÀàÅÉÉúĞÂÀà¡£
+// Elementçš„åŸºç¡€å®ç°ï¼Œå¼€å‘å…¶ä»–Elementæ—¶ï¼Œè¯·ä»¥æ­¤ä¸ºä¾‹ï¼›ä¸è¦å°è¯•ä»æ­¤ç±»å­—èŠ‚æ´¾ç”Ÿæ–°ç±»ï¼Œå› ä¸ºï¼Œæ–°ç±»å¾€å¾€ç”¨äºå®ç°æ´¾ç”Ÿçš„æ¥å£ï¼Œç›´æ¥æ´¾ç”Ÿä¸‹é¢çš„CEvEditImpå°†ä»…ä»…æ˜¯æä¾›IXsElementæ¥å£
+// å¦‚æœå®ç°çš„æ˜¯ç›¸åŒæ¥å£çš„ç±»åˆ«ï¼Œå°±å¯ä»¥ç›´æ¥ä»æŸä¸ªå®ä¾‹åŒ–ç±»æ´¾ç”Ÿæ–°ç±»ã€‚
 DECLARE_BUILTIN_NAME(Edit)
 class CEvEditImp :
 	public CXuiElement<CEvEditImp ,GET_BUILTIN_NAME(Edit)>
@@ -40,39 +40,39 @@ public:
 		eSelBackBrush=3
 	};
 
-	// ÅÉÉú±¾Àà¼°ÅÉÉú±¾º¯ÊıÊ±£¬ÇëÌØ±ğ×¢Òâ!!! Ò»¶¨ÒªÊ×ÏÈµ÷ÓÃ»ùÀàµÄ·½·¨
-	// ±¾º¯Êı½öÓÃÓÚ½¨Á¢×ÓÔªËØ¶ÔÏó¡¢³õÊ¼»¯×ÔÉíÊı¾İ£¨Î»ÖÃ¡¢´óĞ¡¡¢±³¾°Í¼µÈ£©
+	// æ´¾ç”Ÿæœ¬ç±»åŠæ´¾ç”Ÿæœ¬å‡½æ•°æ—¶ï¼Œè¯·ç‰¹åˆ«æ³¨æ„!!! ä¸€å®šè¦é¦–å…ˆè°ƒç”¨åŸºç±»çš„æ–¹æ³•
+	// æœ¬å‡½æ•°ä»…ç”¨äºå»ºç«‹å­å…ƒç´ å¯¹è±¡ã€åˆå§‹åŒ–è‡ªèº«æ•°æ®ï¼ˆä½ç½®ã€å¤§å°ã€èƒŒæ™¯å›¾ç­‰ï¼‰
 	ULONG InitOnCreate(
-		IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-		IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-		IN ULONG nuEID=MAXULONG32		// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+		IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+		IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+		IN ULONG nuEID=MAXULONG32		// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 		);
 
 protected:
-	cmmVector<wchar_t> moText;	//´æ´¢ÊäÈëµÄ×Ö·û´®
+	cmmVector<wchar_t> moText;	//å­˜å‚¨è¾“å…¥çš„å­—ç¬¦ä¸²
 	LONG mlLimit;
-	LONG mlCursorAt;		//¹â±êËùÔÚÎ»ÖÃ
-	LONG mlViewBegin;			//ÊÓÍ¼ÄÚµÄµÚÒ»¸ö×Ö·û
-	LONG mlViewEnd;				//ÊÓÍ¼ÄÚµÄ×îºóÒ»¸ö×Ö·û
-	LONG mlSelBegin;			//Ñ¡ÖĞ×Ö·û¿ªÊ¼
-	LONG mlSelEnd;				//Ñ¡ÖĞµÄ×îºóÒ»¸ö×Ö·û
+	LONG mlCursorAt;		//å…‰æ ‡æ‰€åœ¨ä½ç½®
+	LONG mlViewBegin;			//è§†å›¾å†…çš„ç¬¬ä¸€ä¸ªå­—ç¬¦
+	LONG mlViewEnd;				//è§†å›¾å†…çš„æœ€åä¸€ä¸ªå­—ç¬¦
+	LONG mlSelBegin;			//é€‰ä¸­å­—ç¬¦å¼€å§‹
+	LONG mlSelEnd;				//é€‰ä¸­çš„æœ€åä¸€ä¸ªå­—ç¬¦
 	bool mbDirty;
 	bool mbInsertMode;
 	bool mbCompletion;
 	LONG mlBlinking;
-	D2D1_RECT_F mdLayoutRect;		//ÎÄ×ÖµÄÏÔÊ¾ÇøÓò
+	D2D1_RECT_F mdLayoutRect;		//æ–‡å­—çš„æ˜¾ç¤ºåŒºåŸŸ
 	D2D1_RECT_F mdValidRect;
 	D2D1_POINT_2F mdCursorPos;
 
-	//ÏÔÊ¾×ÊÔ´
-	IDWriteTextFormat* mpTextFormat;	//Éè±¸ÎŞ¹Ø
-	ID2D1SolidColorBrush* mpBrush[4];	// Éè±¸Ïà¹Ø
+	//æ˜¾ç¤ºèµ„æº
+	IDWriteTextFormat* mpTextFormat;	//è®¾å¤‡æ— å…³
+	ID2D1SolidColorBrush* mpBrush[4];	// è®¾å¤‡ç›¸å…³
 
-	//¸ñÊ½»¯ÎÄ×Ö
+	//æ ¼å¼åŒ–æ–‡å­—
 	cmmVector<CEvEditTextSection,4> moTextSections;
-	IDWriteTextLayout* mpTextLayout;	//Éè±¸ÎŞ¹Ø
+	IDWriteTextLayout* mpTextLayout;	//è®¾å¤‡æ— å…³
 
-	// Êó±êÑ¡Ôñ
+	// é¼ æ ‡é€‰æ‹©
 	D2D1_POINT_2F mdDragFrom;
 	LONG mlDragedText;
 	
@@ -80,42 +80,42 @@ protected:
 	CEvEditImp();
 	virtual ~CEvEditImp();
 
-	//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+	//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 	ERESULT OnElementCreate(IEinkuiIterator* npIterator);
 
 	//virtual ERESULT OnPaint(IEinkuiPaintBoard* npPaintBoard);
-	// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-	// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+	// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+	// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 	virtual ERESULT ParseMessage(IEinkuiMessage* npMsg);
-	// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-	// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓĞÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+	// é”€æ¯å…ƒç´ ï¼Œç”¨äºé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+	// ä»è€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€Œåå†å°†è‡ªå·±ä»å…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 	virtual ERESULT OnElementDestroy();
 
-	//½ûÓÃ»òÆôÓÃ
+	//ç¦ç”¨æˆ–å¯ç”¨
 	virtual ERESULT OnElementEnable(bool nbIsEnable);
 
-	// Êó±êÂäµã¼ì²â
+	// é¼ æ ‡è½ç‚¹æ£€æµ‹
 	virtual ERESULT OnMouseOwnerTest(const D2D1_POINT_2F& rPoint);
 
-	//¼üÅÌÏûÏ¢
+	//é”®ç›˜æ¶ˆæ¯
 	virtual ERESULT OnKeyPressed(const STEMS_KEY_PRESSED* npInfo);
 
-	//Êó±ê½øÈë»òÀë¿ª
+	//é¼ æ ‡è¿›å…¥æˆ–ç¦»å¼€
 	virtual void OnMouseFocus(PSTEMS_STATE_CHANGE npState);
 
-	//Êó±êË«»÷
+	//é¼ æ ‡åŒå‡»
 	virtual ERESULT OnMouseDbClick(const STEMS_MOUSE_BUTTON* npInfo);
 
-	//×Ö·ûÊäÈëÏûÏ¢
+	//å­—ç¬¦è¾“å…¥æ¶ˆæ¯
 	virtual ERESULT OnChar(const PSTEMS_CHAR_INPUT npChar);
 
-	//»æÖÆÏûÏ¢
+	//ç»˜åˆ¶æ¶ˆæ¯
 	virtual ERESULT OnPaint(IEinkuiPaintBoard* npPaintBoard);
 
-	//¼üÅÌ½¹µã»ñµÃ»òÕßÊ§È¥
+	//é”®ç›˜ç„¦ç‚¹è·å¾—æˆ–è€…å¤±å»
 	virtual void OnKeyBoardFocus(PSTEMS_STATE_CHANGE npState);
 
-	//ÃüÁî
+	//å‘½ä»¤
 	virtual ERESULT OnCommand(const nes_command::ESCOMMAND neCmd);
 
 	//Set Text
@@ -124,12 +124,12 @@ protected:
 	//Get Text
 	virtual ERESULT OnGetText(wchar_t* nswTextBuf,LONG nlCharCount);
 
-	// ÂıË¢ĞÂ
+	// æ…¢åˆ·æ–°
 	void  OnLazyUpdate(
 		PSTEMG_LAZY_UPDATE npLazyUpdate
 		);
 
-	//×¼±¸»­±Ê
+	//å‡†å¤‡ç”»ç¬”
 	ERESULT PrepareBrush(IEinkuiPaintBoard* npPaintBoard);
 
 	// Left Arrow striked
@@ -153,16 +153,16 @@ protected:
 	// Insert striked
 	virtual void OnKeyInsert(const STEMS_KEY_PRESSED* npInfo);
 
-	//ÔªËØÍÏ×§
+	//å…ƒç´ æ‹–æ‹½
 	virtual ERESULT OnDragging(const STMS_DRAGGING_ELE* npInfo);
 
-	//ÍÏ×§¿ªÊ¼
+	//æ‹–æ‹½å¼€å§‹
 	virtual ERESULT OnDragBegin(const STMS_DRAGGING_ELE* npInfo);
 
-	//ÍÏ×§½áÊø
+	//æ‹–æ‹½ç»“æŸ
 	virtual ERESULT OnDragEnd(const STMS_DRAGGING_ELE* npInfo);
 
-	//Êó±ê°´ÏÂ
+	//é¼ æ ‡æŒ‰ä¸‹
 	virtual ERESULT OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo);
 
 	// copy
@@ -177,47 +177,47 @@ protected:
 	// Undo
 	virtual void OnUndoCommand(void);
 
-	//Çå³ıÖ¸ÕëÎ»ÖÃ×Ö·û,nlFromÎª´ÓÄÄ¸öË÷Òı¿ªÊ¼;nlCountÎªÉ¾³ı¸öÊı
+	//æ¸…é™¤æŒ‡é’ˆä½ç½®å­—ç¬¦,nlFromä¸ºä»å“ªä¸ªç´¢å¼•å¼€å§‹;nlCountä¸ºåˆ é™¤ä¸ªæ•°
 	virtual ERESULT RemoveChars(LONG nlFrom,LONG nlCount = 1);
 
-	//²åÈëĞÂµÄ×Ö·û,nlInsertTo±íÊ¾´ÓÄÄ¸öÎ»ÖÃ½øĞĞ²åÈë,-1±íÊ¾²åµ½×îºó;nswChars±íÊ¾Òª²åÈëµÄ×Ö·û´®; nlLength == -1 ±íÊ¾nszCharsµÄÈ«²¿ÓĞĞ§×Ö·û£¬²¢ÇÒÈ·ÈÏnszChars´øÓĞ\0½áÎ²
+	//æ’å…¥æ–°çš„å­—ç¬¦,nlInsertToè¡¨ç¤ºä»å“ªä¸ªä½ç½®è¿›è¡Œæ’å…¥,-1è¡¨ç¤ºæ’åˆ°æœ€å;nswCharsè¡¨ç¤ºè¦æ’å…¥çš„å­—ç¬¦ä¸²; nlLength == -1 è¡¨ç¤ºnszCharsçš„å…¨éƒ¨æœ‰æ•ˆå­—ç¬¦ï¼Œå¹¶ä¸”ç¡®è®¤nszCharså¸¦æœ‰\0ç»“å°¾
 	virtual LONG InsertChars(LONG nlInsertTo,wchar_t* nswChars,LONG nlLength=-1);
 
-	// ²åÈëÒ»¸ö×Ö·û
+	// æ’å…¥ä¸€ä¸ªå­—ç¬¦
 	virtual LONG InsertChar(LONG nlInsertTo,wchar_t nwcChar);
 
-	// ÖØĞÂÉú³É¸ñÊ½»¯ÎÄ×Ö
+	// é‡æ–°ç”Ÿæˆæ ¼å¼åŒ–æ–‡å­—
 	virtual ERESULT GenerateTextLayout(IEinkuiPaintBoard* npPaintBoard);
 
-	// ¼ÆËãÎÄ×ÖµÄÅÅ²¼ÇøÓò
+	// è®¡ç®—æ–‡å­—çš„æ’å¸ƒåŒºåŸŸ
 	virtual void CalculateTextRect(IEinkuiPaintBoard* npPaintBoard);
 
-	// ÊÍ·Å¸ñÊ½»¯ÎÄ×Ö
+	// é‡Šæ”¾æ ¼å¼åŒ–æ–‡å­—
 	void ClearTextLayout();
 
-	// É¾³ıÉè±¸Ïà¹Ø×ÊÔ´
+	// åˆ é™¤è®¾å¤‡ç›¸å…³èµ„æº
 	void ReleaseDeviceResource();
 
-	//´Ó¼ôÇĞ°å¶Á×Ö·û´®£¬return the character count
+	//ä»å‰ªåˆ‡æ¿è¯»å­—ç¬¦ä¸²ï¼Œreturn the character count
 	int GetClipboardString(OUT wchar_t* npTextBuffer,LONG nlBufCharSize);
 
 	//save string to clipboard
 	void SetClipboardString(const wchar_t* nswString,LONG nlCharCount);
 
-	// Çå³ı¼ôÌù°åÊı¾İ
+	// æ¸…é™¤å‰ªè´´æ¿æ•°æ®
 	void ClearClipboard(void);
 
 	__inline void UpdateView(void);
 
-	// ÉèÖÃÎ»±êÖ¾£»¿ÉÒÔ 0 - 24
+	// è®¾ç½®ä½æ ‡å¿—ï¼›å¯ä»¥ 0 - 24
 	bool SetFlags(
-		int niIndex,		// ±êÖ¾µÄĞòºÅ£¬´Ó0¿ªÊ¼£»Èç¹ûÅÉÉúÀàÖØÔØÕâ¸öº¯Êı£¬²¢ÇÒ¸ÃÅÉÉúÀàÓĞ2¸ö²»Ï£Íû±»ºóĞøÀàºÍÓÃ»§ĞŞ¸ÄµÄ±êÖ¾£¬ÄÇÃ´ËüµÄº¯Êıµ÷ÓÃÊ±µÄniIndex=0±íÊ¾µÄÊÇËüµÄ»ùÀàµÄ2
-		bool nbSet		// ÉèÖÃ»òÕßÇå³ı±êÖ¾
+		int niIndex,		// æ ‡å¿—çš„åºå·ï¼Œä»0å¼€å§‹ï¼›å¦‚æœæ´¾ç”Ÿç±»é‡è½½è¿™ä¸ªå‡½æ•°ï¼Œå¹¶ä¸”è¯¥æ´¾ç”Ÿç±»æœ‰2ä¸ªä¸å¸Œæœ›è¢«åç»­ç±»å’Œç”¨æˆ·ä¿®æ”¹çš„æ ‡å¿—ï¼Œé‚£ä¹ˆå®ƒçš„å‡½æ•°è°ƒç”¨æ—¶çš„niIndex=0è¡¨ç¤ºçš„æ˜¯å®ƒçš„åŸºç±»çš„2
+		bool nbSet		// è®¾ç½®æˆ–è€…æ¸…é™¤æ ‡å¿—
 		) {
 			return CXuiElement::SetFlags(niIndex+4,nbSet);
 	}
 
-	// »ñÈ¡±êÖ¾
+	// è·å–æ ‡å¿—
 	bool TestFlag(int niIndex){
 		return CXuiElement::TestFlag(niIndex+4);
 	}

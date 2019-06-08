@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -26,7 +26,7 @@ CPreNextButton::~CPreNextButton(void)
 {
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CPreNextButton::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -48,9 +48,9 @@ ERESULT CPreNextButton::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 ULONG CPreNextButton::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -58,13 +58,13 @@ ULONG CPreNextButton::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
 
-		//»ñÈ¡¶ÔÏñ¾ä±ú
+		//è·å–å¯¹åƒå¥æŸ„
 		mpIterBtPre = mpIterator->GetSubElementByID(PNB_BT_PRE);
 		BREAK_ON_NULL(mpIterBtPre);
 		mpIterBtPre->SetEnable(false);
@@ -83,13 +83,13 @@ ULONG CPreNextButton::InitOnCreate(
 
 	CMM_SAFE_RELEASE(lpSubKey);
 
-	// ÏòÏµÍ³×¢²áĞèÒªÊÕµ½µÄÏûÏ¢
+	// å‘ç³»ç»Ÿæ³¨å†Œéœ€è¦æ”¶åˆ°çš„æ¶ˆæ¯
 	return leResult;
 }
 
 
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CPreNextButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -103,7 +103,7 @@ ERESULT CPreNextButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	return luResult;
 }
 
-//Êó±ê°´ÏÂ
+//é¼ æ ‡æŒ‰ä¸‹
 ERESULT CPreNextButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -112,30 +112,30 @@ ERESULT CPreNextButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 	{
 		BREAK_ON_NULL(npInfo);
 		if (mpIterator->IsEnable() == false)
-			break;	//Èç¹ûÊÇ½ûÓÃ×´Ì¬£¬¾Í²»½ÓÊÕÊäÈë
+			break;	//å¦‚æœæ˜¯ç¦ç”¨çŠ¶æ€ï¼Œå°±ä¸æ¥æ”¶è¾“å…¥
 
 		if (mpIterator->IsVisible() == false)
-			break;	//Èç¹ûÊÇÒş²Ø×´Ì¬£¬¾Í²»½ÓÊÕÊäÈë
+			break;	//å¦‚æœæ˜¯éšè—çŠ¶æ€ï¼Œå°±ä¸æ¥æ”¶è¾“å…¥
 
-		if (MOUSE_LB(npInfo->ActKey) == false)  //Èç¹û²»ÊÇÊó±ê×ó¼ü¾Í²»´¦Àí
+		if (MOUSE_LB(npInfo->ActKey) == false)  //å¦‚æœä¸æ˜¯é¼ æ ‡å·¦é”®å°±ä¸å¤„ç†
 			break;
 
 		if (npInfo->Presssed == false)
 		{
-			//Êó±êÌ§Æğ
+			//é¼ æ ‡æŠ¬èµ·
 			if (abs(mdPressPos.x - npInfo->Position.x) >= 20.0f || abs(mdPressPos.y - npInfo->Position.y) >= 20.0f)
 			{
-				//ÊÇ»¬¶¯²Ù×÷
-				if (abs(mdPressPos.x - npInfo->Position.x) >= abs(mdPressPos.y - npInfo->Position.y))	// ¹ıÂËµô´¹Ö±»¬
+				//æ˜¯æ»‘åŠ¨æ“ä½œ
+				if (abs(mdPressPos.x - npInfo->Position.x) >= abs(mdPressPos.y - npInfo->Position.y))	// è¿‡æ»¤æ‰å‚ç›´æ»‘
 				{
 					if ((mdPressPos.x - npInfo->Position.x) >= 50.0f)
 					{
-						//ºóÒ»Ò³
+						//åä¸€é¡µ
 						PostMessageToParent(EEVT_ER_PRE_NEXT_CLICKED, PNB_BT_NEXT);
 					}
 					else if ((npInfo->Position.x - mdPressPos.x) >= 50.0f)
 					{
-						//Ç°Ò»Ò³
+						//å‰ä¸€é¡µ
 						PostMessageToParent(EEVT_ER_PRE_NEXT_CLICKED, PNB_BT_PRE);
 					}
 				}
@@ -143,27 +143,27 @@ ERESULT CPreNextButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 			}
 			else
 			{
-				//ÈÏÎªÊÇµã»÷²Ù×÷
+				//è®¤ä¸ºæ˜¯ç‚¹å‡»æ“ä½œ
 				if ((GetTickCount() - mdwClickTicount) > 500)
 				{
-					//³¬¹ı500msËã³¤°´£¬²»´¦Àí
+					//è¶…è¿‡500msç®—é•¿æŒ‰ï¼Œä¸å¤„ç†
 					break;
 				}
 
-				//ÅĞ¶ÏÒ»ÏÂµã»÷ÇøÓò
+				//åˆ¤æ–­ä¸€ä¸‹ç‚¹å‡»åŒºåŸŸ
 				if (npInfo->Position.x < mfLeftButton)
 				{
-					//ÉÏÒ»Ò³
+					//ä¸Šä¸€é¡µ
 					PostMessageToParent(EEVT_ER_PRE_NEXT_CLICKED, PNB_BT_PRE);
 				}
 				else if (npInfo->Position.x > mpIterBtNext->GetPositionX())
 				{
-					//ÏÂÒ»Ò³
+					//ä¸‹ä¸€é¡µ
 					PostMessageToParent(EEVT_ER_PRE_NEXT_CLICKED, PNB_BT_NEXT);
 				}
 				else
 				{
-					//ÏÔÊ¾»òÒş²Ø¹¤¾ßÀ¸
+					//æ˜¾ç¤ºæˆ–éšè—å·¥å…·æ 
 					PostMessageToParent(EEVT_ER_PRE_NEXT_CLICKED, PNB_BT_MIDDLE);
 				}
 				
@@ -171,7 +171,7 @@ ERESULT CPreNextButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 		}
 		else
 		{
-			//Êó±ê°´ÏÂ
+			//é¼ æ ‡æŒ‰ä¸‹
 			mdPressPos = npInfo->Position;
 			mdwClickTicount = GetTickCount();
 		}
@@ -184,7 +184,7 @@ ERESULT CPreNextButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 }
 
 
-//°´Å¥µ¥»÷ÊÂ¼ş
+//æŒ‰é’®å•å‡»äº‹ä»¶
 ERESULT CPreNextButton::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -198,7 +198,7 @@ ERESULT CPreNextButton::OnCtlButtonClick(IEinkuiIterator* npSender)
 		case PNB_BT_MIDDLE:
 		case PNB_BT_NEXT:
 		{
-			//´ò¿ªÎÄ¼ş¶Ô»°¿ò
+			//æ‰“å¼€æ–‡ä»¶å¯¹è¯æ¡†
 			PostMessageToParent(EEVT_ER_PRE_NEXT_CLICKED, llBtnID);
 
 			break;
@@ -215,7 +215,7 @@ ERESULT CPreNextButton::OnCtlButtonClick(IEinkuiIterator* npSender)
 }
 
 //
-////ÏûÏ¢´¦Àíº¯Êı
+////æ¶ˆæ¯å¤„ç†å‡½æ•°
 //ERESULT CPreNextButton::ParseMessage(IEinkuiMessage* npMsg)
 //{
 //	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
@@ -224,7 +224,7 @@ ERESULT CPreNextButton::OnCtlButtonClick(IEinkuiIterator* npSender)
 //	{
 //	case EMSG_MODAL_ENTER:
 //	{
-//		//// ´´½¨Òªµ¯³öµÄ¶Ô»°¿ò
+//		//// åˆ›å»ºè¦å¼¹å‡ºçš„å¯¹è¯æ¡†
 //		//mpIterator->SetVisible(true);
 //		luResult = ERESULT_SUCCESS;
 //		break;
@@ -236,13 +236,13 @@ ERESULT CPreNextButton::OnCtlButtonClick(IEinkuiIterator* npSender)
 //
 //	if (luResult == ERESULT_NOT_SET)
 //	{
-//		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+//		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 //	}
 //
 //	return luResult;
 //}
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CPreNextButton::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
@@ -250,29 +250,29 @@ void CPreNextButton::OnTimer(
 
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CPreNextButton::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	if (mpIterBtPre != NULL)
 	{
 		if (nNewSize.width > nNewSize.height)
 		{
-			//ºáÆÁ
-			//ÉèÖÃÖĞ¼ä°´Å¥ÓĞĞ§ÇøÓò
+			//æ¨ªå±
+			//è®¾ç½®ä¸­é—´æŒ‰é’®æœ‰æ•ˆåŒºåŸŸ
 			float lfBtWidth = nNewSize.width * 0.09f;
 			D2D1_SIZE_F ldActionSize;
-			ldActionSize.width = nNewSize.width - lfBtWidth*2; //ÉÏÒ»Ò³ÏÂÒ»Ò³¸÷Õ¼400
+			ldActionSize.width = nNewSize.width - lfBtWidth*2; //ä¸Šä¸€é¡µä¸‹ä¸€é¡µå„å 400
 			ldActionSize.height = nNewSize.height - mpIterator->GetPositionY();
 			CExMessage::SendMessage(mpIterBtMiddle, mpIterator, EACT_BUTTON_SET_ACTION_RECT, ldActionSize);
 			mpIterBtMiddle->SetPosition(lfBtWidth, 0.0f);
 			
 
-			//ÉÏÒ»Ò³
-			ldActionSize.width = lfBtWidth; //ÉÏÒ»Ò³ÏÂÒ»Ò³¸÷Õ¼ÆÁÄ»µÄ9%
+			//ä¸Šä¸€é¡µ
+			ldActionSize.width = lfBtWidth; //ä¸Šä¸€é¡µä¸‹ä¸€é¡µå„å å±å¹•çš„9%
 			ldActionSize.height = nNewSize.height - mpIterator->GetPositionY();
 			CExMessage::SendMessage(mpIterBtPre, mpIterator, EACT_BUTTON_SET_ACTION_RECT, ldActionSize);
 
-			//ÏÂÒ»Ò³
+			//ä¸‹ä¸€é¡µ
 			CExMessage::SendMessage(mpIterBtNext, mpIterator, EACT_BUTTON_SET_ACTION_RECT, ldActionSize);
 
 			float lfX = mpIterator->GetSizeX() - lfBtWidth;
@@ -282,22 +282,22 @@ ERESULT CPreNextButton::OnElementResized(D2D1_SIZE_F nNewSize)
 		}
 		else
 		{
-			//¼áÆÁ
-			//ÉèÖÃÖĞ¼ä°´Å¥ÓĞĞ§ÇøÓò
+			//åšå±
+			//è®¾ç½®ä¸­é—´æŒ‰é’®æœ‰æ•ˆåŒºåŸŸ
 			float lfBtWidth = nNewSize.width * 0.16f;
 			D2D1_SIZE_F ldActionSize;
-			ldActionSize.width = nNewSize.width - lfBtWidth*2; //ÉÏÒ»Ò³ÏÂÒ»Ò³¸÷Õ¼250
+			ldActionSize.width = nNewSize.width - lfBtWidth*2; //ä¸Šä¸€é¡µä¸‹ä¸€é¡µå„å 250
 			ldActionSize.height = nNewSize.height - mpIterator->GetPositionY();
 			CExMessage::SendMessage(mpIterBtMiddle, mpIterator, EACT_BUTTON_SET_ACTION_RECT, ldActionSize);
 			mpIterBtMiddle->SetPosition(lfBtWidth, 0.0f);
 
 
-			//ÉÏÒ»Ò³
-			ldActionSize.width = lfBtWidth; //ÉÏÒ»Ò³ÏÂÒ»Ò³¸÷Õ¼ÆÁÄ»µÄ16%
+			//ä¸Šä¸€é¡µ
+			ldActionSize.width = lfBtWidth; //ä¸Šä¸€é¡µä¸‹ä¸€é¡µå„å å±å¹•çš„16%
 			ldActionSize.height = nNewSize.height - mpIterator->GetPositionY();
 			CExMessage::SendMessage(mpIterBtPre, mpIterator, EACT_BUTTON_SET_ACTION_RECT, ldActionSize);
 
-			//ÏÂÒ»Ò³
+			//ä¸‹ä¸€é¡µ
 			CExMessage::SendMessage(mpIterBtNext, mpIterator, EACT_BUTTON_SET_ACTION_RECT, ldActionSize);
 
 			float lfX = mpIterator->GetSizeX() - lfBtWidth;
@@ -309,7 +309,7 @@ ERESULT CPreNextButton::OnElementResized(D2D1_SIZE_F nNewSize)
 	return ERESULT_SUCCESS;
 }
 
-//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òş²Ø¡¿·¢Éú¸Ä±ä
+//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 ERESULT CPreNextButton::OnElementShow(bool nbIsShow)
 {
 	//EiSetHomebarStatus(nbIsShow == false ? GI_HOMEBAR_SHOW : GI_HOMEBAR_HIDE);

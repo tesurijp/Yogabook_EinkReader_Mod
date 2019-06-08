@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -37,18 +37,18 @@ public:
 	float32 GetRealRatio();
 	float32 GetBaseRatio();
 	float32 GetFatRatio();
-	bool GetViewMapArea(ED_RECT& destArea, ED_RECT& srcArea,UCHAR* edgeImpact=NULL); // Èç¹ûÍ¼ÏñÏÔÊ¾ÍêÕû£¬·µ»Øtrue£»·ñÔò·µ»Øfalse
+	bool GetViewMapArea(ED_RECT& destArea, ED_RECT& srcArea,UCHAR* edgeImpact=NULL); // å¦‚æœå›¾åƒæ˜¾ç¤ºå®Œæ•´ï¼Œè¿”å›trueï¼›å¦åˆ™è¿”å›false
 
 protected:
-	ED_SIZE mViewPort;	// ÊÓ¿Ú´óĞ¡
-	ED_POINTF mFocusOn;	// ½¹µã
-	ED_SIZE mImageInit; // Í¼Ïñ³õÊ¼´óĞ¡
-	float32 mGap;		// Ë«Ò³ÏÔÊ¾Ä£Ê½ÏÂµÄÖĞ¼äµÄ·ìÏ¶µÄ¿í¶È
-	ED_SIZE mImageReal;	// Í¼ÏñµÄÊµ¼Ê´óĞ¡
-	float32 mBaseRatio;	// »ù´¡·Å´ó±ÈÀı£¬Õâ¸ö±ÈÀı±»ÊÓ×÷ÓÃ»§·Å´ó±ÈÀıµÄ1.0
-	float32 mUserRatio;	// ÓÃ»§Éè¶¨µÄ·Å´ó±¶Êı
-	float32 mRealRatio;	// »ù´¡ºÍÓÃ»§·Å´ó±¶ÊıºÏ²¢ºó
-	float32 mFatRatio;	// Õ¼ÂúÆÁÄ»ĞèÒªµÄ×îĞ¡·Å´ó±ÈÀı
+	ED_SIZE mViewPort;	// è§†å£å¤§å°
+	ED_POINTF mFocusOn;	// ç„¦ç‚¹
+	ED_SIZE mImageInit; // å›¾åƒåˆå§‹å¤§å°
+	float32 mGap;		// åŒé¡µæ˜¾ç¤ºæ¨¡å¼ä¸‹çš„ä¸­é—´çš„ç¼éš™çš„å®½åº¦
+	ED_SIZE mImageReal;	// å›¾åƒçš„å®é™…å¤§å°
+	float32 mBaseRatio;	// åŸºç¡€æ”¾å¤§æ¯”ä¾‹ï¼Œè¿™ä¸ªæ¯”ä¾‹è¢«è§†ä½œç”¨æˆ·æ”¾å¤§æ¯”ä¾‹çš„1.0
+	float32 mUserRatio;	// ç”¨æˆ·è®¾å®šçš„æ”¾å¤§å€æ•°
+	float32 mRealRatio;	// åŸºç¡€å’Œç”¨æˆ·æ”¾å¤§å€æ•°åˆå¹¶å
+	float32 mFatRatio;	// å æ»¡å±å¹•éœ€è¦çš„æœ€å°æ”¾å¤§æ¯”ä¾‹
 	bool32 mViewPortModified;
 	bool32 mUserRatioModified;
 	bool32 mImageInitModified;

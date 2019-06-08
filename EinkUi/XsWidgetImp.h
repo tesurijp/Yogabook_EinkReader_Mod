@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -7,44 +7,44 @@
 
 
 //////////////////////////////////////////////////////////////////////////
-// WidgetÔËĞĞÌ¬
+// Widgetè¿è¡Œæ€
 DECLARE_BUILTIN_NAME(CXsWidget)
 class CXsWidget: public cmmBaseObject<CXsWidget,IXsWidget,GET_BUILTIN_NAME(CXsWidget)>
 {
 	friend class CEinkuiSystem;
 	friend class CXelManager;
 public:
-	// »ñÈ¡Î¢¼şËùÔÚ°²×°Ä¿Â¼£¬²»´øÓĞºó×ºµÄ'\'
+	// è·å–å¾®ä»¶æ‰€åœ¨å®‰è£…ç›®å½•ï¼Œä¸å¸¦æœ‰åç¼€çš„'\'
 	virtual const wchar_t* __stdcall GetWidgetDefaultPath(void);
 
-	// ¸ÃWidgetµÄÄ£¿éÎÄ¼şÃû£¬¼´ÊµÏÖ´ËWidgetµÄDLLÃû³Æ£¬Èç"IdeaMain.dll"
+	// è¯¥Widgetçš„æ¨¡å—æ–‡ä»¶åï¼Œå³å®ç°æ­¤Widgetçš„DLLåç§°ï¼Œå¦‚"IdeaMain.dll"
 	virtual const wchar_t* __stdcall GetModuleName(void);
 
-	// »ñµÃ±¾Î¢¼şÊµÀıÃû£¬ÏµÍ³Æô¶¯Ê±½¨Á¢µÄµÚÒ»¸öÎ¢¼ş½Ğ×ö¡®system¡¯
+	// è·å¾—æœ¬å¾®ä»¶å®ä¾‹åï¼Œç³»ç»Ÿå¯åŠ¨æ—¶å»ºç«‹çš„ç¬¬ä¸€ä¸ªå¾®ä»¶å«åšâ€˜systemâ€™
 	virtual const wchar_t* __stdcall GetInstanceName(void);
 
-	// »ñµÃÎ¢¼şËùÔÚModuleµÄ¹¤³§½Ó¿Ú
+	// è·å¾—å¾®ä»¶æ‰€åœ¨Moduleçš„å·¥å‚æ¥å£
 	virtual IElementFactory* __stdcall GetDefaultFactory(void);
 
-	// »ñµÃÎ¢¼şµÄÊµÀı×¨ÊôÅäÖÃ£»Ò»¸öÎ¢¼şModule¿ÉÒÔÔÚÒ»¸ö½ø³ÌÖĞÍ¬Ê±ÔËĞĞ¶à¸öÊµÀı£¬Óë´ËÍ¬Ê±£¬Ò»Ì¨µçÄÔÉÏ£¬Ã¿Ò»¸öWindowsÓÃ»§ÕÊ»§ÏÂ£¬¶¼¿ÉÒÔÔËĞĞÒ»¸öIdealife½ø³Ì£»
-	//		ËùÒÔĞèÒªÎªÎ¢¼şµÄÃ¿Ò»¸öÔËĞĞÌ¬ÊµÀıÌá¹©Ò»¸ö×¨ÊôÅäÖÃ£¬Ëü¿ÉÒÔ½«ĞèÒª³¤ÆÚ±£´æµÄÉèÖÃÀàĞÅÏ¢´æ·Åµ½Õâ¸ö×¨ÊôÅäÖÃÖĞ
+	// è·å¾—å¾®ä»¶çš„å®ä¾‹ä¸“å±é…ç½®ï¼›ä¸€ä¸ªå¾®ä»¶Moduleå¯ä»¥åœ¨ä¸€ä¸ªè¿›ç¨‹ä¸­åŒæ—¶è¿è¡Œå¤šä¸ªå®ä¾‹ï¼Œä¸æ­¤åŒæ—¶ï¼Œä¸€å°ç”µè„‘ä¸Šï¼Œæ¯ä¸€ä¸ªWindowsç”¨æˆ·å¸æˆ·ä¸‹ï¼Œéƒ½å¯ä»¥è¿è¡Œä¸€ä¸ªIdealifeè¿›ç¨‹ï¼›
+	//		æ‰€ä»¥éœ€è¦ä¸ºå¾®ä»¶çš„æ¯ä¸€ä¸ªè¿è¡Œæ€å®ä¾‹æä¾›ä¸€ä¸ªä¸“å±é…ç½®ï¼Œå®ƒå¯ä»¥å°†éœ€è¦é•¿æœŸä¿å­˜çš„è®¾ç½®ç±»ä¿¡æ¯å­˜æ”¾åˆ°è¿™ä¸ªä¸“å±é…ç½®ä¸­
 	virtual ICfKey* __stdcall GetInstanceConfig(void);
 
-	//»ñÈ¡Î¢¼şÓÃÀ´´æ·ÅÁÙÊ±ÎÄ¼şµÄÄ¿Â¼,·µ»ØµÄµØÖ·²»°üº¬\\½áÎ²,Í¬Ò»¸öµÄÎ¢¼şµÄ²»Í¬ÊµÀıµÃµ½µÄÊÇ²»Í¬µÄÎÄ¼ş¼ĞÂ·¾¶
-	//npswPathÎªÊä³ö»º³åÇø£¬nlBufferLenÎª»º³åÇø³¤¶È£¬BY TCHAR
+	//è·å–å¾®ä»¶ç”¨æ¥å­˜æ”¾ä¸´æ—¶æ–‡ä»¶çš„ç›®å½•,è¿”å›çš„åœ°å€ä¸åŒ…å«\\ç»“å°¾,åŒä¸€ä¸ªçš„å¾®ä»¶çš„ä¸åŒå®ä¾‹å¾—åˆ°çš„æ˜¯ä¸åŒçš„æ–‡ä»¶å¤¹è·¯å¾„
+	//npswPathä¸ºè¾“å‡ºç¼“å†²åŒºï¼ŒnlBufferLenä¸ºç¼“å†²åŒºé•¿åº¦ï¼ŒBY TCHAR
 	virtual bool __stdcall GetInstanceTempPath(OUT wchar_t* npswPath,IN LONG nlBufferLen);
 
-	// »ñµÃÎ¢¼şÊµÀıµÄHome Page
+	// è·å¾—å¾®ä»¶å®ä¾‹çš„Home Page
 	virtual IEinkuiIterator* __stdcall GetHomePage(void);
 
-	// ¹Ø±ÕWidget
+	// å…³é—­Widget
 	virtual void __stdcall Close(void);
 
 private:
 	IElementFactory* mpFactory;
 	IEinkuiIterator* mpHomePage;
 	ICfKey*	mpInstanceConfig;
-	wchar_t* mswModulePath;	// ÓëÏÂÃæµÄÁ½¸ö×Ö·û´®mswName£¬mswInstance¹«ÓÃ»º³åÇø
+	wchar_t* mswModulePath;	// ä¸ä¸‹é¢çš„ä¸¤ä¸ªå­—ç¬¦ä¸²mswNameï¼ŒmswInstanceå…¬ç”¨ç¼“å†²åŒº
 	wchar_t* mswModuleName;
 	wchar_t* mswInstance;
 	bool mbValid;
@@ -52,9 +52,9 @@ private:
 	DEFINE_CUMSTOMIZE_CREATE(CXsWidget,(const wchar_t* nswModulePathName,const wchar_t* nswInstanceName,ICfKey* npInstanceConfig),(nswModulePathName, nswInstanceName,npInstanceConfig))
 
 	ERESULT InitOnCreate(
-		IN const wchar_t* nswModulePathName,	// ¸ÃWidgetµÄÄ£¿éÎÄ¼şµÄÂ·¾¶Ãû£¬¼´ÊµÏÖ´ËWidgetµÄDLLÃû³Æ
-		IN const wchar_t* nswInstanceName,	// ±¾´ÎÔËĞĞµÄÊµÀıÃû£¬ÊµÀıÃû²»ÄÜÏàÍ¬£¬Èç¹û´æÔÚÏàÍ¬µÄÊµÀıÃû£¬ÏµÍ³½«»á·µ»ØÊ§°Ü
-		IN ICfKey* npInstanceConfig	// ±¾ÔËĞĞÊµÀıµÄ×¨ÊôÅäÖÃ
+		IN const wchar_t* nswModulePathName,	// è¯¥Widgetçš„æ¨¡å—æ–‡ä»¶çš„è·¯å¾„åï¼Œå³å®ç°æ­¤Widgetçš„DLLåç§°
+		IN const wchar_t* nswInstanceName,	// æœ¬æ¬¡è¿è¡Œçš„å®ä¾‹åï¼Œå®ä¾‹åä¸èƒ½ç›¸åŒï¼Œå¦‚æœå­˜åœ¨ç›¸åŒçš„å®ä¾‹åï¼Œç³»ç»Ÿå°†ä¼šè¿”å›å¤±è´¥
+		IN ICfKey* npInstanceConfig	// æœ¬è¿è¡Œå®ä¾‹çš„ä¸“å±é…ç½®
 		);
 
 	void SetHomePage(IEinkuiIterator* npHomePage);

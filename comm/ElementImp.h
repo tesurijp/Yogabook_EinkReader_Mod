@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -10,27 +10,27 @@
 
 #if 0
 //////////////////////////////////////////////////////////////////////////
-// ElementÄ£°åµÄÊ¹ÓÃ·½·¨
+// Elementæ¨¡æ¿çš„ä½¿ç”¨æ–¹æ³•
 
-// Í·ÎÄ¼şÖĞ
-DECLARE_BUILTIN_NAME(Button)	// ´Ë´¦µÄButton¾ÍÊÇEType×Ö·û´®£¬×¢Òâ£¬²»ÒªÊ¹ÓÃÒıºÅ
+// å¤´æ–‡ä»¶ä¸­
+DECLARE_BUILTIN_NAME(Button)	// æ­¤å¤„çš„Buttonå°±æ˜¯ETypeå­—ç¬¦ä¸²ï¼Œæ³¨æ„ï¼Œä¸è¦ä½¿ç”¨å¼•å·
 class CEvButton: public CXuiElement<CEvButton,GET_BUILTIN_NAME(Button)>
 {
-	// Èç¹û½«¹¹Ôìº¯ÊıÉè¶¨Îªprotected£¬¾ÍĞèÒª¼ÓÕâ¾ä»°; ·ñÔò£¬²»ĞèÒªÏÂÃæÕâ¾ä
+	// å¦‚æœå°†æ„é€ å‡½æ•°è®¾å®šä¸ºprotectedï¼Œå°±éœ€è¦åŠ è¿™å¥è¯; å¦åˆ™ï¼Œä¸éœ€è¦ä¸‹é¢è¿™å¥
 	friend CXuiElement<CEvButton,GET_BUILTIN_NAME(Button)>;
 public:
 
-	// Ö»ĞèÒªÖØÔØ×Ô¼º¹ØĞÄµÄ·½·¨
+	// åªéœ€è¦é‡è½½è‡ªå·±å…³å¿ƒçš„æ–¹æ³•
 	virtual ERESULT ParseMessage(IEinkuiMessage* npMsg);
 
 protected:
-	CEvButton();		// ¿ÉÒÔ½«¹¹Ôìº¯ÊıÉè¶¨Îª±£»¤ÀàĞÍ£¬È·±£ÊµÀı¶ÔÏóÊÇÍ¨¹ı±ê×¼µÄCreateInstance½¨Á¢£¬¶ø²»ÊÇÖ±½ÓÓÃC++¶¨ÒåµÄ·½·¨½¨Á¢
+	CEvButton();		// å¯ä»¥å°†æ„é€ å‡½æ•°è®¾å®šä¸ºä¿æŠ¤ç±»å‹ï¼Œç¡®ä¿å®ä¾‹å¯¹è±¡æ˜¯é€šè¿‡æ ‡å‡†çš„CreateInstanceå»ºç«‹ï¼Œè€Œä¸æ˜¯ç›´æ¥ç”¨C++å®šä¹‰çš„æ–¹æ³•å»ºç«‹
 	~CEvButton();
 
 };
 
 
-// Ô´ÎÄ¼şÖĞ
+// æºæ–‡ä»¶ä¸­
 DEFINE_BUILTIN_NAME(Button)
 ERESULT CEvButton::ParseMessage(IEinkuiMessage* npMsg)
 {
@@ -43,46 +43,46 @@ ERESULT CEvButton::ParseMessage(IEinkuiMessage* npMsg)
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÊµÏÖElementµÄ¸¨ÖúÄ£°å£¬¿ª·¢ÆäËûElementÊ±£¬¿ÉÒÔ´Ó´ËÄ£°åÊµÀı»¯ÀàÅÉÉúĞÂÀà¡£
+// å®ç°Elementçš„è¾…åŠ©æ¨¡æ¿ï¼Œå¼€å‘å…¶ä»–Elementæ—¶ï¼Œå¯ä»¥ä»æ­¤æ¨¡æ¿å®ä¾‹åŒ–ç±»æ´¾ç”Ÿæ–°ç±»ã€‚
 template<class CClassDeriveTo,const wchar_t* Name>
 class CXuiElement: public cmmBaseObject<CClassDeriveTo,IXsElement,Name>
 {
 public:
-	// »ñµÃ±¾ÔªËØµÄÔªËØÀàĞÍ
+	// è·å¾—æœ¬å…ƒç´ çš„å…ƒç´ ç±»å‹
 	virtual const wchar_t* __stdcall  GetType(void);
 
-	// ÔÚÈ«¾Ö·¶Î§ÄÚÑéÖ¤´Ë¶ÔÏóÊÇ·ñÊÇnswTypeÖ¸¶¨µÄÀàĞÍ
+	// åœ¨å…¨å±€èŒƒå›´å†…éªŒè¯æ­¤å¯¹è±¡æ˜¯å¦æ˜¯nswTypeæŒ‡å®šçš„ç±»å‹
 	virtual bool __stdcall  GlobleVerification(const wchar_t* nswType);
 
-	// Ä¬ÈÏÏûÏ¢Èë¿Úº¯Êı£¬ÓÃÓÚ½ÓÊÕÊäÈëÏûÏ¢
+	// é»˜è®¤æ¶ˆæ¯å…¥å£å‡½æ•°ï¼Œç”¨äºæ¥æ”¶è¾“å…¥æ¶ˆæ¯
 	virtual ERESULT __stdcall MessageReceiver(IEinkuiMessage* npMsg = NULL);
 
-	// »ñµÃ±¾ÔªËØµÄµü´úÆ÷½Ó¿Ú
+	// è·å¾—æœ¬å…ƒç´ çš„è¿­ä»£å™¨æ¥å£
 	virtual IEinkuiIterator* __stdcall GetIterator(void);
 
-	// »ñµÃTab Order, -1 Î´ÉèÖÃ
+	// è·å¾—Tab Order, -1 æœªè®¾ç½®
 	virtual LONG __stdcall GetTabOrder(void);
 
-	// »ñµÃZ Order£¬-1 Î´ÉèÖÃ
+	// è·å¾—Z Orderï¼Œ-1 æœªè®¾ç½®
 	virtual LONG __stdcall GetZOrder(void);
 
-	// ÅÉÉú±¾Àà¼°ÅÉÉú±¾º¯ÊıÊ±£¬ÇëÌØ±ğ×¢Òâ!!! Ò»¶¨ÒªÊ×ÏÈµ÷ÓÃ»ùÀàµÄ·½·¨
-	// ±¾º¯Êı½öÓÃÓÚ½¨Á¢×ÓÔªËØ¶ÔÏó¡¢³õÊ¼»¯×ÔÉíÊı¾İ£¨Î»ÖÃ¡¢´óĞ¡¡¢±³¾°Í¼µÈ£©
+	// æ´¾ç”Ÿæœ¬ç±»åŠæ´¾ç”Ÿæœ¬å‡½æ•°æ—¶ï¼Œè¯·ç‰¹åˆ«æ³¨æ„!!! ä¸€å®šè¦é¦–å…ˆè°ƒç”¨åŸºç±»çš„æ–¹æ³•
+	// æœ¬å‡½æ•°ä»…ç”¨äºå»ºç«‹å­å…ƒç´ å¯¹è±¡ã€åˆå§‹åŒ–è‡ªèº«æ•°æ®ï¼ˆä½ç½®ã€å¤§å°ã€èƒŒæ™¯å›¾ç­‰ï¼‰
 	ULONG InitOnCreate(
-		IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-		IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-		IN ULONG nuEID=MAXULONG32		// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+		IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+		IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+		IN ULONG nuEID=MAXULONG32		// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 		);
 
-	// Í¨¹ıÅäÖÃÊı¾İÊµÀı»¯¶ÔÏó
+	// é€šè¿‡é…ç½®æ•°æ®å®ä¾‹åŒ–å¯¹è±¡
 	static CClassDeriveTo* CreateInstance(IEinkuiIterator* npParent,ICfKey* npTemplete,ULONG nuEID=0) 
-	{		// µ÷ÓÃC++Ä¬ÈÏµÄnew operator¶ø²»ÊÇoperator new²Ù×÷£¬ËüÊ×ÏÈµ¼ÖÂÎÒÃÇÖØÔØµÄvoid* __cdecl operator new(size_t nSize,bool nbDummy)±»µ÷ÓÃ£¬¶øºó»áÈ¥µ÷ÓÃÄ¬ÈÏµÄ¹¹Ôìº¯Êı
+	{		// è°ƒç”¨C++é»˜è®¤çš„new operatorè€Œä¸æ˜¯operator newæ“ä½œï¼Œå®ƒé¦–å…ˆå¯¼è‡´æˆ‘ä»¬é‡è½½çš„void* __cdecl operator new(size_t nSize,bool nbDummy)è¢«è°ƒç”¨ï¼Œè€Œåä¼šå»è°ƒç”¨é»˜è®¤çš„æ„é€ å‡½æ•°
 			CClassDeriveTo* lpObj = new (false)CClassDeriveTo;
 			if(lpObj != NULL)
 			{
-				// ÉèÖÃ±êÖ¾±íÊ¾Õâ¸ö¶ÔÏóµÄÄÚ´æĞèÒª±»ÊÍ·Å
+				// è®¾ç½®æ ‡å¿—è¡¨ç¤ºè¿™ä¸ªå¯¹è±¡çš„å†…å­˜éœ€è¦è¢«é‡Šæ”¾
 				lpObj->SetDeleteRequired();
-				// µ÷ÓÃ³õÊ¼»¯º¯Êı£¬¼ì²é·µ»ØÖµ£¬Èç¹ûÊ§°Ü£¬ÊÍ·Åµô¸Ã¶ÔÏó
+				// è°ƒç”¨åˆå§‹åŒ–å‡½æ•°ï¼Œæ£€æŸ¥è¿”å›å€¼ï¼Œå¦‚æœå¤±è´¥ï¼Œé‡Šæ”¾æ‰è¯¥å¯¹è±¡
 				if((lpObj->InitOnCreate(npParent,npTemplete,nuEID)&0x80000000)!=0)
 				{
 					lpObj->Release();
@@ -91,18 +91,18 @@ public:
 				else
 					lpObj->CompleteCreation();
 			}
-			// ·µ»Ø¹¹ÔìÍê±ÏµÄ¶ÔÏó
+			// è¿”å›æ„é€ å®Œæ¯•çš„å¯¹è±¡
 			return lpObj;
 	}
 
 
-	// ½¨Á¢Íê³Éº¯Êı£¬Ìá¹©Ò»¸öÔÚÅÉÉúÀà½¨Á¢Íê³ÉÖ®¼Êµ÷ÓÃ»ùÀà·½·¨µÄ»ú»á£¬Èç¹û´ÓÄ³¸öÅÉÉúÀà¼ÌĞøÅÉÉúĞÂÀà£¬²¢ÇÒÏ£ÍûÖØÔØÕâ¸ö·½·¨£¬Çë!!!×¢Òâ!!!£¬Ò»¶¨ÒªÔÚÍË³öÖ®Ç°µÄ×îºóÊ±¿Ìµ÷ÓÃ»ùÀàµÄÏàÍ¬·½·¨
+	// å»ºç«‹å®Œæˆå‡½æ•°ï¼Œæä¾›ä¸€ä¸ªåœ¨æ´¾ç”Ÿç±»å»ºç«‹å®Œæˆä¹‹é™…è°ƒç”¨åŸºç±»æ–¹æ³•çš„æœºä¼šï¼Œå¦‚æœä»æŸä¸ªæ´¾ç”Ÿç±»ç»§ç»­æ´¾ç”Ÿæ–°ç±»ï¼Œå¹¶ä¸”å¸Œæœ›é‡è½½è¿™ä¸ªæ–¹æ³•ï¼Œè¯·!!!æ³¨æ„!!!ï¼Œä¸€å®šè¦åœ¨é€€å‡ºä¹‹å‰çš„æœ€åæ—¶åˆ»è°ƒç”¨åŸºç±»çš„ç›¸åŒæ–¹æ³•
 	void CompleteCreation(void){
 		mpIterator->Start();
 	}
 
 private:
-	// ÆÁ±Î»ùÀàÌá¹©µÄÄ¬ÈÏÊµÀı»¯º¯Êı
+	// å±è”½åŸºç±»æä¾›çš„é»˜è®¤å®ä¾‹åŒ–å‡½æ•°
 	static CClassDeriveTo* CreateInstance(){
 		return NULL;
 	} 
@@ -110,139 +110,139 @@ private:
 public:
 
 	//////////////////////////////////////////////////////////////////////////
-	// ÏÂÃæÈı¸öº¯ÊıÊÇÏûÏ¢´¦ÀíµÄÈı¸ö½×¶Î£¬ËûÃÇÊÇÓÉ±¾ÀàµÄCXuiElement::MessageReceiverµ÷ÓÃµÄ£¬Ò»µ©ĞŞ¸ÄÁËÄ¬ÈÏµÄÏûÏ¢½ÓÊÜº¯Êı£¬Çë×ÔĞĞ´¦ÀíÏûÏ¢´¦Àí¹ı³Ì
+	// ä¸‹é¢ä¸‰ä¸ªå‡½æ•°æ˜¯æ¶ˆæ¯å¤„ç†çš„ä¸‰ä¸ªé˜¶æ®µï¼Œä»–ä»¬æ˜¯ç”±æœ¬ç±»çš„CXuiElement::MessageReceiverè°ƒç”¨çš„ï¼Œä¸€æ—¦ä¿®æ”¹äº†é»˜è®¤çš„æ¶ˆæ¯æ¥å—å‡½æ•°ï¼Œè¯·è‡ªè¡Œå¤„ç†æ¶ˆæ¯å¤„ç†è¿‡ç¨‹
 	//////////////////////////////////////////////////////////////////////////
 
-	// ·Ö½âÏûÏ¢Ç°²½Öè£¬Ìá¹©Ò»¸öÔÚÏûÏ¢·Ö½âÇ°»ñµÃÏûÏ¢µÄ»ú»á£¬½öÓÃÓÚĞŞ¸ÄÏûÏ¢ÄÚÈİµÄÄ¿µÄ£»Õâ¸öº¯ÊıµÄ¹æÔòÊÇ£¬Ò»¶¨ÒªÊ×ÏÈµ÷ÓÃ»ùÀàµÄBeforeParseMessage£¬´Ó¶øÈ·±£»ùÀà±£Áô¶ÔÏûÏ¢µÄÓÅÏÈÈ¨£»
-	// Í¨³£Çé¿öÏÂ£¬²»ĞíÒªÖØÔØ±¾º¯Êı£»±¾º¯ÊıµÄÉè¶¨Ä¿µÄÊÇÎªÁËÈ·±£Ä³ÖÖÏûÏ¢µÄ´¦ÀíĞĞÎªÄÜ¹»ÑÓĞøµ½ÅÉÉúÀàÖĞ£¬¶ø²»±»ÅÉÉúÀàĞŞ¸Ä£»
-	// ·µ»ØERESULT_UNEXPECTED_MESSAGE½«¼ÌĞøÏûÏ¢·Ö½â¹ı³Ì£¬ÆäËûÖµ¶¼»áÊ¹µÃÏûÏ¢·Ö½â¹ı³ÌÖĞÖ¹
+	// åˆ†è§£æ¶ˆæ¯å‰æ­¥éª¤ï¼Œæä¾›ä¸€ä¸ªåœ¨æ¶ˆæ¯åˆ†è§£å‰è·å¾—æ¶ˆæ¯çš„æœºä¼šï¼Œä»…ç”¨äºä¿®æ”¹æ¶ˆæ¯å†…å®¹çš„ç›®çš„ï¼›è¿™ä¸ªå‡½æ•°çš„è§„åˆ™æ˜¯ï¼Œä¸€å®šè¦é¦–å…ˆè°ƒç”¨åŸºç±»çš„BeforeParseMessageï¼Œä»è€Œç¡®ä¿åŸºç±»ä¿ç•™å¯¹æ¶ˆæ¯çš„ä¼˜å…ˆæƒï¼›
+	// é€šå¸¸æƒ…å†µä¸‹ï¼Œä¸è®¸è¦é‡è½½æœ¬å‡½æ•°ï¼›æœ¬å‡½æ•°çš„è®¾å®šç›®çš„æ˜¯ä¸ºäº†ç¡®ä¿æŸç§æ¶ˆæ¯çš„å¤„ç†è¡Œä¸ºèƒ½å¤Ÿå»¶ç»­åˆ°æ´¾ç”Ÿç±»ä¸­ï¼Œè€Œä¸è¢«æ´¾ç”Ÿç±»ä¿®æ”¹ï¼›
+	// è¿”å›ERESULT_UNEXPECTED_MESSAGEå°†ç»§ç»­æ¶ˆæ¯åˆ†è§£è¿‡ç¨‹ï¼Œå…¶ä»–å€¼éƒ½ä¼šä½¿å¾—æ¶ˆæ¯åˆ†è§£è¿‡ç¨‹ä¸­æ­¢
 	virtual ERESULT BeforeParseMessage(IEinkuiMessage* npMsg);
 
-	// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-	// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+	// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+	// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 	virtual ERESULT ParseMessage(IEinkuiMessage* npMsg);
 
-	// ·Ö½âÏûÏ¢ºó²½Öè£¬Ìá¹©Ò»¸öÔÚÏûÏ¢´¦ÀíÍê±ÏºóÖ´ĞĞµÄ»ú»á£¬Í¨³£ÓÃÓÚ¼à¿ØÏûÏ¢µÄ½á¹û»òÔò²úÉúºóĞøĞĞÎª£»Õâ¸öº¯ÊıµÄµ÷ÓÃ¹æÔòÊÇ£¬Ò»¶¨Òª×îºóµ÷ÓÃ»ùÀàµÄÊµÏÖ£¬´Ó¶øÈ·±£»ùÀà×îºóÖ´ĞĞ
-	// Í¨³£Çé¿öÏÂ£¬²»ĞíÒªÖØÔØ±¾º¯Êı£»±¾º¯ÊıµÄÉè¶¨Ä¿µÄÊÇÎªÁËÈ·±£Ä³ÖÖÏûÏ¢µÄ´¦ÀíĞĞÎªÄÜ¹»ÑÓĞøµ½ÅÉÉúÀàÖĞ£¬ÔÚÅÉÉúÀàÖ®ºóÖ´ĞĞ£»
-	// ÈçÎŞÌØ¶¨Ä¿µÄ£¬²»Ó¦¸ÃĞŞ¸Äº¯ÊıµÄÏûÏ¢´¦ÀíµÄ·µ»ØÖµ£¬¸Ã·µ»ØÖµ´æ·ÅÔÚnpMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ;±¾º¯Êı²»Éè·µ»ØÖµ
+	// åˆ†è§£æ¶ˆæ¯åæ­¥éª¤ï¼Œæä¾›ä¸€ä¸ªåœ¨æ¶ˆæ¯å¤„ç†å®Œæ¯•åæ‰§è¡Œçš„æœºä¼šï¼Œé€šå¸¸ç”¨äºç›‘æ§æ¶ˆæ¯çš„ç»“æœæˆ–åˆ™äº§ç”Ÿåç»­è¡Œä¸ºï¼›è¿™ä¸ªå‡½æ•°çš„è°ƒç”¨è§„åˆ™æ˜¯ï¼Œä¸€å®šè¦æœ€åè°ƒç”¨åŸºç±»çš„å®ç°ï¼Œä»è€Œç¡®ä¿åŸºç±»æœ€åæ‰§è¡Œ
+	// é€šå¸¸æƒ…å†µä¸‹ï¼Œä¸è®¸è¦é‡è½½æœ¬å‡½æ•°ï¼›æœ¬å‡½æ•°çš„è®¾å®šç›®çš„æ˜¯ä¸ºäº†ç¡®ä¿æŸç§æ¶ˆæ¯çš„å¤„ç†è¡Œä¸ºèƒ½å¤Ÿå»¶ç»­åˆ°æ´¾ç”Ÿç±»ä¸­ï¼Œåœ¨æ´¾ç”Ÿç±»ä¹‹åæ‰§è¡Œï¼›
+	// å¦‚æ— ç‰¹å®šç›®çš„ï¼Œä¸åº”è¯¥ä¿®æ”¹å‡½æ•°çš„æ¶ˆæ¯å¤„ç†çš„è¿”å›å€¼ï¼Œè¯¥è¿”å›å€¼å­˜æ”¾åœ¨npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­;æœ¬å‡½æ•°ä¸è®¾è¿”å›å€¼
 	virtual void AfterParseMessage(IEinkuiMessage* npMsg);
 	
-	//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+	//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 	virtual ERESULT OnElementCreate(IEinkuiIterator* npIterator);
 
-	// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-	// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓĞÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+	// é”€æ¯å…ƒç´ ï¼Œç”¨äºé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+	// ä»è€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€Œåå†å°†è‡ªå·±ä»å…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 	virtual ERESULT OnElementDestroy();
 
-	// Êó±êÂäµã¼ì²â
+	// é¼ æ ‡è½ç‚¹æ£€æµ‹
 	virtual ERESULT OnMouseOwnerTest(const D2D1_POINT_2F& rPoint);
 
-	//°´Å¥µ¥»÷ÊÂ¼ş
+	//æŒ‰é’®å•å‡»äº‹ä»¶
 	virtual ERESULT OnCtlButtonClick(IEinkuiIterator* npSender);
 
-	//ÔªËØÎ»ÖÃ±»¸Ä±ä,ÒÑ¾­¸Ä±äÍê³É
+	//å…ƒç´ ä½ç½®è¢«æ”¹å˜,å·²ç»æ”¹å˜å®Œæˆ
 	virtual ERESULT OnElementMoved(D2D1_POINT_2F nNewPoint);
 
-	//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+	//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 	virtual ERESULT OnElementResized(D2D1_SIZE_F nNewSize);
 
-	//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òş²Ø¡¿·¢Éú¸Ä±ä
+	//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 	virtual ERESULT OnElementShow(bool nbIsShow);
 
-	//¶¨Ê±Æ÷
+	//å®šæ—¶å™¨
 	virtual void OnTimer(
 		PSTEMS_TIMER npStatus
 		);
 
-	// ÂıË¢ĞÂ
+	// æ…¢åˆ·æ–°
 	virtual void OnLazyUpdate(
 		PSTEMG_LAZY_UPDATE npLazyUpdate
 		);
 
-	//ÓÃÓÚ×ª·¢±»HookµÄÏûÏ¢
-	virtual ERESULT OnHookMessage(IEinkuiIterator* npOriginalElement,	// Ô­Ê¼µÄÏûÏ¢½ÓÊÜÔªËØ
-								  IEinkuiMessage* npOriginalMessage		// ±»²¶»ñµÄÏûÏ¢
+	//ç”¨äºè½¬å‘è¢«Hookçš„æ¶ˆæ¯
+	virtual ERESULT OnHookMessage(IEinkuiIterator* npOriginalElement,	// åŸå§‹çš„æ¶ˆæ¯æ¥å—å…ƒç´ 
+								  IEinkuiMessage* npOriginalMessage		// è¢«æ•è·çš„æ¶ˆæ¯
 								 );
 
-	//·´À¡ÏûÏ¢
-	virtual ERESULT OnResponseMessage(IEinkuiIterator* npOriginalElement,	// Ô­Ê¼ÏûÏ¢µÄ½ÓÊÜÔªËØ
-									  IEinkuiMessage* npOriginalMessage,		// ±»·´À¡µÄÏûÏ¢
-									  void* npContext					// ÉèÖÃÏûÏ¢·´À¡Ê±£¬Ö¸¶¨µÄÉÏÏÂÎÄ
+	//åé¦ˆæ¶ˆæ¯
+	virtual ERESULT OnResponseMessage(IEinkuiIterator* npOriginalElement,	// åŸå§‹æ¶ˆæ¯çš„æ¥å—å…ƒç´ 
+									  IEinkuiMessage* npOriginalMessage,		// è¢«åé¦ˆçš„æ¶ˆæ¯
+									  void* npContext					// è®¾ç½®æ¶ˆæ¯åé¦ˆæ—¶ï¼ŒæŒ‡å®šçš„ä¸Šä¸‹æ–‡
 									 );
 
-	//Êó±ê°´ÏÂ
+	//é¼ æ ‡æŒ‰ä¸‹
 	virtual ERESULT OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo);
 
-	//Êó±êË«»÷
+	//é¼ æ ‡åŒå‡»
 	virtual ERESULT OnMouseDbClick(const STEMS_MOUSE_BUTTON* npInfo);
 
-	//Êó±êÒÆ¶¯
+	//é¼ æ ‡ç§»åŠ¨
 	virtual ERESULT OnMouseMoving(const STEMS_MOUSE_MOVING* npInfo);
 
-	//Êó±ê½øÈë»òÀë¿ª
+	//é¼ æ ‡è¿›å…¥æˆ–ç¦»å¼€
 	virtual void OnMouseFocus(PSTEMS_STATE_CHANGE npState);
 
-	//Êó±êĞüÍ£
+	//é¼ æ ‡æ‚¬åœ
 	virtual ERESULT OnMouseHover();
 
-	//Êó±ê»¬ÂÖ
+	//é¼ æ ‡æ»‘è½®
 	virtual ERESULT OnMouseWheel(const STEMS_MOUSE_WHEEL* npInfo);
 
-	//¼üÅÌ½¹µã»ñµÃ»òÕßÊ§È¥
+	//é”®ç›˜ç„¦ç‚¹è·å¾—æˆ–è€…å¤±å»
 	virtual void OnKeyBoardFocus(PSTEMS_STATE_CHANGE npState);
 
-	//¼üÅÌÏûÏ¢
+	//é”®ç›˜æ¶ˆæ¯
 	virtual ERESULT OnKeyPressed(const STEMS_KEY_PRESSED* npInfo);
 
-	//¿ì½İ¼üÏûÏ¢
+	//å¿«æ·é”®æ¶ˆæ¯
 	virtual ERESULT OnHotKey(const STEMS_HOTKEY* npHotKey);
 
-	//»æÖÆÏûÏ¢
+	//ç»˜åˆ¶æ¶ˆæ¯
 	virtual ERESULT OnPaint(IEinkuiPaintBoard* npPaintBoard);
 
-	//½ûÓÃ»òÆôÓÃ
+	//ç¦ç”¨æˆ–å¯ç”¨
 	virtual ERESULT OnElementEnable(bool nbIsEnable);
 
-	//ÔªËØÍÏ×§
+	//å…ƒç´ æ‹–æ‹½
 	virtual ERESULT OnDragging(const STMS_DRAGGING_ELE* npInfo);
 
-	//ÍÏ×§¿ªÊ¼
+	//æ‹–æ‹½å¼€å§‹
 	virtual ERESULT OnDragBegin(const STMS_DRAGGING_ELE* npInfo);
 
-	//ÍÏ×§½áÊø
+	//æ‹–æ‹½ç»“æŸ
 	virtual ERESULT OnDragEnd(const STMS_DRAGGING_ELE* npInfo);
 
-	//ÃüÁî
+	//å‘½ä»¤
 	virtual ERESULT OnCommand(const nes_command::ESCOMMAND neCmd);
 
-	////¸ø×Ô¼º¸¸´°¿Ú·¢ËÍ¼òµ¥ÏûÏ¢
+	////ç»™è‡ªå·±çˆ¶çª—å£å‘é€ç®€å•æ¶ˆæ¯
 	//ERESULT __stdcall PostMessageToParent(
-	//	IN ULONG nuMsgID,		// ÏûÏ¢±àÂë
-	//	IN void* npInputBuffer,	// ÊäÈëÊı¾İµÄ»º³åÇø
-	//	IN int niInputSize		// ÊäÈëÊı¾İµÄ´óĞ¡
+	//	IN ULONG nuMsgID,		// æ¶ˆæ¯ç¼–ç 
+	//	IN void* npInputBuffer,	// è¾“å…¥æ•°æ®çš„ç¼“å†²åŒº
+	//	IN int niInputSize		// è¾“å…¥æ•°æ®çš„å¤§å°
 	//	);
 
-	// PostÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒÖ±½Ó·¢ËÍĞ¯´øµÄ²ÎÊı£¬×¢Òâ£¬Èç¹û²ÎÊıÊÇÒ»¸öÖ¸Õë£¬ÔòÖ»»á¸´ÖÆ´«µİÖ¸Õë£¨Ò»¸öµØÖ·£©±¾Éí£¬¶ø²»»á¸´ÖÆ´«µİÖ¸ÕëÖ¸ÏòµÄÄÚÈİ£¬Post·¢ËÍÏûÏ¢ĞèÒª×¢ÒâÕâ¸öÎÊÌâ£¬·ÀÖ¹µØÖ·µ½ÏûÏ¢½ÓÊÕÕß³öÎŞ·¨·ÃÎÊ¡£
-	// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid;
+	// Postæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”ç›´æ¥å‘é€æºå¸¦çš„å‚æ•°ï¼Œæ³¨æ„ï¼Œå¦‚æœå‚æ•°æ˜¯ä¸€ä¸ªæŒ‡é’ˆï¼Œåˆ™åªä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆï¼ˆä¸€ä¸ªåœ°å€ï¼‰æœ¬èº«ï¼Œè€Œä¸ä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆæŒ‡å‘çš„å†…å®¹ï¼ŒPostå‘é€æ¶ˆæ¯éœ€è¦æ³¨æ„è¿™ä¸ªé—®é¢˜ï¼Œé˜²æ­¢åœ°å€åˆ°æ¶ˆæ¯æ¥æ”¶è€…å‡ºæ— æ³•è®¿é—®ã€‚
+	// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid;
 	template<typename DataType>
 	ERESULT PostMessageToParent(ULONG nuMsgID,const DataType& rDataToPost);
 
-	// SendÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒÖ±½Ó·¢ËÍĞ¯´øµÄ²ÎÊı£¬×¢Òâ£¬Èç¹û²ÎÊıÊÇÒ»¸öÖ¸Õë£¬ÔòÖ»»á¸´ÖÆ´«µİÖ¸Õë£¨Ò»¸öµØÖ·£©±¾Éí£¬¶ø²»»á¸´ÖÆ´«µİÖ¸ÕëÖ¸ÏòµÄÄÚÈİ£¬SendÄ£Ê½·¢ËÍÏûÏ¢Ê±£¬Õâ²»»áµ¼ÖÂÌØÊâÎÊÌâ
-	// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid
+	// Sendæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”ç›´æ¥å‘é€æºå¸¦çš„å‚æ•°ï¼Œæ³¨æ„ï¼Œå¦‚æœå‚æ•°æ˜¯ä¸€ä¸ªæŒ‡é’ˆï¼Œåˆ™åªä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆï¼ˆä¸€ä¸ªåœ°å€ï¼‰æœ¬èº«ï¼Œè€Œä¸ä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆæŒ‡å‘çš„å†…å®¹ï¼ŒSendæ¨¡å¼å‘é€æ¶ˆæ¯æ—¶ï¼Œè¿™ä¸ä¼šå¯¼è‡´ç‰¹æ®Šé—®é¢˜
+	// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid
 	template<typename DataType>
 	ERESULT SendMessageToParent(ULONG nuMsgID,const DataType& rDateForSend,void* npBufferForReceive,int niBytesOfBuffer);
 
-	//´´½¨×Ô¼ºËùÓĞµÄ×ÓÔªËØ
+	//åˆ›å»ºè‡ªå·±æ‰€æœ‰çš„å­å…ƒç´ 
 	virtual ERESULT LoadSubElement();
 
 protected:
-	ICfKey* mpTemplete;			     //ÅäÖÃÎÄ¼şÖ¸Õë£¬ÓÃÀ´¶ÁÈ¡ÅäÖÃÊı¾İ
+	ICfKey* mpTemplete;			     //é…ç½®æ–‡ä»¶æŒ‡é’ˆï¼Œç”¨æ¥è¯»å–é…ç½®æ•°æ®
 	IEinkuiIterator* mpIterator;
-	IEinkuiBitmap* mpBgBitmap;			 //Ä¬ÈÏ±³¾°
-	HCURSOR mhPreviousCursor;		//ÔÚÊó±ê½øÈë×Ô¼ºÇ°µÄ×´Ì¬
-	HCURSOR mhInnerCursor;			//±¾ÔªËØÄÚÓÃµÄCursor
+	IEinkuiBitmap* mpBgBitmap;			 //é»˜è®¤èƒŒæ™¯
+	HCURSOR mhPreviousCursor;		//åœ¨é¼ æ ‡è¿›å…¥è‡ªå·±å‰çš„çŠ¶æ€
+	HCURSOR mhInnerCursor;			//æœ¬å…ƒç´ å†…ç”¨çš„Cursor
 
-	// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓĞ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖĞ½øĞĞ
+	// åªç”¨äºå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 	CXuiElement()
 	{
 		mpTemplete = NULL;
@@ -252,7 +252,7 @@ protected:
 		mhInnerCursor = NULL;
 	}
 
-	// ÓÃÓÚÊÍ·Å³ÉÔ±¶ÔÏó
+	// ç”¨äºé‡Šæ”¾æˆå‘˜å¯¹è±¡
 	~CXuiElement()
 	{
 		//CMMASSERT(mpTemplete!=NULL);
@@ -260,33 +260,33 @@ protected:
 	}
 
 	
-	// ÉèÖÃÎ»±êÖ¾£»¿ÉÒÔ 0 - 28
+	// è®¾ç½®ä½æ ‡å¿—ï¼›å¯ä»¥ 0 - 28
 	bool SetFlags(
-		int niIndex,		// ±êÖ¾µÄĞòºÅ£¬´Ó0¿ªÊ¼£»Èç¹ûÅÉÉúÀàÖØÔØÕâ¸öº¯Êı£¬²¢ÇÒ¸ÃÅÉÉúÀàÓĞ2¸ö²»Ï£Íû±»ºóĞøÀàºÍÓÃ»§ĞŞ¸ÄµÄ±êÖ¾£¬ÄÇÃ´ËüµÄº¯Êıµ÷ÓÃÊ±µÄniIndex=0±íÊ¾µÄÊÇËüµÄ»ùÀàµÄ2
-		bool nbSet		// ÉèÖÃ»òÕßÇå³ı±êÖ¾
+		int niIndex,		// æ ‡å¿—çš„åºå·ï¼Œä»0å¼€å§‹ï¼›å¦‚æœæ´¾ç”Ÿç±»é‡è½½è¿™ä¸ªå‡½æ•°ï¼Œå¹¶ä¸”è¯¥æ´¾ç”Ÿç±»æœ‰2ä¸ªä¸å¸Œæœ›è¢«åç»­ç±»å’Œç”¨æˆ·ä¿®æ”¹çš„æ ‡å¿—ï¼Œé‚£ä¹ˆå®ƒçš„å‡½æ•°è°ƒç”¨æ—¶çš„niIndex=0è¡¨ç¤ºçš„æ˜¯å®ƒçš„åŸºç±»çš„2
+		bool nbSet		// è®¾ç½®æˆ–è€…æ¸…é™¤æ ‡å¿—
 		) {
 		return cmmBaseObject::SetFlags(niIndex+2,nbSet);
 	}
 
-	// »ñÈ¡±êÖ¾
+	// è·å–æ ‡å¿—
 	bool TestFlag(int niIndex){
 		return cmmBaseObject::TestFlag(niIndex+2);
 	}
 
 };
 
-#define TF_ID_ELEMENT_BACKGROUND L"BackGround"			//Ä¬ÈÏ±³¾°Í¼
-#define TF_ID_ELEMENT_X L"X"							//X×ø±ê
-#define TF_ID_ELEMENT_Y L"Y"							//Y×ø±ê
-#define TF_ID_ELEMENT_WIDTH L"Width"					//²Î¿¼¿í
-#define TF_ID_ELEMENT_HEIGHT L"Height"					//²Î¿¼¸ß
-#define TF_ID_ELEMENT_EXTEND_X L"BackGround/ExtendX"				//ºáÏòÑÓÕ¹Ïß
-#define TF_ID_ELEMENT_EXTEND_Y L"BackGround/ExtendY"				//×İÏòÑÓÕ¹Ïß
+#define TF_ID_ELEMENT_BACKGROUND L"BackGround"			//é»˜è®¤èƒŒæ™¯å›¾
+#define TF_ID_ELEMENT_X L"X"							//Xåæ ‡
+#define TF_ID_ELEMENT_Y L"Y"							//Yåæ ‡
+#define TF_ID_ELEMENT_WIDTH L"Width"					//å‚è€ƒå®½
+#define TF_ID_ELEMENT_HEIGHT L"Height"					//å‚è€ƒé«˜
+#define TF_ID_ELEMENT_EXTEND_X L"BackGround/ExtendX"				//æ¨ªå‘å»¶å±•çº¿
+#define TF_ID_ELEMENT_EXTEND_Y L"BackGround/ExtendY"				//çºµå‘å»¶å±•çº¿
 
 
 
 //////////////////////////////////////////////////////////////////////////
-// ½«µü´úÆ÷×ª»»ÎªÔªËØÀà£¬!!!×¢Òâ!!!Ö»ÄÜ×ª»»Îª±¾Ä£¿éÄÚÊµÏÖµÄÔªËØÀà(±¾Ä£¿é¼´Í¬Ò»¸öDLL)£¬¾ø¶Ô²»ÄÜÈ¥ÊÔÍ¼Ö±½Ó·ÃÎÊÆäËûÄ£¿éÊµÏÖµÄÔªËØÀàµÄ·½·¨£¬¶ÔÆäËûÔªËØÀàµÄ·ÃÎÊÒ»ÂÉÊ¹ÓÃÏûÏ¢Ä£ĞÍ¡£
+// å°†è¿­ä»£å™¨è½¬æ¢ä¸ºå…ƒç´ ç±»ï¼Œ!!!æ³¨æ„!!!åªèƒ½è½¬æ¢ä¸ºæœ¬æ¨¡å—å†…å®ç°çš„å…ƒç´ ç±»(æœ¬æ¨¡å—å³åŒä¸€ä¸ªDLL)ï¼Œç»å¯¹ä¸èƒ½å»è¯•å›¾ç›´æ¥è®¿é—®å…¶ä»–æ¨¡å—å®ç°çš„å…ƒç´ ç±»çš„æ–¹æ³•ï¼Œå¯¹å…¶ä»–å…ƒç´ ç±»çš„è®¿é—®ä¸€å¾‹ä½¿ç”¨æ¶ˆæ¯æ¨¡å‹ã€‚
 template <typename Type>
 __inline 
 void EsIterator2Element(IEinkuiIterator* npIterator, const wchar_t* nswEType,Type& rElementPointer){
@@ -302,7 +302,7 @@ void EsIterator2Element(IEinkuiIterator* npIterator, const wchar_t* nswEType,Typ
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÏÂÃæÊÇEelementÄ£°åµÄº¯ÊıÊµÏÖ
+// ä¸‹é¢æ˜¯Eelementæ¨¡æ¿çš„å‡½æ•°å®ç°
 
 template<class CClassDeriveTo,const wchar_t* Name>
 const wchar_t* CXuiElement<CClassDeriveTo,Name>::GetType(void)
@@ -310,14 +310,14 @@ const wchar_t* CXuiElement<CClassDeriveTo,Name>::GetType(void)
 	return GetObjectName();
 }
 
-// ÔÚÈ«¾Ö·¶Î§ÄÚÑéÖ¤´Ë¶ÔÏóÊÇ·ñÊÇnswTypeÖ¸¶¨µÄÀàĞÍ
+// åœ¨å…¨å±€èŒƒå›´å†…éªŒè¯æ­¤å¯¹è±¡æ˜¯å¦æ˜¯nswTypeæŒ‡å®šçš„ç±»å‹
 template<class CClassDeriveTo,const wchar_t* Name>
 bool CXuiElement<CClassDeriveTo,Name>::GlobleVerification(const wchar_t* nswType)
 {
 	return (_wcsicmp(nswType,GetObjectName())==0);
 }
 
-// Ä¬ÈÏÏûÏ¢Èë¿Úº¯Êı£¬ÓÃÓÚ½ÓÊÕÊäÈëÏûÏ¢
+// é»˜è®¤æ¶ˆæ¯å…¥å£å‡½æ•°ï¼Œç”¨äºæ¥æ”¶è¾“å…¥æ¶ˆæ¯
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT __stdcall CXuiElement<CClassDeriveTo,Name>::MessageReceiver(IEinkuiMessage* npMsg)
 {
@@ -325,36 +325,36 @@ ERESULT __stdcall CXuiElement<CClassDeriveTo,Name>::MessageReceiver(IEinkuiMessa
 
 	try
 	{
-		// µ÷ÓÃÏûÏ¢Ô¤´¦Àí
+		// è°ƒç”¨æ¶ˆæ¯é¢„å¤„ç†
 		luResult = BeforeParseMessage(npMsg);
 		if(luResult != ERESULT_UNEXPECTED_MESSAGE)
-			THROW_FALSE;	// ÖĞÖ¹ÏûÏ¢·Ö½â¹ı³Ì
+			THROW_FALSE;	// ä¸­æ­¢æ¶ˆæ¯åˆ†è§£è¿‡ç¨‹
 
 		luResult = ParseMessage(npMsg);
 
-		// ÉèÖÃÏûÏ¢·µ»ØÖµ
+		// è®¾ç½®æ¶ˆæ¯è¿”å›å€¼
 		npMsg->SetResult(luResult);
 
-		// µ÷ÓÃºó´¦Àí¹ı³Ì
+		// è°ƒç”¨åå¤„ç†è¿‡ç¨‹
 		AfterParseMessage(npMsg);
 	}
 	catch (...)
 	{
 		luResult = ERESULT_UNSUCCESSFUL;
-		// ÉèÖÃÏûÏ¢·µ»ØÖµ
+		// è®¾ç½®æ¶ˆæ¯è¿”å›å€¼
 		npMsg->SetResult(luResult);
 	}
 
 	return luResult;
 }
 
-// ÅÉÉú±¾Àà¼°ÅÉÉú±¾º¯ÊıÊ±£¬ÇëÌØ±ğ×¢Òâ!!! Ò»¶¨ÒªÊ×ÏÈµ÷ÓÃ»ùÀàµÄ·½·¨
-// ±¾º¯Êı½öÓÃÓÚ½¨Á¢×ÓÔªËØ¶ÔÏó¡¢³õÊ¼»¯×ÔÉíÊı¾İ£¨Î»ÖÃ¡¢´óĞ¡¡¢±³¾°Í¼µÈ£©
+// æ´¾ç”Ÿæœ¬ç±»åŠæ´¾ç”Ÿæœ¬å‡½æ•°æ—¶ï¼Œè¯·ç‰¹åˆ«æ³¨æ„!!! ä¸€å®šè¦é¦–å…ˆè°ƒç”¨åŸºç±»çš„æ–¹æ³•
+// æœ¬å‡½æ•°ä»…ç”¨äºå»ºç«‹å­å…ƒç´ å¯¹è±¡ã€åˆå§‹åŒ–è‡ªèº«æ•°æ®ï¼ˆä½ç½®ã€å¤§å°ã€èƒŒæ™¯å›¾ç­‰ï¼‰
 template<class CClassDeriveTo,const wchar_t* Name>
 ULONG CXuiElement<CClassDeriveTo,Name>::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -366,12 +366,12 @@ ULONG CXuiElement<CClassDeriveTo,Name>::InitOnCreate(
 
 		mpTemplete = npTemplete;
 
-		// !!!±ØĞë!!! Ê×ÏÈÏòÏµÍ³×¢²á×Ô¼º
-		mpIterator = EinkuiGetSystem()->GetElementManager()->RegisterElement(npParent,this,nuEID);	//IDÎª0±íÊ¾ÇëÇó×Ô¶¯·ÖÅä
+		// !!!å¿…é¡»!!! é¦–å…ˆå‘ç³»ç»Ÿæ³¨å†Œè‡ªå·±
+		mpIterator = EinkuiGetSystem()->GetElementManager()->RegisterElement(npParent,this,nuEID);	//IDä¸º0è¡¨ç¤ºè¯·æ±‚è‡ªåŠ¨åˆ†é…
 		if(mpIterator == NULL)
 			break;
 
-		//ÉèÖÃ×Ô¼ºµÄ·ç¸ñ
+		//è®¾ç½®è‡ªå·±çš„é£æ ¼
 		mpIterator->SetStyles(EITR_STYLE_MOUSE);
 
 		ICfKey* lpBgBitmapKey = NULL;
@@ -383,40 +383,40 @@ ULONG CXuiElement<CClassDeriveTo,Name>::InitOnCreate(
 
 			mpTemplete->AddRefer();
 
-			//ÕâÀïÃæµÄÉèÖÃ£¬¾ÍËã²»³É¹¦Ò²²»Ó°ÏìÔªËØµÄ´´½¨
-			//ÉèÖÃÔªËØ×ø±ê
+			//è¿™é‡Œé¢çš„è®¾ç½®ï¼Œå°±ç®—ä¸æˆåŠŸä¹Ÿä¸å½±å“å…ƒç´ çš„åˆ›å»º
+			//è®¾ç½®å…ƒç´ åæ ‡
 			LONG llPosX = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ELEMENT_X,MAXUINT32);
 			LONG llPosY = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ELEMENT_Y,MAXUINT32);
 			if(llPosX != MAXUINT32 && llPosY != MAXUINT32)
 				mpIterator->SetPosition((FLOAT)llPosX,(FLOAT)llPosY);
 
-			//¶ÁÈ¡²Î¿¼³ß´çÉèÖÃ
+			//è¯»å–å‚è€ƒå°ºå¯¸è®¾ç½®
 			llWidth = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ELEMENT_WIDTH,MAXUINT32);
 			llHeight = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ELEMENT_HEIGHT,MAXUINT32);
 			if (llWidth != MAXUINT32 && llHeight != MAXUINT32 )
 				mpIterator->SetSize((FLOAT)llWidth,(FLOAT)llHeight);
 			
-			//×°ÈëÄ¬ÈÏ±³¾°
+			//è£…å…¥é»˜è®¤èƒŒæ™¯
 			wchar_t lszPath[MAX_PATH] = {0};
 			lpBgBitmapKey = mpTemplete->GetSubKey(TF_ID_ELEMENT_BACKGROUND);
 			BREAK_ON_NULL(lpBgBitmapKey);
-			if(lpBgBitmapKey->GetValue(lszPath,MAX_PATH*sizeof(wchar_t)) <= 0)	//¶ÁÈ¡Í¼Æ¬Ãû³Æ
+			if(lpBgBitmapKey->GetValue(lszPath,MAX_PATH*sizeof(wchar_t)) <= 0)	//è¯»å–å›¾ç‰‡åç§°
 				break;
 
 			mpBgBitmap = EinkuiGetSystem()->GetAllocator()->LoadImageFile(lszPath,lszPath[0] == L'.'?false:true);
 			BREAK_ON_NULL(mpBgBitmap);
 
-			//ÉèÖÃÑÓÕ¹Ïß,0±íÊ¾Î´ÉèÖÃ£¬-1±íÊ¾Ê¹ÓÃÖĞÏß×÷ÎªÑÓÕ¹Ïß
+			//è®¾ç½®å»¶å±•çº¿,0è¡¨ç¤ºæœªè®¾ç½®ï¼Œ-1è¡¨ç¤ºä½¿ç”¨ä¸­çº¿ä½œä¸ºå»¶å±•çº¿
 			mpBgBitmap->SetExtendLine(mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ELEMENT_EXTEND_X,0),mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ELEMENT_EXTEND_Y,0));
 
-			// Èç¹ûÄ£°åÖĞÃ»ÓĞÖ¸¶¨²Î¿¼³ß´ç£¬ÄÇÃ´´Ó±³¾°Í¼ÖĞÌáÈ¡²Î¿¼³ß´ç
+			// å¦‚æœæ¨¡æ¿ä¸­æ²¡æœ‰æŒ‡å®šå‚è€ƒå°ºå¯¸ï¼Œé‚£ä¹ˆä»èƒŒæ™¯å›¾ä¸­æå–å‚è€ƒå°ºå¯¸
 			if (llWidth == MAXUINT32 || llHeight == MAXUINT32 )
 			{
-				//Èç¹ûÃ»ÓĞÉèÖÃ²Î¿¼³ß´ç£¬¾ÍÒÔÍ¼Æ¬´óĞ¡Îª²Î¿¼³ß´ç
+				//å¦‚æœæ²¡æœ‰è®¾ç½®å‚è€ƒå°ºå¯¸ï¼Œå°±ä»¥å›¾ç‰‡å¤§å°ä¸ºå‚è€ƒå°ºå¯¸
 				llWidth = (LONG)mpBgBitmap->GetWidth();
 				llHeight = (LONG)mpBgBitmap->GetHeight();
 
-				//ÉèÖÃ²Î¿¼³ß´ç
+				//è®¾ç½®å‚è€ƒå°ºå¯¸
 				if(llWidth != 0 && llHeight != 0)
 					mpIterator->SetSize((FLOAT)llWidth,(FLOAT)llHeight);
 			}
@@ -424,23 +424,23 @@ ULONG CXuiElement<CClassDeriveTo,Name>::InitOnCreate(
 
 		CMM_SAFE_RELEASE(lpBgBitmapKey);
 
-		lResult = LoadSubElement();	//´´½¨ÆäËü×ÓÔªËØ
+		lResult = LoadSubElement();	//åˆ›å»ºå…¶å®ƒå­å…ƒç´ 
 
 	}while(false);
 
 
-	//´´½¨ËùÓĞ×ÓÔªËØ
+	//åˆ›å»ºæ‰€æœ‰å­å…ƒç´ 
 	return lResult;
 }
 
-// »ñµÃ±¾ÔªËØµÄµü´úÆ÷½Ó¿Ú
+// è·å¾—æœ¬å…ƒç´ çš„è¿­ä»£å™¨æ¥å£
 template<class CClassDeriveTo,const wchar_t* Name>
 IEinkuiIterator* __stdcall CXuiElement<CClassDeriveTo,Name>::GetIterator(void)
 {
 	return mpIterator;
 }
 
-// »ñµÃTab Order, -1 Î´ÉèÖÃ
+// è·å¾—Tab Order, -1 æœªè®¾ç½®
 template<class CClassDeriveTo,const wchar_t* Name>
 LONG __stdcall CXuiElement<CClassDeriveTo,Name>::GetTabOrder(void)
 {
@@ -453,7 +453,7 @@ LONG __stdcall CXuiElement<CClassDeriveTo,Name>::GetTabOrder(void)
 	return llOrder;
 }
 
-// »ñµÃZ Order£¬-1 Î´ÉèÖÃ
+// è·å¾—Z Orderï¼Œ-1 æœªè®¾ç½®
 template<class CClassDeriveTo,const wchar_t* Name>
 LONG __stdcall CXuiElement<CClassDeriveTo,Name>::GetZOrder(void)
 {
@@ -468,71 +468,71 @@ LONG __stdcall CXuiElement<CClassDeriveTo,Name>::GetZOrder(void)
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÏÂÃæÈı¸öº¯ÊıÊÇÏûÏ¢´¦ÀíµÄÈı¸ö½×¶Î£¬ËûÃÇÊÇÓÉ±¾ÀàµÄCXuiElement::MessageReceiverµ÷ÓÃµÄ£¬Ò»µ©ĞŞ¸ÄÁËÄ¬ÈÏµÄÏûÏ¢½ÓÊÜº¯Êı£¬Çë×ÔĞĞ´¦ÀíÏûÏ¢´¦Àí¹ı³Ì
+// ä¸‹é¢ä¸‰ä¸ªå‡½æ•°æ˜¯æ¶ˆæ¯å¤„ç†çš„ä¸‰ä¸ªé˜¶æ®µï¼Œä»–ä»¬æ˜¯ç”±æœ¬ç±»çš„CXuiElement::MessageReceiverè°ƒç”¨çš„ï¼Œä¸€æ—¦ä¿®æ”¹äº†é»˜è®¤çš„æ¶ˆæ¯æ¥å—å‡½æ•°ï¼Œè¯·è‡ªè¡Œå¤„ç†æ¶ˆæ¯å¤„ç†è¿‡ç¨‹
 //////////////////////////////////////////////////////////////////////////
 
-// ·Ö½âÏûÏ¢Ç°²½Öè£¬Ìá¹©Ò»¸öÔÚÏûÏ¢·Ö½âÇ°»ñµÃÏûÏ¢µÄ»ú»á£¬½öÓÃÓÚĞŞ¸ÄÏûÏ¢ÄÚÈİµÄÄ¿µÄ£»Õâ¸öº¯ÊıµÄ¹æÔòÊÇ£¬Ò»¶¨ÒªÊ×ÏÈµ÷ÓÃ»ùÀàµÄBeforeParseMessage£¬´Ó¶øÈ·±£»ùÀà±£Áô¶ÔÏûÏ¢µÄÓÅÏÈÈ¨£»
-// Í¨³£Çé¿öÏÂ£¬²»ĞíÒªÖØÔØ±¾º¯Êı£»±¾º¯ÊıµÄÉè¶¨Ä¿µÄÊÇÎªÁËÈ·±£Ä³ÖÖÏûÏ¢µÄ´¦ÀíĞĞÎªÄÜ¹»ÑÓĞøµ½ÅÉÉúÀàÖĞ£¬¶ø²»±»ÅÉÉúÀàĞŞ¸Ä£»
-// ·µ»ØERESULT_UNEXPECTED_MESSAGE½«¼ÌĞøÏûÏ¢·Ö½â¹ı³Ì£¬ÆäËûÖµ¶¼»áÊ¹µÃÏûÏ¢·Ö½â¹ı³ÌÖĞÖ¹
+// åˆ†è§£æ¶ˆæ¯å‰æ­¥éª¤ï¼Œæä¾›ä¸€ä¸ªåœ¨æ¶ˆæ¯åˆ†è§£å‰è·å¾—æ¶ˆæ¯çš„æœºä¼šï¼Œä»…ç”¨äºä¿®æ”¹æ¶ˆæ¯å†…å®¹çš„ç›®çš„ï¼›è¿™ä¸ªå‡½æ•°çš„è§„åˆ™æ˜¯ï¼Œä¸€å®šè¦é¦–å…ˆè°ƒç”¨åŸºç±»çš„BeforeParseMessageï¼Œä»è€Œç¡®ä¿åŸºç±»ä¿ç•™å¯¹æ¶ˆæ¯çš„ä¼˜å…ˆæƒï¼›
+// é€šå¸¸æƒ…å†µä¸‹ï¼Œä¸è®¸è¦é‡è½½æœ¬å‡½æ•°ï¼›æœ¬å‡½æ•°çš„è®¾å®šç›®çš„æ˜¯ä¸ºäº†ç¡®ä¿æŸç§æ¶ˆæ¯çš„å¤„ç†è¡Œä¸ºèƒ½å¤Ÿå»¶ç»­åˆ°æ´¾ç”Ÿç±»ä¸­ï¼Œè€Œä¸è¢«æ´¾ç”Ÿç±»ä¿®æ”¹ï¼›
+// è¿”å›ERESULT_UNEXPECTED_MESSAGEå°†ç»§ç»­æ¶ˆæ¯åˆ†è§£è¿‡ç¨‹ï¼Œå…¶ä»–å€¼éƒ½ä¼šä½¿å¾—æ¶ˆæ¯åˆ†è§£è¿‡ç¨‹ä¸­æ­¢
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::BeforeParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÏÂÃæµÄÊÇÊ¾Àı£¬Èç¹ûÒªÊ¹ÓÃÇë¸´ÖÆ£¬²¢È¥µôÇ°ºóµÄÊ§Ğ§ºêÓï¾ä
+	// ä¸‹é¢çš„æ˜¯ç¤ºä¾‹ï¼Œå¦‚æœè¦ä½¿ç”¨è¯·å¤åˆ¶ï¼Œå¹¶å»æ‰å‰åçš„å¤±æ•ˆå®è¯­å¥
 
 #if 0
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
-	// Ê×ÏÈµ÷ÓÃ»ùÀàµÄÊµÏÖ£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+	// é¦–å…ˆè°ƒç”¨åŸºç±»çš„å®ç°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	luResult = CXuiElement::BeforeParseMessage(npMsg);
 	if(luResult != ERESULT_UNEXPECTED_MESSAGE)
 		return luResult;
 
 	switch (npMsg->GetMessageID())
 	{
-	case EMSG_TEST:	// ¸ĞĞËÈ¤µÄÏûÏ¢
-		//¿ÉÒÔĞŞ¸ÄÏûÏ¢²ÎÊı
-		//¿ÉÒÔ²úÉúÑÜÉúÏûÏ¢
-		//luResult = ERESULT_SUCCESS;	ÓĞÒâÖĞÖ¹ÏûÏ¢·Ö½â
+	case EMSG_TEST:	// æ„Ÿå…´è¶£çš„æ¶ˆæ¯
+		//å¯ä»¥ä¿®æ”¹æ¶ˆæ¯å‚æ•°
+		//å¯ä»¥äº§ç”Ÿè¡ç”Ÿæ¶ˆæ¯
+		//luResult = ERESULT_SUCCESS;	æœ‰æ„ä¸­æ­¢æ¶ˆæ¯åˆ†è§£
 	default:
 		luResult = ERESULT_UNEXPECTED_MESSAGE;
 	}
 
-	// Èç¹ûÏ£ÍûÖĞÖ¹ÏûÏ¢·Ö½â¹ı³Ì£¬Ôò·µ»Ø³ıERESULT_UNEXPECTED_MESSAGEÒÔÍâµÄÖµ
+	// å¦‚æœå¸Œæœ›ä¸­æ­¢æ¶ˆæ¯åˆ†è§£è¿‡ç¨‹ï¼Œåˆ™è¿”å›é™¤ERESULT_UNEXPECTED_MESSAGEä»¥å¤–çš„å€¼
 	return luResult;
 #else
 	return ERESULT_UNEXPECTED_MESSAGE;
 #endif
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 //ERESULT CXuiElement::ParseMessage(IEinkuiMessage* npMsg)
 //{
-//	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+//	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 //
 //	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 //
 //	switch (npMsg->GetMessageID())
 //	{
-//	case EMSG_TEST:	// ¸ĞĞËÈ¤µÄÏûÏ¢
+//	case EMSG_TEST:	// æ„Ÿå…´è¶£çš„æ¶ˆæ¯
 //		{
 //			if(npMsg->GetInputDataSize() != sizeof(bool) || npMsg->GetOutputBufferSize() != sizeof(bool))
 //			{
 //				luResult = ERESULT_WRONG_PARAMETERS;
 //				break;
 //			}
-//			// »ñÈ¡ÊäÈëÊı¾İ
+//			// è·å–è¾“å…¥æ•°æ®
 //			bool* lpValue = (bool*)npMsg->GetInputData();
 //
-//			// ÉèÖÃÊä³öÊı¾İ
+//			// è®¾ç½®è¾“å‡ºæ•°æ®
 //			bool* lpOut = (bool*)npMsg->GetOutputBuffer();
 //
 //			*lpOut = !(*lpValue);
 //
 //			npMsg->SetOutputDataSize(sizeof(bool));
 //
-//			luResult = ERESULT_SUCCESS;// ·µ»ØÖµ£¬IEinkuiMessage¶ÔÏóµÄ·µ»ØÖµÓÉ±¾º¯ÊıµÄµ÷ÓÃÕßÒÀ¾İ±¾º¯ÊıµÄ½á¹ûÉèÖÃ
+//			luResult = ERESULT_SUCCESS;// è¿”å›å€¼ï¼ŒIEinkuiMessageå¯¹è±¡çš„è¿”å›å€¼ç”±æœ¬å‡½æ•°çš„è°ƒç”¨è€…ä¾æ®æœ¬å‡½æ•°çš„ç»“æœè®¾ç½®
 //		}
 //	default:
 //		luResult = ERESULT_NOT_SET;
@@ -540,54 +540,54 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::BeforeParseMessage(IEinkuiMessage* npM
 //
 //	if(luResult == ERESULT_NOT_SET)
 //	{
-//		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+//		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 //	}
 //
 //	return luResult;
 //}
 
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
 	switch (npMsg->GetMessageID())
 	{
-	case EMSG_TEST:	// ¸ĞĞËÈ¤µÄÏûÏ¢
+	case EMSG_TEST:	// æ„Ÿå…´è¶£çš„æ¶ˆæ¯
 		{
 			if(npMsg->GetInputDataSize() != sizeof(bool) || npMsg->GetOutputBufferSize() != sizeof(bool))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
 				break;
 			}
-			// »ñÈ¡ÊäÈëÊı¾İ
+			// è·å–è¾“å…¥æ•°æ®
 			bool* lpValue = (bool*)npMsg->GetInputData();
 
-			// ÉèÖÃÊä³öÊı¾İ
+			// è®¾ç½®è¾“å‡ºæ•°æ®
 			bool* lpOut = (bool*)npMsg->GetOutputBuffer();
 
 			*lpOut = !(*lpValue);
 
 			npMsg->SetOutputDataSize(sizeof(bool));
 
-			luResult = ERESULT_SUCCESS;// ·µ»ØÖµ£¬IEinkuiMessage¶ÔÏóµÄ·µ»ØÖµÓÉ±¾º¯ÊıµÄµ÷ÓÃÕßÒÀ¾İ±¾º¯ÊıµÄ½á¹ûÉèÖÃ
+			luResult = ERESULT_SUCCESS;// è¿”å›å€¼ï¼ŒIEinkuiMessageå¯¹è±¡çš„è¿”å›å€¼ç”±æœ¬å‡½æ•°çš„è°ƒç”¨è€…ä¾æ®æœ¬å‡½æ•°çš„ç»“æœè®¾ç½®
 
 			break;
 		}
 	case EMSG_CREATE: 
 		{
-			//³õÊ¼½¨Á¢
+			//åˆå§‹å»ºç«‹
 			luResult = OnElementCreate(*(IEinkuiIterator**)npMsg->GetInputData());
 			break;
 		}
 	case EMSG_DESTROY: 
 		{
-			//ÔªËØÏú»Ù
+			//å…ƒç´ é”€æ¯
 			luResult = OnElementDestroy();
 			break;
 		}
@@ -603,14 +603,14 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		break;
 	case EEVT_BUTTON_CLICK: 
 		{
-			//°´Å¥µ¥»÷
+			//æŒ‰é’®å•å‡»
 			luResult = OnCtlButtonClick(npMsg->GetMessageSender());
 
 			break;
 		}
 	case EMSG_ELEMENT_MOVED: 
 		{
-			//ÔªËØÎ»ÖÃ±»¸Ä±ä,ÒÑ¾­¸Ä±äÍê³É
+			//å…ƒç´ ä½ç½®è¢«æ”¹å˜,å·²ç»æ”¹å˜å®Œæˆ
 			if(npMsg->GetInputDataSize() != sizeof(D2D1_POINT_2F))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -625,7 +625,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_ELEMENT_RESIZED:
 		{
-			//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+			//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 			if(npMsg->GetInputDataSize() != sizeof(D2D1_SIZE_F))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -640,7 +640,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_SHOW_HIDE: 
 		{
-			//ÏÔÊ¾»òÒş²Ø
+			//æ˜¾ç¤ºæˆ–éšè—
 			if(npMsg->GetInputDataSize() != sizeof(bool))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -655,7 +655,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_ENALBE_DISABLE: 
 		{
-			//ÆôÓÃ»ò½ûÓÃ
+			//å¯ç”¨æˆ–ç¦ç”¨
 			if(npMsg->GetInputDataSize() != sizeof(bool))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -670,7 +670,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_TIMER: 
 		{
-			//¶¨Ê±Æ÷
+			//å®šæ—¶å™¨
 			if(npMsg->GetInputDataSize() != sizeof(STEMS_TIMER))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -697,7 +697,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_HOOKED_MESSAGE: 
 		{
-			//ÓÃÓÚ×ª·¢±»HookµÄÏûÏ¢
+			//ç”¨äºè½¬å‘è¢«Hookçš„æ¶ˆæ¯
 			if(npMsg->GetInputDataSize() != sizeof(STEMS_HOOKED_MSG))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -711,7 +711,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_RESPONSE_MESSAGE: 
 		{
-			//·´À¡ÏûÏ¢
+			//åé¦ˆæ¶ˆæ¯
 			if(npMsg->GetInputDataSize() != sizeof(STEMS_RESPONSE_MSG))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -725,7 +725,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_MOUSE_BUTTON: 
 		{
-			//Êó±ê°´ÏÂ
+			//é¼ æ ‡æŒ‰ä¸‹
 			if(npMsg->GetInputDataSize() != sizeof(STEMS_MOUSE_BUTTON))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -740,7 +740,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_MOUSE_DBCLICK: 
 		{
-			//Êó±ê°´ÏÂ
+			//é¼ æ ‡æŒ‰ä¸‹
 			if(npMsg->GetInputDataSize() != sizeof(STEMS_MOUSE_BUTTON))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -755,7 +755,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_MOUSE_MOVING: 
 		{
-			//Êó±êÒÆ¶¯
+			//é¼ æ ‡ç§»åŠ¨
 			if(npMsg->GetInputDataSize() != sizeof(STEMS_MOUSE_MOVING))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -769,7 +769,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_MOUSE_FOCUS:
 		{
-			//Êó±ê½øÈë»òÀë¿ª
+			//é¼ æ ‡è¿›å…¥æˆ–ç¦»å¼€
 			if(npMsg->GetInputDataSize()!=sizeof(STEMS_STATE_CHANGE))
 				break;
 			OnMouseFocus((STEMS_STATE_CHANGE*)npMsg->GetInputData());
@@ -778,13 +778,13 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_MOUSE_HOVER: 
 		{
-			//Êó±êĞüÍ£
+			//é¼ æ ‡æ‚¬åœ
 			luResult = OnMouseHover();
 			break;
 		}
 	case EMSG_MOUSE_WHEEL: 
 		{
-			//Êó±ê»¬ÂÖ
+			//é¼ æ ‡æ»‘è½®
 			if(npMsg->GetInputDataSize() != sizeof(STEMS_MOUSE_WHEEL))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -799,7 +799,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_KEYBOARD_FOCUS:
 		{
-			//¼üÅÌ½¹µã»ñµÃ»òÕßÊ§È¥
+			//é”®ç›˜ç„¦ç‚¹è·å¾—æˆ–è€…å¤±å»
 			if(npMsg->GetInputDataSize()!=sizeof(STEMS_STATE_CHANGE))
 				break;
 			OnKeyBoardFocus((STEMS_STATE_CHANGE*)npMsg->GetInputData());
@@ -809,7 +809,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_KEY_PRESSED: 
 		{
-			//¼üÅÌÏûÏ¢
+			//é”®ç›˜æ¶ˆæ¯
 			if(npMsg->GetInputDataSize() != sizeof(STEMS_KEY_PRESSED))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -823,7 +823,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_HOTKEY_PRESSED:
 		{
-			//¿ì½İ¼üÏûÏ¢
+			//å¿«æ·é”®æ¶ˆæ¯
 			const STEMS_HOTKEY* lpHotKey;
 			luResult = CExMessage::GetInputDataBuffer(npMsg,lpHotKey);
 			if(luResult != ERESULT_SUCCESS)
@@ -833,7 +833,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EMSG_PAINT:	
 		{
-			//»æÖÆÏûÏ¢
+			//ç»˜åˆ¶æ¶ˆæ¯
 			if(npMsg->GetInputDataSize() != sizeof(IEinkuiPaintBoard*))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -886,26 +886,26 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::ParseMessage(IEinkuiMessage* npMsg)
 
 	if(luResult == ERESULT_NOT_SET)
 	{
-		// luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
-		luResult = ERESULT_UNEXPECTED_MESSAGE;	// Õâ¶ùÃ»ÓĞ»ùÀà£¬ÅÉÉú±¾ÀàÊ±£¬É¾³ı±¾¾ä£»
+		// luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
+		luResult = ERESULT_UNEXPECTED_MESSAGE;	// è¿™å„¿æ²¡æœ‰åŸºç±»ï¼Œæ´¾ç”Ÿæœ¬ç±»æ—¶ï¼Œåˆ é™¤æœ¬å¥ï¼›
 	}
 
 	return luResult;
 }
 
-// ·Ö½âÏûÏ¢ºó²½Öè£¬Ìá¹©Ò»¸öÔÚÏûÏ¢´¦ÀíÍê±ÏºóÖ´ĞĞµÄ»ú»á£¬Í¨³£ÓÃÓÚ¼à¿ØÏûÏ¢µÄ½á¹û»òÔò²úÉúºóĞøĞĞÎª£»Õâ¸öº¯ÊıµÄµ÷ÓÃ¹æÔòÊÇ£¬Ò»¶¨Òª×îºóµ÷ÓÃ»ùÀàµÄÊµÏÖ£¬´Ó¶øÈ·±£»ùÀà×îºóÖ´ĞĞ
-// Í¨³£Çé¿öÏÂ£¬²»ĞíÒªÖØÔØ±¾º¯Êı£»±¾º¯ÊıµÄÉè¶¨Ä¿µÄÊÇÎªÁËÈ·±£Ä³ÖÖÏûÏ¢µÄ´¦ÀíĞĞÎªÄÜ¹»ÑÓĞøµ½ÅÉÉúÀàÖĞ£¬ÔÚÅÉÉúÀàÖ®ºóÖ´ĞĞ£»
-// ÈçÎŞÌØ¶¨Ä¿µÄ£¬²»Ó¦¸ÃĞŞ¸Äº¯ÊıµÄÏûÏ¢´¦ÀíµÄ·µ»ØÖµ£¬¸Ã·µ»ØÖµ´æ·ÅÔÚnpMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ;±¾º¯Êı²»Éè·µ»ØÖµ
+// åˆ†è§£æ¶ˆæ¯åæ­¥éª¤ï¼Œæä¾›ä¸€ä¸ªåœ¨æ¶ˆæ¯å¤„ç†å®Œæ¯•åæ‰§è¡Œçš„æœºä¼šï¼Œé€šå¸¸ç”¨äºç›‘æ§æ¶ˆæ¯çš„ç»“æœæˆ–åˆ™äº§ç”Ÿåç»­è¡Œä¸ºï¼›è¿™ä¸ªå‡½æ•°çš„è°ƒç”¨è§„åˆ™æ˜¯ï¼Œä¸€å®šè¦æœ€åè°ƒç”¨åŸºç±»çš„å®ç°ï¼Œä»è€Œç¡®ä¿åŸºç±»æœ€åæ‰§è¡Œ
+// é€šå¸¸æƒ…å†µä¸‹ï¼Œä¸è®¸è¦é‡è½½æœ¬å‡½æ•°ï¼›æœ¬å‡½æ•°çš„è®¾å®šç›®çš„æ˜¯ä¸ºäº†ç¡®ä¿æŸç§æ¶ˆæ¯çš„å¤„ç†è¡Œä¸ºèƒ½å¤Ÿå»¶ç»­åˆ°æ´¾ç”Ÿç±»ä¸­ï¼Œåœ¨æ´¾ç”Ÿç±»ä¹‹åæ‰§è¡Œï¼›
+// å¦‚æ— ç‰¹å®šç›®çš„ï¼Œä¸åº”è¯¥ä¿®æ”¹å‡½æ•°çš„æ¶ˆæ¯å¤„ç†çš„è¿”å›å€¼ï¼Œè¯¥è¿”å›å€¼å­˜æ”¾åœ¨npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­;æœ¬å‡½æ•°ä¸è®¾è¿”å›å€¼
 template<class CClassDeriveTo,const wchar_t* Name>
 void CXuiElement<CClassDeriveTo,Name>::AfterParseMessage(IEinkuiMessage* npMsg)
 {
-	// Ö´ĞĞÄ³Ğ©²Ù×÷
+	// æ‰§è¡ŒæŸäº›æ“ä½œ
 
-	// ×îºó£¬µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı
-	// CXuiElement::AfterParseMessage(npMsg);	// ×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+	// æœ€åï¼Œè°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°
+	// CXuiElement::AfterParseMessage(npMsg);	// æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnElementCreate(IEinkuiIterator* npIterator)
 {
@@ -929,8 +929,8 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnElementCreate(IEinkuiIterator* npIte
 	return lResult;
 }
 
-// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓĞÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+// é”€æ¯å…ƒç´ ï¼Œç”¨äºé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+// ä»è€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€Œåå†å°†è‡ªå·±ä»å…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnElementDestroy()
 {
@@ -948,7 +948,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnElementDestroy()
 	return lResult;
 }
 
-//°´Å¥µ¥»÷ÊÂ¼ş
+//æŒ‰é’®å•å‡»äº‹ä»¶
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
@@ -962,7 +962,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnCtlButtonClick(IEinkuiIterator* npSe
 	return lResult;
 }
 
-//ÔªËØÎ»ÖÃ±»¸Ä±ä,ÒÑ¾­¸Ä±äÍê³É
+//å…ƒç´ ä½ç½®è¢«æ”¹å˜,å·²ç»æ”¹å˜å®Œæˆ
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnElementMoved(D2D1_POINT_2F nNewPoint)
 {
@@ -978,7 +978,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnElementMoved(D2D1_POINT_2F nNewPoint
 	return lResult;
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnElementResized(D2D1_SIZE_F nNewSize)
 {
@@ -994,7 +994,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnElementResized(D2D1_SIZE_F nNewSize)
 	return lResult;
 }
 
-//ÔªËØÏÔÊ¾»òÒş²Ø
+//å…ƒç´ æ˜¾ç¤ºæˆ–éšè—
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnElementShow(bool nbIsShow)
 {
@@ -1008,7 +1008,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnElementShow(bool nbIsShow)
 	return lResult;
 }
 
-//ÆôÓÃ»ò½ûÓÃ
+//å¯ç”¨æˆ–ç¦ç”¨
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnElementEnable(bool nbIsShow)
 {
@@ -1022,7 +1022,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnElementEnable(bool nbIsShow)
 	return lResult;
 }
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 template<class CClassDeriveTo,const wchar_t* Name>
 void CXuiElement<CClassDeriveTo,Name>::OnTimer(
 	PSTEMS_TIMER npStatus
@@ -1030,7 +1030,7 @@ void CXuiElement<CClassDeriveTo,Name>::OnTimer(
 {
 }
 
-// ÂıË¢ĞÂ
+// æ…¢åˆ·æ–°
 template<class CClassDeriveTo,const wchar_t* Name>
 void  CXuiElement<CClassDeriveTo,Name>::OnLazyUpdate(
 	PSTEMG_LAZY_UPDATE npLazyUpdate
@@ -1039,10 +1039,10 @@ void  CXuiElement<CClassDeriveTo,Name>::OnLazyUpdate(
 }
 
 
-//ÓÃÓÚ×ª·¢±»HookµÄÏûÏ¢
+//ç”¨äºè½¬å‘è¢«Hookçš„æ¶ˆæ¯
 template<class CClassDeriveTo,const wchar_t* Name>
-ERESULT CXuiElement<CClassDeriveTo,Name>::OnHookMessage(IEinkuiIterator* npOriginalElement,	// Ô­Ê¼µÄÏûÏ¢½ÓÊÜÔªËØ
-	IEinkuiMessage* npOriginalMessage		// ±»²¶»ñµÄÏûÏ¢
+ERESULT CXuiElement<CClassDeriveTo,Name>::OnHookMessage(IEinkuiIterator* npOriginalElement,	// åŸå§‹çš„æ¶ˆæ¯æ¥å—å…ƒç´ 
+	IEinkuiMessage* npOriginalMessage		// è¢«æ•è·çš„æ¶ˆæ¯
 	)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -1056,11 +1056,11 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnHookMessage(IEinkuiIterator* npOrigi
 	return lResult;
 }
 
-//·´À¡ÏûÏ¢
+//åé¦ˆæ¶ˆæ¯
 template<class CClassDeriveTo,const wchar_t* Name>
-ERESULT CXuiElement<CClassDeriveTo,Name>::OnResponseMessage(IEinkuiIterator* npOriginalElement,	// Ô­Ê¼ÏûÏ¢µÄ½ÓÊÜÔªËØ
-	IEinkuiMessage* npOriginalMessage,	// ±»·´À¡µÄÏûÏ¢
-	void* npContext					// ÉèÖÃÏûÏ¢·´À¡Ê±£¬Ö¸¶¨µÄÉÏÏÂÎÄ
+ERESULT CXuiElement<CClassDeriveTo,Name>::OnResponseMessage(IEinkuiIterator* npOriginalElement,	// åŸå§‹æ¶ˆæ¯çš„æ¥å—å…ƒç´ 
+	IEinkuiMessage* npOriginalMessage,	// è¢«åé¦ˆçš„æ¶ˆæ¯
+	void* npContext					// è®¾ç½®æ¶ˆæ¯åé¦ˆæ—¶ï¼ŒæŒ‡å®šçš„ä¸Šä¸‹æ–‡
 	)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -1073,7 +1073,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnResponseMessage(IEinkuiIterator* npO
 	return lResult;
 }
 
-//Êó±ê°´ÏÂ
+//é¼ æ ‡æŒ‰ä¸‹
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 {
@@ -1087,14 +1087,14 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnMousePressed(const STEMS_MOUSE_BUTTO
 	return lResult;
 }
 
-//Êó±êË«»÷
+//é¼ æ ‡åŒå‡»
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnMouseDbClick(const STEMS_MOUSE_BUTTON* npInfo)
 {
 	return ERESULT_SUCCESS;
 }
 
-//Êó±êÒÆ¶¯
+//é¼ æ ‡ç§»åŠ¨
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnMouseMoving(const STEMS_MOUSE_MOVING* npInfo)
 {
@@ -1108,7 +1108,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnMouseMoving(const STEMS_MOUSE_MOVING
 	return lResult;
 }
 
-//Êó±ê½øÈë/Àë¿ª
+//é¼ æ ‡è¿›å…¥/ç¦»å¼€
 template<class CClassDeriveTo,const wchar_t* Name>
 void CXuiElement<CClassDeriveTo,Name>::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 {
@@ -1117,25 +1117,25 @@ void CXuiElement<CClassDeriveTo,Name>::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 
 	if (npState->State != 0)
 	{
-		//Êó±ê½øÈë
+		//é¼ æ ‡è¿›å…¥
 		mhPreviousCursor = CExWinPromptBox::SetCursor(mhInnerCursor);
 	}
 	else
-	if(mhPreviousCursor != NULL && mhPreviousCursor != LoadCursor(NULL,IDC_WAIT)) //²»ÔÊĞí³öÏÖÃ¦Âµ±êÖ¾
+	if(mhPreviousCursor != NULL && mhPreviousCursor != LoadCursor(NULL,IDC_WAIT)) //ä¸å…è®¸å‡ºç°å¿™ç¢Œæ ‡å¿—
 	{
-		//Êó±êÒÆ³ö
+		//é¼ æ ‡ç§»å‡º
 		CExWinPromptBox::SetCursor(mhPreviousCursor);
 		mhPreviousCursor = NULL;
 	}
 }
 
-//¼üÅÌ½¹µã»ñµÃ»òÕßÊ§È¥
+//é”®ç›˜ç„¦ç‚¹è·å¾—æˆ–è€…å¤±å»
 template<class CClassDeriveTo,const wchar_t* Name>
 void CXuiElement<CClassDeriveTo,Name>::OnKeyBoardFocus(PSTEMS_STATE_CHANGE npState)
 {
 }
 
-//Êó±êĞüÍ£
+//é¼ æ ‡æ‚¬åœ
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnMouseHover()
 {
@@ -1149,21 +1149,21 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnMouseHover()
 	return lResult;
 }
 
-//Êó±ê»¬ÂÖ
+//é¼ æ ‡æ»‘è½®
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnMouseWheel(const STEMS_MOUSE_WHEEL* npInfo)
 {
 	return ERESULT_UNEXPECTED_MESSAGE;
 }
 
-//¼üÅÌÏûÏ¢
+//é”®ç›˜æ¶ˆæ¯
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnKeyPressed(const STEMS_KEY_PRESSED* npInfo)
 {
 	return ERESULT_KEY_UNEXPECTED;
 }
 
-//¿ì½İ¼üÏûÏ¢
+//å¿«æ·é”®æ¶ˆæ¯
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnHotKey(const STEMS_HOTKEY* npHotKey)
 {
@@ -1171,7 +1171,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnHotKey(const STEMS_HOTKEY* npHotKey)
 }
 
 
-//»æÖÆÏûÏ¢
+//ç»˜åˆ¶æ¶ˆæ¯
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
@@ -1193,7 +1193,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnPaint(IEinkuiPaintBoard* npPaintBoar
 	return lResult;
 }
 
-//ÔªËØÍÏ×§
+//å…ƒç´ æ‹–æ‹½
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 {
@@ -1202,7 +1202,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnDragging(const STMS_DRAGGING_ELE* np
 	return lResult;
 }
 
-//ÍÏ×§¿ªÊ¼,nulActKeyÄÄ¸öÊó±ê°´Å¥°´ÏÂ½øĞĞÍÏ×§
+//æ‹–æ‹½å¼€å§‹,nulActKeyå“ªä¸ªé¼ æ ‡æŒ‰é’®æŒ‰ä¸‹è¿›è¡Œæ‹–æ‹½
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 {
@@ -1211,7 +1211,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnDragBegin(const STMS_DRAGGING_ELE* n
 	return lResult;
 }
 
-//ÍÏ×§½áÊø,nulActKeyÄÄ¸öÊó±ê°´Å¥°´ÏÂ½øĞĞÍÏ×§
+//æ‹–æ‹½ç»“æŸ,nulActKeyå“ªä¸ªé¼ æ ‡æŒ‰é’®æŒ‰ä¸‹è¿›è¡Œæ‹–æ‹½
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 {
@@ -1220,14 +1220,14 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnDragEnd(const STMS_DRAGGING_ELE* npI
 	return lResult;
 }
 
-//ÃüÁî
+//å‘½ä»¤
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnCommand(const nes_command::ESCOMMAND neCmd)
 {
 	return ERESULT_UNSUCCESSFUL;
 }
 
-//´´½¨×Ô¼ºËùÓĞµÄ×ÓÔªËØ
+//åˆ›å»ºè‡ªå·±æ‰€æœ‰çš„å­å…ƒç´ 
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::LoadSubElement()
 {
@@ -1239,14 +1239,14 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::LoadSubElement()
 	{
 		BREAK_ON_NULL(mpTemplete);
 
-		lpICfKey = mpTemplete->OpenKey(L"Children"); //´ò¿ª×ÓÔªËØ¼ü
+		lpICfKey = mpTemplete->OpenKey(L"Children"); //æ‰“å¼€å­å…ƒç´ é”®
 		BREAK_ON_NULL(lpICfKey);
 
 		lpICfKey = lpICfKey->MoveToSubKey();	
-		while (lpICfKey != NULL)	//Ñ­»·´´½¨ËùÓĞ×ÓÔªËØ
+		while (lpICfKey != NULL)	//å¾ªç¯åˆ›å»ºæ‰€æœ‰å­å…ƒç´ 
 		{
 			EinkuiGetSystem()->GetAllocator()->CreateElement(mpIterator,lpICfKey);
-			lpICfKey = lpICfKey->MoveToNextKey();	//´ò¿ªÏÂÒ»¸ö×ÓÔªËØ¼ü
+			lpICfKey = lpICfKey->MoveToNextKey();	//æ‰“å¼€ä¸‹ä¸€ä¸ªå­å…ƒç´ é”®
 		}
 
 	} while (false);
@@ -1254,7 +1254,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::LoadSubElement()
 	return leResult;
 }
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 template<class CClassDeriveTo,const wchar_t* Name>
 ERESULT CXuiElement<CClassDeriveTo,Name>::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
@@ -1273,12 +1273,12 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnMouseOwnerTest(const D2D1_POINT_2F& 
 	return luResult;
 }
 
-////¸ø×Ô¼º¸¸´°¿Ú·¢ËÍ¼òµ¥ÏûÏ¢
+////ç»™è‡ªå·±çˆ¶çª—å£å‘é€ç®€å•æ¶ˆæ¯
 //template<class CClassDeriveTo,const wchar_t* Name>
 //ERESULT __stdcall CXuiElement<CClassDeriveTo,Name>::PostMessageToParent(
-//	IN ULONG nuMsgID,		// ÏûÏ¢±àÂë
-//	IN void* npInputBuffer,	// ÊäÈëÊı¾İµÄ»º³åÇø
-//	IN int niInputSize		// ÊäÈëÊı¾İµÄ´óĞ¡
+//	IN ULONG nuMsgID,		// æ¶ˆæ¯ç¼–ç 
+//	IN void* npInputBuffer,	// è¾“å…¥æ•°æ®çš„ç¼“å†²åŒº
+//	IN int niInputSize		// è¾“å…¥æ•°æ®çš„å¤§å°
 //	)
 //{
 //	ERESULT luResult = ERESULT_UNSUCCESSFUL;
@@ -1286,7 +1286,7 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnMouseOwnerTest(const D2D1_POINT_2F& 
 //
 //	do 
 //	{
-//		//¹¹½¨ÏûÏ¢½á¹¹Ìå
+//		//æ„å»ºæ¶ˆæ¯ç»“æ„ä½“
 //		lpMsgIntf = EinkuiGetSystem()->GetElementManager()->AllocateMessage(nuMsgID,npInputBuffer,niInputSize,NULL,0);
 //		BREAK_ON_NULL(lpMsgIntf);
 //
@@ -1299,8 +1299,8 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::OnMouseOwnerTest(const D2D1_POINT_2F& 
 //	return luResult;
 //}
 
-// PostÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒÖ±½Ó·¢ËÍĞ¯´øµÄ²ÎÊı£¬×¢Òâ£¬Èç¹û²ÎÊıÊÇÒ»¸öÖ¸Õë£¬ÔòÖ»»á¸´ÖÆ´«µİÖ¸Õë£¨Ò»¸öµØÖ·£©±¾Éí£¬¶ø²»»á¸´ÖÆ´«µİÖ¸ÕëÖ¸ÏòµÄÄÚÈİ£¬Post·¢ËÍÏûÏ¢ĞèÒª×¢ÒâÕâ¸öÎÊÌâ£¬·ÀÖ¹µØÖ·µ½ÏûÏ¢½ÓÊÕÕß³öÎŞ·¨·ÃÎÊ¡£
-// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid;
+// Postæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”ç›´æ¥å‘é€æºå¸¦çš„å‚æ•°ï¼Œæ³¨æ„ï¼Œå¦‚æœå‚æ•°æ˜¯ä¸€ä¸ªæŒ‡é’ˆï¼Œåˆ™åªä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆï¼ˆä¸€ä¸ªåœ°å€ï¼‰æœ¬èº«ï¼Œè€Œä¸ä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆæŒ‡å‘çš„å†…å®¹ï¼ŒPostå‘é€æ¶ˆæ¯éœ€è¦æ³¨æ„è¿™ä¸ªé—®é¢˜ï¼Œé˜²æ­¢åœ°å€åˆ°æ¶ˆæ¯æ¥æ”¶è€…å‡ºæ— æ³•è®¿é—®ã€‚
+// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid;
 template<class CClassDeriveTo,const wchar_t* Name>
 template<typename DataType>
 ERESULT CXuiElement<CClassDeriveTo,Name>::PostMessageToParent(ULONG nuMsgID,const DataType& rDataToPost)
@@ -1308,8 +1308,8 @@ ERESULT CXuiElement<CClassDeriveTo,Name>::PostMessageToParent(ULONG nuMsgID,cons
 	return CExMessage::PostMessage(mpIterator->GetParent(),mpIterator,nuMsgID,rDataToPost,EMSG_POSTTYPE_FAST);
 }
 
-// SendÄ£Ê½·¢ËÍÏûÏ¢£¬²¢ÇÒÖ±½Ó·¢ËÍĞ¯´øµÄ²ÎÊı£¬×¢Òâ£¬Èç¹û²ÎÊıÊÇÒ»¸öÖ¸Õë£¬ÔòÖ»»á¸´ÖÆ´«µİÖ¸Õë£¨Ò»¸öµØÖ·£©±¾Éí£¬¶ø²»»á¸´ÖÆ´«µİÖ¸ÕëÖ¸ÏòµÄÄÚÈİ£¬SendÄ£Ê½·¢ËÍÏûÏ¢Ê±£¬Õâ²»»áµ¼ÖÂÌØÊâÎÊÌâ
-// Èç¹ûÃ»ÓĞÊı¾İ·¢ËÍ£¬rDataToPostÌîĞ´CExMessage::DataInvalid
+// Sendæ¨¡å¼å‘é€æ¶ˆæ¯ï¼Œå¹¶ä¸”ç›´æ¥å‘é€æºå¸¦çš„å‚æ•°ï¼Œæ³¨æ„ï¼Œå¦‚æœå‚æ•°æ˜¯ä¸€ä¸ªæŒ‡é’ˆï¼Œåˆ™åªä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆï¼ˆä¸€ä¸ªåœ°å€ï¼‰æœ¬èº«ï¼Œè€Œä¸ä¼šå¤åˆ¶ä¼ é€’æŒ‡é’ˆæŒ‡å‘çš„å†…å®¹ï¼ŒSendæ¨¡å¼å‘é€æ¶ˆæ¯æ—¶ï¼Œè¿™ä¸ä¼šå¯¼è‡´ç‰¹æ®Šé—®é¢˜
+// å¦‚æœæ²¡æœ‰æ•°æ®å‘é€ï¼ŒrDataToPostå¡«å†™CExMessage::DataInvalid
 template<class CClassDeriveTo,const wchar_t* Name>
 template<typename DataType>
 ERESULT CXuiElement<CClassDeriveTo,Name>::SendMessageToParent(ULONG nuMsgID,const DataType& rDateForSend,void* npBufferForReceive,int niBytesOfBuffer)

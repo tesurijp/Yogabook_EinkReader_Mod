@@ -1,93 +1,93 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
 #pragma once
-//¶¨Òå³ÌĞòËùĞèÒªµÄÏûÏ¢
+//å®šä¹‰ç¨‹åºæ‰€éœ€è¦çš„æ¶ˆæ¯
 
-// ×Ô¶¨ÒåÏûÏ¢
+// è‡ªå®šä¹‰æ¶ˆæ¯
 #define EMSG_HB_TYPE_BASE	0xAE
 #define EMSG_TS_REQUEST(_MJ_NUM,_MN_NUM) EMSG_DEFINE(EMSG_HB_TYPE_BASE,_MJ_NUM,_MN_NUM)
 
 #define EI_POWER_ENTER_CONNECTED_STANDBY 0
 #define EI_POWER_RETURN_CONNECTED_STANDBY 1
 #define EI_POWER_ENTER_SHUTDOWN 2
-// µçÔ´ÊÂ¼ş
+// ç”µæºäº‹ä»¶
 #define EEVT_HB_POWER_CHANGE		EMSG_TS_REQUEST(1,1)			
-// input ULONG  ÊÂ¼şID£¬ÈçÉÏ
+// input ULONG  äº‹ä»¶IDï¼Œå¦‚ä¸Š
 // output none
 // return none
 
-// »úÆ÷ĞÎÌ¬±ä»¯
+// æœºå™¨å½¢æ€å˜åŒ–
 #define EEVT_HB_MODE_CHANGE		EMSG_TS_REQUEST(1,2)			
-// input ULONG  ĞÎÌ¬ID
+// input ULONG  å½¢æ€ID
 // output none
 // return none
 
-// ¹Ø»úĞĞÎª
+// å…³æœºè¡Œä¸º
 #define EEVT_HB_SHUT_DOWN	EMSG_TS_REQUEST(1,3)			
 // NONE
 // output none
 // return none
 
-// ÓÃ»§sessionÊÂ¼ş
+// ç”¨æˆ·sessionäº‹ä»¶
 #define EEVT_HB_SESSION_CHANGE		EMSG_TS_REQUEST(1,4)			
 // input ULONG  wparam
 // output none
 // return none
 
-// Ç°Ì¨/ºóÌ¨
+// å‰å°/åå°
 #define EEVT_HB_ACTIVITE		EMSG_TS_REQUEST(1,5)			
-// input ULONG  wparam 0ºóÌ¨ 1Ç°Ì¨
+// input ULONG  wparam 0åå° 1å‰å°
 // output none
 // return none
 
-// ·şÎñÍ¨ÖªÊÂ¼ş
+// æœåŠ¡é€šçŸ¥äº‹ä»¶
 #define EEVT_HB_SERVICE_NOTIFY		EMSG_TS_REQUEST(1,6)			
-// input ULONG  wparam ÏûÏ¢ID
+// input ULONG  wparam æ¶ˆæ¯ID
 // output none
 // return none
 
-// ·şÎñÍ¨Öª»úÆ÷ĞÎÌ¬·¢Éú±ä»¯
+// æœåŠ¡é€šçŸ¥æœºå™¨å½¢æ€å‘ç”Ÿå˜åŒ–
 #define EEVT_HB_LAPTOP_CHANGED		EMSG_TS_REQUEST(1,7)			
-// input ULONG  ĞÎÌ¬¶¨Òå GIR_MODE_LAPTOP/GIR_MODE_TENT/GIR_MODE_TABLET
+// input ULONG  å½¢æ€å®šä¹‰ GIR_MODE_LAPTOP/GIR_MODE_TENT/GIR_MODE_TABLET
 // output none
 // return none
 
 
-// Ñ¡ÔñµÄÃëÊı
+// é€‰æ‹©çš„ç§’æ•°
 #define EEVT_TS_SELECT		EMSG_TS_REQUEST(1,8)			
-// input ULONG  ¶àÉÙÃë
+// input ULONG  å¤šå°‘ç§’
 // output none
 // return none
 
-// Ñ¡ÔñµÄ¼üÅÌÑùÊ½
+// é€‰æ‹©çš„é”®ç›˜æ ·å¼
 #define EEVT_KEYBOARD_SELECT		EMSG_TS_REQUEST(1,9)			
-// input ULONG  Ñ¡ÔñµÄµÚ¼¸¸ö
+// input ULONG  é€‰æ‹©çš„ç¬¬å‡ ä¸ª
 // output none
 // return none
 
 
-// ·âÃæÑ¡Ôñ±ä»¯
+// å°é¢é€‰æ‹©å˜åŒ–
 #define EEVT_COVER_SELECT		EMSG_TS_REQUEST(1,10)			
-// input ULONG  1±íÊ¾Í¼Æ¬ 2±íÊ¾Òé³Ì
+// input ULONG  1è¡¨ç¤ºå›¾ç‰‡ 2è¡¨ç¤ºè®®ç¨‹
 // output none
 // return none
 
 
-// ÒªÇóÔ¤ÀÀÍ¼Æ¬
+// è¦æ±‚é¢„è§ˆå›¾ç‰‡
 #define EEVT_PICTURE_PREVIEW		EMSG_TS_REQUEST(1,11)			
-// input wchar_t*  Í¼Æ¬µÄÏà¶ÔÂ·¾¶
+// input wchar_t*  å›¾ç‰‡çš„ç›¸å¯¹è·¯å¾„
 // output none
 // return none
 
-// Ô¤ÀÀÍ¼Æ¬½çÃæOK°´Å¥
+// é¢„è§ˆå›¾ç‰‡ç•Œé¢OKæŒ‰é’®
 #define EEVT_PICTURE_PREVIEW_EXIT		EMSG_TS_REQUEST(1,12)			
-// input ULONG 1±íÊ¾È·¶¨ 0±íÊ¾È¡Ïû
+// input ULONG 1è¡¨ç¤ºç¡®å®š 0è¡¨ç¤ºå–æ¶ˆ
 // output none
 // return none
 
-// »ñÈ¡ÅäÖÃÎÄ¼şÖ¸Õë
+// è·å–é…ç½®æ–‡ä»¶æŒ‡é’ˆ
 #define EEVT_GET_SETTING_FILE		EMSG_TS_REQUEST(1,13)			
 // input none
 // output XmlDocument*

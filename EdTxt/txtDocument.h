@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -70,7 +70,7 @@ public:
 	}
 
 protected:
-	// ÄÚ²¿±äÁ¿
+	// å†…éƒ¨å˜é‡
 	HANDLE mhTxtFile;
 	DWORD muTxtFileLength;
 	HANDLE mhTxtFileMap;
@@ -82,7 +82,7 @@ protected:
 	PEDDOC_CALLBACK mPageLoadCallbackFun;
 	void_ptr mPageLoadCallbackContext;
 
-	// µ±Ç°Ò³
+	// å½“å‰é¡µ
 	volatile int32 mUpdateForSize;
 	volatile int32 mUpdateForFont;
 	PageControl_Vector mAllPages;
@@ -94,25 +94,25 @@ protected:
 	volatile CTxdArrangeThread* mpArrangeThread;
 	volatile LONG mThreadNumber;
 
-	// ÅÅ°æĞÅÏ¢
+	// æ’ç‰ˆä¿¡æ¯
 	ST_PAGE_CONTROL mRearrangePage;
 	int32 mRearrangePageIndex;
 
 
-	// ÓÃÓÚËõ·ÅÒ³ºó£¬±£³Ö½¹µãÒ³
+	// ç”¨äºç¼©æ”¾é¡µåï¼Œä¿æŒç„¦ç‚¹é¡µ
 	//FocusControl_Stack mFocusCtl;
 
 	CtxtDocument();
 	~CtxtDocument();
 
 
-	// ³õÊ¼»¯º¯Êı£¬¿ÉÒÔÊµÏÖ¸÷ÖÖ²»Í¬²ÎÊıµÄ³õÊ¼»¯º¯Êı£¬×¢Òâ£¬ÅÉÉúÀàÖØÔØInitOnCreateº¯Êıºó£¬Ò»¶¨Òªµ÷ÓÃ»ùÀàµÄInitOnCreateº¯Êı
-	// ·µ»Ø0±íÊ¾³É¹¦£»·µ»ØÖµ×î¸ßÎ»Îª1±íÊ¾·¢ÉúÑÏÖØ´íÎó£¬Ó¦¸ÃÖÕÖ¹³õÊ¼»¯¹ı³Ì£¬·µ»ØµÄ¾ÍÊÇ´íÎóÂë£»·µ»ØÆäËûÖµ±íÊ¾ÆäËû·Ç´íÎó·µ»ØÂë
+	// åˆå§‹åŒ–å‡½æ•°ï¼Œå¯ä»¥å®ç°å„ç§ä¸åŒå‚æ•°çš„åˆå§‹åŒ–å‡½æ•°ï¼Œæ³¨æ„ï¼Œæ´¾ç”Ÿç±»é‡è½½InitOnCreateå‡½æ•°åï¼Œä¸€å®šè¦è°ƒç”¨åŸºç±»çš„InitOnCreateå‡½æ•°
+	// è¿”å›0è¡¨ç¤ºæˆåŠŸï¼›è¿”å›å€¼æœ€é«˜ä½ä¸º1è¡¨ç¤ºå‘ç”Ÿä¸¥é‡é”™è¯¯ï¼Œåº”è¯¥ç»ˆæ­¢åˆå§‹åŒ–è¿‡ç¨‹ï¼Œè¿”å›çš„å°±æ˜¯é”™è¯¯ç ï¼›è¿”å›å…¶ä»–å€¼è¡¨ç¤ºå…¶ä»–éé”™è¯¯è¿”å›ç 
 	ULONG InitOnCreate(const char16_ptr pathName);
 
 	ED_ERR UnpackU8(void);
 	ED_ERR IsU8File(void);
-	//ÅĞ¶ÏÎÄ¼şÊÇ·ñÊÇutf8ÎÄ¼ş
+	//åˆ¤æ–­æ–‡ä»¶æ˜¯å¦æ˜¯utf8æ–‡ä»¶
 	bool IsU8File(const void* npBuffer, long nlSize);
 
 	ED_ERR UnpackAnsi(void);

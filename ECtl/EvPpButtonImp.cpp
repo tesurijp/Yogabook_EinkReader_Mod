@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -36,13 +36,13 @@ ULONG CEvPingpongButton::InitOnCreate(
 	do 
 	{
 
-		// ÏÈµ÷ÓÃ»ùÀàº¯Êı
+		// å…ˆè°ƒç”¨åŸºç±»å‡½æ•°
 		leResult = CEvButton::InitOnCreate(npParent, npTemplete, nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
 		BREAK_ON_NULL(npTemplete);
-		// Í¨¹ıÅäÖÃÏî£¬»ñÈ¡°´Å¥·½Ïò£¬¼´´¹Ö±°´Å¥»¹ÊÇË®Æ½°´Å¥
+		// é€šè¿‡é…ç½®é¡¹ï¼Œè·å–æŒ‰é’®æ–¹å‘ï¼Œå³å‚ç›´æŒ‰é’®è¿˜æ˜¯æ°´å¹³æŒ‰é’®
 		miDirection = npTemplete->QuerySubKeyValueAsLONG(L"Direction", 0);
 
 		CXuiElement::mhInnerCursor = LoadCursor(NULL,IDC_HAND);
@@ -53,36 +53,36 @@ ULONG CEvPingpongButton::InitOnCreate(
 }
 
 
-//ÔªËØÍÏ×§
+//å…ƒç´ æ‹–æ‹½
 ERESULT CEvPingpongButton::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		if(MOUSE_LB(npInfo->ActKey) == false)  //Èç¹û²»ÊÇÊó±ê×ó¼ü¾Í²»´¦Àí
+		if(MOUSE_LB(npInfo->ActKey) == false)  //å¦‚æœä¸æ˜¯é¼ æ ‡å·¦é”®å°±ä¸å¤„ç†
 			break;
 
-		// Ë®Æ½°´Å¥
+		// æ°´å¹³æŒ‰é’®
 		if (miDirection == 1)
 		{
-			// ´Ó×óÏòÓÒÒÆ¶¯,Æ«ÒÆÁ¿ÎªÕıÖµ£¬µ±Æ«ÒÆÁ¿>(°´Å¥¿í¶È/2)Ê±£¬×´Ì¬ÖÃÎ»
+			// ä»å·¦å‘å³ç§»åŠ¨,åç§»é‡ä¸ºæ­£å€¼ï¼Œå½“åç§»é‡>(æŒ‰é’®å®½åº¦/2)æ—¶ï¼ŒçŠ¶æ€ç½®ä½
 			if(npInfo->Offset.x > (CEvButton::GetIterator()->GetSize().width/2))
 				CEvButton::SetChecked(true);
 
-			// ´ÓÓÒÏò×ó Æ«ÒÆÁ¿Îª¸ºÖµ
+			// ä»å³å‘å·¦ åç§»é‡ä¸ºè´Ÿå€¼
 			if(npInfo->Offset.x < -(CEvButton::GetIterator()->GetSize().width/2))
 				CEvButton::SetChecked(false);
 		}
-		// ´¹Ö±°´Å¥
+		// å‚ç›´æŒ‰é’®
 		else if (miDirection == 2)
 		{
-			// ´ÓÏÂÍùÉÏÒÆ¶¯£¬Æ«ÒÆÁ¿ÎªÕıÖµ
+			// ä»ä¸‹å¾€ä¸Šç§»åŠ¨ï¼Œåç§»é‡ä¸ºæ­£å€¼
 			if (npInfo->Offset.y > (CEvButton::GetIterator()->GetSize().height/2))
 				CEvButton::SetChecked(false);
 
 
-			// ´ÓÉÏÍùÏÂÒÆ¶¯£¬Æ«ÒÆÁ¿Îª¸ºÖµ
+			// ä»ä¸Šå¾€ä¸‹ç§»åŠ¨ï¼Œåç§»é‡ä¸ºè´Ÿå€¼
 			if (npInfo->Offset.y < -(CEvButton::GetIterator()->GetSize().height/2))
 				CEvButton::SetChecked(true);
 
@@ -97,18 +97,18 @@ ERESULT CEvPingpongButton::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 	return leResult;
 }
 
-//ÍÏ×§¿ªÊ¼,nulActKeyÄÄ¸öÊó±ê°´Å¥°´ÏÂ½øĞĞÍÏ×§
+//æ‹–æ‹½å¼€å§‹,nulActKeyå“ªä¸ªé¼ æ ‡æŒ‰é’®æŒ‰ä¸‹è¿›è¡Œæ‹–æ‹½
 ERESULT CEvPingpongButton::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		if(MOUSE_LB(npInfo->ActKey) == false)  //Èç¹û²»ÊÇÊó±ê×ó¼ü¾Í²»´¦Àí
+		if(MOUSE_LB(npInfo->ActKey) == false)  //å¦‚æœä¸æ˜¯é¼ æ ‡å·¦é”®å°±ä¸å¤„ç†
 			break;
 
 		if(mpIterator->IsEnable() == false)
-			break;	//Èç¹ûÊÇ½ûÓÃ×´Ì¬¾Í²»ÏìÓ¦
+			break;	//å¦‚æœæ˜¯ç¦ç”¨çŠ¶æ€å°±ä¸å“åº”
 
 		leResult = ERESULT_SUCCESS;
 
@@ -117,18 +117,18 @@ ERESULT CEvPingpongButton::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 	return leResult;
 }
 
-//ÍÏ×§½áÊø,nulActKeyÄÄ¸öÊó±ê°´Å¥°´ÏÂ½øĞĞÍÏ×§
+//æ‹–æ‹½ç»“æŸ,nulActKeyå“ªä¸ªé¼ æ ‡æŒ‰é’®æŒ‰ä¸‹è¿›è¡Œæ‹–æ‹½
 ERESULT CEvPingpongButton::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		if(MOUSE_LB(npInfo->ActKey) == false)  //Èç¹û²»ÊÇÊó±ê×ó¼ü¾Í²»´¦Àí
+		if(MOUSE_LB(npInfo->ActKey) == false)  //å¦‚æœä¸æ˜¯é¼ æ ‡å·¦é”®å°±ä¸å¤„ç†
 			break;
 
 		if(npInfo->CurrentPos.x < 0 || npInfo->CurrentPos.y < 0 || npInfo->CurrentPos.x > mpIterator->GetSizeX() || npInfo->CurrentPos.y > mpIterator->GetSizeY())
-			PostMessageToParent(EEVT_BUTTON_CLICK,CExMessage::DataInvalid); //Ëã×öÒ»´Îµ¥»÷,·ñÔò¸¸ÀàButton¾Í»á·¢Õâ¸öÏûÏ¢ÁË£¬ÕâÀï¾Í²»ĞèÒª·¢ÁË
+			PostMessageToParent(EEVT_BUTTON_CLICK,CExMessage::DataInvalid); //ç®—åšä¸€æ¬¡å•å‡»,å¦åˆ™çˆ¶ç±»Buttonå°±ä¼šå‘è¿™ä¸ªæ¶ˆæ¯äº†ï¼Œè¿™é‡Œå°±ä¸éœ€è¦å‘äº†
 
 		leResult = ERESULT_SUCCESS;
 

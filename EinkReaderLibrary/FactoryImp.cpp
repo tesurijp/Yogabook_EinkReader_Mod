@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -30,8 +30,8 @@ CFactoryImp::~CFactoryImp()
 	CMM_SAFE_RELEASE(mpConfig);
 }
 
-// ³õÊ¼»¯º¯Êý£¬¿ÉÒÔÊµÏÖ¸÷ÖÖ²»Í¬²ÎÊýµÄ³õÊ¼»¯º¯Êý£¬×¢Òâ£¬ÅÉÉúÀàÖØÔØInitOnCreateº¯Êýºó£¬Ò»¶¨Òªµ÷ÓÃ»ùÀàµÄInitOnCreateº¯Êý
-// ·µ»Ø0±íÊ¾³É¹¦£»·µ»ØÖµ×î¸ßÎ»Îª1±íÊ¾·¢ÉúÑÏÖØ´íÎó£¬Ó¦¸ÃÖÕÖ¹³õÊ¼»¯¹ý³Ì£¬·µ»ØµÄ¾ÍÊÇ´íÎóÂë£»·µ»ØÆäËûÖµ±íÊ¾ÆäËû·Ç´íÎó·µ»ØÂë
+// åˆå§‹åŒ–å‡½æ•°ï¼Œå¯ä»¥å®žçŽ°å„ç§ä¸åŒå‚æ•°çš„åˆå§‹åŒ–å‡½æ•°ï¼Œæ³¨æ„ï¼Œæ´¾ç”Ÿç±»é‡è½½InitOnCreateå‡½æ•°åŽï¼Œä¸€å®šè¦è°ƒç”¨åŸºç±»çš„InitOnCreateå‡½æ•°
+// è¿”å›ž0è¡¨ç¤ºæˆåŠŸï¼›è¿”å›žå€¼æœ€é«˜ä½ä¸º1è¡¨ç¤ºå‘ç”Ÿä¸¥é‡é”™è¯¯ï¼Œåº”è¯¥ç»ˆæ­¢åˆå§‹åŒ–è¿‡ç¨‹ï¼Œè¿”å›žçš„å°±æ˜¯é”™è¯¯ç ï¼›è¿”å›žå…¶ä»–å€¼è¡¨ç¤ºå…¶ä»–éžé”™è¯¯è¿”å›žç 
 ULONG CFactoryImp::InitOnCreate(void)
 {
 	if(gpFactoryInstance != NULL)
@@ -42,11 +42,11 @@ ULONG CFactoryImp::InitOnCreate(void)
 	return ERESULT_SUCCESS;
 }
 
-// ´ÓÅäÖÃÎÄ¼þÖÐ´´½¨¶ÔÏó
+// ä»Žé…ç½®æ–‡ä»¶ä¸­åˆ›å»ºå¯¹è±¡
 IEinkuiIterator* __stdcall CFactoryImp::CreateElement(
-	IN IEinkuiIterator* npParent,		// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàÐÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊýµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓÐÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,		// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»åž‹EType
+	IN ULONG nuEID	// å¦‚æžœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æžœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	IXsElement* lpoElement = NULL;
@@ -57,7 +57,7 @@ IEinkuiIterator* __stdcall CFactoryImp::CreateElement(
 	{
 		BREAK_ON_NULL(npTemplete);
 
-		// »ñÈ¡Òª´´½¨µÄ¶ÔÏóÀàÃû
+		// èŽ·å–è¦åˆ›å»ºçš„å¯¹è±¡ç±»å
 		if(npTemplete->GetValue(lswClsName, MAX_PATH*sizeof(wchar_t)) <= 0)
 			break;
 
@@ -70,28 +70,28 @@ IEinkuiIterator* __stdcall CFactoryImp::CreateElement(
 	} while (false);
 
 	if(lpoElement != NULL)
-		lpILwIterator = lpoElement->GetIterator();	//»ñÈ¡IteratorÖ¸Õë
+		lpILwIterator = lpoElement->GetIterator();	//èŽ·å–IteratoræŒ‡é’ˆ
 
 	return lpILwIterator;
 }
 
-// Í¨¹ýÀàÃû£¬´´½¨¶ÔÏó
+// é€šè¿‡ç±»åï¼Œåˆ›å»ºå¯¹è±¡
 IEinkuiIterator* __stdcall CFactoryImp::CreateElement(
-	IN IEinkuiIterator* npParent,		// ¸¸¶ÔÏóÖ¸Õë
-	IN const wchar_t*		nswClassName,	// ÀàÃû
-	IN ULONG nuEID					// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊýµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓÐÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,		// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN const wchar_t*		nswClassName,	// ç±»å
+	IN ULONG nuEID					// å¦‚æžœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æžœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	IXsElement* lpoElement = NULL;
 	IEinkuiIterator* lpILwIterator = NULL;
 
 	if(lpoElement != NULL)
-		lpILwIterator = lpoElement->GetIterator();	//»ñÈ¡IteratorÖ¸Õë
+		lpILwIterator = lpoElement->GetIterator();	//èŽ·å–IteratoræŒ‡é’ˆ
 
 	return lpILwIterator;
 }
 
-// »ñµÃÓë´ËModuleÅäÌ×µÄProfileÎÄ¼þ½Ó¿Ú£¬·µ»ØµÄ½Ó¿Úµ±²»ÔÙÊ¹ÓÃÊ±£¬ÐèÒªRelease
+// èŽ·å¾—ä¸Žæ­¤Moduleé…å¥—çš„Profileæ–‡ä»¶æŽ¥å£ï¼Œè¿”å›žçš„æŽ¥å£å½“ä¸å†ä½¿ç”¨æ—¶ï¼Œéœ€è¦Release
 IConfigFile* __stdcall CFactoryImp::GetTempleteFile(void)
 {
 	const wchar_t* lpszWidgetPath = NULL;
@@ -103,35 +103,35 @@ IConfigFile* __stdcall CFactoryImp::GetTempleteFile(void)
 	{
 		if(mpConfig == NULL)
 		{
-			lpszWidgetPath = EinkuiGetSystem()->GetCurrentWidget()->GetWidgetDefaultPath();		//»ñÈ¡WidgetµÄ°²×°Â·¾¶
+			lpszWidgetPath = EinkuiGetSystem()->GetCurrentWidget()->GetWidgetDefaultPath();		//èŽ·å–Widgetçš„å®‰è£…è·¯å¾„
 			BREAK_ON_NULL(lpszWidgetPath);
 
 			CFilePathName loConfigFilePath(lpszWidgetPath);
-			loConfigFilePath.AssurePath();	//ÉèÖÃÎªÄ¿Â¼£¬Ò²¾ÍÊÇÔÚ×îºóÔö¼Ó"\"
+			loConfigFilePath.AssurePath();	//è®¾ç½®ä¸ºç›®å½•ï¼Œä¹Ÿå°±æ˜¯åœ¨æœ€åŽå¢žåŠ "\"
 
 			BREAK_ON_FALSE(loConfigFilePath.Transform(L"Profile\\"));
 
-			lpszLanguage = EinkuiGetSystem()->GetCurrentLanguage();		//»ñÈ¡µ±Ç°ÏµÍ³ÓïÑÔ¶ÔÓ¦µÄ×Ö·û´®,ÀýÈç£ºÖÐÎÄ¼òÌå¶ÔÓ¦£ºchn
+			lpszLanguage = EinkuiGetSystem()->GetCurrentLanguage();		//èŽ·å–å½“å‰ç³»ç»Ÿè¯­è¨€å¯¹åº”çš„å­—ç¬¦ä¸²,ä¾‹å¦‚ï¼šä¸­æ–‡ç®€ä½“å¯¹åº”ï¼šchn
 			BREAK_ON_NULL(lpszLanguage);
 
-			wcscpy_s(lpszConfigFileName,CONFIG_FILE_NAME_MAX_LEN,L"Widget");		//Æ´½ÓÎÄ¼þÃû Ê¾Àý£ºSystem_chn.set
+			wcscpy_s(lpszConfigFileName,CONFIG_FILE_NAME_MAX_LEN,L"Widget");		//æ‹¼æŽ¥æ–‡ä»¶å ç¤ºä¾‹ï¼šSystem_chn.set
 			wcscat_s(lpszConfigFileName,CONFIG_FILE_NAME_MAX_LEN,L"_");
 			wcscat_s(lpszConfigFileName,CONFIG_FILE_NAME_MAX_LEN,lpszLanguage);
 			wcscat_s(lpszConfigFileName,CONFIG_FILE_NAME_MAX_LEN,L".set");
 
-			BREAK_ON_FALSE(loConfigFilePath.Transform(lpszConfigFileName));	//Æ´³ÉÈ«Â·¾¶
+			BREAK_ON_FALSE(loConfigFilePath.Transform(lpszConfigFileName));	//æ‹¼æˆå…¨è·¯å¾„
 
-			lpIConfigFile = EinkuiGetSystem()->OpenConfigFile(loConfigFilePath.GetPathName(),OPEN_EXISTING);	//´ò¿ª¸ÃÅäÖÃÎÄ¼þ
+			lpIConfigFile = EinkuiGetSystem()->OpenConfigFile(loConfigFilePath.GetPathName(),OPEN_EXISTING);	//æ‰“å¼€è¯¥é…ç½®æ–‡ä»¶
 
 			if (lpIConfigFile == NULL)
 			{
-				//Èç¹û´ò²»¿ª¾ÍÊ¹ÓÃÓ¢ÎÄÅäÖÃÎÄ¼þ
-				wcscpy_s(lpszConfigFileName, CONFIG_FILE_NAME_MAX_LEN, L"Widget");		//Æ´½ÓÎÄ¼þÃû Ê¾Àý£ºSystem_chn.set
+				//å¦‚æžœæ‰“ä¸å¼€å°±ä½¿ç”¨è‹±æ–‡é…ç½®æ–‡ä»¶
+				wcscpy_s(lpszConfigFileName, CONFIG_FILE_NAME_MAX_LEN, L"Widget");		//æ‹¼æŽ¥æ–‡ä»¶å ç¤ºä¾‹ï¼šSystem_chn.set
 				wcscat_s(lpszConfigFileName, CONFIG_FILE_NAME_MAX_LEN, L"_enu.set");
 
-				BREAK_ON_FALSE(loConfigFilePath.Transform(lpszConfigFileName));	//Æ´³ÉÈ«Â·¾¶
+				BREAK_ON_FALSE(loConfigFilePath.Transform(lpszConfigFileName));	//æ‹¼æˆå…¨è·¯å¾„
 
-				lpIConfigFile = EinkuiGetSystem()->OpenConfigFile(loConfigFilePath.GetPathName(), OPEN_EXISTING);	//´ò¿ª¸ÃÅäÖÃÎÄ¼þ
+				lpIConfigFile = EinkuiGetSystem()->OpenConfigFile(loConfigFilePath.GetPathName(), OPEN_EXISTING);	//æ‰“å¼€è¯¥é…ç½®æ–‡ä»¶
 
 			}
 
@@ -142,14 +142,14 @@ IConfigFile* __stdcall CFactoryImp::GetTempleteFile(void)
 		else
 			lpIConfigFile = mpConfig;
 
-		lpIConfigFile->AddRefer();	//Ôö¼ÓÒýÓÃ¼ÇÊý
+		lpIConfigFile->AddRefer();	//å¢žåŠ å¼•ç”¨è®°æ•°
 
 	} while (false);
 
 	return lpIConfigFile;
 }
 
-// »ñµÃ±¾DLLÎ¨Ò»µÄ¹¤³§¶ÔÏó
+// èŽ·å¾—æœ¬DLLå”¯ä¸€çš„å·¥åŽ‚å¯¹è±¡
 CFactoryImp* CFactoryImp::GetUniqueObject(void)
 {
 	if(gpFactoryInstance ==NULL)

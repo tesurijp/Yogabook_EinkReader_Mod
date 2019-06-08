@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -45,8 +45,8 @@ void CEiUpdate::FoundDiffBlocks(CEiBlocks& nrBlocks)
 	{
 		if (moDiffLines[i].Begin >= moDiffLines[i].End)
 		{
-			// ³öÏÖ¿ÕĞĞ£¬½áÊøÇ°Ò»¸ö¶ÔÏó
-			if (lbFound != false)// ²»ÊÇµÚÒ»ĞĞ£¬ÓĞÇ°ÖÃ¿é
+			// å‡ºç°ç©ºè¡Œï¼Œç»“æŸå‰ä¸€ä¸ªå¯¹è±¡
+			if (lbFound != false)// ä¸æ˜¯ç¬¬ä¸€è¡Œï¼Œæœ‰å‰ç½®å—
 			{
 				lbFound = false;
 				nrBlocks.Insert(-1, loBlock);
@@ -74,7 +74,7 @@ void CEiUpdate::FoundDiffBlocks(CEiBlocks& nrBlocks)
 		nrBlocks.Insert(-1, loBlock);
 }
 
-// ¼ÆËãÃæ»ı×îĞ¡µÄ·Ö¿éÈÚºÏ·½°¸£¬ÎªÁË¼òµ¥£¬×î¶àÖ»ºÏ²¢ÎªÁ½¿é
+// è®¡ç®—é¢ç§¯æœ€å°çš„åˆ†å—èåˆæ–¹æ¡ˆï¼Œä¸ºäº†ç®€å•ï¼Œæœ€å¤šåªåˆå¹¶ä¸ºä¸¤å—
 void CEiUpdate::CombineBlocks(CEiBlocks& nrDiffBlocks, CEiBlocks& nrComBlocks)
 {
 	CEiRowBlock loCombinedBlock;
@@ -85,7 +85,7 @@ void CEiUpdate::CombineBlocks(CEiBlocks& nrDiffBlocks, CEiBlocks& nrComBlocks)
 	int liBottomBlock = -1;
 
 	if (nrDiffBlocks.Size() == 1)
-	{	// Ö»ÓĞÒ»¿é
+	{	// åªæœ‰ä¸€å—
 		nrComBlocks.Insert(-1, nrDiffBlocks.Front());
 		return;
 	}
@@ -113,7 +113,7 @@ void CEiUpdate::CombineBlocks(CEiBlocks& nrDiffBlocks, CEiBlocks& nrComBlocks)
 		loBottomUp.Insert(-1, loCombinedBlock);
 	}
 
-	// ÉÏÏÂÒÀ´Î×éºÏ£¬ÕÒµ½Ãæ»ı×îĞ¡µÄ·½°¸
+	// ä¸Šä¸‹ä¾æ¬¡ç»„åˆï¼Œæ‰¾åˆ°é¢ç§¯æœ€å°çš„æ–¹æ¡ˆ
 	for (int i = 0,j = loTopDown.Size()- 1 - 1; i < loTopDown.Size() && j>=0; i++,j--)
 	{
 		LONG liCrtPixels = (loTopDown[i].x2 - loTopDown[i].x1)*(loTopDown[i].y2 - loTopDown[i].y1) + \
@@ -126,11 +126,11 @@ void CEiUpdate::CombineBlocks(CEiBlocks& nrDiffBlocks, CEiBlocks& nrComBlocks)
 		}
 	}
 
-	// ÅĞ¶Ï·Ö¿éÊÇ·ñÓĞÓÅÊÆ
+	// åˆ¤æ–­åˆ†å—æ˜¯å¦æœ‰ä¼˜åŠ¿
 	if ((liMaxPixels * 12) / 10 < (loTopDown.Back().x2 - loTopDown.Back().x1)*(loTopDown.Back().y2 - loTopDown.Back().y1) && \
 			(ULONG)(liMaxPixels*10) < muTotalPixels)
 	{
-		// ·Ö¿é¼õÉÙÁË20%µÄÊı¾İ£¬²¢ÇÒ×ÜÃæ»ıĞ¡ÓÚÆÁÄ»µÄ1/10(´óÍ¼Ïñ·ÖÎªÁ½´Î»æÖÆĞ§ÂÊ¸üµÍ£©
+		// åˆ†å—å‡å°‘äº†20%çš„æ•°æ®ï¼Œå¹¶ä¸”æ€»é¢ç§¯å°äºå±å¹•çš„1/10(å¤§å›¾åƒåˆ†ä¸ºä¸¤æ¬¡ç»˜åˆ¶æ•ˆç‡æ›´ä½ï¼‰
 		nrComBlocks.Insert(-1, loTopDown[liUpBlock]);
 		nrComBlocks.Insert(-1, loBottomUp[liBottomBlock]);
 	}

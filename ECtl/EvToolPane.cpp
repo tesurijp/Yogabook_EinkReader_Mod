@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -17,11 +17,11 @@
 
 DEFINE_BUILTIN_NAME(ToolPane)
 
-#define ID_TOOLBAR_ITEM_FONT		1		//	×ÖÌå £¨×éºÏ¿ò£©
-#define ID_TOOLBAR_ITEM_FONT_SIZE	2		//	×ÖºÅ	£¨×éºÏ¿ò£©
-#define ID_TOOLBAR_ITEM_SPACING		4		//	¼ä¾à	£¨×éºÏ¿ò£©
+#define ID_TOOLBAR_ITEM_FONT		1		//	å­—ä½“ ï¼ˆç»„åˆæ¡†ï¼‰
+#define ID_TOOLBAR_ITEM_FONT_SIZE	2		//	å­—å·	ï¼ˆç»„åˆæ¡†ï¼‰
+#define ID_TOOLBAR_ITEM_SPACING		4		//	é—´è·	ï¼ˆç»„åˆæ¡†ï¼‰
 
-// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓÐ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖÐ½øÐÐ
+// åªç”¨äºŽå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 CEvToolPane::CEvToolPane() :
 	mpUnificSetting(NULL)
 {	
@@ -32,21 +32,21 @@ CEvToolPane::~CEvToolPane()
 }
 
 ULONG CEvToolPane::InitOnCreate(
-	IN IXuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàÐÍEType
-	IN ULONG nuEID				// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊýµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓÐÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IXuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»åž‹EType
+	IN ULONG nuEID				// å¦‚æžœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æžœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-		//	³õÊ¼»¯UnificSetting
+		//	åˆå§‹åŒ–UnificSetting
 		mpUnificSetting = GetUnificSetting();
 
 		//mpIterator->ModifyStyles(EITR_STYLE_ALL_MWHEEL|EITR_STYLE_KEYBOARD);
@@ -57,7 +57,7 @@ ULONG CEvToolPane::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓÐÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºŽçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»Žè€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åŽå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvToolPane::OnElementCreate(IXuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -91,7 +91,7 @@ ERESULT CEvToolPane::OnCtlButtonClick(IXuiIterator* npSender)
 }
 
 
-//×°ÔØÅäÖÃ×ÊÔ´
+//è£…è½½é…ç½®èµ„æº
 //ERESULT CEvToolPane::LoadResource()
 //{
 //
@@ -101,21 +101,21 @@ ERESULT CEvToolPane::OnCtlButtonClick(IXuiIterator* npSender)
 //
 //	do 
 //	{
-//		//»ñÈ¡Ö¡ÐÅÏ¢
+//		//èŽ·å–å¸§ä¿¡æ¯
 //		mlMaxFrame = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_LIST_BACKIAMGE_FRAME_COUNT,1);
 //
 //		if (mlMaxFrame > 0 && mpBgBitmap != NULL)
 //		{
-//			//¼ÆËãÃ¿Ö¡´óÐ¡
+//			//è®¡ç®—æ¯å¸§å¤§å°
 //			UINT luiWidth = mpBgBitmap->GetWidth();
 //			UINT luiHeight = mpBgBitmap->GetHeight();
 //			mlCurrentIndex = 0;
 //
 //			mpIterator->SetSize(float(luiWidth / mlMaxFrame),(float)luiHeight);
 //		}
-//		//»ñÈ¡ÏÔÊ¾Ä£Ê½
+//		//èŽ·å–æ˜¾ç¤ºæ¨¡å¼
 //
-//		//»ñÈ¡ÊÇ·ñ²»ÐèÒªÏÔÊ¾¹ö¶¯ÌõµÈÊôÐÔ
+//		//èŽ·å–æ˜¯å¦ä¸éœ€è¦æ˜¾ç¤ºæ»šåŠ¨æ¡ç­‰å±žæ€§
 //
 //		leResult = ERESULT_SUCCESS;
 //
@@ -124,7 +124,7 @@ ERESULT CEvToolPane::OnCtlButtonClick(IXuiIterator* npSender)
 //	return leResult;
 //}
 
-//»æÖÆ
+//ç»˜åˆ¶
 //ERESULT CEvToolPane::OnPaint(IXuiPaintBoard* npPaintBoard)
 //{
 //
@@ -150,11 +150,11 @@ ERESULT CEvToolPane::OnCtlButtonClick(IXuiIterator* npSender)
 //	return lResult;
 //}
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíÐéº¯Êý£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊýµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖÐ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®žçŽ°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åŽï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºŽä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›žERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›žå€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvToolPane::ParseMessage(IXuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®žçŽ°åŽŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€ŒåŽå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -199,7 +199,7 @@ ERESULT CEvToolPane::ParseMessage(IXuiMessage* npMsg)
 
 		if(luResult == ERESULT_NOT_SET)
 		{
-			luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êý£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+			luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æŽ¥åŸºç±»
 		}
 
 	} while (false);
@@ -209,7 +209,7 @@ ERESULT CEvToolPane::ParseMessage(IXuiMessage* npMsg)
 
 bool CEvToolPane::SetPaneItemValue(int lID)
 {
-	//	ÒÀ¾ÝÅäÖÃÎÄ¼þµÄ×ÓÔªËØID
+	//	ä¾æ®é…ç½®æ–‡ä»¶çš„å­å…ƒç´ ID
 
 	if (NULL == mpUnificSetting) return false;
 
@@ -222,19 +222,19 @@ bool CEvToolPane::SetPaneItemValue(int lID)
 	{
 		int lnID = 0;
 
-		//È¡ID
+		//å–ID
 		EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
 			lpItem, EEVT_GET_UNIFIC_SETTING_ID, NULL, 0, &lnID, sizeof(int));
 
 		if (0 !=lnID)
 		{
-			//ÅÐ¶Ïdirty
+			//åˆ¤æ–­dirty
 			if (lbDirty = mpUnificSetting->GetDirty(lnID))
 			{
 				EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
 					lpItem, EEVT_PANE_ITEM_SET_VALUE, NULL, 0, NULL, 0);
 
-				//Çå³ýÐÞ¸Ä±ê¼Ç
+				//æ¸…é™¤ä¿®æ”¹æ ‡è®°
 				mpUnificSetting->SetDirty(lnID, false);
 			}
 		}

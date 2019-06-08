@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -11,7 +11,7 @@
 
 
 
-#define BUTTON_FRAME_ARRAY_MAX 20		//Ã¿ÖÖ×´Ì¬µÄÖ¡ĞÅÏ¢Êı×éµÄ×î´ó³ÉÔ±¸öÊı
+#define BUTTON_FRAME_ARRAY_MAX 20		//æ¯ç§çŠ¶æ€çš„å¸§ä¿¡æ¯æ•°ç»„çš„æœ€å¤§æˆå‘˜ä¸ªæ•°
 
 DECLARE_BUILTIN_NAME(ImageButton)
 
@@ -22,60 +22,60 @@ class CEvImageButton:
 
 public:
 
-	//enum	//´æ·ÅÖ¡ÊıÊı×éµÄ¶ÔÓ¦ÏÂ±ê
+	//enum	//å­˜æ”¾å¸§æ•°æ•°ç»„çš„å¯¹åº”ä¸‹æ ‡
 	//{
-	//	ARRAY_INDEX_DISABLE = 0,			//½ûÓÃÌ¬
-	//	ARRAY_INDEX_NORMAL,					//ÆÕÍ¨Ì¬
-	//	ARRAY_INDEX_FOCUS,					//½¹µãÌ¬
-	//	ARRAY_INDEX_PRESSED,				//°´ÏÂÌ¬
-	//	ARRAY_INDEX_CHECKED_DISABLE,		//CheckedÌ¬µÄ½ûÓÃÌ¬
-	//	ARRAY_INDEX_CHECKED_NORMAL,			//CheckedÌ¬µÄÆÕÍ¨Ì¬
-	//	ARRAY_INDEX_CHECKED_FOCUS,			//CheckedÌ¬µÄÓµÓĞ½¹µãÌ¬
-	//	ARRAY_INDEX_CHECKED_PRESSED,		//CheckedÌ¬µÄ°´ÏÂÌ¬
-	//	ARRAY_INDEX_OTHER					//ÆäËü¶¯»­
+	//	ARRAY_INDEX_DISABLE = 0,			//ç¦ç”¨æ€
+	//	ARRAY_INDEX_NORMAL,					//æ™®é€šæ€
+	//	ARRAY_INDEX_FOCUS,					//ç„¦ç‚¹æ€
+	//	ARRAY_INDEX_PRESSED,				//æŒ‰ä¸‹æ€
+	//	ARRAY_INDEX_CHECKED_DISABLE,		//Checkedæ€çš„ç¦ç”¨æ€
+	//	ARRAY_INDEX_CHECKED_NORMAL,			//Checkedæ€çš„æ™®é€šæ€
+	//	ARRAY_INDEX_CHECKED_FOCUS,			//Checkedæ€çš„æ‹¥æœ‰ç„¦ç‚¹æ€
+	//	ARRAY_INDEX_CHECKED_PRESSED,		//Checkedæ€çš„æŒ‰ä¸‹æ€
+	//	ARRAY_INDEX_OTHER					//å…¶å®ƒåŠ¨ç”»
 	//};
 
-	////Ã¿ÖÖ×´Ì¬µÄÖ¡ĞÅÏ¢
+	////æ¯ç§çŠ¶æ€çš„å¸§ä¿¡æ¯
 	//struct ImageButtonFrame
 	//{
-	//	LONG Index;		//Í¼Æ¬ÉÏµÄµÚ¼¸Ö¡
-	//	LONG Count;		//Ò»¹²ÓĞ¼¸Ö¡
+	//	LONG Index;		//å›¾ç‰‡ä¸Šçš„ç¬¬å‡ å¸§
+	//	LONG Count;		//ä¸€å…±æœ‰å‡ å¸§
 	//};
 
 
 	ULONG InitOnCreate(
-		IN IEinkuiIterator* npParent = NULL,	// ¸¸¶ÔÏóÖ¸Õë
-		IN ICfKey* npTemplete = NULL,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-		IN ULONG nuEID=MAXULONG32	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+		IN IEinkuiIterator* npParent = NULL,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+		IN ICfKey* npTemplete = NULL,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+		IN ULONG nuEID=MAXULONG32	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 		) ;
 
 protected:
-	// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓĞ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖĞ½øĞĞ
+	// åªç”¨äºå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 	CEvImageButton();
-	// ÓÃÓÚÊÍ·Å³ÉÔ±¶ÔÏó
+	// ç”¨äºé‡Šæ”¾æˆå‘˜å¯¹è±¡
 	virtual ~CEvImageButton();
-	//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+	//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 	virtual ERESULT OnElementCreate(IEinkuiIterator* npIterator);
-	//Êó±ê½øÈë»òÀë¿ª
+	//é¼ æ ‡è¿›å…¥æˆ–ç¦»å¼€
 	virtual void OnMouseFocus(PSTEMS_STATE_CHANGE npState);
-	//Êó±ê°´ÏÂ
+	//é¼ æ ‡æŒ‰ä¸‹
 	virtual ERESULT OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo);
-	// Êó±êÂäµã¼ì²â
+	// é¼ æ ‡è½ç‚¹æ£€æµ‹
 	virtual ERESULT OnMouseOwnerTest(const D2D1_POINT_2F& rPoint);
-	//»æÖÆ
+	//ç»˜åˆ¶
 	virtual ERESULT OnPaint(IEinkuiPaintBoard* npPaintBoard);
-	// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-	// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+	// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+	// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 	virtual ERESULT ParseMessage(IEinkuiMessage* npMsg);
 
-	BOOL SetChildCtrlPara();			//×°ÔØÅäÖÃ×ÊÔ´£¬ÉèÖÃ×Ó¿Ø¼ş
+	BOOL SetChildCtrlPara();			//è£…è½½é…ç½®èµ„æºï¼Œè®¾ç½®å­æ§ä»¶
 
 	void SetChecked(bool nbChecked);
 
-	//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+	//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 	virtual ERESULT OnElementResized(D2D1_SIZE_F nNewSize);
 
-	//½ûÓÃ»òÆôÓÃ
+	//ç¦ç”¨æˆ–å¯ç”¨
 	virtual ERESULT OnElementEnable(bool nbIsEnable);
 
 	bool SetItemSelected(int nID);
@@ -95,7 +95,7 @@ private:
 
 private:
 
-	//	¶ÁÈ¡UnificSettingÊı¾İ£¬ÖØÖÃĞĞÎª
+	//	è¯»å–UnificSettingæ•°æ®ï¼Œé‡ç½®è¡Œä¸º
 	bool SetValue();
 
 	bool SetImageButtonEnable(bool nbEnable);
@@ -105,42 +105,42 @@ private:
 	CEvPictureFrame*	mpLeftPicture;
 	CEvPictureFrame*	mpRightPicture;
 		
-	IEinkuiBitmap*			mpBitmapSelectOrOver;		//Ñ¡ÖĞ»òÕß»¬¹ıµÄ±³¾°
-	bool				mbIsMouseFocus;				//ÊÇ·ñÓµÓĞÊó±ê½¹µã
-	bool				mbIsKeyboardFocus;			//ÊÇ·ñÓµÓĞ¼üÅÌ½¹µã
-	bool				mbIsPressed;				//ÊÇ·ñ±»°´ÏÂ
+	IEinkuiBitmap*			mpBitmapSelectOrOver;		//é€‰ä¸­æˆ–è€…æ»‘è¿‡çš„èƒŒæ™¯
+	bool				mbIsMouseFocus;				//æ˜¯å¦æ‹¥æœ‰é¼ æ ‡ç„¦ç‚¹
+	bool				mbIsKeyboardFocus;			//æ˜¯å¦æ‹¥æœ‰é”®ç›˜ç„¦ç‚¹
+	bool				mbIsPressed;				//æ˜¯å¦è¢«æŒ‰ä¸‹
 	
 
-	int					mnStyle;					//ImageButton·ç¸ñ  0:uncheckable   1:checkable 
+	int					mnStyle;					//ImageButtoné£æ ¼  0:uncheckable   1:checkable 
 
-	bool				mbHasColorFlag;				//ÑÕÉ«°´Å¥±ê¼Ç
-	ULONG				mluRGBColor;					//ÑÕÉ«Öµ
+	bool				mbHasColorFlag;				//é¢œè‰²æŒ‰é’®æ ‡è®°
+	ULONG				mluRGBColor;					//é¢œè‰²å€¼
 
-	//À©Õ¹×Ó¿Ø¼şÊôĞÔ
-	bool				mbExpandable;				//Ö§³ÖÀ©Õ¹×Ó¿Ø¼ş
-	IEinkuiIterator*		mpIterExpandCtrl;			//À©Õ¹×Ó¿Ø¼ş
-	bool				mbShowExpandCtrl;			//À©Õ¹×Ó¿Ø¼şÏÔÊ¾»òÒş²Ø
-	cmmVector<ExpandMenuItem>	mpVecExpandMenuItem;		//À©Õ¹²Ëµ¥ĞÅÏ¢ÁĞ±í
+	//æ‰©å±•å­æ§ä»¶å±æ€§
+	bool				mbExpandable;				//æ”¯æŒæ‰©å±•å­æ§ä»¶
+	IEinkuiIterator*		mpIterExpandCtrl;			//æ‰©å±•å­æ§ä»¶
+	bool				mbShowExpandCtrl;			//æ‰©å±•å­æ§ä»¶æ˜¾ç¤ºæˆ–éšè—
+	cmmVector<ExpandMenuItem>	mpVecExpandMenuItem;		//æ‰©å±•èœå•ä¿¡æ¯åˆ—è¡¨
 
 
-	//¿Ø¼şÏûÏ¢
+	//æ§ä»¶æ¶ˆæ¯
 	TOOLBAR_MSG			mMsgInfo;
-	//ÏûÏ¢Ğ¯´øµÄÊı¾İ
-	bool				mbChecked;						//ÊÇ·ñ±»Ñ¡ÖĞ
-	int					mnSubItemID;					//×ÓÏîID
-	double				mdValue;						//doubleÖµ
-	wchar_t*			pszValue;						//stringÖµ
+	//æ¶ˆæ¯æºå¸¦çš„æ•°æ®
+	bool				mbChecked;						//æ˜¯å¦è¢«é€‰ä¸­
+	int					mnSubItemID;					//å­é¡¹ID
+	double				mdValue;						//doubleå€¼
+	wchar_t*			pszValue;						//stringå€¼
 
 
-	//ÆäËû
+	//å…¶ä»–
 	float				mfRadio;
 
 	bool				mbDrawShape;
 
 
-	//ImageButtonFrame	mdArrayFrame[BUTTON_FRAME_ARRAY_MAX];	//´æ·ÅÃ¿ÖÖ×´Ì¬µÄÖ¡ĞÅÏ¢
-	//LONG				mlCurrentPage;							//µ±Ç°²¥·Åµ½µÚ¼¸Ö¡ÁË
-	//LONG				mlPageCountMax;							//×î´óÖ¡Êı
+	//ImageButtonFrame	mdArrayFrame[BUTTON_FRAME_ARRAY_MAX];	//å­˜æ”¾æ¯ç§çŠ¶æ€çš„å¸§ä¿¡æ¯
+	//LONG				mlCurrentPage;							//å½“å‰æ’­æ”¾åˆ°ç¬¬å‡ å¸§äº†
+	//LONG				mlPageCountMax;							//æœ€å¤§å¸§æ•°
 };
 
 #endif		// __EVIMAGEBUTTONIMP_H__

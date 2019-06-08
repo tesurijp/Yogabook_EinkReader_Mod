@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -20,7 +20,7 @@ CXelDataMgr::CXelDataMgr()
 
 CXelDataMgr::~CXelDataMgr()
 {
-	// ½øĞĞ×ÊÔ´ÊÍ·Å
+	// è¿›è¡Œèµ„æºé‡Šæ”¾
 	if (mpMainKey != NULL)
 		RegCloseKey(mpMainKey);
 
@@ -67,7 +67,7 @@ IElementFactory* __stdcall CXelDataMgr::HasFactoryBeenLoaded(
 	)
 {
 
-	//// ²é¿´ÄÚ´æÎ¬»¤µÄDLL¾ä±ú±í£¬¿´ÊÇ·ñ¼ÓÔØ
+	//// æŸ¥çœ‹å†…å­˜ç»´æŠ¤çš„DLLå¥æŸ„è¡¨ï¼Œçœ‹æ˜¯å¦åŠ è½½
 	//FACTCLASSPAIR	lstFactPair;
 	//IElementFactory* lpElementFact = NULL;
 
@@ -107,11 +107,11 @@ REGSTATUS __stdcall CXelDataMgr::IsRegisted(
 	IElementFactory** npElementFact
 	)
 {
-	// ²é¿´ÔÚÅäÖÃÎÄ¼şÖĞÄÜ·ñÕÒµ½×¢²áĞÅÏ¢
+	// æŸ¥çœ‹åœ¨é…ç½®æ–‡ä»¶ä¸­èƒ½å¦æ‰¾åˆ°æ³¨å†Œä¿¡æ¯
 	if (FindFactoryDll(nswClsName, nswDllPath) == FALSE)
 		return Invalid;
 
-	// ²é¿´¸ÃDLLÊÇ·ñÒÑ¾­¼ÓÔØ
+	// æŸ¥çœ‹è¯¥DLLæ˜¯å¦å·²ç»åŠ è½½
 	*npElementFact = HasFactoryBeenLoaded(nswDllPath);
 	if(*npElementFact != NULL)
 		return LOAD;
@@ -179,8 +179,8 @@ BOOL __stdcall CXelDataMgr::FindFactoryDll(
 #define MAX_KEY_LENGTH 255
 #define MAX_VALUE_NAME 16383
 
-	// ±éÀú×¢²á±í£ºHKLM\Software\Lenovo\Veriface5\PublicClasses\¿Ø¼şÁĞ±í
-	// ²é¿´ÓĞÎŞ¶ÔÏóÀàµÄ×¢²áĞÅÏ¢
+	// éå†æ³¨å†Œè¡¨ï¼šHKLM\Software\Lenovo\Veriface5\PublicClasses\æ§ä»¶åˆ—è¡¨
+	// æŸ¥çœ‹æœ‰æ— å¯¹è±¡ç±»çš„æ³¨å†Œä¿¡æ¯
 
 	TCHAR	lszSubKeyName[MAX_PATH];   
 	DWORD	luLen;                 
@@ -203,22 +203,22 @@ BOOL __stdcall CXelDataMgr::FindFactoryDll(
 	DWORD	luSubValueLen = MAX_VALUE_NAME; 
 	DWORD	luValueType = REG_SZ;
 
-	// »ñÈ¡ÀàÃûºÍÊıÁ¿
+	// è·å–ç±»åå’Œæ•°é‡
 	luStatus = RegQueryInfoKey(
-		mpMainKey,					// ¼üµÄ¾ä±ú
-		lszKeyName,					// ÀàÃû 
-		&luClassNameLen,			// ÀàÃû³¤¶È 
-		NULL,						// ±£Áô
-		&luSubKeyNum,               // ×Ó¼üµÄÊıÁ¿
-		&luSubKeyLen,				// ×Ó¼ü³¤¶È
-		&luClassLen,				// Àà³¤¶È
-		&luValueNum,                // ×Ó¼ü¼üÖµÊıÁ¿
-		&luSubKeyNameLen,			// ×Ó¼üÃû³¤¶È
-		&luValueLen,				// ¼üÖµ³¤¶È
-		&luSecurityDescriptor,		// °²È«ÃèÊö·û
-		&lstFtLastWriteTime);       // ×îºóĞ´Ê±¼ä 
+		mpMainKey,					// é”®çš„å¥æŸ„
+		lszKeyName,					// ç±»å 
+		&luClassNameLen,			// ç±»åé•¿åº¦ 
+		NULL,						// ä¿ç•™
+		&luSubKeyNum,               // å­é”®çš„æ•°é‡
+		&luSubKeyLen,				// å­é”®é•¿åº¦
+		&luClassLen,				// ç±»é•¿åº¦
+		&luValueNum,                // å­é”®é”®å€¼æ•°é‡
+		&luSubKeyNameLen,			// å­é”®åé•¿åº¦
+		&luValueLen,				// é”®å€¼é•¿åº¦
+		&luSecurityDescriptor,		// å®‰å…¨æè¿°ç¬¦
+		&lstFtLastWriteTime);       // æœ€åå†™æ—¶é—´ 
 
-	// ÁĞ¾Ù×Ó¼ü    
+	// åˆ—ä¸¾å­é”®    
 	if (luSubKeyNum)
 	{
 
@@ -235,7 +235,7 @@ BOOL __stdcall CXelDataMgr::FindFactoryDll(
 				&lstFtLastWriteTime); 
 			if (luStatus == ERROR_SUCCESS) 
 			{
-				// ÀàÃûÆ¥Åä,Ôò¼ÌĞøÈ¡DLLPATHµÄÂ·¾¶
+				// ç±»ååŒ¹é…,åˆ™ç»§ç»­å–DLLPATHçš„è·¯å¾„
 				if (_wcsicmp(lszSubKeyName, nswClsName) == 0)
 				{
 					if(mb64Bit == FALSE)

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -31,7 +31,7 @@ template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode> bplustree<C
 }
 
 
-// »ñÈ¡·ÃÎÊÈ¨ÏŞ
+// è·å–è®¿é—®æƒé™
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 inline void bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::EnterExclusiveAccess(void)const{
 #ifdef KERNEL_CODE
@@ -41,7 +41,7 @@ inline void bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::EnterExclusiv
 #endif//KERNEL_CODE
 
 }
-// ÊÍ·Å·ÃÎÊÈ¨ÏŞ
+// é‡Šæ”¾è®¿é—®æƒé™
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 inline void bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::LeaveExclusiveAccess(void)const{
 #ifdef KERNEL_CODE
@@ -53,11 +53,11 @@ inline void bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::LeaveExclusiv
 }
 
 
-// ÊÍ·ÅÒ»¸ö·ÖÖ§ÉÏµÄËùÓĞÏÂ¼¶½Úµã
+// é‡Šæ”¾ä¸€ä¸ªåˆ†æ”¯ä¸Šçš„æ‰€æœ‰ä¸‹çº§èŠ‚ç‚¹
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 void bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::ReleaseEntriesInNode(LPBPNODE npNode)
 {
-	if(npNode->mbIsLeaf == false)	// ²»ÊÇÒ¶½Úµã,ĞèÒªÊÍ·ÅÏÂÊôÄÚÈİ
+	if(npNode->mbIsLeaf == false)	// ä¸æ˜¯å¶èŠ‚ç‚¹,éœ€è¦é‡Šæ”¾ä¸‹å±å†…å®¹
 	{
 		bplustree_node<LPBPNODE,ObjsInNode>* lpBranch;
 		lpBranch = (bplustree_node<LPBPNODE,ObjsInNode>*)npNode;
@@ -78,10 +78,10 @@ void bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::ReleaseEntriesInNode
 	delete npNode;
 }
 
-// ²åÈë£¬·µ»Ø³É¹¦Óë·ñ£¬Ê§°ÜµÄÔ­Òò¿ÉÄÜÊÇ´æÔÚÏàÍ¬µÄÖµ»òÕßÄÚ´æ·ÖÅäÊ§°Ü
+// æ’å…¥ï¼Œè¿”å›æˆåŠŸä¸å¦ï¼Œå¤±è´¥çš„åŸå› å¯èƒ½æ˜¯å­˜åœ¨ç›¸åŒçš„å€¼æˆ–è€…å†…å­˜åˆ†é…å¤±è´¥
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::Insert(
-	CBPlusTreeObjectClass& nrObject		// ´ı²åÈëµÄ¶ÔÏó£¬×¢Òâ£¬¸Ã¶ÔÏóµÄÄÚÈİ¿ÉÄÜ»áÓ¦¶ÔÓ¦Àà±ğµÄ = ÔËËã·ûµÄĞĞÎª¶øĞŞ¸Ä
+	CBPlusTreeObjectClass& nrObject		// å¾…æ’å…¥çš„å¯¹è±¡ï¼Œæ³¨æ„ï¼Œè¯¥å¯¹è±¡çš„å†…å®¹å¯èƒ½ä¼šåº”å¯¹åº”ç±»åˆ«çš„ = è¿ç®—ç¬¦çš„è¡Œä¸ºè€Œä¿®æ”¹
 	)
 {
 	int liIndex;
@@ -94,34 +94,34 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::Insert(
 	}
 	else
 	if(mCriterion(nrObject,lpLeaf->GetEntry(liIndex))==false && mCriterion(lpLeaf->GetEntry(liIndex),nrObject)==false)
-		return false;	// ¸ÃÊıÖµÒÑ¾­´æÔÚ
+		return false;	// è¯¥æ•°å€¼å·²ç»å­˜åœ¨
 
 	return InsertToLeaf(lpLeaf,nrObject);
 }
-// ²åÈë£¬·µ»Ø³É¹¦Óë·ñ£¬Ê§°ÜµÄÔ­Òò¿ÉÄÜÊÇ´æÔÚÏàÍ¬µÄÖµ»òÕßÄÚ´æ·ÖÅäÊ§°Ü£¬Í¬ÉÏÃæµÄÇø±ğÊÇ£¬¿ÉÒÔÓÃ³£Á¿×ö²ÎÊı£¬µ±È»£¬Õâ¸ö²ÎÊıÓ¦¸ÃÄÜ¹»Ö§³Ö'='ÔËËã·û£¬·ñÔòÎŞ·¨±àÒëÍ¨¹ı
+// æ’å…¥ï¼Œè¿”å›æˆåŠŸä¸å¦ï¼Œå¤±è´¥çš„åŸå› å¯èƒ½æ˜¯å­˜åœ¨ç›¸åŒçš„å€¼æˆ–è€…å†…å­˜åˆ†é…å¤±è´¥ï¼ŒåŒä¸Šé¢çš„åŒºåˆ«æ˜¯ï¼Œå¯ä»¥ç”¨å¸¸é‡åšå‚æ•°ï¼Œå½“ç„¶ï¼Œè¿™ä¸ªå‚æ•°åº”è¯¥èƒ½å¤Ÿæ”¯æŒ'='è¿ç®—ç¬¦ï¼Œå¦åˆ™æ— æ³•ç¼–è¯‘é€šè¿‡
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::Insert(
-	const CBPlusTreeObjectClass& nrObject		// ´ı²åÈëµÄ¶ÔÏó£¬×¢Òâ£¬¸Ã¶ÔÏóµÄÄÚÈİ¿ÉÄÜ»áÓ¦¶ÔÓ¦Àà±ğµÄ = ÔËËã·ûµÄĞĞÎª¶øĞŞ¸Ä
+	const CBPlusTreeObjectClass& nrObject		// å¾…æ’å…¥çš„å¯¹è±¡ï¼Œæ³¨æ„ï¼Œè¯¥å¯¹è±¡çš„å†…å®¹å¯èƒ½ä¼šåº”å¯¹åº”ç±»åˆ«çš„ = è¿ç®—ç¬¦çš„è¡Œä¸ºè€Œä¿®æ”¹
 	)
 {
 	CBPlusTreeObjectClass loConvert = nrObject;
 	return Insert(loConvert);
 }
 
-// É¾³ı
+// åˆ é™¤
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::Remove(
-	const CBPlusTreeObjectClass& nrObject // ²éÕÒµ½¹Ø¼üÖµÒâÒåÉÏÏàÍ¬µÄ¶ÔÏó£¬°ÑËüÉ¾³ıµô
+	const CBPlusTreeObjectClass& nrObject // æŸ¥æ‰¾åˆ°å…³é”®å€¼æ„ä¹‰ä¸Šç›¸åŒçš„å¯¹è±¡ï¼ŒæŠŠå®ƒåˆ é™¤æ‰
 	)
 {
 	bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode> itr;
 	itr = Find(nrObject);
 	return Remove(itr);
 }
-// É¾³ı
+// åˆ é™¤
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::Remove(
-	bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode>&  nrIterator // ²éÕÒµ½¹Ø¼üÖµÒâÒåÉÏÏàÍ¬µÄ¶ÔÏó£¬°ÑËüÉ¾³ıµô
+	bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode>&  nrIterator // æŸ¥æ‰¾åˆ°å…³é”®å€¼æ„ä¹‰ä¸Šç›¸åŒçš„å¯¹è±¡ï¼ŒæŠŠå®ƒåˆ é™¤æ‰
 	)
 {
 	if(nrIterator != End())
@@ -129,15 +129,15 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::Remove(
 	return false;
 }
 
-// Çå³şÈ«²¿ÄÚÈİ
+// æ¸…æ¥šå…¨éƒ¨å†…å®¹
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 void bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::Clear(void)
 {
-	// É¾³ıÈ«²¿
+	// åˆ é™¤å…¨éƒ¨
 	if(mpRoot != NULL)
 		ReleaseEntriesInNode(mpRoot);
 
-	// ÖØĞÂ³õÊ¼»¯
+	// é‡æ–°åˆå§‹åŒ–
 	bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* lpFirstLeaf;
 
 	lpFirstLeaf = new bplustree_node<CBPlusTreeObjectClass,ObjsInNode>;
@@ -157,11 +157,11 @@ void bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::Clear(void)
 	miTotalObject = 0;
 }
 
-// ²éÑ¯£¬¶Ô²éÑ¯½á¹ûµÄ·ÃÎÊ£¬ÊÜÒ»¶¨µÄÏŞÖÆ£»Èç¹û»ñµÃ½á¹ûºó£¬ÔÙ´Îµ÷ÓÃ¹ı²åÈë»òÉ¾³ı¹¦ÄÜ£¬½«¿ÉÄÜµ¼ÖÂ¸Õ²Å»ñµÃµÄ½á¹û¶ÔÏóÊ§Ğ§£¬ËùÒÔ£¬Çë±ÜÃâÔÚ²éÑ¯ºóºÍ·ÃÎÊ²éÑ¯½á¹û¶ÔÏóÇ°£¬µ÷ÓÃB+Ê÷µÄ²åÈëºÍÉ¾³ıËã·¨
+// æŸ¥è¯¢ï¼Œå¯¹æŸ¥è¯¢ç»“æœçš„è®¿é—®ï¼Œå—ä¸€å®šçš„é™åˆ¶ï¼›å¦‚æœè·å¾—ç»“æœåï¼Œå†æ¬¡è°ƒç”¨è¿‡æ’å…¥æˆ–åˆ é™¤åŠŸèƒ½ï¼Œå°†å¯èƒ½å¯¼è‡´åˆšæ‰è·å¾—çš„ç»“æœå¯¹è±¡å¤±æ•ˆï¼Œæ‰€ä»¥ï¼Œè¯·é¿å…åœ¨æŸ¥è¯¢åå’Œè®¿é—®æŸ¥è¯¢ç»“æœå¯¹è±¡å‰ï¼Œè°ƒç”¨B+æ ‘çš„æ’å…¥å’Œåˆ é™¤ç®—æ³•
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode> bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::Find(
-	const CBPlusTreeObjectClass& nrToFind, // ²éÕÒµ½¹Ø¼üÖµÒâÒåÉÏÏàÍ¬µÄ¶ÔÏó£¬Ìá¹©ÓÃÀ´×ö²ÎÊıµÄ¶ÔÏó£¬¿ÉÒÔÖ»ÉèÖÃ¹Ø¼üÖµ±È½ÏËùĞèÒªµÄ³ÉÔ±
-	iterator* npEqualOrBelow=NULL	// ·µ»Ø×î½Ó½ü²éÕÒ¶ÔÏóµÄ£¬µÈÓÚ»òÕß½ö±È²éÕÒ¶ÔÏóĞ¡µÄ¶ÔÏó
+	const CBPlusTreeObjectClass& nrToFind, // æŸ¥æ‰¾åˆ°å…³é”®å€¼æ„ä¹‰ä¸Šç›¸åŒçš„å¯¹è±¡ï¼Œæä¾›ç”¨æ¥åšå‚æ•°çš„å¯¹è±¡ï¼Œå¯ä»¥åªè®¾ç½®å…³é”®å€¼æ¯”è¾ƒæ‰€éœ€è¦çš„æˆå‘˜
+	iterator* npEqualOrBelow=NULL	// è¿”å›æœ€æ¥è¿‘æŸ¥æ‰¾å¯¹è±¡çš„ï¼Œç­‰äºæˆ–è€…ä»…æ¯”æŸ¥æ‰¾å¯¹è±¡å°çš„å¯¹è±¡
 	)const
 {
 	int liIndex;
@@ -191,7 +191,7 @@ bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode> bplustree<CBPlusT
 	return mEndItr;
 }
 
-// È¡¹Ø¼üÖµ×îĞ¡µÄ¶ÔÏó
+// å–å…³é”®å€¼æœ€å°çš„å¯¹è±¡
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode> bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::Begin(void)const
 {
@@ -205,7 +205,7 @@ bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode> bplustree<CBPlusT
 	return mEndItr;
 }
 
-// È¡¹Ø¼üÖµ×î´óµÄ¶ÔÏó
+// å–å…³é”®å€¼æœ€å¤§çš„å¯¹è±¡
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode> bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::ReverseBegin(void)const
 {
@@ -219,14 +219,14 @@ bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode> bplustree<CBPlusT
 	return mEndItr;
 }
 
-// ±íÊ¾ÎŞĞ§µÄ¶ÔÏó
+// è¡¨ç¤ºæ— æ•ˆçš„å¯¹è±¡
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 inline bplustree_iterator<CBPlusTreeObjectClass,Criterion,ObjsInNode> bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::End(void)const
 {
 	return mEndItr;
 }
 
-// Ö±½ÓÈ¡Ä³¸öÖµ£¬×¢Òâ£¬Èç¹ûniIndex³¬³öÈ«²¿ÊıÖµ·¶Î§£¬½«·µ»ØÎŞĞ§µÄÊı¾İ»òµ¼ÖÂÒì³££»ÁíÍâ£¬Õâ¸öº¯ÊıÊµÖÊÉÏ²»ÊÇÕæÕıµÄÖ±½Ó¶ÁÈ¡£¬µ±Ë÷ÒıÖµ³¬¹ıÒ»¿éÒ¶½ÚµãµÄÊı¾İÁ¿Ê±£¬½«»áÖğ¿éÌøÔ¾£¬Ğ§ÂÊĞèÒª¿¼ÂÇ£»¹Ê£¬Èç¹ûÊÇÏ£ÍûË³Ğò±éÀúÒ»´®Á¬ĞøÊı¾İ£¬ÇëÖ±½ÓÊ¹ÓÃiteratorµÄ++ºÍ--À´²Ù×÷
+// ç›´æ¥å–æŸä¸ªå€¼ï¼Œæ³¨æ„ï¼Œå¦‚æœniIndexè¶…å‡ºå…¨éƒ¨æ•°å€¼èŒƒå›´ï¼Œå°†è¿”å›æ— æ•ˆçš„æ•°æ®æˆ–å¯¼è‡´å¼‚å¸¸ï¼›å¦å¤–ï¼Œè¿™ä¸ªå‡½æ•°å®è´¨ä¸Šä¸æ˜¯çœŸæ­£çš„ç›´æ¥è¯»å–ï¼Œå½“ç´¢å¼•å€¼è¶…è¿‡ä¸€å—å¶èŠ‚ç‚¹çš„æ•°æ®é‡æ—¶ï¼Œå°†ä¼šé€å—è·³è·ƒï¼Œæ•ˆç‡éœ€è¦è€ƒè™‘ï¼›æ•…ï¼Œå¦‚æœæ˜¯å¸Œæœ›é¡ºåºéå†ä¸€ä¸²è¿ç»­æ•°æ®ï¼Œè¯·ç›´æ¥ä½¿ç”¨iteratorçš„++å’Œ--æ¥æ“ä½œ
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 inline CBPlusTreeObjectClass& bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::operator[] (int niIndex)
 {
@@ -296,8 +296,8 @@ ULONG bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::GetSizeOfBranch(voi
 
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::FindInternal(
-	const CBPlusTreeObjectClass& nrToFind,	// ²éÕÒµÄ²ÎÕÕ¶ÔÏó
-	int& Index	// ·µ»Ø¶ÔÏóµÄË÷ÒıÖµ
+	const CBPlusTreeObjectClass& nrToFind,	// æŸ¥æ‰¾çš„å‚ç…§å¯¹è±¡
+	int& Index	// è¿”å›å¯¹è±¡çš„ç´¢å¼•å€¼
 	)const
 {
 	int liIndex = -1;
@@ -326,9 +326,9 @@ bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* bplustree<CBPlusTreeObjectClas
 }
 
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
-int bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::FindInBranch(	// ÔÚÄ³¸öÖ¦½ÚµãÖĞÑ°ÕÒ×î´óµÄĞ¡ÓÚ»òµÈÓÚÄ¿±êµÄ½Úµã
+int bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::FindInBranch(	// åœ¨æŸä¸ªæèŠ‚ç‚¹ä¸­å¯»æ‰¾æœ€å¤§çš„å°äºæˆ–ç­‰äºç›®æ ‡çš„èŠ‚ç‚¹
 	bplustree_node<LPBPNODE,ObjsInNode>* npBranch,
-	const CBPlusTreeObjectClass& nrToFind	// ²éÕÒµÄ²ÎÕÕ¶ÔÏó
+	const CBPlusTreeObjectClass& nrToFind	// æŸ¥æ‰¾çš„å‚ç…§å¯¹è±¡
 	)const
 {
 	int liTop,liBottom,liCrt;
@@ -340,15 +340,15 @@ int bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::FindInBranch(	// ÔÚÄ³
 
 	while(liBottom <= liTop)
 	{
-		// ÕÛ°ë²éÕÒ
+		// æŠ˜åŠæŸ¥æ‰¾
 		liCrt = (liTop + liBottom)/2;
-		// È¡µ±Ç°Î»ÖÃ¶ÔÓ¦½ÚµãµÄ×îĞ¡Öµ
+		// å–å½“å‰ä½ç½®å¯¹åº”èŠ‚ç‚¹çš„æœ€å°å€¼
 		lpLowest = (CBPlusTreeObjectClass*)((npBranch->GetEntry(liCrt))->mpLowestObject);
 
-		// ²»Ğ¡ÓÚµ±Ç°Öµ
+		// ä¸å°äºå½“å‰å€¼
 		if(mCriterion(nrToFind,*lpLowest) == false)
 		{
-			// ÊÇ·ñÏàµÈ
+			// æ˜¯å¦ç›¸ç­‰
 			if(mCriterion(*lpLowest,nrToFind) == false)
 				return liCrt;
 			liBottom = liCrt+1;
@@ -363,9 +363,9 @@ int bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::FindInBranch(	// ÔÚÄ³
 }
 
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
-int bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::FindInLeaf(	// ÔÚÄ³¸öÖ¦½ÚµãÖĞÑ°ÕÒ×î´óµÄĞ¡ÓÚ»òµÈÓÚÄ¿±êµÄ½Úµã
+int bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::FindInLeaf(	// åœ¨æŸä¸ªæèŠ‚ç‚¹ä¸­å¯»æ‰¾æœ€å¤§çš„å°äºæˆ–ç­‰äºç›®æ ‡çš„èŠ‚ç‚¹
 	bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* npLeaf,
-	const CBPlusTreeObjectClass& nrToFind	// ²éÕÒµÄ²ÎÕÕ¶ÔÏó
+	const CBPlusTreeObjectClass& nrToFind	// æŸ¥æ‰¾çš„å‚ç…§å¯¹è±¡
 	)const
 {
 	int liTop,liBottom,liCrt;
@@ -376,13 +376,13 @@ int bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::FindInLeaf(	// ÔÚÄ³¸ö
 
 	while(liBottom <= liTop)
 	{
-		// ÕÛ°ë²éÕÒ
+		// æŠ˜åŠæŸ¥æ‰¾
 		liCrt = (liTop + liBottom)/2;
 
-		// ²»Ğ¡ÓÚµ±Ç°Öµ
+		// ä¸å°äºå½“å‰å€¼
 		if(mCriterion(nrToFind,npLeaf->GetEntry(liCrt)) == false)
 		{
-			// ÊÇ·ñÏàµÈ
+			// æ˜¯å¦ç›¸ç­‰
 			if(mCriterion(npLeaf->GetEntry(liCrt),nrToFind) == false)
 				return liCrt;
 			liBottom = liCrt+1;
@@ -408,67 +408,67 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::InsertToLeaf(
 
 	BPASSERT(npLeaf!=NULL);
 
-	// Ê×ÏÈ¼ìË÷½«»áµ²ÔÚÄÄ¸öÎ»ÖÃ
-	liIndex = FindInLeaf(npLeaf,nrObject)+1;	// Èç¹û±È×îĞ¡µÄ¶ÔÏó¶¼ÒªĞ¡£¬Ôò»á·µ»Ø-1
+	// é¦–å…ˆæ£€ç´¢å°†ä¼šæŒ¡åœ¨å“ªä¸ªä½ç½®
+	liIndex = FindInLeaf(npLeaf,nrObject)+1;	// å¦‚æœæ¯”æœ€å°çš„å¯¹è±¡éƒ½è¦å°ï¼Œåˆ™ä¼šè¿”å›-1
 
-	// µ±Ç°Ê÷Ò¶ÊÇ·ñÒÑ¾­¿ÉÒÔ·ÅÏÂÕâ¸öÄÚÈİ
+	// å½“å‰æ ‘å¶æ˜¯å¦å·²ç»å¯ä»¥æ”¾ä¸‹è¿™ä¸ªå†…å®¹
 	if(npLeaf->miEntryCount < ObjsInNode)
 	{
 		npLeaf->Insert(nrObject,liIndex);
-		if(liIndex == 0)	// ĞèÒª¸üĞÂÈ«²¿µÄ×îĞ¡ÖµË÷Òı
+		if(liIndex == 0)	// éœ€è¦æ›´æ–°å…¨éƒ¨çš„æœ€å°å€¼ç´¢å¼•
 		{
 			npLeaf->mpLowestObject = &npLeaf->GetEntry(0);
 			UpdateLowestValue((bplustree_node<LPBPNODE,ObjsInNode>*)npLeaf->mpParents);
 		}
 		lbReval = true;
 	}
-	else	// Ç°Ò»¸ö½ÚµãÊÇ·ñÄÜ¹»·ÅÏÂ
+	else	// å‰ä¸€ä¸ªèŠ‚ç‚¹æ˜¯å¦èƒ½å¤Ÿæ”¾ä¸‹
 	if(npLeaf->mpLastSibling!=NULL && npLeaf->mpLastSibling->miEntryCount < ObjsInNode)
 	{	
-		// ´ı²åÈëµÄÊı¾İÊÇ²»ÊÇĞ¡ÓÚ±¾½ÚµãµÄËùÓĞ¶ÔÏó
+		// å¾…æ’å…¥çš„æ•°æ®æ˜¯ä¸æ˜¯å°äºæœ¬èŠ‚ç‚¹çš„æ‰€æœ‰å¯¹è±¡
 		if(liIndex <= 0)
 		{
-			// ÊÇµÄ£¬½«ËüÖ±½Ó²åÈëµ½Ç°Ò»¸ö½ÚµãÈ¥£¬ÒòÎªµ÷ÓÃÕâ¸öËã·¨Ê±£¬Í¬ÉÏ¶¼ÊÇ½«ĞÂÊı¾İ²åÈëµ½±ÈËûĞ¡µÄ½ÚµãÉÏ£¬ËùÒÔ£¬Õâ¸öµØ·½Í¨³£²»»áµ½´ï£¬Ò²¾ÍÊÇËµ£¬´ËµØÄ¿Ç°ÎŞĞ§
+			// æ˜¯çš„ï¼Œå°†å®ƒç›´æ¥æ’å…¥åˆ°å‰ä¸€ä¸ªèŠ‚ç‚¹å»ï¼Œå› ä¸ºè°ƒç”¨è¿™ä¸ªç®—æ³•æ—¶ï¼ŒåŒä¸Šéƒ½æ˜¯å°†æ–°æ•°æ®æ’å…¥åˆ°æ¯”ä»–å°çš„èŠ‚ç‚¹ä¸Šï¼Œæ‰€ä»¥ï¼Œè¿™ä¸ªåœ°æ–¹é€šå¸¸ä¸ä¼šåˆ°è¾¾ï¼Œä¹Ÿå°±æ˜¯è¯´ï¼Œæ­¤åœ°ç›®å‰æ— æ•ˆ
 			npLeaf->mpLastSibling->Insert(nrObject,npLeaf->mpLastSibling->miEntryCount);
 		}
 		else
 		{
-			// ÒÆ¶¯×îĞ¡µÄÒ»¸öÊı¾İµ½Ç°ÃæÈ¥
+			// ç§»åŠ¨æœ€å°çš„ä¸€ä¸ªæ•°æ®åˆ°å‰é¢å»
 			npLeaf->mpLastSibling->Insert(npLeaf->GetEntry(0),npLeaf->mpLastSibling->miEntryCount);
-			// É¾³ıµôÒÆ×ßµÄ¶ÔÏó
+			// åˆ é™¤æ‰ç§»èµ°çš„å¯¹è±¡
 			npLeaf->Remove(0);
-			// ½«ĞÂÊı¾İ²åÈëµ½µ±Ç°½Úµã£¬ÒòÎªÒÆ×ßÁËÒ»¸ö¶ÔÏó£¬ËùÒÔ£¬¸Õ²Å¼ÆËãµÄÎ»ÖÃĞèÒª¼õÈ¥1
+			// å°†æ–°æ•°æ®æ’å…¥åˆ°å½“å‰èŠ‚ç‚¹ï¼Œå› ä¸ºç§»èµ°äº†ä¸€ä¸ªå¯¹è±¡ï¼Œæ‰€ä»¥ï¼Œåˆšæ‰è®¡ç®—çš„ä½ç½®éœ€è¦å‡å»1
 			liIndex--;
 			npLeaf->Insert(nrObject,liIndex);
 			
-			// ĞèÒª¸üĞÂÈ«²¿µÄ×îĞ¡ÖµË÷Òı
+			// éœ€è¦æ›´æ–°å…¨éƒ¨çš„æœ€å°å€¼ç´¢å¼•
 			npLeaf->mpLowestObject = &npLeaf->GetEntry(0);
 			UpdateLowestValue((bplustree_node<LPBPNODE,ObjsInNode>*)npLeaf->mpParents);
 		}
 		lbReval = true;
 	}
-	else	// ºóÒ»¸ö½ÚµãÊÇ·ñ¿ÉÒÔ·ÅÏÂ
+	else	// åä¸€ä¸ªèŠ‚ç‚¹æ˜¯å¦å¯ä»¥æ”¾ä¸‹
 	if(npLeaf->mpNextSibling != NULL && npLeaf->mpNextSibling->miEntryCount < ObjsInNode)
 	{
-		// ´ı²åÈëµÄÊı¾İÊÇ²»ÊÇ´óÓÚ±¾½ÚµãµÄËùÓĞ¶ÔÏó
+		// å¾…æ’å…¥çš„æ•°æ®æ˜¯ä¸æ˜¯å¤§äºæœ¬èŠ‚ç‚¹çš„æ‰€æœ‰å¯¹è±¡
 		if(liIndex >= ObjsInNode)
 		{
-			// ÊÇµÄ£¬½«ËüÖ±½Ó²åÈëµ½ºóÒ»¸ö½ÚµãÈ¥
+			// æ˜¯çš„ï¼Œå°†å®ƒç›´æ¥æ’å…¥åˆ°åä¸€ä¸ªèŠ‚ç‚¹å»
 			npLeaf->mpNextSibling->Insert(nrObject,0);
 			npLeaf->mpNextSibling->mpLowestObject = &npLeaf->mpNextSibling->GetEntry(0);
 			UpdateLowestValue((bplustree_node<LPBPNODE,ObjsInNode>*)npLeaf->mpNextSibling->mpParents);
 		}
 		else
 		{
-			// ÒÆ×ß×îºóµÄÒ»¸öÊı¾İ
+			// ç§»èµ°æœ€åçš„ä¸€ä¸ªæ•°æ®
 			npLeaf->mpNextSibling->Insert(npLeaf->GetEntry(ObjsInNode-1),0);
 			npLeaf->mpNextSibling->mpLowestObject = &npLeaf->mpNextSibling->GetEntry(0);
 			UpdateLowestValue((bplustree_node<LPBPNODE,ObjsInNode>*)npLeaf->mpNextSibling->mpParents);
 
 			npLeaf->Remove(ObjsInNode-1);
-			// ½«ĞÂÊı¾İ²åÈë
+			// å°†æ–°æ•°æ®æ’å…¥
 			npLeaf->Insert(nrObject,liIndex);
-			if(liIndex == 0)	// ĞèÒª¸üĞÂÈ«²¿µÄ×îĞ¡ÖµË÷Òı
+			if(liIndex == 0)	// éœ€è¦æ›´æ–°å…¨éƒ¨çš„æœ€å°å€¼ç´¢å¼•
 			{
 				npLeaf->mpLowestObject = &npLeaf->GetEntry(0);
 				UpdateLowestValue((bplustree_node<LPBPNODE,ObjsInNode>*)npLeaf->mpParents);
@@ -476,13 +476,13 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::InsertToLeaf(
 		}
 		lbReval = true;
 	}
-	else	// Ö»ÄÜ·ñ·ÖÁÑ±¾½ÚµãÁË
+	else	// åªèƒ½å¦åˆ†è£‚æœ¬èŠ‚ç‚¹äº†
 	{
-		// ·ÖÁÑÎªÁ½¸ö
+		// åˆ†è£‚ä¸ºä¸¤ä¸ª
 		bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* lpNewLeaf = npLeaf->Split(ObjsInNode/2);
 
 		if(lpNewLeaf == NULL)
-			return false;	// Ê§°Ü·µ»Ø
+			return false;	// å¤±è´¥è¿”å›
 
 		if(liIndex <= ObjsInNode/2)
 		{
@@ -497,12 +497,12 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::InsertToLeaf(
 		npLeaf->mpLowestObject = & npLeaf->GetEntry(0);
 		UpdateLowestValue((bplustree_node<LPBPNODE,ObjsInNode>*)npLeaf->mpParents);
 
-		// ½«ĞÂÒ¶½Úµã²åÈëµ½ÉÏ¼¶µÄ·ÖÖ§½ÚµãÉÏ
-		if(npLeaf->mpParents == NULL)	//  µ½´ï¸ù½Úµã
+		// å°†æ–°å¶èŠ‚ç‚¹æ’å…¥åˆ°ä¸Šçº§çš„åˆ†æ”¯èŠ‚ç‚¹ä¸Š
+		if(npLeaf->mpParents == NULL)	//  åˆ°è¾¾æ ¹èŠ‚ç‚¹
 			lbReval = NewLevel(lpNewLeaf,npLeaf);
 		else
 			lbReval = InsertToBranch((bplustree_node<LPBPNODE,ObjsInNode>*)npLeaf->mpParents,lpNewLeaf);
-		//Èç¹û·ÖÁĞÇ°µÄ½ÚµãÊÇ×îĞ¡Ò¶½Úµã£¬ĞŞ¸Ä×îĞ¡Ò¶½Úµã¼ÇÂ¼
+		//å¦‚æœåˆ†åˆ—å‰çš„èŠ‚ç‚¹æ˜¯æœ€å°å¶èŠ‚ç‚¹ï¼Œä¿®æ”¹æœ€å°å¶èŠ‚ç‚¹è®°å½•
 		if(mpFirstLeaf == npLeaf)
 			mpFirstLeaf = lpNewLeaf;
 		miTotalLeaves++;
@@ -526,84 +526,84 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::InsertToBranch(
 
 	BPASSERT(npBranch!=NULL);
 
-	// Ê×ÏÈ¼ìË÷½«»áµ²ÔÚÄÄ¸öÎ»ÖÃ
-	liIndex = FindInBranch(npBranch,*((CBPlusTreeObjectClass*)npNewNode->mpLowestObject))+1;	// Èç¹û±È×îĞ¡µÄ¶ÔÏó¶¼ÒªĞ¡£¬Ôò»á·µ»Ø-1
+	// é¦–å…ˆæ£€ç´¢å°†ä¼šæŒ¡åœ¨å“ªä¸ªä½ç½®
+	liIndex = FindInBranch(npBranch,*((CBPlusTreeObjectClass*)npNewNode->mpLowestObject))+1;	// å¦‚æœæ¯”æœ€å°çš„å¯¹è±¡éƒ½è¦å°ï¼Œåˆ™ä¼šè¿”å›-1
 
-	// µ±Ç°Ê÷Ò¶ÊÇ·ñÒÑ¾­¿ÉÒÔ·ÅÏÂÕâ¸öÄÚÈİ
+	// å½“å‰æ ‘å¶æ˜¯å¦å·²ç»å¯ä»¥æ”¾ä¸‹è¿™ä¸ªå†…å®¹
 	if(npBranch->miEntryCount < ObjsInNode)
 	{
 		npBranch->Insert(npNewNode,liIndex);
-		npNewNode->mpParents = npBranch;	// ¸üĞÂ¸¸½Úµã
-		if(liIndex == 0)	// ĞèÒª¸üĞÂÈ«²¿µÄ×îĞ¡ÖµË÷Òı
+		npNewNode->mpParents = npBranch;	// æ›´æ–°çˆ¶èŠ‚ç‚¹
+		if(liIndex == 0)	// éœ€è¦æ›´æ–°å…¨éƒ¨çš„æœ€å°å€¼ç´¢å¼•
 		{
 			UpdateLowestValue(npBranch);
 		}
 		lbReval = true;
 	}
-	else	// Ç°Ò»¸ö½ÚµãÊÇ·ñÄÜ¹»·ÅÏÂ
+	else	// å‰ä¸€ä¸ªèŠ‚ç‚¹æ˜¯å¦èƒ½å¤Ÿæ”¾ä¸‹
 	if(npBranch->mpLastSibling!=NULL && npBranch->mpLastSibling->miEntryCount < ObjsInNode)
 	{	
-		// ´ı²åÈëµÄÊı¾İÊÇ²»ÊÇĞ¡ÓÚ±¾½ÚµãµÄËùÓĞ¶ÔÏó
+		// å¾…æ’å…¥çš„æ•°æ®æ˜¯ä¸æ˜¯å°äºæœ¬èŠ‚ç‚¹çš„æ‰€æœ‰å¯¹è±¡
 		if(liIndex <= 0)
 		{
-			// ÊÇµÄ£¬½«ËüÖ±½Ó²åÈëµ½Ç°Ò»¸ö½ÚµãÈ¥
+			// æ˜¯çš„ï¼Œå°†å®ƒç›´æ¥æ’å…¥åˆ°å‰ä¸€ä¸ªèŠ‚ç‚¹å»
 			npBranch->mpLastSibling->Insert(npNewNode,npBranch->mpLastSibling->miEntryCount);
 			npNewNode->mpParents = npBranch->mpLastSibling;
 		}
 		else
 		{
-			// ÒÆ¶¯×îĞ¡µÄÒ»¸öÊı¾İµ½Ç°ÃæÈ¥
+			// ç§»åŠ¨æœ€å°çš„ä¸€ä¸ªæ•°æ®åˆ°å‰é¢å»
 			npBranch->mpLastSibling->Insert(npBranch->GetEntry(0),npBranch->mpLastSibling->miEntryCount);
 			npBranch->GetEntry(0)->mpParents = npBranch->mpLastSibling;
-			// É¾³ıµôÒÆ×ßµÄ¶ÔÏó
+			// åˆ é™¤æ‰ç§»èµ°çš„å¯¹è±¡
 			npBranch->Remove(0);
-			// ½«ĞÂÊı¾İ²åÈëµ½µ±Ç°½Úµã£¬ÒòÎªÒÆ×ßÁËÒ»¸ö¶ÔÏó£¬ËùÒÔ£¬¸Õ²Å¼ÆËãµÄÎ»ÖÃĞèÒª¼õÈ¥1
+			// å°†æ–°æ•°æ®æ’å…¥åˆ°å½“å‰èŠ‚ç‚¹ï¼Œå› ä¸ºç§»èµ°äº†ä¸€ä¸ªå¯¹è±¡ï¼Œæ‰€ä»¥ï¼Œåˆšæ‰è®¡ç®—çš„ä½ç½®éœ€è¦å‡å»1
 			liIndex--;
 			npBranch->Insert(npNewNode,liIndex);
-			npNewNode->mpParents = npBranch;	// ¸üĞÂ¸¸½Úµã
+			npNewNode->mpParents = npBranch;	// æ›´æ–°çˆ¶èŠ‚ç‚¹
 
-			// ĞèÒª¸üĞÂÈ«²¿µÄ×îĞ¡ÖµË÷Òı
+			// éœ€è¦æ›´æ–°å…¨éƒ¨çš„æœ€å°å€¼ç´¢å¼•
 			UpdateLowestValue(npBranch);
 		}
 		lbReval = true;
 	}
-	else	// ºóÒ»¸ö½ÚµãÊÇ·ñ¿ÉÒÔ·ÅÏÂ
+	else	// åä¸€ä¸ªèŠ‚ç‚¹æ˜¯å¦å¯ä»¥æ”¾ä¸‹
 	if(npBranch->mpNextSibling != NULL && npBranch->mpNextSibling->miEntryCount < ObjsInNode)
 	{
-		// ´ı²åÈëµÄÊı¾İÊÇ²»ÊÇ´óÓÚ±¾½ÚµãµÄËùÓĞ¶ÔÏó
+		// å¾…æ’å…¥çš„æ•°æ®æ˜¯ä¸æ˜¯å¤§äºæœ¬èŠ‚ç‚¹çš„æ‰€æœ‰å¯¹è±¡
 		if(liIndex >= ObjsInNode)
 		{
-			// ÊÇµÄ£¬½«ËüÖ±½Ó²åÈëµ½ºóÒ»¸ö½ÚµãÈ¥£¬Í¬²åÈëÊ÷Ò¶µÄº¯ÊıµÄÏòÇ°½Úµã½èÎ»ÀàËÆ£¬Õâ¸öµØ·½Ò²²»»á±»µ÷ÓÃ¡£ÒòÎª£¬ĞÂ½Úµã¶¼ÊÇ²úÉúÓÚ¾É½ÚµãÏòÇ°·ÖÁÑ£¬²åÈëÉÏ¼¶½ÚµãÊ±£¬¶¼ÊÇ²åÈëµ½±ÈËûĞ¡µÄ½ÚµãÖĞ
-			// ²»»á³öÏÖ²åÈëµÄÊı¾İ´óÓÚÄ¿Ç°È«²¿Êı¾İµÄ¿ÉÄÜ£¬Õâ¶ùÄ¿Ç°ÎŞÓÃ
+			// æ˜¯çš„ï¼Œå°†å®ƒç›´æ¥æ’å…¥åˆ°åä¸€ä¸ªèŠ‚ç‚¹å»ï¼ŒåŒæ’å…¥æ ‘å¶çš„å‡½æ•°çš„å‘å‰èŠ‚ç‚¹å€Ÿä½ç±»ä¼¼ï¼Œè¿™ä¸ªåœ°æ–¹ä¹Ÿä¸ä¼šè¢«è°ƒç”¨ã€‚å› ä¸ºï¼Œæ–°èŠ‚ç‚¹éƒ½æ˜¯äº§ç”Ÿäºæ—§èŠ‚ç‚¹å‘å‰åˆ†è£‚ï¼Œæ’å…¥ä¸Šçº§èŠ‚ç‚¹æ—¶ï¼Œéƒ½æ˜¯æ’å…¥åˆ°æ¯”ä»–å°çš„èŠ‚ç‚¹ä¸­
+			// ä¸ä¼šå‡ºç°æ’å…¥çš„æ•°æ®å¤§äºç›®å‰å…¨éƒ¨æ•°æ®çš„å¯èƒ½ï¼Œè¿™å„¿ç›®å‰æ— ç”¨
 			npBranch->mpNextSibling->Insert(npNewNode,0);
 			npNewNode->mpParents = npBranch->mpNextSibling;
 			UpdateLowestValue(npBranch->mpNextSibling);
 		}
 		else
 		{
-			// ÒÆ×ß×îºóµÄÒ»¸öÊı¾İ
+			// ç§»èµ°æœ€åçš„ä¸€ä¸ªæ•°æ®
 			npBranch->mpNextSibling->Insert(npBranch->GetEntry(ObjsInNode-1),0);
 			npBranch->GetEntry(ObjsInNode-1)->mpParents = npBranch->mpNextSibling;
 			UpdateLowestValue(npBranch->mpNextSibling);
 
 			npBranch->Remove(ObjsInNode-1);
-			// ½«ĞÂÊı¾İ²åÈë
+			// å°†æ–°æ•°æ®æ’å…¥
 			npBranch->Insert(npNewNode,liIndex);
 			npNewNode->mpParents = npBranch;
-			if(liIndex == 0)	// ĞèÒª¸üĞÂÈ«²¿µÄ×îĞ¡ÖµË÷Òı
+			if(liIndex == 0)	// éœ€è¦æ›´æ–°å…¨éƒ¨çš„æœ€å°å€¼ç´¢å¼•
 			{
 				UpdateLowestValue(npBranch);
 			}
 		}
 		lbReval = true;
 	}
-	else	// Ö»ÄÜ·ñ·ÖÁÑ±¾½ÚµãÁË
+	else	// åªèƒ½å¦åˆ†è£‚æœ¬èŠ‚ç‚¹äº†
 	{
-		// ·ÖÁÑÎªÁ½¸ö
+		// åˆ†è£‚ä¸ºä¸¤ä¸ª
 		bplustree_node<LPBPNODE,ObjsInNode>* lpNewBranch = npBranch->Split(ObjsInNode/2);
 
 		if(lpNewBranch == NULL)
-			return false;	// Ê§°Ü·µ»Ø
+			return false;	// å¤±è´¥è¿”å›
 
 		if(liIndex <= ObjsInNode/2)
 		{
@@ -622,8 +622,8 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::InsertToBranch(
 		UpdateLowestValue(lpNewBranch);
 		UpdateLowestValue(npBranch);
 
-		// ½«ĞÂ½Úµã²åÈëµ½ÉÏ¼¶µÄ·ÖÖ§½ÚµãÉÏ
-		if(npBranch->mpParents == NULL)	//  µ½´ï¸ù½Úµã
+		// å°†æ–°èŠ‚ç‚¹æ’å…¥åˆ°ä¸Šçº§çš„åˆ†æ”¯èŠ‚ç‚¹ä¸Š
+		if(npBranch->mpParents == NULL)	//  åˆ°è¾¾æ ¹èŠ‚ç‚¹
 			lbReval = NewLevel(lpNewBranch,npBranch);
 		else
 			lbReval = InsertToBranch((bplustree_node<LPBPNODE,ObjsInNode>*)npBranch->mpParents,lpNewBranch);
@@ -640,7 +640,7 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromLeaf(
 	)
 {
 	bool lbReval = true;
-	// Ê×ÏÈÉ¾³ıµôÕâ¸öÊı¾İ
+	// é¦–å…ˆåˆ é™¤æ‰è¿™ä¸ªæ•°æ®
 	npLeaf->GetEntry(niIndex).~CBPlusTreeObjectClass();
 	npLeaf->Remove(niIndex);
 	if(niIndex == 0 && npLeaf->miEntryCount > 0)
@@ -649,10 +649,10 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromLeaf(
 		UpdateLowestValue((bplustree_node<LPBPNODE,ObjsInNode>*)npLeaf->mpParents);
 	}
 
-	// ¼ì²é¸Ã½ÚµãÊÇ·ñ°üº¬²»ÉÙÓÚÈİÁ¿Ò»°ëµÄÊı¾İ
+	// æ£€æŸ¥è¯¥èŠ‚ç‚¹æ˜¯å¦åŒ…å«ä¸å°‘äºå®¹é‡ä¸€åŠçš„æ•°æ®
 	if(npLeaf->miEntryCount < ObjsInNode/2 && npLeaf != mpRoot)
 	{
-		if(npLeaf->mpLastSibling != NULL && npLeaf->mpLastSibling->miEntryCount <= ObjsInNode/2) // Í¬Ç°Ò»¸ö½ÚµãºÏ²¢
+		if(npLeaf->mpLastSibling != NULL && npLeaf->mpLastSibling->miEntryCount <= ObjsInNode/2) // åŒå‰ä¸€ä¸ªèŠ‚ç‚¹åˆå¹¶
 		{
 			bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* lpAhead = npLeaf->mpLastSibling;
 			lpAhead->Combine(npLeaf);
@@ -664,7 +664,7 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromLeaf(
 			miTotalLeaves--;
 		}
 		else
-		if(npLeaf->mpNextSibling != NULL && npLeaf->mpNextSibling->miEntryCount <= ObjsInNode/2) // Í¬ºóÒ»¸ö½ÚµãºÏ²¢
+		if(npLeaf->mpNextSibling != NULL && npLeaf->mpNextSibling->miEntryCount <= ObjsInNode/2) // åŒåä¸€ä¸ªèŠ‚ç‚¹åˆå¹¶
 		{
 			bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* lpBehind = npLeaf->mpNextSibling;
 			npLeaf->Combine(lpBehind);
@@ -675,7 +675,7 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromLeaf(
 			miTotalLeaves--;
 		}
 		else
-		if(npLeaf->mpLastSibling != NULL && npLeaf->mpLastSibling->miEntryCount > ObjsInNode/2) // ´ÓÇ°Ãæ½Úµã½èÒ»¸öÊı¾İ
+		if(npLeaf->mpLastSibling != NULL && npLeaf->mpLastSibling->miEntryCount > ObjsInNode/2) // ä»å‰é¢èŠ‚ç‚¹å€Ÿä¸€ä¸ªæ•°æ®
 		{
 			npLeaf->Insert(npLeaf->mpLastSibling->GetEntry(npLeaf->mpLastSibling->miEntryCount-1),0);
 			npLeaf->mpLastSibling->Remove(npLeaf->mpLastSibling->miEntryCount-1);
@@ -683,7 +683,7 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromLeaf(
 			UpdateLowestValue((bplustree_node<LPBPNODE,ObjsInNode>*)npLeaf->mpParents);
 		}
 		else
-		if(npLeaf->mpNextSibling != NULL && npLeaf->mpNextSibling->miEntryCount > ObjsInNode/2) // ´ÓºóÃæ½Úµã½èÒ»¸öÊı¾İ
+		if(npLeaf->mpNextSibling != NULL && npLeaf->mpNextSibling->miEntryCount > ObjsInNode/2) // ä»åé¢èŠ‚ç‚¹å€Ÿä¸€ä¸ªæ•°æ®
 		{
 			npLeaf->Insert(npLeaf->mpNextSibling->GetEntry(0),npLeaf->miEntryCount);
 			npLeaf->mpNextSibling->Remove(0);
@@ -692,7 +692,7 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromLeaf(
 		}
 		else
 		{
-			// ²»¿ÉÄÜµ½´ï
+			// ä¸å¯èƒ½åˆ°è¾¾
 			BPASSERT(0);
 		}
 	}
@@ -705,47 +705,47 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromLeaf(
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
 bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromBranch(
 	bplustree_node<LPBPNODE,ObjsInNode>* npBranch,
-	LPBPNODE npValue	// ÖµµÈÓÚnpValueµÄÊı¾İ¶ÔÏó
+	LPBPNODE npValue	// å€¼ç­‰äºnpValueçš„æ•°æ®å¯¹è±¡
 	)
 {
 	int liIndex;
 	bool lbReval = true;
 
-	// Ê×ÏÈÕÒµ½Õâ¸öÖµËùÔÚµÄÎ»ÖÃ
+	// é¦–å…ˆæ‰¾åˆ°è¿™ä¸ªå€¼æ‰€åœ¨çš„ä½ç½®
 	for (liIndex = 0;liIndex < npBranch->miEntryCount;liIndex++)
 	{
 		if(npBranch->GetEntry(liIndex) == npValue)
 			break;
 	}
 	if(liIndex >= npBranch->miEntryCount)
-		return false;	// ³ö´íÁË
+		return false;	// å‡ºé”™äº†
 
-	// É¾³ıµôÕâ¸öÊı¾İ
+	// åˆ é™¤æ‰è¿™ä¸ªæ•°æ®
 	npBranch->Remove(liIndex);
 	if(liIndex == 0 && npBranch->miEntryCount > 0)
 	{
 		UpdateLowestValue(npBranch);
 	}
 
-	// ¼ì²é¸Ã½ÚµãÊÇ·ñ°üº¬²»ÉÙÓÚÈİÁ¿Ò»°ëµÄÊı¾İ
+	// æ£€æŸ¥è¯¥èŠ‚ç‚¹æ˜¯å¦åŒ…å«ä¸å°‘äºå®¹é‡ä¸€åŠçš„æ•°æ®
 	if(npBranch->miEntryCount < ObjsInNode/2)
 	{
-		// ÅĞ¶ÏÊÇ·ñÊÇ¸ù½Úµã
+		// åˆ¤æ–­æ˜¯å¦æ˜¯æ ¹èŠ‚ç‚¹
 		if(npBranch == mpRoot)
 		{
 			if(npBranch->miEntryCount <= 1)
 			{
-				// È¥µô¸ù½Úµã£¬Ö±½Ó½«ÏÂ²ã½ÚµãÌáÉÏÀ´
+				// å»æ‰æ ¹èŠ‚ç‚¹ï¼Œç›´æ¥å°†ä¸‹å±‚èŠ‚ç‚¹æä¸Šæ¥
 				LPBPNODE lpLower = npBranch->GetEntry(0);
 				lpLower->mpParents = NULL;
 				delete mpRoot;
 				mpRoot = lpLower;
 				miTotalNodes--;
 			}
-			// else ÎŞ¸Ä±ä
+			// else æ— æ”¹å˜
 		}
 		else
-		if(npBranch->mpLastSibling != NULL && npBranch->mpLastSibling->miEntryCount <= ObjsInNode/2) // Í¬Ç°Ò»¸ö½ÚµãºÏ²¢
+		if(npBranch->mpLastSibling != NULL && npBranch->mpLastSibling->miEntryCount <= ObjsInNode/2) // åŒå‰ä¸€ä¸ªèŠ‚ç‚¹åˆå¹¶
 		{
 			bplustree_node<LPBPNODE,ObjsInNode>* lpAhead = npBranch->mpLastSibling;
 			lpAhead->Combine(npBranch);
@@ -759,7 +759,7 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromBranch(
 			miTotalNodes--;
 		}
 		else
-		if(npBranch->mpNextSibling != NULL && npBranch->mpNextSibling->miEntryCount <= ObjsInNode/2) // Í¬ºóÒ»¸ö½ÚµãºÏ²¢
+		if(npBranch->mpNextSibling != NULL && npBranch->mpNextSibling->miEntryCount <= ObjsInNode/2) // åŒåä¸€ä¸ªèŠ‚ç‚¹åˆå¹¶
 		{
 			bplustree_node<LPBPNODE,ObjsInNode>* lpBehind = npBranch->mpNextSibling;
 			npBranch->Combine(lpBehind);
@@ -773,7 +773,7 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromBranch(
 			miTotalNodes--;
 		}
 		else
-		if(npBranch->mpLastSibling != NULL && npBranch->mpLastSibling->miEntryCount > ObjsInNode/2) // ´ÓÇ°Ãæ½Úµã½èÒ»¸öÊı¾İ
+		if(npBranch->mpLastSibling != NULL && npBranch->mpLastSibling->miEntryCount > ObjsInNode/2) // ä»å‰é¢èŠ‚ç‚¹å€Ÿä¸€ä¸ªæ•°æ®
 		{
 			npBranch->Insert(npBranch->mpLastSibling->GetEntry(npBranch->mpLastSibling->miEntryCount-1),0);
 			npBranch->GetEntry(0)->mpParents = npBranch;
@@ -781,7 +781,7 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromBranch(
 			UpdateLowestValue(npBranch);
 		}
 		else
-		if(npBranch->mpNextSibling != NULL && npBranch->mpNextSibling->miEntryCount > ObjsInNode/2) // ´ÓºóÃæ½Úµã½èÒ»¸öÊı¾İ
+		if(npBranch->mpNextSibling != NULL && npBranch->mpNextSibling->miEntryCount > ObjsInNode/2) // ä»åé¢èŠ‚ç‚¹å€Ÿä¸€ä¸ªæ•°æ®
 		{
 			npBranch->Insert(npBranch->mpNextSibling->GetEntry(0),npBranch->miEntryCount);
 			npBranch->GetEntry(npBranch->miEntryCount-1)->mpParents = npBranch;
@@ -790,7 +790,7 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromBranch(
 		}
 		else
 		{
-			// ²»¿ÉÄÜµ½´ï
+			// ä¸å¯èƒ½åˆ°è¾¾
 			BPASSERT(0);
 		}
 	}
@@ -800,7 +800,7 @@ bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::DeleteFromBranch(
 
 
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
-inline void bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::UpdateLowestValue(	// ¸üĞÂÓÉ¸Ã½ÚµãÖÁÉÏÏà¹Ø½ÚµãµÄ×îĞ¡Öµ¶ÔÏóË÷Òı
+inline void bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::UpdateLowestValue(	// æ›´æ–°ç”±è¯¥èŠ‚ç‚¹è‡³ä¸Šç›¸å…³èŠ‚ç‚¹çš„æœ€å°å€¼å¯¹è±¡ç´¢å¼•
 	bplustree_node<LPBPNODE,ObjsInNode>* npBranch
 	)
 {
@@ -815,26 +815,26 @@ inline void bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::UpdateLowestV
 
 
 template<class CBPlusTreeObjectClass,int ObjsInNode>
-void bplustree_node<CBPlusTreeObjectClass,ObjsInNode>::Insert(CBPlusTreeObjectClass& nrObject,int niIndex)	//¡¡²åÈëÒ»¸ö¶ÔÏóµ½Ö¸¶¨Î»ÖÃ
+void bplustree_node<CBPlusTreeObjectClass,ObjsInNode>::Insert(CBPlusTreeObjectClass& nrObject,int niIndex)	//ã€€æ’å…¥ä¸€ä¸ªå¯¹è±¡åˆ°æŒ‡å®šä½ç½®
 {
 	int liBehind = miEntryCount>=ObjsInNode?ObjsInNode-1:miEntryCount;
-	// ½«ÆäºóµÄ¶ÔÏóÈ«²¿ºóÒÆÒ»¸ñ
+	// å°†å…¶åçš„å¯¹è±¡å…¨éƒ¨åç§»ä¸€æ ¼
 	while(liBehind > niIndex)
 	{
 		mObjectsArray[liBehind] = mObjectsArray[liBehind-1];
 		liBehind--;
 	}
-	// ½«¶ÔÏó·ÅÈë
+	// å°†å¯¹è±¡æ”¾å…¥
 	mObjectsArray[niIndex] = nrObject;
 	miEntryCount++;
 }
 
 template<class CBPlusTreeObjectClass,int ObjsInNode>
-void bplustree_node<CBPlusTreeObjectClass,ObjsInNode>::Remove(int niIndex)	// É¾³ıÖ¸¶¨Î»ÖÃµÄ¶ÔÏó
+void bplustree_node<CBPlusTreeObjectClass,ObjsInNode>::Remove(int niIndex)	// åˆ é™¤æŒ‡å®šä½ç½®çš„å¯¹è±¡
 {
 	int liBehind = niIndex+1;
 
-	// ½«ÆäºóµÄ¶ÔÏóÈ«²¿Ç°ÒÆÒ»¸ñ
+	// å°†å…¶åçš„å¯¹è±¡å…¨éƒ¨å‰ç§»ä¸€æ ¼
 	while(liBehind < miEntryCount)
 	{
 		mObjectsArray[liBehind-1] = mObjectsArray[liBehind];
@@ -844,7 +844,7 @@ void bplustree_node<CBPlusTreeObjectClass,ObjsInNode>::Remove(int niIndex)	// É¾
 }
 
 template<class CBPlusTreeObjectClass,int ObjsInNode>
-bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* bplustree_node<CBPlusTreeObjectClass,ObjsInNode>::Split(int niCount)		// ½«±¾½Úµã·ÖÎªÁ½¸ö£¬²¢ÒÆ¶¯niCount¸öÊı¾İµ½Ç°Ò»¸ö½Úµã£¬·µ»ØµÄ¶ÔÏó¾ÍÊÇĞÂ½Úµã£¬ĞÂ½ÚµãÎ»ÓÚ±¾½ÚµãÇ°²¢ÇÒÍ¬±¾½Úµã½«Ç°ºóÁ´½ÓºÃ£¬µ«£¬²»»áÉèÖÃËüµÄÉÏ¼¶½Úµã
+bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* bplustree_node<CBPlusTreeObjectClass,ObjsInNode>::Split(int niCount)		// å°†æœ¬èŠ‚ç‚¹åˆ†ä¸ºä¸¤ä¸ªï¼Œå¹¶ç§»åŠ¨niCountä¸ªæ•°æ®åˆ°å‰ä¸€ä¸ªèŠ‚ç‚¹ï¼Œè¿”å›çš„å¯¹è±¡å°±æ˜¯æ–°èŠ‚ç‚¹ï¼Œæ–°èŠ‚ç‚¹ä½äºæœ¬èŠ‚ç‚¹å‰å¹¶ä¸”åŒæœ¬èŠ‚ç‚¹å°†å‰åé“¾æ¥å¥½ï¼Œä½†ï¼Œä¸ä¼šè®¾ç½®å®ƒçš„ä¸Šçº§èŠ‚ç‚¹
 {
 	int liIndex;
 	bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* lpAhead = new bplustree_node<CBPlusTreeObjectClass,ObjsInNode>;
@@ -861,7 +861,7 @@ bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* bplustree_node<CBPlusTreeObjec
 	if(lpAhead->mpLastSibling != NULL)
 		lpAhead->mpLastSibling->mpNextSibling = lpAhead;
 
-	// ¸´ÖÆÊı¾İ
+	// å¤åˆ¶æ•°æ®
 	for(liIndex=0;liIndex<niCount;liIndex++)
 	{
 		lpAhead->mObjectsArray[liIndex] = mObjectsArray[liIndex];
@@ -879,12 +879,12 @@ bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* bplustree_node<CBPlusTreeObjec
 }
 
 template<class CBPlusTreeObjectClass,int ObjsInNode>
-void bplustree_node<CBPlusTreeObjectClass,ObjsInNode>::Combine(bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* npWith)		// ½«Ä¿±ê½ÚµãµÄÊı¾İºÏ²¢µ½±¾½Úµã£¬²¢ÇÒĞŞ¸ÄÇ°ºóÁ´½ÓÖ¸Õë£¬±¾¶ÔÏó±ØĞëÊÇÄ¿±ê¶ÔÏóµÄÇ°¶ÔÏó
+void bplustree_node<CBPlusTreeObjectClass,ObjsInNode>::Combine(bplustree_node<CBPlusTreeObjectClass,ObjsInNode>* npWith)		// å°†ç›®æ ‡èŠ‚ç‚¹çš„æ•°æ®åˆå¹¶åˆ°æœ¬èŠ‚ç‚¹ï¼Œå¹¶ä¸”ä¿®æ”¹å‰åé“¾æ¥æŒ‡é’ˆï¼Œæœ¬å¯¹è±¡å¿…é¡»æ˜¯ç›®æ ‡å¯¹è±¡çš„å‰å¯¹è±¡
 {
 	int liIndex;
 	BPASSERT(mpNextSibling == npWith && (miEntryCount+npWith->miEntryCount) <= ObjsInNode);
 
-	// ¸´ÖÆÊı¾İ
+	// å¤åˆ¶æ•°æ®
 	for(liIndex=0;liIndex<npWith->miEntryCount;liIndex++)
 	{
 		mObjectsArray[liIndex+miEntryCount] = npWith->mObjectsArray[liIndex];
@@ -898,7 +898,7 @@ void bplustree_node<CBPlusTreeObjectClass,ObjsInNode>::Combine(bplustree_node<CB
 }
 
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode>
-bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::NewLevel(	// ÔÚ¸ù½ÚµãÎ»ÖÃ£¬ĞÂÔö¼ÓÒ»²ã£»Êµ¼ÊĞĞÎª¾ÍÊÇÒ»¸ö¸ù·ÖÁÑÎªÁ½¸ö£¬²¢ÇÒÔö¼ÓÒ»¸öĞÂµÄ¸ù½Úµã
+bool bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::NewLevel(	// åœ¨æ ¹èŠ‚ç‚¹ä½ç½®ï¼Œæ–°å¢åŠ ä¸€å±‚ï¼›å®é™…è¡Œä¸ºå°±æ˜¯ä¸€ä¸ªæ ¹åˆ†è£‚ä¸ºä¸¤ä¸ªï¼Œå¹¶ä¸”å¢åŠ ä¸€ä¸ªæ–°çš„æ ¹èŠ‚ç‚¹
 	LPBPNODE npNodeAhead,
 	LPBPNODE npNodeBehind
 	)

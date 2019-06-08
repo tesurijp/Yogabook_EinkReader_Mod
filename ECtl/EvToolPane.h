@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+﻿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -15,22 +15,22 @@ class CEvToolPane:
 public:
 
 	ULONG InitOnCreate(
-		IN IXuiIterator* npParent = NULL,	// ������ָ��
-		IN ICfKey* npTemplete = NULL,		// npTemplete��Key ID����EID��ֵ��������EType
-		IN ULONG nuEID=MAXULONG32	// �����Ϊ0��MAXULONG32����ָ����Ԫ�ص�EID; ����ȡ��һ��������ģ�������õ�ֵ��ΪEID�����ģ��Ҳû������EID����ʹ��XUIϵͳ�Զ�����
+		IN IXuiIterator* npParent = NULL,	// 父对象指针
+		IN ICfKey* npTemplete = NULL,		// npTemplete的Key ID就是EID，值就是类型EType
+		IN ULONG nuEID=MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
 		) ;
 
 protected:
-	// ֻ���ڱ������ó�ʼֵ����ָ����ΪNULL�����п���ʧ�ܵ������֮������㶼Ӧ����InitOnCreate�н���
+	// 只用于变量设置初始值，如指针设为NULL，所有可能失败的如分配之类的运算都应该在InitOnCreate中进行
 	CEvToolPane();
-	// �����ͷų�Ա����
+	// 用于释放成员对象
 	virtual ~CEvToolPane();
-	//��ʼ��������һ��Ԫ�ر�����ʱ���ã�ע�⣺��Ԫ�ػ����ڸ�Ԫ���յ�������Ϣ���Ӷ�ȷ����Ԫ����һ������Ԫ�س�ʼ��֮�����ȫ����ʼ���Ļ���
+	//初始建立，当一个元素被建立时调用，注意：子元素会先于父元素收到这条消息，从而确保父元素有一个在子元素初始化之后完成全部初始化的机会
 	virtual ERESULT OnElementCreate(IXuiIterator* npIterator);
-	//����
+	//绘制
 	//virtual ERESULT OnPaint(IXuiPaintBoard* npPaintBoard);
-	// �ֽ���Ϣ���ṩ��Ϣ�ֽ����Ϣ��Ӧ�Ĺ��ܣ������ʵ���ǽ���Ϣ�ֽ�Ϊ��ͬ������󣬵�����Ӧ�Ĵ����麯�������ڲ���ʶ����Ϣ��һ�ɷ���ERESULT_UNEXPECTED_MESSAGE
-	// �������ķ���ֵ���Զ�ͬ�����õ�npMsgָ�����Ϣ������
+	// 分解消息，提供消息分解或消息响应的功能，本类的实现是将消息分解为不同的请求后，调用相应的处理虚函数，对于不认识的消息，一律返回ERESULT_UNEXPECTED_MESSAGE
+	// 本函数的返回值会自动同步设置到npMsg指向的消息对象中
 	virtual ERESULT ParseMessage(IXuiMessage* npMsg);
 
 	virtual ERESULT OnCtlButtonClick(IXuiIterator* npSender);
@@ -39,7 +39,7 @@ private:
 
 	bool SetPaneItemValue(int lID);
 
-	//ERESULT LoadResource();			//װ��������Դ
+	//ERESULT LoadResource();			//装载配置资源
 
 public:
 

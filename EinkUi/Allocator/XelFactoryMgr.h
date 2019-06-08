@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -6,8 +6,8 @@
 #define _EOB_FACTORY_MGR_
 
 
-// ¹¤³§Àà¹ÜÀíÆ÷
-// ÓÃÓÚ¼ÓÔØDLL£¬¹ÜÀíDLL¾ä±ú£»×¢²áDLL£¬Ïú»ÙDLL
+// å·¥åŽ‚ç±»ç®¡ç†å™¨
+// ç”¨äºŽåŠ è½½DLLï¼Œç®¡ç†DLLå¥æŸ„ï¼›æ³¨å†ŒDLLï¼Œé”€æ¯DLL
 
 
 DECLARE_BUILTIN_NAME(CXelFactoryMgr)
@@ -18,14 +18,14 @@ public:
 	virtual ~CXelFactoryMgr();
 	
 public:
-	// ¼ÓÔØ¹¤³§ÀàDLL
+	// åŠ è½½å·¥åŽ‚ç±»DLL
 	HMODULE	__stdcall LoadDll(const wchar_t* nswDllPath);
-	// Ð¶ÔØ¹¤³§ÀàDLL
+	// å¸è½½å·¥åŽ‚ç±»DLL
 	BOOL __stdcall UnLoadDll(HMODULE nhDllHandle);
 
 
-	// ÊµÀý»¯¹¤³§Àà£¬»ñÈ¡Æä½Ó¿Ú¡£Æä±¾ÖÊÊÇ£¬µ÷ÓÃ¹¤³§ÀàDLLµÄÒ»¸öÒý³öº¯Êý£¬Òý³öº¯ÊýÊµÀý»¯¹¤³§Àà
-	// nuDllHandle1£ºDLLÄ£¿é¾ä±ú
+	// å®žä¾‹åŒ–å·¥åŽ‚ç±»ï¼ŒèŽ·å–å…¶æŽ¥å£ã€‚å…¶æœ¬è´¨æ˜¯ï¼Œè°ƒç”¨å·¥åŽ‚ç±»DLLçš„ä¸€ä¸ªå¼•å‡ºå‡½æ•°ï¼Œå¼•å‡ºå‡½æ•°å®žä¾‹åŒ–å·¥åŽ‚ç±»
+	// nuDllHandle1ï¼šDLLæ¨¡å—å¥æŸ„
 	IElementFactory* __stdcall GetFactInstance(const wchar_t* nswDllPath);
 
 private:

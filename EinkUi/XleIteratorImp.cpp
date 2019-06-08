@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -29,7 +29,7 @@ CXuiIterator::CXuiIterator()
 	mlZOrder = -1;
 
 	mbInverted = false;
-	// ÉèÖÃÏòÔ¶´¦ÒÆ¶¯µÄ¾ØÕó£¬Î´»æÖÆÊ±Êó±êÅĞ¶Ï³ö´í
+	// è®¾ç½®å‘è¿œå¤„ç§»åŠ¨çš„çŸ©é˜µï¼Œæœªç»˜åˆ¶æ—¶é¼ æ ‡åˆ¤æ–­å‡ºé”™
 	mdWorldMatrix._11 = 1.0f; mdWorldMatrix._12 = 0.0f;
 	mdWorldMatrix._21 = 0.0f; mdWorldMatrix._22 = 1.0f;
 	mdWorldMatrix._31 = 1000000.0f; mdWorldMatrix._32 = 1000000.0f;
@@ -58,15 +58,15 @@ CXuiIterator::~CXuiIterator()
 	}
 
 	CMM_SAFE_RELEASE(mpElement);
-	//if(mpParent != NULL)	// µ±¶ÔÏó´Ó¸¸¶ÔÏóÒÆ³ıÊ±µ÷ÓÃ£¬¶ø²»ÊÇ×Ó¶ÔÏóÊÍ·ÅÊ±µ÷ÓÃ
+	//if(mpParent != NULL)	// å½“å¯¹è±¡ä»çˆ¶å¯¹è±¡ç§»é™¤æ—¶è°ƒç”¨ï¼Œè€Œä¸æ˜¯å­å¯¹è±¡é‡Šæ”¾æ—¶è°ƒç”¨
 	//{
 	//	mpParent->KRelease();
 	//	mpParent = NULL;
 	//}
 }
 
-// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓĞÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+// é”€æ¯å…ƒç´ ï¼Œç”¨äºé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+// ä»è€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€Œåå†å°†è‡ªå·±ä»å…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 ERESULT CXuiIterator::OnElementDestroy()
 {
 	ClearTip();
@@ -74,33 +74,33 @@ ERESULT CXuiIterator::OnElementDestroy()
 	return ERESULT_SUCCESS;
 }
 
-// Æô¶¯Iterator£¬×¼±¸½ÓÊÜÏûÏ¢£¬µ÷ÓÃÕâ¸ö·½·¨ºó£¬ElementÊ×ÏÈ»áÊÕµ½EMSG_CREATEÏûÏ¢£¬Õâ¸ö·½·¨Í¨³£ÔÚElementµÄÊµÀı»¯º¯ÊıÍË³öÇ°µ÷ÓÃ
+// å¯åŠ¨Iteratorï¼Œå‡†å¤‡æ¥å—æ¶ˆæ¯ï¼Œè°ƒç”¨è¿™ä¸ªæ–¹æ³•åï¼ŒElementé¦–å…ˆä¼šæ”¶åˆ°EMSG_CREATEæ¶ˆæ¯ï¼Œè¿™ä¸ªæ–¹æ³•é€šå¸¸åœ¨Elementçš„å®ä¾‹åŒ–å‡½æ•°é€€å‡ºå‰è°ƒç”¨
 void __stdcall CXuiIterator::Start(void)
 {
 	ITR_CHECK();
 	if(cmmBaseObject::TestFlag(EITR_FLAG_INIT)!=false)
-		return;	// ÒÑ¾­³õÊ¼»¯ÁË
+		return;	// å·²ç»åˆå§‹åŒ–äº†
 	
-	// ÉèÖÃ³õÊ¼»¯Íê³É±êÖ¾£¬²¢ÇÒµ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄ·½·¨
+	// è®¾ç½®åˆå§‹åŒ–å®Œæˆæ ‡å¿—ï¼Œå¹¶ä¸”è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„æ–¹æ³•
 	cmmBaseObject::SetFlags(EITR_FLAG_INIT);
 	gpElementManager->StartMessageReceiver(this);
 }
 
-// »ñµÃ±¾ElementµÄEID
+// è·å¾—æœ¬Elementçš„EID
 ULONG __stdcall CXuiIterator::GetID(void)
 {
 	ITR_CHECK();
 	return muEID;
 }
 
-// »ñµÃ±¾ElementËùÊôµÄEtype
+// è·å¾—æœ¬Elementæ‰€å±çš„Etype
 const wchar_t* __stdcall CXuiIterator::GetType(void)
 {
 	ITR_CHECK();
 	return mpElement->GetType();
 }
 
-// »ñµÃ¸¸¶ÔÏó
+// è·å¾—çˆ¶å¯¹è±¡
 IEinkuiIterator* __stdcall CXuiIterator::GetParent(void)
 {
 	ITR_CHECK();
@@ -111,14 +111,14 @@ IEinkuiIterator* __stdcall CXuiIterator::GetParent(void)
 }
 
 
-// »ñµÃ±¾µü´úÆ÷¶ÔÓ¦µÄElement¶ÔÏó
+// è·å¾—æœ¬è¿­ä»£å™¨å¯¹åº”çš„Elementå¯¹è±¡
 IXsElement* __stdcall CXuiIterator::GetElementObject(void)
 {
 	ITR_CHECK();
 	return mpElement;
 }
 
-// »ñµÃÏÂÒ»²ãµÄ×Ó¶ÔÏóµÄ×ÜÊı
+// è·å¾—ä¸‹ä¸€å±‚çš„å­å¯¹è±¡çš„æ€»æ•°
 int __stdcall CXuiIterator::GetSubElementCount(void)
 {
 	int liCount;
@@ -136,7 +136,7 @@ int __stdcall CXuiIterator::GetSubElementCount(void)
 	return liCount;
 }
 
-// Ñ¯ÎÊÄ³¸öIteratorÔÚ²ã´Î½á¹¹ÉÏÊÇ²»ÊÇµ±Ç°IteratorµÄ×æÏÈ
+// è¯¢é—®æŸä¸ªIteratoråœ¨å±‚æ¬¡ç»“æ„ä¸Šæ˜¯ä¸æ˜¯å½“å‰Iteratorçš„ç¥–å…ˆ
 bool __stdcall CXuiIterator::FindAncestor(const IEinkuiIterator* npIsAncestor)
 {
 	bool lbIsAncestor = false;
@@ -150,7 +150,7 @@ bool __stdcall CXuiIterator::FindAncestor(const IEinkuiIterator* npIsAncestor)
 	lpItrObj = this->mpParent;
 	gpElementManager->LockIterators();
 
-	// µ½´ï¸ù½Úµã
+	// åˆ°è¾¾æ ¹èŠ‚ç‚¹
 	while(lpItrObj != lpItrObj->mpParent)
 	{
 		if(lpItrObj == npIsAncestor)
@@ -166,7 +166,7 @@ bool __stdcall CXuiIterator::FindAncestor(const IEinkuiIterator* npIsAncestor)
 	return lbIsAncestor;
 }
 
-// Í¨¹ıZOderµÄÅÅÁĞ´ÎĞò»ñµÃ×Ó½Úµã£¬·µ»ØµÄ½Ó¿ÚĞèÒªÊÍ·Å
+// é€šè¿‡ZOderçš„æ’åˆ—æ¬¡åºè·å¾—å­èŠ‚ç‚¹ï¼Œè¿”å›çš„æ¥å£éœ€è¦é‡Šæ”¾
 IEinkuiIterator* __stdcall CXuiIterator::GetSubElementByZOder(
 	int niPos	// zero base index value to indicate the position in z-order array
 	)
@@ -187,7 +187,7 @@ IEinkuiIterator* __stdcall CXuiIterator::GetSubElementByZOder(
 	return lpReturn;
 }
 
-// Í¨¹ıID»ñµÃ×Ó½Úµã£¬·µ»ØµÄ½Ó¿ÚĞèÒªÊÍ·Å
+// é€šè¿‡IDè·å¾—å­èŠ‚ç‚¹ï¼Œè¿”å›çš„æ¥å£éœ€è¦é‡Šæ”¾
 IEinkuiIterator* __stdcall CXuiIterator::GetSubElementByID(ULONG nuEid)
 {
 	IEinkuiIterator* lpFound = NULL;
@@ -212,32 +212,32 @@ IEinkuiIterator* __stdcall CXuiIterator::GetSubElementByID(ULONG nuEid)
 	return lpFound;
 }
 
-// ¸ø´ËÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍÄ£Ê½ÊÇSend
-// ÏûÏ¢·¢ËÍºó£¬·¢ËÍÕßÈÔÈ»ĞèÒªÊÍ·Å£»Èç¹ûÏ£ÍûÒÔ¸ü¼Ó¼òµ¥µÄ·½Ê½·¢ËÍÏûÏ¢£¬²Î¿¼IXelManagerµÄSimplePostMessage·½·¨
+// ç»™æ­¤å…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€æ¨¡å¼æ˜¯Send
+// æ¶ˆæ¯å‘é€åï¼Œå‘é€è€…ä»ç„¶éœ€è¦é‡Šæ”¾ï¼›å¦‚æœå¸Œæœ›ä»¥æ›´åŠ ç®€å•çš„æ–¹å¼å‘é€æ¶ˆæ¯ï¼Œå‚è€ƒIXelManagerçš„SimplePostMessageæ–¹æ³•
 ERESULT __stdcall CXuiIterator::SendMessage(IEinkuiMessage* npMsg)
 {
 	ITR_CHECK();
 	return gpElementManager->SendMessage(this,npMsg);
 }
 
-// ¸ø´ËÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍÄ£Ê½ÊÇPost
-// ÏûÏ¢·¢ËÍºó£¬·¢ËÍÕßÈÔÈ»ĞèÒªÊÍ·Å£»Èç¹ûÏ£ÍûÒÔ¸ü¼Ó¼òµ¥µÄ·½Ê½·¢ËÍÏûÏ¢£¬²Î¿¼IXelManagerµÄSimplePostMessage·½·¨
+// ç»™æ­¤å…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€æ¨¡å¼æ˜¯Post
+// æ¶ˆæ¯å‘é€åï¼Œå‘é€è€…ä»ç„¶éœ€è¦é‡Šæ”¾ï¼›å¦‚æœå¸Œæœ›ä»¥æ›´åŠ ç®€å•çš„æ–¹å¼å‘é€æ¶ˆæ¯ï¼Œå‚è€ƒIXelManagerçš„SimplePostMessageæ–¹æ³•
 ERESULT __stdcall CXuiIterator::PostMessage(IEinkuiMessage* npMsg)
 {
 	ITR_CHECK();
 	return gpElementManager->PostMessage(this,npMsg);
 }
 
-// ¸ø´ËÔªËØµÄ¸¸ÔªËØ·¢ËÍÒ»ÌõÏûÏ¢£¬·¢ËÍµÄÄ£Ê½ÊÇFastPost
-// ÏûÏ¢·¢ËÍºó£¬·¢ËÍÕßÈÔÈ»ĞèÒªÊÍ·Å
-// !!!×¢Òâ!!! ½öÓÃÓÚ·¢ËÍÕßÊÇ±¾µü´úÆ÷¶ÔÓ¦µÄÔªËØÖ®Çé¿ö
+// ç»™æ­¤å…ƒç´ çš„çˆ¶å…ƒç´ å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œå‘é€çš„æ¨¡å¼æ˜¯FastPost
+// æ¶ˆæ¯å‘é€åï¼Œå‘é€è€…ä»ç„¶éœ€è¦é‡Šæ”¾
+// !!!æ³¨æ„!!! ä»…ç”¨äºå‘é€è€…æ˜¯æœ¬è¿­ä»£å™¨å¯¹åº”çš„å…ƒç´ ä¹‹æƒ…å†µ
 ERESULT __stdcall CXuiIterator::PostMessageToParent(IEinkuiMessage* npMsg)
 {
 	IEinkuiIterator* lpFarther;
 
 	ITR_CHECK();
 	lpFarther = GetParent();
-	if(lpFarther == NULL || lpFarther == this)	// ·¢Éú´íÎó£¬»òÕßµÖ´ï¸ù²¿£¬Ã»ÓĞ¸¸½ÚµãÁË
+	if(lpFarther == NULL || lpFarther == this)	// å‘ç”Ÿé”™è¯¯ï¼Œæˆ–è€…æŠµè¾¾æ ¹éƒ¨ï¼Œæ²¡æœ‰çˆ¶èŠ‚ç‚¹äº†
 		return ERESULT_ITERATOR_INVALID;
 
 	npMsg->SetMessageSender(this);
@@ -245,33 +245,33 @@ ERESULT __stdcall CXuiIterator::PostMessageToParent(IEinkuiMessage* npMsg)
 	return gpElementManager->PostMessage(lpFarther,npMsg,EMSG_POSTTYPE_FAST);
 }
 
-// ÉêÇë¶¨Ê±Æ÷£¬¶ÔÓÚÓÀ¾Ã´¥·¢µÄ¶¨Ê±Æ÷£¬ĞèÒª×¢Ïú
+// ç”³è¯·å®šæ—¶å™¨ï¼Œå¯¹äºæ°¸ä¹…è§¦å‘çš„å®šæ—¶å™¨ï¼Œéœ€è¦æ³¨é”€
 ERESULT __stdcall CXuiIterator::SetTimer(
-	IN ULONG nuID,	  // ¶¨Ê±Æ÷ID
-	IN ULONG nuRepeat,// ĞèÒªÖØ¸´´¥·¢µÄ´ÎÊı£¬MAXULONG32±íÊ¾ÓÀÔ¶ÖØ¸´
-	IN ULONG nuDuration,	// ´¥·¢ÖÜÆÚ
-	IN void* npContext//ÉÏÏÂÎÄ£¬½«Ëæ×Å¶¨Ê±Æ÷ÏûÏ¢·¢ËÍ¸øÉêÇëÕß
+	IN ULONG nuID,	  // å®šæ—¶å™¨ID
+	IN ULONG nuRepeat,// éœ€è¦é‡å¤è§¦å‘çš„æ¬¡æ•°ï¼ŒMAXULONG32è¡¨ç¤ºæ°¸è¿œé‡å¤
+	IN ULONG nuDuration,	// è§¦å‘å‘¨æœŸ
+	IN void* npContext//ä¸Šä¸‹æ–‡ï¼Œå°†éšç€å®šæ—¶å™¨æ¶ˆæ¯å‘é€ç»™ç”³è¯·è€…
 	)
 {
 	ITR_CHECK();
 	return CEinkuiSystem::gpXuiSystem->SetTimer(this,nuID,nuRepeat,nuDuration,npContext);
 }
 
-// Ïú»Ù¶¨Ê±Æ÷
+// é”€æ¯å®šæ—¶å™¨
 ERESULT __stdcall CXuiIterator::KillTimer(
-	IN ULONG nuID	  // ¶¨Ê±Æ÷ID
+	IN ULONG nuID	  // å®šæ—¶å™¨ID
 	)
 {
 	ITR_CHECK();
 	return CEinkuiSystem::gpXuiSystem->KillTimer(this,nuID);
 }
 
-// ÉèÖÃäÖÈ¾ÔöĞ§Æ÷£¬ÔöĞ§Æ÷ÓÃÓÚ¸øÄ³¸öÔªËØºÍËüµÄ×ÓÔªËØÌá¹©ÌØ¶¨µÄäÖÈ¾£¬ÔöĞ§Æ÷¿ÉÒÔÑ¡ÔñDirect2D£¬Direct3D¼¼ÊõÍêÉÆXUIÏµÍ³µÄäÖÈ¾
-// Í¬Ò»¸öÔªËØÔÚÍ¬Ò»Ê±¿ÌÖ»ÄÜÓĞÒ»¸öÔöĞ§Æ÷ÔÚ¹¤×÷£»²¢ÇÒ£¬Í¨³£ÔöĞ§Æ÷¶¼ÊÇ¶ÔÆä¸¸ÔªËØ·¢Éú×÷ÓÃ
-// ·µ»ØERESULT_ACCESS_CONFLICT±íÊ¾¶à¸öÔöĞ§Æ÷·¢Éú³åÍ»£»ÔöĞ§Æ÷ÉèÖÃ£¬ÇëÔÚ½ÓÊÕµ½EMSG_PREPARE_PAINTÊ±´¦Àí£¬ÆäËûµØ·½×öÉèÖÃ£¬ÓĞ¿ÉÄÜµ¼ÖÂÑÏÖØ´íÎó
+// è®¾ç½®æ¸²æŸ“å¢æ•ˆå™¨ï¼Œå¢æ•ˆå™¨ç”¨äºç»™æŸä¸ªå…ƒç´ å’Œå®ƒçš„å­å…ƒç´ æä¾›ç‰¹å®šçš„æ¸²æŸ“ï¼Œå¢æ•ˆå™¨å¯ä»¥é€‰æ‹©Direct2Dï¼ŒDirect3DæŠ€æœ¯å®Œå–„XUIç³»ç»Ÿçš„æ¸²æŸ“
+// åŒä¸€ä¸ªå…ƒç´ åœ¨åŒä¸€æ—¶åˆ»åªèƒ½æœ‰ä¸€ä¸ªå¢æ•ˆå™¨åœ¨å·¥ä½œï¼›å¹¶ä¸”ï¼Œé€šå¸¸å¢æ•ˆå™¨éƒ½æ˜¯å¯¹å…¶çˆ¶å…ƒç´ å‘ç”Ÿä½œç”¨
+// è¿”å›ERESULT_ACCESS_CONFLICTè¡¨ç¤ºå¤šä¸ªå¢æ•ˆå™¨å‘ç”Ÿå†²çªï¼›å¢æ•ˆå™¨è®¾ç½®ï¼Œè¯·åœ¨æ¥æ”¶åˆ°EMSG_PREPARE_PAINTæ—¶å¤„ç†ï¼Œå…¶ä»–åœ°æ–¹åšè®¾ç½®ï¼Œæœ‰å¯èƒ½å¯¼è‡´ä¸¥é‡é”™è¯¯
 ERESULT __stdcall CXuiIterator::SetEnhancer(
 	IN IEinkuiIterator* npEnhancer,
-	IN bool nbEnable		// true ÆôÓÃ£¬false È¡Ïû
+	IN bool nbEnable		// true å¯ç”¨ï¼Œfalse å–æ¶ˆ
 	)
 {
 	ERESULT luResult= ERESULT_SUCCESS;
@@ -307,7 +307,7 @@ ERESULT __stdcall CXuiIterator::SetEnhancer(
 
 }
 
-// »ñµÃÔöĞ§Æ÷
+// è·å¾—å¢æ•ˆå™¨
 IEinkuiIterator* __stdcall CXuiIterator::GetEnhancer(void)
 {
 	ITR_CHECK();
@@ -325,7 +325,7 @@ IEinkuiIterator* __stdcall CXuiIterator::GetEnhancer(void)
 	return lpCrtEnhancer;
 }
 
-// Ìí¼ÓÒ»¸ö×Ó½Úµã
+// æ·»åŠ ä¸€ä¸ªå­èŠ‚ç‚¹
 ERESULT CXuiIterator::AddSubElement(
 	CXuiIterator* npSubElement
 	)
@@ -335,7 +335,7 @@ ERESULT CXuiIterator::AddSubElement(
 
 	do 
 	{
-		// Èç¹ûÃ»ÓĞÀ©Õ¹½á¹¹£¬·ÖÅäÀ©Õ¹½á¹¹
+		// å¦‚æœæ²¡æœ‰æ‰©å±•ç»“æ„ï¼Œåˆ†é…æ‰©å±•ç»“æ„
 		if(mpExtension == NULL)
 		{
 			mpExtension = new CXuiIteratorExtension();
@@ -343,13 +343,13 @@ ERESULT CXuiIterator::AddSubElement(
 				break;
 		}
 
-		// ²åÈëID¶ÓÁĞ
+		// æ’å…¥IDé˜Ÿåˆ—
 		{
 			CEoSubItrNode loAddIn;
 			loAddIn.muID = npSubElement->muEID;//npSubElement->GetID();
 			loAddIn.mpIterator = npSubElement;
 
-			// Èç¹û´ı×¢²áÔªËØÃ»ÓĞEID£¬ÄÇÃ´¾ÍÎªËû·ÖÅäÒ»¸ö
+			// å¦‚æœå¾…æ³¨å†Œå…ƒç´ æ²¡æœ‰EIDï¼Œé‚£ä¹ˆå°±ä¸ºä»–åˆ†é…ä¸€ä¸ª
 			if(loAddIn.muID == 0 || loAddIn.muID == MAXULONG32)
 			{
 				ULONG i=0;
@@ -361,11 +361,11 @@ ERESULT CXuiIterator::AddSubElement(
 						ULONG d;
 					}ldValue;
 					ldValue.p = npSubElement->mpElement;
-					loAddIn.muID = ((ldValue.d + i++)|0x80000000);	// ×î¸ßÎ»ÖÃÒ»£¬ÊÇÎªÁË·ÀÖ¹Í¬½«À´¿ÉÄÜ¼ÓÈëµÄÆäËûÖ¸¶¨IDµÄÔªËØ³åÍ»
+					loAddIn.muID = ((ldValue.d + i++)|0x80000000);	// æœ€é«˜ä½ç½®ä¸€ï¼Œæ˜¯ä¸ºäº†é˜²æ­¢åŒå°†æ¥å¯èƒ½åŠ å…¥çš„å…¶ä»–æŒ‡å®šIDçš„å…ƒç´ å†²çª
 
-				} while (mpExtension->moIDOrder.Find(loAddIn)>=0 && i < luMax);	// Ñ­»·16K´Î£¬Èç¹û»¹²»ĞĞ¾Í·ÅÆú
+				} while (mpExtension->moIDOrder.Find(loAddIn)>=0 && i < luMax);	// å¾ªç¯16Kæ¬¡ï¼Œå¦‚æœè¿˜ä¸è¡Œå°±æ”¾å¼ƒ
 				if(i >= luMax)
-					break;	//Ê§°ÜÍË³ö
+					break;	//å¤±è´¥é€€å‡º
 
 				npSubElement->muEID = loAddIn.muID;
 			}
@@ -375,28 +375,28 @@ ERESULT CXuiIterator::AddSubElement(
 		}
 		lbDirty = true;
 
-		// ²åÈëµ½Z-Order
+		// æ’å…¥åˆ°Z-Order
 //		BringSubElementToTop(npSubElement);
 		InsertToZOder(npSubElement);
 
-		// ²åÈëµ½Tab-Order
+		// æ’å…¥åˆ°Tab-Order
 		if(mpExtension->moTabOder.Insert(-1,npSubElement)<0)
 			break;
 
-		// ÉèÖÃ¸¸¶ÔÏó
+		// è®¾ç½®çˆ¶å¯¹è±¡
 		npSubElement->mpParent = this;
 
-		// Ôö¼Ó±¾¶ÔÏó¶ÔÏóÒıÓÃ
+		// å¢åŠ æœ¬å¯¹è±¡å¯¹è±¡å¼•ç”¨
 		KAddRefer();
 
-		// ·µ»Ø³É¹¦
+		// è¿”å›æˆåŠŸ
 		luResult = ERESULT_SUCCESS;
 
 	} while (false);
 
 	if(luResult != ERESULT_SUCCESS && lbDirty !=false)
 	{
-		// ÊÍ·Å×ÊÔ´
+		// é‡Šæ”¾èµ„æº
 		CEoSubItrNode loAddIn;
 		loAddIn.muID = npSubElement->GetID();
 		mpExtension->moIDOrder.Remove(loAddIn);
@@ -423,7 +423,7 @@ ERESULT CXuiIterator::AddSubElement(
 }
 
 
-// É¾³ıÒ»¸ö×Ó½Úµã
+// åˆ é™¤ä¸€ä¸ªå­èŠ‚ç‚¹
 void CXuiIterator::RemoveSubElement(
 	CXuiIterator* npSubElement
 	)
@@ -453,15 +453,15 @@ void CXuiIterator::RemoveSubElement(
 		}
 	}
 
-	// Ö¸Ïò×ÔÉí£¬±íÊ¾Ã»ÓĞ¸¸½ÚµãÁË
+	// æŒ‡å‘è‡ªèº«ï¼Œè¡¨ç¤ºæ²¡æœ‰çˆ¶èŠ‚ç‚¹äº†
 	npSubElement->mpParent = npSubElement;
 	
-	// Èç¹ûÈ·ÊµÉ¾µôÁËÒ»¸ö×Ó½Úµã£¬ÄÇÃ´¾Í¼õÉÙ×ÔÉíµÄÒıÓÃ
+	// å¦‚æœç¡®å®åˆ æ‰äº†ä¸€ä¸ªå­èŠ‚ç‚¹ï¼Œé‚£ä¹ˆå°±å‡å°‘è‡ªèº«çš„å¼•ç”¨
 	if(lbFound != false)
 		KRelease();
 }
 
-// ÔÚ×Ó½ÚµãÖĞ²éÕÒĞ¯´øÄ¿±êµÄµü´úÆ÷
+// åœ¨å­èŠ‚ç‚¹ä¸­æŸ¥æ‰¾æºå¸¦ç›®æ ‡çš„è¿­ä»£å™¨
 CXuiIterator* CXuiIterator::SeekIteratorInChild(IXsElement* npElement)
 {
 	CXuiIterator* lpIteratorObj = NULL;
@@ -476,7 +476,7 @@ CXuiIterator* CXuiIterator::SeekIteratorInChild(IXsElement* npElement)
 			break;
 		}
 
-		// µİ¹éµ÷ÓÃ£¬¼ì²éËüµÄ×Ó½Úµã
+		// é€’å½’è°ƒç”¨ï¼Œæ£€æŸ¥å®ƒçš„å­èŠ‚ç‚¹
 		if(mpExtension->moIDOrder[i].mpIterator->mpExtension != NULL)
 		{
 			lpIteratorObj = mpExtension->moIDOrder[i].mpIterator->SeekIteratorInChild(npElement);
@@ -489,17 +489,17 @@ CXuiIterator* CXuiIterator::SeekIteratorInChild(IXsElement* npElement)
 	return lpIteratorObj;
 }
 
-// ¹Ø±ÕÒ»¸öÔªËØ
+// å…³é—­ä¸€ä¸ªå…ƒç´ 
 void __stdcall CXuiIterator::Close(void)
 {
 	ITR_CHECK();
-	// ×¢Ïú¿Ø¼ş
+	// æ³¨é”€æ§ä»¶
 	CExMessage::SendMessage(NULL,this,EMSG_APPLY_DESTROY,CExMessage::DataInvalid,NULL,0);
 }
 
-// HookÄ¿±ê£¬µ±Ç°½öÖ§³Öµ¥²ã´ÎµÄHook£¬¼´£¬Ò»¸öÔªËØÔÚÍ¬Ò»Ê±¿Ì½ö±»Ò»¸öÔªËØHook£»ÊÔÍ¼HookÒ»¸öÒÑ¾­±»HookµÄÔªËØÊ±£¬½«»á·µ»ØÊ§°ÜERESULT_ACCESS_CONFLICT
+// Hookç›®æ ‡ï¼Œå½“å‰ä»…æ”¯æŒå•å±‚æ¬¡çš„Hookï¼Œå³ï¼Œä¸€ä¸ªå…ƒç´ åœ¨åŒä¸€æ—¶åˆ»ä»…è¢«ä¸€ä¸ªå…ƒç´ Hookï¼›è¯•å›¾Hookä¸€ä¸ªå·²ç»è¢«Hookçš„å…ƒç´ æ—¶ï¼Œå°†ä¼šè¿”å›å¤±è´¥ERESULT_ACCESS_CONFLICT
 ERESULT __stdcall CXuiIterator::SetHook(
-	IN IEinkuiIterator* npHooker,	// HookÇëÇóÕß£¬Ò»µ©ÉèÖÃÁËHook£¬±¾¶ÔÏóµÄËùÓĞÏûÏ¢£¨EMSG_HOOKED_MESSAGE²»»á±»×ª·¢£©£¬¶¼»áÏÈ·¢ËÍ¸øHooker´¦Àí£¬Hooker¿ÉÒÔĞŞ¸ÄÈÎÒâµÄÏûÏ¢£¬Ò²¿ÉÒÔ×èÖ¹ÏûÏ¢·¢ËÍ¸ø±¾¶ÔÏó
+	IN IEinkuiIterator* npHooker,	// Hookè¯·æ±‚è€…ï¼Œä¸€æ—¦è®¾ç½®äº†Hookï¼Œæœ¬å¯¹è±¡çš„æ‰€æœ‰æ¶ˆæ¯ï¼ˆEMSG_HOOKED_MESSAGEä¸ä¼šè¢«è½¬å‘ï¼‰ï¼Œéƒ½ä¼šå…ˆå‘é€ç»™Hookerå¤„ç†ï¼ŒHookerå¯ä»¥ä¿®æ”¹ä»»æ„çš„æ¶ˆæ¯ï¼Œä¹Ÿå¯ä»¥é˜»æ­¢æ¶ˆæ¯å‘é€ç»™æœ¬å¯¹è±¡
 	IN bool nbSet		// true to set ,false to remove
 	)
 {
@@ -538,7 +538,7 @@ ERESULT __stdcall CXuiIterator::SetHook(
 	return luResult;
 }
 
-// »ñµÃHooker£¬»ñÈ¡±¾ÔªËØ±»Ë­Hook
+// è·å¾—Hookerï¼Œè·å–æœ¬å…ƒç´ è¢«è°Hook
 IEinkuiIterator* __stdcall CXuiIterator::GetHooker(void)
 {
 	IEinkuiIterator* lpHooker;
@@ -558,9 +558,9 @@ IEinkuiIterator* __stdcall CXuiIterator::GetHooker(void)
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÏÂÃæÊÇËùÓĞÓëÏÔÊ¾ºÍÎ»ÖÃÏà¹ØµÄ·½·¨
+// ä¸‹é¢æ˜¯æ‰€æœ‰ä¸æ˜¾ç¤ºå’Œä½ç½®ç›¸å…³çš„æ–¹æ³•
 
-// ÉèÖÃÏÔÊ¾/Òş²Ø
+// è®¾ç½®æ˜¾ç¤º/éšè—
 void __stdcall CXuiIterator::SetVisible(bool nbVisible)
 {
 	ITR_CHECK();
@@ -572,25 +572,25 @@ void __stdcall CXuiIterator::SetVisible(bool nbVisible)
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
 
-// ¶ÁÈ¡ÏÔÊ¾/Òş²Ø×´Ì¬
+// è¯»å–æ˜¾ç¤º/éšè—çŠ¶æ€
 bool __stdcall CXuiIterator::IsVisible(void)
 {
 	ITR_CHECK();
 	return cmmBaseObject::TestFlag(EITR_FLAG_VISIBLE)&&cmmBaseObject::TestFlag(EITR_FLAG_INIT);
 }
 
-// Éè¶¨ÕûÌåÍ¸Ã÷¶È
+// è®¾å®šæ•´ä½“é€æ˜åº¦
 void __stdcall CXuiIterator::SetAlpha(FLOAT nfAlpha)
 {
 	ITR_CHECK();
 	mfAlpha = nfAlpha;
-	cmmBaseObject::SetFlags(EITR_FLAG_ALPHA,nfAlpha>0.99f?false:true);	// Èç¹û´óÓÚ0.99Ïàµ±ÓÚÊÇÍêÈ«²»Í¸Ã÷
+	cmmBaseObject::SetFlags(EITR_FLAG_ALPHA,nfAlpha>0.99f?false:true);	// å¦‚æœå¤§äº0.99ç›¸å½“äºæ˜¯å®Œå…¨ä¸é€æ˜
 	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY,true);
 
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
 
-// ¶ÁÈ¡ÕûÌåÍ¸Ã÷¶È
+// è¯»å–æ•´ä½“é€æ˜åº¦
 FLOAT __stdcall CXuiIterator::GetAlpha(void)
 {
 	ITR_CHECK();
@@ -600,7 +600,7 @@ FLOAT __stdcall CXuiIterator::GetAlpha(void)
 	return mfAlpha;
 }
 
-// ÉèÖÃÆ½Ãæ×ø±ê
+// è®¾ç½®å¹³é¢åæ ‡
 void __stdcall CXuiIterator::SetPosition(FLOAT nfX,FLOAT nfY)
 {
 	ITR_CHECK();
@@ -619,7 +619,7 @@ void __stdcall CXuiIterator::SetPosition(const D2D1_POINT_2F& rPosition)
 }
 
 
-// ¶ÁÈ¡Æ½Ãæ×ø±ê
+// è¯»å–å¹³é¢åæ ‡
 FLOAT __stdcall CXuiIterator::GetPositionX(void)
 {
 	ITR_CHECK();
@@ -631,7 +631,7 @@ FLOAT __stdcall CXuiIterator::GetPositionY(void)
 	return mdPosition.y;
 }
 
-// ¶ÁÈ¡Æ½Ãæ×ø±ê
+// è¯»å–å¹³é¢åæ ‡
 D2D1_POINT_2F __stdcall CXuiIterator::GetPosition(void)
 {
 	ITR_CHECK();
@@ -647,13 +647,13 @@ void __stdcall CXuiIterator::GetRect(D2D1_RECT_F& rRect)
 	rRect.bottom = mdPosition.y + mdSize.height;
 }
 
-// ÉèÖÃ¿ÉÊÓÇøÓò
+// è®¾ç½®å¯è§†åŒºåŸŸ
 void __stdcall CXuiIterator::SetVisibleRegion(
-	IN const D2D1_RECT_F& rRegion		// »ùÓÚÏà¶Ô×ø±êµÄ¿ÉÊÓÇøÓò£¬´ËÇøÓòÖ®Íâ²»»áÏÔÊ¾±¾ÔªËØ¼°×ÓÔªËØµÄÄÚÈİ£»Èç¹ûrRegion.left > region.right ±íÊ¾È¡Ïû¿ÉÊÓÇøÉèÖÃ
+	IN const D2D1_RECT_F& rRegion		// åŸºäºç›¸å¯¹åæ ‡çš„å¯è§†åŒºåŸŸï¼Œæ­¤åŒºåŸŸä¹‹å¤–ä¸ä¼šæ˜¾ç¤ºæœ¬å…ƒç´ åŠå­å…ƒç´ çš„å†…å®¹ï¼›å¦‚æœrRegion.left > region.right è¡¨ç¤ºå–æ¶ˆå¯è§†åŒºè®¾ç½®
 	)
 {
 	ITR_CHECK();
-	// ÀíÂÛÉÏ´æÔÚÄ³¸öElementÔÚÎÒÃÇ´¦Àí»æÖÆ²¢ÇÒÇ¡ºÃÔÚ»æÖÆËüµÄÊ±¼äµãµ÷ÓÃ´Ëº¯Êı£¬ÕâÑù¿ÉÄÜ»áµ¼ÖÂÑÏÖØ¹ÊÕÏ
+	// ç†è®ºä¸Šå­˜åœ¨æŸä¸ªElementåœ¨æˆ‘ä»¬å¤„ç†ç»˜åˆ¶å¹¶ä¸”æ°å¥½åœ¨ç»˜åˆ¶å®ƒçš„æ—¶é—´ç‚¹è°ƒç”¨æ­¤å‡½æ•°ï¼Œè¿™æ ·å¯èƒ½ä¼šå¯¼è‡´ä¸¥é‡æ•…éšœ
 	if(CEinkuiSystem::gpXuiSystem->GetRenderStep() != CEinkuiSystem::eRenderStop)
 		return;
 
@@ -672,9 +672,9 @@ void __stdcall CXuiIterator::SetVisibleRegion(
 
 }
 
-// »ñÈ¡¿ÉÊÓÇøÓò£¬·µ»Øfalse±íÊ¾Ã»ÓĞÉèÖÃ¿ÉÊÇÇøÓò
+// è·å–å¯è§†åŒºåŸŸï¼Œè¿”å›falseè¡¨ç¤ºæ²¡æœ‰è®¾ç½®å¯æ˜¯åŒºåŸŸ
 bool __stdcall CXuiIterator::GetVisibleRegion(
-	OUT D2D1_RECT_F& rRegion	// ·µ»Ø¿ÉÊÓÇøÓò£¬Èç¹ûÃ»ÓĞÉèÖÃ¿ÉÊÓÇøÓò£¬Ôò²»»áĞŞ¸ÄÕâ¸ö¶ÔÏó
+	OUT D2D1_RECT_F& rRegion	// è¿”å›å¯è§†åŒºåŸŸï¼Œå¦‚æœæ²¡æœ‰è®¾ç½®å¯è§†åŒºåŸŸï¼Œåˆ™ä¸ä¼šä¿®æ”¹è¿™ä¸ªå¯¹è±¡
 	)
 {
 	bool lbReval;
@@ -693,17 +693,17 @@ bool __stdcall CXuiIterator::GetVisibleRegion(
 }
 
 
-// ÉèÖÃÆ½Ãæ×ª½Ç
+// è®¾ç½®å¹³é¢è½¬è§’
 void __stdcall CXuiIterator::SetRotation(FLOAT nfAngle,D2D1_POINT_2F ndCenter)
 {
-	// ÀíÂÛÉÏ´æÔÚÄ³¸öElementÔÚÎÒÃÇ´¦Àí»æÖÆ²¢ÇÒÇ¡ºÃÔÚ»æÖÆËüµÄÊ±¼äµãµ÷ÓÃ´Ëº¯Êı£¬ÕâÑù¿ÉÄÜ»áµ¼ÖÂÑÏÖØ¹ÊÕÏ
+	// ç†è®ºä¸Šå­˜åœ¨æŸä¸ªElementåœ¨æˆ‘ä»¬å¤„ç†ç»˜åˆ¶å¹¶ä¸”æ°å¥½åœ¨ç»˜åˆ¶å®ƒçš„æ—¶é—´ç‚¹è°ƒç”¨æ­¤å‡½æ•°ï¼Œè¿™æ ·å¯èƒ½ä¼šå¯¼è‡´ä¸¥é‡æ•…éšœ
 	if(CEinkuiSystem::gpXuiSystem->GetRenderStep() != CEinkuiSystem::eRenderStop)
 		return;
 
 	ITR_CHECK();
 	goAttributesLock.Enter();
 
-	if(nfAngle> -1.0f && nfAngle < 1.0)// Èç¹ûĞ¡ÓÚ1¶ÈÏàµ±ÓÚÊÇÃ»ÓĞĞı×ª
+	if(nfAngle> -1.0f && nfAngle < 1.0)// å¦‚æœå°äº1åº¦ç›¸å½“äºæ˜¯æ²¡æœ‰æ—‹è½¬
 	{
 		cmmBaseObject::SetFlags(EITR_FLAG_ROTATION,false);
 		moAtts.DeleteAttribute('rtal');
@@ -723,9 +723,9 @@ void __stdcall CXuiIterator::SetRotation(FLOAT nfAngle,D2D1_POINT_2F ndCenter)
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
 
-// ÉèÖÃÆ½Ãæ×ª½Ç£¬ÒÔÔªËØÖĞĞÄÎªĞı×ªÖĞĞÄ
+// è®¾ç½®å¹³é¢è½¬è§’ï¼Œä»¥å…ƒç´ ä¸­å¿ƒä¸ºæ—‹è½¬ä¸­å¿ƒ
 void __stdcall CXuiIterator::SetRotation(
-	FLOAT nfAngle			// ½Ç¶Èµ¥Î» -359 -> +359¶È
+	FLOAT nfAngle			// è§’åº¦å•ä½ -359 -> +359åº¦
 	)
 {
 	D2D1_POINT_2F ldCenter;
@@ -736,7 +736,7 @@ void __stdcall CXuiIterator::SetRotation(
 
 	goAttributesLock.Enter();
 
-	if(nfAngle> -1.0f && nfAngle < 1.0)// Èç¹ûĞ¡ÓÚ1¶ÈÏàµ±ÓÚÊÇÃ»ÓĞĞı×ª
+	if(nfAngle> -1.0f && nfAngle < 1.0)// å¦‚æœå°äº1åº¦ç›¸å½“äºæ˜¯æ²¡æœ‰æ—‹è½¬
 	{
 		cmmBaseObject::SetFlags(EITR_FLAG_ROTATION,false);
 
@@ -757,7 +757,7 @@ void __stdcall CXuiIterator::SetRotation(
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
 
-// ¶ÁÈ¡Æ½Ãæ×ª½Ç
+// è¯»å–å¹³é¢è½¬è§’
 FLOAT __stdcall CXuiIterator::GetRotationAngle(void)
 {
 	FLOAT lfAngle;
@@ -811,7 +811,7 @@ FLOAT __stdcall CXuiIterator::GetRotation(D2D1_POINT_2F& rCenter)
 	return lfAngle;
 }
 
-// ÉèÖÃ²Î¿¼³ß´ç
+// è®¾ç½®å‚è€ƒå°ºå¯¸
 void __stdcall CXuiIterator::SetSize(FLOAT nfCx,FLOAT nfCy)
 {
 	ITR_CHECK();
@@ -837,7 +837,7 @@ void __stdcall CXuiIterator::SetSize(const D2D1_SIZE_F& rSize)
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
 
-// ¶ÁÈ¡²Î¿¼³ß´ç
+// è¯»å–å‚è€ƒå°ºå¯¸
 FLOAT __stdcall CXuiIterator::GetSizeX(void)
 {
 	ITR_CHECK();
@@ -849,14 +849,14 @@ FLOAT __stdcall CXuiIterator::GetSizeY(void)
 	return mdSize.height;
 }
 
-// ¶ÁÈ¡²Î¿¼³ß´ç
+// è¯»å–å‚è€ƒå°ºå¯¸
 D2D1_SIZE_F __stdcall CXuiIterator::GetSize(void)
 {
 	ITR_CHECK();
 	return mdSize;
 }
 
-// ÉèÖÃÊÇ·ñÓĞĞ§
+// è®¾ç½®æ˜¯å¦æœ‰æ•ˆ
 void __stdcall CXuiIterator::SetEnable(bool nbSet)
 {
 	ITR_CHECK();
@@ -868,17 +868,17 @@ void __stdcall CXuiIterator::SetEnable(bool nbSet)
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
 
-// ¶ÁÈ¡ÊÇ·ñÓĞĞ§
+// è¯»å–æ˜¯å¦æœ‰æ•ˆ
 bool __stdcall CXuiIterator::IsEnable(void)
 {
 	return !cmmBaseObject::TestFlag(EITR_FLAG_DISABLE);
 }
 
-// ÉèÖÃStyle
+// è®¾ç½®Style
 void __stdcall CXuiIterator::SetStyles(ULONG nuStyles)
 {
 	ITR_CHECK();
-	// ÀíÂÛÉÏ´æÔÚÄ³¸öElementÔÚÎÒÃÇ´¦Àí»æÖÆ²¢ÇÒÇ¡ºÃÔÚ»æÖÆËüµÄÊ±¼äµãµ÷ÓÃ´Ëº¯Êı£¬ÕâÑù¿ÉÄÜ»áµ¼ÖÂÑÏÖØ¹ÊÕÏ
+	// ç†è®ºä¸Šå­˜åœ¨æŸä¸ªElementåœ¨æˆ‘ä»¬å¤„ç†ç»˜åˆ¶å¹¶ä¸”æ°å¥½åœ¨ç»˜åˆ¶å®ƒçš„æ—¶é—´ç‚¹è°ƒç”¨æ­¤å‡½æ•°ï¼Œè¿™æ ·å¯èƒ½ä¼šå¯¼è‡´ä¸¥é‡æ•…éšœ
 	if(CEinkuiSystem::gpXuiSystem->GetRenderStep() != CEinkuiSystem::eRenderStop)
 		return;
 
@@ -891,11 +891,11 @@ void __stdcall CXuiIterator::SetStyles(ULONG nuStyles)
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
 
-// ĞŞ¸ÄStyle£¬Ç°Ò»¸ö²ÎÊıÊÇÏ£ÍûÔö¼ÓµÄStyle£¬ºóÒ»¸ö²ÎÊıÊÇÏ£ÍûÒÆ³ıµÄStyle£¬µ±Ç°ºóÁ½¸ö²ÎÊıÖĞ°üÀ¨ÏàÍ¬StyleÊ±£¬¸ÃStyle²»»á±»ÒÆ³ı 
+// ä¿®æ”¹Styleï¼Œå‰ä¸€ä¸ªå‚æ•°æ˜¯å¸Œæœ›å¢åŠ çš„Styleï¼Œåä¸€ä¸ªå‚æ•°æ˜¯å¸Œæœ›ç§»é™¤çš„Styleï¼Œå½“å‰åä¸¤ä¸ªå‚æ•°ä¸­åŒ…æ‹¬ç›¸åŒStyleæ—¶ï¼Œè¯¥Styleä¸ä¼šè¢«ç§»é™¤ 
 void __stdcall CXuiIterator::ModifyStyles(ULONG nuSet,ULONG nuClear)
 {
 	ITR_CHECK();
-	// ÀíÂÛÉÏ´æÔÚÄ³¸öElementÔÚÎÒÃÇ´¦Àí»æÖÆ²¢ÇÒÇ¡ºÃÔÚ»æÖÆËüµÄÊ±¼äµãµ÷ÓÃ´Ëº¯Êı£¬ÕâÑù¿ÉÄÜ»áµ¼ÖÂÑÏÖØ¹ÊÕÏ
+	// ç†è®ºä¸Šå­˜åœ¨æŸä¸ªElementåœ¨æˆ‘ä»¬å¤„ç†ç»˜åˆ¶å¹¶ä¸”æ°å¥½åœ¨ç»˜åˆ¶å®ƒçš„æ—¶é—´ç‚¹è°ƒç”¨æ­¤å‡½æ•°ï¼Œè¿™æ ·å¯èƒ½ä¼šå¯¼è‡´ä¸¥é‡æ•…éšœ
 	if(CEinkuiSystem::gpXuiSystem->GetRenderStep() != CEinkuiSystem::eRenderStop)
 		return;
 
@@ -909,21 +909,21 @@ void __stdcall CXuiIterator::ModifyStyles(ULONG nuSet,ULONG nuClear)
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
 
-// ¶ÁÈ¡Style
+// è¯»å–Style
 ULONG __stdcall CXuiIterator::GetStyles(void)
 {
 	ITR_CHECK();
 	return muStyle;
 }
 
-// ÉêÇë¼üÅÌ½¹µã£¬Èç¹û¸ÃÔªËØ¾ßÓĞpopupÊôĞÔ£¬Ò²½«±»µ÷Õûµ½ºÏÊÊµÄÉÏ²ã
+// ç”³è¯·é”®ç›˜ç„¦ç‚¹ï¼Œå¦‚æœè¯¥å…ƒç´ å…·æœ‰popupå±æ€§ï¼Œä¹Ÿå°†è¢«è°ƒæ•´åˆ°åˆé€‚çš„ä¸Šå±‚
 ERESULT __stdcall CXuiIterator::SetKeyBoardFocus(void)
 {
 	ITR_CHECK();
 	return CExMessage::SendMessage(NULL,this,EMSG_SET_KEYBOARD_FOCUS,this,NULL,0);
 }
 
-// ÊÍ·Å¼üÅÌ½¹µã£¬Õâ½«µ¼ÖÂTab OrderµÄÏÂÒ»¸ö¼üÅÌ½ÓÊÕÕß»ñµÃ½¹µã
+// é‡Šæ”¾é”®ç›˜ç„¦ç‚¹ï¼Œè¿™å°†å¯¼è‡´Tab Orderçš„ä¸‹ä¸€ä¸ªé”®ç›˜æ¥æ”¶è€…è·å¾—ç„¦ç‚¹
 void __stdcall CXuiIterator::ReleaseKeyBoardFocus(bool nbShiftFocus)
 {
 	ST_RELEASE_KEYFOCUS loRelease;
@@ -935,7 +935,7 @@ void __stdcall CXuiIterator::ReleaseKeyBoardFocus(bool nbShiftFocus)
 	CExMessage::SendMessage(NULL,this,EMSG_RELEASE_KEYBOARD_FOCUS,loRelease,NULL,0);
 }
 
-// ÉèÖÃÔªËØÎª»îÔ¾£¬Èç¹û±¾ÔªËØ²»¾ßÓĞEITR_STYLE_POPUP»òEITR_STYLE_ACTIVE·ç¸ñ£¬ÄÇÃ´×îµÍµÄÒ»¸ö¾ßÓĞEITR_STYLE_POPUP»òEITR_STYLE_ACTIVE·ç¸ñµÄÉÏ²ãÔªËØ½«±»¼¤»î
+// è®¾ç½®å…ƒç´ ä¸ºæ´»è·ƒï¼Œå¦‚æœæœ¬å…ƒç´ ä¸å…·æœ‰EITR_STYLE_POPUPæˆ–EITR_STYLE_ACTIVEé£æ ¼ï¼Œé‚£ä¹ˆæœ€ä½çš„ä¸€ä¸ªå…·æœ‰EITR_STYLE_POPUPæˆ–EITR_STYLE_ACTIVEé£æ ¼çš„ä¸Šå±‚å…ƒç´ å°†è¢«æ¿€æ´»
 void __stdcall CXuiIterator::SetActive(void)
 {
 	ITR_CHECK();
@@ -944,14 +944,14 @@ void __stdcall CXuiIterator::SetActive(void)
 
 
 
-// ½«±¾ÔªËØµ÷Õûµ½Í¬¼¶´°¿Ú×î¸ß²ã
+// å°†æœ¬å…ƒç´ è°ƒæ•´åˆ°åŒçº§çª—å£æœ€é«˜å±‚
 void __stdcall CXuiIterator::BringToTop(void)
 {
 	ITR_CHECK();
 	dynamic_cast<CXuiIterator*>(mpParent)->BringSubElementToTop(this);
 }
 
-// ½«±¾ÔªËØÔÚ¸¸ÔªËØµÄZ OrderĞòÁĞÖĞ£¬ÏòÏÂÒÆ¶¯Ò»Î»
+// å°†æœ¬å…ƒç´ åœ¨çˆ¶å…ƒç´ çš„Z Orderåºåˆ—ä¸­ï¼Œå‘ä¸‹ç§»åŠ¨ä¸€ä½
 bool __stdcall CXuiIterator::MoveDown(void)
 {
 	bool lbReval;
@@ -966,7 +966,7 @@ bool __stdcall CXuiIterator::MoveDown(void)
 	return lbReval;
 }
 
-// ½«±¾ÔªËØÔÚ¸¸ÔªËØµÄZ OrderĞòÁĞÖĞ£¬ÏòÉÏÒÆ¶¯Ò»Î»
+// å°†æœ¬å…ƒç´ åœ¨çˆ¶å…ƒç´ çš„Z Orderåºåˆ—ä¸­ï¼Œå‘ä¸Šç§»åŠ¨ä¸€ä½
 bool __stdcall CXuiIterator::MoveUp(void)
 {
 	bool lbReval;
@@ -981,7 +981,7 @@ bool __stdcall CXuiIterator::MoveUp(void)
 	return lbReval;
 }
 
-// ÕûÀíËùÓĞ×ÓÔªËØµÄµş·Å´ÎĞòÎªÔ­Ê¼ÉèÖÃ£¨¼´ÅäÖÃÎÄ¼şÖÆ¶¨µÄ´ÎĞò£©
+// æ•´ç†æ‰€æœ‰å­å…ƒç´ çš„å æ”¾æ¬¡åºä¸ºåŸå§‹è®¾ç½®ï¼ˆå³é…ç½®æ–‡ä»¶åˆ¶å®šçš„æ¬¡åºï¼‰
 bool __stdcall CXuiIterator::ResetChildrenByDefualtZOrder(void)
 {
 	ITR_CHECK();
@@ -990,14 +990,14 @@ bool __stdcall CXuiIterator::ResetChildrenByDefualtZOrder(void)
 	return true;
 }
 
-// ÖØĞÂÉèÖÃ±¾ÔªËØµÄZ OrderµÄÖµ£¬Èç¹ûÁ½¸öĞÖµÜElement¾ßÓĞÏàÍ¬µÄZ Order½«ÎŞ·¨È·¶¨ËüÃÇµÄÏÈºóÑ­Ğò£¬µ«ÏµÍ³±¾ÉíÔËĞĞ²»»á³ö´í
+// é‡æ–°è®¾ç½®æœ¬å…ƒç´ çš„Z Orderçš„å€¼ï¼Œå¦‚æœä¸¤ä¸ªå…„å¼ŸElementå…·æœ‰ç›¸åŒçš„Z Orderå°†æ— æ³•ç¡®å®šå®ƒä»¬çš„å…ˆåå¾ªåºï¼Œä½†ç³»ç»Ÿæœ¬èº«è¿è¡Œä¸ä¼šå‡ºé”™
 void __stdcall CXuiIterator::SetDefaultZOrder(const LONG nlDefaultZOrder)
 {
 	ITR_CHECK();
 	mlZOrder = nlDefaultZOrder;
 }
 
-// »ñµÃÄ¬ÈÏµÄZOrderÖµ
+// è·å¾—é»˜è®¤çš„ZOrderå€¼
 LONG __stdcall CXuiIterator::GetDefaultZOrder(void)
 {
 	ITR_CHECK();
@@ -1006,7 +1006,7 @@ LONG __stdcall CXuiIterator::GetDefaultZOrder(void)
 
 
 
-// µ÷Õû×ÓÔªËØÔÚZOrderµÄË³Ğò
+// è°ƒæ•´å­å…ƒç´ åœ¨ZOrderçš„é¡ºåº
 bool CXuiIterator::MoveOnZOrder(bool nbUp,CXuiIterator* npChild)
 {
 	int i;
@@ -1045,7 +1045,7 @@ bool CXuiIterator::MoveOnZOrder(bool nbUp,CXuiIterator* npChild)
 }
 
 
-// ½«Ä³¸ö×ÓÔªËØµ÷Õûµ½ZOder×î¸ß²ã
+// å°†æŸä¸ªå­å…ƒç´ è°ƒæ•´åˆ°ZOderæœ€é«˜å±‚
 void CXuiIterator::BringSubElementToTop(
 	CXuiIterator* npSubElement
 	)
@@ -1065,7 +1065,7 @@ void CXuiIterator::BringSubElementToTop(
 
 	for(i=mpExtension->moZOrder.Size()-1;i>=0;i--)
 	{
-		// ´ı²éÔªËØ²»¾ßÓĞTopÊôĞÔ£¬»òÕß£¬±¾ÔªËØÒ²¾ßÓĞTopÊôĞÔ
+		// å¾…æŸ¥å…ƒç´ ä¸å…·æœ‰Topå±æ€§ï¼Œæˆ–è€…ï¼Œæœ¬å…ƒç´ ä¹Ÿå…·æœ‰Topå±æ€§
 		if(mpExtension->moZOrder[i]->CheckStyle(EITR_STYLE_TOP)==false || npSubElement->CheckStyle(EITR_STYLE_TOP)!=false)
 		{
 			break;
@@ -1078,7 +1078,7 @@ void CXuiIterator::BringSubElementToTop(
 
 }
 
-// ½«ÔªËØ²åÈëµ½ZOrderÖĞ
+// å°†å…ƒç´ æ’å…¥åˆ°ZOrderä¸­
 void CXuiIterator::InsertToZOder(
 	CXuiIterator* npSubElement
 	)
@@ -1089,7 +1089,7 @@ void CXuiIterator::InsertToZOder(
 
 	for(i = mpExtension->moZOrder.Size()-1;i>=0;i--)
 	{
-		// ´ı²éÔªËØ²»¾ßÓĞTopÊôĞÔ£¬»òÕß£¬±¾ÔªËØÒ²¾ßÓĞTopÊôĞÔ
+		// å¾…æŸ¥å…ƒç´ ä¸å…·æœ‰Topå±æ€§ï¼Œæˆ–è€…ï¼Œæœ¬å…ƒç´ ä¹Ÿå…·æœ‰Topå±æ€§
 		if(mpExtension->moZOrder[i]->mlZOrder <= npSubElement->mlZOrder && (mpExtension->moZOrder[i]->CheckStyle(EITR_STYLE_TOP)==false || npSubElement->CheckStyle(EITR_STYLE_TOP)!=false))
 		{
 			break;
@@ -1103,7 +1103,7 @@ void CXuiIterator::InsertToZOder(
 }
 
 
-// µ÷ÕûTabOrderºÍZOrder£¬³õÊ¼»¯Ö®¼ÊÓĞElement¹ÜÀíÆ÷µ÷ÓÃ
+// è°ƒæ•´TabOrderå’ŒZOrderï¼Œåˆå§‹åŒ–ä¹‹é™…æœ‰Elementç®¡ç†å™¨è°ƒç”¨
 void CXuiIterator::UpdateOrder(void)
 {
 	int liCount;
@@ -1116,7 +1116,7 @@ void CXuiIterator::UpdateOrder(void)
 
 	gpElementManager->LockIterators();
 
-	// Ã°ÅİÅÅĞò
+	// å†’æ³¡æ’åº
 	liCount = mpExtension->moTabOder.Size();
 	for (i=0;i<liCount-1;i++)
 	{
@@ -1135,7 +1135,7 @@ void CXuiIterator::UpdateOrder(void)
 			break;
 	}
 
-	// Ã°ÅİÅÅĞò
+	// å†’æ³¡æ’åº
 	liCount = mpExtension->moZOrder.Size();
 	for (i=0;i<liCount-1;i++)
 	{
@@ -1158,7 +1158,7 @@ void CXuiIterator::UpdateOrder(void)
 	gpElementManager->UnlockIterators();
 }
 
-// »ñµÃÏÂÒ»¸öEITR_STYLE_KEYBOARDµÄÔªËØ£¬²»»á½øÈëIteratorÁÙ½çÇø
+// è·å¾—ä¸‹ä¸€ä¸ªEITR_STYLE_KEYBOARDçš„å…ƒç´ ï¼Œä¸ä¼šè¿›å…¥Iteratorä¸´ç•ŒåŒº
 CXuiIterator* CXuiIterator::GetNextKeyBoardAccepter(CXuiIterator* npCurrent)
 {
 	int i;
@@ -1168,7 +1168,7 @@ CXuiIterator* CXuiIterator::GetNextKeyBoardAccepter(CXuiIterator* npCurrent)
 	if(mpExtension == NULL || mpExtension->moTabOder.Size() <= 0)
 		return NULL;
 
-	// ¶¨Î»µ½µ±Ç°ÔªËØ£¬²¢ÇÒ¼ÆËã»·»ØºóµÄ½áÊøµØÖ·
+	// å®šä½åˆ°å½“å‰å…ƒç´ ï¼Œå¹¶ä¸”è®¡ç®—ç¯å›åçš„ç»“æŸåœ°å€
 	if(npCurrent != NULL)
 	{
 		for(i=0;i<mpExtension->moTabOder.Size();i++)
@@ -1200,13 +1200,13 @@ CXuiIterator* CXuiIterator::GetNextKeyBoardAccepter(CXuiIterator* npCurrent)
 		}
 		else
 		if(npCurrent->mpExtension != NULL)
-			lpFound = npCurrent->GetNextKeyBoardAccepter(NULL);	// µİ¹éµ÷ÓÃ£¬ÒÔÊ¹µÃ½¹µã½øÈëÄ³¸ö×Ó¿Ø¼şÄÚ²¿
+			lpFound = npCurrent->GetNextKeyBoardAccepter(NULL);	// é€’å½’è°ƒç”¨ï¼Œä»¥ä½¿å¾—ç„¦ç‚¹è¿›å…¥æŸä¸ªå­æ§ä»¶å†…éƒ¨
 	}
 
 	return lpFound;
 }
 
-//ÉèÖÃToolTip£¬Êó±êÔÚ±¾¶ÔÏóÉÏĞüÍ££¬½«»á×Ô¶¯ÏÔÊ¾µÄµ¥ĞĞ¼ò¶ÌÎÄ×ÖÌáÊ¾£¬Êó±êÒ»µ©ÒÆ¿ªÏÔÊ¾µÄToolTip£¬Ëü×Ô¶¯ÏûÊ§
+//è®¾ç½®ToolTipï¼Œé¼ æ ‡åœ¨æœ¬å¯¹è±¡ä¸Šæ‚¬åœï¼Œå°†ä¼šè‡ªåŠ¨æ˜¾ç¤ºçš„å•è¡Œç®€çŸ­æ–‡å­—æç¤ºï¼Œé¼ æ ‡ä¸€æ—¦ç§»å¼€æ˜¾ç¤ºçš„ToolTipï¼Œå®ƒè‡ªåŠ¨æ¶ˆå¤±
 void __stdcall CXuiIterator::SetToolTip(const wchar_t* nswTip)
 {
 	ERESULT luResult= ERESULT_SUCCESS;
@@ -1254,7 +1254,7 @@ void CXuiIterator::ClearTip()
 
 }
 
-// »ñµÃTip
+// è·å¾—Tip
 const wchar_t* CXuiIterator::GetToolTip(void)
 {
 	wchar_t* lswTipText = NULL;
@@ -1271,7 +1271,7 @@ const wchar_t* CXuiIterator::GetToolTip(void)
 	return lswTipText;
 }
 
-//ÉèÖÃIMEÊäÈë´°¿ÚÎ»ÖÃ£¬ndPositionÊÇ±¾ÔªËØ¾Ö²¿×ø±êÖĞµÄÎ»ÖÃ; µ±Ô­ÔªËØ¾ßÓĞEITR_STYLE_DISABLE_IMEÊôĞÔÊ±ÎŞĞ§
+//è®¾ç½®IMEè¾“å…¥çª—å£ä½ç½®ï¼ŒndPositionæ˜¯æœ¬å…ƒç´ å±€éƒ¨åæ ‡ä¸­çš„ä½ç½®; å½“åŸå…ƒç´ å…·æœ‰EITR_STYLE_DISABLE_IMEå±æ€§æ—¶æ— æ•ˆ
 void __stdcall CXuiIterator::SetIMECompositionWindow(D2D1_POINT_2F ndPosition)
 {
 	ITR_CHECK();
@@ -1287,7 +1287,7 @@ void __stdcall CXuiIterator::SetIMECompositionWindow(D2D1_POINT_2F ndPosition)
 }
 
 
-// ´Ó¾Ö²¿µØÖ·×ª»»ÎªÊÀ½çµØÖ·
+// ä»å±€éƒ¨åœ°å€è½¬æ¢ä¸ºä¸–ç•Œåœ°å€
 bool __stdcall CXuiIterator::LocalToWorld(const D2D1_POINT_2F& crLocalPoint,D2D1_POINT_2F& rWorldPoint)
 {
 	ITR_CHECK();
@@ -1296,11 +1296,11 @@ bool __stdcall CXuiIterator::LocalToWorld(const D2D1_POINT_2F& crLocalPoint,D2D1
 	return true;
 }
 
-// ´ÓÊÀ½çµØÖ·×ª»»Îª¾Ö²¿µØÖ·
+// ä»ä¸–ç•Œåœ°å€è½¬æ¢ä¸ºå±€éƒ¨åœ°å€
 bool __stdcall CXuiIterator::WorldToLocal(const D2D1_POINT_2F& crWorldPoint,D2D1_POINT_2F& rLocalPoint)
 {
 	ITR_CHECK();
-	// ¼ÆËã¾Ö²¿×ø±ê
+	// è®¡ç®—å±€éƒ¨åæ ‡
 	if(mbInverted == false)
 	{
 		mdWMInverted = mdWorldMatrix;
@@ -1316,15 +1316,15 @@ bool __stdcall CXuiIterator::WorldToLocal(const D2D1_POINT_2F& crWorldPoint,D2D1
 	return false;
 }
 
-// ×¢²á¿ì½İ¼ü£¬µ±¿ì½İ¼ü±»´¥·¢£¬×¢²á¿ì½İ¼üµÄElement½«»áÊÜµ½£»
-// Èç¹ûÆÕÍ¨°´¼ü×éºÏ£¨²»°üº¬Alt¼ü)°´ÏÂµÄµ±Ê±£¬´æÔÚ¼üÅÌ½¹µã£¬°´¼üÏûÏ¢»áÊ×ÏÈ·¢ËÍ¸ø¼üÅÌ½¹µã£¬Èç¹û½¹µã·µ»ØERESULT_KEY_UNEXPECTED²Å»áÅĞ¶ÏÊÇ·ñ´æÔÚ¿ì½İ¼üĞĞÎª
+// æ³¨å†Œå¿«æ·é”®ï¼Œå½“å¿«æ·é”®è¢«è§¦å‘ï¼Œæ³¨å†Œå¿«æ·é”®çš„Elementå°†ä¼šå—åˆ°ï¼›
+// å¦‚æœæ™®é€šæŒ‰é”®ç»„åˆï¼ˆä¸åŒ…å«Alté”®)æŒ‰ä¸‹çš„å½“æ—¶ï¼Œå­˜åœ¨é”®ç›˜ç„¦ç‚¹ï¼ŒæŒ‰é”®æ¶ˆæ¯ä¼šé¦–å…ˆå‘é€ç»™é”®ç›˜ç„¦ç‚¹ï¼Œå¦‚æœç„¦ç‚¹è¿”å›ERESULT_KEY_UNEXPECTEDæ‰ä¼šåˆ¤æ–­æ˜¯å¦å­˜åœ¨å¿«æ·é”®è¡Œä¸º
 bool CXuiIterator::RegisterHotKey(
-	IN IEinkuiIterator* npApplicant,	// ×¢²áµÄÔªËØ£¬½«ÓĞËüÊÕµ½×¢²áÊÇ¿ì½İ¼üÏûÏ¢
-	IN ULONG nuHotKeyID,	// ÊÂÏÈ¶¨ÒåºÃµÄ³£Êı£¬ÓÃÀ´Çø·ÖHotkey£»²»ÄÜ³öÏÖÏàÍ¬µÄID£¬ÊÔÍ¼×¢²áÒÑÓĞµÄHotkey½«»áÊ§°Ü
-	IN ULONG nuVkNumber,	// ĞéÄâ¼üÂë
-	IN bool nbControlKey,	// ÊÇ·ñĞèÒªControl×éºÏ
-	IN bool nbShiftKey,		// ÊÇ·ñĞèÒªShift×éºÏ
-	IN bool nbAltKey		// ÊÇ·ñĞèÒªAlt×éºÏ
+	IN IEinkuiIterator* npApplicant,	// æ³¨å†Œçš„å…ƒç´ ï¼Œå°†æœ‰å®ƒæ”¶åˆ°æ³¨å†Œæ˜¯å¿«æ·é”®æ¶ˆæ¯
+	IN ULONG nuHotKeyID,	// äº‹å…ˆå®šä¹‰å¥½çš„å¸¸æ•°ï¼Œç”¨æ¥åŒºåˆ†Hotkeyï¼›ä¸èƒ½å‡ºç°ç›¸åŒçš„IDï¼Œè¯•å›¾æ³¨å†Œå·²æœ‰çš„Hotkeyå°†ä¼šå¤±è´¥
+	IN ULONG nuVkNumber,	// è™šæ‹Ÿé”®ç 
+	IN bool nbControlKey,	// æ˜¯å¦éœ€è¦Controlç»„åˆ
+	IN bool nbShiftKey,		// æ˜¯å¦éœ€è¦Shiftç»„åˆ
+	IN bool nbAltKey		// æ˜¯å¦éœ€è¦Altç»„åˆ
 	)
 {
 	bool lbOk = false;
@@ -1334,7 +1334,7 @@ bool CXuiIterator::RegisterHotKey(
 
 	do 
 	{
-		// Èç¹ûÃ»ÓĞÀ©Õ¹½á¹¹£¬·ÖÅäÀ©Õ¹½á¹¹
+		// å¦‚æœæ²¡æœ‰æ‰©å±•ç»“æ„ï¼Œåˆ†é…æ‰©å±•ç»“æ„
 		goAttributesLock.Enter();
 
 		if(moAtts.GetAttribute('htky',lpHtKyTable)==false)
@@ -1363,7 +1363,7 @@ bool CXuiIterator::RegisterHotKey(
 			lbOk = false;
 		}
 
-		// ²»ÔÙ¼ì²éÏàÍ¬ID£¬ÔÊĞíÊ¹ÓÃÏàÍ¬ID×¢²á
+		// ä¸å†æ£€æŸ¥ç›¸åŒIDï¼Œå…è®¸ä½¿ç”¨ç›¸åŒIDæ³¨å†Œ
 		//for(i=0;i<lpHtKyTable->Size();i++)
 		//{
 		//	if((*lpHtKyTable)[i].muHotKeyID == nuHotKeyID)
@@ -1397,17 +1397,17 @@ bool CXuiIterator::RegisterHotKey(
 	return lbOk;
 }
 
-// ×¢Ïú¿ì½İ¼ü
+// æ³¨é”€å¿«æ·é”®
 bool CXuiIterator::UnregisterHotKey(
-	IN IEinkuiIterator* npApplicant,	// ×¢²áÕß
+	IN IEinkuiIterator* npApplicant,	// æ³¨å†Œè€…
 	IN ULONG UnuKeyNumber
 	)
 {
-	// Ôİ²»Ö§³Ö
+	// æš‚ä¸æ”¯æŒ
 	return false;
 }
 
-// ¼ì²éÊÇ·ñ¾ßÓĞ·ûºÏµÄHotKey
+// æ£€æŸ¥æ˜¯å¦å…·æœ‰ç¬¦åˆçš„HotKey
 bool CXuiIterator::DetectHotKey(
 	CXuiHotkeyEntry& rToDetect
 	)
@@ -1425,7 +1425,7 @@ bool CXuiIterator::DetectHotKey(
 
 	goAttributesLock.Leave();
 
-	// Èç¹ûÃ»ÓĞÀ©Õ¹½á¹¹£¬·ÖÅäÀ©Õ¹½á¹¹
+	// å¦‚æœæ²¡æœ‰æ‰©å±•ç»“æ„ï¼Œåˆ†é…æ‰©å±•ç»“æ„
 	if(lpHtKyTable== NULL)
 		return false;
 
@@ -1441,7 +1441,7 @@ bool CXuiIterator::DetectHotKey(
 
 }
 
-// »ñµÃÏÂÒ»»æÖÆ²ã
+// è·å¾—ä¸‹ä¸€ç»˜åˆ¶å±‚
 LONG CXuiIterator::GetNextPaintLevel(LONG nlCrtLevel)
 {
 	if(cmmBaseObject::TestFlag(EITR_FLAG_PAINTLEVEL_HOST)==false)
@@ -1464,17 +1464,17 @@ LONG CXuiIterator::GetNextPaintLevel(LONG nlCrtLevel)
 }
 
 
-// ¶Ô×ÓÔªËØ½¨Á¢»æÖÆ²ã£¬»æÖÆ²ãÊÇÒ»¸ö¸Ä±ä×ÓÔªËØ»æÖÆÊ±µş·Å´ÎĞòµÄ·½·¨£¬Í¨³£µÄ×ÓÔªËØ°´ÕÕ´ÓÊô¹ØÏµÅÅÁĞÎªÊ÷ĞÎ½á¹¹£¬»æÖÆÊ±Ò²ÊÇ°´ÕÕÊ÷ĞÎ½á¹¹ÏÈ¸ù±éÀúÖ´ĞĞ£»
-//		ÒıÈë»æÖÆ²ã¼¼Êõºó£¬×ÓÔªËØ½«ÔÚ²»Í¬²ãÉÏÖğ´Î»æÖÆ£¬Í¬Ò»¸ö²ãµÄ×ÓÔªËØ£¬ÈÔÈ»°´ÕÕ´ÓÊô¹ØÏµµÄÊ÷ĞÎ½á¹¹ÏÈ¸ù±éÀú£»
-//		¿ÉÒÔÉè¶¨ÈÎÒâµÄ»æÖÆ²ã£¬µ«²»ÄÜ´óÓÚmax-ulong£»Êó±êÂäµãµÄÅĞ¶¨Ò²ÊÕµ½»æÖÆ²ãµÄÓ°Ïì£¬²ã´Î¸ßµÄÔªËØÊ×ÏÈ±»ÅĞ¶¨»ñµÃÊó±ê
-//		Èç¹ûÔÚÒ»¸öÒÑ¾­Éè¶¨ÁË»æÖÆ²ã´ÎµÄ×ÓÊ÷ÖĞµÄÄ³¸öÔªËØÔÙ´Î½¨Á¢»æÖÆ²ã´Î£¬ÄÇÃ´ËüµÄ×ÓÊ÷ÖĞµÄËùÓĞ×ÓÔªËØ½«²»ÊÜµ½ÉÏÒ»¸ö»æÖÆ²ã´ÎµÄÓ°Ïì£¬°´ÕÕĞÂµÄ²ã´Î¹¤×÷£»
-//		ÎªÁË±ÜÃâ´íÎó£¬Çë¾¡¿ÉÄÜ±ÜÃâÊ¹ÓÃÇ¶Ì×µÄ»æÖÆ²ã´Î
+// å¯¹å­å…ƒç´ å»ºç«‹ç»˜åˆ¶å±‚ï¼Œç»˜åˆ¶å±‚æ˜¯ä¸€ä¸ªæ”¹å˜å­å…ƒç´ ç»˜åˆ¶æ—¶å æ”¾æ¬¡åºçš„æ–¹æ³•ï¼Œé€šå¸¸çš„å­å…ƒç´ æŒ‰ç…§ä»å±å…³ç³»æ’åˆ—ä¸ºæ ‘å½¢ç»“æ„ï¼Œç»˜åˆ¶æ—¶ä¹Ÿæ˜¯æŒ‰ç…§æ ‘å½¢ç»“æ„å…ˆæ ¹éå†æ‰§è¡Œï¼›
+//		å¼•å…¥ç»˜åˆ¶å±‚æŠ€æœ¯åï¼Œå­å…ƒç´ å°†åœ¨ä¸åŒå±‚ä¸Šé€æ¬¡ç»˜åˆ¶ï¼ŒåŒä¸€ä¸ªå±‚çš„å­å…ƒç´ ï¼Œä»ç„¶æŒ‰ç…§ä»å±å…³ç³»çš„æ ‘å½¢ç»“æ„å…ˆæ ¹éå†ï¼›
+//		å¯ä»¥è®¾å®šä»»æ„çš„ç»˜åˆ¶å±‚ï¼Œä½†ä¸èƒ½å¤§äºmax-ulongï¼›é¼ æ ‡è½ç‚¹çš„åˆ¤å®šä¹Ÿæ”¶åˆ°ç»˜åˆ¶å±‚çš„å½±å“ï¼Œå±‚æ¬¡é«˜çš„å…ƒç´ é¦–å…ˆè¢«åˆ¤å®šè·å¾—é¼ æ ‡
+//		å¦‚æœåœ¨ä¸€ä¸ªå·²ç»è®¾å®šäº†ç»˜åˆ¶å±‚æ¬¡çš„å­æ ‘ä¸­çš„æŸä¸ªå…ƒç´ å†æ¬¡å»ºç«‹ç»˜åˆ¶å±‚æ¬¡ï¼Œé‚£ä¹ˆå®ƒçš„å­æ ‘ä¸­çš„æ‰€æœ‰å­å…ƒç´ å°†ä¸å—åˆ°ä¸Šä¸€ä¸ªç»˜åˆ¶å±‚æ¬¡çš„å½±å“ï¼ŒæŒ‰ç…§æ–°çš„å±‚æ¬¡å·¥ä½œï¼›
+//		ä¸ºäº†é¿å…é”™è¯¯ï¼Œè¯·å°½å¯èƒ½é¿å…ä½¿ç”¨åµŒå¥—çš„ç»˜åˆ¶å±‚æ¬¡
 ERESULT __stdcall CXuiIterator::CreatePaintLevel(LONG nlLevelCount)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
 
 	if(cmmBaseObject::TestFlag(EITR_FLAG_PAINTLEVEL_HOST)!=false)
-		return luResult;	// ÒÑ¾­½¨Á¢ÁË»æÖÆ²ã´Î
+		return luResult;	// å·²ç»å»ºç«‹äº†ç»˜åˆ¶å±‚æ¬¡
 
 	goAttributesLock.Enter();
 
@@ -1489,7 +1489,7 @@ ERESULT __stdcall CXuiIterator::CreatePaintLevel(LONG nlLevelCount)
 	return luResult;
 }
 
-// »ñµÃ×ÓÔªËØ»æÖÆ²ãÊıÁ¿
+// è·å¾—å­å…ƒç´ ç»˜åˆ¶å±‚æ•°é‡
 LONG __stdcall CXuiIterator::GetPaintLevelCount(void)
 {
 	LONG llLevelCount = 0;
@@ -1506,9 +1506,9 @@ LONG __stdcall CXuiIterator::GetPaintLevelCount(void)
 	return llLevelCount;
 }
 
-// É¾³ı»æÖÆ²ã´ÎÉè¶¨
+// åˆ é™¤ç»˜åˆ¶å±‚æ¬¡è®¾å®š
 ERESULT __stdcall CXuiIterator::DeletePaintLevel(void
-	//bool nbClearAll=true		// Çå³ıµôËùÓĞ×ÓÔªËØµÄ»æÖÆ²ã´ÎÉè¶¨
+	//bool nbClearAll=true		// æ¸…é™¤æ‰æ‰€æœ‰å­å…ƒç´ çš„ç»˜åˆ¶å±‚æ¬¡è®¾å®š
 	)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
@@ -1528,7 +1528,7 @@ ERESULT __stdcall CXuiIterator::DeletePaintLevel(void
 	return luResult;
 }
 
-// Éè¶¨×ÔÉíµÄ»æÖÆ²ã´Î
+// è®¾å®šè‡ªèº«çš„ç»˜åˆ¶å±‚æ¬¡
 ERESULT __stdcall CXuiIterator::SetPaintLevel(LONG nlLevel)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
@@ -1546,7 +1546,7 @@ ERESULT __stdcall CXuiIterator::SetPaintLevel(LONG nlLevel)
 	return luResult;
 }
 
-// »ñµÃ×ÔÉíµÄ»æÖÆ²ã´Î
+// è·å¾—è‡ªèº«çš„ç»˜åˆ¶å±‚æ¬¡
 LONG __stdcall CXuiIterator::GetPaintLevel(void)
 {
 	LONG llLevel = -1;

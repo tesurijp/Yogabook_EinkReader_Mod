@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+﻿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -10,7 +10,7 @@
 
 using namespace Gdiplus;
 //////////////////////////////////////////////////////////////////////////
-// Bitmap��
+// Bitmap类
 DEFINE_BUILTIN_NAME(CtxtBitmap)
 
 
@@ -24,8 +24,8 @@ CtxtBitmap::~CtxtBitmap()
 		HeapFree(GetProcessHeap(), 0, mImageBuffer);
 }
 
-// ��ʼ������������ʵ�ָ��ֲ�ͬ�����ĳ�ʼ��������ע�⣬����������InitOnCreate������һ��Ҫ���û����InitOnCreate����
-// ����0��ʾ�ɹ�������ֵ���λΪ1��ʾ�������ش���Ӧ����ֹ��ʼ�����̣����صľ��Ǵ����룻��������ֵ��ʾ�����Ǵ��󷵻���
+// 初始化函数，可以实现各种不同参数的初始化函数，注意，派生类重载InitOnCreate函数后，一定要调用基类的InitOnCreate函数
+// 返回0表示成功；返回值最高位为1表示发生严重错误，应该终止初始化过程，返回的就是错误码；返回其他值表示其他非错误返回码
 ULONG CtxtBitmap::InitOnCreate(int32 w, int32 h)
 {
 	mWidth =  w;
@@ -54,7 +54,7 @@ int32 CtxtBitmap::GetHeight()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// Page��
+// Page类
 DEFINE_BUILTIN_NAME(CtxtPage)
 
 CtxtPage::CtxtPage()
@@ -68,8 +68,8 @@ CtxtPage::~CtxtPage()
 }
 
 
-// ��ʼ������������ʵ�ָ��ֲ�ͬ�����ĳ�ʼ��������ע�⣬����������InitOnCreate������һ��Ҫ���û����InitOnCreate����
-// ����0��ʾ�ɹ�������ֵ���λΪ1��ʾ�������ش���Ӧ����ֹ��ʼ�����̣����صľ��Ǵ����룻��������ֵ��ʾ�����Ǵ��󷵻���
+// 初始化函数，可以实现各种不同参数的初始化函数，注意，派生类重载InitOnCreate函数后，一定要调用基类的InitOnCreate函数
+// 返回0表示成功；返回值最高位为1表示发生严重错误，应该终止初始化过程，返回的就是错误码；返回其他值表示其他非错误返回码
 ULONG CtxtPage::InitOnCreate(int32 pageNo, wchar_t* charPtr, uint32 charLength, CtxtDocument* docObj)
 {
 	mPageIndexOpenning = pageNo;

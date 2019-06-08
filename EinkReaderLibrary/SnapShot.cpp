@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+﻿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -21,7 +21,7 @@ CSnapShot::~CSnapShot(void)
 {
 }
 
-//��ʼ��������һ��Ԫ�ر�����ʱ���ã�ע�⣺��Ԫ�ػ����ڸ�Ԫ���յ�������Ϣ���Ӷ�ȷ����Ԫ����һ������Ԫ�س�ʼ��֮�����ȫ����ʼ���Ļ���
+//初始建立，当一个元素被建立时调用，注意：子元素会先于父元素收到这条消息，从而确保父元素有一个在子元素初始化之后完成全部初始化的机会
 ERESULT CSnapShot::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -44,9 +44,9 @@ ERESULT CSnapShot::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 ULONG CSnapShot::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ������ָ��
-	IN ICfKey* npTemplete,		// npTemplete��Key ID����EID��ֵ��������EType
-	IN ULONG nuEID	// �����Ϊ0��MAXULONG32����ָ����Ԫ�ص�EID; ����ȡ��һ��������ģ�������õ�ֵ��ΪEID�����ģ��Ҳû������EID����ʹ��XUIϵͳ�Զ�����
+	IN IEinkuiIterator* npParent,	// 父对象指针
+	IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
+	IN ULONG nuEID	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -54,13 +54,13 @@ ULONG CSnapShot::InitOnCreate(
 
 	do 
 	{
-		//���ȵ��û���
+		//首先调用基类
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
 
-		//��ȡ������
+		//获取对像句柄
 		mpIterSelectFrame = mpIterator->GetSubElementByID(104);
 		BREAK_ON_NULL(mpIterSelectFrame);
 		
@@ -78,11 +78,11 @@ ULONG CSnapShot::InitOnCreate(
 
 	CMM_SAFE_RELEASE(lpSubKey);
 
-	// ��ϵͳע����Ҫ�յ�����Ϣ
+	// 向系统注册需要收到的消息
 	return leResult;
 }
 
-//��ť�����¼�
+//按钮单击事件
 ERESULT CSnapShot::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -94,7 +94,7 @@ ERESULT CSnapShot::OnCtlButtonClick(IEinkuiIterator* npSender)
 		{
 		case SS_BT_SNAP:
 		{
-			//����
+			//截屏
 			D2D1_POINT_2F ldPos = mpIterSelectFrame->GetPosition();
 			D2D1_SIZE_F ldSize = mpIterSelectFrame->GetSize();
 			D2D1_RECT_F ldRect;
@@ -107,7 +107,7 @@ ERESULT CSnapShot::OnCtlButtonClick(IEinkuiIterator* npSender)
 			EinkuiGetSystem()->GetPaintboardSize(&ldPaintSize);
 			if (ldPaintSize.w > ldPaintSize.h)
 			{
-				//����
+				//横屏
 				if (ldRect.right >= 1920.0f)
 					ldRect.right = 1919.0f;
 				if (ldRect.bottom >= 1080.0f)
@@ -115,7 +115,7 @@ ERESULT CSnapShot::OnCtlButtonClick(IEinkuiIterator* npSender)
 			}
 			else
 			{
-				//����
+				//坚屏
 				if (ldRect.right >= 1080.0f)
 					ldRect.right = 1079.0f;
 				if (ldRect.bottom >= 1920.0f)
@@ -130,7 +130,7 @@ ERESULT CSnapShot::OnCtlButtonClick(IEinkuiIterator* npSender)
 		}
 		case SS_BT_RETURN:
 		{
-			//�˳�
+			//退出
 			ExitModal();
 
 			break;
@@ -146,7 +146,7 @@ ERESULT CSnapShot::OnCtlButtonClick(IEinkuiIterator* npSender)
 	return lResult;
 }
 
-//��Ϣ��������
+//消息处理函数
 ERESULT CSnapShot::ParseMessage(IEinkuiMessage* npMsg)
 {
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
@@ -155,7 +155,7 @@ ERESULT CSnapShot::ParseMessage(IEinkuiMessage* npMsg)
 	{
 	case EMSG_MODAL_ENTER:
 	{
-		//// ����Ҫ�����ĶԻ���
+		//// 创建要弹出的对话框
 		//mpIterator->SetVisible(true);
 		luResult = ERESULT_SUCCESS;
 		break;
@@ -163,7 +163,7 @@ ERESULT CSnapShot::ParseMessage(IEinkuiMessage* npMsg)
 	case EMSG_SELECTFRAME_BEGIN:
 	case EMSG_SELECTPOINT_BEGIN:
 	{
-		//ѡ���ʼ�ƶ�
+		//选择框开始移动
 		mdBeginSize = mpIterSelectFrame->GetSize();
 		mdDropBeginPos = mpIterSelectFrame->GetPosition();
 
@@ -174,7 +174,7 @@ ERESULT CSnapShot::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EMSG_SELECTPOINT_CHANGE_POSITION_SIZE:
 	{
-		//ѡ���仯
+		//选择框变化
 		STCTL_CHANGE_POSITION_SIZE ldPositionSize;
 		luResult = CExMessage::GetInputData(npMsg, ldPositionSize);
 		if (luResult != ERESULT_SUCCESS)
@@ -202,7 +202,7 @@ ERESULT CSnapShot::ParseMessage(IEinkuiMessage* npMsg)
 	}
 	case EMSG_SELECTFRAME_MOVING:
 	{
-		//ѡ����Լ��ƶ�
+		//选择框自己移动
 		D2D1_POINT_2F ldPositionSize;
 		luResult = CExMessage::GetInputData(npMsg, ldPositionSize);
 		if (luResult != ERESULT_SUCCESS)
@@ -229,7 +229,7 @@ ERESULT CSnapShot::ParseMessage(IEinkuiMessage* npMsg)
 	case EMSG_SELECTFPOINT_MOVED:
 	case EMSG_SELECTFRAME_DRAGED:
 	{
-		//�϶�����
+		//拖动结束
 		SetButtonPos();
 
 		mpIterBtSnap->SetVisible(true);
@@ -244,14 +244,14 @@ ERESULT CSnapShot::ParseMessage(IEinkuiMessage* npMsg)
 
 	if (luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // ���û����ͬ��������ע�⣺һ��Ҫ��������ֱ�ӻ���
+		luResult = CXuiElement::ParseMessage(npMsg); // 调用基类的同名函数；注意：一定要调用自身直接基类
 	}
 
 	return luResult;
 }
 
 
-//��ʱ��
+//定时器
 void CSnapShot::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
@@ -259,7 +259,7 @@ void CSnapShot::OnTimer(
 
 }
 
-//Ԫ�زο��ߴ緢���仯
+//元素参考尺寸发生变化
 ERESULT CSnapShot::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	InitSnapRect(nNewSize);
@@ -269,7 +269,7 @@ ERESULT CSnapShot::OnElementResized(D2D1_SIZE_F nNewSize)
 	//	
 	//	D2D1_POINT_2F ldPos;
 
-	//	//��λ
+	//	//定位
 	//	ldPos.x = 60.0f;
 	//	ldPos.y = (ldSize.height - mpIterBtLeft->GetSizeY()) / 2.0f;
 	//	mpIterBtLeft->SetPosition(ldPos);
@@ -288,7 +288,7 @@ ERESULT CSnapShot::OnElementResized(D2D1_SIZE_F nNewSize)
 	return ERESULT_SUCCESS;
 }
 
-//��ʼ����ͼ����
+//初始化截图区域
 void CSnapShot::InitSnapRect(D2D1_SIZE_F ndParentSize)
 {
 	if (mpIterSelectFrame != NULL)
@@ -299,7 +299,7 @@ void CSnapShot::InitSnapRect(D2D1_SIZE_F ndParentSize)
 	}
 }
 
-//����������ťλ��
+//设置两个按钮位置
 void CSnapShot::SetButtonPos()
 {
 	if (mpIterSelectFrame != NULL)
@@ -310,7 +310,7 @@ void CSnapShot::SetButtonPos()
 		ldPos.y = ldCurrentPos.y + mpIterSelectFrame->GetSizeY() + 20.0f;
 		if (ldPos.y + mpIterBtSnap->GetSizeY() > mpIterator->GetSizeY())
 		{
-			//������Ļ��Χ�ˣ��Ǿͷŵ����Ե��λ��
+			//超出屏幕范围了，那就放到最边缘的位置
 			ldPos.y = mpIterator->GetSizeY() - mpIterBtSnap->GetSizeY();
 			ldPos.x -= 50.0f;
 		}
@@ -322,7 +322,7 @@ void CSnapShot::SetButtonPos()
 	
 }
 
-//֪ͨԪ�ء���ʾ/���ء������ı�
+//通知元素【显示/隐藏】发生改变
 ERESULT CSnapShot::OnElementShow(bool nbIsShow)
 {
 	//EiSetHomebarStatus(nbIsShow == false ? GI_HOMEBAR_SHOW : GI_HOMEBAR_HIDE);

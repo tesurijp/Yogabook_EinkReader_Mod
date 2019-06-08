@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -31,15 +31,15 @@ CEvScrollBar::~CEvScrollBar()
 
 }
 
-// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓĞÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+// é”€æ¯å…ƒç´ ï¼Œç”¨äºé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+// ä»è€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€Œåå†å°†è‡ªå·±ä»å…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 ERESULT CEvScrollBar::OnElementDestroy()
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
 
 	do
 	{
-		CXuiElement::OnElementDestroy();	//µ÷ÓÃ»ùÀà
+		CXuiElement::OnElementDestroy();	//è°ƒç”¨åŸºç±»
 
 		lResult = ERESULT_SUCCESS;
 
@@ -49,25 +49,25 @@ ERESULT CEvScrollBar::OnElementDestroy()
 }
 
 ULONG CEvScrollBar::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
-		//´´½¨Button
+		//åˆ›å»ºButton
 		ICfKey * lpUp = npTemplete->GetSubKey(SCB_BT_UP);
 		ICfKey * lpDown = npTemplete->GetSubKey(SCB_BT_DOWN);
 		ICfKey * lpDrag = npTemplete->GetSubKey(SCB_BT_DRAG);
 	
-		//¸ù¾İListµÄÅäÖÃÎÄ¼ş£¬´´½¨×İÏò»òºáÏò¹ö¶¯Ìõ
+		//æ ¹æ®Listçš„é…ç½®æ–‡ä»¶ï¼Œåˆ›å»ºçºµå‘æˆ–æ¨ªå‘æ»šåŠ¨æ¡
 		if(lpUp)
 			mpBtUp = EinkuiGetSystem()->GetAllocator()->CreateElement(mpIterator,lpUp);
 		if(lpDown)
@@ -107,28 +107,28 @@ FLOAT CEvScrollBar::GetVScrollBarWidth()
 {
 	return mfSVScrollBarWidth;
 }
-//»ñÈ¡ºáÏò¹ö¶¯ÌõµÄ¸ß¶È
+//è·å–æ¨ªå‘æ»šåŠ¨æ¡çš„é«˜åº¦
 FLOAT CEvScrollBar::GetHScrollBarHeigth()
 {
 	return mfSHScrollBarHeigth;
 }
-//ÉèÖÃ¹ö¶¯µÄ·¶Î§
+//è®¾ç½®æ»šåŠ¨çš„èŒƒå›´
 bool CEvScrollBar:: SetDeltaSize(FLOAT nfSize)
 {
 	mfDeltaSize = nfSize;
 
-	//ÏÈµÃµ½×î´óµÄ¿É¹ö¶¯ÏñËØ
+	//å…ˆå¾—åˆ°æœ€å¤§çš„å¯æ»šåŠ¨åƒç´ 
 	FLOAT mfMaxScrollPixel = 0.0;
 	if(mbVertical)
 		mfMaxScrollPixel = mRectSlider.bottom - mRectSlider.top - mfMinBarSize;
 	else
 		mfMaxScrollPixel = mRectSlider.right - mRectSlider.left - mfMinBarSize;
 
-	//¼ÆËãÄ¿±êÏñËØºÍ¹ö¶¯ÏñËØµÄ¶ÔÓ¦¹ØÏµ
+	//è®¡ç®—ç›®æ ‡åƒç´ å’Œæ»šåŠ¨åƒç´ çš„å¯¹åº”å…³ç³»
     mfDestPixelPerScrollPix = mfDeltaSize / mfMaxScrollPixel;
 
-	//Èç¹ûmfDestPixelPerScrollPix < 1.0  ÔòĞèÒª·Å´ó»¬¿é
-	//²»È»Ôò½«»¬¿éËõĞ¡µÄ×îĞ¡Öµ
+	//å¦‚æœmfDestPixelPerScrollPix < 1.0  åˆ™éœ€è¦æ”¾å¤§æ»‘å—
+	//ä¸ç„¶åˆ™å°†æ»‘å—ç¼©å°çš„æœ€å°å€¼
 	if(mfDestPixelPerScrollPix <= 1.0)
 	{
 		mfDestPixelPerScrollPix = 1.0;
@@ -182,7 +182,7 @@ bool CEvScrollBar:: SetPosition(bool bUp)
 	
 	return true;
 }
-//×°ÔØÅäÖÃ×ÊÔ´
+//è£…è½½é…ç½®èµ„æº
 ERESULT CEvScrollBar::LoadResource()
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;	
@@ -201,11 +201,11 @@ ERESULT CEvScrollBar::LoadResource()
 	return leResult;
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvScrollBar::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -214,7 +214,7 @@ ERESULT CEvScrollBar::ParseMessage(IEinkuiMessage* npMsg)
 	
 	case EACT_SLIDERBUTTON_DRAGING:
 		{
-			//¼ÆËãPosition,¸ø¸¸´°¿Ú·¢¶¨Î»ÏûÏ¢
+			//è®¡ç®—Position,ç»™çˆ¶çª—å£å‘å®šä½æ¶ˆæ¯
 			if(mpBtDrag)
 			{
 				if(mbVertical)
@@ -285,7 +285,7 @@ ERESULT CEvScrollBar::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_SCROLLBAR_HVSCROLL_SET_DELTA_SIZE:
 		{
-			//ÉèÖÃ¹ö¶¯·¶Î§
+			//è®¾ç½®æ»šåŠ¨èŒƒå›´
 			if(npMsg->GetInputDataSize() != sizeof(FLOAT))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -304,7 +304,7 @@ ERESULT CEvScrollBar::ParseMessage(IEinkuiMessage* npMsg)
 				break;
 			}
 
-			// ÉèÖÃÊä³öÊı¾İ
+			// è®¾ç½®è¾“å‡ºæ•°æ®
 			float* lpOut = (float*)npMsg->GetOutputBuffer();
 
 			*lpOut = GetHScrollBarHeigth();
@@ -321,7 +321,7 @@ ERESULT CEvScrollBar::ParseMessage(IEinkuiMessage* npMsg)
 				break;
 			}
 
-			// ÉèÖÃÊä³öÊı¾İ
+			// è®¾ç½®è¾“å‡ºæ•°æ®
 			float* lpOut = (float*)npMsg->GetOutputBuffer();
 
 			*lpOut = GetVScrollBarWidth();
@@ -337,7 +337,7 @@ ERESULT CEvScrollBar::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_SCROLLBAR_BT_CLICK:
 		{
-			//Ä£ÄâÉÏÏÂ°´Å¥µã»÷
+			//æ¨¡æ‹Ÿä¸Šä¸‹æŒ‰é’®ç‚¹å‡»
 			bool lbUp = true;
 			CExMessage::GetInputData(npMsg,lbUp,lbUp);
 
@@ -352,13 +352,13 @@ ERESULT CEvScrollBar::ParseMessage(IEinkuiMessage* npMsg)
 
 	if(luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvScrollBar::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -368,7 +368,7 @@ ERESULT CEvScrollBar::OnElementCreate(IEinkuiIterator* npIterator)
 		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
-		//×°ÔØÒ»Ğ©±ØÒªµÄÅäÖÃ×ÊÔ´
+		//è£…è½½ä¸€äº›å¿…è¦çš„é…ç½®èµ„æº
 		//LoadResource();
 		mpIterator->ModifyStyles(EITR_STYLE_TOP);			
 		LoadResource();
@@ -378,7 +378,7 @@ ERESULT CEvScrollBar::OnElementCreate(IEinkuiIterator* npIterator)
 		{
 			if(mbVertical)
 			{
-				//ÉèÖÃ×İÏò
+				//è®¾ç½®çºµå‘
 				mfSVScrollBarWidth = mpIterator->GetSizeX();
 				LONG lnStyle = ES_SLIDER_BUTTON_STYLE_VER;
 				//EinkuiGetSystem()->GetElementManager()->SimplePostMessage(mpBtDrag,EACT_SLIDERBUTTON_SET_STYLE,&lnStyle,sizeof(LONG));
@@ -386,7 +386,7 @@ ERESULT CEvScrollBar::OnElementCreate(IEinkuiIterator* npIterator)
 			}
 			else
 			{
-				//ÉèÖÃºáÏò
+				//è®¾ç½®æ¨ªå‘
 				mfSHScrollBarHeigth= mpIterator->GetSizeY();
 				LONG lnStyle = ES_SLIDER_BUTTON_STYLE_HOR;
 				//EinkuiGetSystem()->GetElementManager()->SimplePostMessage(mpBtDrag,EACT_SLIDERBUTTON_SET_STYLE,&lnStyle,sizeof(LONG));
@@ -400,7 +400,7 @@ ERESULT CEvScrollBar::OnElementCreate(IEinkuiIterator* npIterator)
 
 	return lResult;
 }
-//ÔªËØEnbale
+//å…ƒç´ Enbale
 ERESULT CEvScrollBar::OnElementEnable(bool nbIsEnable)
 {
 	if(mpBtUp) mpBtUp->SetEnable(nbIsEnable);
@@ -408,16 +408,16 @@ ERESULT CEvScrollBar::OnElementEnable(bool nbIsEnable)
 	if(mpBtDrag) mpBtDrag->SetEnable(nbIsEnable);
 	return ERESULT_SUCCESS;
 }
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CEvScrollBar::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	Relocation();
 	return ERESULT_SUCCESS;
 }
-//ĞŞ¸ÄÔªËØ²¼¾Ö
+//ä¿®æ”¹å…ƒç´ å¸ƒå±€
 void CEvScrollBar::Relocation(void)
 {
-	D2D1_POINT_2F ldPoint;	//ĞŞ¸ÄÔªËØÎ»ÖÃ
+	D2D1_POINT_2F ldPoint;	//ä¿®æ”¹å…ƒç´ ä½ç½®
 
 	do 
 	{
@@ -425,7 +425,7 @@ void CEvScrollBar::Relocation(void)
 	
 
 		ldPoint.x = ldPoint.y = 0.0f;
-        //Èç¹ûÓĞÏòÉÏ°´Å¥
+        //å¦‚æœæœ‰å‘ä¸ŠæŒ‰é’®
 		if(mpBtUp)
 		{
 			if(mbVertical)
@@ -434,7 +434,7 @@ void CEvScrollBar::Relocation(void)
 				ldPoint.x =mpBtUp->GetPositionX();
 			mpBtUp->SetPosition(ldPoint);
 		}	
-	    //Èç¹ûÓĞÏòÏÂ°´Å¥
+	    //å¦‚æœæœ‰å‘ä¸‹æŒ‰é’®
 		if(mpBtDown)
 		{	
 			if(mbVertical)
@@ -444,13 +444,13 @@ void CEvScrollBar::Relocation(void)
 			mpBtDown->SetPosition(ldPoint);
 		}
 		
-		//ÉèÖÃ»¬²ÛµÄÎ»ÖÃºÍ´óĞ¡
+		//è®¾ç½®æ»‘æ§½çš„ä½ç½®å’Œå¤§å°
 		if(mbVertical)
     	{
 			ldPoint.x = mpBtDrag->GetPositionX();
 			ldPoint.y = 0;
 			if(mpBtUp)
-				ldPoint.y += mpBtUp->GetSizeY();	//¹ö¶¯Ìõ
+				ldPoint.y += mpBtUp->GetSizeY();	//æ»šåŠ¨æ¡
 			
 			FLOAT lfHeigth = mpIterator->GetSizeY();
 			if(mpBtUp)
@@ -469,7 +469,7 @@ void CEvScrollBar::Relocation(void)
 			ldPoint.x = 0;
 			ldPoint.y = mpBtDrag->GetPositionY();
 			if(mpBtUp)
-				ldPoint.x += mpBtUp->GetSizeX();	//¹ö¶¯Ìõ
+				ldPoint.x += mpBtUp->GetSizeX();	//æ»šåŠ¨æ¡
 			FLOAT lfWidth = mpIterator->GetSizeX();
 			if(mpBtUp)
 				lfWidth -= mpBtUp->GetSizeX();
@@ -481,7 +481,7 @@ void CEvScrollBar::Relocation(void)
 			mRectSlider.bottom = mRectSlider.top + mpIterator->GetSizeY();
 		}
 
-		//ÉèÖÃ»¬¿éµÄÎ»ÖÃºÍ»¬¶¯·¶Î§ÊôĞÔ
+		//è®¾ç½®æ»‘å—çš„ä½ç½®å’Œæ»‘åŠ¨èŒƒå›´å±æ€§
 		if(mpBtDrag)
 		{
 			if(mbVertical)
@@ -507,7 +507,7 @@ void CEvScrollBar::Relocation(void)
 	} while (false);
 }
 
-//Êó±ê°´ÏÂ
+//é¼ æ ‡æŒ‰ä¸‹
 ERESULT CEvScrollBar::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -516,14 +516,14 @@ ERESULT CEvScrollBar::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 	{
 		BREAK_ON_NULL(npInfo);
 		if(mpIterator->IsEnable() == false)
-			break;	//Èç¹ûÊÇ½ûÓÃ×´Ì¬£¬¾Í²»½ÓÊÕÊäÈë
+			break;	//å¦‚æœæ˜¯ç¦ç”¨çŠ¶æ€ï¼Œå°±ä¸æ¥æ”¶è¾“å…¥
 
-		if(MOUSE_LB(npInfo->ActKey) == false)  //Èç¹û²»ÊÇÊó±ê×ó¼ü¾Í²»´¦Àí
+		if(MOUSE_LB(npInfo->ActKey) == false)  //å¦‚æœä¸æ˜¯é¼ æ ‡å·¦é”®å°±ä¸å¤„ç†
 			break;
 
 		if (npInfo->Presssed != false)
 		{
-			//Êó±ê°´ÏÂ£¬Èç¹û²»ÂäÔÚmBarRect Ôò´¦Àí
+			//é¼ æ ‡æŒ‰ä¸‹ï¼Œå¦‚æœä¸è½åœ¨mBarRect åˆ™å¤„ç†
 			if(npInfo->Position.x < mRectSlider.left ||
 				npInfo->Position.x > mRectSlider.right ||
 				npInfo->Position.y < mRectSlider.top ||
@@ -568,7 +568,7 @@ ERESULT CEvScrollBar::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 	return lResult;
 }
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CEvScrollBar::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -578,7 +578,7 @@ ERESULT CEvScrollBar::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 		if(mpIterator->IsVisible() == false)
 			break;
 
-		//½øÈë·Ç»¬¿éÇøÓò
+		//è¿›å…¥éæ»‘å—åŒºåŸŸ
 		if(rPoint.x < 0.0f ||
 			(UINT)rPoint.x >= mpIterator->GetSizeX() ||
 			rPoint.y < 0.0f || 
@@ -591,7 +591,7 @@ ERESULT CEvScrollBar::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 
 	return luResult;
 }
-//»æÖÆÏûÏ¢
+//ç»˜åˆ¶æ¶ˆæ¯
 ERESULT CEvScrollBar::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -600,7 +600,7 @@ ERESULT CEvScrollBar::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	{
 		BREAK_ON_NULL(npPaintBoard);
 
-		// Ö»ÓĞÆôÓÃÊ±Ê±£¬²Å»æ»­±³¾°Ìõ£¬add by colin
+		// åªæœ‰å¯ç”¨æ—¶æ—¶ï¼Œæ‰ç»˜ç”»èƒŒæ™¯æ¡ï¼Œadd by colin
 		if(false != mpIterator->IsEnable())
 		{
 			if(mpBgBitmap != NULL)

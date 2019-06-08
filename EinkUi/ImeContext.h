@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -35,10 +35,10 @@ protected:
 	CXsImeContext();
 	~CXsImeContext();
 
-	// ÉèÖÃIMEµÄComposition WindowsµÄÎ»ÖÃ
+	// è®¾ç½®IMEçš„Composition Windowsçš„ä½ç½®
 	ERESULT __stdcall SetImeCompositionWindowCallback(ULONG nuFlag,LPVOID npContext);
 
-	// ÉèÖÃIMEµÄComposition WindowsµÄÎ»ÖÃ
+	// è®¾ç½®IMEçš„Composition Windowsçš„ä½ç½®
 	ERESULT __stdcall ChangeImeContextCallback(ULONG nuFlag,LPVOID npContext);
 
 };

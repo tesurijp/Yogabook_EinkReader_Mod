@@ -1,4 +1,4 @@
-/* Copyright 2019 - present Lenovo */
+ï»¿/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
 #include "stdafx.h"
 #include "BufferMgr.h"
@@ -19,9 +19,9 @@ CBufferMgr::~CBufferMgr()
 			delete mdBufferList[i];
 }
 
-//ÉèÖÃÄÚ´æÆğÊ¼µØÖ·¼°·ÖÅä¿é´óĞ¡
-//nulBufferSizeÎªBuffer´óĞ¡
-//nulBlockSizeÎªÃ¿´ÎÒª·ÖÅäµÄ´óĞ¡
+//è®¾ç½®å†…å­˜èµ·å§‹åœ°å€åŠåˆ†é…å—å¤§å°
+//nulBufferSizeä¸ºBufferå¤§å°
+//nulBlockSizeä¸ºæ¯æ¬¡è¦åˆ†é…çš„å¤§å°
 void CBufferMgr::Initialize(const BYTE* npBuffer, ULONG nulBufferSize, ULONG nulWidth, ULONG nulHeight)
 {
 	do 
@@ -30,15 +30,15 @@ void CBufferMgr::Initialize(const BYTE* npBuffer, ULONG nulBufferSize, ULONG nul
 		mulSize = nulBufferSize;
 		mulBlockSize = nulWidth*nulHeight;
 
-		//¿ªÊ¼·ÖÅäÄÚ´æ¿é
+		//å¼€å§‹åˆ†é…å†…å­˜å—
 		ULONG lulOffset = 0;
 
 		while ((lulOffset+ mulBlockSize) < nulBufferSize)
 		{
-			//ÆğÊ¼µØÖ·
+			//èµ·å§‹åœ°å€
 			BYTE* lpBufferBase = (BYTE*)npBuffer + lulOffset;
 
-			//×ª»»³É¶ÔÓ¦½á¹¹Ìå
+			//è½¬æ¢æˆå¯¹åº”ç»“æ„ä½“
 			EI_BUFFER* lpEiBuffer = (EI_BUFFER*)lpBufferBase;
 			lpEiBuffer->ulBufferSize = mulBlockSize;
 			lpEiBuffer->ulWidth = nulWidth;
@@ -51,7 +51,7 @@ void CBufferMgr::Initialize(const BYTE* npBuffer, ULONG nulBufferSize, ULONG nul
 
 			mdBufferList.Insert(-1, lpdBufferBlock);
 
-			//Æ«ÒÆÒª¼ÓÉÏ½á¹¹Ìå´óĞ¡
+			//åç§»è¦åŠ ä¸Šç»“æ„ä½“å¤§å°
 			lulOffset += mulBlockSize + sizeof(EI_BUFFER) + 1;
 		}
 
@@ -59,8 +59,8 @@ void CBufferMgr::Initialize(const BYTE* npBuffer, ULONG nulBufferSize, ULONG nul
 	
 }
 
-//»ñÈ¡Buffer,µ±²»ĞèÒªÊ±ĞèÒªµ÷ÓÃFreeBuffer
-//Õı³£·µ»ØBufferµØÖ·£¬Èç¹ûBufferÒÑ¾­ÓÃÍêÔò·µ»ØNULL
+//è·å–Buffer,å½“ä¸éœ€è¦æ—¶éœ€è¦è°ƒç”¨FreeBuffer
+//æ­£å¸¸è¿”å›Bufferåœ°å€ï¼Œå¦‚æœBufferå·²ç»ç”¨å®Œåˆ™è¿”å›NULL
 EI_BUFFER* CBufferMgr::GetBuffer()
 {
 	EI_BUFFER* lpRetBuffer = NULL;
@@ -83,7 +83,7 @@ EI_BUFFER* CBufferMgr::GetBuffer()
 	return lpRetBuffer;
 }
 
-//ÊÍ·ÅBuffer
+//é‡Šæ”¾Buffer
 bool CBufferMgr::FreeBuffer(const EI_BUFFER* npBuffer)
 {
 	bool lbRet = false;
@@ -108,7 +108,7 @@ bool CBufferMgr::FreeBuffer(const EI_BUFFER* npBuffer)
 	return lbRet;
 }
 
-//»ñÈ¡BufferµÄoffset
+//è·å–Bufferçš„offset
 ULONG CBufferMgr::GetBufferOffset(const EI_BUFFER* npBuffer)
 {
 	ULONG lbRet = 0;

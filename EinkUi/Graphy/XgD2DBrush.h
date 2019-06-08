@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+﻿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -7,12 +7,12 @@
 
 
 
-// ����D2D�Ļ�ˢ��
-// ��Ҫ���ܣ�
-// 1�����Դ����������͵Ļ�ˢ
-// 2���������û�ˢ�Ļ�������
-// 3�����Ի�ȡ��Ӧƽ̨�Ļ�ˢ����
-// 4����������
+// 基于D2D的画刷类
+// 主要功能：
+// 1，可以创建各种类型的画刷
+// 2，可以设置画刷的基本属性
+// 3，可以获取对应平台的画刷对象
+// 4，设置线型
 
 
 
@@ -21,103 +21,103 @@ class CXD2DBrush: public cmmBaseObject<CXD2DBrush,IEinkuiBrush, GET_BUILTIN_NAME
 {
 
 //////////////////////////////////////////////////////////////////////////
-// ��ʼ������
+// 初始化部分
 //////////////////////////////////////////////////////////////////////////
 public:
 	CXD2DBrush();
 	~CXD2DBrush();
 
-	// �����ʼ�������У�ֻʵ���������������������κ���ƽ̨��ص���Դ��ֱ���ö���ʹ��ʱ������InitBrush��ʼ����ˢ
+	// 这个初始化函数中，只实例化对象本身，并不创建任何与平台相关的资源，直到该对象被使用时，调用InitBrush初始化画刷
 	DEFINE_CUMSTOMIZE_CREATE(CXD2DBrush,(XuiBrushType niBrushType, D2D1_COLOR_F noColor),(niBrushType, noColor))
 	ULONG InitOnCreate(XuiBrushType niBrushType, D2D1_COLOR_F noColor);
 
-	// ���仭ˢʱ����Ҫ��������ɫ��
+	// 渐变画刷时，需要传入多个颜色点
 	DEFINE_CUMSTOMIZE_CREATE(CXD2DBrush,
 		(XuiBrushType niBrushType, D2D1_GRADIENT_STOP* npGradientStop, ULONG nuCount, D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES ndLinearGradientBrushProperties),			(niBrushType, npGradientStop, nuCount, ndLinearGradientBrushProperties))
 	ULONG InitOnCreate(XuiBrushType niBrushType, D2D1_GRADIENT_STOP* npGradientStop, ULONG nuCount, 
 		D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES ndLinearGradientBrushProperties);
 
 
-	// ����ʹ��ʱ����Ҫ������ˢ��Դ����ƽ̨�����Դ������ʱ��ͨ��ƽ̨�����߰Ѳ���������ʼ������
+	// 对象被使用时，需要创建画刷资源（与平台相关资源），此时，通过平台调用者把参数传进初始化函数
 	ERESULT __stdcall InitBrush(ID2D1RenderTarget* npRenderTarget,  ID2D1Factory* npD2D1Factory);		
 
 
 //////////////////////////////////////////////////////////////////////////
-// ʵ�ֻ���ӿ�
+// 实现基类接口
 //////////////////////////////////////////////////////////////////////////
 
-// ����D2D��GDIPlushƽ̨�Ĺ�����Ϊ����
+// 基于D2D和GDIPlush平台的公共行为抽象
 public:
-	// ����SOLID��ˢ����ɫ
+	// 设置SOLID画刷的颜色
 	virtual void __stdcall SetColor(IN D2D1_COLOR_F noColor);
 
-	// ���ý��仭ˢ������
+	// 设置渐变画刷的属性
 	virtual void __stdcall SetLinearBrushProperties(
 		const D2D1_GRADIENT_STOP* npGradientStop, 
 		ULONG nuCount, 
 		D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES ndLinearGradientBrushProperties		
 		);
 
-	// �������ͣ���D2D�Ľṹ��������
+	// 设置线型，用D2D的结构体来描述
 	virtual bool __stdcall SetStrokeType(const D2D1_STROKE_STYLE_PROPERTIES &strokeStyleProperties, const FLOAT *dashes, UINT dashesCount);
 
-	// �����߿�
+	// 设置线宽
 	virtual void __stdcall SetStrokeWidth(IN float nfWidth);
 
-	// ��ȡ�߿�
+	// 获取线宽
 	virtual float __stdcall GetStrokeWidth();
 
-	// ��ϵͳ�ڲ����ã�����Direct2D���豸�����Դ
+	// 供系统内部调用，废弃Direct2D的设备相关资源
 	virtual void __stdcall DiscardsBrushResource(void);
 	
-	// ʵ������ӿں���Ҫ������������˳�ʱ��������ͷ�����
+	// 实现这个接口很重要，否则程序在退出时，会出现释放问题
 	virtual int __stdcall Release(void);
 
-	// ���Ƴ�һ���µĶ���,���Ƴ����Ķ�����Ҫʹ�����Լ��ͷ�
+	// 复制出一个新的对象,复制出来的对象，需要使用者自己释放
 	virtual IEinkuiBrush* __stdcall DuplicateBrush(void);
 
-// ����D2D�����������Ϊ
+// 基于D2D的特殊抽象行为
 public:
-	// ��ȡ��ˢ����
+	// 获取画刷对象
 	virtual ERESULT __stdcall GetBrushObject(OUT ID2D1Brush** npBrushObject);
 
-	// ��ȡ�������͵�Stroke����
+	// 获取描述线型的Stroke对象
 	virtual ERESULT __stdcall GetStrokeObject(OUT ID2D1StrokeStyle** npStrokeObject);
 
 
 //////////////////////////////////////////////////////////////////////////
-// ����������Լ���Դ
+// 定义相关属性及资源
 //////////////////////////////////////////////////////////////////////////
 protected:
-	// �̶���ɫ����仭ˢ
+	// 固定颜色的填充画刷
 	ID2D1SolidColorBrush* mpSolidBrush;
-	// ���Խ��仭ˢ
+	// 线性渐变画刷
 	ID2D1LinearGradientBrush* mpLinearGradientBrush;
-	// ���򽥱仭ˢ
+	// 径向渐变画刷
 	ID2D1RadialGradientBrush* mpRadialGradientBrush;
-	// λͼ��ˢ
+	// 位图画刷
 	ID2D1BitmapBrush* mpBitmapBrush;
 
-	// ��ˢ����
+	// 画刷类型
 	XuiBrushType miBrushType;
-	// SOLID��ˢ��ɫ
+	// SOLID画刷颜色
 	D2D1_COLOR_F	moSolidBrushColor;		
 
-	// ���仭ˢԤ����4���ɵ��ڵĵ�
+	// 渐变画刷预设有4个可调节的点
 	cmmVector<D2D1_GRADIENT_STOP,4> mdGradientStop;
 	D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES	mdLinearGradientBrushProperties;
 	ULONG	muCount;
 
 
-	// ��־�Ƿ�Ҫ�������Ͷ���
+	// 标志是否要创建线型对象
 	bool	mcStrokeCreate;
-	// ���Ͷ���
+	// 线型对象
 	ID2D1StrokeStyle* mpStrokeStyle;
-	// ���Ϳ���
+	// 线型宽度
 	float	mfStrokeWidth;
-	// ��������
+	// 线型属性
 	D2D1_STROKE_STYLE_PROPERTIES moStrokeStyleProperties;
-	// �����Զ�������
+	// 线型自定义属性
 	FLOAT* mpDashes;
 	UINT   muDashCount;
 

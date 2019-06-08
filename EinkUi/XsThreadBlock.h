@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -13,16 +13,16 @@ public:
 	};
 	~CXuiThreadBlock(){};
 
-	//Ôö¼ÓÒ»¸ö×èµã£¬·µ»ØÎ¨Ò»µÄ×èµãID
+	//å¢åŠ ä¸€ä¸ªé˜»ç‚¹ï¼Œè¿”å›å”¯ä¸€çš„é˜»ç‚¹ID
 	ULONG AddBlock();
 
-	//»ñµÃ×èµãµÄ×´¿ö£¬·µ»ØERESULT_BLOCK±íÊ¾´Ë×èµãÉĞÎ´Íê³É£¬ÆäËûÖµ±íÊ¾ÒÑ¾­Íê³É;
+	//è·å¾—é˜»ç‚¹çš„çŠ¶å†µï¼Œè¿”å›ERESULT_BLOCKè¡¨ç¤ºæ­¤é˜»ç‚¹å°šæœªå®Œæˆï¼Œå…¶ä»–å€¼è¡¨ç¤ºå·²ç»å®Œæˆ;
 	ERESULT ReadBlockState(ULONG nuID);
 
-	//Éè¶¨×èµãµÄ×´¿ö
+	//è®¾å®šé˜»ç‚¹çš„çŠ¶å†µ
 	void SetBlockState(ULONG nuID,ERESULT nuState);
 
-	//É¾³ıÒ»¸ö×èµã
+	//åˆ é™¤ä¸€ä¸ªé˜»ç‚¹
 	void RemoveBlock(ULONG nuID);
 
 private:
@@ -54,7 +54,7 @@ public:
 
 	void RemoveModal(IEinkuiIterator* npModelElement);
 
-	// ·µ»ØµÄÊÇ´æÈëµÄBlockID
+	// è¿”å›çš„æ˜¯å­˜å…¥çš„BlockID
 	ULONG GetBlockIDOfModal(IEinkuiIterator* npModelElement);
 
 private:

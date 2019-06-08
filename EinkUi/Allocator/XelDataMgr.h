@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -7,7 +7,7 @@
 
 
 
-// ¹¤³§ÀàDLLÓë¶ÔÏóÀàÔÚÄÚ´æÖÐµÄpair½á¹¹Ìå
+// å·¥åŽ‚ç±»DLLä¸Žå¯¹è±¡ç±»åœ¨å†…å­˜ä¸­çš„pairç»“æž„ä½“
 class CLelFactoryNode{
 public:
 	HANDLE	mpDllHandle;
@@ -29,7 +29,7 @@ public:
 	~CLelFactoryNode() {
 		CMM_SAFE_DELETE(mswDllPath);
 	}
-	// ÓÃ×Ö·û´®Éú³ÉHashÂë,·µ»ØµÄÊÇÃû×ÖµÄÓÐÐ§³¤¶È
+	// ç”¨å­—ç¬¦ä¸²ç”ŸæˆHashç ,è¿”å›žçš„æ˜¯åå­—çš„æœ‰æ•ˆé•¿åº¦
 	int GenerateHashCode(
 		IN const wchar_t* nszName,
 		IN int niNameLen	// -1 indicate that the name was terminated by '\0' or '\\' or '/'
@@ -67,22 +67,22 @@ public:
 
 		return true;
 	}
-	void FreePath(void)	// µ±Ò»¸ö¶ÔÏó´ÓÈÝÆ÷¶ÔÏóÖÐÉ¾³ýºó£¬²ÅÄÜµ÷ÓÃ±¾·½·¨ÊÍ·Åµô¶îÍâµÄÄÚ´æ
+	void FreePath(void)	// å½“ä¸€ä¸ªå¯¹è±¡ä»Žå®¹å™¨å¯¹è±¡ä¸­åˆ é™¤åŽï¼Œæ‰èƒ½è°ƒç”¨æœ¬æ–¹æ³•é‡Šæ”¾æŽ‰é¢å¤–çš„å†…å­˜
 	{
 		CMM_SAFE_DELETE(mswDllPath);
 	}
 };
 
 enum REGSTATUS{
-	Invalid = 0,	// Ã»ÓÐ±»×¢²á
-	LOAD = 1,		// ÒÑ¾­±»¼ÓÔØ
-	UNLOAD = 2		// ÔÚÅäÖÃÖÐ£¬·µ»ØDLLÂ·¾¶
+	Invalid = 0,	// æ²¡æœ‰è¢«æ³¨å†Œ
+	LOAD = 1,		// å·²ç»è¢«åŠ è½½
+	UNLOAD = 2		// åœ¨é…ç½®ä¸­ï¼Œè¿”å›žDLLè·¯å¾„
 };
 
 
 
-// ¹ÜÀíÔËÐÐÌ¬µÄÊý¾Ý£¬ÔËÐÐÈ«¾ÖÎ¨Ò»ÊµÀý»¯
-// ÅäÖÃÖÐ±£´æ¶ÔÏóµÄ×¢²áÐÅÏ¢
+// ç®¡ç†è¿è¡Œæ€çš„æ•°æ®ï¼Œè¿è¡Œå…¨å±€å”¯ä¸€å®žä¾‹åŒ–
+// é…ç½®ä¸­ä¿å­˜å¯¹è±¡çš„æ³¨å†Œä¿¡æ¯
 
 DECLARE_BUILTIN_NAME(CXelDataMgr)
 class CXelDataMgr:public cmmBaseObject<CXelDataMgr, IBaseObject, GET_BUILTIN_NAME(CXelDataMgr)> 
@@ -93,26 +93,26 @@ public:
 
 	
 public:
-	// »ñÈ¡Î¨Ò»ÊµÀý»¯µÄ¶ÔÏó½Ó¿Ú
+	// èŽ·å–å”¯ä¸€å®žä¾‹åŒ–çš„å¯¹è±¡æŽ¥å£
 	static CXelDataMgr* SingleInstance(const wchar_t* nswRegPath=NULL);
 	static CXelDataMgr* sm_Inst;
 
-	// ³õÊ¼»¯
+	// åˆå§‹åŒ–
 	ULONG InitOnCreate(const wchar_t* nswRegPath);
 	DEFINE_CUMSTOMIZE_CREATE(CXelDataMgr,(const wchar_t* nswRegPath),(nswRegPath))
 	
 public:
 
-	// Í¨¹ýÖ¸¶¨ÀàÃû£¬²éÕÒ¶ÔÓ¦µÄDLL
-	// nswClsName£º´«Èë²ÎÊý£¬¶ÔÏóÀàÃû
-	// nswDllPath£º´«³ö²ÎÊý£¬Èç¹ûÕÒµ½£¬Ôò½«DLLÈ«Â·¾¶´«µ½¸ø×Ö·ûÖ¸ÕëÖ¸ÏòµÄ»º³åÇø
+	// é€šè¿‡æŒ‡å®šç±»åï¼ŒæŸ¥æ‰¾å¯¹åº”çš„DLL
+	// nswClsNameï¼šä¼ å…¥å‚æ•°ï¼Œå¯¹è±¡ç±»å
+	// nswDllPathï¼šä¼ å‡ºå‚æ•°ï¼Œå¦‚æžœæ‰¾åˆ°ï¼Œåˆ™å°†DLLå…¨è·¯å¾„ä¼ åˆ°ç»™å­—ç¬¦æŒ‡é’ˆæŒ‡å‘çš„ç¼“å†²åŒº
 	BOOL __stdcall FindFactoryDll(
 		const wchar_t* nswClsName, 
 		wchar_t* nswDllPath
 		);
 	
-	// ÐÞ¸Ä¼ÓÔØµÄDLL¾ä±ú±í
-	// niMode£ºÐÞ¸ÄÄ£Ê½¡£niMode=1£¬±íÊ¾Ìí¼Ó£»niMode=0,±íÊ¾É¾³ý
+	// ä¿®æ”¹åŠ è½½çš„DLLå¥æŸ„è¡¨
+	// niModeï¼šä¿®æ”¹æ¨¡å¼ã€‚niMode=1ï¼Œè¡¨ç¤ºæ·»åŠ ï¼›niMode=0,è¡¨ç¤ºåˆ é™¤
 	BOOL __stdcall ModLoadedList(
 		const wchar_t* nswDllPath,
 		HANDLE nhDllHandle,
@@ -120,35 +120,35 @@ public:
 		BOOL niMode
 		);
 
-	//// ×¢ÏúÒ»¸ö¹¤³§Àà
+	//// æ³¨é”€ä¸€ä¸ªå·¥åŽ‚ç±»
 	//void RemoveFactory(
 	//	IElementFactory* npElementFact
 	//);
 
-	// ²é¿´Ö¸¶¨µÄDLLÊÇ·ñÒÑ¾­±»¼ÓÔØ
+	// æŸ¥çœ‹æŒ‡å®šçš„DLLæ˜¯å¦å·²ç»è¢«åŠ è½½
 	IElementFactory* __stdcall HasFactoryBeenLoaded(
 		const wchar_t* nswDllPath
 		);
 
 
-	// ²é¿´ÊÇ·ñÒÑ¾­±»×¢²á,¸ù¾Ý¸ø¶¨µÄÀàÐÍ£¬²é¿´ÊÇ·ñ´æÔÚÒ»¸ö¶ÔÓ¦µÄ¹¤³§Àà¡£µ÷ÓÃÕß¸ù¾ÝENUM·µ»ØÖµ·Ö±ðÈ¡´«³ö²ÎÊýµÄÖµ
-	// ·½·¨£¬ÏÈ¼ì²éÊÇ·ñÒÑ¾­±»×¢²á£¬È»ºó²éÑ¯¾ä±ú±í£¬¿´ÊÇ·ñÒÑ¾­¼ÓÔØ¡£Èç¹û¶¼²»´æÔÚ£¬ÔòÖ¤Ã÷Ã»ÓÐ±»×¢²á
-	// nswClsName£ºÀàÃû
-	// nswDllPath£º´«³ö²ÎÊý£¬DLLµÄÂ·¾¶
-	// npElementFact£º´«³ö²ÎÊý£¬¹¤³§Àà½Ó¿Ú
+	// æŸ¥çœ‹æ˜¯å¦å·²ç»è¢«æ³¨å†Œ,æ ¹æ®ç»™å®šçš„ç±»åž‹ï¼ŒæŸ¥çœ‹æ˜¯å¦å­˜åœ¨ä¸€ä¸ªå¯¹åº”çš„å·¥åŽ‚ç±»ã€‚è°ƒç”¨è€…æ ¹æ®ENUMè¿”å›žå€¼åˆ†åˆ«å–ä¼ å‡ºå‚æ•°çš„å€¼
+	// æ–¹æ³•ï¼Œå…ˆæ£€æŸ¥æ˜¯å¦å·²ç»è¢«æ³¨å†Œï¼Œç„¶åŽæŸ¥è¯¢å¥æŸ„è¡¨ï¼Œçœ‹æ˜¯å¦å·²ç»åŠ è½½ã€‚å¦‚æžœéƒ½ä¸å­˜åœ¨ï¼Œåˆ™è¯æ˜Žæ²¡æœ‰è¢«æ³¨å†Œ
+	// nswClsNameï¼šç±»å
+	// nswDllPathï¼šä¼ å‡ºå‚æ•°ï¼ŒDLLçš„è·¯å¾„
+	// npElementFactï¼šä¼ å‡ºå‚æ•°ï¼Œå·¥åŽ‚ç±»æŽ¥å£
 	REGSTATUS __stdcall IsRegisted(
 		const wchar_t* nswClsName, 
 		wchar_t* nswDllPath,
 		IElementFactory** npElementFact
 		);
 
-	// »ñÈ¡¶ÔÏóÀà×¢²áÐÅÏ¢µÄÖ÷¼üKEY
+	// èŽ·å–å¯¹è±¡ç±»æ³¨å†Œä¿¡æ¯çš„ä¸»é”®KEY
 	HKEY GetMainKey();	
 
 
-	// ÓÃÓÚÎ¬»¤¶ÔÏó¹ÜÀíµÄÊý¾ÝÁÐ±í
+	// ç”¨äºŽç»´æŠ¤å¯¹è±¡ç®¡ç†çš„æ•°æ®åˆ—è¡¨
 protected:
-	// {¹¤³§Àà£¬¶ÔÏóÀà}Ó³Éä±í
+	// {å·¥åŽ‚ç±»ï¼Œå¯¹è±¡ç±»}æ˜ å°„è¡¨
 //	cmmVector<FACTCLASSPAIR> mFactClassPairVec;
 	cmmVector<CLelFactoryNode> moFactories;
 	HKEY	mpMainKey;

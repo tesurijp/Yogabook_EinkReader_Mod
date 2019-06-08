@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -26,9 +26,9 @@ CEvAnimatorImp::~CEvAnimatorImp()
 }
 
 ULONG CEvAnimatorImp::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàÐÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊýµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓÐÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»åž‹EType
+	IN ULONG nuEID	// å¦‚æžœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æžœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -39,7 +39,7 @@ ULONG CEvAnimatorImp::InitOnCreate(
 		if(npTemplete == NULL)
 			return ERESULT_UNSUCCESSFUL;
 
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -55,7 +55,7 @@ ULONG CEvAnimatorImp::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓÐÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºŽçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»Žè€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åŽå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvAnimatorImp::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
@@ -76,8 +76,8 @@ ERESULT CEvAnimatorImp::OnElementCreate(IEinkuiIterator* npIterator)
 	return luResult;
 }
 
-// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓÐÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+// é”€æ¯å…ƒç´ ï¼Œç”¨äºŽé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+// ä»Žè€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€ŒåŽå†å°†è‡ªå·±ä»Žå…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 ERESULT CEvAnimatorImp::OnElementDestroy()
 {
 	CMM_SAFE_RELEASE(mpFrontFrame);
@@ -88,11 +88,11 @@ ERESULT CEvAnimatorImp::OnElementDestroy()
 	return ERESULT_SUCCESS;
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíÐéº¯Êý£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊýµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖÐ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®žçŽ°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åŽï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºŽä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›žERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›žå€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvAnimatorImp::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®žçŽ°åŽŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€ŒåŽå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -125,18 +125,18 @@ ERESULT CEvAnimatorImp::ParseMessage(IEinkuiMessage* npMsg)
 		}
 		break;
 	default:
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êý£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æŽ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-// ¸üÐÂÖ¡
+// æ›´æ–°å¸§
 ERESULT CEvAnimatorImp::UpdateFrame(PSTCTL_ANIMATOR_FRAME npFrame)
 {
 	CMM_SAFE_RELEASE(mpFrontFrame);
 
-	// ÏñËØ¿í¶È±ØÐëÄÜ±»4Õû³ý£¬Ä¿Ç°¼Ù¶¨¿í¶È²»ÄÜ´óÓÚ1Íò£¬¸ß¶È¼Ù¶¨²»ÄÜ´óÓÚ5000
+	// åƒç´ å®½åº¦å¿…é¡»èƒ½è¢«4æ•´é™¤ï¼Œç›®å‰å‡å®šå®½åº¦ä¸èƒ½å¤§äºŽ1ä¸‡ï¼Œé«˜åº¦å‡å®šä¸èƒ½å¤§äºŽ5000
 	if((npFrame->PixelWidth/4)*4 != npFrame->PixelWidth || npFrame->PixelWidth > 10000 || npFrame->PixelHeight > 5000)
 		return ERESULT_WRONG_PARAMETERS;
 
@@ -150,27 +150,27 @@ ERESULT CEvAnimatorImp::UpdateFrame(PSTCTL_ANIMATOR_FRAME npFrame)
 	return ERESULT_SUCCESS;
 }
 
-// Éè¶¨±ä»»
+// è®¾å®šå˜æ¢
 ERESULT CEvAnimatorImp::SetTransform(PSTCTL_ANIMATOR_TRANSFORM npTransform)
 {
 	return ERESULT_SUCCESS;
 }
 
-//»æÖÆÏûÏ¢
+//ç»˜åˆ¶æ¶ˆæ¯
 ERESULT CEvAnimatorImp::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	D2D1_RECT_F ldDestRect;
-	D2D1::Matrix3x2F ldFlip(-1,0,0,1,0,0); // ÒÔ¾Ö²¿X=0.0fµÄYÖá·­×ª
+	D2D1::Matrix3x2F ldFlip(-1,0,0,1,0,0); // ä»¥å±€éƒ¨X=0.0fçš„Yè½´ç¿»è½¬
 	D2D1::Matrix3x2F ldOld;
 
-	// »ñÈ¡Ä¿±êÇøÓò
+	// èŽ·å–ç›®æ ‡åŒºåŸŸ
 	ldDestRect.left = 0.0f;
 	ldDestRect.top = 0.0f;
 	ldDestRect.right = mpIterator->GetSizeX();
 	ldDestRect.bottom = mpIterator->GetSizeY();
 
 	{
-		// ÏÂÃæ½¨Á¢»­Ë¢
+		// ä¸‹é¢å»ºç«‹ç”»åˆ·
  		if(mpSweepBrush ==NULL)
  		{
  			mpSweepBrush = EinkuiGetSystem()->CreateBrush(XuiSolidBrush,D2D1::ColorF(D2D1::ColorF::Black,1.0f));
@@ -185,17 +185,17 @@ ERESULT CEvAnimatorImp::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 
 //	moMask.Enter(npPaintBoard->GetD2dRenderTarget());
 
-	// ÉèÖÃ¾µÏñ¾ØÕó
+	// è®¾ç½®é•œåƒçŸ©é˜µ
 	npPaintBoard->GetD2dRenderTarget()->GetTransform(&ldOld);
-	ldFlip = ldFlip*D2D1::Matrix3x2F::Translation(ldDestRect.left+ldDestRect.right,0.0f);	// ´Ó¾µÏñÎ»ÖÃÒÆ¶¯µ½Ô­À´Î»ÖÃ
-	ldFlip = ldFlip*D2D1::Matrix3x2F(1,0,0,-1,0,0);											// ÒÔ¾Ö²¿Y=0.0fµÄXÖá·´×ª
-	ldFlip = ldFlip*D2D1::Matrix3x2F::Translation(0.0f,ldDestRect.top+ldDestRect.bottom);	// ´Ó¾µÏñÎ»ÖÃÒÆ¶¯µ½Ô­À´Î»ÖÃ
-	ldFlip = ldFlip*ldOld;			// ×ª»»µ½È«¾ÖÎ»ÖÃ
+	ldFlip = ldFlip*D2D1::Matrix3x2F::Translation(ldDestRect.left+ldDestRect.right,0.0f);	// ä»Žé•œåƒä½ç½®ç§»åŠ¨åˆ°åŽŸæ¥ä½ç½®
+	ldFlip = ldFlip*D2D1::Matrix3x2F(1,0,0,-1,0,0);											// ä»¥å±€éƒ¨Y=0.0fçš„Xè½´åè½¬
+	ldFlip = ldFlip*D2D1::Matrix3x2F::Translation(0.0f,ldDestRect.top+ldDestRect.bottom);	// ä»Žé•œåƒä½ç½®ç§»åŠ¨åˆ°åŽŸæ¥ä½ç½®
+	ldFlip = ldFlip*ldOld;			// è½¬æ¢åˆ°å…¨å±€ä½ç½®
 	npPaintBoard->GetD2dRenderTarget()->SetTransform(ldFlip);
 
 	if(mpFrontFrame != NULL)
 	{
-		//¼ÆËã»æÖÆ¾ØÐÎ´óÐ¡
+		//è®¡ç®—ç»˜åˆ¶çŸ©å½¢å¤§å°
 		D2D1_RECT_F ldRect;
 		ZeroMemory(&ldRect,sizeof(D2D1_RECT_F));
 		if(mpIterator->GetSizeX()/mpIterator->GetSizeY() > mpFrontFrame->GetWidth() / mpFrontFrame->GetHeight())
@@ -219,7 +219,7 @@ ERESULT CEvAnimatorImp::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 
 	CExMessage::SendMessage(mpIterator->GetParent(),mpIterator,EEVT_ANIMATOR_AFTER_PAINT,npPaintBoard,NULL,0);
 
-	// »Ö¸´¾ØÕó
+	// æ¢å¤çŸ©é˜µ
 	npPaintBoard->GetD2dRenderTarget()->SetTransform(ldOld);
 
 	return ERESULT_SUCCESS;

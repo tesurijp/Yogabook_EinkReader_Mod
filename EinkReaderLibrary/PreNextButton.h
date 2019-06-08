@@ -1,11 +1,11 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
 #pragma once
 
 /*
-	²»ÏÔÊ¾µÄ·­Ò³¼°ÖĞ¼ä¹¦ÄÜÇøÏÔÊ¾Òş²Ø¹¦ÄÜµÄ°´Å¥
+	ä¸æ˜¾ç¤ºçš„ç¿»é¡µåŠä¸­é—´åŠŸèƒ½åŒºæ˜¾ç¤ºéšè—åŠŸèƒ½çš„æŒ‰é’®
 */
 
 DECLARE_BUILTIN_NAME(PreNextButton)
@@ -17,45 +17,45 @@ class CPreNextButton:
 
 public:
 	ULONG InitOnCreate(
-		IN IEinkuiIterator* npParent = NULL,	// ¸¸¶ÔÏóÖ¸Õë
-		IN ICfKey* npTemplete = NULL,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-		IN ULONG nuEID = MAXULONG32	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+		IN IEinkuiIterator* npParent = NULL,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+		IN ICfKey* npTemplete = NULL,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+		IN ULONG nuEID = MAXULONG32	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 		);
 
 protected:
 	CPreNextButton(void);
 	~CPreNextButton(void);
 
-	//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+	//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 	virtual ERESULT OnElementCreate(IEinkuiIterator* npIterator);
-	//¶¨Ê±Æ÷
+	//å®šæ—¶å™¨
 	virtual void OnTimer(
 		PSTEMS_TIMER npStatus
 		);
-	//ÏûÏ¢´¦Àíº¯Êı
+	//æ¶ˆæ¯å¤„ç†å‡½æ•°
 	//virtual ERESULT ParseMessage(IEinkuiMessage* npMsg);
-	//°´Å¥µ¥»÷ÊÂ¼ş
+	//æŒ‰é’®å•å‡»äº‹ä»¶
 	virtual ERESULT OnCtlButtonClick(IEinkuiIterator* npSender);
-	//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+	//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 	virtual ERESULT OnElementResized(D2D1_SIZE_F nNewSize);
-	//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òş²Ø¡¿·¢Éú¸Ä±ä
+	//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 	virtual ERESULT OnElementShow(bool nbIsShow);
-	// Êó±êÂäµã¼ì²â
+	// é¼ æ ‡è½ç‚¹æ£€æµ‹
 	virtual ERESULT OnMouseOwnerTest(const D2D1_POINT_2F& rPoint);
-	//Êó±ê°´ÏÂ
+	//é¼ æ ‡æŒ‰ä¸‹
 	virtual ERESULT OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo);
 
 private:
-	IEinkuiIterator* mpIterBtPre;		//ÉÏÒ»Ò³
-	IEinkuiIterator* mpIterBtMiddle;	//ÖĞ¼ä
-	IEinkuiIterator* mpIterBtNext;		//ÏÂÒ»Ò³
+	IEinkuiIterator* mpIterBtPre;		//ä¸Šä¸€é¡µ
+	IEinkuiIterator* mpIterBtMiddle;	//ä¸­é—´
+	IEinkuiIterator* mpIterBtNext;		//ä¸‹ä¸€é¡µ
 
 	D2D1_POINT_2F mdPressPos;
-	float mfLeftButton; //ÓÃÓÚÅĞ¶Ïµã»÷ÊÇ·ñÊÇ·­Ò³ÇøÓò
-	DWORD mdwClickTicount; //ÓÃÓÚÅĞ¶Ï³¤°´ ³¬¹ı500msËã³¤°´
+	float mfLeftButton; //ç”¨äºåˆ¤æ–­ç‚¹å‡»æ˜¯å¦æ˜¯ç¿»é¡µåŒºåŸŸ
+	DWORD mdwClickTicount; //ç”¨äºåˆ¤æ–­é•¿æŒ‰ è¶…è¿‡500msç®—é•¿æŒ‰
 
 };
 
-#define PNB_BT_MIDDLE 100  //ÖĞ¼ä
-#define PNB_BT_PRE 101	//ÉÏÒ»Ò³
-#define PNB_BT_NEXT 102 //ÏÂÒ»Ò³
+#define PNB_BT_MIDDLE 100  //ä¸­é—´
+#define PNB_BT_PRE 101	//ä¸Šä¸€é¡µ
+#define PNB_BT_NEXT 102 //ä¸‹ä¸€é¡µ

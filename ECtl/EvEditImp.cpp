@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -49,9 +49,9 @@ CEvEditImp::~CEvEditImp()
 }
 
 ULONG CEvEditImp::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -61,7 +61,7 @@ ULONG CEvEditImp::InitOnCreate(
 		if(npTemplete == NULL)
 			return ERESULT_UNSUCCESSFUL;
 
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -75,7 +75,7 @@ ULONG CEvEditImp::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvEditImp::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
@@ -113,8 +113,8 @@ ERESULT CEvEditImp::OnElementCreate(IEinkuiIterator* npIterator)
 	return luResult;
 }
 
-// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓĞÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+// é”€æ¯å…ƒç´ ï¼Œç”¨äºé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+// ä»è€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€Œåå†å°†è‡ªå·±ä»å…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 ERESULT CEvEditImp::OnElementDestroy()
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
@@ -130,7 +130,7 @@ ERESULT CEvEditImp::OnElementDestroy()
 	return luResult;
 }
 
-//½ûÓÃ»òÆôÓÃ
+//ç¦ç”¨æˆ–å¯ç”¨
 ERESULT CEvEditImp::OnElementEnable(bool nbIsEnable)
 {
 	if(nbIsEnable == false)
@@ -146,7 +146,7 @@ ERESULT CEvEditImp::OnElementEnable(bool nbIsEnable)
 	return ERESULT_SUCCESS;
 }
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CEvEditImp::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = CXuiElement::OnMouseOwnerTest(rPoint);
@@ -161,11 +161,11 @@ ERESULT CEvEditImp::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 }
 
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvEditImp::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -237,7 +237,7 @@ ERESULT CEvEditImp::ParseMessage(IEinkuiMessage* npMsg)
 					CXuiElement::SetFlags(EEDT_FLAG_PASSWORD,false);
 				}
 
-				//mpIterator->SetKeyBoardFocus(); ËÆºõ²»Ó¦¸ÃÉèÖÃ½¹µã
+				//mpIterator->SetKeyBoardFocus(); ä¼¼ä¹ä¸åº”è¯¥è®¾ç½®ç„¦ç‚¹
 				UpdateView();
 				luResult = ERESULT_SUCCESS;
 			}
@@ -292,7 +292,7 @@ ERESULT CEvEditImp::ParseMessage(IEinkuiMessage* npMsg)
 				luResult = ERESULT_WRONG_PARAMETERS;
 				break;
 			}
-			if(-1 == lpSel->SelCount)			// È«Ñ¡ÖĞ add by Colin
+			if(-1 == lpSel->SelCount)			// å…¨é€‰ä¸­ add by Colin
 			{
 				mlSelBegin = 0;
 				mlSelEnd = moText.Size();
@@ -315,7 +315,7 @@ ERESULT CEvEditImp::ParseMessage(IEinkuiMessage* npMsg)
 		luResult = ERESULT_SUCCESS;
 		break;
 	default:
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
@@ -359,7 +359,7 @@ ERESULT CEvEditImp::OnGetText(wchar_t* nswTextBuf,LONG nlCharCount)
 	return ERESULT_SUCCESS;
 }
 
-// ÂıË¢ĞÂ
+// æ…¢åˆ·æ–°
 void  CEvEditImp::OnLazyUpdate(
 	PSTEMG_LAZY_UPDATE npLazyUpdate
 	)
@@ -373,7 +373,7 @@ void  CEvEditImp::OnLazyUpdate(
 	}
 }
 
-//¼üÅÌ½¹µã»ñµÃ»òÕßÊ§È¥
+//é”®ç›˜ç„¦ç‚¹è·å¾—æˆ–è€…å¤±å»
 void CEvEditImp::OnKeyBoardFocus(PSTEMS_STATE_CHANGE npState)
 {
 	LONG llValue;
@@ -382,7 +382,7 @@ void CEvEditImp::OnKeyBoardFocus(PSTEMS_STATE_CHANGE npState)
 		mlBlinking = 0;
 		llValue = 1;
 
-		// Ñ¡ÖĞÊ±È«Ñ¡ÖĞ£¬Èç¹ûÓĞÄÚÈİ£¬ÔòÈ«²¿Ñ¡ÖĞ  add by colin
+		// é€‰ä¸­æ—¶å…¨é€‰ä¸­ï¼Œå¦‚æœæœ‰å†…å®¹ï¼Œåˆ™å…¨éƒ¨é€‰ä¸­  add by colin
 		if(0 != mpTemplete->QuerySubKeyValueAsLONG(L"SelAllOnFocus", 0) && 0 != moText.Size())
 		{
 			mlSelBegin = 0;
@@ -390,7 +390,7 @@ void CEvEditImp::OnKeyBoardFocus(PSTEMS_STATE_CHANGE npState)
 			mlCursorAt = mlSelEnd;
 		}
 
-		// ÉèÖÃImeÊäÈë¿òÔÚ±¾ÊäÈë¿òÖ®ÏÂ
+		// è®¾ç½®Imeè¾“å…¥æ¡†åœ¨æœ¬è¾“å…¥æ¡†ä¹‹ä¸‹
 		mpIterator->SetIMECompositionWindow(D2D1::Point2F(mdLayoutRect.left+10.0f,mdLayoutRect.bottom+10.0f));
 
 	}
@@ -404,12 +404,12 @@ void CEvEditImp::OnKeyBoardFocus(PSTEMS_STATE_CHANGE npState)
 
 	UpdateView();
 
-	// ×îºóÔÙ¼ì²éÒ»ÏÂÊÇ·ñĞèÒª·¢ËÍÍê³ÉÏûÏ¢
-// 	if(npState->State == 0)	//Edit by Jaryee EndModifyingÕâ¸öº¯ÊıÊÇÔÚ°´ÏÂ»Ø³µ¼üÊ±µ÷ÓÃµÄ£¬ÕâÀï²»ÄÜÀûÓÃ£¬·ñÔòÂß¼­ÓĞÎÊÌâ
+	// æœ€åå†æ£€æŸ¥ä¸€ä¸‹æ˜¯å¦éœ€è¦å‘é€å®Œæˆæ¶ˆæ¯
+// 	if(npState->State == 0)	//Edit by Jaryee EndModifyingè¿™ä¸ªå‡½æ•°æ˜¯åœ¨æŒ‰ä¸‹å›è½¦é”®æ—¶è°ƒç”¨çš„ï¼Œè¿™é‡Œä¸èƒ½åˆ©ç”¨ï¼Œå¦åˆ™é€»è¾‘æœ‰é—®é¢˜
 // 		EndModifying();
 }
 
-//Êó±ê½øÈë»òÀë¿ª
+//é¼ æ ‡è¿›å…¥æˆ–ç¦»å¼€
 void CEvEditImp::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 {
 	PostMessageToParent(EEVT_EDIT_MOUSE_FOCUS,npState->State);
@@ -417,13 +417,13 @@ void CEvEditImp::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 	CXuiElement::OnMouseFocus(npState);
 }
 
-//Êó±êË«»÷
+//é¼ æ ‡åŒå‡»
 ERESULT CEvEditImp::OnMouseDbClick(const STEMS_MOUSE_BUTTON* npInfo)
 {
 	return PostMessageToParent(EEVT_EDIT_MOUSE_DCLICK,mlCursorAt);
 }
 
-//ÔªËØÍÏ×§
+//å…ƒç´ æ‹–æ‹½
 ERESULT CEvEditImp::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 {
 	DWRITE_HIT_TEST_METRICS ldHitAt;
@@ -460,7 +460,7 @@ ERESULT CEvEditImp::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 	return ERESULT_SUCCESS;
 }
 
-//ÍÏ×§¿ªÊ¼,nulActKeyÄÄ¸öÊó±ê°´Å¥°´ÏÂ½øĞĞÍÏ×§
+//æ‹–æ‹½å¼€å§‹,nulActKeyå“ªä¸ªé¼ æ ‡æŒ‰é’®æŒ‰ä¸‹è¿›è¡Œæ‹–æ‹½
 ERESULT CEvEditImp::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 {
 	DWRITE_HIT_TEST_METRICS ldHitAt;
@@ -503,13 +503,13 @@ ERESULT CEvEditImp::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 	return ERESULT_SUCCESS;
 }
 
-//ÍÏ×§½áÊø,nulActKeyÄÄ¸öÊó±ê°´Å¥°´ÏÂ½øĞĞÍÏ×§
+//æ‹–æ‹½ç»“æŸ,nulActKeyå“ªä¸ªé¼ æ ‡æŒ‰é’®æŒ‰ä¸‹è¿›è¡Œæ‹–æ‹½
 ERESULT CEvEditImp::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 {
 	return ERESULT_SUCCESS;
 }
 
-//Êó±ê°´ÏÂ
+//é¼ æ ‡æŒ‰ä¸‹
 ERESULT CEvEditImp::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 {
 	DWRITE_HIT_TEST_METRICS ldHitAt;
@@ -548,13 +548,13 @@ ERESULT CEvEditImp::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 }
 
 
-//»æÖÆÏûÏ¢
+//ç»˜åˆ¶æ¶ˆæ¯
 ERESULT CEvEditImp::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	 
 	ERESULT luResult;
 
-	// »æÖÆ±³¾°
+	// ç»˜åˆ¶èƒŒæ™¯
 	if(mpBgBitmap != NULL)
 		npPaintBoard->DrawBitmap(D2D1::RectF(0,0,mpIterator->GetSizeX(),mpIterator->GetSizeY()),
 		mpBgBitmap,
@@ -568,18 +568,18 @@ ERESULT CEvEditImp::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	if(luResult != ERESULT_SUCCESS)
 		return luResult;
 
-	// »æÖÆ±³¾°
+	// ç»˜åˆ¶èƒŒæ™¯
 	for (int i=0;i<moTextSections.Size();i++)
 	{
 		if(moTextSections[i].mlBgBrushIndex >= 0)
 			npPaintBoard->GetD2dRenderTarget()->FillRectangle(moTextSections[i].mdRegion,mpBrush[moTextSections[i].mlBgBrushIndex]);
 	}
 
-	// »æÖÆÎÄ×Ö
+	// ç»˜åˆ¶æ–‡å­—
 	if(mpTextLayout != NULL && mpBrush[0]!=NULL)
 		npPaintBoard->GetD2dRenderTarget()->DrawTextLayout(D2D1::Point2F(mdLayoutRect.left,mdLayoutRect.top),mpTextLayout,mpBrush[0]);
 
-	// ÏÔÊ¾ÊäÈë¹â±ê£¬???ÔİÊ±²»Ìá¹©insert mode
+	// æ˜¾ç¤ºè¾“å…¥å…‰æ ‡ï¼Œ???æš‚æ—¶ä¸æä¾›insert mode
 	if(mlBlinking >= 0 && mlBlinking != 1)
 	{
 		npPaintBoard->GetD2dRenderTarget()->DrawLine(D2D1::Point2F(CExFloat::HalfPixel(mdCursorPos.x),CExFloat::Round(mdCursorPos.y+2.0f))
@@ -589,7 +589,7 @@ ERESULT CEvEditImp::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	return ERESULT_SUCCESS;
 }
 
-// É¾³ıÉè±ğÏà¹Ø×ÊÔ´
+// åˆ é™¤è®¾åˆ«ç›¸å…³èµ„æº
 void CEvEditImp::ReleaseDeviceResource()
 {
 	for(int i=0;i<4;i++)
@@ -600,7 +600,7 @@ void CEvEditImp::ReleaseDeviceResource()
 	mbDirty = true;
 }
 
-//×¼±¸»­±Ê
+//å‡†å¤‡ç”»ç¬”
 ERESULT CEvEditImp::PrepareBrush(IEinkuiPaintBoard* npPaintBoard)
 {
 	ICfKey* lpKey = NULL;;
@@ -610,14 +610,14 @@ ERESULT CEvEditImp::PrepareBrush(IEinkuiPaintBoard* npPaintBoard)
 	FLOAT lfAlpha;
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
 
-	if(mpBrush[0]!=NULL)	// ÓĞ»­Ë¢ËµÃ÷ÒÑ¾­³õÊ¼»¯
+	if(mpBrush[0]!=NULL)	// æœ‰ç”»åˆ·è¯´æ˜å·²ç»åˆå§‹åŒ–
 		return ERESULT_SUCCESS;
 
 	ReleaseDeviceResource();
 
 	do 
 	{
-		// Ê×ÏÈ½¨Á¢×ÖÌå
+		// é¦–å…ˆå»ºç«‹å­—ä½“
 		if(mpTextFormat==NULL)
 		{
 			wchar_t lswFontName[100];
@@ -648,11 +648,11 @@ ERESULT CEvEditImp::PrepareBrush(IEinkuiPaintBoard* npPaintBoard)
 		}
 
 
-		// ÏÂÃæ½¨Á¢»­Ë¢
+		// ä¸‹é¢å»ºç«‹ç”»åˆ·
 		lpKey = mpTemplete->GetSubKey(L"color");
 		BREAK_ON_NULL(lpKey);
 
-		// ½¨Á¢Fore color brush
+		// å»ºç«‹Fore color brush
 		luForeColor = (ULONG)lpKey->QuerySubKeyValueAsLONG(L"fore",0xFFFFFF);
 		if(luForeColor == 0xFFFFFF)
 		{
@@ -674,7 +674,7 @@ ERESULT CEvEditImp::PrepareBrush(IEinkuiPaintBoard* npPaintBoard)
 		if(FAILED(hr))
 			break;
 
-		// ½¨Á¢back color brush
+		// å»ºç«‹back color brush
 		luColor = (ULONG)lpKey->QuerySubKeyValueAsLONG(L"back",0xFFFFFF);
 		if(luColor != 0xFFFFFF)
 		{
@@ -690,7 +690,7 @@ ERESULT CEvEditImp::PrepareBrush(IEinkuiPaintBoard* npPaintBoard)
 				break;	
 		}
 
-		// ½¨Á¢Selection Fore color brush
+		// å»ºç«‹Selection Fore color brush
 		luColor = (ULONG)lpKey->QuerySubKeyValueAsLONG(L"Selectedfore",0xFFFFFF);
 		if(luColor != 0xFFFFFF)
 		{
@@ -712,11 +712,11 @@ ERESULT CEvEditImp::PrepareBrush(IEinkuiPaintBoard* npPaintBoard)
 			mpBrush[eSelForeBrush]->AddRef();
 		}
 
-		// ½¨Á¢Fore color brush
+		// å»ºç«‹Fore color brush
 		luColor = (ULONG)lpKey->QuerySubKeyValueAsLONG(L"SelectedBack",0xFFFFFF);
 		if(luColor == 0xFFFFFF)
 		{
-			luColor = ((~luForeColor)&0xFFFFFF);	// ¼òµ¥µØ°´Î»È¡·´
+			luColor = ((~luForeColor)&0xFFFFFF);	// ç®€å•åœ°æŒ‰ä½å–å
 			lfAlpha = 1.0f;
 		}
 		else
@@ -744,13 +744,13 @@ ERESULT CEvEditImp::PrepareBrush(IEinkuiPaintBoard* npPaintBoard)
 }
 
 
-// ÊÍ·Å¸ñÊ½»¯ÎÄ×Ö
+// é‡Šæ”¾æ ¼å¼åŒ–æ–‡å­—
 void CEvEditImp::ClearTextLayout(){
 	moTextSections.Clear();
 	CMM_SAFE_RELEASE(mpTextLayout);
 }
 
-//¼üÅÌÏûÏ¢
+//é”®ç›˜æ¶ˆæ¯
 ERESULT CEvEditImp::OnKeyPressed(const STEMS_KEY_PRESSED* npInfo)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -808,7 +808,7 @@ void CEvEditImp::EndModifying(void)
 }
 
 
-//×Ö·ûÊäÈëÏûÏ¢
+//å­—ç¬¦è¾“å…¥æ¶ˆæ¯
 ERESULT CEvEditImp::OnChar(const PSTEMS_CHAR_INPUT npChar)
 {
 	ERESULT luResult;
@@ -817,10 +817,10 @@ ERESULT CEvEditImp::OnChar(const PSTEMS_CHAR_INPUT npChar)
 	if(luResult == ERESULT_DISCARD)
 		return ERESULT_SUCCESS;
 
-	// ¹ıÂË·Ç×Ö·û
+	// è¿‡æ»¤éå­—ç¬¦
 	if(npChar->CharIn < 0x20 || npChar->CharIn >= 0x7F && npChar->CharIn < 0x0100)
 	{
-		//  Èç¹ûÊÇCtrl+c Ctrl+v Ctrl+x Ctrl+z ÌØÊâ´¦Àí
+		//  å¦‚æœæ˜¯Ctrl+c Ctrl+v Ctrl+x Ctrl+z ç‰¹æ®Šå¤„ç†
 		switch(npChar->CharIn)
 		{
 		//case 3:	// Ctrl+C
@@ -839,7 +839,7 @@ ERESULT CEvEditImp::OnChar(const PSTEMS_CHAR_INPUT npChar)
 		}
 		return ERESULT_SUCCESS;
 	}
-	// ÊÇ·ñËø¶¨Êı×Ö
+	// æ˜¯å¦é”å®šæ•°å­—
 	if(CXuiElement::TestFlag(EEDT_FLAG_NUMBER)!=false)
 	{
 		if((npChar->CharIn < L'0' || npChar->CharIn > L'9'))
@@ -851,22 +851,22 @@ ERESULT CEvEditImp::OnChar(const PSTEMS_CHAR_INPUT npChar)
 
 	if(mlSelBegin >= 0 && mlSelBegin < mlSelEnd)
 	{
-		// È¥³ıÑ¡ÖĞ
+		// å»é™¤é€‰ä¸­
 		RemoveChars(mlSelBegin,mlSelEnd - mlSelBegin);
 
-		// ¹â±ê¶¨Î»µ½Ñ¡ÖĞÇø¿ªÊ¼
+		// å…‰æ ‡å®šä½åˆ°é€‰ä¸­åŒºå¼€å§‹
 		mlCursorAt = mlSelBegin;
 
 		mlSelBegin = mlSelEnd = -1;
 	}
-	else	// ÊÇ²»ÊÇ²åÈë×´Ì¬
+	else	// æ˜¯ä¸æ˜¯æ’å…¥çŠ¶æ€
 	if(mbInsertMode!=false)
 	{
-		// É¾³ıµ±Ç°×Ö·û
+		// åˆ é™¤å½“å‰å­—ç¬¦
 		RemoveChars(mlCursorAt,1);
 	}
 
-	// ²åÈë×Ö·û
+	// æ’å…¥å­—ç¬¦
 	if(InsertChar(mlCursorAt,npChar->CharIn)==1)
 	{
 		mlCursorAt++;
@@ -1122,7 +1122,7 @@ void CEvEditImp::OnKeyInsert(const STEMS_KEY_PRESSED* npInfo)
 
 }
 
-//Çå³ıÖ¸ÕëÎ»ÖÃ×Ö·û,nlFromÎª´ÓÄÄ¸öË÷Òı¿ªÊ¼;nlCountÎªÉ¾³ı¸öÊı
+//æ¸…é™¤æŒ‡é’ˆä½ç½®å­—ç¬¦,nlFromä¸ºä»å“ªä¸ªç´¢å¼•å¼€å§‹;nlCountä¸ºåˆ é™¤ä¸ªæ•°
 ERESULT CEvEditImp::RemoveChars(LONG nlFrom,LONG nlCount)
 {
 	LONG llTail = min(moText.Size()-1,nlFrom+nlCount-1);
@@ -1132,19 +1132,19 @@ ERESULT CEvEditImp::RemoveChars(LONG nlFrom,LONG nlCount)
 		moText.RemoveByIndex(llTail);
 	}
 
-	//µ±ÓĞ×Ö·û±»É¾µôºó£¬ÒªÖØĞÂ¼ÆËãÏÔÊ¾×Ö·ûÊı
+	//å½“æœ‰å­—ç¬¦è¢«åˆ æ‰åï¼Œè¦é‡æ–°è®¡ç®—æ˜¾ç¤ºå­—ç¬¦æ•°
 	mlViewBegin = -1;
 	return ERESULT_SUCCESS;
 }
 
-//²åÈëĞÂµÄ×Ö·û,nlInsertTo±íÊ¾´ÓÄÄ¸öÎ»ÖÃ½øĞĞ²åÈë,-1±íÊ¾²åµ½×îºó;nswChars±íÊ¾Òª²åÈëµÄ×Ö·û´®; nlLength == -1 ±íÊ¾nszCharsµÄÈ«²¿ÓĞĞ§×Ö·û£¬²¢ÇÒÈ·ÈÏnszChars´øÓĞ\0½áÎ²
+//æ’å…¥æ–°çš„å­—ç¬¦,nlInsertToè¡¨ç¤ºä»å“ªä¸ªä½ç½®è¿›è¡Œæ’å…¥,-1è¡¨ç¤ºæ’åˆ°æœ€å;nswCharsè¡¨ç¤ºè¦æ’å…¥çš„å­—ç¬¦ä¸²; nlLength == -1 è¡¨ç¤ºnszCharsçš„å…¨éƒ¨æœ‰æ•ˆå­—ç¬¦ï¼Œå¹¶ä¸”ç¡®è®¤nszCharså¸¦æœ‰\0ç»“å°¾
 LONG CEvEditImp::InsertChars(LONG nlInsertTo,wchar_t* nswChars,LONG nlLength)
 {
 	LONG i;
 
 	for(i=0;i<nlLength;i++)
 	{
-		// ÊÇ·ñ´ïµ½×î´ó×ÖÊı
+		// æ˜¯å¦è¾¾åˆ°æœ€å¤§å­—æ•°
 		if(mlLimit >= 0 && moText.Size() >= mlLimit)
 			return i;
 
@@ -1155,10 +1155,10 @@ LONG CEvEditImp::InsertChars(LONG nlInsertTo,wchar_t* nswChars,LONG nlLength)
 	return i;
 }
 
-// ²åÈëÒ»¸ö×Ö·û
+// æ’å…¥ä¸€ä¸ªå­—ç¬¦
 LONG CEvEditImp::InsertChar(LONG nlInsertTo,wchar_t nwcChar)
 {
-	// ÊÇ·ñ´ïµ½×î´ó×ÖÊı
+	// æ˜¯å¦è¾¾åˆ°æœ€å¤§å­—æ•°
 	if(mlLimit >= 0 && moText.Size() >= mlLimit)
 	{
 		if(mlLimit==0 || CXuiElement::TestFlag(EEDT_FLAG_NUMBER)==false || moText.Size()>mlLimit || moText[0]!=L'-')
@@ -1168,7 +1168,7 @@ LONG CEvEditImp::InsertChar(LONG nlInsertTo,wchar_t nwcChar)
 	return (moText.Insert(nlInsertTo,nwcChar)>=0)?1:0;
 }
 
-// ÖØĞÂÉú³É¸ñÊ½»¯ÎÄ×Ö
+// é‡æ–°ç”Ÿæˆæ ¼å¼åŒ–æ–‡å­—
 ERESULT CEvEditImp::GenerateTextLayout(IEinkuiPaintBoard* npPaintBoard)
 {
 	HRESULT hr;
@@ -1183,15 +1183,15 @@ ERESULT CEvEditImp::GenerateTextLayout(IEinkuiPaintBoard* npPaintBoard)
 
 	if(moText.Size()==0)
 	{
-		// ¿Õ£¬È¡ÓĞĞ§×Ö·ûÇøµÄÊ×ÁĞ×÷Îª¹â±êÎ»ÖÃ
+		// ç©ºï¼Œå–æœ‰æ•ˆå­—ç¬¦åŒºçš„é¦–åˆ—ä½œä¸ºå…‰æ ‡ä½ç½®
 		mdCursorPos.x = mdLayoutRect.left;
 		mdCursorPos.y = mdLayoutRect.top;
 
-		// ·µ»Ø
+		// è¿”å›
 		return ERESULT_SUCCESS;
 	}
 
-	// »ñÈ¡×Ö·û¿í¶È
+	// è·å–å­—ç¬¦å®½åº¦
 	DWRITE_CLUSTER_METRICS* lpGlyphMetrics=NULL;
 	UINT32 luCount;
 	LONG llCrt;
@@ -1206,7 +1206,7 @@ ERESULT CEvEditImp::GenerateTextLayout(IEinkuiPaintBoard* npPaintBoard)
 		if(hr != E_NOT_SUFFICIENT_BUFFER || luCount==0)
 			break;
 
-		if(luCount != (UINT32)(mlViewEnd-mlViewBegin))	// ÎªÁË¼òµ¥£¬ÎÒÃÇ²»Ö§³ÖÃ»ÓĞ°´×Ö·û·Ö¸ôµÄ·½Ê½
+		if(luCount != (UINT32)(mlViewEnd-mlViewBegin))	// ä¸ºäº†ç®€å•ï¼Œæˆ‘ä»¬ä¸æ”¯æŒæ²¡æœ‰æŒ‰å­—ç¬¦åˆ†éš”çš„æ–¹å¼
 			break;
 
 		lpGlyphMetrics = new DWRITE_CLUSTER_METRICS[luCount];
@@ -1229,7 +1229,7 @@ ERESULT CEvEditImp::GenerateTextLayout(IEinkuiPaintBoard* npPaintBoard)
 		{
 			if(llCrt == mlSelEnd || llCrt == mlSelBegin|| llCrt == mlCursorAt || llCrt == mlViewEnd)
 			{
-				// ½áÊø¶Î
+				// ç»“æŸæ®µ
 				if(llCrt > loSection.mlStart)
 				{
 					bool lbSelected = (llCrt== mlSelEnd || loSection.mlStart == mlSelBegin);
@@ -1248,7 +1248,7 @@ ERESULT CEvEditImp::GenerateTextLayout(IEinkuiPaintBoard* npPaintBoard)
 					loSection.mlLength = llCrt - loSection.mlStart;
 					moTextSections.Insert(-1,loSection);
 
-					// ÉèÖÃ×ÖÌåÑÕÉ«
+					// è®¾ç½®å­—ä½“é¢œè‰²
 					ldRange.startPosition = (UINT32)(loSection.mlStart - mlViewBegin);
 					ldRange.length = (UINT32)loSection.mlLength;
 					mpTextLayout->SetDrawingEffect(mpBrush[(lbSelected)?eSelForeBrush:eForeBrush],ldRange);
@@ -1261,7 +1261,7 @@ ERESULT CEvEditImp::GenerateTextLayout(IEinkuiPaintBoard* npPaintBoard)
 					mdCursorPos.y = loSection.mdRegion.top;
 				}
 
-				// ÎªÏÂÒ»¸ösection×¼±¸
+				// ä¸ºä¸‹ä¸€ä¸ªsectionå‡†å¤‡
 				loSection.mlStart = llCrt;
 				loSection.mdRegion.left = loSection.mdRegion.right;
 			}
@@ -1279,7 +1279,7 @@ ERESULT CEvEditImp::GenerateTextLayout(IEinkuiPaintBoard* npPaintBoard)
 }
 
 
-// ¼ÆËãÎÄ×ÖµÄÅÅ²¼ÇøÓò
+// è®¡ç®—æ–‡å­—çš„æ’å¸ƒåŒºåŸŸ
 void CEvEditImp::CalculateTextRect(IEinkuiPaintBoard* npPaintBoard)
 {
 	IDWriteTextLayout* lpTextLayout = NULL;
@@ -1293,7 +1293,7 @@ void CEvEditImp::CalculateTextRect(IEinkuiPaintBoard* npPaintBoard)
 	LONG llVertical;
 	LONG llHorizontal;	// left align
 
-	// Ê×ÏÈ»ñµÃ×î´óµÄÏÔÊ¾ÇøÓò
+	// é¦–å…ˆè·å¾—æœ€å¤§çš„æ˜¾ç¤ºåŒºåŸŸ
 	do 
 	{
 		if(mdValidRect.left == 0 || mdValidRect.right == 0)
@@ -1344,7 +1344,7 @@ void CEvEditImp::CalculateTextRect(IEinkuiPaintBoard* npPaintBoard)
 		}
 	}
 
-	// ¶øºó¼ì²é¼õÉÙ×Ö·û¸öÊıÊÇ·ñ¿ÉÒÔ·ûºÏ¿í¶ÈÒªÇó
+	// è€Œåæ£€æŸ¥å‡å°‘å­—ç¬¦ä¸ªæ•°æ˜¯å¦å¯ä»¥ç¬¦åˆå®½åº¦è¦æ±‚
 	while(llCount > 0)
 	{
 		loAlter.Clear();
@@ -1369,7 +1369,7 @@ void CEvEditImp::CalculateTextRect(IEinkuiPaintBoard* npPaintBoard)
 				hr = lpTextLayout->GetMetrics(&ldMetrics);
 				if(SUCCEEDED(hr))
 				{
-					if(ldMetrics.width < lfTextMaxWidth)	// ÊÇ·ñĞèÒªÓÃ´ËwidthIncludingTrailingWhitespaceÅĞ¶Ï???
+					if(ldMetrics.width < lfTextMaxWidth)	// æ˜¯å¦éœ€è¦ç”¨æ­¤widthIncludingTrailingWhitespaceåˆ¤æ–­???
 					{
 						break;
 					}
@@ -1384,7 +1384,7 @@ void CEvEditImp::CalculateTextRect(IEinkuiPaintBoard* npPaintBoard)
 
 	if(lpTextLayout == NULL)
 	{
-		// È¡Ò»¸ö×Ö·ûµÄÇé¿ö'Q'
+		// å–ä¸€ä¸ªå­—ç¬¦çš„æƒ…å†µ'Q'
 		hr = npPaintBoard->GetDWriteFactory()->CreateTextLayout(L"Q",1,mpTextFormat,lfTextMaxWidth,lfTextMaxHeight,&lpTextLayout);
 		if(SUCCEEDED(hr))
 		{
@@ -1403,7 +1403,7 @@ void CEvEditImp::CalculateTextRect(IEinkuiPaintBoard* npPaintBoard)
 
 	mlViewEnd = mlViewBegin + llCount;
 
-	// °´ÕÕÅÅÁĞÒªÇó£¬ÖØĞÂÅÅÁĞ
+	// æŒ‰ç…§æ’åˆ—è¦æ±‚ï¼Œé‡æ–°æ’åˆ—
 	switch(llVertical)
 	{
 	case 1:	// center
@@ -1436,13 +1436,13 @@ void CEvEditImp::CalculateTextRect(IEinkuiPaintBoard* npPaintBoard)
 	}
 }
 
-//´Ó¼ôÇĞ°å¶Á×Ö·û´®£¬return the character count
+//ä»å‰ªåˆ‡æ¿è¯»å­—ç¬¦ä¸²ï¼Œreturn the character count
 int CEvEditImp::GetClipboardString(OUT wchar_t* npTextBuffer,LONG nlBufCharSize)
 {
 	int liLength=0;
 	HANDLE lhClipMem = NULL;
 
-	if(OpenClipboard(EinkuiGetSystem()->GetMainWindow()) == FALSE)  //´ò¿ª¼ôÇĞ°å
+	if(OpenClipboard(EinkuiGetSystem()->GetMainWindow()) == FALSE)  //æ‰“å¼€å‰ªåˆ‡æ¿
 		return 0;
 
 	do 
@@ -1451,7 +1451,7 @@ int CEvEditImp::GetClipboardString(OUT wchar_t* npTextBuffer,LONG nlBufCharSize)
 		if(lhClipMem == NULL)
 			break;
 
-		const wchar_t* lswInput = (const wchar_t*)GlobalLock(lhClipMem); //»ñÈ¡×Ö·û´®
+		const wchar_t* lswInput = (const wchar_t*)GlobalLock(lhClipMem); //è·å–å­—ç¬¦ä¸²
 		if(lswInput == NULL)
 			break;
 
@@ -1472,7 +1472,7 @@ int CEvEditImp::GetClipboardString(OUT wchar_t* npTextBuffer,LONG nlBufCharSize)
 
 	} while (false);
 
-	CloseClipboard();  //¹Ø±Õ¼ôÇĞ°å
+	CloseClipboard();  //å…³é—­å‰ªåˆ‡æ¿
 
 	return liLength;
 }
@@ -1483,7 +1483,7 @@ void CEvEditImp::SetClipboardString(const wchar_t* nswString,LONG nlCharCount)
 	wchar_t* lpGlobalBuffer=NULL;
 	HANDLE lhClipMem = NULL;
 
-	if(OpenClipboard(EinkuiGetSystem()->GetMainWindow()) == FALSE)  //´ò¿ª¼ôÇĞ°å
+	if(OpenClipboard(EinkuiGetSystem()->GetMainWindow()) == FALSE)  //æ‰“å¼€å‰ªåˆ‡æ¿
 		return;
 
 	do 
@@ -1493,7 +1493,7 @@ void CEvEditImp::SetClipboardString(const wchar_t* nswString,LONG nlCharCount)
 
 		lhClipMem = GlobalAlloc(GMEM_MOVEABLE,(nlCharCount+1)*sizeof(wchar_t));
 
-		wchar_t* lswClipboardBuffer = (wchar_t*)GlobalLock(lhClipMem); //»ñÈ¡×Ö·û´®
+		wchar_t* lswClipboardBuffer = (wchar_t*)GlobalLock(lhClipMem); //è·å–å­—ç¬¦ä¸²
 		if(lswClipboardBuffer == NULL)
 			break;
 
@@ -1506,18 +1506,18 @@ void CEvEditImp::SetClipboardString(const wchar_t* nswString,LONG nlCharCount)
 
 	} while (false);
 
-	CloseClipboard();  //¹Ø±Õ¼ôÇĞ°å
+	CloseClipboard();  //å…³é—­å‰ªåˆ‡æ¿
 }
 
-// Çå³ı¼ôÌù°åÊı¾İ
+// æ¸…é™¤å‰ªè´´æ¿æ•°æ®
 void CEvEditImp::ClearClipboard(void)
 {
-	if(OpenClipboard(EinkuiGetSystem()->GetMainWindow()) == FALSE)  //´ò¿ª¼ôÇĞ°å
+	if(OpenClipboard(EinkuiGetSystem()->GetMainWindow()) == FALSE)  //æ‰“å¼€å‰ªåˆ‡æ¿
 		return;
 
 	EmptyClipboard();
 
-	CloseClipboard();  //¹Ø±Õ¼ôÇĞ°å
+	CloseClipboard();  //å…³é—­å‰ªåˆ‡æ¿
 }
 
 
@@ -1527,10 +1527,10 @@ void CEvEditImp::OnCopyCommand(void)
 {
 	int liChars;
 
-	// Ã»ÓĞÑ¡ÔñÇø»ò´¦ÓÚÃÜÂëÄ£Ê½ÏÂ£¬²»ÄÜ¸´ÖÆÄÚÈİ
+	// æ²¡æœ‰é€‰æ‹©åŒºæˆ–å¤„äºå¯†ç æ¨¡å¼ä¸‹ï¼Œä¸èƒ½å¤åˆ¶å†…å®¹
 	if(mlSelBegin <0 || mlSelBegin >= mlSelEnd || CXuiElement::TestFlag(EEDT_FLAG_PASSWORD)!=false)
 	{
-		// Çå³ı¼ôÌù°åÖĞ¾ÉµÄÄÚÈİ
+		// æ¸…é™¤å‰ªè´´æ¿ä¸­æ—§çš„å†…å®¹
 		ClearClipboard();
 		return ;
 	}
@@ -1558,18 +1558,18 @@ void CEvEditImp::OnPasteCommand(void)
 	{
 		if(mlSelBegin >= 0 && mlSelBegin < mlSelEnd)
 		{
-			// È¥³ıÑ¡ÖĞ
+			// å»é™¤é€‰ä¸­
 			RemoveChars(mlSelBegin,mlSelEnd - mlSelBegin);
 
-			// ¹â±ê¶¨Î»µ½Ñ¡ÖĞÇø¿ªÊ¼
+			// å…‰æ ‡å®šä½åˆ°é€‰ä¸­åŒºå¼€å§‹
 			mlCursorAt = mlSelBegin;
 
 			mlSelBegin = mlSelEnd = -1;
 		}
-		else	// ÊÇ²»ÊÇ²åÈë×´Ì¬
+		else	// æ˜¯ä¸æ˜¯æ’å…¥çŠ¶æ€
 		if(mbInsertMode!=false)
 		{
-			// É¾³ıÍ¬µÈ
+			// åˆ é™¤åŒç­‰
 			int liToClear = min(liChars,moText.Size()-mlCursorAt);
 			RemoveChars(mlCursorAt,liToClear);
 		}
@@ -1596,16 +1596,16 @@ void CEvEditImp::OnCutCommand(void)
 
 	liChars = mlSelEnd - mlSelBegin;
 
-	// ·ÇÃÜÂëÄ£Ê½Ôò¸´ÖÆÊı¾İµ½¼ôÌù°å
+	// éå¯†ç æ¨¡å¼åˆ™å¤åˆ¶æ•°æ®åˆ°å‰ªè´´æ¿
 	if(CXuiElement::TestFlag(EEDT_FLAG_PASSWORD) == false)
 		SetClipboardString(moText.GetBuffer()+mlSelBegin,liChars);
 	else
-		ClearClipboard();// Çå³ı¼ôÌù°åÖĞ¾ÉµÄÄÚÈİ
+		ClearClipboard();// æ¸…é™¤å‰ªè´´æ¿ä¸­æ—§çš„å†…å®¹
 
-	// È¥³ıÑ¡ÖĞ
+	// å»é™¤é€‰ä¸­
 	RemoveChars(mlSelBegin,mlSelEnd - mlSelBegin);
 
-	// ¹â±ê¶¨Î»µ½Ñ¡ÖĞÇø¿ªÊ¼
+	// å…‰æ ‡å®šä½åˆ°é€‰ä¸­åŒºå¼€å§‹
 	mlCursorAt = mlSelBegin;
 
 	mlSelBegin = mlSelEnd = -1;
@@ -1621,7 +1621,7 @@ void CEvEditImp::OnUndoCommand(void)
 {
 }
 
-//ÃüÁî
+//å‘½ä»¤
 ERESULT CEvEditImp::OnCommand(const nes_command::ESCOMMAND neCmd)
 {
 	ERESULT luResult;

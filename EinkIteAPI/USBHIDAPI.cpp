@@ -1,4 +1,4 @@
-/* Copyright 2019 - present Lenovo */
+ï»¿/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
 #include "stdafx.h"
 #include "USBHIDAPI.h"
@@ -39,7 +39,7 @@ USBHIDAPI::~USBHIDAPI()
 
 void SendTouchMessage(PEI_TOUCHINPUT npTouchInput);
 
-//¶ÁÈ¡Êı¾İÏß³Ì
+//è¯»å–æ•°æ®çº¿ç¨‹
 DWORD __stdcall USBHIDAPI::ReadFileThread(LPVOID npParam)
 {
 	USBHIDAPI *lpThis = static_cast<USBHIDAPI *>(npParam);
@@ -51,7 +51,7 @@ DWORD __stdcall USBHIDAPI::ReadFileThread(LPVOID npParam)
 	{
 		WaitForSingleObject(lpThis->mhEventObject, INFINITE);
 
-		//½âÎöÊı¾İ
+		//è§£ææ•°æ®
 		//OVERLAPPED ldHIDOverlapped = lpThis->mdHIDOverlapped;
 		//DWORD NumberOfBytesRead = 0;
 		//GetOverlappedResult(lpThis->mhReadHandle, &lpThis->mdHIDOverlapped, &NumberOfBytesRead, TRUE);
@@ -91,7 +91,7 @@ DWORD __stdcall USBHIDAPI::ReadFileThread(LPVOID npParam)
 					if (lpBuffer[4] == 0)
 					{
 						//if (lpTouchInput->PointCount > 0)
-						//{	// ³öÏÖĞÂµÄÒ»´Î´¥ÅöĞĞÎª£¬²»ÄÜ°ÑËüºÍÇ°Ò»¸ö´¥ÅöĞĞÎª·ÅÔÚÒ»¸öĞòÁĞÖĞ
+						//{	// å‡ºç°æ–°çš„ä¸€æ¬¡è§¦ç¢°è¡Œä¸ºï¼Œä¸èƒ½æŠŠå®ƒå’Œå‰ä¸€ä¸ªè§¦ç¢°è¡Œä¸ºæ”¾åœ¨ä¸€ä¸ªåºåˆ—ä¸­
 						//	SendTouchMessage(lpTouchInput);
 						//	lpTouchInput->PointCount = 0;
 						//}
@@ -108,7 +108,7 @@ DWORD __stdcall USBHIDAPI::ReadFileThread(LPVOID npParam)
 					z = lpBuffer[liBufferindex++];
 					z += (int)(lpBuffer[liBufferindex++]) << 8;
 
-					lpTouchInput->Point[lpTouchInput->PointCount].x = lpThis->mstPanel.cx - y;	// ×ª»»×ø±ê
+					lpTouchInput->Point[lpTouchInput->PointCount].x = lpThis->mstPanel.cx - y;	// è½¬æ¢åæ ‡
 					lpTouchInput->Point[lpTouchInput->PointCount].y = x;
 					lpTouchInput->Point[lpTouchInput->PointCount].z = z;
 					lpTouchInput->Point[lpTouchInput->PointCount].r = 0;
@@ -122,13 +122,13 @@ DWORD __stdcall USBHIDAPI::ReadFileThread(LPVOID npParam)
 						OutputDebugString(L"Release");
 
 					if (lpTouchInput->PointCount >= 100)
-					{	// µã¼ÇÂ¼³¬¹ı×î´óÖµ
+					{	// ç‚¹è®°å½•è¶…è¿‡æœ€å¤§å€¼
 						SendTouchMessage(lpTouchInput);
 						lpTouchInput->PointCount = 0;
 						lpTouchInput->NewAction = 0;
 					}
 
-					//unfirst=0 ±íÊ¾¸ÃµãÊÇ±ÊĞ´µÄÆğµã,ÆäËüÊ±¼ä=1
+					//unfirst=0 è¡¨ç¤ºè¯¥ç‚¹æ˜¯ç¬”å†™çš„èµ·ç‚¹,å…¶å®ƒæ—¶é—´=1
 					//unfirst = lpBuffer[4];
 					//OutputDebugString(L"end");
 
@@ -136,11 +136,11 @@ DWORD __stdcall USBHIDAPI::ReadFileThread(LPVOID npParam)
 			}
 		}
 
-		// ·¢ËÍÕâ×éµã£¬¶øºóµÈÏÂÒ»×é		
+		// å‘é€è¿™ç»„ç‚¹ï¼Œè€Œåç­‰ä¸‹ä¸€ç»„		
 		if(lj > 0)
 			SendTouchMessage(lpTouchInput);
 
-		//ÔÙ´Î¿ªÆô¶ÁÈ¡
+		//å†æ¬¡å¼€å¯è¯»å–
 		lpThis->BeginRead();
 
 	} while (true);
@@ -153,24 +153,24 @@ VOID WINAPI CompletedReadRoutine(DWORD dwErr, DWORD cbBytesRead,LPOVERLAPPED lpO
 
 
 
-//¿ªÊ¼¶ÁÈ¡Êı¾İ
+//å¼€å§‹è¯»å–æ•°æ®
 void USBHIDAPI::BeginRead()
 {
 	DWORD NumberOfBytesRead = 0;
-	//Çå¿ÕÄÚ´æ
+	//æ¸…ç©ºå†…å­˜
 	ZeroMemory(mInputReport, USBHID_BUFFER_SIZE);
 
 	BOOL lResult = ReadFile(mhReadHandle, mInputReport, USBHID_BUFFER_SIZE,&NumberOfBytesRead, &mdHIDOverlapped);
 }
 
 BOOL USBHIDAPI::EnumHIDDevice(WORD nuVID, WORD nuPID, //USB VID PID
-	BOOL nbPresentFlag, //Éè±¸±ØĞë´æÔÚ±êÖ¾ 0²»ĞèÒª²åÈëÉè±¸
-	TCHAR nszDevPath[MAX_PATH + 1], //Éè±¸Â·¾¶
-	int niIndex) //µÚN¸öÉè±¸ £¨¶Ô¶à¸öÏàÍ¬µÄÉè±¸½øĞĞÇø·Ö£©
+	BOOL nbPresentFlag, //è®¾å¤‡å¿…é¡»å­˜åœ¨æ ‡å¿— 0ä¸éœ€è¦æ’å…¥è®¾å¤‡
+	TCHAR nszDevPath[MAX_PATH + 1], //è®¾å¤‡è·¯å¾„
+	int niIndex) //ç¬¬Nä¸ªè®¾å¤‡ ï¼ˆå¯¹å¤šä¸ªç›¸åŒçš„è®¾å¤‡è¿›è¡ŒåŒºåˆ†ï¼‰
 {
 	BOOL lbRet = FALSE;
 
-	int liFoundCount = 0; //²éÕÒµ½Æ¥ÅäÉè±¸¸öÊı
+	int liFoundCount = 0; //æŸ¥æ‰¾åˆ°åŒ¹é…è®¾å¤‡ä¸ªæ•°
 
 	GUID lHidGuid;
 	HidD_GetHidGuid(&lHidGuid);
@@ -255,7 +255,7 @@ BOOL USBHIDAPI::EnumHIDDevice(WORD nuVID, WORD nuPID, //USB VID PID
 										{
 											wcscpy_s(mszDevPath, MAX_PATH, pdidd->DevicePath);
 
-											//´ò¿ªÉè±¸
+											//æ‰“å¼€è®¾å¤‡
 											mhReadHandle = CreateFile(
 												mszDevPath,
 												GENERIC_READ,
@@ -266,7 +266,7 @@ BOOL USBHIDAPI::EnumHIDDevice(WORD nuVID, WORD nuPID, //USB VID PID
 												NULL);
 
 											//BeginRead();
-											//¿ª»§¼àÌıÏß³Ì
+											//å¼€æˆ·ç›‘å¬çº¿ç¨‹
 											mhReadThread = CreateThread(NULL, 0, ReadFileThread, (LPVOID)this, 0, NULL);
 										
 											lbRet = TRUE;

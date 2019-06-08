@@ -1,13 +1,13 @@
-/* Copyright 2019 - present Lenovo */
+ï»¿/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
 #pragma once
 #include "EiMsgQueue.h"
 #include "SvrMsg.h"
 
 
-// ÕâÊÇSDKµÄApp³ÌĞòÓëService³ÌĞòµÄÏûÏ¢½»»»ÖĞĞÄ
-// µ÷ÓÃInitialize³õÊ¼»¯ºó£¬Ö´ĞĞÌåµÄÄÚ½¨Ïß³Ì¾Í»áÆô¶¯ÆğÀ´£¬³ÖĞøÏìÓ¦Service·¢ËÍÀ´µÄÏûÏ¢£¬ÆäÖĞÒ»²¿·ÖĞ§Òæ×ªÎªWindowsÏûÏ¢·¢ËÍ¸øAppÖ÷´°¿Ú
-// ÍË³öÊ±£¬µ÷ÓÃRelaeseº¯ÊıÊÍ·Å
+// è¿™æ˜¯SDKçš„Appç¨‹åºä¸Serviceç¨‹åºçš„æ¶ˆæ¯äº¤æ¢ä¸­å¿ƒ
+// è°ƒç”¨Initializeåˆå§‹åŒ–åï¼Œæ‰§è¡Œä½“çš„å†…å»ºçº¿ç¨‹å°±ä¼šå¯åŠ¨èµ·æ¥ï¼ŒæŒç»­å“åº”Serviceå‘é€æ¥çš„æ¶ˆæ¯ï¼Œå…¶ä¸­ä¸€éƒ¨åˆ†æ•ˆç›Šè½¬ä¸ºWindowsæ¶ˆæ¯å‘é€ç»™Appä¸»çª—å£
+// é€€å‡ºæ—¶ï¼Œè°ƒç”¨Relaeseå‡½æ•°é‡Šæ”¾
 
 class CEiAppCenter
 {
@@ -19,75 +19,75 @@ public:
 	CEiAppCenter();
 	~CEiAppCenter();
 
-	// ³õÊ¼»¯
+	// åˆå§‹åŒ–
 	ULONG Initialize(TRSP_SYSTEM_INFO_DATA& rSystemInfoData);
 
-	// ÊÍ·Å
+	// é‡Šæ”¾
 	void Release(void);
 
-	// »Øµ÷Èë¿Úº¯Êı
+	// å›è°ƒå…¥å£å‡½æ•°
 	static void __stdcall AppCenterCallBack(CEiSvrMsgItem& nrMsg, void* npContext);
 
-	// Ö÷·Ö·¢º¯Êı
+	// ä¸»åˆ†å‘å‡½æ•°
 	void AppDispatch(CEiSvrMsgItem& nrMsg);
 
-	// ·¢ËÍÏûÏ¢¸øService£¬²¢µÈ´ı
+	// å‘é€æ¶ˆæ¯ç»™Serviceï¼Œå¹¶ç­‰å¾…
 	ULONG SendMessageToService(CEiSvrMsgItem& nrMsg);
 
 
-	// ·¢ËÍÏûÏ¢¸øService£¬²»µÈ´ı
+	// å‘é€æ¶ˆæ¯ç»™Serviceï¼Œä¸ç­‰å¾…
 	ULONG PostMessageToService(CEiSvrMsgItem& nrMsg);
 
-	// ³·»ØÒ»ÀàÏûÏ¢£¬½«¶ÓÁĞÖĞ´ËÀàÏûÏ¢È«²¿³·»Ø
+	// æ’¤å›ä¸€ç±»æ¶ˆæ¯ï¼Œå°†é˜Ÿåˆ—ä¸­æ­¤ç±»æ¶ˆæ¯å…¨éƒ¨æ’¤å›
 	void RecallMessage(const CEiSvrMsgItem& nrMsg);
 
-	//ÉèÖÃ½ÓÊÕwindowsÏûÏ¢µÄ´°¿Ú¾ä±ú
+	//è®¾ç½®æ¥æ”¶windowsæ¶ˆæ¯çš„çª—å£å¥æŸ„
 	void SetHwnd(HWND nHwnd);
 
 	//////////////////////////////////////////////////////////////////////////
-	// ÒÔÏÂÎª¾ßÌåÏûÏ¢µÄÏìÓ¦º¯Êı
+	// ä»¥ä¸‹ä¸ºå…·ä½“æ¶ˆæ¯çš„å“åº”å‡½æ•°
 	void MsgBack(CEiSvrMsgItem& nrMsg);
 
-	//»ñÈ¡¸ø»æÖÆÓÃµÄBufferµØÖ·
-	//·µ»ØÖµÎªµØÖ·ÆğÊ¼µØÖ·£¬rulBufferSizeÎªBuffer´óĞ¡
+	//è·å–ç»™ç»˜åˆ¶ç”¨çš„Bufferåœ°å€
+	//è¿”å›å€¼ä¸ºåœ°å€èµ·å§‹åœ°å€ï¼ŒrulBufferSizeä¸ºBufferå¤§å°
 	BYTE* GetBufferBase(ULONG& rulBufferSize);
 
-	// ÊÖÖ¸ÊäÈëÏûÏ¢
+	// æ‰‹æŒ‡è¾“å…¥æ¶ˆæ¯
 	void InputMsg(CEiSvrMsgItem& nrMsg);
-	// È«ÆÁÖØ»æ
+	// å…¨å±é‡ç»˜
 	void ReDraw(CEiSvrMsgItem& nrMsg);
-	// ZÖá·¢Éú±ä»¯
+	// Zè½´å‘ç”Ÿå˜åŒ–
 	void ZOrderChange(CEiSvrMsgItem& nrMsg);
-	// EinkÆÁÄ»·½Ïò·¢Éú±ä»¯
+	// Einkå±å¹•æ–¹å‘å‘ç”Ÿå˜åŒ–
 	void EinkScreenOrientationChange(CEiSvrMsgItem& nrMsg);
-	// »úÆ÷ĞÎÌ¬·¢Éú±ä»¯
+	// æœºå™¨å½¢æ€å‘ç”Ÿå˜åŒ–
 	void LaptopModeChange(CEiSvrMsgItem& nrMsg);
-	// ·şÎñÍ¨ÖªÊÂ¼ş
+	// æœåŠ¡é€šçŸ¥äº‹ä»¶
 	void ServiceMsg(CEiSvrMsgItem& nrMsg);
-	// homebar×´Ì¬·¢Éú±ä»¯
+	// homebarçŠ¶æ€å‘ç”Ÿå˜åŒ–
 	void HomebarChanged(CEiSvrMsgItem& nrMsg);
-	// ¼üÅÌÑùÊ½ÇĞ»»Íê³É
+	// é”®ç›˜æ ·å¼åˆ‡æ¢å®Œæˆ
 	void KeyboardStyleChangeComplete(CEiSvrMsgItem& nrMsg);
-	// ÖØĞÂÉèÖÃtp area
+	// é‡æ–°è®¾ç½®tp area
 	void ResetTPArea(CEiSvrMsgItem& nrMsg);
-	//ÒşË½¿ª¹Ø×´Ì¬·¢Éú±ä»¯
+	//éšç§å¼€å…³çŠ¶æ€å‘ç”Ÿå˜åŒ–
 	void PrivacyStatusChanged(CEiSvrMsgItem& nrMsg);
 private:
-	//»ñÈ¡GUID×Ö·û´®
+	//è·å–GUIDå­—ç¬¦ä¸²
 	void GetGUIDString(OUT const wchar_t* npszBuffer, int niLen);
-	//´ò¿ª×Ô¼ºµÄÄÚ´æÓ³ÉäÎÄ¼ş
+	//æ‰“å¼€è‡ªå·±çš„å†…å­˜æ˜ å°„æ–‡ä»¶
 	bool OpenJasonFile(const wchar_t* nszFileName);
-	//´ò¿ª×Ô¼ºµÄÄÚ´æÓ³ÉäÎÄ¼ş
+	//æ‰“å¼€è‡ªå·±çš„å†…å­˜æ˜ å°„æ–‡ä»¶
 	bool OpenServerJasonFile(const wchar_t* nszFileName);
 
 
-	//×Ô¼ºµ±¼àÌıÕßÓÃ
+	//è‡ªå·±å½“ç›‘å¬è€…ç”¨
 	HANDLE mhFile;
 	DWORD muFileLength;
 	HANDLE mhFileMap;
 	const char* mpMappedBase;
 
-	//·şÎñÆ÷µ±¼àÌıÕßÓÃ
+	//æœåŠ¡å™¨å½“ç›‘å¬è€…ç”¨
 	HANDLE mhServerFile;
 	DWORD muServerFileLength;
 	HANDLE mhServerFileMap;
@@ -95,7 +95,7 @@ private:
 
 	REG_APP_INFO mdRegAppInfo;
 
-	//½ÓÊÕwindowsÏûÏ¢µÄ´°¿Ú¾ä±ú
+	//æ¥æ”¶windowsæ¶ˆæ¯çš„çª—å£å¥æŸ„
 	HWND mhWnd;
 };
 

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -24,7 +24,7 @@ CToolbarH::~CToolbarH(void)
 {
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓÐÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºŽçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»Žè€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åŽå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CToolbarH::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -45,7 +45,7 @@ ERESULT CToolbarH::OnElementCreate(IEinkuiIterator* npIterator)
 	return lResult;
 }
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CToolbarH::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -60,9 +60,9 @@ ERESULT CToolbarH::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 }
 
 ULONG CToolbarH::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàÐÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊýµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓÐÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»åž‹EType
+	IN ULONG nuEID	// å¦‚æžœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æžœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -70,13 +70,13 @@ ULONG CToolbarH::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
 
-		//»ñÈ¡¶ÔÏñ¾ä±ú
+		//èŽ·å–å¯¹åƒå¥æŸ„
 		mpIterPage = mpIterator->GetSubElementByID(7);
 		BREAK_ON_NULL(mpIterPage);
 		
@@ -112,11 +112,11 @@ ULONG CToolbarH::InitOnCreate(
 
 	CMM_SAFE_RELEASE(lpSubKey);
 
-	// ÏòÏµÍ³×¢²áÐèÒªÊÕµ½µÄÏûÏ¢
+	// å‘ç³»ç»Ÿæ³¨å†Œéœ€è¦æ”¶åˆ°çš„æ¶ˆæ¯
 	return leResult;
 }
 
-//°´Å¥µ¥»÷ÊÂ¼þ
+//æŒ‰é’®å•å‡»äº‹ä»¶
 ERESULT CToolbarH::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -128,7 +128,7 @@ ERESULT CToolbarH::OnCtlButtonClick(IEinkuiIterator* npSender)
 		{
 		case TBH_BT_OPEN_FILE:
 		{
-			//´ò¿ªÎÄ¼þ¶Ô»°¿ò
+			//æ‰“å¼€æ–‡ä»¶å¯¹è¯æ¡†
 			PostMessageToParent(EEVT_ER_OPEN_FILE, CExMessage::DataInvalid);
 
 			mpIterator->SetVisible(false);
@@ -136,7 +136,7 @@ ERESULT CToolbarH::OnCtlButtonClick(IEinkuiIterator* npSender)
 		}
 		case TBH_BT_JUMP:
 		{
-			//´ò¿ªÒ³Âë¶Ô»°¿ò
+			//æ‰“å¼€é¡µç å¯¹è¯æ¡†
 			PostMessageToParent(EEVT_ER_OPEN_PAGE_JUMP, CExMessage::DataInvalid);
 
 			mpIterator->SetVisible(false);
@@ -144,7 +144,7 @@ ERESULT CToolbarH::OnCtlButtonClick(IEinkuiIterator* npSender)
 		}
 		case TBH_BT_TWO:
 		{
-			//Ë«ÆÁÏÔÊ¾
+			//åŒå±æ˜¾ç¤º
 			PostMessageToParent(EEVT_ER_TWO_SCREEN, true);
 			
 
@@ -156,7 +156,7 @@ ERESULT CToolbarH::OnCtlButtonClick(IEinkuiIterator* npSender)
 		}
 		case TBH_BT_ONE_PIC:
 		{
-			//µ¥ÆÁÏÔÊ¾
+			//å•å±æ˜¾ç¤º
 			PostMessageToParent(EEVT_ER_TWO_SCREEN, false);
 
 			SetDuopageButton(false);
@@ -167,7 +167,7 @@ ERESULT CToolbarH::OnCtlButtonClick(IEinkuiIterator* npSender)
 		}
 		case TBH_BT_ZOOM:
 		{
-			//Ëõ·Å
+			//ç¼©æ”¾
 			PostMessageToParent(EEVT_ER_ENTER_ZOOM, true);
 
 			mpIterator->SetVisible(false);
@@ -176,7 +176,7 @@ ERESULT CToolbarH::OnCtlButtonClick(IEinkuiIterator* npSender)
 		}
 		case TBH_BT_SNAPSHOT:
 		{
-			//½ØÆÁ
+			//æˆªå±
 			PostMessageToParent(EEVT_ER_ENTER_SNAPSHOT, CExMessage::DataInvalid);
 
 			mpIterator->SetVisible(false);
@@ -194,7 +194,7 @@ ERESULT CToolbarH::OnCtlButtonClick(IEinkuiIterator* npSender)
 }
 
 
-//ÏûÏ¢´¦Àíº¯Êý
+//æ¶ˆæ¯å¤„ç†å‡½æ•°
 ERESULT CToolbarH::ParseMessage(IEinkuiMessage* npMsg)
 {
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
@@ -203,7 +203,7 @@ ERESULT CToolbarH::ParseMessage(IEinkuiMessage* npMsg)
 	{
 	case EMSG_MODAL_ENTER:
 	{
-		//// ´´½¨Òªµ¯³öµÄ¶Ô»°¿ò
+		//// åˆ›å»ºè¦å¼¹å‡ºçš„å¯¹è¯æ¡†
 		//mpIterator->SetVisible(true);
 		luResult = ERESULT_SUCCESS;
 		break;
@@ -215,13 +215,13 @@ ERESULT CToolbarH::ParseMessage(IEinkuiMessage* npMsg)
 
 	if (luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êý£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æŽ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CToolbarH::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
@@ -229,7 +229,7 @@ void CToolbarH::OnTimer(
 
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CToolbarH::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	//CExMessage::SendMessage(mpIterBtFull, mpIterator, EACT_BUTTON_SET_ACTION_RECT, nNewSize);
@@ -244,13 +244,13 @@ ERESULT CToolbarH::OnElementResized(D2D1_SIZE_F nNewSize)
 		EinkuiGetSystem()->GetPaintboardSize(&ldPaintSize);
 		if (ldPaintSize.w > ldPaintSize.h)
 		{
-			//ºáÆÁ
+			//æ¨ªå±
 			CExMessage::SendMessageWithText(mpIterBackground, mpIterator, EACT_PICTUREFRAME_CHANGE_PIC, L".\\Pic\\toolbar_h.png");
 			mpIterBackground->SetSize(1764.0f, 52.0f);
 			D2D1_POINT_2F ldPos;
 			ldPos.y = 0.0f;
 
-			//Ëõ·Å
+			//ç¼©æ”¾
 			ldPos.x = 1664.0f;
 			mpIterBtSuofang->SetPosition(ldPos);
 
@@ -278,10 +278,10 @@ ERESULT CToolbarH::OnElementResized(D2D1_SIZE_F nNewSize)
 		}
 		else
 		{
-			//¼áÆÁ
+			//åšå±
 			CExMessage::SendMessageWithText(mpIterBackground, mpIterator, EACT_PICTUREFRAME_CHANGE_PIC, L".\\Pic\\toolbar_v.png");
 			mpIterBackground->SetSize(924.0f, 52.0f);
-			//Ëõ·Å
+			//ç¼©æ”¾
 			D2D1_POINT_2F ldPos;
 			ldPos.y = 0.0f;
 			ldPos.x = 824.0f;
@@ -310,7 +310,7 @@ ERESULT CToolbarH::OnElementResized(D2D1_SIZE_F nNewSize)
 }
 
 
-//ÉèÖÃÎÄ¼þÃû³Æ
+//è®¾ç½®æ–‡ä»¶åç§°
 void CToolbarH::SetFileName(wchar_t* npszString)
 {
 	do 
@@ -319,10 +319,10 @@ void CToolbarH::SetFileName(wchar_t* npszString)
 
 		if (npszString[wcslen(npszString) - 1] == 't')
 		{
-			//Èç¹ûÊÇtxtÎÄ¼þ£¬ÐÞ¸ÄÎª¶ÔÓ¦µÄËõ·Å°´Å¥Í¼±ê
+			//å¦‚æžœæ˜¯txtæ–‡ä»¶ï¼Œä¿®æ”¹ä¸ºå¯¹åº”çš„ç¼©æ”¾æŒ‰é’®å›¾æ ‡
 			CExMessage::SendMessageWithText(mpIterBtSuofang, mpIterator, EACT_BUTTON_CHANGE_PIC, L".\\Pic\\suofang_txt.png");
 
-			//txtÖ»Ö§³Öµ¥ÆÁ
+			//txtåªæ”¯æŒå•å±
 			SetDuopageButton(false);
 			PostMessageToParent(EEVT_ER_TWO_SCREEN, false);
 			mpIterBtTwo->SetVisible(false);
@@ -348,7 +348,7 @@ void CToolbarH::SetFileName(wchar_t* npszString)
 	} while (false);
 }
 
-//ÉèÖÃÒ³Âë×Ö·û´®
+//è®¾ç½®é¡µç å­—ç¬¦ä¸²
 void CToolbarH::SetPage(wchar_t* npszString)
 {
 	do
@@ -359,7 +359,7 @@ void CToolbarH::SetPage(wchar_t* npszString)
 	} while (false);
 }
 
-//»ñÈ¡µ±Ç°Ë«Ò³ÏÔÊ¾×´Ì¬
+//èŽ·å–å½“å‰åŒé¡µæ˜¾ç¤ºçŠ¶æ€
 bool CToolbarH::GetDuopageStatus(void)
 {
 	return mbIsTwoScreen;
@@ -374,7 +374,7 @@ void CToolbarH::SetDuopageButton(bool nbSingle)
 		EI_SIZE ldPaintSize;
 		EinkuiGetSystem()->GetPaintboardSize(&ldPaintSize);
 		if (ldPaintSize.w < ldPaintSize.h)
-			break; //ÊÇ¼áÆÁÄ£Ê½
+			break; //æ˜¯åšå±æ¨¡å¼
 
 		if (nbSingle != false)
 		{
@@ -391,7 +391,7 @@ void CToolbarH::SetDuopageButton(bool nbSingle)
 	
 }
 
-//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òþ²Ø¡¿·¢Éú¸Ä±ä
+//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 ERESULT CToolbarH::OnElementShow(bool nbIsShow)
 {
 	//EiSetHomebarStatus(nbIsShow == false ? GI_HOMEBAR_SHOW : GI_HOMEBAR_HIDE);

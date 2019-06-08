@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -47,17 +47,17 @@
 //	}
 //};
 //
-//class CEsThreadNodeCriterion	// Ä¬ÈÏµÄÅĞ¶Ï×¼Ôò
+//class CEsThreadNodeCriterion	// é»˜è®¤çš„åˆ¤æ–­å‡†åˆ™
 //{
 //public:
-//	bool operator () (const CEsThreadNode& Obj1, const CEsThreadNode& Obj2)const // Ò»¶¨ÒªÓÃÄÚÁªº¯Êı
+//	bool operator () (const CEsThreadNode& Obj1, const CEsThreadNode& Obj2)const // ä¸€å®šè¦ç”¨å†…è”å‡½æ•°
 //	{
-//		// µ±¶ÔÏóOb1Ğ¡ÓÚ¶ÔÏóObj2Ê±£¬·µ»ØTrue£¬·ñÔò·µ»Øfalse
+//		// å½“å¯¹è±¡Ob1å°äºå¯¹è±¡Obj2æ—¶ï¼Œè¿”å›Trueï¼Œå¦åˆ™è¿”å›false
 //		return (Obj1.muThreadID < Obj2.muThreadID);
 //	}
 //};
 //
-//// °´ÕÕIDÅÅĞòµÄÏß³Ì¶ÓÁĞ
+//// æŒ‰ç…§IDæ’åºçš„çº¿ç¨‹é˜Ÿåˆ—
 //typedef cmmSequence<CEsThreadNode, CEsThreadNodeCriterion> TEsThreadSequence;
 
 
@@ -76,27 +76,27 @@ public:
 	//	eRenderStop = 5
 	//};
 
-	// »ñÈ¡Ö§³ÖµÄÎÄ¼ş¸ñÊ½ÊıÁ¿
+	// è·å–æ”¯æŒçš„æ–‡ä»¶æ ¼å¼æ•°é‡
 	int32Eink GetTypeCount(void);
-	// »ñÈ¡Ö§³ÖµÄÎÄ¼ş¸ñÊ½µÄÀ©Õ¹Ãû
+	// è·å–æ”¯æŒçš„æ–‡ä»¶æ ¼å¼çš„æ‰©å±•å
 	const char16_ptr GetTypeName(int32Eink index);
 
-	// ´ò¿ªÎÄµµ
+	// æ‰“å¼€æ–‡æ¡£
 	ED_ERR OpenDocument(
 		IN char16_ptr pathName,
 		OUT IEdDocument_ptr* documentPtrPtr,
 		IN int32Eink asType // -1 not indicated
 	);
 
-	// »ñµÃÎ¨Ò»¶ÔÏó
+	// è·å¾—å”¯ä¸€å¯¹è±¡
 	static CSmtModule* GetUniqueObject(void);
 
 public:
-	// Î¨Ò»ÊµÀı
+	// å”¯ä¸€å®ä¾‹
 	static CSmtModule* glModule;
 
 protected:
-	// ÄÚ²¿±äÁ¿
+	// å†…éƒ¨å˜é‡
 	CGdipStart mGidpStart;
 
 	CSmtModule();
@@ -104,8 +104,8 @@ protected:
 
 	DEFINE_CUMSTOMIZE_CREATE(CSmtModule, (), ())
 
-	// ³õÊ¼»¯º¯Êı£¬¿ÉÒÔÊµÏÖ¸÷ÖÖ²»Í¬²ÎÊıµÄ³õÊ¼»¯º¯Êı£¬×¢Òâ£¬ÅÉÉúÀàÖØÔØInitOnCreateº¯Êıºó£¬Ò»¶¨Òªµ÷ÓÃ»ùÀàµÄInitOnCreateº¯Êı
-	// ·µ»Ø0±íÊ¾³É¹¦£»·µ»ØÖµ×î¸ßÎ»Îª1±íÊ¾·¢ÉúÑÏÖØ´íÎó£¬Ó¦¸ÃÖÕÖ¹³õÊ¼»¯¹ı³Ì£¬·µ»ØµÄ¾ÍÊÇ´íÎóÂë£»·µ»ØÆäËûÖµ±íÊ¾ÆäËû·Ç´íÎó·µ»ØÂë
+	// åˆå§‹åŒ–å‡½æ•°ï¼Œå¯ä»¥å®ç°å„ç§ä¸åŒå‚æ•°çš„åˆå§‹åŒ–å‡½æ•°ï¼Œæ³¨æ„ï¼Œæ´¾ç”Ÿç±»é‡è½½InitOnCreateå‡½æ•°åï¼Œä¸€å®šè¦è°ƒç”¨åŸºç±»çš„InitOnCreateå‡½æ•°
+	// è¿”å›0è¡¨ç¤ºæˆåŠŸï¼›è¿”å›å€¼æœ€é«˜ä½ä¸º1è¡¨ç¤ºå‘ç”Ÿä¸¥é‡é”™è¯¯ï¼Œåº”è¯¥ç»ˆæ­¢åˆå§‹åŒ–è¿‡ç¨‹ï¼Œè¿”å›çš„å°±æ˜¯é”™è¯¯ç ï¼›è¿”å›å…¶ä»–å€¼è¡¨ç¤ºå…¶ä»–éé”™è¯¯è¿”å›ç 
 	ULONG InitOnCreate();
 
 };

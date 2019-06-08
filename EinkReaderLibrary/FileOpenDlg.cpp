@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -22,12 +22,12 @@ CFileOpenDlg::CFileOpenDlg()
 
 CFileOpenDlg::~CFileOpenDlg(void)
 {
-	//Çå¿ÕÔ­À´µÄÁĞ±í
+	//æ¸…ç©ºåŸæ¥çš„åˆ—è¡¨
 	ClearFilePath();
 	
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CFileOpenDlg::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -59,9 +59,9 @@ ERESULT CFileOpenDlg::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 ULONG CFileOpenDlg::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃEUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨EUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -69,12 +69,12 @@ ULONG CFileOpenDlg::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ¸¸ÀàµÄ·½·¨
+		//é¦–å…ˆè°ƒç”¨çˆ¶ç±»çš„æ–¹æ³•
 		leResult = 	CXuiElement::InitOnCreate(npParent, npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-		//´´½¨list¶ÔÏó
+		//åˆ›å»ºlistå¯¹è±¡
 		lpSubKey = mpTemplete->OpenKey(L"ListItem");
 		D2D1_POINT_2F ldPos = {0.0f,189};
 		for (int i=0;i<FP_LIST_MAX;i++)
@@ -120,7 +120,7 @@ ULONG CFileOpenDlg::InitOnCreate(
 	return leResult;
 }
 
-//ÇåÀíÔ­À´µÄÂ·¾¶Êı¾İ
+//æ¸…ç†åŸæ¥çš„è·¯å¾„æ•°æ®
 void CFileOpenDlg::ClearFilePath(void)
 {
 	while (mdFolderPathList.Size() > 0)
@@ -130,7 +130,7 @@ void CFileOpenDlg::ClearFilePath(void)
 	}
 }
 
-//³õÊ¼»¯list,Ä¬ÈÏÏÔÊ¾¼¸¸ö³£ÓÃÎÄ¼ş¼Ğ¼°ÅÌ·û
+//åˆå§‹åŒ–list,é»˜è®¤æ˜¾ç¤ºå‡ ä¸ªå¸¸ç”¨æ–‡ä»¶å¤¹åŠç›˜ç¬¦
 void CFileOpenDlg::InitList(void)
 {
 	wchar_t* lpszPath = NULL;
@@ -144,17 +144,17 @@ void CFileOpenDlg::InitList(void)
 			mdFolderLevel.RemoveByIndex(0);
 		}
 
-		//×ÀÃæ
+		//æ¡Œé¢
 		lpszPath = new wchar_t[MAX_PATH];
 		SHGetSpecialFolderPath(NULL, lpszPath, CSIDL_DESKTOP, FALSE);
 		mdFolderPathList.Insert(mdFolderPathList.Size(), lpszPath);
 
-		//ÎÒµÄÎÄµµ
+		//æˆ‘çš„æ–‡æ¡£
 		lpszPath = new wchar_t[MAX_PATH];
 		SHGetSpecialFolderPath(NULL, lpszPath, CSIDL_MYDOCUMENTS, FALSE);
 		mdFolderPathList.Insert(mdFolderPathList.Size(), lpszPath);
 
-		//ÏÂÔØ
+		//ä¸‹è½½
 		wchar_t* lpszDownPath = new wchar_t[MAX_PATH];
 		wcscpy_s(lpszDownPath, MAX_PATH, lpszPath);
 		*(wcsrchr(lpszDownPath, L'\\') + 1) = UNICODE_NULL;
@@ -168,7 +168,7 @@ void CFileOpenDlg::InitList(void)
 
 		CExMessage::SendMessageWithText(mpIteratorPage, mpIterator, EACT_LABEL_SET_TEXT, L"1/1", NULL, 0);
 
-		//»ñÈ¡ËùÓĞÅÌ·û
+		//è·å–æ‰€æœ‰ç›˜ç¬¦
 		wchar_t lszDrive[MAX_PATH] = { 0 };
 		int i = 0;
 		GetLogicalDriveStrings(MAX_PATH, lszDrive);
@@ -183,10 +183,10 @@ void CFileOpenDlg::InitList(void)
 			i += 4;
 		}
 
-		//¼ÆËã×î´óÒ³Âë
+		//è®¡ç®—æœ€å¤§é¡µç 
 		mulMaxPage = mdFolderPathList.Size() / FP_LIST_MAX;
 		if (mulMaxPage*FP_LIST_MAX < (ULONG)mdFolderPathList.Size())
-			mulMaxPage++; //Ò³Âë¼ÆËãÊ¹ÓÃ½ø1·¨
+			mulMaxPage++; //é¡µç è®¡ç®—ä½¿ç”¨è¿›1æ³•
 
 		mpIteratorPre->SetEnable(false);
 		mpIteratorNext->SetEnable(false);
@@ -195,7 +195,7 @@ void CFileOpenDlg::InitList(void)
 			mpIteratorNext->SetEnable(true);
 		}
 
-		//´ò¿ªµÚÒ»Ò³
+		//æ‰“å¼€ç¬¬ä¸€é¡µ
 		SetPage(1);
 
 	} while (false);
@@ -226,7 +226,7 @@ void CFileOpenDlg::ExitModal()
 	
 }
 
-//ÏûÏ¢´¦Àíº¯Êı
+//æ¶ˆæ¯å¤„ç†å‡½æ•°
 ERESULT CFileOpenDlg::ParseMessage(IEinkuiMessage* npMsg)
 {
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
@@ -235,21 +235,21 @@ ERESULT CFileOpenDlg::ParseMessage(IEinkuiMessage* npMsg)
 	{
 	case EMSG_MODAL_ENTER:
 	{
-		//// ´´½¨Òªµ¯³öµÄ¶Ô»°¿ò
+		//// åˆ›å»ºè¦å¼¹å‡ºçš„å¯¹è¯æ¡†
 		//mpIterator->SetVisible(true);
 		luResult = ERESULT_SUCCESS;
 		break;
 	}
 	case EEVT_ER_LIST_CLICK:
 	{
-		//listÄ³Ïî±»µã»÷
+		//listæŸé¡¹è¢«ç‚¹å‡»
 		wchar_t* lpszPath = (wchar_t*)npMsg->GetInputData();
 		ListClick(lpszPath);
 		break;
 	}
 	case EEVT_RBG_SELECTED_CHANGED:
 	{
-		//Ñ¡ÔñÁË²»Í¬µÄÒ³Ãæ
+		//é€‰æ‹©äº†ä¸åŒçš„é¡µé¢
 		ULONG lulID = 0;
 		luResult = CExMessage::GetInputData(npMsg, lulID);
 		if (luResult != ERESULT_SUCCESS)
@@ -265,7 +265,7 @@ ERESULT CFileOpenDlg::ParseMessage(IEinkuiMessage* npMsg)
 
 			if (mdFolderLevel.Size() >= 1 && mszCurrentPath[0] != UNICODE_NULL)
 			{
-				//Ö»ÓĞÔÚ·Ç×î¶¥²ã²ÅÏÔÊ¾
+				//åªæœ‰åœ¨éæœ€é¡¶å±‚æ‰æ˜¾ç¤º
 				mpIteratorPath->SetVisible(true);
 				mpIteratorImBack->SetVisible(true);
 			}
@@ -278,21 +278,21 @@ ERESULT CFileOpenDlg::ParseMessage(IEinkuiMessage* npMsg)
 
 			do
 			{
-				//ÏÔÊ¾Ò³Âë
+				//æ˜¾ç¤ºé¡µç 
 				swprintf_s(lszString, MAX_PATH, L"%d/%d", 1, 1);
 				CExMessage::SendMessageWithText(mpIteratorPage, mpIterator, EACT_LABEL_SET_TEXT, lszString, NULL, 0);
 				mpIteratorPage->SetVisible(false);
 				mpIteratorPre->SetVisible(false);
-				mpIteratorNext->SetVisible(false); //ÀúÊ·¼ÇÂ¼Ö»ÏÔÊ¾Ò»Ò³£¬²»ÔÊĞí·­Ò³
+				mpIteratorNext->SetVisible(false); //å†å²è®°å½•åªæ˜¾ç¤ºä¸€é¡µï¼Œä¸å…è®¸ç¿»é¡µ
 
-				//ÉèÖÃlist¶ÔÏó
+				//è®¾ç½®listå¯¹è±¡
 				int liBegin = (mulCurrentPage - 1) * FP_LIST_MAX;
 				int i = 0, k = 0;
 				for (i = 0, k = 0; i < mpdHistroyPath->Size() && k < FP_LIST_MAX; i++, k++)
 				{
 					if (GetFileAttributes(mpdHistroyPath->GetEntry(i)) == INVALID_FILE_ATTRIBUTES)
 					{
-						//Èç¹ûÎÄ¼ş²»´æÔÚÁË£¬¾Í²»ÏÔÊ¾ÕâÒ»ÏîÁË
+						//å¦‚æœæ–‡ä»¶ä¸å­˜åœ¨äº†ï¼Œå°±ä¸æ˜¾ç¤ºè¿™ä¸€é¡¹äº†
 						k--;
 						continue;
 					}
@@ -304,7 +304,7 @@ ERESULT CFileOpenDlg::ParseMessage(IEinkuiMessage* npMsg)
 
 				for (int j = k; j < FP_LIST_MAX; j++)
 				{
-					//Ã»ÓĞÄÇÃ´¶àÏîÁË£¬°ÑºóÃæµÄÒş²Ø
+					//æ²¡æœ‰é‚£ä¹ˆå¤šé¡¹äº†ï¼ŒæŠŠåé¢çš„éšè—
 					mdList.GetEntry(j)->GetIterator()->SetVisible(false);
 				}
 
@@ -320,43 +320,43 @@ ERESULT CFileOpenDlg::ParseMessage(IEinkuiMessage* npMsg)
 
 	if(luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-//listÏî±»µã»÷
+//listé¡¹è¢«ç‚¹å‡»
 void CFileOpenDlg::ListClick(wchar_t* npszFilePath)
 {
 	do 
 	{
 		BREAK_ON_NULL(npszFilePath);
 
-		//Ê×ÏÈ³¢ÊÔ»ñÈ¡ÎÄ¼şÊôĞÔ
+		//é¦–å…ˆå°è¯•è·å–æ–‡ä»¶å±æ€§
 		if ((GetFileAttributes(npszFilePath)&FILE_ATTRIBUTE_DIRECTORY) == false)
 		{
-			//ÊÇÎÄ¼ş£¬Í¨Öª¸¸´°¿Ú²¢Òş²Ø×Ô¼º
+			//æ˜¯æ–‡ä»¶ï¼Œé€šçŸ¥çˆ¶çª—å£å¹¶éšè—è‡ªå·±
 			bool lbRet = false;
 			mpIterator->SetVisible(false);
 			CExMessage::SendMessageWithText(mpIterator->GetParent(), mpIterator, EEVT_ER_OPEN_FILE_PATH, npszFilePath,&lbRet,sizeof(lbRet));
 			if (lbRet != false)
-				ExitModal(); //ËµÃ÷ÎÄ¼ş´ò¿ª³É¹¦ÁË£¬ÄÇ¾ÍÍË³ö×Ô¼º
+				ExitModal(); //è¯´æ˜æ–‡ä»¶æ‰“å¼€æˆåŠŸäº†ï¼Œé‚£å°±é€€å‡ºè‡ªå·±
 			else
 				mpIterator->SetTimer(FP_TIMER_ID_SHOW, 1, 3000, NULL);
 				
-				//mpIteratorClose->SetEnable(false); //´ò¿ªÎÄ¼şÊ§°Ü,½ûÓÃÈ¡Ïû°´Å¥
+				//mpIteratorClose->SetEnable(false); //æ‰“å¼€æ–‡ä»¶å¤±è´¥,ç¦ç”¨å–æ¶ˆæŒ‰é’®
 		}
 		else
 		{
-			//ÊÇÎÄ¼ş¼Ğ£¬½øÈë¸Ã ÎÄ¼ş¼Ğ
+			//æ˜¯æ–‡ä»¶å¤¹ï¼Œè¿›å…¥è¯¥ æ–‡ä»¶å¤¹
 			EnterFolder(npszFilePath);
 		}
 
 	} while (false);
 }
 
-//»ñÈ¡Ä¿Â¼ÏÂÖ¸¶¨ÎÄ¼ş¼°Ä¿Â¼
+//è·å–ç›®å½•ä¸‹æŒ‡å®šæ–‡ä»¶åŠç›®å½•
 DWORD CFileOpenDlg::GetFolderPath(wchar_t* npszPath, wchar_t* npszName)
 {
 	DWORD ldwCount = 0;
@@ -383,25 +383,25 @@ DWORD CFileOpenDlg::GetFolderPath(wchar_t* npszPath, wchar_t* npszName)
 
 		while (bContinue != false)
 		{
-			//bIsDotsÎªÕæ±íÊ¾ÊÇ.»ò..
+			//bIsDotsä¸ºçœŸè¡¨ç¤ºæ˜¯.æˆ–..
 			bool lbIsDots = (wcscmp(FindFileData.cFileName, L".") == 0 || wcscmp(FindFileData.cFileName, L"..") == 0);
 
 			while (lbIsDots == false)
 			{
 				if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
 				{
-					//ÊÇÄ¿Â¼
+					//æ˜¯ç›®å½•
 					wchar_t* lpPath = new wchar_t[MAX_PATH];
 					wcscpy_s(lpPath, MAX_PATH, npszPath);
 					wcscat_s(lpPath, MAX_PATH, L"\\");
 					wcscat_s(lpPath, MAX_PATH, FindFileData.cFileName);
-					//ÅĞ¶ÏÒ»ÏÂ£¬Èç¹ûÊÇÒş²Ø»òÏµÍ³ÎÄ¼ş¼Ğ£¬¾Í²»Õ¹Ê¾ÁË
+					//åˆ¤æ–­ä¸€ä¸‹ï¼Œå¦‚æœæ˜¯éšè—æˆ–ç³»ç»Ÿæ–‡ä»¶å¤¹ï¼Œå°±ä¸å±•ç¤ºäº†
 					if ((GetFileAttributes(lpPath)&FILE_ATTRIBUTE_HIDDEN) == 0 && (GetFileAttributes(lpPath)&FILE_ATTRIBUTE_SYSTEM) == 0)
 						mdFolderPathList.Insert(mdFolderPathList.Size(), lpPath);
 				}
 				else
 				{
-					//ÊÇÎÄ¼ş,npszName=null±íÃ÷Ö»ÏëÒªÄ¿Â¼µÄÊıÁ¿
+					//æ˜¯æ–‡ä»¶,npszName=nullè¡¨æ˜åªæƒ³è¦ç›®å½•çš„æ•°é‡
 					if (npszName != NULL)
 					{
 						wchar_t* lpPath = new wchar_t[MAX_PATH];
@@ -416,7 +416,7 @@ DWORD CFileOpenDlg::GetFolderPath(wchar_t* npszPath, wchar_t* npszName)
 				break;
 			}
 
-			//Ñ°ÕÒÏÂÒ»ÎÄ¼ş
+			//å¯»æ‰¾ä¸‹ä¸€æ–‡ä»¶
 			bContinue = FindNextFile(hFindFile, &FindFileData);
 
 		}
@@ -428,7 +428,7 @@ DWORD CFileOpenDlg::GetFolderPath(wchar_t* npszPath, wchar_t* npszName)
 	return ldwCount;
 }
 
-//½øÈëÎÄ¼ş¼Ğ
+//è¿›å…¥æ–‡ä»¶å¤¹
 void CFileOpenDlg::EnterFolder(wchar_t* npszPath, bool nbIsBack)
 {
 	do 
@@ -438,10 +438,10 @@ void CFileOpenDlg::EnterFolder(wchar_t* npszPath, bool nbIsBack)
 		wcscpy_s(mszCurrentPath, MAX_PATH, npszPath);
 		mpIteratorImBack->SetEnable(true);
 
-		//Çå¿ÕÔ­À´µÄÁĞ±í
+		//æ¸…ç©ºåŸæ¥çš„åˆ—è¡¨
 		ClearFilePath();
 
-		//±éÀúËùÓĞ×ÓÎÄ¼ş¼Ğe
+		//éå†æ‰€æœ‰å­æ–‡ä»¶å¤¹e
 		GetFolderPath(npszPath, NULL);
 		GetFolderPath(npszPath, L"\\*.pdf");
 		GetFolderPath(npszPath, L"\\*.epub");
@@ -452,7 +452,7 @@ void CFileOpenDlg::EnterFolder(wchar_t* npszPath, bool nbIsBack)
 		wchar_t* lpszFolderPath = npszPath;
 		if (mdFolderLevel.Size() <= 0 && wcslen(lpszFolderPath) > 3)
 		{
-			//»ñÈ¡ÏÔÊ¾Ãû³Æ
+			//è·å–æ˜¾ç¤ºåç§°
 			if (StrStrI(lpszFolderPath, L"Desktop") != NULL)
 				GetDisplayName(FOLDERID_Desktop, lszDisplayName, MAX_PATH);
 			else if (StrStrI(lpszFolderPath, L"Documents") != NULL)
@@ -466,10 +466,10 @@ void CFileOpenDlg::EnterFolder(wchar_t* npszPath, bool nbIsBack)
 		}
 		if (nbIsBack == false)
 		{
-			//Ö»ÓĞ²»ÊÇ·µ»ØÊ±²ÅÔö¼ÓÂ·¾¶
+			//åªæœ‰ä¸æ˜¯è¿”å›æ—¶æ‰å¢åŠ è·¯å¾„
 			if (lszDisplayName[0] != UNICODE_NULL)
 			{
-				//Ê¹ÓÃÏÔÊ¾Ãû³Æ
+				//ä½¿ç”¨æ˜¾ç¤ºåç§°
 				wcscpy_s(mszDisplayPath, MAX_PATH, lszDisplayName);
 			}
 			else
@@ -493,10 +493,10 @@ void CFileOpenDlg::EnterFolder(wchar_t* npszPath, bool nbIsBack)
 		mpIteratorPath->SetVisible(true);
 		mpIteratorImBack->SetVisible(true);
 
-		//¼ÆËã×î´óÒ³Âë
+		//è®¡ç®—æœ€å¤§é¡µç 
 		mulMaxPage = mdFolderPathList.Size() / FP_LIST_MAX;
 		if (mulMaxPage*FP_LIST_MAX < (ULONG)mdFolderPathList.Size())
-			mulMaxPage++; //Ò³Âë¼ÆËãÊ¹ÓÃ½ø1·¨
+			mulMaxPage++; //é¡µç è®¡ç®—ä½¿ç”¨è¿›1æ³•
 
 		mpIteratorPre->SetEnable(false);
 		mpIteratorNext->SetEnable(false);
@@ -504,13 +504,13 @@ void CFileOpenDlg::EnterFolder(wchar_t* npszPath, bool nbIsBack)
 
 		if (nbIsBack == false)
 		{
-			//Èç¹û²»ÊÇ·µ»ØÉÏÒ»¼¶£¬¾Í½øÈëµÚÒ»Ò³
+			//å¦‚æœä¸æ˜¯è¿”å›ä¸Šä¸€çº§ï¼Œå°±è¿›å…¥ç¬¬ä¸€é¡µ
 			mdFolderLevel.Insert(0, 1);
 			SetPage(1);
 		}
 		else
 		{
-			//ÊÇ·µ»ØÉÏÒ»¼¶£¬½øÈëÖ®Ç°Àë¿ªÊ±µÄÒ³Âë
+			//æ˜¯è¿”å›ä¸Šä¸€çº§ï¼Œè¿›å…¥ä¹‹å‰ç¦»å¼€æ—¶çš„é¡µç 
 			if(mdFolderLevel.Size()>0)
 				mdFolderLevel.RemoveByIndex(0);
 
@@ -519,9 +519,9 @@ void CFileOpenDlg::EnterFolder(wchar_t* npszPath, bool nbIsBack)
 		
 		if (mulMaxPage <= 0)
 		{
-			//ËµÃ÷ÊÇ¿ÕÎÄ¼ş¼Ğ
+			//è¯´æ˜æ˜¯ç©ºæ–‡ä»¶å¤¹
 			//mpIteratorPage->SetVisible(false);
-			//ÏÔÊ¾Ò³Âë
+			//æ˜¾ç¤ºé¡µç 
 			wchar_t lszString[MAX_PATH] = { 0 };
 			swprintf_s(lszString, MAX_PATH, L"%d/%d", 1, 1);
 			CExMessage::SendMessageWithText(mpIteratorPage, mpIterator, EACT_LABEL_SET_TEXT, lszString, NULL, 0);
@@ -541,7 +541,7 @@ void CFileOpenDlg::EnterFolder(wchar_t* npszPath, bool nbIsBack)
 	} while (false);
 }
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CFileOpenDlg::OnTimer(PSTEMS_TIMER npStatus)
 {
 	if (npStatus->TimerID == FP_TIMER_ID_SHOW)
@@ -557,7 +557,7 @@ void CFileOpenDlg::OnTimer(PSTEMS_TIMER npStatus)
 }
 
 
-//°´Å¥µ¥»÷ÊÂ¼ş
+//æŒ‰é’®å•å‡»äº‹ä»¶
 ERESULT CFileOpenDlg::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -567,7 +567,7 @@ ERESULT CFileOpenDlg::OnCtlButtonClick(IEinkuiIterator* npSender)
 		ULONG llBtnID = npSender->GetID();
 		switch (llBtnID)
 		{
-		case FP_ID_BT_CLOSE:		// ¹Ø±Õ	
+		case FP_ID_BT_CLOSE:		// å…³é—­	
 		{
 			ExitModal();
 
@@ -575,21 +575,21 @@ ERESULT CFileOpenDlg::OnCtlButtonClick(IEinkuiIterator* npSender)
 		}
 		case FP_ID_BT_PRE:
 		{
-			//ÉÏÒ»Ò³
+			//ä¸Šä¸€é¡µ
 			NextPage(false);
 			
 			break;
 		}
 		case FP_ID_BT_NEXT:
 		{
-			//ÏÂÒ»Ò³
+			//ä¸‹ä¸€é¡µ
 			NextPage(true);
 
 			break;
 		}
 		case FP_ID_BT_Back:
 		{
-			//·µ»ØÉÏ¼¶Ä¿Â¼
+			//è¿”å›ä¸Šçº§ç›®å½•
 			BackFolder();
 			break;
 		}
@@ -604,7 +604,7 @@ ERESULT CFileOpenDlg::OnCtlButtonClick(IEinkuiIterator* npSender)
 	return lResult;
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CFileOpenDlg::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	/*EI_SIZE ldPaintSize;
@@ -619,14 +619,14 @@ ERESULT CFileOpenDlg::OnElementResized(D2D1_SIZE_F nNewSize)
 	return ERESULT_SUCCESS;
 }
 
-//ÉèÖÃÀúÊ·¼ÇÂ¼
+//è®¾ç½®å†å²è®°å½•
 void CFileOpenDlg::SetHistoryList(cmmVector<wchar_t*>* npdHistroyPath)
 {
 	mpdHistroyPath = npdHistroyPath;
 
 	if (mpdHistroyPath != NULL && mpdHistroyPath->Size() > 0)
 	{
-		//Èç¹ûÖ®Ç°ÒÑ¾­´ò¿ª¹ıÎÄ¼ş£¬¾Í´ò¿ªÄÇ¸öÎÄ¼şËùÔÚµÄÄ¿Â¼
+		//å¦‚æœä¹‹å‰å·²ç»æ‰“å¼€è¿‡æ–‡ä»¶ï¼Œå°±æ‰“å¼€é‚£ä¸ªæ–‡ä»¶æ‰€åœ¨çš„ç›®å½•
 		wchar_t lszPath[MAX_PATH] = { 0 };
 		wcscpy_s(lszPath, MAX_PATH, mpdHistroyPath->GetEntry(0));
 
@@ -638,7 +638,7 @@ void CFileOpenDlg::SetHistoryList(cmmVector<wchar_t*>* npdHistroyPath)
 				mdFolderLevel.RemoveByIndex(0);
 			}
 
-			//ÎªÁËÕâÖÖÇé¿öÄÜÒ»¼¶Ò»¼¶·µ»Ø£¬ÕâÀïÔö¼Ó¼ÇÂ¼
+			//ä¸ºäº†è¿™ç§æƒ…å†µèƒ½ä¸€çº§ä¸€çº§è¿”å›ï¼Œè¿™é‡Œå¢åŠ è®°å½•
 			wchar_t* lpszTemp = wcsstr(lszPath, L"\\");
 			do 
 			{
@@ -654,7 +654,7 @@ void CFileOpenDlg::SetHistoryList(cmmVector<wchar_t*>* npdHistroyPath)
 		}
 		else
 		{
-			//Ä¿Â¼²»´æÔÚÁË
+			//ç›®å½•ä¸å­˜åœ¨äº†
 			InitList();
 		}
 	}
@@ -665,7 +665,7 @@ void CFileOpenDlg::SetHistoryList(cmmVector<wchar_t*>* npdHistroyPath)
 }
 
 
-//»ñÈ¡ÌØÊâÄ¿Â¼µÄ¶àÓïÑÔ×Ö·û´®
+//è·å–ç‰¹æ®Šç›®å½•çš„å¤šè¯­è¨€å­—ç¬¦ä¸²
 bool CFileOpenDlg::GetDisplayName(GUID niCSIDL, OUT wchar_t* npszName, IN int niLen)
 {
 	bool lbRet = false;
@@ -674,7 +674,7 @@ bool CFileOpenDlg::GetDisplayName(GUID niCSIDL, OUT wchar_t* npszName, IN int ni
 	{
 		CoInitialize(NULL);
 		IShellItem* lpDocItem;
-		auto lhrRet = SHGetKnownFolderItem(niCSIDL, KF_FLAG_DEFAULT, NULL, IID_IShellItem, (void**)&lpDocItem); // SHGetKnownFolderPath ÓÃÓÚ»ñÈ¡Ä¿Â¼
+		auto lhrRet = SHGetKnownFolderItem(niCSIDL, KF_FLAG_DEFAULT, NULL, IID_IShellItem, (void**)&lpDocItem); // SHGetKnownFolderPath ç”¨äºè·å–ç›®å½•
 		if (SUCCEEDED(lhrRet))
 		{
 			LPWSTR lpDisplayName = NULL;
@@ -694,7 +694,7 @@ bool CFileOpenDlg::GetDisplayName(GUID niCSIDL, OUT wchar_t* npszName, IN int ni
 	return lbRet;
 }
 
-//¸ù¾İÒ³ÂëÉèÖÃÏÔÊ¾
+//æ ¹æ®é¡µç è®¾ç½®æ˜¾ç¤º
 void CFileOpenDlg::SetPage(ULONG nulPage)
 {
 	wchar_t lszString[MAX_PATH] = { 0 };
@@ -703,19 +703,19 @@ void CFileOpenDlg::SetPage(ULONG nulPage)
 	do 
 	{
 		if(nulPage < 0 || nulPage > mulMaxPage)
-			break; //³¬¹ıÓĞĞ§·¶Î§
+			break; //è¶…è¿‡æœ‰æ•ˆèŒƒå›´
 
-		//¼ÇÂ¼µ±Ç°Ò³Âë
+		//è®°å½•å½“å‰é¡µç 
 		if (mulMaxPage <= 0)
-			mulCurrentPage = 0; //ËµÃ÷ÊÇ¸ö¿ÕÎÄ¼ş¼Ğ
+			mulCurrentPage = 0; //è¯´æ˜æ˜¯ä¸ªç©ºæ–‡ä»¶å¤¹
 		else
 			mulCurrentPage = nulPage;
 		
-		//ÏÔÊ¾Ò³Âë
+		//æ˜¾ç¤ºé¡µç 
 		swprintf_s(lszString, MAX_PATH, L"%d/%d", mulCurrentPage, mulMaxPage);
 		CExMessage::SendMessageWithText(mpIteratorPage, mpIterator, EACT_LABEL_SET_TEXT, lszString, NULL, 0);
 
-		//ÉèÖÃlist¶ÔÏó
+		//è®¾ç½®listå¯¹è±¡
 		int liBegin = (mulCurrentPage - 1) * FP_LIST_MAX;
 		
 		for (i= liBegin,k=0;i<mdFolderPathList.Size() && k<FP_LIST_MAX;i++,k++)
@@ -726,7 +726,7 @@ void CFileOpenDlg::SetPage(ULONG nulPage)
 			wchar_t* lpszFolderPath = mdFolderPathList.GetEntry(i);
 			if (mdFolderLevel.Size() <= 0 && wcslen(lpszFolderPath) > 3)
 			{
-				//»ñÈ¡ÏÔÊ¾Ãû³Æ
+				//è·å–æ˜¾ç¤ºåç§°
 				if (StrStrI(lpszFolderPath, L"Desktop") != NULL)
 					GetDisplayName(FOLDERID_Desktop, lszDisplayName, MAX_PATH);
 				else if (StrStrI(lpszFolderPath, L"Documents") != NULL)
@@ -742,7 +742,7 @@ void CFileOpenDlg::SetPage(ULONG nulPage)
 			lpItem->GetIterator()->SetVisible(true);
 		}
 
-		//±£´æÒ³Âë
+		//ä¿å­˜é¡µç 
 		if(mdFolderLevel.Size() > 0)
 			mdFolderLevel.GetEntry(0) = nulPage;
 
@@ -750,12 +750,12 @@ void CFileOpenDlg::SetPage(ULONG nulPage)
 
 	for (int j = k; j < FP_LIST_MAX; j++)
 	{
-		//Ã»ÓĞÄÇÃ´¶àÏîÁË£¬°ÑºóÃæµÄÒş²Ø
+		//æ²¡æœ‰é‚£ä¹ˆå¤šé¡¹äº†ï¼ŒæŠŠåé¢çš„éšè—
 		mdList.GetEntry(j)->GetIterator()->SetVisible(false);
 	}
 }
 
-//·µ»ØÉÏÒ»¼¶Ä¿Â¼
+//è¿”å›ä¸Šä¸€çº§ç›®å½•
 void CFileOpenDlg::BackFolder(void)
 {
 	do 
@@ -764,13 +764,13 @@ void CFileOpenDlg::BackFolder(void)
 		{
 			mszDisplayPath[0] = UNICODE_NULL;
 			InitList();
-			break; //Ã»ÓĞÂ·¾¶ÁË£¬·µ»Øµ½×îĞÂµÄÁĞ±í
+			break; //æ²¡æœ‰è·¯å¾„äº†ï¼Œè¿”å›åˆ°æœ€æ–°çš„åˆ—è¡¨
 		}
 		
 		wchar_t* lpszFind = wcsrchr(mszCurrentPath, L'\\');
 		if (lpszFind != NULL)
 		{
-			//ËµÃ÷»¹ÓĞÂ·¾¶
+			//è¯´æ˜è¿˜æœ‰è·¯å¾„
 			*(wcsrchr(mszCurrentPath, L'\\')) = UNICODE_NULL;
 			*(wcsrchr(mszDisplayPath, L'\\')) = UNICODE_NULL;
 
@@ -778,7 +778,7 @@ void CFileOpenDlg::BackFolder(void)
 		}
 		else
 		{
-			//ËµÃ÷µ½×îÏî²ãÁË
+			//è¯´æ˜åˆ°æœ€é¡¹å±‚äº†
 			mszCurrentPath[0] = UNICODE_NULL;
 			mszDisplayPath[0] = UNICODE_NULL;
 
@@ -788,14 +788,14 @@ void CFileOpenDlg::BackFolder(void)
 	} while (false);
 }
 
-//ÉÏÒ»Ò³»òÏÂÒ»Ò³
+//ä¸Šä¸€é¡µæˆ–ä¸‹ä¸€é¡µ
 void CFileOpenDlg::NextPage(bool nbIsNext)
 {
 	do
 	{
 		if (nbIsNext == false)
 		{
-			//ÉÏÒ»Ò³
+			//ä¸Šä¸€é¡µ
 			mpIteratorNext->SetEnable(true);
 			if (mulCurrentPage > 1)
 				mulCurrentPage--;
@@ -804,12 +804,12 @@ void CFileOpenDlg::NextPage(bool nbIsNext)
 			{
 				mpIteratorPre->SetEnable(false);
 
-				//ÒÑ¾­ÊÇµÚÒ»Ò³ÁË
+				//å·²ç»æ˜¯ç¬¬ä¸€é¡µäº†
 			}
 		}
 		else
 		{
-			//Ôö¼Ó
+			//å¢åŠ 
 			mpIteratorPre->SetEnable(true);
 			if (mulCurrentPage < mulMaxPage)
 				mulCurrentPage++;
@@ -817,7 +817,7 @@ void CFileOpenDlg::NextPage(bool nbIsNext)
 			if (mulCurrentPage >= mulMaxPage)
 			{
 				mpIteratorNext->SetEnable(false);
-				//ÒÑ¾­ÊÇºóÒ»Ò³ÁË
+				//å·²ç»æ˜¯åä¸€é¡µäº†
 			}
 		}
 

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -13,7 +13,7 @@ namespace cmmStrHandle{
 
 
 //////////////////////////////////////////////////////////////////////////
-// ×Ö·û´®±àÂë×ª»»
+// å­—ç¬¦ä¸²ç¼–ç è½¬æ¢
 
 // wide characters to multi bytes characters by specified code page
 bool RealWideCharToMultibyte(IN const UINT nuiCodePage, IN const wstring& roWStrToConvert, OUT string& roStrConverted)
@@ -25,7 +25,7 @@ bool RealWideCharToMultibyte(IN const UINT nuiCodePage, IN const wstring& roWStr
 		if(false != roWStrToConvert.empty())
 			break;
 
-		// »ñÈ¡Êµ¼ÊĞèÒªµÄÊä³ö»º³å×Ö½ÚÊı£¨ÊäÈë»º³åµÄ×Ö·ûÊı´óĞ¡°üº¬ÁËÄ©Î²½áÊø·ûÔÚÄÚ£©
+		// è·å–å®é™…éœ€è¦çš„è¾“å‡ºç¼“å†²å­—èŠ‚æ•°ï¼ˆè¾“å…¥ç¼“å†²çš„å­—ç¬¦æ•°å¤§å°åŒ…å«äº†æœ«å°¾ç»“æŸç¬¦åœ¨å†…ï¼‰
 		int liCbOutputNeed = WideCharToMultiByte(nuiCodePage, NULL, roWStrToConvert.c_str(), -1, NULL, 0, NULL, NULL);
 
 		lscTempConvertedBuffer = new char[liCbOutputNeed];
@@ -58,7 +58,7 @@ bool RealMultibyteToWideChar(IN const UINT nuiCodePage, IN const string& roStrTo
 		if(false != roStrToConvert.empty())
 			break;
 
-		// »ñÈ¡Êµ¼ÊĞèÒªµÄÊä³ö»º³å×Ö½ÚÊı£¨ÊäÈë»º³åµÄ×Ö·ûÊı´óĞ¡°üº¬ÁËÄ©Î²½áÊø·ûÔÚÄÚ£©
+		// è·å–å®é™…éœ€è¦çš„è¾“å‡ºç¼“å†²å­—èŠ‚æ•°ï¼ˆè¾“å…¥ç¼“å†²çš„å­—ç¬¦æ•°å¤§å°åŒ…å«äº†æœ«å°¾ç»“æŸç¬¦åœ¨å†…ï¼‰
 		int liCchOutputNeed = MultiByteToWideChar(nuiCodePage, NULL, roStrToConvert.c_str(), -1, NULL, 0);
 
 		lswTempConvertedBuffer = new wchar_t[liCchOutputNeed];
@@ -128,7 +128,7 @@ bool Utf8ToAnsi(IN const string& roStrToConvert, OUT string& roStrConverted)
 }
 
 //////////////////////////////////////////////////////////////////////////
-// ±àÂë¸¨Öú
+// ç¼–ç è¾…åŠ©
 FileCodeType GetTextFileCodeTypeA(IN const string& roStrFileName)
 {
 	FileCodeType leFileCodeType = FCT_ERROR;  
@@ -137,7 +137,7 @@ FileCodeType GetTextFileCodeTypeA(IN const string& roStrFileName)
 		if(false != roStrFileName.empty())
 			break;
 
-		// TODO: ÅĞ¶ÏÎÄ¼şÀàĞÍ¶Ô²»¶Ô
+		// TODO: åˆ¤æ–­æ–‡ä»¶ç±»å‹å¯¹ä¸å¯¹
 
 		std::ifstream file(roStrFileName.c_str());  
 		if(false == file.good())
@@ -181,7 +181,7 @@ FileCodeType GetTextFileCodeTypeW(IN const wstring& roWStrFileName)
 }
 
 //////////////////////////////////////////////////////////////////////////
-// ×Ö·û×ª×ª»»
+// å­—ç¬¦è½¬è½¬æ¢
 bool Int64ToStr(IN const LONGLONG nllIntegerToConvert, OUT string& roStrConverted)
 {
 	bool lbResult = false;
@@ -252,10 +252,10 @@ bool UInt64ToWStr(IN const ULONGLONG nullIntegerToConvert, OUT wstring& roWStrCo
 }
 
 //////////////////////////////////////////////////////////////////////////
-// ÎÄ¼şÂ·¾¶²Ù×÷
+// æ–‡ä»¶è·¯å¾„æ“ä½œ
 
-// ÃèÊö£º
-//		»ñÈ¡¸ø¶¨µÄÎÄ¼şÂ·¾¶´æ·ÅÊ±×îÖÕµÄÎ¨Ò»Â·¾¶£¨²»ÓëÒÑ¾­´æÔÚ³åÍ»£©£¨Í¨¹ıÔÚÎÄ¼şÃûºóÃæÀÛ¼ÓÊı×Ö)
+// æè¿°ï¼š
+//		è·å–ç»™å®šçš„æ–‡ä»¶è·¯å¾„å­˜æ”¾æ—¶æœ€ç»ˆçš„å”¯ä¸€è·¯å¾„ï¼ˆä¸ä¸å·²ç»å­˜åœ¨å†²çªï¼‰ï¼ˆé€šè¿‡åœ¨æ–‡ä»¶ååé¢ç´¯åŠ æ•°å­—)
 bool GetUniqueFilePath(IN const wchar_t* nswFilePath, OUT wchar_t* nswUniquePath, IN int niCchBuffer)
 {
 	bool lbResult = false;
@@ -273,7 +273,7 @@ bool GetUniqueFilePath(IN const wchar_t* nswFilePath, OUT wchar_t* nswUniquePath
 		BREAK_ON_NULL(lswExtName);
 		int liIndex = 0;
 		bool lbIsOk = true;
-		while(FALSE != PathFileExistsW(nswUniquePath))			// ÒÑ¾­´æÔÚ
+		while(FALSE != PathFileExistsW(nswUniquePath))			// å·²ç»å­˜åœ¨
 		{
 			if(FAILED(StringCchPrintfW(nswUniquePath, niCchBuffer, L"%s%d%s", lswPathNoExt, liIndex++, lswExtName)))
 			{

@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -8,7 +8,7 @@
 
 
 /*
-	PDFÍ¼Æ¬ÏÔÊ¾
+	PDFå›¾ç‰‡æ˜¾ç¤º
 */
 
 DECLARE_BUILTIN_NAME(PdfPicture)
@@ -20,39 +20,39 @@ class CPdfPicture:
 
 public:
 	ULONG InitOnCreate(
-		IN IEinkuiIterator* npParent = NULL,	// ¸¸¶ÔÏóÖ¸Õë
-		IN ICfKey* npTemplete = NULL,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-		IN ULONG nuEID = MAXULONG32	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+		IN IEinkuiIterator* npParent = NULL,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+		IN ICfKey* npTemplete = NULL,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+		IN ULONG nuEID = MAXULONG32	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 		);
 
-	//´ò¿ªÎÄµµ
+	//æ‰“å¼€æ–‡æ¡£
 	bool OpenFile(wchar_t* npszPath);
-	//¹Ø±ÕÎÄµµ
+	//å…³é—­æ–‡æ¡£
 	void CloseFile(bool nbUpdateView=true);
-	//Ò³ÃæÌø×ª
+	//é¡µé¢è·³è½¬
 	bool GoToPage(ULONG nulPageNumber);
-	//Ò³ÃæÇ°·­¡¢ºó·­
+	//é¡µé¢å‰ç¿»ã€åç¿»
 	bool PageFoward(bool foward);
-	//»ñµÃµ±Ç°Ò³Âë
+	//è·å¾—å½“å‰é¡µç 
 	ULONG GetCurrentPageNumber(ULONG& secondPage);
-	//ÉèÖÃËõ·Å
-	//rMove4¸ö·½Ïò£¬0±íÊ¾²»ÄÜÒÆ¶¯ÁË£¬1±íÊ¾»¹ÄÜÒÆ¶¯
+	//è®¾ç½®ç¼©æ”¾
+	//rMove4ä¸ªæ–¹å‘ï¼Œ0è¡¨ç¤ºä¸èƒ½ç§»åŠ¨äº†ï¼Œ1è¡¨ç¤ºè¿˜èƒ½ç§»åŠ¨
 	bool SetScaleRatio(float nfScale,OUT RECT& rMove);
-	//»ñÈ¡×ÜÒ³Êı
+	//è·å–æ€»é¡µæ•°
 	ULONG GetPageCount(void);
-	//ÒÆ¶¯Ò³Ãæ
-	//niXOffset,niYOffsetÕıÊı±íÊ¾ÏòÓÒÏÂÒÆ¶¯£¬¸ºÊı±íÊ¾Ïò×óÉÏÒÆ¶¯
-	//rMove4¸ö·½Ïò£¬0±íÊ¾²»ÄÜÒÆ¶¯ÁË£¬1±íÊ¾»¹ÄÜÒÆ¶¯
+	//ç§»åŠ¨é¡µé¢
+	//niXOffset,niYOffsetæ­£æ•°è¡¨ç¤ºå‘å³ä¸‹ç§»åŠ¨ï¼Œè´Ÿæ•°è¡¨ç¤ºå‘å·¦ä¸Šç§»åŠ¨
+	//rMove4ä¸ªæ–¹å‘ï¼Œ0è¡¨ç¤ºä¸èƒ½ç§»åŠ¨äº†ï¼Œ1è¡¨ç¤ºè¿˜èƒ½ç§»åŠ¨
 	bool MovePage(int niXOffset,int niYOffset, OUT RECT& rMove);
-	//ÆÁÄ»·¢ÉúĞı×ª
+	//å±å¹•å‘ç”Ÿæ—‹è½¬
 	void SetRotation(ULONG nulRotation);
-	// ÉèÖÃ½øÈëË«Ò³ÏÔÊ¾
+	// è®¾ç½®è¿›å…¥åŒé¡µæ˜¾ç¤º
 	void EnableDuopageView(bool nbEnable);
-	//¿½±´½ØÆÁµ½¼ôÌù°å
+	//æ‹·è´æˆªå±åˆ°å‰ªè´´æ¿
 	bool CopyToClipboard(const D2D1_RECT_F& rRegion);
-	// »ñÈ¡Fat×´Ì¬µÄ·Å´ó±¶Êı
+	// è·å–FatçŠ¶æ€çš„æ”¾å¤§å€æ•°
 	float GetFatRatio(void);
-	// »ñÈ¡µ±Ç°Ò³Ãæ¿ÉÊÓÇøÓòÔÚµ±Ç°·Å´ó±ÈÀıÏÂµÄÔ´Í¼ÖĞµÄÎ»ÖÃ£¬ÒÔ¼°¶ÔÓ¦Ô´Í¼µÄ´óĞ¡
+	// è·å–å½“å‰é¡µé¢å¯è§†åŒºåŸŸåœ¨å½“å‰æ”¾å¤§æ¯”ä¾‹ä¸‹çš„æºå›¾ä¸­çš„ä½ç½®ï¼Œä»¥åŠå¯¹åº”æºå›¾çš„å¤§å°
 	void GetRectOfViewportOnPage(D2D1_SIZE_F& nrImageSize, D2D1_RECT_F& nrViewPort);
 	
 	bool mbIsTxt;
@@ -78,22 +78,22 @@ protected:
 	D2D1_RECT_F mRecentSrc;
 
 
-	//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+	//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 	virtual ERESULT OnElementCreate(IEinkuiIterator* npIterator);
-	//»æÖÆÏûÏ¢
+	//ç»˜åˆ¶æ¶ˆæ¯
 	virtual ERESULT OnPaint(IEinkuiPaintBoard* npPaintBoard);
 
-	//¶¨Ê±Æ÷
+	//å®šæ—¶å™¨
 	virtual void OnTimer(
 		PSTEMS_TIMER npStatus
 		);
-	////ÏûÏ¢´¦Àíº¯Êı
+	////æ¶ˆæ¯å¤„ç†å‡½æ•°
 	//virtual ERESULT ParseMessage(IEinkuiMessage* npMsg);
-	//°´Å¥µ¥»÷ÊÂ¼ş
+	//æŒ‰é’®å•å‡»äº‹ä»¶
 	virtual ERESULT OnCtlButtonClick(IEinkuiIterator* npSender);
-	//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+	//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 	virtual ERESULT OnElementResized(D2D1_SIZE_F nNewSize);
-	//Í¨ÖªÔªËØ¡¾ÏÔÊ¾/Òş²Ø¡¿·¢Éú¸Ä±ä
+	//é€šçŸ¥å…ƒç´ ã€æ˜¾ç¤º/éšè—ã€‘å‘ç”Ÿæ”¹å˜
 	virtual ERESULT OnElementShow(bool nbIsShow);
 
 	IEdPage_ptr loadPage(int32 pageNo, ED_SIZE& sizeInit);
@@ -103,18 +103,18 @@ protected:
 
 private:
 
-	IEinkuiIterator* mpIterTxt; //ÓÃÓÚÏÔÊ¾txtÎÄ¼ş
-	HANDLE mHandleTxtFile; //txtÎÄ¼ş¾ä±ú
+	IEinkuiIterator* mpIterTxt; //ç”¨äºæ˜¾ç¤ºtxtæ–‡ä»¶
+	HANDLE mHandleTxtFile; //txtæ–‡ä»¶å¥æŸ„
 	wchar_t* mpwcharTxt;
 	char* mpcharTxt;
 	int miTxtFontSizeIndex;
-	int miFontSize[5];  //5µµ´óĞ¡µÄ×ÖÌå
-	int miFontPage[5];  //5µµ´óĞ¡×ÖÌå¶ÔÓ¦µÄÒ»Ò³ÄÜÏÔÊ¾¶à¸ö×Ö·û
+	int miFontSize[5];  //5æ¡£å¤§å°çš„å­—ä½“
+	int miFontPage[5];  //5æ¡£å¤§å°å­—ä½“å¯¹åº”çš„ä¸€é¡µèƒ½æ˜¾ç¤ºå¤šä¸ªå­—ç¬¦
 	
 
-	IEinkuiIterator* mpIterBtShowTip;	//ÏÔÊ¾/Òş²Ø¹¦ÄÜÇø
-	IEinkuiBrush*	mpXuiBrush;				// ĞéÏß»­Ë¢
-	ULONG mulPageCount; //ÎÄ¼ş×ÜÒ³Êı
+	IEinkuiIterator* mpIterBtShowTip;	//æ˜¾ç¤º/éšè—åŠŸèƒ½åŒº
+	IEinkuiBrush*	mpXuiBrush;				// è™šçº¿ç”»åˆ·
+	ULONG mulPageCount; //æ–‡ä»¶æ€»é¡µæ•°
 };
 
 #define PP_BT_SHOW_TIP 2 

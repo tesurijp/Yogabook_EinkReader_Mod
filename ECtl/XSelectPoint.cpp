@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -30,9 +30,9 @@ CSelectPoint::~CSelectPoint(void)
 
 
 ULONG CSelectPoint::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID				// Èç¹û²»Îª0£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID£¬·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯ÄÇ¸ö·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID				// å¦‚æœä¸ä¸º0ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EIDï¼Œå¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨é‚£ä¸ªåˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -40,7 +40,7 @@ ULONG CSelectPoint::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -58,12 +58,12 @@ ULONG CSelectPoint::InitOnCreate(
 
 	CMM_SAFE_RELEASE(lpSubKey);
 
-	// ÏòÏµÍ³×¢²áĞèÒªÊÕµ½µÄÏûÏ¢
+	// å‘ç³»ç»Ÿæ³¨å†Œéœ€è¦æ”¶åˆ°çš„æ¶ˆæ¯
 	return leResult;
 }
 
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CSelectPoint::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -74,7 +74,7 @@ ERESULT CSelectPoint::OnElementCreate(IEinkuiIterator* npIterator)
 		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
-		// ÕâÀïÔªËØID²»ÄÜÎª0
+		// è¿™é‡Œå…ƒç´ IDä¸èƒ½ä¸º0
 		if(mpIterator->GetID() == 1 || mpIterator->GetID() == 5)
 			CXuiElement::mhInnerCursor = LoadCursor(NULL,IDC_SIZENWSE);
 		else if(mpIterator->GetID() == 3 || mpIterator->GetID() == 7)
@@ -93,7 +93,7 @@ ERESULT CSelectPoint::OnElementCreate(IEinkuiIterator* npIterator)
 	return lResult;
 }
 
-//ĞŞ¸ÄÊó±êÑùÊ½
+//ä¿®æ”¹é¼ æ ‡æ ·å¼
 void CSelectPoint::SetCursor(HCURSOR nhInnerCursor)
 {
 // 	if(CXuiElement::mhInnerCursor != NULL)
@@ -102,11 +102,11 @@ void CSelectPoint::SetCursor(HCURSOR nhInnerCursor)
 	CXuiElement::mhInnerCursor = nhInnerCursor;
 }
 
-//·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-//±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+//åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+//æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CSelectPoint::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
 	switch (npMsg->GetMessageID())
@@ -131,17 +131,17 @@ ERESULT CSelectPoint::ParseMessage(IEinkuiMessage* npMsg)
 
 	if(luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CSelectPoint::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	if (mpIterator->IsVisible() == false || mpIterator->IsEnable() == false)
-		return ERESULT_SUCCESS; //Òş²Ø»ò½ûÓÃÊ±²»¼ì²â
+		return ERESULT_SUCCESS; //éšè—æˆ–ç¦ç”¨æ—¶ä¸æ£€æµ‹
 
 	if(rPoint.x < 0 || rPoint.x > mpIterator->GetSizeX() || rPoint.y < 0 || rPoint.y > mpIterator->GetSizeY())
 		return ERESULT_SUCCESS;
@@ -149,7 +149,7 @@ ERESULT CSelectPoint::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 		return ERESULT_MOUSE_OWNERSHIP;
 }
 
-//»æÖÆÏûÏ¢
+//ç»˜åˆ¶æ¶ˆæ¯
 ERESULT CSelectPoint::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 
@@ -178,7 +178,7 @@ ERESULT CSelectPoint::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 	do 
 	{
 		BREAK_ON_NULL(npInfo);
-		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//Ö»ÓĞ×ó¼ü¿ÉÒÔÍÏ¶¯
+		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//åªæœ‰å·¦é”®å¯ä»¥æ‹–åŠ¨
 			break;
 
 		SendMessageToParent(EMSG_SELECTPOINT_MOVING,npInfo->Offset,NULL,0);
@@ -190,7 +190,7 @@ ERESULT CSelectPoint::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 	return leResult;
 }
 
-//ÍÏ×§¿ªÊ¼
+//æ‹–æ‹½å¼€å§‹
 ERESULT CSelectPoint::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -198,13 +198,13 @@ ERESULT CSelectPoint::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 	do 
 	{
 		BREAK_ON_NULL(npInfo);
-		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//Ö»ÓĞ×ó¼ü¿ÉÒÔÍÏ¶¯
+		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//åªæœ‰å·¦é”®å¯ä»¥æ‹–åŠ¨
 			break;
 
-		if(npInfo->DragOn != mpIterator) //Ö»ÓĞÔÚ×Ô¼ºÉÏÃæ²Å¿ÉÒÔ
+		if(npInfo->DragOn != mpIterator) //åªæœ‰åœ¨è‡ªå·±ä¸Šé¢æ‰å¯ä»¥
 			break;
 
-		//Í¨Öª¸¸´°¿Ú£¬¿ªÊ¼ÍÏ¶¯
+		//é€šçŸ¥çˆ¶çª—å£ï¼Œå¼€å§‹æ‹–åŠ¨
 		SendMessageToParent(EMSG_SELECTPOINT_BEGIN,*npInfo,NULL,0);
 
 		leResult = ERESULT_SUCCESS;
@@ -214,7 +214,7 @@ ERESULT CSelectPoint::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 	return leResult;
 }
 
-//ÍÏ×§½áÊø
+//æ‹–æ‹½ç»“æŸ
 ERESULT CSelectPoint::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -223,10 +223,10 @@ ERESULT CSelectPoint::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 	{
 		BREAK_ON_NULL(npInfo);
 
-		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//Ö»ÓĞ×ó¼ü¿ÉÒÔÍÏ¶¯
+		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//åªæœ‰å·¦é”®å¯ä»¥æ‹–åŠ¨
 			break;
 
-		//Í¨Öª¸¸´°¿Ú£¬×Ô¼ºÒÆ¶¯Íê³É
+		//é€šçŸ¥çˆ¶çª—å£ï¼Œè‡ªå·±ç§»åŠ¨å®Œæˆ
 		SendMessageToParent(EMSG_SELECTFPOINT_MOVED,CExMessage::DataInvalid,NULL,0);
 
 		leResult = ERESULT_SUCCESS;

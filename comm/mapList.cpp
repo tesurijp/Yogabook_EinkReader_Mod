@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -52,7 +52,7 @@ bool CMapList<DataType,CHashValue>::AddList(
 	CHashValue	loHashValue;
 
 
-	// Ê×ÏÈÅĞ¶Ï£¬¸Ã½Úµã¼ÇÂ¼ÊÇ·ñ´æÔÚ,>=0±íÊ¾´æÔÚ£¬ÔòÖ±½Ó·µ»Ø
+	// é¦–å…ˆåˆ¤æ–­ï¼Œè¯¥èŠ‚ç‚¹è®°å½•æ˜¯å¦å­˜åœ¨,>=0è¡¨ç¤ºå­˜åœ¨ï¼Œåˆ™ç›´æ¥è¿”å›
 	if(LookupRecord(nswString)>= 0)
 		return false;
 
@@ -75,7 +75,7 @@ bool CMapList<DataType,CHashValue>::DelList(
 
 	int liIndex = LookupRecord(nswString);
 	if (liIndex < 0)
-		return false;	// ²»ĞèÒªÉ¾³ı
+		return false;	// ä¸éœ€è¦åˆ é™¤
 
 	moData[liIndex].FreePath();
 	moData.RemoveByIndex(liIndex);
@@ -92,14 +92,14 @@ bool CMapList<DataType,CHashValue>::UpdataList(
 	)
 {
 	int liIndex = LookupRecord(nswString);
-	if (liIndex < 0)	// ±íÊ¾²»´æÔÚ¸ÃÔªËØ£¬ÔòÖ±½ÓÌí¼Ó
+	if (liIndex < 0)	// è¡¨ç¤ºä¸å­˜åœ¨è¯¥å…ƒç´ ï¼Œåˆ™ç›´æ¥æ·»åŠ 
 		return AddList(nswString, npFuncAddr);	
 
 	CPairNode	loPairNode;
 	CHashValue	loHashValue;
 
-	// ´æÔÚÒÑÖªÔªËØ£¬Ôò¸ü¸Ä¼ÇÂ¼
-	moData[liIndex].muHash = loHashValue.operator()(nswString);// ???ÊÇ·ñ²»ĞèÒªĞŞ¸Ä
+	// å­˜åœ¨å·²çŸ¥å…ƒç´ ï¼Œåˆ™æ›´æ”¹è®°å½•
+	moData[liIndex].muHash = loHashValue.operator()(nswString);// ???æ˜¯å¦ä¸éœ€è¦ä¿®æ”¹
 	//moData[liIndex].muStringLen = wcslen(nswString);
 	//moData[liIndex].pfnFuncAddr = npFuncAddr;
 	moData[liIndex].mdUseData = UserData;
@@ -110,12 +110,12 @@ bool CMapList<DataType,CHashValue>::UpdataList(
 }
 
 
-// »ñµÃÓÃ»§Êı¾İ£¬Èç¹û²»´æÔÚ½«·µ»ØÉèÖÃµÄÄ¬ÈÏÖµ
+// è·å¾—ç”¨æˆ·æ•°æ®ï¼Œå¦‚æœä¸å­˜åœ¨å°†è¿”å›è®¾ç½®çš„é»˜è®¤å€¼
 template<typename DataType,class CHashValue>
 DataType CMapList<DataType,CHashValue>::GetUserData(const wchar_t* nswString,DataType Default)
 {
 	int liIndex = LookupRecord(nswString);
-	if (liIndex < 0)	// ±íÊ¾²»´æÔÚ¸ÃÔªËØ
+	if (liIndex < 0)	// è¡¨ç¤ºä¸å­˜åœ¨è¯¥å…ƒç´ 
 		return Default;
 
 	return moData[liIndex].mdUserData;

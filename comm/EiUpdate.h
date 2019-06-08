@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -30,7 +30,7 @@ class CEiLineDiffVector : private cmmVector<CEiLineDiff,1,1500>
 public:
 	CEiLineDiffVector();
 
-	// ÉèÖÃĞéÄâ³ÉÔ±£¬½öÔÚEink ·Ö±æÂÊ±ä»¯Ê±µ÷ÓÃ
+	// è®¾ç½®è™šæ‹Ÿæˆå‘˜ï¼Œä»…åœ¨Eink åˆ†è¾¨ç‡å˜åŒ–æ—¶è°ƒç”¨
 	bool AddDummy(int niTotal) {
 
 		InterlockedExchange(&mlLock, 1);
@@ -43,7 +43,7 @@ public:
 			}
 			else
 			{
-				// À©³ä´æ´¢
+				// æ‰©å……å­˜å‚¨
 				CEiLineDiff loDummy(0xFFFF,0);
 				Insert(-1, loDummy);
 			}
@@ -54,17 +54,17 @@ public:
 	}
 	
 	int Size(void) {
-		// ¼òµ¥ËøËÀ
+		// ç®€å•é”æ­»
 		while (mlLock != 0)
 			Sleep(1);
 
 		return cmmVector<CEiLineDiff, 1, 1500>::Size();
 	}
 
-	// ·µ»Ø³ÉÔ±¶ÔÏó
+	// è¿”å›æˆå‘˜å¯¹è±¡
 	CEiLineDiff& operator [](int niIndex) {
 
-		// ¼òµ¥ËøËÀ
+		// ç®€å•é”æ­»
 		while (mlLock != 0)
 			Sleep(1);
 
@@ -87,8 +87,8 @@ class CEiRowBlock
 public:
 	unsigned short x1;
 	unsigned short y1;
-	unsigned short x2;	// Ö¸Ïò½áÊøÎ»ÖÃ
-	unsigned short y2;	// Ö¸Ïò½áÊøÎ»ÖÃ
+	unsigned short x2;	// æŒ‡å‘ç»“æŸä½ç½®
+	unsigned short y2;	// æŒ‡å‘ç»“æŸä½ç½®
 	unsigned short Lines;
 	void operator=(const CEiRowBlock& src) {
 		x1 = src.x1;
@@ -137,7 +137,7 @@ public:
 		moDiffLines.Reset();
 	}
 
-	// Õâ¸öº¯Êı¶àÏß³Ì°²È« 
+	// è¿™ä¸ªå‡½æ•°å¤šçº¿ç¨‹å®‰å…¨ 
 	void SaveLineDiff(int niLine, unsigned long nuBegin, unsigned long nuEnd) {
 		if(moDiffLines[niLine].Begin > (unsigned short)nuBegin)
 			moDiffLines[niLine].Begin = (unsigned short)nuBegin;
@@ -151,10 +151,10 @@ private:
 	CEiLineDiffVector moDiffLines;
 	ULONG muTotalPixels;
 
-	// ÕÒµ½ËùÓĞ²îÒì¿é£¬Ò»¸ö²îÒì¿é¼´Á¬Ğø²»ÏàµÈĞĞ
+	// æ‰¾åˆ°æ‰€æœ‰å·®å¼‚å—ï¼Œä¸€ä¸ªå·®å¼‚å—å³è¿ç»­ä¸ç›¸ç­‰è¡Œ
 	void FoundDiffBlocks(CEiBlocks& nrDiffBlocks);
 
-	// ¼ÆËãÃæ»ı×îĞ¡µÄ·Ö¿éÈÚºÏ·½°¸£¬ÎªÁË¼òµ¥£¬×î¶àÖ»ºÏ²¢ÎªÁ½¿é
+	// è®¡ç®—é¢ç§¯æœ€å°çš„åˆ†å—èåˆæ–¹æ¡ˆï¼Œä¸ºäº†ç®€å•ï¼Œæœ€å¤šåªåˆå¹¶ä¸ºä¸¤å—
 	void CombineBlocks(CEiBlocks& nrDiffBlocks, CEiBlocks& nrComBlocks);
 };
 

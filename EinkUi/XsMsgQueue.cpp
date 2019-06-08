@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -10,10 +10,10 @@
 
 
 
-//// ·ÖÀëÏûÏ¢£¬½«·ûºÏÌõ¼şµÄÏûÏ¢ÒÀ´Î·ÖÀëµ½Ò»¸öĞÂµÄÏûÏ¢¶ÓÁĞÖĞ
+//// åˆ†ç¦»æ¶ˆæ¯ï¼Œå°†ç¬¦åˆæ¡ä»¶çš„æ¶ˆæ¯ä¾æ¬¡åˆ†ç¦»åˆ°ä¸€ä¸ªæ–°çš„æ¶ˆæ¯é˜Ÿåˆ—ä¸­
 //void CXuiMessageQueue::DispartMessage(
 //	IN ULONG nuMsgID,
-//	IN IEinkuiIterator* npItr,	// ÏûÏ¢µÄ·¢ËÍÄ¿±êÊÇ´Ë¶ÔÏó¼°Æä×Ó¶ÔÏó
+//	IN IEinkuiIterator* npItr,	// æ¶ˆæ¯çš„å‘é€ç›®æ ‡æ˜¯æ­¤å¯¹è±¡åŠå…¶å­å¯¹è±¡
 //	OUT CXuiMessageQueue& rSaveTo
 //	)
 //{
@@ -47,10 +47,10 @@
 //	moLock.Leave();
 //}
 
-// »ñÈ¡ÌØ¶¨ÏûÏ¢
+// è·å–ç‰¹å®šæ¶ˆæ¯
 IEinkuiMessage* CXuiMessageQueue::GetMessage(
 	IN ULONG nuMsgID,
-	IN IEinkuiIterator* npItr	// ÏûÏ¢µÄ·¢ËÍÄ¿±êÊÇ´Ë¶ÔÏó¼°Æä×Ó¶ÔÏó
+	IN IEinkuiIterator* npItr	// æ¶ˆæ¯çš„å‘é€ç›®æ ‡æ˜¯æ­¤å¯¹è±¡åŠå…¶å­å¯¹è±¡
 	)
 {
 	CXuiMessage* lpMsgObj;
@@ -92,7 +92,7 @@ IEinkuiMessage* CXuiMessageQueue::GetMessage(
 }
 
 
-// Çå³ıÈ«²¿ÏûÏ¢
+// æ¸…é™¤å…¨éƒ¨æ¶ˆæ¯
 void CXuiMessageQueue::Clear(void)
 {
 	IEinkuiMessage* lpMsg;
@@ -131,7 +131,7 @@ bool CXuiMessageQueue::Push_Front(IEinkuiMessage* npMsg){
 		if(miHistroy < Size())
 		{
 			miHistroy = Size();
-			////Trace_int(27513,miHistroy);//ÏûÏ¢¶ÓÁĞÀ©´ó
+			////Trace_int(27513,miHistroy);//æ¶ˆæ¯é˜Ÿåˆ—æ‰©å¤§
 		}
 
 	}
@@ -156,7 +156,7 @@ bool CXuiMessageQueue::Push_Back(IEinkuiMessage* npMsg){
 		if(miHistroy < Size())
 		{
 			miHistroy = Size();
-			////Trace_int(13738,miHistroy);//ÏûÏ¢¶ÓÁĞÀ©´ó
+			////Trace_int(13738,miHistroy);//æ¶ˆæ¯é˜Ÿåˆ—æ‰©å¤§
 		}
 	}
 	__except (EXCEPTION_EXECUTE_HANDLER)
@@ -184,7 +184,7 @@ bool CXuiMessageQueue::Push_Back(IEinkuiMessage* npMsg){
 //	luMsgID = npMsg->GetMessageID();
 //
 //
-//	// ´ÓÇ°ÏòºóËÑÑ°Í¬ÑùµÄÏûÏ¢½ÓÊÕÕßºÍ·¢ËÍÕß£¬È»ºóÉ¾³ıÓöµ½µÄµÚ¶şÌõÏûÏ¢
+//	// ä»å‰å‘åæœå¯»åŒæ ·çš„æ¶ˆæ¯æ¥æ”¶è€…å’Œå‘é€è€…ï¼Œç„¶ååˆ é™¤é‡åˆ°çš„ç¬¬äºŒæ¡æ¶ˆæ¯
 //	for(liIndex = CEsMessageFastList::Front();liIndex > 0;liIndex = CEsMessageFastList::Next(liIndex))
 //	{
 //		lpNextMsg = CEsMessageFastList::GetEntry(liIndex);
@@ -192,10 +192,10 @@ bool CXuiMessageQueue::Push_Back(IEinkuiMessage* npMsg){
 //		{
 //			if(lbDel != false)
 //			{
-//				// É¾µôµ±Ç°ÏûÏ¢
+//				// åˆ æ‰å½“å‰æ¶ˆæ¯
 //				CEsMessageFastList::RemoveByIndex(liIndex);
 //
-//				// ÎŞĞè¼ÌĞøÕÒÁË£¬°´ÕÕÕâÖÖÔ­Àí£¬²»¿ÉÄÜÒÑ¾­´æÔÚ3ÌõºÍ3ÌõÒÔÉÏµÄÏàÍ¬ÏûÏ¢
+//				// æ— éœ€ç»§ç»­æ‰¾äº†ï¼ŒæŒ‰ç…§è¿™ç§åŸç†ï¼Œä¸å¯èƒ½å·²ç»å­˜åœ¨3æ¡å’Œ3æ¡ä»¥ä¸Šçš„ç›¸åŒæ¶ˆæ¯
 //				break;
 //			}
 //			else
@@ -239,7 +239,7 @@ IEinkuiMessage* CXuiMessageQueue::GetMessage(void){
 	return lpMsg;
 }
 
-// »ñÈ¡¶ÔÏóÊı
+// è·å–å¯¹è±¡æ•°
 int CXuiMessageQueue::Size(void){
 	int liSize;
 
@@ -251,7 +251,7 @@ int CXuiMessageQueue::Size(void){
 }
 
 
-//// Çå³şÈ«²¿Ô­Ê¼ÊäÈëÏûÏ¢
+//// æ¸…æ¥šå…¨éƒ¨åŸå§‹è¾“å…¥æ¶ˆæ¯
 //int CXuiMessageQueue::RemoveMessages(
 //	unsigned short nusType,
 //	unsigned short nusMajNum,
@@ -307,7 +307,7 @@ int CXuiMessageQueue::Size(void){
 //	return liRemoved;
 //}
 
-// Çå³ıµôÖ¸¶¨µÄ¶¨Ê±Æ÷ÏûÏ¢
+// æ¸…é™¤æ‰æŒ‡å®šçš„å®šæ—¶å™¨æ¶ˆæ¯
 int CXuiMessageQueue::RemoveTimerMessage(
 	const IEinkuiIterator* npTarget,	// null for all targets
 	unsigned long nuTimerID		// 0 for all timer-message sending to the target
@@ -339,7 +339,7 @@ int CXuiMessageQueue::RemoveTimerMessage(
 			if(npTarget != NULL && lpMsgObj->mpMsgDestItr != npTarget)
 				continue;
 
-			if(lpMsgObj->GetInputDataSize() == sizeof(STEMS_TIMER) || nuTimerID!=0)	// Èç¹ûÊäÈë²ÎÊı²»ºÏÀí£¬ÎŞĞè½øÒ»²½ÅĞ¶ÏÁË£¬ÏÂÃæÉ¾µô¾ÍÊÇ
+			if(lpMsgObj->GetInputDataSize() == sizeof(STEMS_TIMER) || nuTimerID!=0)	// å¦‚æœè¾“å…¥å‚æ•°ä¸åˆç†ï¼Œæ— éœ€è¿›ä¸€æ­¥åˆ¤æ–­äº†ï¼Œä¸‹é¢åˆ æ‰å°±æ˜¯
 			{
 				lpTimer = (PSTEMS_TIMER)lpMsgObj->GetInputData();
 				if(lpTimer != NULL)

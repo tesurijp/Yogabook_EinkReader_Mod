@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -10,7 +10,7 @@
 #include "EvSpinButtonImp.h"
 
 
-//¶¨Òå¼üÖµ
+//å®šä¹‰é”®å€¼
 #define SB_KEY_DEFAULT_CTRL						L"DefaultCtrl"
 #define SB_KEY_SPINBUTTON						L"SpinButton"
 #define SB_KEY_DEFAULT_EDIT						L"DefaultEdit"
@@ -35,7 +35,7 @@
 DEFINE_BUILTIN_NAME(SpinButton)
 
 
-// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓĞ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖĞ½øĞĞ
+// åªç”¨äºå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 CEvSpinButton::CEvSpinButton() : 
 	mpEdit(NULL),
 	mpBtnUpArrow(NULL),
@@ -49,21 +49,21 @@ CEvSpinButton::CEvSpinButton() :
 CEvSpinButton::~CEvSpinButton() {}
 
 ULONG CEvSpinButton::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID				// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID				// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-		//´´½¨SpinButtonµÄ×Ó¿Ø¼ş
+		//åˆ›å»ºSpinButtonçš„å­æ§ä»¶
 		IConfigFile * lpConfigFile = EinkuiGetSystem()->GetCurrentWidget()->GetDefaultFactory()->GetTempleteFile();
 		if (lpConfigFile == NULL) break;
 		ICfKey* lpRootKey = lpConfigFile->GetRootKey();
@@ -73,14 +73,14 @@ ULONG CEvSpinButton::InitOnCreate(
 		ICfKey* lpSpinButtonKey = lpDefaultCtrlKey->GetSubKey(SB_KEY_SPINBUTTON);
 		if (lpSpinButtonKey == NULL) break;
 
-		//´´½¨±³¾°Í¼
+		//åˆ›å»ºèƒŒæ™¯å›¾
 		ICfKey * lpBkgKey = lpSpinButtonKey->GetSubKey(SB_KEY_DEFAULT_PICTURE_FRAME);
 		if(lpBkgKey)
 		{
 			mpBkg = CEvPictureFrame::CreateInstance(mpIterator, lpBkgKey, SB_ID_CTRL_BACKGROUND);			
 		}
 
-		//´´½¨±à¼­¿ò
+		//åˆ›å»ºç¼–è¾‘æ¡†
 		ICfKey * lpEditKey = lpSpinButtonKey->GetSubKey(SB_KEY_DEFAULT_EDIT);
 		if(lpEditKey)
 		{
@@ -88,14 +88,14 @@ ULONG CEvSpinButton::InitOnCreate(
 		}
 
 		
-		//´´½¨ÉÏ¼ıÍ·
+		//åˆ›å»ºä¸Šç®­å¤´
 		ICfKey * lpButtonUpKey = lpSpinButtonKey->GetSubKey(SB_KEY_DEFAULT_IMAGE_BUTTON_UP);
 		if(lpButtonUpKey)
 		{
 			mpBtnUpArrow = CEvImageButton::CreateInstance(mpIterator, lpButtonUpKey, SB_ID_CTRL_BUTTON_UP);			
 		}
 
-		//´´½¨ÏÂ¼ıÍ·
+		//åˆ›å»ºä¸‹ç®­å¤´
 		ICfKey * lpButtonDownKey = lpSpinButtonKey->GetSubKey(SB_KEY_DEFAULT_IMAGE_BUTTON_DOWN);
 		if(lpButtonDownKey)
 		{
@@ -110,7 +110,7 @@ ULONG CEvSpinButton::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvSpinButton::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -132,11 +132,11 @@ ERESULT CEvSpinButton::OnElementCreate(IEinkuiIterator* npIterator)
 	return lResult;
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvSpinButton::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -164,7 +164,7 @@ ERESULT CEvSpinButton::ParseMessage(IEinkuiMessage* npMsg)
 				{
 					SetCurrentValue(lnPreValue);
 
-					// Í¨Öª¸¸¶ÔÏó£¨ÒòÎªÖ÷¶¯È¥ÉèÖÃ±à¼­¿òµÄÖµ£¬²»»á·´À¡ÏûÏ¢£©
+					// é€šçŸ¥çˆ¶å¯¹è±¡ï¼ˆå› ä¸ºä¸»åŠ¨å»è®¾ç½®ç¼–è¾‘æ¡†çš„å€¼ï¼Œä¸ä¼šåé¦ˆæ¶ˆæ¯ï¼‰
 					PostMessageToParent(EEVT_SPINBUTTON_CONTENT_COMPLETION, lnPreValue);
 
 				}
@@ -202,33 +202,33 @@ ERESULT CEvSpinButton::ParseMessage(IEinkuiMessage* npMsg)
 				break;
 			}
 
-		case EEVT_EDIT_CONTENT_COMPLETION:				// ±à¼­¿òÊäÈëÍê³É
+		case EEVT_EDIT_CONTENT_COMPLETION:				// ç¼–è¾‘æ¡†è¾“å…¥å®Œæˆ
 			{
 				wchar_t* lswContent = (wchar_t*)npMsg->GetInputData();
 				if(NULL != lswContent)
 				{
 					int liValue = 0;
-					if(0 == _wcsicmp(lswContent, L"-"))		// Ö»ÓĞÒ»¸ö·ûºÅ
+					if(0 == _wcsicmp(lswContent, L"-"))		// åªæœ‰ä¸€ä¸ªç¬¦å·
 					{
 						CExMessage::SendMessageWithText(npMsg->GetMessageSender(), mpIterator, EACT_EDIT_SET_TEXT, L"0");
 					}
 					else
 						swscanf_s(lswContent, L"%d", &liValue);
 
-					// ÅĞ¶ÏÊÇ·ñÔ½½ç
+					// åˆ¤æ–­æ˜¯å¦è¶Šç•Œ
 					if(liValue < miMinValue || liValue > miMaxValue)
 					{
 						SetCurrentValue(liValue);
 					}
 
-					// Í¨Öª¸¸¶ÔÏó
+					// é€šçŸ¥çˆ¶å¯¹è±¡
 					PostMessageToParent(EEVT_SPINBUTTON_CONTENT_COMPLETION, liValue);
 				}
 				
 				break;
 			}
 
-		case EACT_SPINBUTTON_SET_MIN_VALUE:			// ÉèÖÃ×îĞ¡Öµ
+		case EACT_SPINBUTTON_SET_MIN_VALUE:			// è®¾ç½®æœ€å°å€¼
 			{
 				int* lpiMinValue = NULL;
 				if(ERESULT_SUCCESS != CExMessage::GetInputDataBuffer(npMsg, lpiMinValue))
@@ -238,7 +238,7 @@ ERESULT CEvSpinButton::ParseMessage(IEinkuiMessage* npMsg)
 				}
 
 				miMinValue = *lpiMinValue;
-				// Èç¹ûµ±Ç°ÖµĞ¡ÓÚ×îĞ¡Öµ£¬ÔòÉèÖÃÎª×îĞ¡Öµ
+				// å¦‚æœå½“å‰å€¼å°äºæœ€å°å€¼ï¼Œåˆ™è®¾ç½®ä¸ºæœ€å°å€¼
 				if(mnCurrentValue < miMinValue)
 				{
 					SetCurrentValue(miMinValue);
@@ -246,7 +246,7 @@ ERESULT CEvSpinButton::ParseMessage(IEinkuiMessage* npMsg)
 			}
 			break;
 
-		case EACT_SPINBUTTON_SET_MAX_VALUE:			// ÉèÖÃ×î´óÖµ
+		case EACT_SPINBUTTON_SET_MAX_VALUE:			// è®¾ç½®æœ€å¤§å€¼
 			{
 				int* lpiMaxValue = NULL;
 				if(ERESULT_SUCCESS != CExMessage::GetInputDataBuffer(npMsg, lpiMaxValue))
@@ -256,7 +256,7 @@ ERESULT CEvSpinButton::ParseMessage(IEinkuiMessage* npMsg)
 				}
 
 				miMaxValue = *lpiMaxValue;
-				// Èç¹ûµ±Ç°Öµ´óÓÚ×î´óÖµ£¬ÔòÉèÖÃÎª×î´óÖµ
+				// å¦‚æœå½“å‰å€¼å¤§äºæœ€å¤§å€¼ï¼Œåˆ™è®¾ç½®ä¸ºæœ€å¤§å€¼
 				if(mnCurrentValue > miMaxValue)
 				{
 					SetCurrentValue(miMaxValue);
@@ -271,7 +271,7 @@ ERESULT CEvSpinButton::ParseMessage(IEinkuiMessage* npMsg)
 
 		if(luResult == ERESULT_NOT_SET)
 		{
-			luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+			luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 		}
 
 	} while (false);
@@ -279,7 +279,7 @@ ERESULT CEvSpinButton::ParseMessage(IEinkuiMessage* npMsg)
 	return luResult;
 }
 
-//½ûÓÃ»òÆôÓÃ
+//ç¦ç”¨æˆ–å¯ç”¨
 ERESULT CEvSpinButton::OnElementEnable(bool nbIsEnable)
 {
 	if (mpEdit) mpEdit->GetIterator()->SetEnable(nbIsEnable);
@@ -304,7 +304,7 @@ BOOL CEvSpinButton::SetChildCtrlPara()
 
 	if (mpBkg)
 	{
-		//ÉèÖÃ±³¾°
+		//è®¾ç½®èƒŒæ™¯
 		IEinkuiIterator* pIter = mpBkg->GetIterator();
 		ICfKey* lpKeyBkg = mpTemplete->GetSubKey(SB_KEY_BACK_IMAGE);
 
@@ -328,7 +328,7 @@ BOOL CEvSpinButton::SetChildCtrlPara()
 
 	if (mpEdit)
 	{
-		//ÉèÖÃ±à¼­¿ò
+		//è®¾ç½®ç¼–è¾‘æ¡†
 		IEinkuiIterator* pIter = mpEdit->GetIterator();
 		ICfKey* lpKeyEdit = mpTemplete->GetSubKey(SB_KEY_EDIT);
 
@@ -343,13 +343,13 @@ BOOL CEvSpinButton::SetChildCtrlPara()
 			pIter->SetSize((FLOAT)lWidth, (FLOAT)lHeight);
 		}
 
-		//ÉèÖÃÖ»½ÓÊÕÊı×Ö
+		//è®¾ç½®åªæ¥æ”¶æ•°å­—
 		LONG lMode = 1;
 		EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
 			pIter, EACT_EDIT_NUMBER_ONLY, 
 			&lMode, sizeof(LONG), NULL, 0);
 
-		//ÉèÖÃ×ÖÊıÏŞÖÆ
+		//è®¾ç½®å­—æ•°é™åˆ¶
 		LONG lLimit = 4;
 		EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
 			pIter, EACT_EDIT_SET_LENGTH_LIMIT, 
@@ -361,7 +361,7 @@ BOOL CEvSpinButton::SetChildCtrlPara()
 
 	if (mpBtnUpArrow)
 	{
-		//ÉèÖÃÉÏ¼ıÍ·°´Å¥
+		//è®¾ç½®ä¸Šç®­å¤´æŒ‰é’®
 		IEinkuiIterator* pIter = mpBtnUpArrow->GetIterator();
 		ICfKey* lpKeyUpArrow = lpKeyArrow->GetSubKey(SB_KEY_UP_ARROW);
 		if (lpKeyUpArrow)
@@ -378,7 +378,7 @@ BOOL CEvSpinButton::SetChildCtrlPara()
 
 	if (mpBtnDownArrow)
 	{
-		//ÉèÖÃÏÂ¼ıÍ·°´Å¥
+		//è®¾ç½®ä¸‹ç®­å¤´æŒ‰é’®
 		IEinkuiIterator* pIter = mpBtnDownArrow->GetIterator();
 		ICfKey* lpKeyDownArrow = lpKeyArrow->GetSubKey(SB_KEY_DOWN_ARROW);
 		if (lpKeyDownArrow)
@@ -393,13 +393,13 @@ BOOL CEvSpinButton::SetChildCtrlPara()
 		}
 	}
 
-	//»ñÈ¡Ä¬ÈÏÖµ
+	//è·å–é»˜è®¤å€¼
 	int lDefaultValue = 0;
 	ICfKey* lpKeyDefaultValue = mpTemplete->GetSubKey(SB_KEY_DEFAULT_VALUE);
 	if (lpKeyDefaultValue)	lpKeyDefaultValue->GetValue(&lDefaultValue, sizeof(int));
 	SetCurrentValue(lDefaultValue);
 
-	//// ÉèÖÃ°´Å¥ÏìÓ¦ÇøÓò
+	//// è®¾ç½®æŒ‰é’®å“åº”åŒºåŸŸ
 	//if(mpUpperPicture)
 	//{
 	//	D2D1_SIZE_F ldfSize;
@@ -422,7 +422,7 @@ BOOL CEvSpinButton::SetCurrentValue(const int nValue)
 	
 	mnCurrentValue = lnValue;
 
-	// Èç¹ûÊÇ×î´óÖµ£¬Ôò½ûÓÃÔö¼Ó°´Å¥
+	// å¦‚æœæ˜¯æœ€å¤§å€¼ï¼Œåˆ™ç¦ç”¨å¢åŠ æŒ‰é’®
 	if(mnCurrentValue == miMaxValue)
 	{
 		mpBtnUpArrow->GetIterator()->SetEnable(false);
@@ -433,7 +433,7 @@ BOOL CEvSpinButton::SetCurrentValue(const int nValue)
 			mpBtnUpArrow->GetIterator()->SetEnable(true);
 	}
 
-	// Èç¹ûÊÇ×îĞ¡Öµ£¬Ôò½ûÓÃ¼õĞ¡°´Å¥
+	// å¦‚æœæ˜¯æœ€å°å€¼ï¼Œåˆ™ç¦ç”¨å‡å°æŒ‰é’®
 	if(mnCurrentValue == miMinValue)
 	{
 		mpBtnDownArrow->GetIterator()->SetEnable(false);
@@ -468,7 +468,7 @@ BOOL CEvSpinButton::SetCurrentValueByDisplay()
 	return lbResult;
 }
 
-//¸üĞÂ±à¼­ÊÓÍ¼
+//æ›´æ–°ç¼–è¾‘è§†å›¾
 BOOL CEvSpinButton::UpdateEditView()
 {
 	BOOL lbResult = FALSE;

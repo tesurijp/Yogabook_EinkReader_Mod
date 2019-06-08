@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -29,30 +29,30 @@ CXsWidget::~CXsWidget()
 	if (mpHomePage != NULL)
 		mpHomePage->Close();
 	CMM_SAFE_DELETE(mswModulePath);
-	//CMM_SAFE_RELEASE(mpFactory); Áô¸øGUIÏµÍ³µÄ¹ÜÀíÆ÷É¾³ý
+	//CMM_SAFE_RELEASE(mpFactory); ç•™ç»™GUIç³»ç»Ÿçš„ç®¡ç†å™¨åˆ é™¤
 	CMM_SAFE_RELEASE(mpInstanceConfig);
 }
 
 
-// ¸ÃWidgetµÄÄ£¿éÎÄ¼þÃû£¬¼´ÊµÏÖ´ËWidgetµÄDLLÃû³Æ£¬Èç"IdeaMain.dll"
+// è¯¥Widgetçš„æ¨¡å—æ–‡ä»¶åï¼Œå³å®žçŽ°æ­¤Widgetçš„DLLåç§°ï¼Œå¦‚"IdeaMain.dll"
 const wchar_t* __stdcall CXsWidget::GetModuleName(void)
 {
 	return mswModuleName;
 }
 
-// »ñµÃ±¾Î¢¼þÊµÀýÃû£¬ÏµÍ³Æô¶¯Ê±½¨Á¢µÄµÚÒ»¸öÎ¢¼þ½Ð×ö¡®system¡¯
+// èŽ·å¾—æœ¬å¾®ä»¶å®žä¾‹åï¼Œç³»ç»Ÿå¯åŠ¨æ—¶å»ºç«‹çš„ç¬¬ä¸€ä¸ªå¾®ä»¶å«åšâ€˜systemâ€™
 const wchar_t* __stdcall CXsWidget::GetInstanceName(void)
 {
 	return mswInstance;
 }
 
-// »ñÈ¡Î¢¼þËùÔÚ°²×°Ä¿Â¼£¬²»´øÓÐºó×ºµÄ'\'
+// èŽ·å–å¾®ä»¶æ‰€åœ¨å®‰è£…ç›®å½•ï¼Œä¸å¸¦æœ‰åŽç¼€çš„'\'
 const wchar_t* __stdcall CXsWidget::GetWidgetDefaultPath(void)
 {
 	return mswModulePath;
 }
 
-// »ñµÃÎ¢¼þËùÔÚModuleµÄ¹¤³§½Ó¿Ú
+// èŽ·å¾—å¾®ä»¶æ‰€åœ¨Moduleçš„å·¥åŽ‚æŽ¥å£
 IElementFactory* __stdcall CXsWidget::GetDefaultFactory(void)
 {
 	return mpFactory;
@@ -72,9 +72,9 @@ void CXsWidget::SetHomePage(IEinkuiIterator* npHomePage)
 
 
 ERESULT CXsWidget::InitOnCreate(
-	IN const wchar_t* nswModulePathName,	// ¸ÃWidgetµÄÄ£¿éÎÄ¼þµÄÂ·¾¶Ãû£¬¼´ÊµÏÖ´ËWidgetµÄDLLÃû³Æ
-	IN const wchar_t* nswInstanceName,	// ±¾´ÎÔËÐÐµÄÊµÀýÃû£¬ÊµÀýÃû²»ÄÜÏàÍ¬£¬Èç¹û´æÔÚÏàÍ¬µÄÊµÀýÃû£¬ÏµÍ³½«»á·µ»ØÊ§°Ü
-	IN ICfKey* npInstanceConfig	// ±¾ÔËÐÐÊµÀýµÄ×¨ÊôÅäÖÃ
+	IN const wchar_t* nswModulePathName,	// è¯¥Widgetçš„æ¨¡å—æ–‡ä»¶çš„è·¯å¾„åï¼Œå³å®žçŽ°æ­¤Widgetçš„DLLåç§°
+	IN const wchar_t* nswInstanceName,	// æœ¬æ¬¡è¿è¡Œçš„å®žä¾‹åï¼Œå®žä¾‹åä¸èƒ½ç›¸åŒï¼Œå¦‚æžœå­˜åœ¨ç›¸åŒçš„å®žä¾‹åï¼Œç³»ç»Ÿå°†ä¼šè¿”å›žå¤±è´¥
+	IN ICfKey* npInstanceConfig	// æœ¬è¿è¡Œå®žä¾‹çš„ä¸“å±žé…ç½®
 	)
 {
 	int liPathLen = (int)wcslen(nswModulePathName)+1;
@@ -103,14 +103,14 @@ ERESULT CXsWidget::InitOnCreate(
 }
 
 
-// »ñµÃÎ¢¼þµÄÊµÀý×¨ÊôÅäÖÃ£»Ò»¸öÎ¢¼þModule¿ÉÒÔÔÚÒ»¸ö½ø³ÌÖÐÍ¬Ê±ÔËÐÐ¶à¸öÊµÀý£¬Óë´ËÍ¬Ê±£¬Ò»Ì¨µçÄÔÉÏ£¬Ã¿Ò»¸öWindowsÓÃ»§ÕÊ»§ÏÂ£¬¶¼¿ÉÒÔÔËÐÐÒ»¸öIdealife½ø³Ì£»
-//		ËùÒÔÐèÒªÎªÎ¢¼þµÄÃ¿Ò»¸öÔËÐÐÌ¬ÊµÀýÌá¹©Ò»¸ö×¨ÊôÅäÖÃ£¬Ëü¿ÉÒÔ½«ÐèÒª³¤ÆÚ±£´æµÄÉèÖÃÀàÐÅÏ¢´æ·Åµ½Õâ¸ö×¨ÊôÅäÖÃÖÐ
+// èŽ·å¾—å¾®ä»¶çš„å®žä¾‹ä¸“å±žé…ç½®ï¼›ä¸€ä¸ªå¾®ä»¶Moduleå¯ä»¥åœ¨ä¸€ä¸ªè¿›ç¨‹ä¸­åŒæ—¶è¿è¡Œå¤šä¸ªå®žä¾‹ï¼Œä¸Žæ­¤åŒæ—¶ï¼Œä¸€å°ç”µè„‘ä¸Šï¼Œæ¯ä¸€ä¸ªWindowsç”¨æˆ·å¸æˆ·ä¸‹ï¼Œéƒ½å¯ä»¥è¿è¡Œä¸€ä¸ªIdealifeè¿›ç¨‹ï¼›
+//		æ‰€ä»¥éœ€è¦ä¸ºå¾®ä»¶çš„æ¯ä¸€ä¸ªè¿è¡Œæ€å®žä¾‹æä¾›ä¸€ä¸ªä¸“å±žé…ç½®ï¼Œå®ƒå¯ä»¥å°†éœ€è¦é•¿æœŸä¿å­˜çš„è®¾ç½®ç±»ä¿¡æ¯å­˜æ”¾åˆ°è¿™ä¸ªä¸“å±žé…ç½®ä¸­
 ICfKey* __stdcall CXsWidget::GetInstanceConfig(void)
 {
 	return mpInstanceConfig;
 }
 
-//»ñÈ¡Î¢¼þÓÃÀ´´æ·ÅÁÙÊ±ÎÄ¼þµÄÄ¿Â¼,Í¬Ò»¸öµÄÎ¢¼þµÄ²»Í¬ÊµÀýµÃµ½µÄÊÇ²»Í¬µÄÎÄ¼þ¼ÐÂ·¾¶
+//èŽ·å–å¾®ä»¶ç”¨æ¥å­˜æ”¾ä¸´æ—¶æ–‡ä»¶çš„ç›®å½•,åŒä¸€ä¸ªçš„å¾®ä»¶çš„ä¸åŒå®žä¾‹å¾—åˆ°çš„æ˜¯ä¸åŒçš„æ–‡ä»¶å¤¹è·¯å¾„
 bool __stdcall CXsWidget::GetInstanceTempPath(OUT wchar_t* npswPath,IN LONG nlBufferLen)
 {
 	bool lbRet = false;
@@ -132,7 +132,7 @@ bool __stdcall CXsWidget::GetInstanceTempPath(OUT wchar_t* npswPath,IN LONG nlBu
 
 		wcscpy_s(npswPath,nlBufferLen,lswTempPath);
 
-		//´´½¨Õâ¸öÄ¿Â¼
+		//åˆ›å»ºè¿™ä¸ªç›®å½•
 		SHCreateDirectory(NULL,lswTempPath);
 
 		lbRet = true;
@@ -141,23 +141,23 @@ bool __stdcall CXsWidget::GetInstanceTempPath(OUT wchar_t* npswPath,IN LONG nlBu
 
 	return lbRet;
 }
-// »ñµÃÎ¢¼þÊµÀýµÄHome Page
+// èŽ·å¾—å¾®ä»¶å®žä¾‹çš„Home Page
 IEinkuiIterator* __stdcall CXsWidget::GetHomePage(void)
 {
 	return mpHomePage;
 }
 
-// ¹Ø±ÕWidget
+// å…³é—­Widget
 void __stdcall CXsWidget::Close(void)
 {
 	CMMASSERT(mpHomePage);
 
-	// Ê×ÏÈÒþ²Ø
+	// é¦–å…ˆéšè—
 	mpHomePage->SetVisible(false);
 
-	// ½«HomePageÒÆµ½RootÏÂ£¬·ÀÖ¹SystemWidget¶ÔËüÖØ¸´É¾³ý
+	// å°†HomePageç§»åˆ°Rootä¸‹ï¼Œé˜²æ­¢SystemWidgetå¯¹å®ƒé‡å¤åˆ é™¤
 	EinkuiGetSystem()->GetElementManager()->SetParentElement(EinkuiGetSystem()->GetElementManager()->GetRootElement(),mpHomePage);
 
-	// ÇëÇóÏµÍ³½«±¾Widget¹Ø±Õ
+	// è¯·æ±‚ç³»ç»Ÿå°†æœ¬Widgetå…³é—­
 	CExMessage::PostMessage(NULL,NULL,EMSG_CLOSE_WIDGET,this);
 }

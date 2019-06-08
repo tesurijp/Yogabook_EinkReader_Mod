@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -23,22 +23,22 @@ void CTxdArrangeThread::ArrangeThreadRoutine()
 
 	bool eventReleased = false;
 
-	// ¿ªÊ¼ÅÅ°æ
+	// å¼€å§‹æ’ç‰ˆ
 
 	try
 	{
-		// µ÷ÓÃÒ»´Î±íÊ¾¿ªÊ¼
+		// è°ƒç”¨ä¸€æ¬¡è¡¨ç¤ºå¼€å§‹
 		mCallBackFun(mThreadNumber, 0, 0, mCallBackContext);
 
 		//////////////////////////////////////////////////////////////////////////
-		// Ê×ÏÈÅÅ²¼Ç°Á½Ò³
+		// é¦–å…ˆæ’å¸ƒå‰ä¸¤é¡µ
 		if (mCharStart > mCharEnd)
 			mCharStart = 0;
 
 		ArrangePages(2,mCharStart,mCharEnd);
 
 		//////////////////////////////////////////////////////////////////////////
-		// Í¨ÖªÍâ²¿¿ÉÒÔÒì²½Ö´ĞĞÁË
+		// é€šçŸ¥å¤–éƒ¨å¯ä»¥å¼‚æ­¥æ‰§è¡Œäº†
 		SetEvent(mFocusPageLoaded);
 		eventReleased = true;
 
@@ -46,7 +46,7 @@ void CTxdArrangeThread::ArrangeThreadRoutine()
 			THROW_FALSE;
 
 		//////////////////////////////////////////////////////////////////////////
-		// Æô¶¯¶Ôµ±Ç°Ò³Ö®Ç°Ò³ÅÅ°æµÄµÚ¶şÏß³Ì
+		// å¯åŠ¨å¯¹å½“å‰é¡µä¹‹å‰é¡µæ’ç‰ˆçš„ç¬¬äºŒçº¿ç¨‹
 		if (mCharStart > 0)
 		{
 			Gdiplus::RectF rectViewPort;
@@ -58,21 +58,21 @@ void CTxdArrangeThread::ArrangeThreadRoutine()
 		}
 
 		//////////////////////////////////////////////////////////////////////////
-		// ¼ÌĞøÅÅ²¼µ±Ç°Ò³µÄºóĞøÒ³
+		// ç»§ç»­æ’å¸ƒå½“å‰é¡µçš„åç»­é¡µ
 		ArrangePages(0,mPageCtl.charBegin, mCharEnd);
 
 		if (mExitFlag != 0)
 			THROW_FALSE;
 
 		//////////////////////////////////////////////////////////////////////////
-		// µÈ´ıµÚ¶şÏß³Ì·µ»Ø£¬×î¶àµÈ´ı30·ÖÖÓ
+		// ç­‰å¾…ç¬¬äºŒçº¿ç¨‹è¿”å›ï¼Œæœ€å¤šç­‰å¾…30åˆ†é’Ÿ
 		if (mThread2 != NULL)
 		{
 			if (WaitForSingleObject(mThread2->mThreadHandle, 30 * 60 * 1000) == WAIT_TIMEOUT)
-				THROW_FALSE;	// ³¬Ê±µÄ£¬ÔòÊÓ×÷Ê§°Ü£¬ËùÓĞÊı¾İ¶¼²»Ê¹ÓÃ
+				THROW_FALSE;	// è¶…æ—¶çš„ï¼Œåˆ™è§†ä½œå¤±è´¥ï¼Œæ‰€æœ‰æ•°æ®éƒ½ä¸ä½¿ç”¨
 
 			//////////////////////////////////////////////////////////////////////////////
-			//// ´¦ÀíËùÓĞ½¹µãÇ°Ò³
+			//// å¤„ç†æ‰€æœ‰ç„¦ç‚¹å‰é¡µ
 			//for (int i = 0; i < mThread2->mPages.Size() && mExitFlag == 0; i++)
 			//{
 			//	try {
@@ -83,7 +83,7 @@ void CTxdArrangeThread::ArrangeThreadRoutine()
 			//	}
 
 			//}
-			// ¸ÄÎªÒ»´ÎĞÔ´«¹ıÈ¥
+			// æ”¹ä¸ºä¸€æ¬¡æ€§ä¼ è¿‡å»
 			mCallBackFun(mThreadNumber, 0xCFFFFFFF,(PST_PAGE_CONTROL)&mThread2->mPages, mCallBackContext);
 
 			//delete mThread2;
@@ -100,20 +100,20 @@ void CTxdArrangeThread::ArrangeThreadRoutine()
 		eventReleased = true;
 	}
 
-	// µ÷ÓÃÒ»´Î±íÊ¾½áÊø
+	// è°ƒç”¨ä¸€æ¬¡è¡¨ç¤ºç»“æŸ
 	mCallBackFun(mThreadNumber,MAXULONG32, 0, mCallBackContext);
 
 }
 
 void CTxdArrangeThread::ArrangeThreadRoutine2()
-{	// ÅÅ°æÔÚÊÓ¾õ½¹µãÒ³Ö®Ç°µÄÒ³Ãæ
+{	// æ’ç‰ˆåœ¨è§†è§‰ç„¦ç‚¹é¡µä¹‹å‰çš„é¡µé¢
 
-	// Ê×ÏÈ¼ì²é×Ô¼ºËùÒªÅÅ°æµÄÊı¾İÁ¿ÊÇ·ñ¹ı´ó£¬Èç¹ûÌ«´ó£¬ÔòÔÙ´Î·ÖÉí
+	// é¦–å…ˆæ£€æŸ¥è‡ªå·±æ‰€è¦æ’ç‰ˆçš„æ•°æ®é‡æ˜¯å¦è¿‡å¤§ï¼Œå¦‚æœå¤ªå¤§ï¼Œåˆ™å†æ¬¡åˆ†èº«
 
-	// ÏÖÔÚ¿ªÊ¼ÅÅ²¼µ±Ç°Ò³Ö®Ç°µÄÒ³Ãæ
+	// ç°åœ¨å¼€å§‹æ’å¸ƒå½“å‰é¡µä¹‹å‰çš„é¡µé¢
 	ArrangePages(0,mCharStart,mCharEnd);
 
-	// ¼ì²éÊÇ·ñ´æÔÚÖ®Ç°µÄµ¹ÊıµÚÒ»Ò³ÄÚÈİ¹ıÉÙµÄÇé¿ö
+	// æ£€æŸ¥æ˜¯å¦å­˜åœ¨ä¹‹å‰çš„å€’æ•°ç¬¬ä¸€é¡µå†…å®¹è¿‡å°‘çš„æƒ…å†µ
 	if (mPages.Size() >= 2 && mExitFlag==0)
 	{
 		Gdiplus::RectF boundRect;
@@ -122,7 +122,7 @@ void CTxdArrangeThread::ArrangeThreadRoutine2()
 		leftTop.X = leftTop.Y = 0.0f;
 		if (mGdiObj->MeasureString(mPages.Back().charBegin + mCharBuffer, mPages.Back().charCount, mFontObj,mViewPortExt, &boundRect) == Ok && boundRect.Height < mViewHeight / 2.0f)
 		{
-			// ½«µ¹ÊıµÚ¶şÒ³ËõĞ¡1/4£¬¶àÓàµÄÄÚÈİ¼·µ½ÏÂÒ»Ò³¼´µ¹ÊıµÚÒ»Ò³
+			// å°†å€’æ•°ç¬¬äºŒé¡µç¼©å°1/4ï¼Œå¤šä½™çš„å†…å®¹æŒ¤åˆ°ä¸‹ä¸€é¡µå³å€’æ•°ç¬¬ä¸€é¡µ
 			auto x1 = mPages[mPages.Size() - 2].charCount;
 			auto x2 = mPages[mPages.Size() - 1].charCount;
 
@@ -139,7 +139,7 @@ void CTxdArrangeThread::ArrangeThreadRoutine2()
 			}
 		}
 	}
-	// ÍË³öµÚ¶şÏß³Ì
+	// é€€å‡ºç¬¬äºŒçº¿ç¨‹
 }
 
 ED_ERR CTxdArrangeThread::ArrangePages(int32 pageRequired, uint32 stringBase, uint32 stringEnd)
@@ -161,12 +161,12 @@ ED_ERR CTxdArrangeThread::ArrangePages(int32 pageRequired, uint32 stringBase, ui
 		while (mPageCtl.charBegin < stringEnd && mExitFlag == 0)
 		{
 			mPageCtl.charCount = FillCharsToPage(mPageCtl.charBegin, stringEnd, searchBase, 32);
-			if (mPageCtl.charCount == searchBase)	// ËµÃ÷³¢ÊÔµÄ»ùµØÖ·ÒÑ¾­¿ç¹ıÁË±¾Ò³µÄ´óĞ¡£¬ÔÙ´ÎÏòÇ°ÍË1024¸öµ¥Î»£¨ÓĞ¿ÉÄÜÖ±½ÓÍËµ½0ÆğÊ¼£¬²¢²»»á³ö´í£©
+			if (mPageCtl.charCount == searchBase)	// è¯´æ˜å°è¯•çš„åŸºåœ°å€å·²ç»è·¨è¿‡äº†æœ¬é¡µçš„å¤§å°ï¼Œå†æ¬¡å‘å‰é€€1024ä¸ªå•ä½ï¼ˆæœ‰å¯èƒ½ç›´æ¥é€€åˆ°0èµ·å§‹ï¼Œå¹¶ä¸ä¼šå‡ºé”™ï¼‰
 			{
-				if (searchBase > 1024)	// È·±£ÏòÇ°ÌøÔ¾1024ºó£¬»¹´æÔÚÄÚÈİ
+				if (searchBase > 1024)	// ç¡®ä¿å‘å‰è·³è·ƒ1024åï¼Œè¿˜å­˜åœ¨å†…å®¹
 					mPageCtl.charCount = FillCharsToPage(mPageCtl.charBegin, stringEnd, searchBase - 1024, 32);
 
-				if (mPageCtl.charCount == searchBase)	// »¹ÊÇÔ½½çÁË£¬Ôò´ÓÍ·¿ªÊ¼²éÕÒ
+				if (mPageCtl.charCount == searchBase)	// è¿˜æ˜¯è¶Šç•Œäº†ï¼Œåˆ™ä»å¤´å¼€å§‹æŸ¥æ‰¾
 					mPageCtl.charCount = FillCharsToPage(mPageCtl.charBegin, stringEnd, 0, 32);
 
 			}
@@ -184,7 +184,7 @@ ED_ERR CTxdArrangeThread::ArrangePages(int32 pageRequired, uint32 stringBase, ui
 
 			mPageCtl.charBegin += mPageCtl.charCount;
 
-			// Ê¹ÓÃÆ½¾ùÒ³ÃæÊıµÄ1024ÏÂ¶ÔÆë£¬×÷Îª»ùÊı£¬À´³¢ÊÔ²éÕÒ
+			// ä½¿ç”¨å¹³å‡é¡µé¢æ•°çš„1024ä¸‹å¯¹é½ï¼Œä½œä¸ºåŸºæ•°ï¼Œæ¥å°è¯•æŸ¥æ‰¾
 			searchBase = ((charCounted / (++countTimes)) / 1024) * 1024;
 
 			if (pageRequired > 0 && ++pageLoaded >= pageRequired)
@@ -210,39 +210,39 @@ uint32 CTxdArrangeThread::FillCharsToPage(uint32 stringBase, uint32 stringEnd, u
 	int32 clusterCount = 0;
 
 	if (mExitFlag != 0)
-		return 0;	// ÍË³öÏß³Ì±êÖ¾±»ÉèÖÃ
+		return 0;	// é€€å‡ºçº¿ç¨‹æ ‡å¿—è¢«è®¾ç½®
 
-	// Èç¹ûÊ£ÓàÊı¾İĞ¡ÓÚÒ»¸öÌ½²âÁ£¶È£¬Ôò½µµÍÁ£¶ÈÈ¥Ì½²â
+	// å¦‚æœå‰©ä½™æ•°æ®å°äºä¸€ä¸ªæ¢æµ‹ç²’åº¦ï¼Œåˆ™é™ä½ç²’åº¦å»æ¢æµ‹
 	if ((ULONG)stringBase + clusterBase + clusterSize >= stringEnd)
 	{
 		if (clusterSize > 1)
 			return FillCharsToPage(stringBase, stringEnd, clusterBase, LOW_GRAIN(clusterSize));
 
-		// Ã»ÓĞ½øÒ»²½µÄ¿Õ¼äÁË£¬Ö±½Ó°Ñµ±Ç°µÄ×Ö·û¶¼·µ»Ø°É
+		// æ²¡æœ‰è¿›ä¸€æ­¥çš„ç©ºé—´äº†ï¼Œç›´æ¥æŠŠå½“å‰çš„å­—ç¬¦éƒ½è¿”å›å§
 		return stringEnd - stringBase;
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	//Ö´ĞĞÏòºóÌ½²âÈÎÎñ
+	//æ‰§è¡Œå‘åæ¢æµ‹ä»»åŠ¡
 	//////////////////////////////////////////////////////////////////////////
 
-	// ´ÓclusterBase¿ªÊ¼ÉèÖÃ32¸öÌ½²âcluster
+	// ä»clusterBaseå¼€å§‹è®¾ç½®32ä¸ªæ¢æµ‹cluster
 	for (auto &i : clusterCharRanges)   
 	{
 		if (stringBase + crtBoxBase + clusterSize > stringEnd)
 		{
-			// µ½ÁËÎÄÕÂ½áÎ²ÁË
+			// åˆ°äº†æ–‡ç« ç»“å°¾äº†
 			if (stringBase + crtBoxBase >= stringEnd)
 				break;
-			crtBoxBase = stringEnd - stringBase - clusterSize;	// ´ÓÎÄÕÂ½áÎ²´¦µ¹ÍËÒ»¸öµ¥Ôª£¬È·±£Õâ¸öµ¥ÔªÒ²ÊÇ¿ÉÒÔ±»10Õû³ı¡£
-																// ËäÈ»Õâ»áµ¼ÖÂ´Ëµ¥ÔªºÍÇ°Ò»¸öµ¥ÔªÓĞÖØºÏ£¬µ«Ëã·¨ÉÏ²»»á³ö´í¡£
+			crtBoxBase = stringEnd - stringBase - clusterSize;	// ä»æ–‡ç« ç»“å°¾å¤„å€’é€€ä¸€ä¸ªå•å…ƒï¼Œç¡®ä¿è¿™ä¸ªå•å…ƒä¹Ÿæ˜¯å¯ä»¥è¢«10æ•´é™¤ã€‚
+																// è™½ç„¶è¿™ä¼šå¯¼è‡´æ­¤å•å…ƒå’Œå‰ä¸€ä¸ªå•å…ƒæœ‰é‡åˆï¼Œä½†ç®—æ³•ä¸Šä¸ä¼šå‡ºé”™ã€‚
 		}
 
 		i.First = crtBoxBase;
 		i.Length = clusterSize;
 		crtBoxBase += clusterSize;
 
-		clusterCount++;	// ¼ÆËãÓĞĞ§µÄµ¥ÔªÊı
+		clusterCount++;	// è®¡ç®—æœ‰æ•ˆçš„å•å…ƒæ•°
 	}
 
 	StringFormat strFormat;
@@ -255,44 +255,44 @@ uint32 CTxdArrangeThread::FillCharsToPage(uint32 stringBase, uint32 stringEnd, u
 
 	for (int j = 0; j < clusterCount; j++)
 	{
-		//// ¹ıÂË²»¿É¼û×Ö·û
+		//// è¿‡æ»¤ä¸å¯è§å­—ç¬¦
 		//if (clusterSize == 1 && iswgraph(*(mCharBuffer + stringBase + clusterCharRanges[j].First)) == false)
 		//	continue;
 
 		if (clusterRegions[j].GetBounds(&boundOfCluster,mGdiObj) != Ok)
 			THROW_FAILED;
 
-		// Óöµ½³ß´çÎªÁãµÄÇé¿ö£¬ÏÈÅĞ¶ÏÊÇ²»ÊÇÓöµ½ÁË²»¿É¼û×Ö·ûĞòÁĞ
+		// é‡åˆ°å°ºå¯¸ä¸ºé›¶çš„æƒ…å†µï¼Œå…ˆåˆ¤æ–­æ˜¯ä¸æ˜¯é‡åˆ°äº†ä¸å¯è§å­—ç¬¦åºåˆ—
 		if (boundOfCluster.Height == 0)
 		{
-			// ÒòÎª²âÊÔÉè¶¨µÄÅÅ°æÇøÓòºÜ¸ß£¬Èçµ±Ç°Éè¶¨µÄ´Ø´óĞ¡Îª1£¬¾ø¶Ô²»»á³öÏÖ¿É¼û×Ö·û³¬³öÅÅ°æÇøÓòµÄÇé¿ö£¬Õâ±ØÈ»ÊÇ²»¿É¼û×Ö·û£¬Ôò½«²»¿É¼û×Ö·û·Åµ½¼ÆËãµ½Ç°Ò³
+			// å› ä¸ºæµ‹è¯•è®¾å®šçš„æ’ç‰ˆåŒºåŸŸå¾ˆé«˜ï¼Œå¦‚å½“å‰è®¾å®šçš„ç°‡å¤§å°ä¸º1ï¼Œç»å¯¹ä¸ä¼šå‡ºç°å¯è§å­—ç¬¦è¶…å‡ºæ’ç‰ˆåŒºåŸŸçš„æƒ…å†µï¼Œè¿™å¿…ç„¶æ˜¯ä¸å¯è§å­—ç¬¦ï¼Œåˆ™å°†ä¸å¯è§å­—ç¬¦æ”¾åˆ°è®¡ç®—åˆ°å‰é¡µ
 			if(clusterSize == 1)
 				continue;
 
-			// Èç¹û´Ø´óÓÚ1£¬Ò»°ãÊÇ32¸ö×Ö·û£¬ÄÇÃ´½øÈë·ÖÎöÕâ¸ö´ØÄÚ²¿µÄÇé¿ö£¬Ò²ĞíÕû¸ö´Ø¶¼ÊÇ²»¿É¼û×Ö·û; ½µµÍÁ£¶È£¬¼ÌĞø²éÕÒ
+			// å¦‚æœç°‡å¤§äº1ï¼Œä¸€èˆ¬æ˜¯32ä¸ªå­—ç¬¦ï¼Œé‚£ä¹ˆè¿›å…¥åˆ†æè¿™ä¸ªç°‡å†…éƒ¨çš„æƒ…å†µï¼Œä¹Ÿè®¸æ•´ä¸ªç°‡éƒ½æ˜¯ä¸å¯è§å­—ç¬¦; é™ä½ç²’åº¦ï¼Œç»§ç»­æŸ¥æ‰¾
 			return FillCharsToPage(stringBase, stringEnd, clusterCharRanges[j].First, LOW_GRAIN(clusterSize));
 		}
 
-		// Èç¹û±¾²âÊÔµ¥Ôª³¬³öÊÓ¿Ú´óĞ¡
+		// å¦‚æœæœ¬æµ‹è¯•å•å…ƒè¶…å‡ºè§†å£å¤§å°
 		if (/*boundOfCluster.Height == 0 || */boundOfCluster.Y + boundOfCluster.Height > mViewHeight)
 		{
-			if (clusterSize == 1)// ÊÇ·ñÁ£¶ÈµÈÓÚ1ÁË
-				return clusterCharRanges[j].First;// ¾ÍÊÇÄãÁË
+			if (clusterSize == 1)// æ˜¯å¦ç²’åº¦ç­‰äº1äº†
+				return clusterCharRanges[j].First;// å°±æ˜¯ä½ äº†
 
-			// ½µµÍÁ£¶È£¬½øÒ»²½²éÕÒÕâ¸öµ¥Ôª
+			// é™ä½ç²’åº¦ï¼Œè¿›ä¸€æ­¥æŸ¥æ‰¾è¿™ä¸ªå•å…ƒ
 			return FillCharsToPage(stringBase, stringEnd, clusterCharRanges[j].First, LOW_GRAIN(clusterSize));
 		}
 	}
 
-	// ÊÇ·ñ²»´æÔÚºóĞø×Ö·ûÁË
+	// æ˜¯å¦ä¸å­˜åœ¨åç»­å­—ç¬¦äº†
 	if (stringBase + crtBoxBase >= stringEnd)
 		return crtBoxBase;
 
-	// Õû¸ö¸²¸ÇÃæ¶¼Ã»ÓĞ³¬³öÊÓ¿Ú£¬ÄÇÃ´Ïòºó²éÕÒ£¬±£³ÖÁ£¶È²»±ä
+	// æ•´ä¸ªè¦†ç›–é¢éƒ½æ²¡æœ‰è¶…å‡ºè§†å£ï¼Œé‚£ä¹ˆå‘åæŸ¥æ‰¾ï¼Œä¿æŒç²’åº¦ä¸å˜
 	return FillCharsToPage(stringBase, stringEnd, crtBoxBase, clusterSize);
 }
 
-// ÏÂÃæµÄ´úÂë¸ü¼Ó¸ßĞ§£¬µ«ÊÇ´æÔÚÒ»Ğ©bug£¬²»Çå³şÇé¿ö£¬ÏÈÁôÔÚÕâ
+// ä¸‹é¢çš„ä»£ç æ›´åŠ é«˜æ•ˆï¼Œä½†æ˜¯å­˜åœ¨ä¸€äº›bugï¼Œä¸æ¸…æ¥šæƒ…å†µï¼Œå…ˆç•™åœ¨è¿™
 //uint32 CTxdArrangeThread::FillCharsToPage(uint32 stringBase, uint32 stringEnd, uint32 clusterBase, uint32 clusterSize)
 //{
 //	CharacterRange clusterCharRanges[32];
@@ -302,39 +302,39 @@ uint32 CTxdArrangeThread::FillCharsToPage(uint32 stringBase, uint32 stringEnd, u
 //	int32 clusterCount = 0;
 //
 //	if (mExitFlag != 0)
-//		return 0;	// ÍË³öÏß³Ì±êÖ¾±»ÉèÖÃ
+//		return 0;	// é€€å‡ºçº¿ç¨‹æ ‡å¿—è¢«è®¾ç½®
 //
-//					// Èç¹ûÊ£ÓàÊı¾İĞ¡ÓÚÒ»¸öÌ½²âÁ£¶È£¬Ôò½µµÍÁ£¶ÈÈ¥Ì½²â
+//					// å¦‚æœå‰©ä½™æ•°æ®å°äºä¸€ä¸ªæ¢æµ‹ç²’åº¦ï¼Œåˆ™é™ä½ç²’åº¦å»æ¢æµ‹
 //	if ((ULONG)stringBase + clusterBase + clusterSize >= stringEnd)
 //	{
 //		if (clusterSize > 1)
 //			return FillCharsToPage(stringBase, stringEnd, clusterBase, LOW_GRAIN(clusterSize));
 //
-//		// Ã»ÓĞ½øÒ»²½µÄ¿Õ¼äÁË£¬Ö±½Ó°Ñµ±Ç°µÄ×Ö·û¶¼·µ»Ø°É
+//		// æ²¡æœ‰è¿›ä¸€æ­¥çš„ç©ºé—´äº†ï¼Œç›´æ¥æŠŠå½“å‰çš„å­—ç¬¦éƒ½è¿”å›å§
 //		return stringEnd - stringBase;
 //	}
 //
 //	//////////////////////////////////////////////////////////////////////////
-//	//Ö´ĞĞÏòºóÌ½²âÈÎÎñ
+//	//æ‰§è¡Œå‘åæ¢æµ‹ä»»åŠ¡
 //	//////////////////////////////////////////////////////////////////////////
 //
-//	// ´ÓclusterBase¿ªÊ¼ÉèÖÃ32¸öÌ½²âcluster
+//	// ä»clusterBaseå¼€å§‹è®¾ç½®32ä¸ªæ¢æµ‹cluster
 //	for (auto &i : clusterCharRanges)
 //	{
 //		if (stringBase + crtBoxBase + clusterSize > stringEnd)
 //		{
-//			// µ½ÁËÎÄÕÂ½áÎ²ÁË
+//			// åˆ°äº†æ–‡ç« ç»“å°¾äº†
 //			if (stringBase + crtBoxBase >= stringEnd)
 //				break;
-//			crtBoxBase = stringEnd - stringBase - clusterSize;	// ´ÓÎÄÕÂ½áÎ²´¦µ¹ÍËÒ»¸öµ¥Ôª£¬È·±£Õâ¸öµ¥ÔªÒ²ÊÇ¿ÉÒÔ±»10Õû³ı¡£
-//																// ËäÈ»Õâ»áµ¼ÖÂ´Ëµ¥ÔªºÍÇ°Ò»¸öµ¥ÔªÓĞÖØºÏ£¬µ«Ëã·¨ÉÏ²»»á³ö´í¡£
+//			crtBoxBase = stringEnd - stringBase - clusterSize;	// ä»æ–‡ç« ç»“å°¾å¤„å€’é€€ä¸€ä¸ªå•å…ƒï¼Œç¡®ä¿è¿™ä¸ªå•å…ƒä¹Ÿæ˜¯å¯ä»¥è¢«10æ•´é™¤ã€‚
+//																// è™½ç„¶è¿™ä¼šå¯¼è‡´æ­¤å•å…ƒå’Œå‰ä¸€ä¸ªå•å…ƒæœ‰é‡åˆï¼Œä½†ç®—æ³•ä¸Šä¸ä¼šå‡ºé”™ã€‚
 //		}
 //
 //		i.First = crtBoxBase;
 //		i.Length = 1;// clusterSize;
 //		crtBoxBase += clusterSize;
 //
-//		clusterCount++;	// ¼ÆËãÓĞĞ§µÄµ¥ÔªÊı
+//		clusterCount++;	// è®¡ç®—æœ‰æ•ˆçš„å•å…ƒæ•°
 //	}
 //
 //	StringFormat strFormat;
@@ -352,7 +352,7 @@ uint32 CTxdArrangeThread::FillCharsToPage(uint32 stringBase, uint32 stringEnd, u
 //	}
 //	for (int j = 0; j < clusterCount; j++)
 //	{
-//		if (boundOfCluster[j].Height == 0) // ¿ÉÄÜÊÇ²»¿É¼û×Ö·û
+//		if (boundOfCluster[j].Height == 0) // å¯èƒ½æ˜¯ä¸å¯è§å­—ç¬¦
 //			for (int k = j + 1; k < clusterCount; k++)
 //				if (boundOfCluster[k].Height != 0)
 //				{
@@ -366,17 +366,17 @@ uint32 CTxdArrangeThread::FillCharsToPage(uint32 stringBase, uint32 stringEnd, u
 //		//if (clusterRegions[j].GetBounds(&boundOfCluster,mGdiObj) != Ok)
 //		//	THROW_FAILED;
 //
-//		// Èç¹û±¾²âÊÔµ¥Ôª³¬³öÊÓ¿Ú´óĞ¡
+//		// å¦‚æœæœ¬æµ‹è¯•å•å…ƒè¶…å‡ºè§†å£å¤§å°
 //		if (boundOfCluster[j].Height == 0 || boundOfCluster[j].Y /*+ boundOfCluster.Height*/ > mViewHeight)
 //		{
-//			if (clusterSize == 1 || j == 0)// ÊÇ·ñÁ£¶ÈµÈÓÚ1ÁË£¬»òÕßÃ»ÓĞÇ°Ò»¸öµ¥Ôª
-//				return clusterCharRanges[j].First;// ¾ÍÊÇÄãÁË£¬Íâ²¿»áÅĞ¶ÏÁ½ÖÖÇé¿ö£¬Ò»ÊÇÕÒµ½ÁË·Ö¸î×Ö·û£¬¶şÊÇÕûÌå²âÊÔµ¥Ôª¶¼³¬³öÁË¿ÉÊÓÇøÓò
+//			if (clusterSize == 1 || j == 0)// æ˜¯å¦ç²’åº¦ç­‰äº1äº†ï¼Œæˆ–è€…æ²¡æœ‰å‰ä¸€ä¸ªå•å…ƒ
+//				return clusterCharRanges[j].First;// å°±æ˜¯ä½ äº†ï¼Œå¤–éƒ¨ä¼šåˆ¤æ–­ä¸¤ç§æƒ…å†µï¼Œä¸€æ˜¯æ‰¾åˆ°äº†åˆ†å‰²å­—ç¬¦ï¼ŒäºŒæ˜¯æ•´ä½“æµ‹è¯•å•å…ƒéƒ½è¶…å‡ºäº†å¯è§†åŒºåŸŸ
 //
-//												  // ½µµÍÁ£¶È£¬½øÒ»²½²éÕÒÇ°Ò»¸öµ¥Ôª
+//												  // é™ä½ç²’åº¦ï¼Œè¿›ä¸€æ­¥æŸ¥æ‰¾å‰ä¸€ä¸ªå•å…ƒ
 //			return FillCharsToPage(stringBase, stringEnd, clusterCharRanges[j - 1].First, LOW_GRAIN(clusterSize));
 //		}
 //	}
 //
-//	// Õû¸ö¸²¸ÇÃæ¶¼Ã»ÓĞ³¬³öÊÓ¿Ú£¬ÄÇÃ´Ïòºó²éÕÒ£¬±£³ÖÁ£¶È²»±ä
+//	// æ•´ä¸ªè¦†ç›–é¢éƒ½æ²¡æœ‰è¶…å‡ºè§†å£ï¼Œé‚£ä¹ˆå‘åæŸ¥æ‰¾ï¼Œä¿æŒç²’åº¦ä¸å˜
 //	return FillCharsToPage(stringBase, stringEnd, crtBoxBase, clusterSize);
 //}

@@ -1,4 +1,4 @@
-/* Copyright 2019 - present Lenovo */
+ï»¿/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
@@ -12,14 +12,14 @@ HWND glhAppWindow = NULL;
 TRSP_SYSTEM_INFO_DATA gldSysData;
 CEiAppCenter gloCenter;
 CBufferMgr glAppBufferMgr;
-//APPÆÁÄ»ÏÔÊ¾·½Ïò,×Ô¼º¼ÇÏÂÀ´£¬Ê¡µÃÃ¿´ÎÕÒ·şÎñ»ñÈ¡
+//APPå±å¹•æ˜¾ç¤ºæ–¹å‘,è‡ªå·±è®°ä¸‹æ¥ï¼Œçœå¾—æ¯æ¬¡æ‰¾æœåŠ¡è·å–
 DWORD gldwOrientation = GIR_NONE;
 
-// Eui·şÎñºËĞÄÏûÏ¢½ÓÊÕÊı¾İ½»»»Çø
+// EuiæœåŠ¡æ ¸å¿ƒæ¶ˆæ¯æ¥æ”¶æ•°æ®äº¤æ¢åŒº
 #pragma data_seg("MSGBUF")
 #define EI_EXBUF_SIZE 1024*4//1024 * 1024 * 2
 char gldHostExBuffer[EI_EXBUF_SIZE] = { 0 };
-char gldAppExBuffer[EI_EXBUF_SIZE] = { 0 }; // µ÷ÊÔÓÃ£¬²ÉÓÃÄÚ´æÓ³ÉäÎÄ¼şºóÉ¾³ı,ÏÖÔÚÖ»ÄÜÖ§³ÖÒ»¸öApp
+char gldAppExBuffer[EI_EXBUF_SIZE] = { 0 }; // è°ƒè¯•ç”¨ï¼Œé‡‡ç”¨å†…å­˜æ˜ å°„æ–‡ä»¶ååˆ é™¤,ç°åœ¨åªèƒ½æ”¯æŒä¸€ä¸ªApp
 #pragma data_seg()
 
 #pragma comment(linker, "/SECTION:MSGBUF,RWS")
@@ -42,7 +42,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	return TRUE;
 }
 
-// »ñÈ¡DLLµÄ¹²ÏíÄÚ´æ¶Î
+// è·å–DLLçš„å…±äº«å†…å­˜æ®µ
 LPVOID EixGetSharedData(ULONG nuIndex)
 {
 	if(nuIndex == 0)
@@ -53,7 +53,7 @@ LPVOID EixGetSharedData(ULONG nuIndex)
 	return NULL;
 }
 
-// »ñµÃDLLµÄ¹²ÏíÄÚ´æ¶Î´óĞ¡
+// è·å¾—DLLçš„å…±äº«å†…å­˜æ®µå¤§å°
 ULONG EixGetSharedDataSize(void)
 {
 	return EI_EXBUF_SIZE;
@@ -70,20 +70,20 @@ void EiPostMessage(
 	PostMessage(glhAppWindow, Msg, wParam, lParam);
 }
 
-// ³õÊ¼»¯
-// ÔÚÓ¦ÓÃÆô¶¯ºó£¬ĞèÒªµ÷ÓÃ±¾½Ó¿Úº¯ÊıÏòEinkÏµÍ³×¢²á±¾Ó¦ÓÃ¡£
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// åˆå§‹åŒ–
+// åœ¨åº”ç”¨å¯åŠ¨åï¼Œéœ€è¦è°ƒç”¨æœ¬æ¥å£å‡½æ•°å‘Einkç³»ç»Ÿæ³¨å†Œæœ¬åº”ç”¨ã€‚
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
 DWORD EiAppStart(
-	HWND hInforWindow	// ÓÃÓÚ½ÓÊÕ±¾ÏµÍ³ÏûÏ¢µÄWindows´°¿Ú¾ä±ú
+	HWND hInforWindow	// ç”¨äºæ¥æ”¶æœ¬ç³»ç»Ÿæ¶ˆæ¯çš„Windowsçª—å£å¥æŸ„
 	){
 	ULONG luResult = ERROR_NOT_READY;
 
 	do 
 	{
-		// Æô¶¯ÏµÍ³Á¬½ÓÆ÷
+		// å¯åŠ¨ç³»ç»Ÿè¿æ¥å™¨
 		//Sleep(1000 * 20);
 		luResult = gloCenter.Initialize(gldSysData);
 		if (luResult != ERROR_SUCCESS || gldSysData.uiWidth == 0 || gldSysData.uiHeight == 0)
@@ -93,7 +93,7 @@ DWORD EiAppStart(
 		//Sleep(1000 * 10);
 		glhAppWindow = hInforWindow;
 
-		//»ñÈ¡ÏÔÊ¾ÓÃBuffer
+		//è·å–æ˜¾ç¤ºç”¨Buffer
 		ULONG lulBufferSize = 0;
 		BYTE* lpBuffer = gloCenter.GetBufferBase(lulBufferSize);
 		if (lpBuffer == NULL)
@@ -113,8 +113,8 @@ DWORD EiAppStart(
 }
 
 
-// »ñµÃEinkµÄ»ù±¾ĞÅÏ¢
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è·å¾—Einkçš„åŸºæœ¬ä¿¡æ¯
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -124,9 +124,9 @@ DWORD EiGetSystemInfo(PEI_SYSTEM_INFO pstSystemInfo)
 
 	do 
 	{
-		//¸ø·şÎñ·¢ËÍ»ñÈ¡ÏûÏ¢
+		//ç»™æœåŠ¡å‘é€è·å–æ¶ˆæ¯
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_EINK_INFO;
 		loMsg.Data.Item.BufSize = 0;
 
@@ -134,9 +134,9 @@ DWORD EiGetSystemInfo(PEI_SYSTEM_INFO pstSystemInfo)
 		if (luResult != ERROR_SUCCESS)
 			return luResult;
 
-		//»ñÈ¡µ½ÏÔÊ¾Éè±¸ĞÅÏ¢
+		//è·å–åˆ°æ˜¾ç¤ºè®¾å¤‡ä¿¡æ¯
 		memcpy_s(pstSystemInfo, sizeof(EI_SYSTEM_INFO), loMsg.Data.Item.MsgBuf, sizeof(EI_SYSTEM_INFO));
-		pstSystemInfo->ulDpiX = 227;	// Õâ¸ö²ÎÊıĞèÒª¸ù¾İµ±Ç°Çé¿ö¸üĞÂ ???niu
+		pstSystemInfo->ulDpiX = 227;	// è¿™ä¸ªå‚æ•°éœ€è¦æ ¹æ®å½“å‰æƒ…å†µæ›´æ–° ???niu
 		pstSystemInfo->ulDpiY = 227;
 
 		luResult = ERROR_SUCCESS;
@@ -146,18 +146,18 @@ DWORD EiGetSystemInfo(PEI_SYSTEM_INFO pstSystemInfo)
 	return luResult;
 }
 
-// »ñµÃAPPµÄÆÁÄ»Éè¶¨ĞÅÏ¢
+// è·å¾—APPçš„å±å¹•è®¾å®šä¿¡æ¯
 // get APP context indicated current screen settings
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 DWORD EiGetAppContext(PEI_APP_CONTEXT pstAppContext)
 {
 	ULONG luResult = ERROR_NOT_READY;
 
 	do
 	{
-		//¸ø·şÎñ·¢ËÍ»ñÈ¡ÏûÏ¢
+		//ç»™æœåŠ¡å‘é€è·å–æ¶ˆæ¯
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_APP_CONTEXT;
 		loMsg.Data.Item.BufSize = 0;
 
@@ -165,7 +165,7 @@ DWORD EiGetAppContext(PEI_APP_CONTEXT pstAppContext)
 		if (luResult != ERROR_SUCCESS)
 			return luResult;
 
-		//»ñÈ¡µ½ÏÔÊ¾Éè±¸ĞÅÏ¢
+		//è·å–åˆ°æ˜¾ç¤ºè®¾å¤‡ä¿¡æ¯
 		memcpy_s(pstAppContext, sizeof(EI_APP_CONTEXT), loMsg.Data.Item.MsgBuf, sizeof(EI_APP_CONTEXT));
 
 		luResult = ERROR_SUCCESS;
@@ -176,31 +176,31 @@ DWORD EiGetAppContext(PEI_APP_CONTEXT pstAppContext)
 }
 
 
-// »ñµÃ»æÖÆ»º´æ
-// Ò»¸öÓ¦ÓÃÊµÀı¿ÉÒÔÉêÇë¶à¸ö»æÖÆ»º´æ£¬Í¨¹ıµ÷ÓÃ±¾º¯Êı»ñµÃÒ»¸ö»æÖÆ»º´æ£¬ÔÚ»æÖÆ»º´æÌá½»¸øÏµÍ³Ë¢ĞÂ»æÖÆÖ®Ç°£¬ĞŞ¸Ä»æÖÆ»º´æ²»»áµ¼ÖÂEinkÆÁÄ»ÏÔÊ¾±»¸ü¸Ä
-// ·µ»Ø£º·µ»Ø¿ÕÖ¸ÕëNULL£¬±íÊ¾Ê§°Ü£¬¶àÎª×ÊÔ´ºÄ¾¡£»·µ»Ø·ÇNULLL£¬±íÊ¾³É¹¦£¬·µ»ØÖµ¼´ÊÇĞÂ½¨µÄ»º´æ
+// è·å¾—ç»˜åˆ¶ç¼“å­˜
+// ä¸€ä¸ªåº”ç”¨å®ä¾‹å¯ä»¥ç”³è¯·å¤šä¸ªç»˜åˆ¶ç¼“å­˜ï¼Œé€šè¿‡è°ƒç”¨æœ¬å‡½æ•°è·å¾—ä¸€ä¸ªç»˜åˆ¶ç¼“å­˜ï¼Œåœ¨ç»˜åˆ¶ç¼“å­˜æäº¤ç»™ç³»ç»Ÿåˆ·æ–°ç»˜åˆ¶ä¹‹å‰ï¼Œä¿®æ”¹ç»˜åˆ¶ç¼“å­˜ä¸ä¼šå¯¼è‡´Einkå±å¹•æ˜¾ç¤ºè¢«æ›´æ”¹
+// è¿”å›ï¼šè¿”å›ç©ºæŒ‡é’ˆNULLï¼Œè¡¨ç¤ºå¤±è´¥ï¼Œå¤šä¸ºèµ„æºè€—å°½ï¼›è¿”å›éNULLLï¼Œè¡¨ç¤ºæˆåŠŸï¼Œè¿”å›å€¼å³æ˜¯æ–°å»ºçš„ç¼“å­˜
 EI_BUFFER* EiGetDrawBuffer(
-	BOOL bInit,		// ÊÇ·ñ½«»º´æÇåÁã
-	BOOL bCopy		// ÊÇ·ñ½«µ±Ç°EinkÆÁÄÚÈİ¸´ÖÆµ½»º´æ
+	BOOL bInit,		// æ˜¯å¦å°†ç¼“å­˜æ¸…é›¶
+	BOOL bCopy		// æ˜¯å¦å°†å½“å‰Einkå±å†…å®¹å¤åˆ¶åˆ°ç¼“å­˜
 	){
 	EI_BUFFER* lpBuffer = NULL;
 
 	do 
 	{
-		//»ñÈ¡buffer
+		//è·å–buffer
 		lpBuffer = glAppBufferMgr.GetBuffer();
 		if(lpBuffer == NULL)
 			break;
 
 		if (bInit != FALSE)
 		{
-			//Çå¿Õ
+			//æ¸…ç©º
 			ZeroMemory(lpBuffer->Buf, lpBuffer->ulBufferSize);
 		}
 
 		if (gldwOrientation == GIR_90 || gldwOrientation == GIR_270)
 		{
-			//Èç¹ûÊÇ¼áÆÁ¾ÍÇĞ»»Ò»ÏÂ¿í¸ß
+			//å¦‚æœæ˜¯åšå±å°±åˆ‡æ¢ä¸€ä¸‹å®½é«˜
 			ULONG lulTemp = lpBuffer->ulWidth;
 			lpBuffer->ulWidth = lpBuffer->ulHeight;
 			lpBuffer->ulHeight = lulTemp;
@@ -211,10 +211,10 @@ EI_BUFFER* EiGetDrawBuffer(
 	return lpBuffer;
 }
 
-// ÊÍ·Å»æÖÆ»º´æ
-// Ã»ÓĞÌá½»¸øÏµÍ³»æÖÆµÄ»æÖÆ»º´æ£¬µ±²»ÔÚÊ¹ÓÃÊ±£¬ĞèÒªµ÷ÓÃ±¾º¯ÊıÊÍ·ÅËü
+// é‡Šæ”¾ç»˜åˆ¶ç¼“å­˜
+// æ²¡æœ‰æäº¤ç»™ç³»ç»Ÿç»˜åˆ¶çš„ç»˜åˆ¶ç¼“å­˜ï¼Œå½“ä¸åœ¨ä½¿ç”¨æ—¶ï¼Œéœ€è¦è°ƒç”¨æœ¬å‡½æ•°é‡Šæ”¾å®ƒ
 void EiReleaseDrawBuffer(
-	EI_BUFFER* pstBuffer		// Ö¸Ïò»æÖÆ»º´æ
+	EI_BUFFER* pstBuffer		// æŒ‡å‘ç»˜åˆ¶ç¼“å­˜
 	)
 {
 	glAppBufferMgr.FreeBuffer(pstBuffer);
@@ -223,10 +223,10 @@ void EiReleaseDrawBuffer(
 }
 
 
-// ·¢ËÍ»æÖÆÇëÇóµ½·şÎñÆ÷
+// å‘é€ç»˜åˆ¶è¯·æ±‚åˆ°æœåŠ¡å™¨
 DWORD EiSendDrawRequest(
 	EI_RECT* pstArea,	// indicates the area to draw
-	EI_BUFFER* pstBuffer,		// Ö¸Ïò»æÖÆ»º´æ
+	EI_BUFFER* pstBuffer,		// æŒ‡å‘ç»˜åˆ¶ç¼“å­˜
 	DWORD nuMsgID
 )
 {
@@ -245,14 +245,14 @@ DWORD EiSendDrawRequest(
 		ldRegAppDraw.Area = ldUpdate;
 		ldRegAppDraw.BufferOffset = glAppBufferMgr.GetBufferOffset(pstBuffer);
 
-		// ·¢ËÍ»æÖÆÏûÏ¢¸ø·şÎñ
+		// å‘é€ç»˜åˆ¶æ¶ˆæ¯ç»™æœåŠ¡
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = nuMsgID;
 		ULONG luMsgBufSize = sizeof(EI_MSG_APP_DRAW);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &ldRegAppDraw, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-		//ÏÈ°Ñµ±Ç°´æÔÚµÄÇĞ»»ÃüÁî¶¼Çå³ı
+		//å…ˆæŠŠå½“å‰å­˜åœ¨çš„åˆ‡æ¢å‘½ä»¤éƒ½æ¸…é™¤
 		//gloCenter.RecallMessage(loMsg);
 		luResult = gloCenter.SendMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
@@ -264,19 +264,19 @@ DWORD EiSendDrawRequest(
 }
 
 
-// »æÖÆÄÚÈİµ½EinkÆÁ
-// ½«»º´æÖĞµÄÄÚÈİ»æÖÆµ½EinkÆÁÄ»ÉÏ£¬µ÷ÓÃ´Ëº¯Êıºó£¬´«ÈëµÄ»æÖÆ»º´æ»á±»×Ô¶¯ÊÍ·Å£¬Ó¦ÓÃ²»ÄÜ¼ÌĞøÊ¹ÓÃÕâ¿é»º´æ
-// ²ÎÊıx,y,w,h±íÊ¾ĞèÒª¸üĞÂµÄÇøÓò£»ÎŞÂÛÊÇÈ«ÆÁ»æÖÆ»¹ÊÇ¾Ö²¿»æÖÆ£¬»æÖÆ»º´æÖĞµÄÄÚÈİÊ¼ÖÕ¶ÔÓ¦µÄÊÇÕû¸öÆÁÄ»
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// ç»˜åˆ¶å†…å®¹åˆ°Einkå±
+// å°†ç¼“å­˜ä¸­çš„å†…å®¹ç»˜åˆ¶åˆ°Einkå±å¹•ä¸Šï¼Œè°ƒç”¨æ­¤å‡½æ•°åï¼Œä¼ å…¥çš„ç»˜åˆ¶ç¼“å­˜ä¼šè¢«è‡ªåŠ¨é‡Šæ”¾ï¼Œåº”ç”¨ä¸èƒ½ç»§ç»­ä½¿ç”¨è¿™å—ç¼“å­˜
+// å‚æ•°x,y,w,hè¡¨ç¤ºéœ€è¦æ›´æ–°çš„åŒºåŸŸï¼›æ— è®ºæ˜¯å…¨å±ç»˜åˆ¶è¿˜æ˜¯å±€éƒ¨ç»˜åˆ¶ï¼Œç»˜åˆ¶ç¼“å­˜ä¸­çš„å†…å®¹å§‹ç»ˆå¯¹åº”çš„æ˜¯æ•´ä¸ªå±å¹•
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiDraw(
 	EI_RECT* pstArea,	// indicates the area to draw
-	EI_BUFFER* pstBuffer		// Ö¸Ïò»æÖÆ»º´æ
+	EI_BUFFER* pstBuffer		// æŒ‡å‘ç»˜åˆ¶ç¼“å­˜
 	)
 {
 	return EiSendDrawRequest(pstArea, pstBuffer, EMHOSTID_DRAW);
 }
 
-// Çå³ıEinkÆÁÄ»
+// æ¸…é™¤Einkå±å¹•
 // Clean up E-ink screen
 // return:
 //		na
@@ -285,7 +285,7 @@ void EiCleanupScreen(
 )
 {
 	CEiSvrMsgItem loMsg;
-	loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+	loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 	loMsg.Data.Item.MsgId = EMHOSTID_CLEANUP_SCREEN;
 	loMsg.Data.Item.MsgBuf[0] = ucBackgroundColor;
 	loMsg.Data.Item.BufSize = 1;
@@ -294,9 +294,9 @@ void EiCleanupScreen(
 }
 
 
-// Fuction SwitcherÊ¹ÓÃµÄ»æÖÆ½Ó¿Ú
-// ²»Í¬ÓÚEiDrawº¯Êı£¬´Ë´¦µÄpstBuffer²¢²»ÊÇÃèÊöÍêÕûµÄÆÁÄ»»º³åÇø£¬¶øÊÇ½ö½öÃèÊöSwitcherÌõµÄÇøÓò
-//    ²¢ÇÒ£¬´Ë´¦µÄBufferµÄÃ¿Ò»¸ö×Ö½ÚµÄ×îµÍÎ»±íÊ¾¸ÃÏñËØÊÇ·ñ±»ÏÔÊ¾³öÀ´
+// Fuction Switcherä½¿ç”¨çš„ç»˜åˆ¶æ¥å£
+// ä¸åŒäºEiDrawå‡½æ•°ï¼Œæ­¤å¤„çš„pstBufferå¹¶ä¸æ˜¯æè¿°å®Œæ•´çš„å±å¹•ç¼“å†²åŒºï¼Œè€Œæ˜¯ä»…ä»…æè¿°Switcheræ¡çš„åŒºåŸŸ
+//    å¹¶ä¸”ï¼Œæ­¤å¤„çš„Bufferçš„æ¯ä¸€ä¸ªå­—èŠ‚çš„æœ€ä½ä½è¡¨ç¤ºè¯¥åƒç´ æ˜¯å¦è¢«æ˜¾ç¤ºå‡ºæ¥
 DWORD EiSwitcherDraw(
 	EI_BUFFER* pstBuffer		// image buffer 
 	)
@@ -306,13 +306,13 @@ DWORD EiSwitcherDraw(
 	return EiSendDrawRequest(&ldDummy, pstBuffer, EMHOSTID_SWITCHER_DRAW);
 }
 
-// ÉèÖÃSwitcherµÄ´óĞ¡
+// è®¾ç½®Switcherçš„å¤§å°
 void SetSwitcherLocation(
-	const EI_RECT* npLocation // ÆäÖĞx´æ·ÅµÄÊÇÏà¶ÔÓÚÓÒ²àµÄ¾àÀë
+	const EI_RECT* npLocation // å…¶ä¸­xå­˜æ”¾çš„æ˜¯ç›¸å¯¹äºå³ä¾§çš„è·ç¦»
 )
 {
 	CEiSvrMsgItem loMsg;
-	loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+	loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 	loMsg.Data.Item.MsgId = EMHOSTID_SWITCHER_LOCATION;
 	ULONG luMsgBufSize = sizeof(EI_RECT);
 	memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, npLocation, luMsgBufSize);
@@ -322,13 +322,13 @@ void SetSwitcherLocation(
 
 }
 
-// ÉèÖÃSwitcherµÄ¿ÉÊÓÇøÓò
+// è®¾ç½®Switcherçš„å¯è§†åŒºåŸŸ
 void SetSwitcherShowArea(
-	const EI_RECT* npArea // ÆäÖĞx´æ·ÅµÄÊÇÏà¶ÔÓÚÓÒ²àµÄ¾àÀë
+	const EI_RECT* npArea // å…¶ä¸­xå­˜æ”¾çš„æ˜¯ç›¸å¯¹äºå³ä¾§çš„è·ç¦»
 )
 {
 	CEiSvrMsgItem loMsg;
-	loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+	loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 	loMsg.Data.Item.MsgId = EMHOSTID_SWITCHER_SHOW_AREA;
 	ULONG luMsgBufSize = sizeof(EI_RECT);
 	memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, npArea, luMsgBufSize);
@@ -337,10 +337,10 @@ void SetSwitcherShowArea(
 	gloCenter.SendMessageToService(loMsg);
 }
 
-// Í¨ÖªÏµÍ³¹Ø»ú·âÃæÍ¼Æ¬µÄÂ·¾¶
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥ç³»ç»Ÿå…³æœºå°é¢å›¾ç‰‡çš„è·¯å¾„
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiSetShutdownCover(
-	const wchar_t* npszFilePath	// Ä¿±êÎÄ¼şÃû
+	const wchar_t* npszFilePath	// ç›®æ ‡æ–‡ä»¶å
 )
 {
 	DWORD luResult = 0;
@@ -351,7 +351,7 @@ DWORD EiSetShutdownCover(
 			break;
 
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_SHUTDOWN_COVER;
 
 		ULONG luMsgBufSize = (ULONG)(wcslen(npszFilePath) + 1) * sizeof(wchar_t);
@@ -367,16 +367,16 @@ DWORD EiSetShutdownCover(
 	return luResult;
 }
 
-// ´ÙÊ¹ÏµÍ³²úÉúÒ»ÌõWM_EI_DRAWÏûÏ¢¸øµ±Ç°APP
-// ±àĞ´APPÊ±£¬¿ÉÒÔ½«ËùÓĞµÄ»æÖÆ¶¼·ÅÔÚ´¦ÀíWM_EI_DRAWÏûÏ¢µÄ¹ı³ÌÖĞ£¬Èç¹ûAPPÆÚ´ıÖ÷¶¯½øĞĞÒ»´Î»æÖÆ²Ù×÷£¬Ö»ĞèÒªµ÷ÓÃ±¾º¯Êı£¬´ÙÊ¹ÏµÍ³·¢ËÍÒ»ÌõWM_EI_DRAW
-// ÏûÏ¢¸øAPP£¬´Ó¶ø¾ÍÄÜ¹»½«»æÖÆ²Ù×÷¼¯ÖĞÔÚÒ»¸öµØ·½½øĞĞ£¨WM_EI_DRAW´¦Àí¹ı³Ì£©
+// ä¿ƒä½¿ç³»ç»Ÿäº§ç”Ÿä¸€æ¡WM_EI_DRAWæ¶ˆæ¯ç»™å½“å‰APP
+// ç¼–å†™APPæ—¶ï¼Œå¯ä»¥å°†æ‰€æœ‰çš„ç»˜åˆ¶éƒ½æ”¾åœ¨å¤„ç†WM_EI_DRAWæ¶ˆæ¯çš„è¿‡ç¨‹ä¸­ï¼Œå¦‚æœAPPæœŸå¾…ä¸»åŠ¨è¿›è¡Œä¸€æ¬¡ç»˜åˆ¶æ“ä½œï¼Œåªéœ€è¦è°ƒç”¨æœ¬å‡½æ•°ï¼Œä¿ƒä½¿ç³»ç»Ÿå‘é€ä¸€æ¡WM_EI_DRAW
+// æ¶ˆæ¯ç»™APPï¼Œä»è€Œå°±èƒ½å¤Ÿå°†ç»˜åˆ¶æ“ä½œé›†ä¸­åœ¨ä¸€ä¸ªåœ°æ–¹è¿›è¡Œï¼ˆWM_EI_DRAWå¤„ç†è¿‡ç¨‹ï¼‰
 void EiInvalidPanel(
 	EI_RECT* pstArea	// indicates the area to update
 	)
 {
-	// ·¢ËÍ»æÖÆÏûÏ¢¸ø·şÎñ£¬ÓÉ·şÎñÀ´¾ö¶¨ÊÇ·ñÖØ»æ
+	// å‘é€ç»˜åˆ¶æ¶ˆæ¯ç»™æœåŠ¡ï¼Œç”±æœåŠ¡æ¥å†³å®šæ˜¯å¦é‡ç»˜
 	CEiSvrMsgItem loMsg;
-	loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+	loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 	loMsg.Data.Item.MsgId = EMHOSTID_INVALID_PANEL;
 	ULONG luMsgBufSize = sizeof(EI_RECT);
 	if (pstArea != NULL)
@@ -389,22 +389,22 @@ void EiInvalidPanel(
 }
 
 
-// ½øÈëHandwritingÄ£Ê½
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿›å…¥Handwritingæ¨¡å¼
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
 DWORD EiSetHandWritingMode(
-	DWORD eMode // ½øÈë»òÍË³öÊÖĞ´Ä£Ê½£¬²Î¿¼GIHW_AUTO
+	DWORD eMode // è¿›å…¥æˆ–é€€å‡ºæ‰‹å†™æ¨¡å¼ï¼Œå‚è€ƒGIHW_AUTO
 	){
 
 	DWORD luResult = ERROR_SUCCESS;
 
 	do
 	{
-		// ×¢²áApp
+		// æ³¨å†ŒApp
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_SCENARIO;
 
 
@@ -421,23 +421,23 @@ DWORD EiSetHandWritingMode(
 	return luResult;
 }
 
-// ÉèÖÃ±Ê¿í£¬ÉĞÎ´Ö§³Ö
+// è®¾ç½®ç¬”å®½ï¼Œå°šæœªæ”¯æŒ
 // set width of pen in handwriting mode.
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
 DWORD EiSetHandwritingPen(
-	DWORD dwMin,	// ×îĞ¡µÄ±Ê¿í	// min pen width
-	DWORD dwMax	// ×î´óµÄ±Ê¿í	// max pen width
+	DWORD dwMin,	// æœ€å°çš„ç¬”å®½	// min pen width
+	DWORD dwMax	// æœ€å¤§çš„ç¬”å®½	// max pen width
 )
 {
 	return ERROR_NOT_READY;
 }
 
-// ÉèÖÃÆÁÄ»ÏÔÊ¾·½Ïò
+// è®¾ç½®å±å¹•æ˜¾ç¤ºæ–¹å‘
 // set the screen orientation for current app
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -450,7 +450,7 @@ DWORD EiSetScreenOrient(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_DISPLAY_ORIENTATION;
 
 
@@ -462,7 +462,7 @@ DWORD EiSetScreenOrient(
 		if (luResult != ERROR_SUCCESS)
 			break;
 
-		//×Ô¼º¼ÇÏÂÀ´£¬Ê¡µÃÃ¿´ÎÕÒ·şÎñÒª
+		//è‡ªå·±è®°ä¸‹æ¥ï¼Œçœå¾—æ¯æ¬¡æ‰¾æœåŠ¡è¦
 		gldwOrientation = eOrientation;
 
 	} while (false);
@@ -470,30 +470,30 @@ DWORD EiSetScreenOrient(
 	return luResult;
 }
 
-// Í£Ö¹·şÎñ
-// µ±Ò»¸öÓ¦ÓÃÊµÀıĞèÒªÍË³öÊ±£¬µ÷ÓÃÕâ¸öº¯Êı
+// åœæ­¢æœåŠ¡
+// å½“ä¸€ä¸ªåº”ç”¨å®ä¾‹éœ€è¦é€€å‡ºæ—¶ï¼Œè°ƒç”¨è¿™ä¸ªå‡½æ•°
 void EiEnd(void){
 	do
 	{
-		// ×¢ÏúApp
+		// æ³¨é”€App
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_UNREG_APP;
 		gloCenter.PostMessageToService(loMsg);
 
-		//µÈ´ıÒ»ÏÂ£¬·ñÔò·şÎñÃ»ÓĞ¹Ø±ÕÎÄ¼ş¾ä±úÊÇÉ¾³ı²»ÁËÎÄ¼şµÄ
+		//ç­‰å¾…ä¸€ä¸‹ï¼Œå¦åˆ™æœåŠ¡æ²¡æœ‰å…³é—­æ–‡ä»¶å¥æŸ„æ˜¯åˆ é™¤ä¸äº†æ–‡ä»¶çš„
 		Sleep(50);
 
 	} while (false);
 
 }
 
-// ÄÚ²¿º¯Êı£¬Æô¶¯Ò»¸öAPP
-// Í¨ÖªÏµÍ³Æô¶¯Ò»¸öÖ¸¶¨µÄAPP
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// å†…éƒ¨å‡½æ•°ï¼Œå¯åŠ¨ä¸€ä¸ªAPP
+// é€šçŸ¥ç³»ç»Ÿå¯åŠ¨ä¸€ä¸ªæŒ‡å®šçš„APP
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiRunAPP(
-	const wchar_t* npszFilePath,	// Ä¿±êÎÄ¼şÃû
-	int niSession				//¿ÉÒÔÖ¸¶¨ÔËĞĞÓÚÄÄ¸ösession,0±íÊ¾systemÓÃ»§
+	const wchar_t* npszFilePath,	// ç›®æ ‡æ–‡ä»¶å
+	int niSession				//å¯ä»¥æŒ‡å®šè¿è¡Œäºå“ªä¸ªsession,0è¡¨ç¤ºsystemç”¨æˆ·
 ) {
 	DWORD luResult = 0;
 
@@ -502,9 +502,9 @@ DWORD EiRunAPP(
 		if (npszFilePath == NULL)
 			break;
 
-		// ×¢²áApp
+		// æ³¨å†ŒApp
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_RUN_APP;
 
 		EI_MSG_RUN_APP ldRunInfo;
@@ -514,10 +514,10 @@ DWORD EiRunAPP(
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &ldRunInfo, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
 
-		//ÏÈ°Ñµ±Ç°´æÔÚµÄÇĞ»»ÃüÁî¶¼Çå³ı
+		//å…ˆæŠŠå½“å‰å­˜åœ¨çš„åˆ‡æ¢å‘½ä»¤éƒ½æ¸…é™¤
 		gloCenter.RecallMessage(loMsg);
 
-		//·¢ËÍÃüÁî
+		//å‘é€å‘½ä»¤
 		luResult = gloCenter.SendMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
 			break;
@@ -527,31 +527,31 @@ DWORD EiRunAPP(
 	return luResult;
 }
 
-// ´ÓÎïÀí×ø±êÏµ×ª»»µ½ÏÔÊ¾×ø±êÏµ
+// ä»ç‰©ç†åæ ‡ç³»è½¬æ¢åˆ°æ˜¾ç¤ºåæ ‡ç³»
 // Convert a point from physical-coordinate to display-coordinate
 void EiPhysicalToDisplay(
 	IN EI_POINT* pstPointP,
 	OUT EI_POINT* pstPointD
 	)
 {
-	// »ñÈ¡µ±Ç°ÆÁÄ»ÏÔÊ¾·½Ïò£¬¶øºóÒÔ´Ë¼ÆËã×ø±ê×ª»» to ???ax			
+	// è·å–å½“å‰å±å¹•æ˜¾ç¤ºæ–¹å‘ï¼Œè€Œåä»¥æ­¤è®¡ç®—åæ ‡è½¬æ¢ to ???ax			
 	pstPointD->x = pstPointP->x;
 	pstPointD->y = pstPointP->y;
 }
 
-// ´ÓÏÔÊ¾×ø±êÏµ×ª»»µ½ÎïÀí×ø±êÏµ
+// ä»æ˜¾ç¤ºåæ ‡ç³»è½¬æ¢åˆ°ç‰©ç†åæ ‡ç³»
 // Convert a point from display-coordinate to physical-coordinate
 void EiDisplayToPhysical(
 	IN EI_POINT* pstPointD,
 	OUT EI_POINT* pstPointP
 )
 {
-	// »ñÈ¡µ±Ç°ÆÁÄ»ÏÔÊ¾·½Ïò£¬¶øºóÒÔ´Ë¼ÆËã×ø±ê×ª»» to ???ax
+	// è·å–å½“å‰å±å¹•æ˜¾ç¤ºæ–¹å‘ï¼Œè€Œåä»¥æ­¤è®¡ç®—åæ ‡è½¬æ¢ to ???ax
 	pstPointD->x = pstPointP->x;
 	pstPointD->y = pstPointP->y;
 }
 
-// ÉèÖÃFWÄ£Ê½
+// è®¾ç½®FWæ¨¡å¼
 DWORD EiSetWaveformMode(
 	DWORD dwMode 
 ) {
@@ -560,9 +560,9 @@ DWORD EiSetWaveformMode(
 
 	do
 	{
-		// ×¢²áApp
+		// æ³¨å†ŒApp
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_FW_MODE;
 
 
@@ -579,10 +579,10 @@ DWORD EiSetWaveformMode(
 	return luResult;
 }
 
-// Í¨ÖªÏµÍ³¼üÅÌÍ¼Æ¬µÄÂ·¾¶
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥ç³»ç»Ÿé”®ç›˜å›¾ç‰‡çš„è·¯å¾„
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiSetKeyboardImg(
-	const wchar_t* npszFilePath	// Ä¿±êÎÄ¼şÃû
+	const wchar_t* npszFilePath	// ç›®æ ‡æ–‡ä»¶å
 ){
 	DWORD luResult = 0;
 
@@ -592,7 +592,7 @@ DWORD EiSetKeyboardImg(
 			break;
 
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_KEYBOARD_PATH;
 
 		ULONG luMsgBufSize = (ULONG)(wcslen(npszFilePath) + 1) * sizeof(wchar_t);
@@ -608,18 +608,18 @@ DWORD EiSetKeyboardImg(
 	return luResult;
 }
 
-// Í¨ÖªÏµÍ³ÏÔÊ¾×´Ì¬Òª·¢Éú±ä»¯
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
-// 1ÏÔÊ¾·âÃæ 2ÏÔÊ¾¼üÅÌA 3ÏÔÊ¾¼üÅÌB
+// é€šçŸ¥ç³»ç»Ÿæ˜¾ç¤ºçŠ¶æ€è¦å‘ç”Ÿå˜åŒ–
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
+// 1æ˜¾ç¤ºå°é¢ 2æ˜¾ç¤ºé”®ç›˜A 3æ˜¾ç¤ºé”®ç›˜B
 DWORD EiSetShowStatus(
-	ULONG nulStatus	// ×´Ì¬
+	ULONG nulStatus	// çŠ¶æ€
 ) {
 	DWORD luResult = 0;
 
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_SHOW_STATUS;
 
 		ULONG luMsgBufSize = (ULONG)sizeof(ULONG);
@@ -639,7 +639,7 @@ DWORD EiSetShowStatus(
 // To disable it, set both width and height = 0.
 // Direct handwriting can only be used in GIHW_HANDWRITING mode.
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -651,7 +651,7 @@ DWORD EiSetHandwritingRect(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_HANDWRITING_RECT;
 
 		ULONG luMsgBufSize = (ULONG)sizeof(EI_RECT);
@@ -669,7 +669,7 @@ DWORD EiSetHandwritingRect(
 
 // Check DisplayArea engine status.
 //
-// ·µ»Ø£º ·µ»ØTRUE£¬±íÊ¾¿ÕÏĞ¡£·µ»ØFALSE£¬±íÊ¾»æÖÆ±»Õ¼ÓÃ;
+// è¿”å›ï¼š è¿”å›TRUEï¼Œè¡¨ç¤ºç©ºé—²ã€‚è¿”å›FALSEï¼Œè¡¨ç¤ºç»˜åˆ¶è¢«å ç”¨;
 // return
 //		TRUE: ready
 //		FALSE: not ready
@@ -681,7 +681,7 @@ BOOL EiCheckDpyReady()
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_DRAW_READY;
 
 		loMsg.Data.Item.BufSize = 0;
@@ -699,7 +699,7 @@ BOOL EiCheckDpyReady()
 
 // Set PartialUpdate feature
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -712,7 +712,7 @@ DWORD EiSetPartialUpdate(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_PARTIAL_ENABLE;
 
 		ULONG luMsgBufSize = (ULONG)sizeof(BOOL);
@@ -730,7 +730,7 @@ DWORD EiSetPartialUpdate(
 
 // Get scenario
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -741,7 +741,7 @@ DWORD EiGetScenario(DWORD& rdwCurrentMode)
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_SCENARIO_MODE;
 
 		loMsg.Data.Item.BufSize = 0;
@@ -757,11 +757,11 @@ DWORD EiGetScenario(DWORD& rdwCurrentMode)
 	return luResult;
 }
 
-// Í¨ÖªÏµÍ³»úÆ÷ĞÎÌ¬·¢Éú±ä»¯
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
-// 2±Ê¼Ç±¾ĞÎÌ¬ 3tentĞÎÌ¬
+// é€šçŸ¥ç³»ç»Ÿæœºå™¨å½¢æ€å‘ç”Ÿå˜åŒ–
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
+// 2ç¬”è®°æœ¬å½¢æ€ 3tentå½¢æ€
 DWORD EiSetLaptopMode(
-	ULONG nulMode	// Ä£Ê½
+	ULONG nulMode	// æ¨¡å¼
 )
 {
 	DWORD luResult = 0;
@@ -769,7 +769,7 @@ DWORD EiSetLaptopMode(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_LAPTOP_MODE_CHANGED;
 
 		ULONG luMsgBufSize = sizeof(ULONG);
@@ -786,9 +786,9 @@ DWORD EiSetLaptopMode(
 	return luResult;
 }
 
-// Í¨ÖªÏµÍ³¼üÅÌ°´¼üÒô¿ª¹Ø×´Ì¬
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
-// -1²»ÉèÖÃ 0¹Ø±Õ 1¿ªÆô
+// é€šçŸ¥ç³»ç»Ÿé”®ç›˜æŒ‰é”®éŸ³å¼€å…³çŠ¶æ€
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
+// -1ä¸è®¾ç½® 0å…³é—­ 1å¼€å¯
 DWORD EiSetKeyboardDownSounds(
 	bool nbIsSet
 ) {
@@ -797,13 +797,13 @@ DWORD EiSetKeyboardDownSounds(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_KEYBOARD_DOWN;
 
 		ULONG luMsgBufSize = sizeof(bool);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &nbIsSet, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-		//ÏÈ°Ñµ±Ç°´æÔÚµÄÇĞ»»ÃüÁî¶¼Çå³ı
+		//å…ˆæŠŠå½“å‰å­˜åœ¨çš„åˆ‡æ¢å‘½ä»¤éƒ½æ¸…é™¤
 		gloCenter.RecallMessage(loMsg);
 
 		luResult = gloCenter.SendMessageToService(loMsg);
@@ -816,9 +816,9 @@ DWORD EiSetKeyboardDownSounds(
 }
 
 
-// Í¨ÖªÏµÍ³¼üÅÌ°´¼üÒô¿ª¹Ø×´Ì¬
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
-// -1²»ÉèÖÃ 0¹Ø±Õ 1¿ªÆô
+// é€šçŸ¥ç³»ç»Ÿé”®ç›˜æŒ‰é”®éŸ³å¼€å…³çŠ¶æ€
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
+// -1ä¸è®¾ç½® 0å…³é—­ 1å¼€å¯
 DWORD EiSetKeyboardUpSounds(
 	bool nbIsSet
 ) {
@@ -827,13 +827,13 @@ DWORD EiSetKeyboardUpSounds(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_KEYBOARD_UP;
 
 		ULONG luMsgBufSize = sizeof(bool);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &nbIsSet, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-		//ÏÈ°Ñµ±Ç°´æÔÚµÄÇĞ»»ÃüÁî¶¼Çå³ı
+		//å…ˆæŠŠå½“å‰å­˜åœ¨çš„åˆ‡æ¢å‘½ä»¤éƒ½æ¸…é™¤
 		gloCenter.RecallMessage(loMsg);
 		luResult = gloCenter.PostMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
@@ -846,7 +846,7 @@ DWORD EiSetKeyboardUpSounds(
 
 // Set Homebar status
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -858,7 +858,7 @@ DWORD EiSetHomebarStatus(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_HOMEBAR_STATUS;
 
 		ULONG luMsgBufSize = sizeof(ULONG);
@@ -876,7 +876,7 @@ DWORD EiSetHomebarStatus(
 
 // OOBE complete
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -887,7 +887,7 @@ DWORD EiOOBEComplete()
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_OOBE_COMPLETE;
 
 		ULONG luMsgBufSize = 0;
@@ -903,7 +903,7 @@ DWORD EiOOBEComplete()
 
 // OOBE cstart
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -914,7 +914,7 @@ DWORD EiOOBEStart()
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_OOBE_START;
 
 		ULONG luMsgBufSize = 0;
@@ -928,8 +928,8 @@ DWORD EiOOBEStart()
 	return luResult;
 }
 
-// »ñÈ¡ÏµÍ³¼üÅÌÒôÒôÁ¿´óĞ¡
-// ·µ»Ø£ºÒôÁ¿´óĞ¡(0-100)
+// è·å–ç³»ç»Ÿé”®ç›˜éŸ³éŸ³é‡å¤§å°
+// è¿”å›ï¼šéŸ³é‡å¤§å°(0-100)
 DWORD EiGetKeySoundsVolume(void)
 {
 	ULONG luResult = ERROR_NOT_READY;
@@ -937,26 +937,26 @@ DWORD EiGetKeySoundsVolume(void)
 
 	do
 	{
-		//¸ø·şÎñ·¢ËÍ»ñÈ¡ÏûÏ¢
+		//ç»™æœåŠ¡å‘é€è·å–æ¶ˆæ¯
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_KEYBOARD_VOLUME;
 		loMsg.Data.Item.BufSize = 0;
-		//ÏÈ°Ñµ±Ç°´æÔÚµÄÇĞ»»ÃüÁî¶¼Çå³ı
+		//å…ˆæŠŠå½“å‰å­˜åœ¨çš„åˆ‡æ¢å‘½ä»¤éƒ½æ¸…é™¤
 		gloCenter.RecallMessage(loMsg);
 		luResult = gloCenter.SendMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
 			return 0;
 
-		//»ñÈ¡Öµ
+		//è·å–å€¼
 		Volume = *(LONG*)loMsg.Data.Item.MsgBuf;
 	} while (false);
 
 	return Volume;
 }
 
-// ÉèÖÃÏµÍ³¼üÅÌÒôÒôÁ¿´óĞ¡
-// ·µ»Ø£ºÎŞ
+// è®¾ç½®ç³»ç»Ÿé”®ç›˜éŸ³éŸ³é‡å¤§å°
+// è¿”å›ï¼šæ— 
 void EiSetKeySoundsVolume(LONG nlVolume)//(0-100)
 {
 	DWORD luResult = 0;
@@ -964,13 +964,13 @@ void EiSetKeySoundsVolume(LONG nlVolume)//(0-100)
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_KEYBOARD_VOLUME;
 
 		ULONG luMsgBufSize = sizeof(nlVolume);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &nlVolume, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-		//ÏÈ°Ñµ±Ç°´æÔÚµÄÇĞ»»ÃüÁî¶¼Çå³ı
+		//å…ˆæŠŠå½“å‰å­˜åœ¨çš„åˆ‡æ¢å‘½ä»¤éƒ½æ¸…é™¤
 		gloCenter.RecallMessage(loMsg);
 		luResult = gloCenter.SendMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
@@ -991,7 +991,7 @@ DWORD EiSetHandwritingSetting(BYTE lineWidth)
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_HANDWRITING_LINE_WIDTH;
 
 		ULONG luMsgBufSize = sizeof(BYTE);
@@ -1007,10 +1007,10 @@ DWORD EiSetHandwritingSetting(BYTE lineWidth)
 	return luResult;
 }
 
-// »ñÈ¡µ±Ç°»úÆ÷ĞÎÌ¬
+// è·å–å½“å‰æœºå™¨å½¢æ€
 // Get tablet mode
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -1022,7 +1022,7 @@ DWORD EiGetTabletMode(DWORD& rdwCurrentMode)
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_TABLET_MODE;
 
 		loMsg.Data.Item.BufSize = 0;
@@ -1038,10 +1038,10 @@ DWORD EiGetTabletMode(DWORD& rdwCurrentMode)
 	return luResult;
 }
 
-// Í¨ÖªÏµÍ³homebarĞÎÌ¬·¢Éú±ä»¯
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥ç³»ç»Ÿhomebarå½¢æ€å‘ç”Ÿå˜åŒ–
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiHomebarChanged(
-	ULONG nulMode	// Ä£Ê½
+	ULONG nulMode	// æ¨¡å¼
 )
 {
 	DWORD luResult = 0;
@@ -1049,7 +1049,7 @@ DWORD EiHomebarChanged(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_HOMEBAR_CHANGE;
 
 		ULONG luMsgBufSize = sizeof(ULONG);
@@ -1065,10 +1065,10 @@ DWORD EiHomebarChanged(
 	return luResult;
 }
 
-// Í¨ÖªÏµÍ³ÆÁÄ»·½Ïò
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥ç³»ç»Ÿå±å¹•æ–¹å‘
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiSetOrientation(
-	DWORD ndwOrientation	// Ä£Ê½
+	DWORD ndwOrientation	// æ¨¡å¼
 )
 {
 	DWORD luResult = 0;
@@ -1076,7 +1076,7 @@ DWORD EiSetOrientation(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_ORIENTATION_CHANGED;
 
 		DWORD luMsgBufSize = sizeof(DWORD);
@@ -1093,10 +1093,10 @@ DWORD EiSetOrientation(
 	return luResult;
 }
 
-// Í¨ÖªÏµÍ³
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥ç³»ç»Ÿ
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 void EiSetBCover(
-	char* npszPath	// Ä£Ê½
+	char* npszPath	// æ¨¡å¼
 )
 {
 	do 
@@ -1105,22 +1105,22 @@ void EiSetBCover(
 			break;
 
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_BCOVER_PATH;
 
 		ULONG luMsgBufSize = sizeof(char) * (strlen(npszPath)+1);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, npszPath, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
 
-		//·¢ËÍÃüÁî
+		//å‘é€å‘½ä»¤
 		gloCenter.SendMessageToService(loMsg);
 
 	} while (false);
 	
 }
 
-// Í¨ÖªÏµÍ³BÃæ½øÈë»òÍË³öË«»÷Ä£Ê½
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥ç³»ç»ŸBé¢è¿›å…¥æˆ–é€€å‡ºåŒå‡»æ¨¡å¼
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 void EiBCoverEnterDbTap(
 	bool nbIsEnter
 )
@@ -1128,23 +1128,23 @@ void EiBCoverEnterDbTap(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_B_ENTER_DBTAP;
 
 		ULONG luMsgBufSize = sizeof(bool);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &nbIsEnter, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
 
-		//·¢ËÍÃüÁî
+		//å‘é€å‘½ä»¤
 		gloCenter.SendMessageToService(loMsg);
 
 	} while (false);
 }
 
-// ÉèÖÃ¼üÅÌÑùÊ½
+// è®¾ç½®é”®ç›˜æ ·å¼
 // Set keyboard style
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -1155,7 +1155,7 @@ DWORD EiSetKeyboardStyle(EI_KEYBOARD_STYLE ndStyle)
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_KEYBOARD_STYLE;
 
 		ULONG luMsgBufSize = (ULONG)sizeof(EI_KEYBOARD_STYLE);
@@ -1171,8 +1171,8 @@ DWORD EiSetKeyboardStyle(EI_KEYBOARD_STYLE ndStyle)
 	return luResult;
 }
 
-// µ÷Õû¼üÅÌÁéÃô¶È
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// è°ƒæ•´é”®ç›˜çµæ•åº¦
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiSetKeyboardSensitivity(
 	LONG nlLevel
 ) {
@@ -1181,7 +1181,7 @@ DWORD EiSetKeyboardSensitivity(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_KEYBOARD_SENSITIVITY;
 
 		ULONG luMsgBufSize = (ULONG)sizeof(LONG);
@@ -1197,8 +1197,8 @@ DWORD EiSetKeyboardSensitivity(
 	return luResult;
 }
 
-// Í¨Öªhomebar°ÑBÃæÃğÆÁ£¬ÎªÁË½â¾öºÏ¸ÇÆÁÄ»×Ô¶¯ÁÁÆğµÄbug
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥homebaræŠŠBé¢ç­å±ï¼Œä¸ºäº†è§£å†³åˆç›–å±å¹•è‡ªåŠ¨äº®èµ·çš„bug
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiCloseBCover(
 	BOOL nbClose
 )
@@ -1208,7 +1208,7 @@ DWORD EiCloseBCover(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_CLOSE_B_COVER;
 
 		ULONG luMsgBufSize = (ULONG)sizeof(BOOL);
@@ -1224,8 +1224,8 @@ DWORD EiCloseBCover(
 	return luResult;
 }
 
-// Í¨Öª·şÎñ²¥·Å¼üÅÌÉùÒô£¬ÎªÁËÊÔÒô
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥æœåŠ¡æ’­æ”¾é”®ç›˜å£°éŸ³ï¼Œä¸ºäº†è¯•éŸ³
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiPlayKeyboardSound(
 	ULONG nlType
 )
@@ -1235,13 +1235,13 @@ DWORD EiPlayKeyboardSound(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_PLAY_KEYBOARD_SOUND;
 
 		ULONG luMsgBufSize = (ULONG)sizeof(ULONG);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &nlType, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-		//ÏÈ°Ñµ±Ç°´æÔÚµÄÇĞ»»ÃüÁî¶¼Çå³ı
+		//å…ˆæŠŠå½“å‰å­˜åœ¨çš„åˆ‡æ¢å‘½ä»¤éƒ½æ¸…é™¤
 		gloCenter.RecallMessage(loMsg);
 
 		luResult = gloCenter.SendMessageToService(loMsg);
@@ -1253,10 +1253,10 @@ DWORD EiPlayKeyboardSound(
 	return luResult;
 }
 
-// Í¨Öª·şÎñ°Ñ»úÆ÷ĞÎÌ¬ÇĞ»»µ½Æ½°åÄ£Ê½
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥æœåŠ¡æŠŠæœºå™¨å½¢æ€åˆ‡æ¢åˆ°å¹³æ¿æ¨¡å¼
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiChangeTabletMode(
-	bool nbIsTablet  //ÎªÕæ±íÊ¾ÇĞ»»µ½Æ½°å£¬·ñÔòÇĞ»»µ½±Ê¼Ç±¾
+	bool nbIsTablet  //ä¸ºçœŸè¡¨ç¤ºåˆ‡æ¢åˆ°å¹³æ¿ï¼Œå¦åˆ™åˆ‡æ¢åˆ°ç¬”è®°æœ¬
 )
 {
 	DWORD luResult = 0;
@@ -1264,7 +1264,7 @@ DWORD EiChangeTabletMode(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_CHANGE_TABLET_MODE;
 
 		ULONG luMsgBufSize = (ULONG)sizeof(bool);
@@ -1280,10 +1280,10 @@ DWORD EiChangeTabletMode(
 	return luResult;
 }
 
-// ¿ªÆô/¹Ø±Õknock knock¹¦ÄÜ
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// å¼€å¯/å…³é—­knock knockåŠŸèƒ½
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiOpenKnockKnock(
-	bool nbIsOpen  //ÎªÕæ±íÊ¾´ò¿ª
+	bool nbIsOpen  //ä¸ºçœŸè¡¨ç¤ºæ‰“å¼€
 )
 {
 	DWORD luResult = 0;
@@ -1291,7 +1291,7 @@ DWORD EiOpenKnockKnock(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_OPEN_KNOCK_KNOCK;
 
 		ULONG luMsgBufSize = (ULONG)sizeof(bool);
@@ -1307,10 +1307,10 @@ DWORD EiOpenKnockKnock(
 	return luResult;
 }
 
-// ÉèÖÃCÃæÊÖ»ò±ÊÇøÓò
+// è®¾ç½®Cé¢æ‰‹æˆ–ç¬”åŒºåŸŸ
 // Set TP Area
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -1321,7 +1321,7 @@ DWORD EiSetTpArea(SET_TP_AREA ndTpArea)
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_TP_AREA;
 
 		ULONG luMsgBufSize = (ULONG)sizeof(SET_TP_AREA);
@@ -1337,8 +1337,8 @@ DWORD EiSetTpArea(SET_TP_AREA ndTpArea)
 	return luResult;
 }
 
-// Í¨Öª·şÎñ¼ì²âÒ»ÏÂµ±Ç°ÇĞ»»µÄÓ¦ÓÃÕı³£ÇĞ»»¹ıÀ´Ã»
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥æœåŠ¡æ£€æµ‹ä¸€ä¸‹å½“å‰åˆ‡æ¢çš„åº”ç”¨æ­£å¸¸åˆ‡æ¢è¿‡æ¥æ²¡
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiCheckAppStatus()
 {
 	DWORD luResult = 0;
@@ -1346,7 +1346,7 @@ DWORD EiCheckAppStatus()
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_CHECK_APP_STATUS;
 
 		loMsg.Data.Item.BufSize = 0;
@@ -1360,8 +1360,8 @@ DWORD EiCheckAppStatus()
 	return luResult;
 }
 
-// Í¨Öª·şÎñÍ¨Öªµ±Ç°Ó¦ÓÃÖØĞÂÉèÖÃtp area
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥æœåŠ¡é€šçŸ¥å½“å‰åº”ç”¨é‡æ–°è®¾ç½®tp area
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiResetTpArea()
 {
 	DWORD luResult = 0;
@@ -1369,7 +1369,7 @@ DWORD EiResetTpArea()
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_RESET_TP_AREA;
 
 		loMsg.Data.Item.BufSize = 0;
@@ -1383,10 +1383,10 @@ DWORD EiResetTpArea()
 	return luResult;
 }
 
-// »ñÈ¡ÒşË½Ğ­Òé¿ª¹Ø×´Ì¬
+// è·å–éšç§åè®®å¼€å…³çŠ¶æ€
 // Get the privacy protocol switch status.
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -1398,7 +1398,7 @@ DWORD EiGetPrivacyStatus(DWORD& rdwStatus)
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_PRIVACY_STATUS;
 
 		loMsg.Data.Item.BufSize = 0;
@@ -1415,10 +1415,10 @@ DWORD EiGetPrivacyStatus(DWORD& rdwStatus)
 }
 
 
-// ÉèÖÃÒşË½Ğ­Òé¿ª¹Ø×´Ì¬
+// è®¾ç½®éšç§åè®®å¼€å…³çŠ¶æ€
 // Set the privacy protocol switch status.
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -1430,7 +1430,7 @@ DWORD EiSetPrivacyStatus(DWORD& rdwStatus)
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_PRIVACY_STATUS;
 
 		DWORD luMsgBufSize = (DWORD)sizeof(DWORD);
@@ -1446,10 +1446,10 @@ DWORD EiSetPrivacyStatus(DWORD& rdwStatus)
 	return luResult;
 }
 
-// Í¨ÖªÏµÍ³Æô¶¯Ò»¸öµ±Ç°ÓÃ»§ÏÂµÄÓ¦ÓÃ£¬ÀıÈç´ò¿ªÄ³¸öÎÄ¼ş¼Ğ»òÄ³¸öÍøÒ³
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥ç³»ç»Ÿå¯åŠ¨ä¸€ä¸ªå½“å‰ç”¨æˆ·ä¸‹çš„åº”ç”¨ï¼Œä¾‹å¦‚æ‰“å¼€æŸä¸ªæ–‡ä»¶å¤¹æˆ–æŸä¸ªç½‘é¡µ
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiRunExeForCurrentUset(
-	const wchar_t* npszFilePath,	// Ä¿±êÎÄ¼şÃû
+	const wchar_t* npszFilePath,	// ç›®æ ‡æ–‡ä»¶å
 	const wchar_t* npszCommandLine
 )
 {
@@ -1460,9 +1460,9 @@ DWORD EiRunExeForCurrentUset(
 		if (npszFilePath == NULL)
 			break;
 
-		// ×¢²áApp
+		// æ³¨å†ŒApp
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_RUN_EXE_FOR_CURRENT_USER;
 
 		EI_MSG_RUN_APP ldRunInfo;
@@ -1473,10 +1473,10 @@ DWORD EiRunExeForCurrentUset(
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &ldRunInfo, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
 
-		//ÏÈ°Ñµ±Ç°´æÔÚµÄÇĞ»»ÃüÁî¶¼Çå³ı
+		//å…ˆæŠŠå½“å‰å­˜åœ¨çš„åˆ‡æ¢å‘½ä»¤éƒ½æ¸…é™¤
 		gloCenter.RecallMessage(loMsg);
 
-		//·¢ËÍÃüÁî
+		//å‘é€å‘½ä»¤
 		luResult = gloCenter.SendMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
 			break;
@@ -1486,8 +1486,8 @@ DWORD EiRunExeForCurrentUset(
 	return luResult;
 }
 
-// Í¨Öª·şÎñCÃæÎïÀí·½Ïò±ä»¯
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥æœåŠ¡Cé¢ç‰©ç†æ–¹å‘å˜åŒ–
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiSetCCoverOri(
 	ULONG nulOri
 )
@@ -1497,7 +1497,7 @@ DWORD EiSetCCoverOri(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_CCOVER_ORI;
 
 		DWORD luMsgBufSize = (DWORD)sizeof(ULONG);
@@ -1513,8 +1513,8 @@ DWORD EiSetCCoverOri(
 	return luResult;
 }
 
-// Í¨Öª·şÎñµçÔ´×´Ì¬±ä»¯
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥æœåŠ¡ç”µæºçŠ¶æ€å˜åŒ–
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiSetPowerStatus(
 	DWORD ndwStatus
 )
@@ -1524,13 +1524,13 @@ DWORD EiSetPowerStatus(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_POWER_CHANGE;
 
 		DWORD luMsgBufSize = (DWORD)sizeof(DWORD);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &ndwStatus, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-		//ÏÈ°Ñµ±Ç°´æÔÚµÄÇĞ»»ÃüÁî¶¼Çå³ı
+		//å…ˆæŠŠå½“å‰å­˜åœ¨çš„åˆ‡æ¢å‘½ä»¤éƒ½æ¸…é™¤
 		//gloCenter.RecallMessage(loMsg);
 		luResult = gloCenter.PostMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
@@ -1541,8 +1541,8 @@ DWORD EiSetPowerStatus(
 	return luResult;
 }
 
-// Ñ¯ÎÊÊÇ·ñĞèÒªÏÔÊ¾oobe,Í¬Ò»ÓÃ»§Ö»ÏÔÊ¾Ò»´Î
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// è¯¢é—®æ˜¯å¦éœ€è¦æ˜¾ç¤ºoobe,åŒä¸€ç”¨æˆ·åªæ˜¾ç¤ºä¸€æ¬¡
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 ULONG EiIsShowOOBE(
 	bool& rbFlag
 )
@@ -1551,9 +1551,9 @@ ULONG EiIsShowOOBE(
 
 	do
 	{
-		//¸ø·şÎñ·¢ËÍ»ñÈ¡ÏûÏ¢
+		//ç»™æœåŠ¡å‘é€è·å–æ¶ˆæ¯
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_IS_SHOW_OOBE;
 		loMsg.Data.Item.BufSize = 0;
 
@@ -1561,7 +1561,7 @@ ULONG EiIsShowOOBE(
 		if (luResult != ERROR_SUCCESS)
 			return 0;
 
-		//»ñÈ¡Öµ
+		//è·å–å€¼
 		rbFlag = *(bool*)loMsg.Data.Item.MsgBuf;
 
 	} while (false);
@@ -1569,8 +1569,8 @@ ULONG EiIsShowOOBE(
 	return luResult;
 }
 
-// Ñ¯ÎÊ8951ÊÇ·ñ´¦ÓÚsleep×´Ì¬
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// è¯¢é—®8951æ˜¯å¦å¤„äºsleepçŠ¶æ€
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 ULONG Ei8951IsSleep(
 	bool& rbSleep
 )
@@ -1579,9 +1579,9 @@ ULONG Ei8951IsSleep(
 
 	do
 	{
-		//¸ø·şÎñ·¢ËÍ»ñÈ¡ÏûÏ¢
+		//ç»™æœåŠ¡å‘é€è·å–æ¶ˆæ¯
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_8951_IS_SLEEP;
 		loMsg.Data.Item.BufSize = 0;
 
@@ -1589,7 +1589,7 @@ ULONG Ei8951IsSleep(
 		if (luResult != ERROR_SUCCESS)
 			return 0;
 
-		//»ñÈ¡Öµ
+		//è·å–å€¼
 		rbSleep = *(bool*)loMsg.Data.Item.MsgBuf;
 
 	} while (false);
@@ -1597,8 +1597,8 @@ ULONG Ei8951IsSleep(
 	return luResult;
 }
 
-// »ñÈ¡ÓÃ»§ÏÔÊ¾ÓïÑÔ
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// è·å–ç”¨æˆ·æ˜¾ç¤ºè¯­è¨€
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 ULONG EiGetUserLagID(
 	DWORD& rdwLagID
 )
@@ -1607,9 +1607,9 @@ ULONG EiGetUserLagID(
 
 	do
 	{
-		//¸ø·şÎñ·¢ËÍ»ñÈ¡ÏûÏ¢
+		//ç»™æœåŠ¡å‘é€è·å–æ¶ˆæ¯
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_USER_LAGID;
 		loMsg.Data.Item.BufSize = 0;
 
@@ -1617,7 +1617,7 @@ ULONG EiGetUserLagID(
 		if (luResult != ERROR_SUCCESS)
 			return 0;
 
-		//»ñÈ¡Öµ
+		//è·å–å€¼
 		rdwLagID = *(DWORD*)loMsg.Data.Item.MsgBuf;
 
 	} while (false);
@@ -1625,8 +1625,8 @@ ULONG EiGetUserLagID(
 	return luResult;
 }
 
-// Í¨Öª·şÎñ8951×´Ì¬±ä»¯
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥æœåŠ¡8951çŠ¶æ€å˜åŒ–
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD Ei8951StatusChanged(
 	bool nbIsConnect
 )
@@ -1636,7 +1636,7 @@ DWORD Ei8951StatusChanged(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_8951_CONNECT_OR_REMOVE;
 
 		DWORD luMsgBufSize = (DWORD)sizeof(nbIsConnect);
@@ -1653,8 +1653,8 @@ DWORD Ei8951StatusChanged(
 }
 
 
-// Í¨Öª·şÎñ5182×´Ì¬±ä»¯
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥æœåŠ¡5182çŠ¶æ€å˜åŒ–
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD Ei5182StatusChanged(
 	bool nbIsConnect
 )
@@ -1664,7 +1664,7 @@ DWORD Ei5182StatusChanged(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_5182_CONNECT_OR_REMOVE;
 
 		DWORD luMsgBufSize = (DWORD)sizeof(nbIsConnect);
@@ -1680,10 +1680,10 @@ DWORD Ei5182StatusChanged(
 	return luResult;
 }
 
-// ÅĞ¶Ï×Ô¼ºÊÇ·ñÊÇÇ°Ì¨´°¿Ú
+// åˆ¤æ–­è‡ªå·±æ˜¯å¦æ˜¯å‰å°çª—å£
 // Is it a foreground window
 //
-// ·µ»Ø£º ·µ»ØÁã£¬±íÊ¾³É¹¦£»·µ»Ø·ÇÁã£¬±íÊ¾´íÎóÂë£»
+// è¿”å›ï¼š è¿”å›é›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›éé›¶ï¼Œè¡¨ç¤ºé”™è¯¯ç ï¼›
 // return
 //		zero: success
 //		non-zero: error code
@@ -1694,9 +1694,9 @@ DWORD EiIsForeground(bool& rbIsForeground)
 
 	do
 	{
-		//¸ø·şÎñ·¢ËÍ»ñÈ¡ÏûÏ¢
+		//ç»™æœåŠ¡å‘é€è·å–æ¶ˆæ¯
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_IS_FOREGROUND_WINDOW;
 		loMsg.Data.Item.BufSize = 0;
 
@@ -1704,7 +1704,7 @@ DWORD EiIsForeground(bool& rbIsForeground)
 		if (luResult != ERROR_SUCCESS)
 			return 0;
 
-		//»ñÈ¡Öµ
+		//è·å–å€¼
 		rbIsForeground = *(bool*)loMsg.Data.Item.MsgBuf;
 
 	} while (false);
@@ -1712,8 +1712,8 @@ DWORD EiIsForeground(bool& rbIsForeground)
 	return luResult;
 }
 
-// Í¨ÖªHomebarÇĞ»»Ó¦ÓÃ
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// é€šçŸ¥Homebaråˆ‡æ¢åº”ç”¨
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 ULONG EiChangeApp(
 	DWORD ldwID
 )
@@ -1723,7 +1723,7 @@ ULONG EiChangeApp(
 	do
 	{
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_CHANGE_APP;
 
 		DWORD luMsgBufSize = (DWORD)sizeof(ldwID);
@@ -1739,8 +1739,8 @@ ULONG EiChangeApp(
 	return luResult;
 }
 
-// »ñÈ¡µ±Ç°ÓÃ»§´ÅÅÌÁĞ±í
-// ·µ»Ø£º ·µ»Ø·ÇÁã£¬±íÊ¾³É¹¦£»·µ»ØÁã£¬±íÊ¾Ê§°Ü£»
+// è·å–å½“å‰ç”¨æˆ·ç£ç›˜åˆ—è¡¨
+// è¿”å›ï¼š è¿”å›éé›¶ï¼Œè¡¨ç¤ºæˆåŠŸï¼›è¿”å›é›¶ï¼Œè¡¨ç¤ºå¤±è´¥ï¼›
 DWORD EiGetUserDiskList(
 )
 {
@@ -1748,9 +1748,9 @@ DWORD EiGetUserDiskList(
 
 	do
 	{
-		//¸ø·şÎñ·¢ËÍ»ñÈ¡ÏûÏ¢
+		//ç»™æœåŠ¡å‘é€è·å–æ¶ˆæ¯
 		CEiSvrMsgItem loMsg;
-		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDÖ±½ÓÈ¡×ÔÉí½ø³ÌID
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppIDç›´æ¥å–è‡ªèº«è¿›ç¨‹ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_USER_DIST_LIST;
 		loMsg.Data.Item.BufSize = 0;
 

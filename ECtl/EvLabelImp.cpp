@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -42,9 +42,9 @@ CEvLabelImp::~CEvLabelImp()
 }
 
 ULONG CEvLabelImp::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -55,7 +55,7 @@ ULONG CEvLabelImp::InitOnCreate(
 		if(npTemplete == NULL)
 			return ERESULT_UNSUCCESSFUL;
 
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -96,7 +96,7 @@ ULONG CEvLabelImp::InitOnCreate(
 	return leResult;
 }
 
-// ÔÊĞíÊäÈë
+// å…è®¸è¾“å…¥
 void CEvLabelImp::EnableInput(LONG nlSet)
 {
 	if(nlSet)
@@ -114,7 +114,7 @@ void CEvLabelImp::EnableInput(LONG nlSet)
 }
 
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvLabelImp::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
@@ -145,7 +145,7 @@ ERESULT CEvLabelImp::OnElementCreate(IEinkuiIterator* npIterator)
 			//mlSelEnd = 4;
 		}
 
-		// Ê×ÏÈ»ñµÃ±ß½ç
+		// é¦–å…ˆè·å¾—è¾¹ç•Œ
 		ULONG llValue = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_LABEL_MAX_WIDTH, 0);
 		if (llValue <= 0)
 			mfTextMaxWidth = 800.0f;
@@ -169,8 +169,8 @@ ERESULT CEvLabelImp::OnElementCreate(IEinkuiIterator* npIterator)
 	return luResult;
 }
 
-// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓĞÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+// é”€æ¯å…ƒç´ ï¼Œç”¨äºé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+// ä»è€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€Œåå†å°†è‡ªå·±ä»å…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 ERESULT CEvLabelImp::OnElementDestroy()
 {
 	ReleaseDeviceResource();
@@ -181,7 +181,7 @@ ERESULT CEvLabelImp::OnElementDestroy()
 	return ERESULT_SUCCESS;
 }
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CEvLabelImp::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = CXuiElement::OnMouseOwnerTest(rPoint);
@@ -196,11 +196,11 @@ ERESULT CEvLabelImp::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 }
 
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvLabelImp::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -286,7 +286,7 @@ ERESULT CEvLabelImp::ParseMessage(IEinkuiMessage* npMsg)
 			luResult = ERESULT_WRONG_PARAMETERS;
 			break;
 		}
-		// »ñÈ¡ÊäÈëÊı¾İ
+		// è·å–è¾“å…¥æ•°æ®
 		LONG* lpValue = (LONG*)npMsg->GetInputData();
 		mfTextMaxWidth = (float)*lpValue;
 		GenerateTextLayout();
@@ -302,7 +302,7 @@ ERESULT CEvLabelImp::ParseMessage(IEinkuiMessage* npMsg)
 			luResult = ERESULT_WRONG_PARAMETERS;
 			break;
 		}
-		// »ñÈ¡ÊäÈëÊı¾İ
+		// è·å–è¾“å…¥æ•°æ®
 		LONG* lpValue = (LONG*)npMsg->GetInputData();
 		mfTextMaxHeight = (float)*lpValue;
 		GenerateTextLayout();
@@ -312,7 +312,7 @@ ERESULT CEvLabelImp::ParseMessage(IEinkuiMessage* npMsg)
 		break;
 	}
 	default:
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
@@ -468,7 +468,7 @@ ERESULT CEvLabelImp::OnGetText(wchar_t* nswTextBuf,LONG nlCharCount)
 	return ERESULT_SUCCESS;
 }
 
-// ÂıË¢ĞÂ
+// æ…¢åˆ·æ–°
 void  CEvLabelImp::OnLazyUpdate(
 	PSTEMG_LAZY_UPDATE npLazyUpdate
 	)
@@ -481,7 +481,7 @@ void  CEvLabelImp::OnLazyUpdate(
 	}
 }
 
-//¼üÅÌ½¹µã»ñµÃ»òÕßÊ§È¥
+//é”®ç›˜ç„¦ç‚¹è·å¾—æˆ–è€…å¤±å»
 void CEvLabelImp::OnKeyBoardFocus(PSTEMS_STATE_CHANGE npState)
 {
 	if(CXuiElement::TestFlag(ELAB_FLAG_HYPERLINK)==false)
@@ -497,7 +497,7 @@ void CEvLabelImp::OnKeyBoardFocus(PSTEMS_STATE_CHANGE npState)
 	EinkuiGetSystem()->UpdateView();
 }
 
-//Êó±ê½øÈë»òÀë¿ª
+//é¼ æ ‡è¿›å…¥æˆ–ç¦»å¼€
 void CEvLabelImp::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 {
 	PostMessageToParent(EEVT_LABEL_MOUSE_FOCUS,npState->State);
@@ -509,7 +509,7 @@ void CEvLabelImp::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 }
 
 
-//Êó±ê°´ÏÂ
+//é¼ æ ‡æŒ‰ä¸‹
 ERESULT CEvLabelImp::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 {
 	if(npInfo->ActKey == VK_LBUTTON)
@@ -534,7 +534,7 @@ ERESULT CEvLabelImp::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 }
 
 
-//»æÖÆÏûÏ¢
+//ç»˜åˆ¶æ¶ˆæ¯
 ERESULT CEvLabelImp::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	 
@@ -548,27 +548,27 @@ ERESULT CEvLabelImp::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	if(luResult != ERESULT_SUCCESS)
 		return luResult;
 
-	// »æÖÆ±³¾°
+	// ç»˜åˆ¶èƒŒæ™¯
 	if(mpBgBitmap != NULL)
 		npPaintBoard->DrawBitmap(mdBgRect,
 		mpBgBitmap,
 		ESPB_DRAWBMP_EXTEND);
 
-	// ÎÄ×Ö±³¾°£¬½öµ±»ñµÃ¼üÅÌ½¹µãÊ±£¬ÉÁË¸
+	// æ–‡å­—èƒŒæ™¯ï¼Œä»…å½“è·å¾—é”®ç›˜ç„¦ç‚¹æ—¶ï¼Œé—ªçƒ
 	if(mlBlinking >= 0 && mlBlinking != 1 && mpBackBrush!= NULL)
 	{
 		npPaintBoard->GetD2dRenderTarget()->FillRectangle(D2D1::RectF(mdTextEdge.left+mdTextPos.x,mdTextEdge.top+mdTextPos.y,
 			mdTextEdge.left+mdTextPos.x+mdTextSize.width,mdTextEdge.top+mdTextPos.y+mdTextSize.height),mpBackBrush);
 	}
 
-	// »æÖÆÎÄ×Ö
+	// ç»˜åˆ¶æ–‡å­—
 	if(mpTextLayout != NULL)
 		npPaintBoard->GetD2dRenderTarget()->DrawTextLayout(D2D1::Point2F(mdTextEdge.left+mdTextPos.x,mdTextEdge.top+mdTextPos.y),mpTextLayout,mpForeBrush);
 
 	return ERESULT_SUCCESS;
 }
 
-// É¾³ıÉè±ğÏà¹Ø×ÊÔ´
+// åˆ é™¤è®¾åˆ«ç›¸å…³èµ„æº
 void CEvLabelImp::ReleaseDeviceResource()
 {
 	CMM_SAFE_RELEASE(mpForeBrush);
@@ -585,13 +585,13 @@ ERESULT CEvLabelImp::CreateFont(void)
 
 	do 
 	{
-		// ½¨Á¢×ÖÌå
+		// å»ºç«‹å­—ä½“
 		if(mpTextFormat==NULL)
 		{
 			wchar_t lswFontName[100] = { L"Tahoma" };
 			LONG llFontSize;
 
-			//»ñÈ¡×ÖÌåÃû³Æ
+			//è·å–å­—ä½“åç§°
 			lpKey = mpTemplete->GetSubKey(TF_ID_LABEL_FONT);
 			if (lpKey != NULL)
 				lpKey->GetValue(lswFontName, sizeof(wchar_t) * 100);			
@@ -622,7 +622,7 @@ ERESULT CEvLabelImp::CreateFont(void)
 	return luResult;
 }
 
-//×¼±¸»­±Ê
+//å‡†å¤‡ç”»ç¬”
 ERESULT CEvLabelImp::PrepareBrush(IEinkuiPaintBoard* npPaintBoard)
 {
 	HRESULT hr;
@@ -632,7 +632,7 @@ ERESULT CEvLabelImp::PrepareBrush(IEinkuiPaintBoard* npPaintBoard)
 
 	do 
 	{
-		// ÏÂÃæ½¨Á¢»­Ë¢
+		// ä¸‹é¢å»ºç«‹ç”»åˆ·
 		if(mpForeBrush ==NULL)
 		{
 			if(CXuiElement::TestFlag(ELAB_FLAG_FORE_COLOR)==false)
@@ -662,7 +662,7 @@ ERESULT CEvLabelImp::PrepareBrush(IEinkuiPaintBoard* npPaintBoard)
 
 		}
 
-		// ½¨Á¢back color brush
+		// å»ºç«‹back color brush
 		if(mpBackBrush == NULL)
 		{
 			if(CXuiElement::TestFlag(ELAB_FLAG_FORE_COLOR)==false)
@@ -696,7 +696,7 @@ ERESULT CEvLabelImp::PrepareBrush(IEinkuiPaintBoard* npPaintBoard)
 }
 
 
-//¼üÅÌÏûÏ¢
+//é”®ç›˜æ¶ˆæ¯
 ERESULT CEvLabelImp::OnKeyPressed(const STEMS_KEY_PRESSED* npInfo)
 {
 	ERESULT luResult;
@@ -724,7 +724,7 @@ void CEvLabelImp::UpdateView(void)
 	EinkuiGetSystem()->UpdateView();
 }
 
-// ÖØĞÂÉú³É¸ñÊ½»¯ÎÄ×Ö
+// é‡æ–°ç”Ÿæˆæ ¼å¼åŒ–æ–‡å­—
 ERESULT CEvLabelImp::GenerateTextLayout(void)
 {
 	DWRITE_TEXT_RANGE ldRange;
@@ -756,7 +756,7 @@ ERESULT CEvLabelImp::GenerateTextLayout(void)
 }
 
 
-// ¼ÆËãÎÄ×ÖµÄÅÅ²¼ÇøÓò
+// è®¡ç®—æ–‡å­—çš„æ’å¸ƒåŒºåŸŸ
 void CEvLabelImp::CalculateTextRect(void)
 {
 	IDWriteTextLayout* lpTextLayout = NULL;
@@ -777,7 +777,7 @@ void CEvLabelImp::CalculateTextRect(void)
 	if(mlVisibleCount < 0)
 		mlVisibleCount = 0;
 
-	// ¶øºó¼ì²é¼õÉÙ×Ö·û¸öÊıÊÇ·ñ¿ÉÒÔ·ûºÏ×î´ó¿í¶ÈÒªÇó
+	// è€Œåæ£€æŸ¥å‡å°‘å­—ç¬¦ä¸ªæ•°æ˜¯å¦å¯ä»¥ç¬¦åˆæœ€å¤§å®½åº¦è¦æ±‚
 	while(mlVisibleCount > 0)
 	{
 		CMM_SAFE_RELEASE(lpTextLayout);
@@ -823,7 +823,7 @@ void CEvLabelImp::CalculateTextRect(void)
 
 	if(lpTextLayout == NULL)
 	{
-		// È¡Ò»¸ö×Ö·ûµÄÇé¿ö'Q'
+		// å–ä¸€ä¸ªå­—ç¬¦çš„æƒ…å†µ'Q'
 		hr = EinkuiGetSystem()->GetDWriteFactory()->CreateTextLayout(L"Q",1,mpTextFormat, mfTextMaxWidth, mfTextMaxHeight,&lpTextLayout);
 		if(SUCCEEDED(hr))
 		{
@@ -849,9 +849,9 @@ void CEvLabelImp::CalculateTextRect(void)
 		mdTextSize.height = ldMetrics.height;
 	}
 
-	// µ÷ÕûÅÅ²¼
+	// è°ƒæ•´æ’å¸ƒ
 	llAlign = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_LABEL_ALIGN_VERTICAL,1); 	// center 
-	// ´¹Ö±·½Ïò
+	// å‚ç›´æ–¹å‘
 	switch(llAlign)
 	{
 	case 1:	// center
@@ -866,7 +866,7 @@ void CEvLabelImp::CalculateTextRect(void)
 	}
 
 	llAlign = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_LABEL_ALIGN_HORIZONTAL,0);// left align
-	// Ë®Æ½·½Ïò
+	// æ°´å¹³æ–¹å‘
 	switch(llAlign)
 	{
 	case 1:	// center

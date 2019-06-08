@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -35,7 +35,7 @@ ULONG CXelAllocator::InitOnCreate(const wchar_t* nswRegPath)
 	mopDataMgr = NULL;
 	mopFactoryMgr = NULL;
 
-	// »ñÈ¡ÅäÖÃ¹ÜÀíÆ÷¶ÔÏó	
+	// èŽ·å–é…ç½®ç®¡ç†å™¨å¯¹è±¡	
 	mopDataMgr = CXelDataMgr::SingleInstance(nswRegPath);
 	if (mopDataMgr == NULL)
 		return 0x80000000;
@@ -48,7 +48,7 @@ ULONG CXelAllocator::InitOnCreate(const wchar_t* nswRegPath)
 
 }
 
-// Ìá¹©¸øXUIÖ÷Ä£¿éµÄ·½·¨£¬ÓÃÓÚ»ñÈ¡Ö¸¶¨DLLÊä³öµÄ¹¤³§Àà½Ó¿Ú
+// æä¾›ç»™XUIä¸»æ¨¡å—çš„æ–¹æ³•ï¼Œç”¨äºŽèŽ·å–æŒ‡å®šDLLè¾“å‡ºçš„å·¥åŽ‚ç±»æŽ¥å£
 IElementFactory* CXelAllocator::LoadFactory(
 	/*const wchar_t* nswRelativePathName*/
 	)
@@ -89,31 +89,31 @@ IElementFactory* CXelAllocator::PrepareAllocator(
 	wchar_t lwszDllPath[MAX_PATH] = {0};
 	REGSTATUS lStateEnum;
 
-	// ²é¿´ÊÇ·ñ×¢²á 
+	// æŸ¥çœ‹æ˜¯å¦æ³¨å†Œ 
 	lStateEnum = mopDataMgr->IsRegisted(nswClsName, lwszDllPath, &lpELementFact);
 
-	// Ã»ÓÐ×¢²á£¬·µ»ØNULL
+	// æ²¡æœ‰æ³¨å†Œï¼Œè¿”å›žNULL
 	if (lStateEnum == Invalid)
 		return NULL;
 	
-	// LOADÇé¿öÏÂ£¬»á·µ»ØÒ»¸öÓÐÐ§µÄIElementFactory½Ó¿ÚÖ¸Õë
+	// LOADæƒ…å†µä¸‹ï¼Œä¼šè¿”å›žä¸€ä¸ªæœ‰æ•ˆçš„IElementFactoryæŽ¥å£æŒ‡é’ˆ
 	if (lStateEnum == LOAD)
 		return lpELementFact;
 
-	// UNLOAD,Ã»ÓÐ¼ÓÔØ£¬Ôòµ÷ÓÃ¹¤³§¹ÜÀíÀà·½·¨»ñ»ñÈ¡¹¤³§Àà½Ó¿Ú
+	// UNLOAD,æ²¡æœ‰åŠ è½½ï¼Œåˆ™è°ƒç”¨å·¥åŽ‚ç®¡ç†ç±»æ–¹æ³•èŽ·èŽ·å–å·¥åŽ‚ç±»æŽ¥å£
 	return mopFactoryMgr->GetFactInstance(lwszDllPath);
 
 
 }
 
 
-// ¼ÓÔØÒ»·ùÍ¼Æ¬ÎÄ¼þ
+// åŠ è½½ä¸€å¹…å›¾ç‰‡æ–‡ä»¶
 IEinkuiBitmap* __stdcall CXelAllocator::LoadImageFile( 
-	IN wchar_t* nswRelativePathName,		//¸ÃÖµÎªÏà¶ÔÂ·¾¶Ê±£¬ÆðµãÂ·¾¶Îª¸ÃÄ£¿éDllËùÔÚÄ¿Â¼
-	IN bool nbIsFullPath					//¸ÃµÄÕæ±íÊ¾nswRelativePathNameÎªÈ«Â·¾¶£¬·ñÔòÎªÏà¶ÔÂ·¾¶
+	IN wchar_t* nswRelativePathName,		//è¯¥å€¼ä¸ºç›¸å¯¹è·¯å¾„æ—¶ï¼Œèµ·ç‚¹è·¯å¾„ä¸ºè¯¥æ¨¡å—Dllæ‰€åœ¨ç›®å½•
+	IN bool nbIsFullPath					//è¯¥çš„çœŸè¡¨ç¤ºnswRelativePathNameä¸ºå…¨è·¯å¾„ï¼Œå¦åˆ™ä¸ºç›¸å¯¹è·¯å¾„
 	)
 {
-	// »ñÈ¡µ±Ç°widgetËùÔÚµÄÂ·¾¶£¬¼ä½Ó»ñÈ¡ImageFileµÄFullPath
+	// èŽ·å–å½“å‰widgetæ‰€åœ¨çš„è·¯å¾„ï¼Œé—´æŽ¥èŽ·å–ImageFileçš„FullPath
 	const wchar_t*	lswWidgetPath = NULL;
 	lswWidgetPath = EinkuiGetSystem()->GetCurrentWidget()->GetWidgetDefaultPath();
 	if (lswWidgetPath == NULL)
@@ -123,20 +123,20 @@ IEinkuiBitmap* __stdcall CXelAllocator::LoadImageFile(
 	lopFilePath.AssurePath();
 	lopFilePath.Transform(nswRelativePathName, false);
 
-	// ¼ÓÔØImageFile,·µ»Ø½Ó¿ÚÖ¸Õë
+	// åŠ è½½ImageFile,è¿”å›žæŽ¥å£æŒ‡é’ˆ
 	IEinkuiBitmap* lpElBitmap = CXD2dBitmap::CreateInstance(nbIsFullPath==false?lopFilePath.GetPathName():nswRelativePathName);
 	if (lpElBitmap == NULL)
 		return NULL;
 	
 	InterlockedIncrement(&mlTotalBmp);
-	//CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(lpElBitmap); //ÔÚÎ»Í¼½¨Á¢´¦×¢²á ax nov.28,17
+	//CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(lpElBitmap); //åœ¨ä½å›¾å»ºç«‹å¤„æ³¨å†Œ ax nov.28,17
 	
 	return lpElBitmap;
 
 }
 
 
-// ´ÓÖ¸¶¨µÄPEÎÄ¼þÖÐ£¬ÌáÈ¡Î»Í¼×ÊÔ´£¬Éú³ÉÒ»¸öÎ»Í¼¶ÔÏó
+// ä»ŽæŒ‡å®šçš„PEæ–‡ä»¶ä¸­ï¼Œæå–ä½å›¾èµ„æºï¼Œç”Ÿæˆä¸€ä¸ªä½å›¾å¯¹è±¡
 IEinkuiBitmap* __stdcall CXelAllocator::LoadImageFromPE( 
 	IN wchar_t *npPeFileName,
 	IN int niDummy,
@@ -152,14 +152,14 @@ IEinkuiBitmap* __stdcall CXelAllocator::LoadImageFromPE(
 		return NULL;
 
 	InterlockedIncrement(&mlTotalBmp);
-	//CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(lpElBitmap); //ÔÚÎ»Í¼½¨Á¢´¦×¢²á ax nov.28,17
+	//CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(lpElBitmap); //åœ¨ä½å›¾å»ºç«‹å¤„æ³¨å†Œ ax nov.28,17
 
 	return lpElBitmap;
 
 }
 
 
-//´ÓÎÄ×ÖÉú³ÉÍ¼Æ¬
+//ä»Žæ–‡å­—ç”Ÿæˆå›¾ç‰‡
 IEinkuiBitmap* __stdcall CXelAllocator::CreateImageByText(STETXT_BMP_INIT& rdBmpInit)
 {
 	IEinkuiBitmap* lpElBitmap = CXuiTextBitmap::CreateInstance(rdBmpInit);
@@ -167,19 +167,19 @@ IEinkuiBitmap* __stdcall CXelAllocator::CreateImageByText(STETXT_BMP_INIT& rdBmp
 		return NULL;
 
 	InterlockedIncrement(&mlTotalBmp);
-	//CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(lpElBitmap); //ÔÚÎ»Í¼½¨Á¢´¦×¢²á ax nov.28,17
+	//CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(lpElBitmap); //åœ¨ä½å›¾å»ºç«‹å¤„æ³¨å†Œ ax nov.28,17
 
 	return lpElBitmap;
 }
 
 
-// Ö¸¶¨´óÐ¡£¬ÒÔ¼°Î»Í¼Êý¾Ý£¬´´½¨Ò»¸öÎ»Í¼¶ÔÏó£¬³ÌÐò·µ»ØºónpRawData¼´¿ÉÓÐµ÷ÓÃÕßÊÍ·Å
+// æŒ‡å®šå¤§å°ï¼Œä»¥åŠä½å›¾æ•°æ®ï¼Œåˆ›å»ºä¸€ä¸ªä½å›¾å¯¹è±¡ï¼Œç¨‹åºè¿”å›žåŽnpRawDataå³å¯æœ‰è°ƒç”¨è€…é‡Šæ”¾
 IEinkuiBitmap* __stdcall CXelAllocator::CreateBitmapFromMemory(
-	LONG nuWidth,					// Î»Í¼¿í¶È
-	LONG nuHeight,					// Î»Í¼¸ß¶È
-	LONG PixelSize,					// ÏñËØµÄÎ»¿í£¬3 or 4
+	LONG nuWidth,					// ä½å›¾å®½åº¦
+	LONG nuHeight,					// ä½å›¾é«˜åº¦
+	LONG PixelSize,					// åƒç´ çš„ä½å®½ï¼Œ3 or 4
 	LONG Stride,
-	void* npRawData				// Î»Í¼Ô­Ê¼Êý¾Ý
+	void* npRawData				// ä½å›¾åŽŸå§‹æ•°æ®
 	)
 {
 	IEinkuiBitmap* lpBitmap = NULL;
@@ -191,7 +191,7 @@ IEinkuiBitmap* __stdcall CXelAllocator::CreateBitmapFromMemory(
 		BREAK_ON_NULL(lpBitmap);
 
 		InterlockedIncrement(&mlTotalBmp);
-		//CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(lpBitmap); //ÔÚÎ»Í¼½¨Á¢´¦×¢²á ax nov.28,17
+		//CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(lpBitmap); //åœ¨ä½å›¾å»ºç«‹å¤„æ³¨å†Œ ax nov.28,17
 
 	} while (false);
 
@@ -199,11 +199,11 @@ IEinkuiBitmap* __stdcall CXelAllocator::CreateBitmapFromMemory(
 
 }
 
-// ´ÓÅäÖÃÎÄ¼þÖÐ´´½¨¶ÔÏó
+// ä»Žé…ç½®æ–‡ä»¶ä¸­åˆ›å»ºå¯¹è±¡
 IEinkuiIterator* __stdcall CXelAllocator::CreateElement( 
 	IN IEinkuiIterator* npParent, 
 	IN ICfKey* npTemplete,
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊýµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓÐÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN ULONG nuEID	// å¦‚æžœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æžœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	wchar_t lswClsName[MAX_PATH] ={0};
@@ -211,12 +211,12 @@ IEinkuiIterator* __stdcall CXelAllocator::CreateElement(
 	IEinkuiIterator*			lpIterator = NULL;
 	int liStatus;
 
-	// »ñÈ¡Òª´´½¨µÄ¶ÔÏóÀàÃû
+	// èŽ·å–è¦åˆ›å»ºçš„å¯¹è±¡ç±»å
 	liStatus = npTemplete->GetValue(lswClsName, MAX_PATH*sizeof(wchar_t));
 	if (liStatus <= 0)
 		return NULL;
 	
-	// Ê×ÏÈ³¢ÊÔµ÷ÓÃµ±Ç°widgetµÄ¹¤³§Àà½Ó¿Ú´´½¨¶ÔÏó
+	// é¦–å…ˆå°è¯•è°ƒç”¨å½“å‰widgetçš„å·¥åŽ‚ç±»æŽ¥å£åˆ›å»ºå¯¹è±¡
 	lpClsFactory = EinkuiGetSystem()->GetCurrentWidget()->GetDefaultFactory();
 	if (lpClsFactory != NULL)
 	{
@@ -229,18 +229,18 @@ IEinkuiIterator* __stdcall CXelAllocator::CreateElement(
 	if (lpClsFactory == NULL)
 		return NULL;
 
-	// ´´½¨¶ÔÏó
+	// åˆ›å»ºå¯¹è±¡
 	return lpClsFactory->CreateElement(npParent, npTemplete,nuEID);
 
 
 }
 
 
-// Í¨¹ýÀàÃû£¬´´½¨¶ÔÏó
+// é€šè¿‡ç±»åï¼Œåˆ›å»ºå¯¹è±¡
 IEinkuiIterator* __stdcall CXelAllocator::CreateElement(
-	IN IEinkuiIterator* npParent,		// ¸¸¶ÔÏóÖ¸Õë
-	IN const wchar_t* nswClassName,		// ÀàÃû
-	IN ULONG nuEID					// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊýµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓÐÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,		// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN const wchar_t* nswClassName,		// ç±»å
+	IN ULONG nuEID					// å¦‚æžœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æžœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	IElementFactory*	lpClsFactory = NULL;
@@ -252,7 +252,7 @@ IEinkuiIterator* __stdcall CXelAllocator::CreateElement(
 	{
 		BREAK_ON_NULL(nswClassName);
 
-		// Ê×ÏÈ³¢ÊÔµ÷ÓÃµ±Ç°widgetµÄ¹¤³§Àà½Ó¿Ú´´½¨¶ÔÏó
+		// é¦–å…ˆå°è¯•è°ƒç”¨å½“å‰widgetçš„å·¥åŽ‚ç±»æŽ¥å£åˆ›å»ºå¯¹è±¡
 		lpClsFactory = EinkuiGetSystem()->GetCurrentWidget()->GetDefaultFactory();
 		BREAK_ON_NULL(lpClsFactory);
 
@@ -266,14 +266,14 @@ IEinkuiIterator* __stdcall CXelAllocator::CreateElement(
 
 
 	do 
-	{	// ¼ì²â£¬Èç¹ûÄ¬ÈÏ½Ó¿Ú´´½¨²»³É¹¦£¬Ôò²éÕÒ×¢²áµÄÀà£¬ÖØÐÂ¼ÓÔØ¶ÔÓ¦µÄ¹¤³§Àà£¬½øÐÐ´´½¨
+	{	// æ£€æµ‹ï¼Œå¦‚æžœé»˜è®¤æŽ¥å£åˆ›å»ºä¸æˆåŠŸï¼Œåˆ™æŸ¥æ‰¾æ³¨å†Œçš„ç±»ï¼Œé‡æ–°åŠ è½½å¯¹åº”çš„å·¥åŽ‚ç±»ï¼Œè¿›è¡Œåˆ›å»º
 		if (luResult == ERESULT_SUCCESS)
 			break;
 		
 		lpClsFactory = PrepareAllocator(nswClassName);
 		BREAK_ON_NULL(lpClsFactory);
 			
-		// ´´½¨¶ÔÏó
+		// åˆ›å»ºå¯¹è±¡
 		lpIterator = lpClsFactory->CreateElement(npParent, nswClassName,nuEID);
 
 	} while (false);

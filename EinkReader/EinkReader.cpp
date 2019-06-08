@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -50,7 +50,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	//if (MutexPass() == false)
 	//{
-	//	//µ¥ÊµÀý¿ØÖÆ
+	//	//ÂµÂ¥ÃŠÂµÃ€Ã½Â¿Ã˜Ã–Ã†
 	//	return FALSE;
 	//}
 

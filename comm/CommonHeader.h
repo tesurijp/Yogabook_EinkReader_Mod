@@ -1,9 +1,9 @@
-/* Copyright 2019 - present Lenovo */
+ï»¿/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
 
 
 
-// ÕâÀïÍ³Ò»°üº¬ÒıÇæËùĞèµÄËùÓĞÍ·ÎÄ¼ş
+// è¿™é‡Œç»Ÿä¸€åŒ…å«å¼•æ“æ‰€éœ€çš„æ‰€æœ‰å¤´æ–‡ä»¶
 #include "gdiplus.h"
 using namespace Gdiplus;
 
@@ -21,26 +21,26 @@ using namespace D2D1;
 
 #include "resource.h"
 
-// ÏµÍ³Ïà¹Ø
+// ç³»ç»Ÿç›¸å…³
 #include "Shlobj.h"
 
-// ×´Ì¬¶¨Òå
+// çŠ¶æ€å®šä¹‰
 #include "EResult.h"
 
-// Í¨ÓÃ»ùÀà
+// é€šç”¨åŸºç±»
 #include "CfgIface.h"
 #include "cmmBaseObj.h"
 
-// Í¨ÓÃÊı¾İ½Ó¿Ú
+// é€šç”¨æ•°æ®æ¥å£
 #include "BpTree.h"
 #include "cmmstruct.h"
 #include "cmmPath.h"
 #include "graphy/XgBitArray.h"
 
-// ºÛ¼£×·×Ù
+// ç—•è¿¹è¿½è¸ª
 //#include "cmmTrace.h"
 
-// ½Ó¿ÚÍ·ÎÄ¼ş
+// æ¥å£å¤´æ–‡ä»¶
 #include "Einkui.h"
 
 

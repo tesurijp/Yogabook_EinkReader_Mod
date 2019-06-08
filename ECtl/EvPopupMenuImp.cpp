@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -33,16 +33,16 @@ CEvPopupMenu::~CEvPopupMenu(void)
 }
 
 ULONG CEvPopupMenu::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -54,7 +54,7 @@ ULONG CEvPopupMenu::InitOnCreate(
 
 	return leResult;
 }
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvPopupMenu::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -85,7 +85,7 @@ ERESULT CEvPopupMenu::OnElementCreate(IEinkuiIterator* npIterator)
 //	return lResult;
 //}
 
-//»æÖÆÏûÏ¢
+//ç»˜åˆ¶æ¶ˆæ¯
 ERESULT CEvPopupMenu::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -109,23 +109,23 @@ void CEvPopupMenu::LoadResource()
 	bool lbResult = false;
 	do 
 	{
-		// »ñÈ¡MainID
+		// è·å–MainID
 		miMainID = (int)this->mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_MAIN_ID, -1);
-		// Èç¹ûÃ»ÓĞMainId,Ôò²»¼ÓÔØ
+		// å¦‚æœæ²¡æœ‰MainId,åˆ™ä¸åŠ è½½
 		if(-1 == miMainID)
 			break;
 
-		// ÕâÀïÎªÁËÊ¹µÃËùÓĞ´´½¨ºÃµÄMenuItemÏîÏÔÊ¾³öÀ´µÄ¿í¶È¶¼Ò»ÖÂ£¬ĞèÒªÑ°ÕÒ×î¿íµÄMenuItem£¬
-		// ÒòÎªĞèÒªÔÙ´´½¨ºÃËùÓĞµÄMenuItemÖ®ºó²ÅÄÜÖªµÀ×î¿íµÄ¿í¶È£¬¶ø´´½¨MenuItemÓÖĞèÒªºÜ¶à³õÊ¼»¯ĞÅÏ¢£¬
-		// Òò´ËÕâÀïµÄMenuItemInfoÌá¹©ÁË¹«¹²µÄmenuItem³õÊ¼»¯ĞÅÏ¢£¬Ã¿¸öMenuItem±¾Éí¸´ÖÆÒ»·İ¸ÃĞÅÏ¢£¬²¢¸ù¾İ×ÔÉíÌØÊâĞÔ½øĞĞĞŞ¸Ä
-		// ´´½¨ºÃÁËÖ®ºóÔÙÉèÖÃºÃËùÓĞMenuItemµÄ¿í¶È
+		// è¿™é‡Œä¸ºäº†ä½¿å¾—æ‰€æœ‰åˆ›å»ºå¥½çš„MenuItemé¡¹æ˜¾ç¤ºå‡ºæ¥çš„å®½åº¦éƒ½ä¸€è‡´ï¼Œéœ€è¦å¯»æ‰¾æœ€å®½çš„MenuItemï¼Œ
+		// å› ä¸ºéœ€è¦å†åˆ›å»ºå¥½æ‰€æœ‰çš„MenuItemä¹‹åæ‰èƒ½çŸ¥é“æœ€å®½çš„å®½åº¦ï¼Œè€Œåˆ›å»ºMenuItemåˆéœ€è¦å¾ˆå¤šåˆå§‹åŒ–ä¿¡æ¯ï¼Œ
+		// å› æ­¤è¿™é‡Œçš„MenuItemInfoæä¾›äº†å…¬å…±çš„menuItemåˆå§‹åŒ–ä¿¡æ¯ï¼Œæ¯ä¸ªMenuItemæœ¬èº«å¤åˆ¶ä¸€ä»½è¯¥ä¿¡æ¯ï¼Œå¹¶æ ¹æ®è‡ªèº«ç‰¹æ®Šæ€§è¿›è¡Œä¿®æ”¹
+		// åˆ›å»ºå¥½äº†ä¹‹åå†è®¾ç½®å¥½æ‰€æœ‰MenuItemçš„å®½åº¦
 
-		// ³õÊ¼»¯ItemInfo½á¹¹Ìå
+		// åˆå§‹åŒ–ItemInfoç»“æ„ä½“
 		InitMenuItemInfo();
 		if(NULL == mpoMenuItemInfo)
 			break;
 
-		// ¼ÓÔØºÃ±³¾°Í¼
+		// åŠ è½½å¥½èƒŒæ™¯å›¾
 		// ItemBackGround
 		wchar_t* lswBackgGround = (wchar_t*)mpTemplete->QuerySubKeyValueAsBuffer(TF_ID_POPUPMENU_ITEM_BACKGROUND);
 		if(NULL != lswBackgGround && UNICODE_NULL != lswBackgGround[0])
@@ -143,27 +143,27 @@ void CEvPopupMenu::LoadResource()
 		}
 
 
-		// ´´½¨ËùÓĞMenuItem
+		// åˆ›å»ºæ‰€æœ‰MenuItem
 		ICfKey* lpMenuItemKey = mpTemplete->GetSubKey(TF_ID_POPUPMENU_MENU_ITEM);
 		BREAK_ON_NULL(lpMenuItemKey);
 		CEvMenuItem* lpoMenuItem = NULL;
 		lpMenuItemKey = lpMenuItemKey->MoveToSubKey();	
-		while (lpMenuItemKey != NULL)	//Ñ­»·´´½¨ËùÓĞ×ÓÔªËØ
+		while (lpMenuItemKey != NULL)	//å¾ªç¯åˆ›å»ºæ‰€æœ‰å­å…ƒç´ 
 		{
 			lpoMenuItem = CEvMenuItem::CreateInstance(mpIterator, lpMenuItemKey);
-			if(NULL == lpoMenuItem)			// Óöµ½´´½¨Ê§°ÜµÄ£¬ÔòÌø³ö
+			if(NULL == lpoMenuItem)			// é‡åˆ°åˆ›å»ºå¤±è´¥çš„ï¼Œåˆ™è·³å‡º
 				break;
 
 			lpoMenuItem->GetIterator()->SetSize((FLOAT)lpMenuItemKey->QuerySubKeyValueAsLONG(L"Width",0),(FLOAT)lpMenuItemKey->QuerySubKeyValueAsLONG(L"Height",0));
 			lpoMenuItem->SetBgBitmapPtr(mpoItemBgBitmap, miItemBgFrameCount);
 
-			lpoMenuItem->SetMenuItemInfo(mpoMenuItemInfo);			// Ìá¹©²Ëµ¥ÏîĞÅÏ¢£¬ÓÃÀ´¼ÓÔØ²Ëµ¥Ïî×ÊÔ´
+			lpoMenuItem->SetMenuItemInfo(mpoMenuItemInfo);			// æä¾›èœå•é¡¹ä¿¡æ¯ï¼Œç”¨æ¥åŠ è½½èœå•é¡¹èµ„æº
 
-			// ½«¸ÃÏî¼ÓÈëµ½ÏòÁ¿Ä©Î²
+			// å°†è¯¥é¡¹åŠ å…¥åˆ°å‘é‡æœ«å°¾
 			if(moMenuItemVec.Insert(-1, lpoMenuItem) < 0)
 				break;
 
-			lpMenuItemKey = lpMenuItemKey->MoveToNextKey();	//´ò¿ªÏÂÒ»¸ö×ÓÔªËØ¼ü
+			lpMenuItemKey = lpMenuItemKey->MoveToNextKey();	//æ‰“å¼€ä¸‹ä¸€ä¸ªå­å…ƒç´ é”®
 		}
 
 		ReLayoutMenuItem();
@@ -173,11 +173,11 @@ void CEvPopupMenu::LoadResource()
 
 	if(false == lbResult)
 	{
-		PrintDebugString(L"PopupMenu_LoadResource Ê§°Ü¡£");
+		PrintDebugString(L"PopupMenu_LoadResource å¤±è´¥ã€‚");
 	}
 }
 
-// ³õÊ¼»¯MenuItemInfo
+// åˆå§‹åŒ–MenuItemInfo
 void CEvPopupMenu::InitMenuItemInfo()
 {
 	if(NULL == mpTemplete)
@@ -230,7 +230,7 @@ void CEvPopupMenu::InitMenuItemInfo()
 
 ERESULT CEvPopupMenu::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
 	switch (npMsg->GetMessageID())
@@ -254,7 +254,7 @@ ERESULT CEvPopupMenu::ParseMessage(IEinkuiMessage* npMsg)
 		{
 			this->GetIterator()->PostMessageToParent(npMsg);
 
-			// µ±×Ó²Ëµ¥Ïî±»µã»÷Ê±£¬ÒªÒş²Øµô×ÔÉí
+			// å½“å­èœå•é¡¹è¢«ç‚¹å‡»æ—¶ï¼Œè¦éšè—æ‰è‡ªèº«
 			mpIterator->SetVisible(false);
 
 			luResult = ERESULT_SUCCESS;
@@ -268,10 +268,10 @@ ERESULT CEvPopupMenu::ParseMessage(IEinkuiMessage* npMsg)
 		}
 		break;
 
-	case EEVT_MENUITEM_GET_FOCUS:				// ÓĞ×Ó²Ëµ¥Ïî»ñµÃÁË½¹µã
+	case EEVT_MENUITEM_GET_FOCUS:				// æœ‰å­èœå•é¡¹è·å¾—äº†ç„¦ç‚¹
 		{
 			IEinkuiIterator* lpIterMenuItem = npMsg->GetMessageSender();
-			// ±ØĞëÊÇµ±Ç°PopupMenuµÄ×ÓÏî£¬²¢ÇÒÊÇMenuItem
+			// å¿…é¡»æ˜¯å½“å‰PopupMenuçš„å­é¡¹ï¼Œå¹¶ä¸”æ˜¯MenuItem
 			if(NULL != lpIterMenuItem)			
 				OnMenuItemGetFocused(lpIterMenuItem);
 
@@ -279,7 +279,7 @@ ERESULT CEvPopupMenu::ParseMessage(IEinkuiMessage* npMsg)
 		}
 		break;
 
-	case EACT_POPUPMENU_INSERT_MENUITEM_BY_CREATE:			// ²åÈëĞÂµÄ²Ëµ¥Ïî
+	case EACT_POPUPMENU_INSERT_MENUITEM_BY_CREATE:			// æ’å…¥æ–°çš„èœå•é¡¹
 		{
 			if(npMsg->GetInputDataSize() != sizeof(STCTL_POPUPMENU_MENUITEMINFO)
 				|| npMsg->GetInputData() == NULL)
@@ -311,14 +311,14 @@ ERESULT CEvPopupMenu::ParseMessage(IEinkuiMessage* npMsg)
 
 			lpoMenuItem->SetMenuItemInfo(mpoMenuItemInfo);
 
-			// ÖØĞÂ¼ÆËãPopupMenu²¼¾Ö
+			// é‡æ–°è®¡ç®—PopupMenuå¸ƒå±€
 			ReLayoutMenuItem();
 
 			luResult = ERESULT_SUCCESS;
 		}
 		break;
 
-	case EACT_POPUPMENU_RELAYOUT_MENUITEM:			// ÖØĞÂ²¼¾Ö
+	case EACT_POPUPMENU_RELAYOUT_MENUITEM:			// é‡æ–°å¸ƒå±€
 		{
 			ReLayoutMenuItem();
 
@@ -382,13 +382,13 @@ ERESULT CEvPopupMenu::ParseMessage(IEinkuiMessage* npMsg)
 
 	case EMSG_ELEMENT_ACTIVATED:
 		{
-			//¼¤»î×´Ì¬¸Ä±ä
+			//æ¿€æ´»çŠ¶æ€æ”¹å˜
 			STEMS_ELEMENT_ACTIVATION* lpActive = NULL;
 			luResult = CExMessage::GetInputDataBuffer(npMsg,lpActive);
 			if(luResult != ERESULT_SUCCESS)
 				break;
 
-			if (lpActive->State == 0 && mpIterator->IsVisible() != false)			// ¿É¼û×´Ì¬ÏÂÊ§È¥¼¤»î×´Ì¬£¬
+			if (lpActive->State == 0 && mpIterator->IsVisible() != false)			// å¯è§çŠ¶æ€ä¸‹å¤±å»æ¿€æ´»çŠ¶æ€ï¼Œ
 			{
 				mpIterator->SetVisible(false);
 			}
@@ -405,20 +405,20 @@ ERESULT CEvPopupMenu::ParseMessage(IEinkuiMessage* npMsg)
 
 	if(luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
 
-// ÃèÊö£º
-//		´¦Àíµ±ÓĞ×Ó²Ëµ¥Ïî»ñµÃ½¹µã
+// æè¿°ï¼š
+//		å¤„ç†å½“æœ‰å­èœå•é¡¹è·å¾—ç„¦ç‚¹
 void CEvPopupMenu::OnMenuItemGetFocused(
 	IN IEinkuiIterator* npIterMenuItem
 	)
 {
-	// ·¢ËÍÏûÏ¢¸øËùÓĞÆäËû²Ëµ¥Ïî£¬Ê§È¥½¹µã
+	// å‘é€æ¶ˆæ¯ç»™æ‰€æœ‰å…¶ä»–èœå•é¡¹ï¼Œå¤±å»ç„¦ç‚¹
 	STEMS_STATE_CHANGE ldStateChange;
 	ldStateChange.Related = npIterMenuItem;
 	ldStateChange.State = 0;
@@ -439,9 +439,9 @@ ERESULT CEvPopupMenu::OnElementShow(bool nbIsShow)
 
 	do
 	{
-		if(false != nbIsShow && false != mbIsManagerMenuItemEnable)			// ÏÔÊ¾µÄÊ±ºò£¬²é¿´ËùÓĞ×ÓÏîµÄ¿ÉÓÃ×´Ì¬
+		if(false != nbIsShow && false != mbIsManagerMenuItemEnable)			// æ˜¾ç¤ºçš„æ—¶å€™ï¼ŒæŸ¥çœ‹æ‰€æœ‰å­é¡¹çš„å¯ç”¨çŠ¶æ€
 		{
-			//// Í¨ÖªËùÓĞ×Ó²Ëµ¥Ïî
+			//// é€šçŸ¥æ‰€æœ‰å­èœå•é¡¹
 			//IUnificSetting* lpoUnificSetting = GetUnificSetting();
 			//BREAK_ON_NULL(lpoUnificSetting);
 			//for(int i = 0; i < moMenuItemVec.Size(); ++i)
@@ -449,7 +449,7 @@ ERESULT CEvPopupMenu::OnElementShow(bool nbIsShow)
 			//	moMenuItemVec.GetEntry(i)->GetIterator()->SetEnable(lpoUnificSetting->GetItemEnable(moMenuItemVec.GetEntry(i)->GetCommandID()));
 			//}
 		}
-		else							// Òş²ØµÄÊ±ºòÒªÒş²Ø¼¶Áª²Ëµ¥
+		else							// éšè—çš„æ—¶å€™è¦éšè—çº§è”èœå•
 		{
 			for(int i = 0; i < moMenuItemVec.Size(); ++i)
 			{
@@ -465,10 +465,10 @@ ERESULT CEvPopupMenu::OnElementShow(bool nbIsShow)
 	return lResult;
 }
 
-// ÃèÊö£º
-//		»ñÈ¡¸ø¶¨MainIDµÄPopupMenu(°üÀ¨MenuItemËùµ¯³öÀ´µÄPopupMenu)
-// ·µ»ØÖµ£º
-//		³É¹¦·µ»Ø¶ÔÓ¦IDµÄµü´úÆ÷£¬Ê§°Ü·µ»ØNULL
+// æè¿°ï¼š
+//		è·å–ç»™å®šMainIDçš„PopupMenu(åŒ…æ‹¬MenuItemæ‰€å¼¹å‡ºæ¥çš„PopupMenu)
+// è¿”å›å€¼ï¼š
+//		æˆåŠŸè¿”å›å¯¹åº”IDçš„è¿­ä»£å™¨ï¼Œå¤±è´¥è¿”å›NULL
 IEinkuiIterator* CEvPopupMenu::GetPopupMenuByMainID(
 	IN UINT niUinqueID
 	)
@@ -501,8 +501,8 @@ IEinkuiIterator* CEvPopupMenu::GetPopupMenuByMainID(
 	return lpoResult;
 }
 
-// ÃèÊö£º
-//		²åÈëĞÂµÄ²Ëµ¥Ïî
+// æè¿°ï¼š
+//		æ’å…¥æ–°çš„èœå•é¡¹
 bool CEvPopupMenu::OnInsertMenuItem(
 	IN STCTL_POPUPMENU_MENUITEMINFO ndMenuInfo
 	)
@@ -533,7 +533,7 @@ bool CEvPopupMenu::OnInsertMenuItem(
 				CExMessage::SendMessage(lpoMenuItem->GetIterator(), mpIterator, EACT_MENUITEM_CHANGE_HOTKEY, *ndMenuInfo.HotKeyInfo);
 			}
 
-			// ÖØĞÂ¼ÆËãPopupMenu²¼¾Ö
+			// é‡æ–°è®¡ç®—PopupMenuå¸ƒå±€
 			ReLayoutMenuItem();
 		}
 		else
@@ -545,19 +545,19 @@ bool CEvPopupMenu::OnInsertMenuItem(
 }
 
 
-// ÃèÊö£º
-//		ÖØĞÂ¼ÆËã²Ëµ¥ÏîµÄ²¼¾Ö
+// æè¿°ï¼š
+//		é‡æ–°è®¡ç®—èœå•é¡¹çš„å¸ƒå±€
 void CEvPopupMenu::ReLayoutMenuItem()
 {
 	if (0 == moMenuItemVec.Size())
 	{
 		return;
 	}
-	int liMaxNameWidth = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_TEXT_WIDTH, 0);				// ×î´óÃû³Æ¿í¶È
-	int liMaxHotKeyWidth = 0;			// ×î´óÈÈ¼ü¿í¶È
+	int liMaxNameWidth = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_TEXT_WIDTH, 0);				// æœ€å¤§åç§°å®½åº¦
+	int liMaxHotKeyWidth = 0;			// æœ€å¤§çƒ­é”®å®½åº¦
 	for(int i = 0; i < this->moMenuItemVec.Size(); ++i)
 	{
-		// »ñÈ¡´´½¨µÄMenuItemµÄ¸÷²¿·ÖµÄ×î´ó¿í¶È
+		// è·å–åˆ›å»ºçš„MenuItemçš„å„éƒ¨åˆ†çš„æœ€å¤§å®½åº¦
 		if(liMaxNameWidth < moMenuItemVec.GetEntry(i)->GetNameAreaWidth())
 		{
 			liMaxNameWidth = moMenuItemVec.GetEntry(i)->GetNameAreaWidth();
@@ -568,7 +568,7 @@ void CEvPopupMenu::ReLayoutMenuItem()
 		}
 	}
 
-	// »ñÈ¡MenuItemÏÔÊ¾µÄÎ»ÖÃ
+	// è·å–MenuItemæ˜¾ç¤ºçš„ä½ç½®
 	D2D1_RECT_F ldAlignRect;
 	ldAlignRect.left = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_ALIGN_LEFT, 0);
 	ldAlignRect.right = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_ALIGN_RIGHT, 0);
@@ -576,21 +576,21 @@ void CEvPopupMenu::ReLayoutMenuItem()
 	ldAlignRect.bottom= (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_ALIGN_BOTTOM, 0);
 
 
-	// ÉèÖÃºÃMenuItemµÄĞÅÏ¢
+	// è®¾ç½®å¥½MenuItemçš„ä¿¡æ¯
 	IEinkuiIterator* lpIter = NULL;
 	float lfItemHeightCount = ldAlignRect.top;
 	for(int i = 0; i < this->moMenuItemVec.Size(); ++i)
 	{
-		// ÉèÖÃºÃ²Ëµ¥Ãû³ÆºÍÈÈ¼üÇøÓò¿í¶È
+		// è®¾ç½®å¥½èœå•åç§°å’Œçƒ­é”®åŒºåŸŸå®½åº¦
 		moMenuItemVec.GetEntry(i)->SetNameAreaWidth(liMaxNameWidth);
 		moMenuItemVec.GetEntry(i)->SetHotKeyAreaWidth(liMaxHotKeyWidth);
 
-		// ÈÃ²Ëµ¥Ïî×Ô¼º¸üĞÂ³ß´ç
+		// è®©èœå•é¡¹è‡ªå·±æ›´æ–°å°ºå¯¸
 		moMenuItemVec.GetEntry(i)->UpdateSize();
 
 		if(false != moMenuItemVec.GetEntry(i)->GetIterator()->IsVisible())
 		{
-			// ÉèÖÃºÃ¸ÃÏîµÄÎ»ÖÃ
+			// è®¾ç½®å¥½è¯¥é¡¹çš„ä½ç½®
 			moMenuItemVec.GetEntry(i)->GetIterator()->SetPosition(ldAlignRect.left,
 				lfItemHeightCount);
 
@@ -598,14 +598,14 @@ void CEvPopupMenu::ReLayoutMenuItem()
 		}
 	}
 
-	// ÉèÖÃºÃPopupMenuµÄ´óĞ¡
+	// è®¾ç½®å¥½PopupMenuçš„å¤§å°
 	FLOAT lfWidth = ldAlignRect.left + moMenuItemVec.GetEntry(0)->GetIterator()->GetSizeX() + ldAlignRect.right;
 	FLOAT lfHeight = lfItemHeightCount + ldAlignRect.bottom;
 	mpIterator->SetSize( lfWidth, lfHeight);
 }
 
-// ÃèÊö£º
-//		¸ù¾İCommandIDÉ¾³ı²Ëµ¥Ïî
+// æè¿°ï¼š
+//		æ ¹æ®CommandIDåˆ é™¤èœå•é¡¹
 bool CEvPopupMenu::DeleteItemByCommandID(
 	IN UINT niCommandID
 	)
@@ -643,8 +643,8 @@ bool CEvPopupMenu::DeleteItemByCommandID(
 
 }
 
-// ÃèÊö£º
-//		¸ù¾İË÷ÒıÉ¾³ı²Ëµ¥Ïî,´«Èë-1É¾³ıÈ«²¿¡£
+// æè¿°ï¼š
+//		æ ¹æ®ç´¢å¼•åˆ é™¤èœå•é¡¹,ä¼ å…¥-1åˆ é™¤å…¨éƒ¨ã€‚
 bool CEvPopupMenu::DeleteItemByIndex(
 	IN int niIndex
 	)
@@ -682,8 +682,8 @@ bool CEvPopupMenu::DeleteItemByIndex(
 	return lbResult;
 }
 
-// ÃèÊö£º
-//		¸ù¾İCommandID»ñÈ¡²Ëµ¥Ïî
+// æè¿°ï¼š
+//		æ ¹æ®CommandIDè·å–èœå•é¡¹
 IEinkuiIterator* CEvPopupMenu::GetItemByCommandID(
 	IN UINT niCommandID
 	)
@@ -706,8 +706,8 @@ IEinkuiIterator* CEvPopupMenu::GetItemByCommandID(
 
 
 
-// ÃèÊö£º
-//		¸ù¾İË÷Òı»ñÈ¡²Ëµ¥Ïî
+// æè¿°ï¼š
+//		æ ¹æ®ç´¢å¼•è·å–èœå•é¡¹
 IEinkuiIterator* CEvPopupMenu::GetItemByIndex(
 	IN UINT niIndex
 	)

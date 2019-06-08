@@ -1,11 +1,11 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 #pragma once
-// ±¾ÎÄ¼şÖ¼ÔÚ½¨Á¢µ¥Ïò¿ç½ø³ÌµÄÏûÏ¢»úÖÆ
-// Í¨¹ıÒ»¿é¹²ÏíÄÚ´æºÍÒ»¸ö»¥³â¶ÔÏóÃû³Æ½¨Á¢µÄ¿ç½ø³ÌÏûÏ¢¶ÓÁĞ£¬ÄÜ¹»ÈÃÁ½¸ö½ø³Ì¼ä½øĞĞÍ¨Ñ¶¡£
-// ÏûÏ¢¶ÓÁĞÓÉ¼àÌı½ø³ÌÊ×ÏÈ³õÊ¼»¯£¬¶øºó·¢ĞÅ½ø³ÌÁ¬½Óµ½ÏûÏ¢¶ÓÁĞ£»¼àÌı½ø³ÌÔÚ³õÊ¼»¯Ê±ĞèÒªÌá¹©Ò»¸ö»Øµ÷º¯Êı£¬Õâ¸ö»Øµ÷º¯Êı½«ÔÚ¼àÌıÏß³ÌÖĞ±»µ÷ÓÃ¡£
-// Í¬Ò»¿éÄÚ´æÖ»ÄÜÓĞÒ»¸ö¼àÌı¶ÔÏó
+// æœ¬æ–‡ä»¶æ—¨åœ¨å»ºç«‹å•å‘è·¨è¿›ç¨‹çš„æ¶ˆæ¯æœºåˆ¶
+// é€šè¿‡ä¸€å—å…±äº«å†…å­˜å’Œä¸€ä¸ªäº’æ–¥å¯¹è±¡åç§°å»ºç«‹çš„è·¨è¿›ç¨‹æ¶ˆæ¯é˜Ÿåˆ—ï¼Œèƒ½å¤Ÿè®©ä¸¤ä¸ªè¿›ç¨‹é—´è¿›è¡Œé€šè®¯ã€‚
+// æ¶ˆæ¯é˜Ÿåˆ—ç”±ç›‘å¬è¿›ç¨‹é¦–å…ˆåˆå§‹åŒ–ï¼Œè€Œåå‘ä¿¡è¿›ç¨‹è¿æ¥åˆ°æ¶ˆæ¯é˜Ÿåˆ—ï¼›ç›‘å¬è¿›ç¨‹åœ¨åˆå§‹åŒ–æ—¶éœ€è¦æä¾›ä¸€ä¸ªå›è°ƒå‡½æ•°ï¼Œè¿™ä¸ªå›è°ƒå‡½æ•°å°†åœ¨ç›‘å¬çº¿ç¨‹ä¸­è¢«è°ƒç”¨ã€‚
+// åŒä¸€å—å†…å­˜åªèƒ½æœ‰ä¸€ä¸ªç›‘å¬å¯¹è±¡
 
 #pragma pack(4)
 
@@ -21,7 +21,7 @@ typedef struct _EI_MSGQUE_HEAD {
 #pragma pack()
 
 
-// ÏûÏ¢¶ÓÁĞ
+// æ¶ˆæ¯é˜Ÿåˆ—
 template<class CEiMsgMessage>
 class CEiMsgQueue
 {
@@ -47,41 +47,41 @@ public:
 		return mbStop;
 	}
 
-	// ´Ó¹²ÏíÄÚ´æ½¨Á¢¶ÓÁĞ£¬·µ»ØERROR_SUCCESS£¬»òÕß´íÎóÂë
+	// ä»å…±äº«å†…å­˜å»ºç«‹é˜Ÿåˆ—ï¼Œè¿”å›ERROR_SUCCESSï¼Œæˆ–è€…é”™è¯¯ç 
 	ULONG CreateQueue(
 		const wchar_t* nusMutexName,
 		const wchar_t* nusSemaphoreName,
 		void* npBuffer,
 		ULONG nuBufferSize,
-		BOOL nbListener	// TURE: ¼àÌıÕß
+		BOOL nbListener	// TURE: ç›‘å¬è€…
 	);
 
-	// Ôö¼ÓÒ»ÌõÏûÏ¢£¬·µ»ØERROR_SUCCESS£¬»òÕß´íÎóÂë
+	// å¢åŠ ä¸€æ¡æ¶ˆæ¯ï¼Œè¿”å›ERROR_SUCCESSï¼Œæˆ–è€…é”™è¯¯ç 
 	ULONG Push(
 		const CEiMsgMessage& nrMsg
 		);
 
-	// È¡Ò»ÌõÏûÏ¢£¬·µ»ØERROR_SUCCESS£¬»òÕß´íÎóÂë
-	// Èç¹ûÏûÏ¢¶ÓÁĞÎª¿Õ£¬½«½øÈëµÈ´ı
-	// ¹©¼àÌı¶ÔÏóµ÷ÓÃ
+	// å–ä¸€æ¡æ¶ˆæ¯ï¼Œè¿”å›ERROR_SUCCESSï¼Œæˆ–è€…é”™è¯¯ç 
+	// å¦‚æœæ¶ˆæ¯é˜Ÿåˆ—ä¸ºç©ºï¼Œå°†è¿›å…¥ç­‰å¾…
+	// ä¾›ç›‘å¬å¯¹è±¡è°ƒç”¨
 	ULONG Pop(
 		CEiMsgMessage& nrMsg
 		);
 
-	// ³·»ØÒ»ÀàÏûÏ¢£¬½«¶ÓÁĞÖĞ´ËÀàÏûÏ¢È«²¿³·»Ø
-	// Èç¹ûµ÷ÓÃ´Ëº¯Êı£¬ĞèÒªCEiMsgMessageÊµÏÖbool IsTypeOf(const CEiMsgMessage& nrRefTo)º¯Êı£¬¸Äº¯Êı·µ»Øtrue±íÊ¾Í¬Àà£¬·µ»Øfalse±íÊ¾·ÇÍ¬Àà
-	// µ±Ò»¸öÏûÏ¢±»³·»ØÊ±£¬»áµ÷ÓÃCEiMsgMessageµÄRecall()º¯Êı£¬ÇëÔÚ¸Ãº¯ÊıÄÚÊµÏÖ¶ÔÏûÏ¢³·»Ø²Ù×÷
+	// æ’¤å›ä¸€ç±»æ¶ˆæ¯ï¼Œå°†é˜Ÿåˆ—ä¸­æ­¤ç±»æ¶ˆæ¯å…¨éƒ¨æ’¤å›
+	// å¦‚æœè°ƒç”¨æ­¤å‡½æ•°ï¼Œéœ€è¦CEiMsgMessageå®ç°bool IsTypeOf(const CEiMsgMessage& nrRefTo)å‡½æ•°ï¼Œæ”¹å‡½æ•°è¿”å›trueè¡¨ç¤ºåŒç±»ï¼Œè¿”å›falseè¡¨ç¤ºéåŒç±»
+	// å½“ä¸€ä¸ªæ¶ˆæ¯è¢«æ’¤å›æ—¶ï¼Œä¼šè°ƒç”¨CEiMsgMessageçš„Recall()å‡½æ•°ï¼Œè¯·åœ¨è¯¥å‡½æ•°å†…å®ç°å¯¹æ¶ˆæ¯æ’¤å›æ“ä½œ
 	void Recall(
 		const CEiMsgMessage& nrMsg	
 	);
 
-	// »ñÈ¡ÏûÏ¢Êı
+	// è·å–æ¶ˆæ¯æ•°
 	ULONG GetCount(void);
 
-	// ¹Ø±Õ
+	// å…³é—­
 	void RealseQueue(void);
 
-	// »ñµÃµ±Ç°Î´È¡×ßµÄ×îÔçÒ»ÌõÏûÏ¢ÒÑ·¢³öÊ±¼ä£¬µ¥Î»ÎªºÁÃë
+	// è·å¾—å½“å‰æœªå–èµ°çš„æœ€æ—©ä¸€æ¡æ¶ˆæ¯å·²å‘å‡ºæ—¶é—´ï¼Œå•ä½ä¸ºæ¯«ç§’
 	ULONGLONG GetMaxElapsedTimeOfMsg(void);
 
 };
@@ -92,7 +92,7 @@ ULONG CEiMsgQueue<CEiMsgMessage>::CreateQueue(
 	const wchar_t* nusSemaphoreName,
 	void* npBuffer,
 	ULONG nuBufferSize,
-	BOOL nbListener	// TURE: ¼àÌıÕß
+	BOOL nbListener	// TURE: ç›‘å¬è€…
 )
 {
 	ULONG luResult = ERROR_SUCCESS;
@@ -101,9 +101,9 @@ ULONG CEiMsgQueue<CEiMsgMessage>::CreateQueue(
 		return ERROR_NOT_ENOUGH_MEMORY;
 
 	if (nbListener != FALSE)
-	{	// ¼àÌıÕß
-		// ½¨Á¢ÏûÏ¢ÆìÓï
-		//ĞèÒªÉèÖÃÈ¨ÏŞ£¬·ñÔò·şÎñ´´½¨µÄ¶ÔÏó£¬ÆÕÍ¨½ø³ÌÎŞ·¨´ò¿ª
+	{	// ç›‘å¬è€…
+		// å»ºç«‹æ¶ˆæ¯æ——è¯­
+		//éœ€è¦è®¾ç½®æƒé™ï¼Œå¦åˆ™æœåŠ¡åˆ›å»ºçš„å¯¹è±¡ï¼Œæ™®é€šè¿›ç¨‹æ— æ³•æ‰“å¼€
 		SECURITY_DESCRIPTOR lsd;
 		InitializeSecurityDescriptor(&lsd, SECURITY_DESCRIPTOR_REVISION);
 		SetSecurityDescriptorDacl(&lsd, TRUE, (PACL)NULL, FALSE);
@@ -116,12 +116,12 @@ ULONG CEiMsgQueue<CEiMsgMessage>::CreateQueue(
 		if (mhNewArrived == NULL)
 			return ERROR_OPEN_FAILED;
 
-		// ½¨Á¢»¥³â¶ÔÏó
+		// å»ºç«‹äº’æ–¥å¯¹è±¡
 		mhMutex = CreateMutex(&lsa, TRUE, nusMutexName);
 		if (mhMutex == NULL)
 			return ERROR_OPEN_FAILED;
 
-		// ³õÊ¼»¯ÏûÏ¢¶ÓÁĞ¹²ÏíÄÚ´æ
+		// åˆå§‹åŒ–æ¶ˆæ¯é˜Ÿåˆ—å…±äº«å†…å­˜
 		mpQueueHead = (PEI_MSGQUE_HEAD)npBuffer;
 		mpMsgBuffer = (CEiMsgMessage*)(mpQueueHead + 1);
 
@@ -139,13 +139,13 @@ ULONG CEiMsgQueue<CEiMsgMessage>::CreateQueue(
 
 	}
 	else
-	{	// ·Ç¼àÌıÕß
-		// Á¬½ÓÆìÓï¶ÔÏó
+	{	// éç›‘å¬è€…
+		// è¿æ¥æ——è¯­å¯¹è±¡
 		mhNewArrived = OpenSemaphore(SEMAPHORE_ALL_ACCESS, FALSE, nusSemaphoreName);
 		if (mhNewArrived == NULL)
 			return ERROR_OPEN_FAILED;
 
-		// Á¬½Ó»¥³â¶ÔÏó
+		// è¿æ¥äº’æ–¥å¯¹è±¡
 		mhMutex = OpenMutex(MUTEX_ALL_ACCESS, FALSE, nusMutexName);
 		if (mhMutex == NULL)
 			return ERROR_OPEN_FAILED;
@@ -153,7 +153,7 @@ ULONG CEiMsgQueue<CEiMsgMessage>::CreateQueue(
 		if (WaitForSingleObject(mhMutex, INFINITE) != WAIT_OBJECT_0)
 			return ERROR_NOT_READY;
 
-		// ´Ó¹²ÏíÄÚ´æÖĞ×°ÈëÊı¾İ
+		// ä»å…±äº«å†…å­˜ä¸­è£…å…¥æ•°æ®
 		if (((PEI_MSGQUE_HEAD)npBuffer)->MsgSize == sizeof(CEiMsgMessage) &&
 			((PEI_MSGQUE_HEAD)npBuffer)->HeadSize == sizeof(EI_MSGQUE_HEAD))
 		{
@@ -168,7 +168,7 @@ ULONG CEiMsgQueue<CEiMsgMessage>::CreateQueue(
 	return luResult;
 }
 
-// Ôö¼ÓÒ»ÌõÏûÏ¢£¬·µ»ØERROR_SUCCESS£¬»òÕß´íÎóÂë
+// å¢åŠ ä¸€æ¡æ¶ˆæ¯ï¼Œè¿”å›ERROR_SUCCESSï¼Œæˆ–è€…é”™è¯¯ç 
 template<class CEiMsgMessage>
 ULONG CEiMsgQueue<CEiMsgMessage>::Push(
 	const CEiMsgMessage& nrMsg
@@ -203,8 +203,8 @@ ULONG CEiMsgQueue<CEiMsgMessage>::Push(
 	return luResult;
 }
 
-// È¡Ò»ÌõÏûÏ¢£¬·µ»ØERROR_SUCCESS£¬»òÕß´íÎóÂë
-// Èç¹ûÏûÏ¢¶ÓÁĞÎª¿Õ£¬½«½øÈëµÈ´ı
+// å–ä¸€æ¡æ¶ˆæ¯ï¼Œè¿”å›ERROR_SUCCESSï¼Œæˆ–è€…é”™è¯¯ç 
+// å¦‚æœæ¶ˆæ¯é˜Ÿåˆ—ä¸ºç©ºï¼Œå°†è¿›å…¥ç­‰å¾…
 template<class CEiMsgMessage>
 ULONG CEiMsgQueue<CEiMsgMessage>::Pop(
 	CEiMsgMessage& nrMsg
@@ -244,9 +244,9 @@ ULONG CEiMsgQueue<CEiMsgMessage>::Pop(
 	return luResult;
 }
 
-// ³·»ØÒ»ÀàÏûÏ¢£¬½«¶ÓÁĞÖĞ´ËÀàÏûÏ¢È«²¿³·»Ø
-// Èç¹ûµ÷ÓÃ´Ëº¯Êı£¬ĞèÒªCEiMsgMessageÊµÏÖbool IsTypeOf(const CEiMsgMessage& nrRefTo)º¯Êı£¬¸Äº¯Êı·µ»Øtrue±íÊ¾Í¬Àà£¬·µ»Øfalse±íÊ¾·ÇÍ¬Àà
-// µ±Ò»¸öÏûÏ¢±»³·»ØÊ±£¬»áµ÷ÓÃCEiMsgMessageµÄRecall()º¯Êı£¬ÇëÔÚ¸Ãº¯ÊıÄÚÊµÏÖ¶ÔÏûÏ¢³·»Ø²Ù×÷
+// æ’¤å›ä¸€ç±»æ¶ˆæ¯ï¼Œå°†é˜Ÿåˆ—ä¸­æ­¤ç±»æ¶ˆæ¯å…¨éƒ¨æ’¤å›
+// å¦‚æœè°ƒç”¨æ­¤å‡½æ•°ï¼Œéœ€è¦CEiMsgMessageå®ç°bool IsTypeOf(const CEiMsgMessage& nrRefTo)å‡½æ•°ï¼Œæ”¹å‡½æ•°è¿”å›trueè¡¨ç¤ºåŒç±»ï¼Œè¿”å›falseè¡¨ç¤ºéåŒç±»
+// å½“ä¸€ä¸ªæ¶ˆæ¯è¢«æ’¤å›æ—¶ï¼Œä¼šè°ƒç”¨CEiMsgMessageçš„Recall()å‡½æ•°ï¼Œè¯·åœ¨è¯¥å‡½æ•°å†…å®ç°å¯¹æ¶ˆæ¯æ’¤å›æ“ä½œ
 template<class CEiMsgMessage>
 void CEiMsgQueue<CEiMsgMessage>::Recall(
 	const CEiMsgMessage& nrMsg
@@ -279,7 +279,7 @@ void CEiMsgQueue<CEiMsgMessage>::Recall(
 	ReleaseMutex(mhMutex);
 }
 
-// »ñµÃµ±Ç°Î´È¡×ßµÄ×îÔçÒ»ÌõÏûÏ¢ÒÑ·¢³öÊ±¼ä£¬µ¥Î»ÎªºÁÃë
+// è·å¾—å½“å‰æœªå–èµ°çš„æœ€æ—©ä¸€æ¡æ¶ˆæ¯å·²å‘å‡ºæ—¶é—´ï¼Œå•ä½ä¸ºæ¯«ç§’
 template<class CEiMsgMessage>
 ULONGLONG CEiMsgQueue<CEiMsgMessage>::GetMaxElapsedTimeOfMsg(void)
 {
@@ -311,7 +311,7 @@ ULONGLONG CEiMsgQueue<CEiMsgMessage>::GetMaxElapsedTimeOfMsg(void)
 }
 
 
-// »ñÈ¡ÏûÏ¢Êı
+// è·å–æ¶ˆæ¯æ•°
 template<class CEiMsgMessage>
 ULONG CEiMsgQueue<CEiMsgMessage>::GetCount(void)
 {
@@ -326,7 +326,7 @@ ULONG CEiMsgQueue<CEiMsgMessage>::GetCount(void)
 	return luCount;
 }
 
-// ¹Ø±Õ
+// å…³é—­
 template<class CEiMsgMessage>
 void CEiMsgQueue<CEiMsgMessage>::RealseQueue(void)
 {
@@ -345,7 +345,7 @@ void CEiMsgQueue<CEiMsgMessage>::RealseQueue(void)
 
 
 
-// ¼àÌıÀà£¬³õÊ¼»¯ºó£¬×Ô¶¯½¨Á¢Ò»¸ö¼àÌıÏß³Ì£¬µ±ÓĞÏûÏ¢µ½À´Ê±£¬»áµ÷ÓÃ³õÊ¼»¯Ê±ÉèÁ¢µÄ»Øµ÷º¯Êı
+// ç›‘å¬ç±»ï¼Œåˆå§‹åŒ–åï¼Œè‡ªåŠ¨å»ºç«‹ä¸€ä¸ªç›‘å¬çº¿ç¨‹ï¼Œå½“æœ‰æ¶ˆæ¯åˆ°æ¥æ—¶ï¼Œä¼šè°ƒç”¨åˆå§‹åŒ–æ—¶è®¾ç«‹çš„å›è°ƒå‡½æ•°
 template<class CEiMsgMessage>
 class CEiMsgQueueListener
 {
@@ -364,7 +364,7 @@ public:
 	}
 	~CEiMsgQueueListener(){}
 
-	// ¼àÌı³õÊ¼»¯
+	// ç›‘å¬åˆå§‹åŒ–
 	ULONG CreateListener(
 		const wchar_t* nusMutexName, 
 		const wchar_t* nusSemaphoreName,
@@ -374,17 +374,17 @@ public:
 		void* npContext
 	);
 
-	// Í£Ö¹¼àÌı
+	// åœæ­¢ç›‘å¬
 	ULONG Stop(void);
 
-	// ¸ø×Ô¼º·¢ËÍÒ»ÌõÏûÏ¢£¬²»ÄÜÔÙ¼àÌıÏß³ÌºÍ¼àÌı»Øµ÷º¯ÊıÖĞµ÷ÓÃ!!!
+	// ç»™è‡ªå·±å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œä¸èƒ½å†ç›‘å¬çº¿ç¨‹å’Œç›‘å¬å›è°ƒå‡½æ•°ä¸­è°ƒç”¨!!!
 	ULONG PostMsgToListener(const CEiMsgMessage& ncrMsg) {
 		return moQueue.Push(ncrMsg);
 	}
 
-	// ÕÙ»Ø·¢ËÍ¸ø×ÔÉí¼àÌıÏß³ÌµÄÒ»ÀàÏûÏ¢£¬½«¶ÓÁĞÖĞ´ËÀàÏûÏ¢È«²¿³·»Ø
-	// Èç¹ûµ÷ÓÃ´Ëº¯Êı£¬ĞèÒªCEiMsgMessageÊµÏÖbool IsTypeOf(const CEiMsgMessage& nrRefTo)º¯Êı£¬¸Äº¯Êı·µ»Øtrue±íÊ¾Í¬Àà£¬·µ»Øfalse±íÊ¾·ÇÍ¬Àà
-	// µ±Ò»¸öÏûÏ¢±»³·»ØÊ±£¬»áµ÷ÓÃCEiMsgMessageµÄRecall()º¯Êı£¬ÇëÔÚ¸Ãº¯ÊıÄÚÊµÏÖ¶ÔÏûÏ¢³·»Ø²Ù×÷
+	// å¬å›å‘é€ç»™è‡ªèº«ç›‘å¬çº¿ç¨‹çš„ä¸€ç±»æ¶ˆæ¯ï¼Œå°†é˜Ÿåˆ—ä¸­æ­¤ç±»æ¶ˆæ¯å…¨éƒ¨æ’¤å›
+	// å¦‚æœè°ƒç”¨æ­¤å‡½æ•°ï¼Œéœ€è¦CEiMsgMessageå®ç°bool IsTypeOf(const CEiMsgMessage& nrRefTo)å‡½æ•°ï¼Œæ”¹å‡½æ•°è¿”å›trueè¡¨ç¤ºåŒç±»ï¼Œè¿”å›falseè¡¨ç¤ºéåŒç±»
+	// å½“ä¸€ä¸ªæ¶ˆæ¯è¢«æ’¤å›æ—¶ï¼Œä¼šè°ƒç”¨CEiMsgMessageçš„Recall()å‡½æ•°ï¼Œè¯·åœ¨è¯¥å‡½æ•°å†…å®ç°å¯¹æ¶ˆæ¯æ’¤å›æ“ä½œ
 	void Recall(
 		const CEiMsgMessage& nrMsg
 	)
@@ -409,7 +409,7 @@ ULONG CEiMsgQueueListener<CEiMsgMessage>::CreateListener(
 	if (luResult != ERROR_SUCCESS)
 		return luResult;
 
-	// Æô¶¯¼àÌıÏß³Ì
+	// å¯åŠ¨ç›‘å¬çº¿ç¨‹
 	mpCallBack = npCallBack;
 	mpContext = npContext;
 
@@ -446,7 +446,7 @@ ULONG WINAPI CEiMsgQueueListener<CEiMsgMessage>::Listener(CEiMsgQueueListener<CE
 	return ERROR_SUCCESS;
 }
 
-// Í£Ö¹¼àÌı
+// åœæ­¢ç›‘å¬
 template<class CEiMsgMessage>
 ULONG CEiMsgQueueListener<CEiMsgMessage>::Stop(void)
 {
@@ -456,7 +456,7 @@ ULONG CEiMsgQueueListener<CEiMsgMessage>::Stop(void)
 }
 
 
-// ÏûÏ¢Á¬½ÓÆ÷£¬ÓÃÓÚÁ¬½Óµ½ÏûÏ¢Í¨µÀ£¬¶øºó¾Í¿ÉÒÔ¸øÏûÏ¢Í¨µÀ·¢ËÍÏûÏ¢ÁË
+// æ¶ˆæ¯è¿æ¥å™¨ï¼Œç”¨äºè¿æ¥åˆ°æ¶ˆæ¯é€šé“ï¼Œè€Œåå°±å¯ä»¥ç»™æ¶ˆæ¯é€šé“å‘é€æ¶ˆæ¯äº†
 template<class CEiMsgMessage>
 class CEiMsgQueueConnector
 {
@@ -469,7 +469,7 @@ public:
 	~CEiMsgQueueConnector() {
 	}
 
-	// Á¬½ÓÆ÷³õÊ¼»¯
+	// è¿æ¥å™¨åˆå§‹åŒ–
 	ULONG CreateConnector(
 		const wchar_t* nusMutexName,
 		const wchar_t* nusSemaphoreName,
@@ -479,14 +479,14 @@ public:
 		return moQueue.CreateQueue(nusMutexName, nusSemaphoreName, npBuffer, nuBufferSize, FALSE);
 	}
 
-	// ²åÈëÒ»ÌõÏûÏ¢
+	// æ’å…¥ä¸€æ¡æ¶ˆæ¯
 	ULONG PostMsg(const CEiMsgMessage& ncrMsg) {
 		return moQueue.Push(ncrMsg);
 	}
 
-	// ³·»ØÒ»ÀàÏûÏ¢£¬½«¶ÓÁĞÖĞ´ËÀàÏûÏ¢È«²¿³·»Ø
-	// Èç¹ûµ÷ÓÃ´Ëº¯Êı£¬ĞèÒªCEiMsgMessageÊµÏÖbool IsTypeOf(const CEiMsgMessage& nrRefTo)º¯Êı£¬¸Äº¯Êı·µ»Øtrue±íÊ¾Í¬Àà£¬·µ»Øfalse±íÊ¾·ÇÍ¬Àà
-	// µ±Ò»¸öÏûÏ¢±»³·»ØÊ±£¬»áµ÷ÓÃCEiMsgMessageµÄRecall()º¯Êı£¬ÇëÔÚ¸Ãº¯ÊıÄÚÊµÏÖ¶ÔÏûÏ¢³·»Ø²Ù×÷
+	// æ’¤å›ä¸€ç±»æ¶ˆæ¯ï¼Œå°†é˜Ÿåˆ—ä¸­æ­¤ç±»æ¶ˆæ¯å…¨éƒ¨æ’¤å›
+	// å¦‚æœè°ƒç”¨æ­¤å‡½æ•°ï¼Œéœ€è¦CEiMsgMessageå®ç°bool IsTypeOf(const CEiMsgMessage& nrRefTo)å‡½æ•°ï¼Œæ”¹å‡½æ•°è¿”å›trueè¡¨ç¤ºåŒç±»ï¼Œè¿”å›falseè¡¨ç¤ºéåŒç±»
+	// å½“ä¸€ä¸ªæ¶ˆæ¯è¢«æ’¤å›æ—¶ï¼Œä¼šè°ƒç”¨CEiMsgMessageçš„Recall()å‡½æ•°ï¼Œè¯·åœ¨è¯¥å‡½æ•°å†…å®ç°å¯¹æ¶ˆæ¯æ’¤å›æ“ä½œ
 	void Recall(
 		const CEiMsgMessage& nrMsg
 	)
@@ -494,7 +494,7 @@ public:
 		moQueue.Recall(nrMsg);
 	}
 
-	// »ñµÃµ±Ç°Î´È¡×ßµÄ×îÔçÒ»ÌõÏûÏ¢ÒÑ·¢³öÊ±¼ä£¬µ¥Î»ÎªºÁÃë
+	// è·å¾—å½“å‰æœªå–èµ°çš„æœ€æ—©ä¸€æ¡æ¶ˆæ¯å·²å‘å‡ºæ—¶é—´ï¼Œå•ä½ä¸ºæ¯«ç§’
 	ULONGLONG GetMaxElapsedTimeOfMsg(void){
 		return moQueue.GetMaxElapsedTimeOfMsg();
 	}

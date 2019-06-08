@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -42,8 +42,8 @@ Abstract:
 
 
 /////////////////////////////////////////////////////////////////////////*/
-// Ê¸Á¿Êı×éÄ£°å£¬×¢Òâ£¬InitSize³¤¶ÈµÄ³õÊ¼Êı×é½«Ö±½Ó·ÖÅäÔÚ±¾Ä£°åÉú³ÉµÄ¶ÔÏó±¾Éí
-// ËùÓĞµÄÄÚÈİ¶ÔÏó£¬±Ø¶¨ÊÇ´æÔÚÒ»¿éÁ¬Ğø´æ´¢ÇøÖĞ£¬ËùÒÔ£¬¿¼ÂÇµ½Ã¿´Î²åÈëÉ¾³ıµ¼ÖÂµÄ´óÁ¿ÄÚ´æ¸´ÖÆ£¬²»ÊÊºÏÓÃÓÚÔªËØ¹ı¶àµÄÄ¿µÄºÍ´æ´¢¹ıÓÚ´óµÄÔªËØ£¨´óÓÚ256×Ö½Ú£©£¬µ¥×Ö³¤µÄÔªËØÉÙÓÚ1000£¬´ó×Ö³¤µÄÉÙÓÚ100
+// çŸ¢é‡æ•°ç»„æ¨¡æ¿ï¼Œæ³¨æ„ï¼ŒInitSizeé•¿åº¦çš„åˆå§‹æ•°ç»„å°†ç›´æ¥åˆ†é…åœ¨æœ¬æ¨¡æ¿ç”Ÿæˆçš„å¯¹è±¡æœ¬èº«
+// æ‰€æœ‰çš„å†…å®¹å¯¹è±¡ï¼Œå¿…å®šæ˜¯å­˜åœ¨ä¸€å—è¿ç»­å­˜å‚¨åŒºä¸­ï¼Œæ‰€ä»¥ï¼Œè€ƒè™‘åˆ°æ¯æ¬¡æ’å…¥åˆ é™¤å¯¼è‡´çš„å¤§é‡å†…å­˜å¤åˆ¶ï¼Œä¸é€‚åˆç”¨äºå…ƒç´ è¿‡å¤šçš„ç›®çš„å’Œå­˜å‚¨è¿‡äºå¤§çš„å…ƒç´ ï¼ˆå¤§äº256å­—èŠ‚ï¼‰ï¼Œå•å­—é•¿çš„å…ƒç´ å°‘äº1000ï¼Œå¤§å­—é•¿çš„å°‘äº100
 
 template<class CCmmContent,int InitSize=16,int Increment=16>
 class cmmVector
@@ -62,24 +62,24 @@ public:
 		}
 	}
 
-	// ·µ»Ø³ÉÔ±¶ÔÏó
+	// è¿”å›æˆå‘˜å¯¹è±¡
 	CCmmContent& operator [](int niIndex){
 		return GetEntry(niIndex);
 	}
 
-	// ·µ»Ø³ÉÔ±¶ÔÏó
+	// è¿”å›æˆå‘˜å¯¹è±¡
 	CCmmContent&  GetEntry(int niIndex){
 		CMMASSERT(niIndex >= 0 && niIndex<miSize);
 
 		return mpArray[niIndex];
 	}
 
-	// ·µ»Øµ±Ç°µÄÈ«²¿³ÉÔ±µÄ´æ´¢Çø
+	// è¿”å›å½“å‰çš„å…¨éƒ¨æˆå‘˜çš„å­˜å‚¨åŒº
 	CCmmContent* GetBuffer(void){
 		return mpArray;
 	}
 
-	// Çå³ıÈ«²¿³ÉÔ±
+	// æ¸…é™¤å…¨éƒ¨æˆå‘˜
 	void Clear(void){
 		if(mpArray != moInitArray)
 			delete []mpArray;
@@ -87,40 +87,40 @@ public:
 		mpArray = moInitArray;
 		miSize = 0;
 		//for (int i=0;i<InitSize;i++)
-		//{	²»ÓÃÏÔÊ½³õÊ¼»¯ËüÃÇ£¬ÕâĞ©´æ´¢ÇøÄ¿Ç°ÊÇÎ´ÓÃ×´Ì¬£¬Ò»µã³¯ËüÃÇ¸³Öµ£¬¿½±´¹¹Ôìº¯Êı¾Í»á±²µ÷ÓÃ
+		//{	ä¸ç”¨æ˜¾å¼åˆå§‹åŒ–å®ƒä»¬ï¼Œè¿™äº›å­˜å‚¨åŒºç›®å‰æ˜¯æœªç”¨çŠ¶æ€ï¼Œä¸€ç‚¹æœå®ƒä»¬èµ‹å€¼ï¼Œæ‹·è´æ„é€ å‡½æ•°å°±ä¼šè¾ˆè°ƒç”¨
 		//	new(&moInitArray[i])CCmmContent();
 		//}
 	}
 
-	// ·µ»ØÓĞĞ§³ÉÔ±ÊıÄ¿
+	// è¿”å›æœ‰æ•ˆæˆå‘˜æ•°ç›®
 	int Size(void){
 		return miSize;
 	}
 
-	// ·µ»Ø´æ´¢ÈİÁ¿
+	// è¿”å›å­˜å‚¨å®¹é‡
 	int Capacity(void){
 		return miCapacity;
 	}
 
-	// ·µ»ØµÚÒ»¸ö³ÉÔ±¶ÔÏó
+	// è¿”å›ç¬¬ä¸€ä¸ªæˆå‘˜å¯¹è±¡
 	CCmmContent& Front(void){
 		CMMASSERT(miSize>0);
 		return mpArray[0];
 	}
 
-	// ·µ»Ø×îºóÒ»¸ö³ÉÔ±¶ÔÏó
+	// è¿”å›æœ€åä¸€ä¸ªæˆå‘˜å¯¹è±¡
 	CCmmContent& Back(void){
 		CMMASSERT(miSize>0);
 		return mpArray[miSize-1];
 	}
 
-	// ²åÈëÒ»¸ö³ÉÔ±¶ÔÏó£¬·µ»ØÊµ¼Ê²åÈëµÄÎ»ÖÃ
+	// æ’å…¥ä¸€ä¸ªæˆå‘˜å¯¹è±¡ï¼Œè¿”å›å®é™…æ’å…¥çš„ä½ç½®
 	int Insert(
 		IN int niIndex,	// -1 or one above Size() indicate to append element, others is the location
 		IN CCmmContent& nrObject
 		);
 
-	// ²åÈëÒ»¸ö³ÉÔ±¶ÔÏó£¬·µ»ØÊµ¼Ê²åÈëµÄÎ»ÖÃ
+	// æ’å…¥ä¸€ä¸ªæˆå‘˜å¯¹è±¡ï¼Œè¿”å›å®é™…æ’å…¥çš„ä½ç½®
 	int Insert(
 		IN int niIndex,	// -1 or one above Size() indicate to append element, others is the location
 		IN const CCmmContent& nrObject
@@ -129,12 +129,12 @@ public:
 		return Insert(niIndex,loNew);
 	}
 
-	// É¾³ıÒ»¸ö³ÉÔ±¶ÔÏó£¬Í¨¹ıÖÆ¶¨³ÉÔ±¶ÔÏóµÄÎ»ÖÃ
+	// åˆ é™¤ä¸€ä¸ªæˆå‘˜å¯¹è±¡ï¼Œé€šè¿‡åˆ¶å®šæˆå‘˜å¯¹è±¡çš„ä½ç½®
 	bool RemoveByIndex(
 		IN int niIndex	// -1 or one above Size() indicate the last element, others is the location
 		);
 
-	// ²åÈëÒ»¸öÍ¬ÀàµÄÊ¸Á¿
+	// æ’å…¥ä¸€ä¸ªåŒç±»çš„çŸ¢é‡
 	int Insert(
 		IN int niIndex,	// -1 or one above Size() indicate to append element, others is the location
 		IN const cmmVector<CCmmContent, InitSize, Increment>& srcVector
@@ -155,7 +155,7 @@ protected:
 		}
 		else
 		{
-			// Èç¹ûµ±Ç°ÓĞĞ§Êı¾İ³ÉÔ±µÄÊıÁ¿Ğ¡ÓÚ×ÜÈİÁ¿µÄ3/4£¬²¢ÇÒĞ¡ÓÚ×ÜÈİÁ¿¼õÈ¥3/2±¶Ôö³¤Á¿Ê±£¬ÊÕËõ
+			// å¦‚æœå½“å‰æœ‰æ•ˆæ•°æ®æˆå‘˜çš„æ•°é‡å°äºæ€»å®¹é‡çš„3/4ï¼Œå¹¶ä¸”å°äºæ€»å®¹é‡å‡å»3/2å€å¢é•¿é‡æ—¶ï¼Œæ”¶ç¼©
 			if(miSize-1 < miCapacity - Increment - Increment/2 && miSize < (miCapacity*3)/4 && mpArray != moInitArray)
 				return ExpandCapacity(false);
 		}
@@ -184,10 +184,10 @@ bool cmmVector<CCmmContent,InitSize,Increment>::ExpandCapacity(bool nbIncrease, 
 
 		lpNewArray = moInitArray;
 		liNewCap = InitSize;
-		// °´ÀíËµĞèÒª¶ÔÕâĞ©µ¥Ôªµ÷ÓÃÄ¬ÈÏ¹¹Ôìº¯Êı£¬µ«£¬ÓĞ¿ÉÄÜÄ¿±ê¶ÔÏóÀàÃ»ÓĞÌá¹©ÏÂÃæµÄÖØÔØº¯Êı£¬ËùÒÔ£¬ÊÇ²»ÄÜÖ§³ÖÕâÖÖµ÷ÓÃ¹¹Ôìº¯ÊıµÄ²Ù×÷µÄ
-		// *** ½öÎªÁËÅäºÏplacement new¶øÌá¹©µÄÄ¬ÈÏ¹¹Ôìº¯Êı£¬Release BuildingÖĞÎŞÈÎºÎ´æÔÚ
+		// æŒ‰ç†è¯´éœ€è¦å¯¹è¿™äº›å•å…ƒè°ƒç”¨é»˜è®¤æ„é€ å‡½æ•°ï¼Œä½†ï¼Œæœ‰å¯èƒ½ç›®æ ‡å¯¹è±¡ç±»æ²¡æœ‰æä¾›ä¸‹é¢çš„é‡è½½å‡½æ•°ï¼Œæ‰€ä»¥ï¼Œæ˜¯ä¸èƒ½æ”¯æŒè¿™ç§è°ƒç”¨æ„é€ å‡½æ•°çš„æ“ä½œçš„
+		// *** ä»…ä¸ºäº†é…åˆplacement newè€Œæä¾›çš„é»˜è®¤æ„é€ å‡½æ•°ï¼ŒRelease Buildingä¸­æ— ä»»ä½•å­˜åœ¨
 		// *** void* __cdecl operator new(size_t nSize,void* npObj){return npObj;}
-		// *** ·ÀÖ¹±àÒëÆ÷³öÏÖ¾¯¸æ£¬ÊµÏÖÓëÉÏÒ»¸öº¯ÊıÅä¶ÔµÄÎö¹¹º¯Êı£¬²¢²»»áµ÷ÓÃËü
+		// *** é˜²æ­¢ç¼–è¯‘å™¨å‡ºç°è­¦å‘Šï¼Œå®ç°ä¸ä¸Šä¸€ä¸ªå‡½æ•°é…å¯¹çš„ææ„å‡½æ•°ï¼Œå¹¶ä¸ä¼šè°ƒç”¨å®ƒ
 		// *** void __cdecl operator delete(void* nObj,void* npObj){}
 		//for (int i=0;i<InitSize;i++)
 		//{
@@ -246,7 +246,7 @@ bool cmmVector<CCmmContent,InitSize,Increment>::RemoveByIndex(
 	if(PrepareBuffer(false) == false)
 		return false;
 
-	// ½«ÆäºóµÄ¶ÔÏóÈ«²¿Ç°ÒÆÒ»¸ñ
+	// å°†å…¶åçš„å¯¹è±¡å…¨éƒ¨å‰ç§»ä¸€æ ¼
 	for(int liBehind = niIndex;liBehind < miSize-1;liBehind++)
 	{
 		mpArray[liBehind] = mpArray[liBehind+1];
@@ -256,7 +256,7 @@ bool cmmVector<CCmmContent,InitSize,Increment>::RemoveByIndex(
 	return true;
 }
 
-// ²åÈëÒ»¸öÍ¬ÀàµÄÊ¸Á¿
+// æ’å…¥ä¸€ä¸ªåŒç±»çš„çŸ¢é‡
 template<class CCmmContent, int InitSize, int Increment>
 int cmmVector<CCmmContent, InitSize, Increment>::Insert(
 	IN int niIndex,	// -1 or one above Size() indicate to append element, others is the location
@@ -286,7 +286,7 @@ int cmmVector<CCmmContent, InitSize, Increment>::Insert(
 }
 
 //////////////////////////////////////////////////////////////////////////
-// ¿ìËÙÁ´±íÄÚ²¿Êı¾İ½á¹¹£¬¿ìËÙÁ´¶¨ÒåÔÚÏÂÃæ
+// å¿«é€Ÿé“¾è¡¨å†…éƒ¨æ•°æ®ç»“æ„ï¼Œå¿«é€Ÿé“¾å®šä¹‰åœ¨ä¸‹é¢
 template<class CCmmContent>
 class cmmNodeOfFastList
 {
@@ -302,17 +302,17 @@ public:
 	}
 
 #pragma pack(4)
-	LONG LastNode;	// Ö¸ÏòÇ°Ò»¸ö½Úµã£¬Á´±íµÄÊ×½Úµã½«»áÖ¸Ïò×Ô¼º£»Free nodeÉèÖÃÎª-1
+	LONG LastNode;	// æŒ‡å‘å‰ä¸€ä¸ªèŠ‚ç‚¹ï¼Œé“¾è¡¨çš„é¦–èŠ‚ç‚¹å°†ä¼šæŒ‡å‘è‡ªå·±ï¼›Free nodeè®¾ç½®ä¸º-1
 	LONG NextNode;
 #pragma pack()
 	CCmmContent moData;
 };
 
 //////////////////////////////////////////////////////////////////////////
-// ¿ìËÙÁ´±í£¬²»ÊÊºÏ´æ·Å¹ı´óµÄÄÚÈİ£¨32×Ö½Ú£©£¬²»ÊÊºÏ´æ·Å¹ı¶àµÄ½Úµã£¨¶àÓà32K£©£»Ö÷ÒªÓÃÓÚ´æ·ÅĞ¡¶ÔÏó£¨×¢ÒâÖ¸ÕëÒ²ÊÇĞ¡¶ÔÏó£©£¬Æµ·±²åÈëÉ¾³ı£¬½ÏÉÙ±ãÀû²éÑ¯µÄÇé¿ö£»ÎŞÂÛÊÇ²åÈë¡¢É¾³ı»¹ÊÇ²éÑ¯¶¼ÒªÓÅÓÚÆÕÍ¨Á´±í½á¹¹¡£
-// Ô­Àí£ºÃ¿¸öÁ´±í½Úµã²¢²»ÊÇ¶ÀÁ¢·ÖÅäµÄÄÚ´æ£¬ËüÃÇ¶¼Á¬Ğø´æ·ÅÔÚÒ»¸öcmmVectorÊı×éÖĞ£¬µ±Ä³¸ö½Úµã±»É¾³ıºó£¬½ö½öÊÇ°ÑËü´ÓÁ´±íÉÏÕªµô£¬ÄÚ´æ¶ÔÏóÈÔÈ»ÔÚcmmVectorÖĞÃ»ÓĞÊÍ·Å£¬ÕâÑù¾Í¿ÉÒÔ±ÜÃâ
-// Á´±íÔöÉ¾½Úµãµ¼ÖÂµÄ´óÁ¿ÄÚ´æ·ÖÅä²Ù×÷£»µ±²éÕÒÒ»¸ö¶ÔÏóÊ±£¬¿ìËÙÁ´±í½«ÔÚÊı×éÖĞ±éÀú²éÕÒ£¬ËÙ¶È»áÓÅÓÚÆÕÍ¨Á´±í£»
-// ×¢Òâ£º±¾Ä£°åÀàµÄ´ó¶àÊıº¯ÊıÊ¹ÓÃµÄIndexË÷ÒıÊÇÓÃÓÚ»ñÈ¡ºÍÖ¸¶¨Ä³¸ö½ÚµãµÄ£¬²¢²»ÊÇ´ú±íÄ³¸ö½ÚµãÔÚÁ´±íÖĞµÄÇ°ºó´ÎĞò£¬Ğ¡ÓÚ0±íÊ¾Ê§°Ü»òÕß´íÎóµÄË÷Òı
+// å¿«é€Ÿé“¾è¡¨ï¼Œä¸é€‚åˆå­˜æ”¾è¿‡å¤§çš„å†…å®¹ï¼ˆ32å­—èŠ‚ï¼‰ï¼Œä¸é€‚åˆå­˜æ”¾è¿‡å¤šçš„èŠ‚ç‚¹ï¼ˆå¤šä½™32Kï¼‰ï¼›ä¸»è¦ç”¨äºå­˜æ”¾å°å¯¹è±¡ï¼ˆæ³¨æ„æŒ‡é’ˆä¹Ÿæ˜¯å°å¯¹è±¡ï¼‰ï¼Œé¢‘ç¹æ’å…¥åˆ é™¤ï¼Œè¾ƒå°‘ä¾¿åˆ©æŸ¥è¯¢çš„æƒ…å†µï¼›æ— è®ºæ˜¯æ’å…¥ã€åˆ é™¤è¿˜æ˜¯æŸ¥è¯¢éƒ½è¦ä¼˜äºæ™®é€šé“¾è¡¨ç»“æ„ã€‚
+// åŸç†ï¼šæ¯ä¸ªé“¾è¡¨èŠ‚ç‚¹å¹¶ä¸æ˜¯ç‹¬ç«‹åˆ†é…çš„å†…å­˜ï¼Œå®ƒä»¬éƒ½è¿ç»­å­˜æ”¾åœ¨ä¸€ä¸ªcmmVectoræ•°ç»„ä¸­ï¼Œå½“æŸä¸ªèŠ‚ç‚¹è¢«åˆ é™¤åï¼Œä»…ä»…æ˜¯æŠŠå®ƒä»é“¾è¡¨ä¸Šæ‘˜æ‰ï¼Œå†…å­˜å¯¹è±¡ä»ç„¶åœ¨cmmVectorä¸­æ²¡æœ‰é‡Šæ”¾ï¼Œè¿™æ ·å°±å¯ä»¥é¿å…
+// é“¾è¡¨å¢åˆ èŠ‚ç‚¹å¯¼è‡´çš„å¤§é‡å†…å­˜åˆ†é…æ“ä½œï¼›å½“æŸ¥æ‰¾ä¸€ä¸ªå¯¹è±¡æ—¶ï¼Œå¿«é€Ÿé“¾è¡¨å°†åœ¨æ•°ç»„ä¸­éå†æŸ¥æ‰¾ï¼Œé€Ÿåº¦ä¼šä¼˜äºæ™®é€šé“¾è¡¨ï¼›
+// æ³¨æ„ï¼šæœ¬æ¨¡æ¿ç±»çš„å¤§å¤šæ•°å‡½æ•°ä½¿ç”¨çš„Indexç´¢å¼•æ˜¯ç”¨äºè·å–å’ŒæŒ‡å®šæŸä¸ªèŠ‚ç‚¹çš„ï¼Œå¹¶ä¸æ˜¯ä»£è¡¨æŸä¸ªèŠ‚ç‚¹åœ¨é“¾è¡¨ä¸­çš„å‰åæ¬¡åºï¼Œå°äº0è¡¨ç¤ºå¤±è´¥æˆ–è€…é”™è¯¯çš„ç´¢å¼•
 template<class CCmmContent,int InitSize=16,int Increment=16>
 class cmmFastList:protected cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>
 {
@@ -328,69 +328,69 @@ public:
 	}
 	~cmmFastList(){}
 
-	// ²åÈëÒ»¸ö½Úµã£¬·µ»ØÖµÊÇ²åÈë½ÚµãµÄË÷Òı£¬Õâ¸öË÷ÒıÊÇ´æ´¢ÔÚÄÚ²¿Êı×éÖĞµÄÎ»ÖÃ£¬²¢²»ÊÇÁ´±íÖĞµÄÇ°ºó´ÎĞò£»·µ»ØÖµĞ¡ÓÚµÈÓÚ0±íÊ¾Ê§°Ü
+	// æ’å…¥ä¸€ä¸ªèŠ‚ç‚¹ï¼Œè¿”å›å€¼æ˜¯æ’å…¥èŠ‚ç‚¹çš„ç´¢å¼•ï¼Œè¿™ä¸ªç´¢å¼•æ˜¯å­˜å‚¨åœ¨å†…éƒ¨æ•°ç»„ä¸­çš„ä½ç½®ï¼Œå¹¶ä¸æ˜¯é“¾è¡¨ä¸­çš„å‰åæ¬¡åºï¼›è¿”å›å€¼å°äºç­‰äº0è¡¨ç¤ºå¤±è´¥
 	int Insert(
-		int niNodeRef,	// ²åÈëµ½Õâ¸ö½ÚµãÇ°ºó£¬Õâ¸öÖµ±ØĞëÊÇÄ³´Î»ñµÃµÄÓĞĞ§½ÚµãµÄË÷Òı
+		int niNodeRef,	// æ’å…¥åˆ°è¿™ä¸ªèŠ‚ç‚¹å‰åï¼Œè¿™ä¸ªå€¼å¿…é¡»æ˜¯æŸæ¬¡è·å¾—çš„æœ‰æ•ˆèŠ‚ç‚¹çš„ç´¢å¼•
 		CCmmContent& nrObject,
-		bool nbBefore=false	// ²åÈëµ½Ç°»òÕßºó
+		bool nbBefore=false	// æ’å…¥åˆ°å‰æˆ–è€…å
 		);
 
-	// ²åÈëÒ»¸ö½Úµã£¬·µ»ØÖµÊÇ²åÈë½ÚµãµÄË÷Òı£¬Õâ¸öË÷ÒıÊÇ´æ´¢ÔÚÄÚ²¿Êı×éÖĞµÄÎ»ÖÃ£¬²¢²»ÊÇÁ´±íÖĞµÄÇ°ºó´ÎĞò£»·µ»ØÖµĞ¡ÓÚµÈÓÚ0±íÊ¾Ê§°Ü
+	// æ’å…¥ä¸€ä¸ªèŠ‚ç‚¹ï¼Œè¿”å›å€¼æ˜¯æ’å…¥èŠ‚ç‚¹çš„ç´¢å¼•ï¼Œè¿™ä¸ªç´¢å¼•æ˜¯å­˜å‚¨åœ¨å†…éƒ¨æ•°ç»„ä¸­çš„ä½ç½®ï¼Œå¹¶ä¸æ˜¯é“¾è¡¨ä¸­çš„å‰åæ¬¡åºï¼›è¿”å›å€¼å°äºç­‰äº0è¡¨ç¤ºå¤±è´¥
 	int Insert(
-		int niNodeRef,	// ²åÈëµ½Õâ¸ö½ÚµãÇ°ºó£¬Õâ¸öÖµ±ØĞëÊÇÄ³´Î»ñµÃµÄÓĞĞ§½ÚµãµÄË÷Òı
+		int niNodeRef,	// æ’å…¥åˆ°è¿™ä¸ªèŠ‚ç‚¹å‰åï¼Œè¿™ä¸ªå€¼å¿…é¡»æ˜¯æŸæ¬¡è·å¾—çš„æœ‰æ•ˆèŠ‚ç‚¹çš„ç´¢å¼•
 		const CCmmContent& nrObject,
-		bool nbBefore=false	// ²åÈëµ½Ç°»òÕßºó
+		bool nbBefore=false	// æ’å…¥åˆ°å‰æˆ–è€…å
 		){
 		CCmmContent loNew = nrObject;
 		return Insert(niNodeRef,loNew,nbBefore);
 	}
 
-	// É¾³ıÒ»¸ö½Úµã
+	// åˆ é™¤ä¸€ä¸ªèŠ‚ç‚¹
 	bool Remove(
 		int niNodeRef
 		);
 
-	// Çå³ıÈ«²¿½Úµã
+	// æ¸…é™¤å…¨éƒ¨èŠ‚ç‚¹
 	bool Clear(){return false;}
 	 
-	// »ñµÃÁ´±íµÄÓĞĞ§³ÉÔ±Êı
+	// è·å¾—é“¾è¡¨çš„æœ‰æ•ˆæˆå‘˜æ•°
 	int Size(){
 		return miValidNodes;
 	}
 
-	// »ñµÃÁ´±íµÄµÚÒ»¸ö½ÚµãµÄË÷Òı£¬È»ºóÍ¨¹ı[]ÔËËã·û»òÕßGetEntry·ÃÎÊÄ¿±ê½ÚµãµÄÄÚÈİ
+	// è·å¾—é“¾è¡¨çš„ç¬¬ä¸€ä¸ªèŠ‚ç‚¹çš„ç´¢å¼•ï¼Œç„¶åé€šè¿‡[]è¿ç®—ç¬¦æˆ–è€…GetEntryè®¿é—®ç›®æ ‡èŠ‚ç‚¹çš„å†…å®¹
 	int Front(void){
 		return cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(0).NextNode;
 	}
 
-	// »ñµÃÁ´±íµÄ×îºóÒ»¸ö½ÚµãµÄË÷Òı£¬È»ºóÊ¹ÓÃ[]ÔËËã·û»òÕßGetEntry·ÃÎÊÄ¿±ê½ÚµãµÄÄÚÈİ
+	// è·å¾—é“¾è¡¨çš„æœ€åä¸€ä¸ªèŠ‚ç‚¹çš„ç´¢å¼•ï¼Œç„¶åä½¿ç”¨[]è¿ç®—ç¬¦æˆ–è€…GetEntryè®¿é—®ç›®æ ‡èŠ‚ç‚¹çš„å†…å®¹
 	int Back(void){
 		return cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(0).LastNode;
 	}
 
-	// »ñµÃÏÂÒ»¸ö½Úµã
+	// è·å¾—ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
 	int Next(int niNodeRef);
 
-	// »ñµÃÇ°Ò»¸ö½Úµã
+	// è·å¾—å‰ä¸€ä¸ªèŠ‚ç‚¹
 	int Previous(int niNodeRef);
 
-	// ²éÕÒÄ³¸ö½Úµã£¬Èç¹ûÒªÊ¹ÓÃÕâ¸ö·½·¨£¬CCmmContent±ØĞëÌá¹©operator ==ÔËËã·ûÖ§³Ö£¬¶ÔÓÚ»ù±¾ÀàĞÍÏµÍ³Ìá¹©ÁËÄ¬ÈÏµÄÖ§³Ö£¬¶ø×Ô¶¨ÒåµÄÀàÕâĞèÒªÖØÔØÕâ¸öÔËËã·û
-	// ×¢Òâ£ºÄ³¸öCCmmContent¶ÔÏóÔÚÁ´±íÖĞ¿ÉÄÜ²»Î¨Ò»£¬»ñµÃÏÂÒ»¸öµÈ¼Û¶ÔÏó£¬Çë¼ÌĞøFind
+	// æŸ¥æ‰¾æŸä¸ªèŠ‚ç‚¹ï¼Œå¦‚æœè¦ä½¿ç”¨è¿™ä¸ªæ–¹æ³•ï¼ŒCCmmContentå¿…é¡»æä¾›operator ==è¿ç®—ç¬¦æ”¯æŒï¼Œå¯¹äºåŸºæœ¬ç±»å‹ç³»ç»Ÿæä¾›äº†é»˜è®¤çš„æ”¯æŒï¼Œè€Œè‡ªå®šä¹‰çš„ç±»è¿™éœ€è¦é‡è½½è¿™ä¸ªè¿ç®—ç¬¦
+	// æ³¨æ„ï¼šæŸä¸ªCCmmContentå¯¹è±¡åœ¨é“¾è¡¨ä¸­å¯èƒ½ä¸å”¯ä¸€ï¼Œè·å¾—ä¸‹ä¸€ä¸ªç­‰ä»·å¯¹è±¡ï¼Œè¯·ç»§ç»­Find
 	int Find(
 		const CCmmContent& nrObject,
-		int niOver= 0	// ´ÓÕâ¸öË÷Òı¶ÔÏóÖ®ºó(²»°üÀ¨niOver±¾ÉíËùÖ¸)²éÕÒ£¬Ä¬ÈÏ´ÓµÚÒ»Î»¿ªÊ¼
+		int niOver= 0	// ä»è¿™ä¸ªç´¢å¼•å¯¹è±¡ä¹‹å(ä¸åŒ…æ‹¬niOveræœ¬èº«æ‰€æŒ‡)æŸ¥æ‰¾ï¼Œé»˜è®¤ä»ç¬¬ä¸€ä½å¼€å§‹
 		);
 
-	// ·µ»Ø³ÉÔ±¶ÔÏó
+	// è¿”å›æˆå‘˜å¯¹è±¡
 	CCmmContent& operator [](
-		int niIndex	// ³ÉÔ±Ë÷ÒıÖµ£¬×¢Òâ£ºÕâ¸öÖµ²»ÊÇ³ÉÔ±ÔÚÁ´±íÖĞµÄÅÅĞò£¬¶øÊÇ´æ´¢ÔÚÊı×éÖĞµÄĞòºÅ£»Ëü±ØĞëÊÇÍ¨¹ıFront Back Next PreviousµÈº¯Êı»ñµÃµÄÖµ£¬¶ø²»ÄÜÖµÓÃ»§×Ô¼ºËæÒâÉè¶¨µÄ
+		int niIndex	// æˆå‘˜ç´¢å¼•å€¼ï¼Œæ³¨æ„ï¼šè¿™ä¸ªå€¼ä¸æ˜¯æˆå‘˜åœ¨é“¾è¡¨ä¸­çš„æ’åºï¼Œè€Œæ˜¯å­˜å‚¨åœ¨æ•°ç»„ä¸­çš„åºå·ï¼›å®ƒå¿…é¡»æ˜¯é€šè¿‡Front Back Next Previousç­‰å‡½æ•°è·å¾—çš„å€¼ï¼Œè€Œä¸èƒ½å€¼ç”¨æˆ·è‡ªå·±éšæ„è®¾å®šçš„
 		){
 		return cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(niIndex).moData;
 	}
 
-	// ·µ»Ø³ÉÔ±¶ÔÏó
+	// è¿”å›æˆå‘˜å¯¹è±¡
 	CCmmContent&  GetEntry(
-		int niIndex	// ³ÉÔ±Ë÷ÒıÖµ£¬×¢Òâ£ºÕâ¸öÖµ²»ÊÇ³ÉÔ±ÔÚÁ´±íÖĞµÄÅÅĞò£¬¶øÊÇ´æ´¢ÔÚÊı×éÖĞµÄĞòºÅ£»Ëü±ØĞëÊÇÍ¨¹ıFront Back Next PreviousµÈº¯Êı»ñµÃµÄÖµ£¬¶ø²»ÄÜÖµÓÃ»§×Ô¼ºËæÒâÉè¶¨µÄ
+		int niIndex	// æˆå‘˜ç´¢å¼•å€¼ï¼Œæ³¨æ„ï¼šè¿™ä¸ªå€¼ä¸æ˜¯æˆå‘˜åœ¨é“¾è¡¨ä¸­çš„æ’åºï¼Œè€Œæ˜¯å­˜å‚¨åœ¨æ•°ç»„ä¸­çš„åºå·ï¼›å®ƒå¿…é¡»æ˜¯é€šè¿‡Front Back Next Previousç­‰å‡½æ•°è·å¾—çš„å€¼ï¼Œè€Œä¸èƒ½å€¼ç”¨æˆ·è‡ªå·±éšæ„è®¾å®šçš„
 		){
 		CMMASSERT(niIndex >= 0 && niIndex<miSize);
 		return cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(niIndex).moData;
@@ -400,11 +400,11 @@ protected:
 	int miValidNodes;
 	int miFirstFree;
 
-	// ±£´æÒ»¸öÏĞÖÃµÄ´æ´¢µ¥Ôª
+	// ä¿å­˜ä¸€ä¸ªé—²ç½®çš„å­˜å‚¨å•å…ƒ
 	bool SaveFreeNode(int niNodeRef){
 		cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(niNodeRef).NextNode = miFirstFree;
 		miFirstFree = niNodeRef;
-		cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(niNodeRef).LastNode = -1;	// ±íÊ¾ËüÒÑ¾­±»É¾³ıÁË
+		cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(niNodeRef).LastNode = -1;	// è¡¨ç¤ºå®ƒå·²ç»è¢«åˆ é™¤äº†
 
 		if(miValidNodes < miCapacity/2 && mpArray != moInitArray)
 			return RecoverDataBuffer();
@@ -412,10 +412,10 @@ protected:
 		return true;
 	}
 
-	// »Ö¸´BufferÎªĞ¡³ß´ç
+	// æ¢å¤Bufferä¸ºå°å°ºå¯¸
 	bool RecoverDataBuffer(){
 		cmmNodeOfFastList<CCmmContent>* lpNewArray;
-		int liNewCap = ((miValidNodes+Increment-1)/Increment)*Increment;	// È¡×î½Ó½üµÄ±¶Êı
+		int liNewCap = ((miValidNodes+Increment-1)/Increment)*Increment;	// å–æœ€æ¥è¿‘çš„å€æ•°
 
 		if(liNewCap > InitSize)
 		{
@@ -430,7 +430,7 @@ protected:
 		if(lpNewArray == NULL)
 			return false;
 
-		int liSrc = 0;	// ÎÒÃÇµÄÁ´±íÍ·Ò²Òª¸´ÖÆ¹ıÈ¥
+		int liSrc = 0;	// æˆ‘ä»¬çš„é“¾è¡¨å¤´ä¹Ÿè¦å¤åˆ¶è¿‡å»
 		int liDst = 0;
 
 		do
@@ -442,7 +442,7 @@ protected:
 			liSrc = Next(liSrc);
 			liDst++;
 		}while(liSrc > 0);
-		CMMASSERT(miValidNodes == liDst-1); // Á´±íÍ·²»ÄÜ¼ÆËãÆäÖĞ
+		CMMASSERT(miValidNodes == liDst-1); // é“¾è¡¨å¤´ä¸èƒ½è®¡ç®—å…¶ä¸­
 
 		miFirstFree = -1;
 
@@ -464,30 +464,30 @@ protected:
 
 template<class CCmmContent,int InitSize,int Increment>
 int cmmFastList<CCmmContent,InitSize,Increment>::Insert(
-	int niNodeRef,	// ²åÈëµ½Õâ¸ö½ÚµãÇ°ºó£¬Õâ¸öÖµ±ØĞëÊÇÄ³´Î»ñµÃµÄÓĞĞ§½ÚµãµÄË÷Òı
+	int niNodeRef,	// æ’å…¥åˆ°è¿™ä¸ªèŠ‚ç‚¹å‰åï¼Œè¿™ä¸ªå€¼å¿…é¡»æ˜¯æŸæ¬¡è·å¾—çš„æœ‰æ•ˆèŠ‚ç‚¹çš„ç´¢å¼•
 	CCmmContent& nrObject,
-	bool nbBefore	// ²åÈëµ½Ç°»òÕßºó
+	bool nbBefore	// æ’å…¥åˆ°å‰æˆ–è€…å
 	)
 {
 	int liSet;
 
-	// Ê×ÏÈÈ·ÈÏ²åÈëµÄ²Î¿¼Î»ÖÃÊÇ·ñÕıÈ·
+	// é¦–å…ˆç¡®è®¤æ’å…¥çš„å‚è€ƒä½ç½®æ˜¯å¦æ­£ç¡®
 	if(niNodeRef < 0 || niNodeRef >= miSize)
-		return 0;	// ·µ»ØÊ§°Ü
+		return 0;	// è¿”å›å¤±è´¥
 
 	if(niNodeRef >= 0 && cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(niNodeRef).LastNode < 0)
-		return 0; // Õâ²»ÊÇÓĞĞ§Á´±í½ÚµãµÄË÷Òı£¬·µ»ØÊ§°Ü
+		return 0; // è¿™ä¸æ˜¯æœ‰æ•ˆé“¾è¡¨èŠ‚ç‚¹çš„ç´¢å¼•ï¼Œè¿”å›å¤±è´¥
 
 	cmmNodeOfFastList<CCmmContent> loNode;
 	loNode.moData = nrObject;
 
-	// È·ÈÏÊÇ·ñ´æÔÚÎ´Ê¹ÓÃµÄ½Úµã
+	// ç¡®è®¤æ˜¯å¦å­˜åœ¨æœªä½¿ç”¨çš„èŠ‚ç‚¹
 	if(miFirstFree < 0)
 	{
-		// Ä¿Ç°Ã»ÓĞÎ´Ê¹ÓÃµÄ½Úµã£¬Ö±½ÓÔÚ»ùÀà¶ÔÏóÔö¼ÓÒ»¸ö¼ÇÂ¼
+		// ç›®å‰æ²¡æœ‰æœªä½¿ç”¨çš„èŠ‚ç‚¹ï¼Œç›´æ¥åœ¨åŸºç±»å¯¹è±¡å¢åŠ ä¸€ä¸ªè®°å½•
 		liSet = cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::Insert(-1,loNode);
 		if(liSet < 0)
-			return 0;	//Ê§°Ü
+			return 0;	//å¤±è´¥
 	}
 	else
 	{
@@ -496,7 +496,7 @@ int cmmFastList<CCmmContent,InitSize,Increment>::Insert(
 	}
 
 	if(nbBefore != false)
-	{	// ²åÈëµ½²Î¿¼Î»ÖÃÇ°
+	{	// æ’å…¥åˆ°å‚è€ƒä½ç½®å‰
 		loNode.LastNode = cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(niNodeRef).LastNode;
 		loNode.NextNode = niNodeRef;
 
@@ -508,7 +508,7 @@ int cmmFastList<CCmmContent,InitSize,Increment>::Insert(
 	}
 	else
 	{
-		// ²åÈëµ½²Î¿¼Î»ÖÃºó
+		// æ’å…¥åˆ°å‚è€ƒä½ç½®å
 		loNode.LastNode = niNodeRef;
 		loNode.NextNode = cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(niNodeRef).NextNode;
 
@@ -528,14 +528,14 @@ bool cmmFastList<CCmmContent,InitSize,Increment>::Remove(int niNodeRef)
 	if(niNodeRef <= 0 || niNodeRef >= miSize)
 		return false;
 
-	if(cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(niNodeRef).LastNode < 0)	// ÒÑ¾­É¾³ıÁË
+	if(cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(niNodeRef).LastNode < 0)	// å·²ç»åˆ é™¤äº†
 		return true;
 
 	cmmNodeOfFastList<CCmmContent> loCrt = cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(niNodeRef);
 	cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(loCrt.LastNode).NextNode = loCrt.NextNode;
 	cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(loCrt.NextNode).LastNode = loCrt.LastNode;
 
-	// ½«Õâ¸öÊ§Ğ§µÄµ¥Ôª±£´æµ½ÏĞÖÃÁĞ±íÖĞ£¬²¢ÇÒ³¢ÊÔËõĞ¡×Ü´æ´¢¿Õ¼ä
+	// å°†è¿™ä¸ªå¤±æ•ˆçš„å•å…ƒä¿å­˜åˆ°é—²ç½®åˆ—è¡¨ä¸­ï¼Œå¹¶ä¸”å°è¯•ç¼©å°æ€»å­˜å‚¨ç©ºé—´
 	miValidNodes--;
 	return SaveFreeNode(niNodeRef);
 }
@@ -543,7 +543,7 @@ bool cmmFastList<CCmmContent,InitSize,Increment>::Remove(int niNodeRef)
 template<class CCmmContent,int InitSize,int Increment>
 int cmmFastList<CCmmContent,InitSize,Increment>::Next(int niNodeRef)
 {
-	// niNodeRef < 0 ÓëÏÂÒ»¸öº¯Êı²»Í¬£¬Õâ¶ùÔÊĞíÓÃ0À´»ñµÃÁ´±íÊ×½Úµã
+	// niNodeRef < 0 ä¸ä¸‹ä¸€ä¸ªå‡½æ•°ä¸åŒï¼Œè¿™å„¿å…è®¸ç”¨0æ¥è·å¾—é“¾è¡¨é¦–èŠ‚ç‚¹
 	if(niNodeRef < 0 || niNodeRef >= miSize || cmmVector<cmmNodeOfFastList<CCmmContent>,InitSize,Increment>::GetEntry(niNodeRef).LastNode < 0)
 		return 0;
 
@@ -562,7 +562,7 @@ int cmmFastList<CCmmContent,InitSize,Increment>::Previous(int niNodeRef)
 template<class CCmmContent,int InitSize,int Increment>
 int cmmFastList<CCmmContent,InitSize,Increment>::Find(
 	const CCmmContent& nrObject,
-	int niOver	// ´ÓÕâ¸öË÷Òı¶ÔÏóÖ®ºó²éÕÒ£¬Ä¬ÈÏ´ÓµÚÒ»Î»¿ªÊ¼
+	int niOver	// ä»è¿™ä¸ªç´¢å¼•å¯¹è±¡ä¹‹åæŸ¥æ‰¾ï¼Œé»˜è®¤ä»ç¬¬ä¸€ä½å¼€å§‹
 	)
 {
 	if (niOver <= 0)
@@ -584,23 +584,23 @@ int cmmFastList<CCmmContent,InitSize,Increment>::Find(
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÅÅĞòÊı×éÓÃÅÅĞò±È½ÏÀà
-class CSequenceCriterion	// Ä¬ÈÏµÄÅĞ¶Ï×¼Ôò
+// æ’åºæ•°ç»„ç”¨æ’åºæ¯”è¾ƒç±»
+class CSequenceCriterion	// é»˜è®¤çš„åˆ¤æ–­å‡†åˆ™
 {
 public:
-	bool operator () (const int& Obj1,const int& Obj2)const // Ò»¶¨ÒªÓÃÄÚÁªº¯Êı
+	bool operator () (const int& Obj1,const int& Obj2)const // ä¸€å®šè¦ç”¨å†…è”å‡½æ•°
 	{
-		// µ±¶ÔÏóOb1Ğ¡ÓÚ¶ÔÏóObj2Ê±£¬·µ»ØTrue£¬·ñÔò·µ»Øfalse
+		// å½“å¯¹è±¡Ob1å°äºå¯¹è±¡Obj2æ—¶ï¼Œè¿”å›Trueï¼Œå¦åˆ™è¿”å›false
 		return (Obj1 < Obj2);
 	}
-	bool operator () (const void* Obj1,const void* Obj2)const // Ò»¶¨ÒªÓÃÄÚÁªº¯Êı
+	bool operator () (const void* Obj1,const void* Obj2)const // ä¸€å®šè¦ç”¨å†…è”å‡½æ•°
 	{
-		// µ±¶ÔÏóOb1Ğ¡ÓÚ¶ÔÏóObj2Ê±£¬·µ»ØTrue£¬·ñÔò·µ»Øfalse
+		// å½“å¯¹è±¡Ob1å°äºå¯¹è±¡Obj2æ—¶ï¼Œè¿”å›Trueï¼Œå¦åˆ™è¿”å›false
 		return (Obj1 < Obj2);
 	}
 };
 //////////////////////////////////////////////////////////////////////////
-// ÅÅĞòÊı×é£¬²»ÊÊºÏ·ÅÖÃ¹ı´óµÄÄÚÈİ£¨128¸ö×Ö½Ú£©£¬²»ÊÊºÏ·ÅÖÃ¹ı¶àµÄ¶ÔÏó£¬Êı×é½«±£³Ö´æ´¢ÇøÎª×î´óÈİÁ¿Ê±µÄÈİÁ¿
+// æ’åºæ•°ç»„ï¼Œä¸é€‚åˆæ”¾ç½®è¿‡å¤§çš„å†…å®¹ï¼ˆ128ä¸ªå­—èŠ‚ï¼‰ï¼Œä¸é€‚åˆæ”¾ç½®è¿‡å¤šçš„å¯¹è±¡ï¼Œæ•°ç»„å°†ä¿æŒå­˜å‚¨åŒºä¸ºæœ€å¤§å®¹é‡æ—¶çš„å®¹é‡
 template<class CCmmContent,class Criterion=CSequenceCriterion,int InitSize=16,int Increment=16>
 class cmmSequence : protected cmmVector<CCmmContent,InitSize,Increment>
 {
@@ -608,19 +608,19 @@ public:
 	cmmSequence(){}
 	~cmmSequence(){}
 
-	// ²éÕÒÒ»¸öµÈÖµµÄÒÑ±£´æÔªËØ£¬·µ»ØÏàµÈĞ§µÄ½á¹¹ÄÚ¶ÔÏóµÄË÷Òı£¬Èç¹û·µ»ØÎª-1ÔòÃ»ÓĞÕÒµ½
+	// æŸ¥æ‰¾ä¸€ä¸ªç­‰å€¼çš„å·²ä¿å­˜å…ƒç´ ï¼Œè¿”å›ç›¸ç­‰æ•ˆçš„ç»“æ„å†…å¯¹è±¡çš„ç´¢å¼•ï¼Œå¦‚æœè¿”å›ä¸º-1åˆ™æ²¡æœ‰æ‰¾åˆ°
 	int Find(const CCmmContent& nrFind)
 	{
 		return InternalFind(nrFind,NULL);
 	}
 
-	// ²åÈë£¬·µ»Ø-1±íÊ¾Ê§°Ü£¬·ñÔò±íÊ¾²åÈëµÄÎ»ÖÃ
+	// æ’å…¥ï¼Œè¿”å›-1è¡¨ç¤ºå¤±è´¥ï¼Œå¦åˆ™è¡¨ç¤ºæ’å…¥çš„ä½ç½®
 	int Insert(const CCmmContent& nrKeyObj)
 	{
 		CCmmContent loContent = nrKeyObj;
 		return Insert(loContent);
 	}
-	// ²åÈë£¬·µ»Ø-1±íÊ¾Ê§°Ü£¬·ñÔò±íÊ¾²åÈëµÄÎ»ÖÃ
+	// æ’å…¥ï¼Œè¿”å›-1è¡¨ç¤ºå¤±è´¥ï¼Œå¦åˆ™è¡¨ç¤ºæ’å…¥çš„ä½ç½®
 	int Insert(CCmmContent& nrKeyObj)
 	{
 		int liLower;
@@ -632,25 +632,25 @@ public:
 		
 		return cmmVector<CCmmContent,InitSize,Increment>::Insert(liLower,nrKeyObj);
 	}
-	// Ìí¼ÓÒ»¸öÔªËØµ½×îÎ²²¿£¬Ö»ÓĞÈ·¶¨Õâ¸öÔªËØµÄÅÅĞò½á¹ûÔÚÎ²²¿²ÅÄÜÕâÃ´µ÷ÓÃ£¬·ñÔò»áÅª»µÕû¸öÅÅĞò¶ÓÁĞ£¬±¾º¯ÊıÍ¨³£Ö»ÓÃÓÚ´Ó±£´æµ½ÎÄ¼şµÄ½á¹¹ÖĞ×°»ØÕû¸ö½á¹¹£¬·µ»ØÖµÊÇ±¾ÔªËØ²åÈëµÄÎ»ÖÃ
+	// æ·»åŠ ä¸€ä¸ªå…ƒç´ åˆ°æœ€å°¾éƒ¨ï¼Œåªæœ‰ç¡®å®šè¿™ä¸ªå…ƒç´ çš„æ’åºç»“æœåœ¨å°¾éƒ¨æ‰èƒ½è¿™ä¹ˆè°ƒç”¨ï¼Œå¦åˆ™ä¼šå¼„åæ•´ä¸ªæ’åºé˜Ÿåˆ—ï¼Œæœ¬å‡½æ•°é€šå¸¸åªç”¨äºä»ä¿å­˜åˆ°æ–‡ä»¶çš„ç»“æ„ä¸­è£…å›æ•´ä¸ªç»“æ„ï¼Œè¿”å›å€¼æ˜¯æœ¬å…ƒç´ æ’å…¥çš„ä½ç½®
 	int Push_Back(const CCmmContent& nrKeyObj)
 	{
 		CCmmContent loContent = nrKeyObj;
 		return Push_Back(loContent);
 	}
-	// Ìí¼ÓÒ»¸öÔªËØµ½×îÎ²²¿£¬Ö»ÓĞÈ·¶¨Õâ¸öÔªËØµÄÅÅĞò½á¹ûÔÚÎ²²¿²ÅÄÜÕâÃ´µ÷ÓÃ£¬·ñÔò»áÅª»µÕû¸öÅÅĞò¶ÓÁĞ£¬±¾º¯ÊıÍ¨³£Ö»ÓÃÓÚ´Ó±£´æµ½ÎÄ¼şµÄ½á¹¹ÖĞ×°»ØÕû¸ö½á¹¹£¬·µ»ØÖµÊÇ±¾ÔªËØ²åÈëµÄÎ»ÖÃ
+	// æ·»åŠ ä¸€ä¸ªå…ƒç´ åˆ°æœ€å°¾éƒ¨ï¼Œåªæœ‰ç¡®å®šè¿™ä¸ªå…ƒç´ çš„æ’åºç»“æœåœ¨å°¾éƒ¨æ‰èƒ½è¿™ä¹ˆè°ƒç”¨ï¼Œå¦åˆ™ä¼šå¼„åæ•´ä¸ªæ’åºé˜Ÿåˆ—ï¼Œæœ¬å‡½æ•°é€šå¸¸åªç”¨äºä»ä¿å­˜åˆ°æ–‡ä»¶çš„ç»“æ„ä¸­è£…å›æ•´ä¸ªç»“æ„ï¼Œè¿”å›å€¼æ˜¯æœ¬å…ƒç´ æ’å…¥çš„ä½ç½®
 	int Push_Back(CCmmContent& nrKeyObj)
 	{
 		return cmmVector<CCmmContent,InitSize,Increment>::Insert(-1,nrKeyObj);
 	}
 
-	// É¾³ı£¬·µ»Ø³É¹¦Óë·ñ£¬niIndex´ıÉ¾³ıµÄ½ÚµãµÄË÷Òı
+	// åˆ é™¤ï¼Œè¿”å›æˆåŠŸä¸å¦ï¼ŒniIndexå¾…åˆ é™¤çš„èŠ‚ç‚¹çš„ç´¢å¼•
 	bool RemoveByIndex(int niIndex)
 	{
 		return cmmVector<CCmmContent,InitSize,Increment>::RemoveByIndex(niIndex);
 	}
 
-	// É¾³ı£¬·µ»Ø³É¹¦Óë·ñ£¬
+	// åˆ é™¤ï¼Œè¿”å›æˆåŠŸä¸å¦ï¼Œ
 	bool Remove(const CCmmContent& nrKeyObj)
 	{
 		return RemoveByIndex(Find(nrKeyObj));
@@ -665,13 +665,13 @@ public:
 		cmmVector<CCmmContent,InitSize,Increment>::Clear();
 	}
 
-	// »ñÈ¡¶ÔÏóÊı
+	// è·å–å¯¹è±¡æ•°
 	int Size(void)
 	{
 		return cmmVector<CCmmContent,InitSize,Increment>::Size();
 	}
 
-	// ²âÊÔÕû¸öÊı×éÊÇ·ñÊÇÓĞĞòµÄ£¬Ö´ĞĞËÙ¶ÈºÜÂı£¬½öÓÃÓÚµ÷ÊÔºÍ½×¶ÎĞÔ¼ì²â
+	// æµ‹è¯•æ•´ä¸ªæ•°ç»„æ˜¯å¦æ˜¯æœ‰åºçš„ï¼Œæ‰§è¡Œé€Ÿåº¦å¾ˆæ…¢ï¼Œä»…ç”¨äºè°ƒè¯•å’Œé˜¶æ®µæ€§æ£€æµ‹
 	bool SequenceTest(void){
 		int liLower = 0;
 		bool lbReval = true;
@@ -696,13 +696,13 @@ protected:
 
 		while(liBottom <= liTop)
 		{
-			// ÕÛ°ë²éÕÒ
+			// æŠ˜åŠæŸ¥æ‰¾
 			liCrt = (liTop + liBottom)/2;
 
-			// ²»Ğ¡ÓÚµ±Ç°Öµ
+			// ä¸å°äºå½“å‰å€¼
 			if(mCriterion(nrFind,GetEntry(liCrt)) == false)
 			{
-				// ÊÇ·ñÏàµÈ
+				// æ˜¯å¦ç›¸ç­‰
 				if(mCriterion(GetEntry(liCrt),nrFind) == false)
 					return liCrt;
 				liBottom = liCrt+1;
@@ -718,38 +718,38 @@ protected:
 };
 
 //////////////////////////////////////////////////////////////////////////
-// ¶àÔªÅÅĞòÊı×é£¬ÄÜ¹»·ÅÖÃ¶à¸öÅÅĞòÌõ¼şÏÂÏàµÈµÄÔªËØ¡£²»ÊÊºÏ·ÅÖÃ¹ı´óµÄÄÚÈİ£¨128¸ö×Ö½Ú£©£¬²»ÊÊºÏ·ÅÖÃ¹ı¶àµÄ¶ÔÏó£¬Êı×é½«±£³Ö´æ´¢ÇøÎª×î´óÈİÁ¿Ê±µÄÈİÁ¿
+// å¤šå…ƒæ’åºæ•°ç»„ï¼Œèƒ½å¤Ÿæ”¾ç½®å¤šä¸ªæ’åºæ¡ä»¶ä¸‹ç›¸ç­‰çš„å…ƒç´ ã€‚ä¸é€‚åˆæ”¾ç½®è¿‡å¤§çš„å†…å®¹ï¼ˆ128ä¸ªå­—èŠ‚ï¼‰ï¼Œä¸é€‚åˆæ”¾ç½®è¿‡å¤šçš„å¯¹è±¡ï¼Œæ•°ç»„å°†ä¿æŒå­˜å‚¨åŒºä¸ºæœ€å¤§å®¹é‡æ—¶çš„å®¹é‡
 template<class CCmmContent,class Criterion=CSequenceCriterion,int InitSize=16,int Increment=16>
 class cmmMultiSequence : public cmmSequence<CCmmContent,Criterion,InitSize,Increment>
 {
 public:
-	// ²éÕÒµÚÒ»¸öµÈ¼ÛµÄÒÑ±£´æÔªËØ£¬·µ»ØÏàµÈĞ§µÄ½á¹¹ÄÚ¶ÔÏóµÄË÷Òı£¬Èç¹û·µ»ØÎª-1ÔòÃ»ÓĞÕÒµ½
-	// »ñÈ¡ºóĞøµÄµÈ¼ÛÔªËØ£¬Ö±½ÓÊ¹ÓÃË÷ÒıÏòºó¼ÓÒ»Ã¶¾Ù²¢×ÔĞĞÅĞ¶Ï£¬»òÕßµ÷ÓÃÏÂÃæµÄNextEquivalent
+	// æŸ¥æ‰¾ç¬¬ä¸€ä¸ªç­‰ä»·çš„å·²ä¿å­˜å…ƒç´ ï¼Œè¿”å›ç›¸ç­‰æ•ˆçš„ç»“æ„å†…å¯¹è±¡çš„ç´¢å¼•ï¼Œå¦‚æœè¿”å›ä¸º-1åˆ™æ²¡æœ‰æ‰¾åˆ°
+	// è·å–åç»­çš„ç­‰ä»·å…ƒç´ ï¼Œç›´æ¥ä½¿ç”¨ç´¢å¼•å‘ååŠ ä¸€æšä¸¾å¹¶è‡ªè¡Œåˆ¤æ–­ï¼Œæˆ–è€…è°ƒç”¨ä¸‹é¢çš„NextEquivalent
 	int Find(const CCmmContent& nrFind)
 	{
 		int liReval = InternalFind(nrFind,NULL);
 		while(liReval > 0)
 		{
 			if(mCriterion(nrFind,GetEntry(liReval-1)) != false || mCriterion(GetEntry(liReval-1),nrFind)!=false)
-				break;	// Èç¹ûÇ°Ò»¸öÒÑ¾­²»µÈ¼Û£¬ÔòÍË³öÑ­»·
+				break;	// å¦‚æœå‰ä¸€ä¸ªå·²ç»ä¸ç­‰ä»·ï¼Œåˆ™é€€å‡ºå¾ªç¯
 			liReval--;
 		}
 		return liReval;
 	}
 
-	// ²åÈë£¬·µ»Ø-1±íÊ¾Ê§°Ü£¬·ñÔò±íÊ¾²åÈëµÄÎ»ÖÃ£¬nbAhead!=falseÊ±£¬½«¸Ã¶ÔÏó²åÈëµ½µÈ¼ÛµÄ¶ÔÏóÖ®Ç°£¬·ñÔò²åÈëÔÚµÈ¼Û¶ÔÏóÖ®ºó
+	// æ’å…¥ï¼Œè¿”å›-1è¡¨ç¤ºå¤±è´¥ï¼Œå¦åˆ™è¡¨ç¤ºæ’å…¥çš„ä½ç½®ï¼ŒnbAhead!=falseæ—¶ï¼Œå°†è¯¥å¯¹è±¡æ’å…¥åˆ°ç­‰ä»·çš„å¯¹è±¡ä¹‹å‰ï¼Œå¦åˆ™æ’å…¥åœ¨ç­‰ä»·å¯¹è±¡ä¹‹å
 	int Insert(const CCmmContent& nrKeyObj,bool nbAhead=false)
 	{
 		CCmmContent loContent = nrKeyObj;
 		return Insert(loContent,nbAhead);
 	}
-	// ²åÈë£¬·µ»Ø-1±íÊ¾Ê§°Ü£¬·ñÔò±íÊ¾²åÈëµÄÎ»ÖÃ£¬nbAhead!=falseÊ±£¬½«¸Ã¶ÔÏó²åÈëµ½µÈ¼ÛµÄ¶ÔÏóÖ®Ç°£¬·ñÔò²åÈëÔÚµÈ¼Û¶ÔÏóÖ®ºó
+	// æ’å…¥ï¼Œè¿”å›-1è¡¨ç¤ºå¤±è´¥ï¼Œå¦åˆ™è¡¨ç¤ºæ’å…¥çš„ä½ç½®ï¼ŒnbAhead!=falseæ—¶ï¼Œå°†è¯¥å¯¹è±¡æ’å…¥åˆ°ç­‰ä»·çš„å¯¹è±¡ä¹‹å‰ï¼Œå¦åˆ™æ’å…¥åœ¨ç­‰ä»·å¯¹è±¡ä¹‹å
 	int Insert(CCmmContent& nrKeyObj,bool nbAhead=false)
 	{
 		int liIndex;
 
 		liIndex = Find(nrKeyObj);
-		if(liIndex < 0)	// Èç¹ûÃ»ÓĞÏàµÈµÄÖµ£¬²ÅÈ¥ÕÒ±ÈËüĞ¡µÄÖµ
+		if(liIndex < 0)	// å¦‚æœæ²¡æœ‰ç›¸ç­‰çš„å€¼ï¼Œæ‰å»æ‰¾æ¯”å®ƒå°çš„å€¼
 		{
 			InternalFind(nrKeyObj,&liIndex);
 			liIndex++;
@@ -758,7 +758,7 @@ public:
 		{
 			if(nbAhead == false)
 			{
-				// ÕÒµ½ÏàÍ¬ÖµÖ®ºóµÄ²åÈëÎ»ÖÃ
+				// æ‰¾åˆ°ç›¸åŒå€¼ä¹‹åçš„æ’å…¥ä½ç½®
 				while(NextEquivalent(liIndex++)>=0);
 			}
 		}
@@ -766,7 +766,7 @@ public:
 		return cmmVector<CCmmContent,InitSize,Increment>::Insert(liIndex,nrKeyObj);
 	}
 
-	// È¡ÏÂÒ»¸öµÈ¼ÛµÄÔªËØ£¬·µ»Ø-1±íÊ¾Ã»ÓĞÁË
+	// å–ä¸‹ä¸€ä¸ªç­‰ä»·çš„å…ƒç´ ï¼Œè¿”å›-1è¡¨ç¤ºæ²¡æœ‰äº†
 	int NextEquivalent(int niCurrent)
 	{
 		if(niCurrent < 0 || niCurrent+1 >= miSize)
@@ -777,7 +777,7 @@ public:
 		return -1;
 	}
 
-	// É¾³ıÈ«²¿µÈ¼ÛµÄÔªËØ£¬·µ»Ø³É¹¦Óë·ñ£¬
+	// åˆ é™¤å…¨éƒ¨ç­‰ä»·çš„å…ƒç´ ï¼Œè¿”å›æˆåŠŸä¸å¦ï¼Œ
 	bool Remove(const CCmmContent& nrKeyObj)
 	{
 		int liReval = Find(nrKeyObj);
@@ -791,7 +791,7 @@ public:
 
 		return true;
 	}
-	// É¾³ı£¬·µ»Ø³É¹¦Óë·ñ£¬niIndex´ıÉ¾³ıµÄ½ÚµãµÄË÷Òı
+	// åˆ é™¤ï¼Œè¿”å›æˆåŠŸä¸å¦ï¼ŒniIndexå¾…åˆ é™¤çš„èŠ‚ç‚¹çš„ç´¢å¼•
 	bool RemoveByIndex(int niIndex)
 	{
 		return cmmSequence<CCmmContent,Criterion,InitSize,Increment>::RemoveByIndex(niIndex);
@@ -800,7 +800,7 @@ public:
 
 
 //////////////////////////////////////////////////////////////////////////
-// ¶ÑÕ»½á¹¹
+// å †æ ˆç»“æ„
 template<class CCmmContent,int InitSize=16,int Increment=16>
 class cmmStack :protected cmmVector<CCmmContent,InitSize,Increment>
 {
@@ -820,17 +820,17 @@ public:
 	int Size(void) {
 		return cmmVector<CCmmContent,InitSize,Increment>::Size();
 	}
-	// Çå³ıÈ«²¿³ÉÔ±
+	// æ¸…é™¤å…¨éƒ¨æˆå‘˜
 	void Clear(void){
 		cmmVector<CCmmContent,InitSize,Increment>::Clear();
 	}
 
-	// ·µ»Ø³ÉÔ±¶ÔÏó
+	// è¿”å›æˆå‘˜å¯¹è±¡
 	CCmmContent& operator [](int niIndex){
 		return cmmVector<CCmmContent,InitSize,Increment>::GetEntry(niIndex);
 	}
 
-	// ·µ»Ø³ÉÔ±¶ÔÏó
+	// è¿”å›æˆå‘˜å¯¹è±¡
 	CCmmContent&  GetEntry(int niIndex){
 		return cmmVector<CCmmContent,InitSize,Increment>::GetEntry(niIndex);
 	}
@@ -839,7 +839,7 @@ public:
 
 
 //////////////////////////////////////////////////////////////////////////
-// ¶ÓÁĞ£¬²»ÊÊºÏ´æ·Å¹ı¶à(´óÓÚ32K)µÄ³ÉÔ±£¬Ò²²»ÊÊºÏ´æ·Å¹ı´ó(´óÓÚ16¸ö×Ö½Ú£¬ÈÎºÎÖ¸ÕëÀàĞÍ¶¼Ö»ÓĞ4×Ö½Ú)µÄ¶ÔÏó
+// é˜Ÿåˆ—ï¼Œä¸é€‚åˆå­˜æ”¾è¿‡å¤š(å¤§äº32K)çš„æˆå‘˜ï¼Œä¹Ÿä¸é€‚åˆå­˜æ”¾è¿‡å¤§(å¤§äº16ä¸ªå­—èŠ‚ï¼Œä»»ä½•æŒ‡é’ˆç±»å‹éƒ½åªæœ‰4å­—èŠ‚)çš„å¯¹è±¡
 template<class CCmmContent,int InitSize=16,int Increment=16>
 class cmmQueue:protected cmmFastList<CCmmContent,InitSize,Increment> {
 public:
@@ -863,11 +863,11 @@ public:
 	CCmmContent& Back(void){
 		return cmmFastList<CCmmContent,InitSize,Increment>::GetEntry(cmmFastList<CCmmContent,InitSize,Increment>::Back());
 	}
-	// »ñÈ¡¶ÔÏóÊı
+	// è·å–å¯¹è±¡æ•°
 	int Size(void){
 		return cmmFastList<CCmmContent,InitSize,Increment>::Size();
 	}
-	// Çå³ıÈ«²¿³ÉÔ±
+	// æ¸…é™¤å…¨éƒ¨æˆå‘˜
 	void Clear(){
 		cmmFastList<CCmmContent,InitSize,Increment>::Clear();
 	}
@@ -875,9 +875,9 @@ public:
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÊôĞÔ±í£¬Í¨¹ı4¸ö×Ö½ÚµÄË÷Òı£¬»ñÈ¡ÊôĞÔ±íÖĞµÄÊôĞÔÖµ
-// 4×Ö½ÚË÷Òı²ÉÓÃÓ¢ÎÄ×ÖÄ¸¼ÓÊı×ÖµÄ·½Ê½£¬Èç£º'Att1'£¬Ã¿¸öÊôĞÔ¿ÉÒÔ±£´æµÄÊôĞÔÖµ³¤¶È×î´óÎª1K
-// InitSizeÊÇ³õÊ¼ÉèÖÃµÄ´æ´¢Çø´óĞ¡£¬Èç¹û´æ·ÅÒ»¸öÊôĞÔ£¬ĞèÒª6¸ö×Ö½ÚµÄÍ·¼ÓÉÏÊôĞÔÖµ³¤¶È£»ÈÎºÎÊ±ºò¶¼ĞèÒª6¸ö×Ö½ÚµÄ½ØÖÁ·û
+// å±æ€§è¡¨ï¼Œé€šè¿‡4ä¸ªå­—èŠ‚çš„ç´¢å¼•ï¼Œè·å–å±æ€§è¡¨ä¸­çš„å±æ€§å€¼
+// 4å­—èŠ‚ç´¢å¼•é‡‡ç”¨è‹±æ–‡å­—æ¯åŠ æ•°å­—çš„æ–¹å¼ï¼Œå¦‚ï¼š'Att1'ï¼Œæ¯ä¸ªå±æ€§å¯ä»¥ä¿å­˜çš„å±æ€§å€¼é•¿åº¦æœ€å¤§ä¸º1K
+// InitSizeæ˜¯åˆå§‹è®¾ç½®çš„å­˜å‚¨åŒºå¤§å°ï¼Œå¦‚æœå­˜æ”¾ä¸€ä¸ªå±æ€§ï¼Œéœ€è¦6ä¸ªå­—èŠ‚çš„å¤´åŠ ä¸Šå±æ€§å€¼é•¿åº¦ï¼›ä»»ä½•æ—¶å€™éƒ½éœ€è¦6ä¸ªå­—èŠ‚çš„æˆªè‡³ç¬¦
 template<int InitSize=16,int Increment=30>
 class cmmAttributes:protected cmmVector<unsigned char,InitSize,Increment>
 {
@@ -890,34 +890,34 @@ public:
 public:
 
 	template<typename Type>
-	// ÉèÖÃÒ»¸öÊôĞÔ£¬Èç¹ûÊ§°Ü¿ÉÄÜÊÇÊôĞÔÒÑ¾­´æÔÚ»òÕßÄÚ´æ·ÃÎÊÊ§°Ü
+	// è®¾ç½®ä¸€ä¸ªå±æ€§ï¼Œå¦‚æœå¤±è´¥å¯èƒ½æ˜¯å±æ€§å·²ç»å­˜åœ¨æˆ–è€…å†…å­˜è®¿é—®å¤±è´¥
 	bool SetAttribute(
-		ULONG nuIndex,	// Ë÷Òı£¬±ØĞëÊÇÓÃ×Ö·û´®ĞÎÊ½Ìá¹©£¬Èç£º'Att1'
-		const Type& rToSave,	// ±£´æÎªÒ»¸öULONGµÄÖµ
-		bool nbOverwrite=false	// Èç¹û´æÔÚÊÇ·ñ¸ÄĞ´£¬ÉèÖÃÎªtrue£¬´æÔÚÏàÍ¬Ë÷ÒıµÄÊôĞÔ¾Í¸ÄĞ´Ëü£»Îªfalse£¬´æÔÚÏàÍ¬Ë÷Òı¾Í·µ»ØÊ§°Ü
+		ULONG nuIndex,	// ç´¢å¼•ï¼Œå¿…é¡»æ˜¯ç”¨å­—ç¬¦ä¸²å½¢å¼æä¾›ï¼Œå¦‚ï¼š'Att1'
+		const Type& rToSave,	// ä¿å­˜ä¸ºä¸€ä¸ªULONGçš„å€¼
+		bool nbOverwrite=false	// å¦‚æœå­˜åœ¨æ˜¯å¦æ”¹å†™ï¼Œè®¾ç½®ä¸ºtrueï¼Œå­˜åœ¨ç›¸åŒç´¢å¼•çš„å±æ€§å°±æ”¹å†™å®ƒï¼›ä¸ºfalseï¼Œå­˜åœ¨ç›¸åŒç´¢å¼•å°±è¿”å›å¤±è´¥
 		){
 			return SetAttributeItem(nuIndex,(unsigned char*)&rToSave,sizeof(Type));
 	}
 
-	// É¾³ıÒ»¸öÊôĞÔ£¬Èç¹ûÊ§°Ü¿ÉÄÜÊÇÎ´´æÔÚ»òÕßÄÚ´æ·ÃÎÊÊ§°Ü
+	// åˆ é™¤ä¸€ä¸ªå±æ€§ï¼Œå¦‚æœå¤±è´¥å¯èƒ½æ˜¯æœªå­˜åœ¨æˆ–è€…å†…å­˜è®¿é—®å¤±è´¥
 	bool DeleteAttribute(
-		ULONG nuIndex	// Ë÷Òı£¬±ØĞëÊÇÓÃ×Ö·û´®ĞÎÊ½Ìá¹©£¬Èç£º'Att1'
+		ULONG nuIndex	// ç´¢å¼•ï¼Œå¿…é¡»æ˜¯ç”¨å­—ç¬¦ä¸²å½¢å¼æä¾›ï¼Œå¦‚ï¼š'Att1'
 		);	
 
 
-	// ÉèÖÃÒ»¸öÊôĞÔ£¬Èç¹ûÊ§°Ü¿ÉÄÜÊÇÊôĞÔÒÑ¾­´æÔÚ»òÕßÄÚ´æ·ÃÎÊÊ§°Ü
+	// è®¾ç½®ä¸€ä¸ªå±æ€§ï¼Œå¦‚æœå¤±è´¥å¯èƒ½æ˜¯å±æ€§å·²ç»å­˜åœ¨æˆ–è€…å†…å­˜è®¿é—®å¤±è´¥
 	bool SetAttributeItem(
-		ULONG nuIndex,	// Ë÷Òı£¬±ØĞëÊÇÓÃ×Ö·û´®ĞÎÊ½Ìá¹©£¬Èç£º'Att1'
-		unsigned char* npBuffer,	// ±£´æÎªÒ»¸öBufferµÄÖµ
+		ULONG nuIndex,	// ç´¢å¼•ï¼Œå¿…é¡»æ˜¯ç”¨å­—ç¬¦ä¸²å½¢å¼æä¾›ï¼Œå¦‚ï¼š'Att1'
+		unsigned char* npBuffer,	// ä¿å­˜ä¸ºä¸€ä¸ªBufferçš„å€¼
 		int niValueSize,
-		bool nbOverwrite=false	// Èç¹û´æÔÚÊÇ·ñ¸ÄĞ´£¬ÉèÖÃÎªtrue£¬´æÔÚÏàÍ¬Ë÷ÒıµÄÊôĞÔ¾Í¸ÄĞ´Ëü£»Îªfalse£¬´æÔÚÏàÍ¬Ë÷Òı¾Í·µ»ØÊ§°Ü
+		bool nbOverwrite=false	// å¦‚æœå­˜åœ¨æ˜¯å¦æ”¹å†™ï¼Œè®¾ç½®ä¸ºtrueï¼Œå­˜åœ¨ç›¸åŒç´¢å¼•çš„å±æ€§å°±æ”¹å†™å®ƒï¼›ä¸ºfalseï¼Œå­˜åœ¨ç›¸åŒç´¢å¼•å°±è¿”å›å¤±è´¥
 		);
 
 
 	template<typename Type>
-	// »ñµÃÒ»¸öÊôĞÔ£¬·µ»Ø³É¹¦Óë·ñ
+	// è·å¾—ä¸€ä¸ªå±æ€§ï¼Œè¿”å›æˆåŠŸä¸å¦
 	bool GetAttribute(
-		ULONG nuIndex,	// Ë÷Òı£¬±ØĞëÊÇÓÃ×Ö·û´®ĞÎÊ½Ìá¹©£¬Èç£º'Att1'
+		ULONG nuIndex,	// ç´¢å¼•ï¼Œå¿…é¡»æ˜¯ç”¨å­—ç¬¦ä¸²å½¢å¼æä¾›ï¼Œå¦‚ï¼š'Att1'
 		Type& nrValue
 		){
 			if(GetAttributeItem(nuIndex,(unsigned char*)&nrValue,sizeof(Type))!=sizeof(Type))
@@ -926,11 +926,11 @@ public:
 			return true;
 	}
 
-	// »ñµÃÒ»¸öÊôĞÔ£¬·µ»Ø»ñµÃµÄ×Ö½ÚÊı£¬Ğ¡ÓÚµÈÓÚ0±íÊ¾Ê§°Ü»òÕß²»´æÔÚ¸ÃÊôĞÔ
+	// è·å¾—ä¸€ä¸ªå±æ€§ï¼Œè¿”å›è·å¾—çš„å­—èŠ‚æ•°ï¼Œå°äºç­‰äº0è¡¨ç¤ºå¤±è´¥æˆ–è€…ä¸å­˜åœ¨è¯¥å±æ€§
 	int GetAttributeItem(
-		ULONG nuIndex,	// Ë÷Òı£¬±ØĞëÊÇÓÃ×Ö·û´®ĞÎÊ½Ìá¹©£¬Èç£º'Att1'
+		ULONG nuIndex,	// ç´¢å¼•ï¼Œå¿…é¡»æ˜¯ç”¨å­—ç¬¦ä¸²å½¢å¼æä¾›ï¼Œå¦‚ï¼š'Att1'
 		unsigned char* npBuffer,
-		int niBufSize	// »º³åÇøµÄ´óĞ¡
+		int niBufSize	// ç¼“å†²åŒºçš„å¤§å°
 		);
 
 
@@ -939,17 +939,17 @@ public:
 
 template<int InitSize,int Increment>
 bool cmmAttributes<InitSize, Increment>::DeleteAttribute(
-	ULONG nuIndex		// Ë÷Òı£¬±ØĞëÊÇÓÃ×Ö·û´®ĞÎÊ½Ìá¹©£¬Èç£º'Att1'
+	ULONG nuIndex		// ç´¢å¼•ï¼Œå¿…é¡»æ˜¯ç”¨å­—ç¬¦ä¸²å½¢å¼æä¾›ï¼Œå¦‚ï¼š'Att1'
 	)	
 {
 #define ATTRIBUTE_ZERO_LEN	sizeof(ULONG)
 
-	unsigned char* lpDataBuffer = NULL;		// »ñµÃ´æ´¢ÊôĞÔ±íµÄ»º³åÇø
-	ULONG	luAttrNum = 0;					// ÊôĞÔ¸öÊı
-	USHORT	lsValueLen = 0;					// ÒÑ´æÔÚµÄÊôĞÔÖµµÄ×Ü³¤¶È
+	unsigned char* lpDataBuffer = NULL;		// è·å¾—å­˜å‚¨å±æ€§è¡¨çš„ç¼“å†²åŒº
+	ULONG	luAttrNum = 0;					// å±æ€§ä¸ªæ•°
+	USHORT	lsValueLen = 0;					// å·²å­˜åœ¨çš„å±æ€§å€¼çš„æ€»é•¿åº¦
 	USHORT	lsAttrValueLen = 0;
-	int		liHitIndex = 0;					// ÃüÖĞË÷Òı
-	int		luDataSize = 0;					// ÊôĞÔÁĞ±í×ÜµÄ»º³åÇø³¤¶È
+	int		liHitIndex = 0;					// å‘½ä¸­ç´¢å¼•
+	int		luDataSize = 0;					// å±æ€§åˆ—è¡¨æ€»çš„ç¼“å†²åŒºé•¿åº¦
 	bool	lbIsHit = false;
 	int		liBase;
 	char	lcData;
@@ -957,7 +957,7 @@ bool cmmAttributes<InitSize, Increment>::DeleteAttribute(
 	lpDataBuffer = cmmVector<unsigned char,InitSize,Increment>::GetBuffer();
 	luDataSize = cmmVector<unsigned char,InitSize,Increment>::Size();
 
-	// ½âÎö»ñµÃÊôĞÔÁĞ±í
+	// è§£æè·å¾—å±æ€§åˆ—è¡¨
 	for (int liLoop = 0; liLoop < luDataSize; )
 	{
 		if ('0000' == *(ULONG*)&lpDataBuffer[liLoop])
@@ -972,11 +972,11 @@ bool cmmAttributes<InitSize, Increment>::DeleteAttribute(
 		liLoop += 4;
 	}
 
-	// ²»´æÔÚÖ¸¶¨ÊôĞÔ£¬Ö±½Ó·µ»Ø
+	// ä¸å­˜åœ¨æŒ‡å®šå±æ€§ï¼Œç›´æ¥è¿”å›
 	if (!lbIsHit)
 		return false;
 
-	// »ñÈ¡Ö¸¶¨ÊôĞÔµÄÖµ³¤¶È,Ê×ÏÈ»ñÈ¡µ½µÄÊÇ¸ßÎ»Êı£¬ËùÒÔ²ÉÓÃµ¹ĞòÈ¡ÖµµÄ·½·¨
+	// è·å–æŒ‡å®šå±æ€§çš„å€¼é•¿åº¦,é¦–å…ˆè·å–åˆ°çš„æ˜¯é«˜ä½æ•°ï¼Œæ‰€ä»¥é‡‡ç”¨å€’åºå–å€¼çš„æ–¹æ³•
 	liBase = luAttrNum*sizeof(ULONG) + (liHitIndex+1)*sizeof(USHORT) + ATTRIBUTE_ZERO_LEN;
 	for (int liLoop = 0; liLoop < sizeof(USHORT); liLoop++)
 	{
@@ -991,12 +991,12 @@ bool cmmAttributes<InitSize, Increment>::DeleteAttribute(
 		return false;
 
 
-	// ½âÎöliHitIndexÊôĞÔÖ®Ç°µÄÊôĞÔÄÚÈİµÄ³¤¶È		
+	// è§£æliHitIndexå±æ€§ä¹‹å‰çš„å±æ€§å†…å®¹çš„é•¿åº¦		
 	liBase = luAttrNum*sizeof(ULONG) + ATTRIBUTE_ZERO_LEN;
 	for (int liLoop = 0; liLoop< liHitIndex; liLoop++)
 	{
 		USHORT lsTmpLen = 0;
-		// ½«2×Ö½ÚÆ´³ÉÒ»¸öUSHORT,ÕâÀïĞèÒª×¢Òâlittle-endian¹æÔò
+		// å°†2å­—èŠ‚æ‹¼æˆä¸€ä¸ªUSHORT,è¿™é‡Œéœ€è¦æ³¨æ„little-endianè§„åˆ™
 		lsTmpLen |= cmmVector<unsigned char,InitSize,Increment>::GetEntry(liBase + liLoop*sizeof(USHORT)+1);
 		lsTmpLen = lsTmpLen<<8;
 		lsTmpLen |= cmmVector<unsigned char,InitSize,Increment>::GetEntry(liBase + liLoop*sizeof(USHORT)+0);
@@ -1004,21 +1004,21 @@ bool cmmAttributes<InitSize, Increment>::DeleteAttribute(
 		lsValueLen += lsTmpLen;
 	}
 
-	// É¾³ıÖ¸¶¨ÊôĞÔµÄÖµ,»ùÀàÊı×é»á×Ô¶¯Ç°ÒÆ£¬ËùÒÔÔÚÍ¬Ò»Ë÷ÒıÉÏÁ¬ĞøÉ¾³ı¼´¿É
+	// åˆ é™¤æŒ‡å®šå±æ€§çš„å€¼,åŸºç±»æ•°ç»„ä¼šè‡ªåŠ¨å‰ç§»ï¼Œæ‰€ä»¥åœ¨åŒä¸€ç´¢å¼•ä¸Šè¿ç»­åˆ é™¤å³å¯
 	liBase = luAttrNum*sizeof(ULONG) + luAttrNum*sizeof(USHORT) + lsValueLen + ATTRIBUTE_ZERO_LEN;
 	for (int liLoop = 0; liLoop < lsAttrValueLen; liLoop++)
 	{
 		cmmVector<unsigned char,InitSize,Increment>::RemoveByIndex(liBase);
 	}
 
-	// É¾³ı´æ´¢³¤¶ÈµÄÄÚ´æµ¥Ôª
+	// åˆ é™¤å­˜å‚¨é•¿åº¦çš„å†…å­˜å•å…ƒ
 	liBase = luAttrNum*sizeof(ULONG) + liHitIndex*sizeof(USHORT)+ ATTRIBUTE_ZERO_LEN;
 	for (int liLoop = 0; liLoop < sizeof(USHORT); liLoop++)
 	{
 		cmmVector<unsigned char,InitSize,Increment>::RemoveByIndex(liBase);
 	}
 
-	// É¾³ıÊôĞÔË÷Òı
+	// åˆ é™¤å±æ€§ç´¢å¼•
 	liBase = liHitIndex*sizeof(ULONG);
 	for (int liLoop = 0; liLoop < sizeof(ULONG); liLoop++)
 	{
@@ -1032,20 +1032,20 @@ bool cmmAttributes<InitSize, Increment>::DeleteAttribute(
 
 template<int InitSize,int Increment>
 bool cmmAttributes<InitSize, Increment>::SetAttributeItem(
-	ULONG nuIndex,				// Ë÷Òı£¬±ØĞëÊÇÓÃ×Ö·û´®ĞÎÊ½Ìá¹©£¬Èç£º'Att1'
-	unsigned char* npBuffer,	// ±£´æÎªÒ»¸öBufferµÄÖµ
+	ULONG nuIndex,				// ç´¢å¼•ï¼Œå¿…é¡»æ˜¯ç”¨å­—ç¬¦ä¸²å½¢å¼æä¾›ï¼Œå¦‚ï¼š'Att1'
+	unsigned char* npBuffer,	// ä¿å­˜ä¸ºä¸€ä¸ªBufferçš„å€¼
 	int niValueSize,
-	bool nbOverwrite=false		// Èç¹û´æÔÚÊÇ·ñ¸ÄĞ´£¬ÉèÖÃÎªtrue£¬´æÔÚÏàÍ¬Ë÷ÒıµÄÊôĞÔ¾Í¸ÄĞ´Ëü£»Îªfalse£¬´æÔÚÏàÍ¬Ë÷Òı¾Í·µ»ØÊ§°Ü
+	bool nbOverwrite=false		// å¦‚æœå­˜åœ¨æ˜¯å¦æ”¹å†™ï¼Œè®¾ç½®ä¸ºtrueï¼Œå­˜åœ¨ç›¸åŒç´¢å¼•çš„å±æ€§å°±æ”¹å†™å®ƒï¼›ä¸ºfalseï¼Œå­˜åœ¨ç›¸åŒç´¢å¼•å°±è¿”å›å¤±è´¥
 	)	
 {
 
 #define ATTRIBUTE_ZERO_LEN	sizeof(ULONG)
 
-	unsigned char* lpDataBuffer = NULL;		// »ñµÃ´æ´¢ÊôĞÔ±íµÄ»º³åÇø
-	ULONG	luAttrNum = 0;					// ÊôĞÔ¸öÊı
-	USHORT	lsValueLen = 0;					// ÒÑ´æÔÚµÄÊôĞÔÖµµÄ×Ü³¤¶È
+	unsigned char* lpDataBuffer = NULL;		// è·å¾—å­˜å‚¨å±æ€§è¡¨çš„ç¼“å†²åŒº
+	ULONG	luAttrNum = 0;					// å±æ€§ä¸ªæ•°
+	USHORT	lsValueLen = 0;					// å·²å­˜åœ¨çš„å±æ€§å€¼çš„æ€»é•¿åº¦
 	USHORT	lsAttrValueLen = 0;
-	int		luDataSize = 0;					// ÊôĞÔÁĞ±í×ÜµÄ»º³åÇø³¤¶È
+	int		luDataSize = 0;					// å±æ€§åˆ—è¡¨æ€»çš„ç¼“å†²åŒºé•¿åº¦
 	bool	lbIsHit = false;
 	int		liBase;
 	char	lcData;
@@ -1055,7 +1055,7 @@ bool cmmAttributes<InitSize, Increment>::SetAttributeItem(
 	luDataSize = cmmVector<unsigned char,InitSize,Increment>::Size();
 
 
-	// ½âÎö»ñµÃÊôĞÔÁĞ±í
+	// è§£æè·å¾—å±æ€§åˆ—è¡¨
 	for (int liLoop = 0; liLoop < luDataSize; )
 	{
 		if ('0000' == *(ULONG*)&lpDataBuffer[liLoop])
@@ -1068,21 +1068,21 @@ bool cmmAttributes<InitSize, Increment>::SetAttributeItem(
 		liLoop += 4;
 	}
 
-	// ÒÑ¾­´æÔÚÖ¸¶¨ÊôĞÔ£¬Ôò½øĞĞ¸üĞÂ
+	// å·²ç»å­˜åœ¨æŒ‡å®šå±æ€§ï¼Œåˆ™è¿›è¡Œæ›´æ–°
 	if (lbIsHit)
 	{
-		// ÏÈÉ¾³ı£¬È»ºóĞÂ½¨£¬Ïàµ±ÓÚ¸üĞÂ
+		// å…ˆåˆ é™¤ï¼Œç„¶åæ–°å»ºï¼Œç›¸å½“äºæ›´æ–°
 		DeleteAttribute(nuIndex);
 		luAttrNum--;
 	}
 
 
 	liBase = luAttrNum*sizeof(ULONG) +ATTRIBUTE_ZERO_LEN;
-	// ½âÎö»ñµÃÒÑ´æÔÚµÄÊôĞÔ¶ÔÓ¦µÄÊôĞÔÄÚÈİµÄ³¤¶È		
+	// è§£æè·å¾—å·²å­˜åœ¨çš„å±æ€§å¯¹åº”çš„å±æ€§å†…å®¹çš„é•¿åº¦		
 	for (int liLoop = 0; liLoop< (int)luAttrNum; liLoop++)
 	{
 		USHORT lsTmpLen = 0;
-		// ½«2×Ö½ÚÆ´³ÉÒ»¸öUSHORT,ÕâÀïĞèÒª×¢Òâlittle-endian¹æÔò
+		// å°†2å­—èŠ‚æ‹¼æˆä¸€ä¸ªUSHORT,è¿™é‡Œéœ€è¦æ³¨æ„little-endianè§„åˆ™
 		lsTmpLen |= cmmVector<unsigned char,InitSize,Increment>::GetEntry(liBase + liLoop*sizeof(USHORT)+1);
 		lsTmpLen = lsTmpLen<<8;
 		lsTmpLen |= cmmVector<unsigned char,InitSize,Increment>::GetEntry(liBase + liLoop*sizeof(USHORT)+0);
@@ -1092,7 +1092,7 @@ bool cmmAttributes<InitSize, Increment>::SetAttributeItem(
 
 
 	liBase = luAttrNum*sizeof(ULONG);
-	// ²é¿´ÊÇ·ñÊÇµÚÒ»¸öÊôĞÔ£¬Èç¹ûÊÇ£¬ÔòÊ×ÏÈÌî³äÎ²²¿0
+	// æŸ¥çœ‹æ˜¯å¦æ˜¯ç¬¬ä¸€ä¸ªå±æ€§ï¼Œå¦‚æœæ˜¯ï¼Œåˆ™é¦–å…ˆå¡«å……å°¾éƒ¨0
 	if (liBase == 0)	
 	{
 		liBase += 4;
@@ -1103,7 +1103,7 @@ bool cmmAttributes<InitSize, Increment>::SetAttributeItem(
 			liBase++;
 		}
 	}
-	// ²åÈëĞÂµÄÊôĞÔÖµ	
+	// æ’å…¥æ–°çš„å±æ€§å€¼	
 	liBase = luAttrNum*sizeof(ULONG);	
 	for (int liLoop = 0; liLoop < sizeof(ULONG); liLoop++)
 	{
@@ -1115,7 +1115,7 @@ bool cmmAttributes<InitSize, Increment>::SetAttributeItem(
 	luAttrNum++;
 
 	liBase = luAttrNum*sizeof(ULONG) + (luAttrNum-1)*sizeof(USHORT) + ATTRIBUTE_ZERO_LEN;
-	// ²åÈëĞÂÊôĞÔµÄ³¤¶ÈÖµ
+	// æ’å…¥æ–°å±æ€§çš„é•¿åº¦å€¼
 	for (int liLoop = 0; liLoop < sizeof(USHORT); liLoop++)
 	{
 		lcData= '0';
@@ -1126,7 +1126,7 @@ bool cmmAttributes<InitSize, Increment>::SetAttributeItem(
 
 
 	liBase = luAttrNum*sizeof(ULONG) + luAttrNum*sizeof(USHORT) + ATTRIBUTE_ZERO_LEN + lsValueLen;
-	// ²åÈëĞÂÖµµÄÄÚÈİ
+	// æ’å…¥æ–°å€¼çš„å†…å®¹
 	for (int liLoop = 0; liLoop < niValueSize; liLoop++)
 	{
 		cmmVector<unsigned char,InitSize,Increment>::Insert(liBase, npBuffer[liLoop]);
@@ -1141,20 +1141,20 @@ bool cmmAttributes<InitSize, Increment>::SetAttributeItem(
 
 template<int InitSize,int Increment>
 int cmmAttributes<InitSize, Increment>::GetAttributeItem(
-	ULONG nuIndex,				// Ë÷Òı£¬±ØĞëÊÇÓÃ×Ö·û´®ĞÎÊ½Ìá¹©£¬Èç£º'Att1'
+	ULONG nuIndex,				// ç´¢å¼•ï¼Œå¿…é¡»æ˜¯ç”¨å­—ç¬¦ä¸²å½¢å¼æä¾›ï¼Œå¦‚ï¼š'Att1'
 	unsigned char* npBuffer,
-	int niBufSize				// »º³åÇøµÄ´óĞ¡
+	int niBufSize				// ç¼“å†²åŒºçš„å¤§å°
 	)
 {
 
 #define ATTRIBUTE_ZERO_LEN	sizeof(ULONG)
 
-	unsigned char* lpDataBuffer = NULL;		// »ñµÃ´æ´¢ÊôĞÔ±íµÄ»º³åÇø
-	ULONG	luAttrNum = 0;					// ÊôĞÔ¸öÊı
-	USHORT	lsValueLen = 0;					// ÒÑ´æÔÚµÄÊôĞÔÖµµÄ×Ü³¤¶È
+	unsigned char* lpDataBuffer = NULL;		// è·å¾—å­˜å‚¨å±æ€§è¡¨çš„ç¼“å†²åŒº
+	ULONG	luAttrNum = 0;					// å±æ€§ä¸ªæ•°
+	USHORT	lsValueLen = 0;					// å·²å­˜åœ¨çš„å±æ€§å€¼çš„æ€»é•¿åº¦
 	USHORT	lsAttrValueLen = 0;
-	int		liHitIndex = 0;					// ÃüÖĞË÷Òı
-	int		luDataSize = 0;					// ÊôĞÔÁĞ±í×ÜµÄ»º³åÇø³¤¶È
+	int		liHitIndex = 0;					// å‘½ä¸­ç´¢å¼•
+	int		luDataSize = 0;					// å±æ€§åˆ—è¡¨æ€»çš„ç¼“å†²åŒºé•¿åº¦
 	bool	lbIsHit = false;
 	int		liBase;
 	char	lcData;
@@ -1162,7 +1162,7 @@ int cmmAttributes<InitSize, Increment>::GetAttributeItem(
 	lpDataBuffer = cmmVector<unsigned char,InitSize,Increment>::GetBuffer();
 	luDataSize = cmmVector<unsigned char,InitSize,Increment>::Size();
 
-	// ½âÎö»ñµÃÊôĞÔÁĞ±í
+	// è§£æè·å¾—å±æ€§åˆ—è¡¨
 	for (int liLoop = 0; liLoop < luDataSize; )
 	{
 		if ('0000' == *(ULONG*)&lpDataBuffer[liLoop])
@@ -1177,11 +1177,11 @@ int cmmAttributes<InitSize, Increment>::GetAttributeItem(
 		liLoop += 4;
 	}
 
-	// ²»´æÔÚÖ¸¶¨ÊôĞÔ£¬Ö±½Ó·µ»Ø
+	// ä¸å­˜åœ¨æŒ‡å®šå±æ€§ï¼Œç›´æ¥è¿”å›
 	if (!lbIsHit)
 		return false;
 
-	// »ñÈ¡Ö¸¶¨ÊôĞÔµÄÖµ³¤¶È,Ê×ÏÈ»ñÈ¡µ½µÄÊÇ¸ßÎ»Êı£¬ËùÒÔ²ÉÓÃµ¹ĞòÈ¡ÖµµÄ·½·¨
+	// è·å–æŒ‡å®šå±æ€§çš„å€¼é•¿åº¦,é¦–å…ˆè·å–åˆ°çš„æ˜¯é«˜ä½æ•°ï¼Œæ‰€ä»¥é‡‡ç”¨å€’åºå–å€¼çš„æ–¹æ³•
 	liBase = luAttrNum*sizeof(ULONG) + (liHitIndex+1)*sizeof(USHORT) + ATTRIBUTE_ZERO_LEN;
 	for (int liLoop = 0; liLoop < sizeof(USHORT); liLoop++)
 	{
@@ -1195,12 +1195,12 @@ int cmmAttributes<InitSize, Increment>::GetAttributeItem(
 		return 0;
 
 
-	// ½âÎöliHitIndexÊôĞÔÖ®Ç°µÄÊôĞÔÄÚÈİµÄ³¤¶È		
+	// è§£æliHitIndexå±æ€§ä¹‹å‰çš„å±æ€§å†…å®¹çš„é•¿åº¦		
 	liBase = luAttrNum*sizeof(ULONG) + ATTRIBUTE_ZERO_LEN;
 	for (int liLoop = 0; liLoop< liHitIndex; liLoop++)
 	{
 		USHORT lsTmpLen = 0;
-		// ½«2×Ö½ÚÆ´³ÉÒ»¸öUSHORT,ÕâÀïĞèÒª×¢Òâlittle-endian¹æÔò
+		// å°†2å­—èŠ‚æ‹¼æˆä¸€ä¸ªUSHORT,è¿™é‡Œéœ€è¦æ³¨æ„little-endianè§„åˆ™
 		lsTmpLen |= cmmVector<unsigned char,InitSize,Increment>::GetEntry(liBase + liLoop*sizeof(USHORT)+1);
 		lsTmpLen = lsTmpLen<<8;
 		lsTmpLen |= cmmVector<unsigned char,InitSize,Increment>::GetEntry(liBase + liLoop*sizeof(USHORT)+0);
@@ -1208,7 +1208,7 @@ int cmmAttributes<InitSize, Increment>::GetAttributeItem(
 		lsValueLen += lsTmpLen;
 	}
 
-	// »ñÈ¡Ö¸¶¨ÊôĞÔµÄÖµ
+	// è·å–æŒ‡å®šå±æ€§çš„å€¼
 	liBase = luAttrNum*sizeof(ULONG) + luAttrNum*sizeof(USHORT) + lsValueLen + ATTRIBUTE_ZERO_LEN;
 	for (int liLoop = 0; liLoop < lsAttrValueLen; liLoop++)
 	{

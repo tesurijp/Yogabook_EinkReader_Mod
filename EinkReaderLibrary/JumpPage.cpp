@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -25,7 +25,7 @@ CJumpPage::~CJumpPage(void)
 	
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CJumpPage::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -50,9 +50,9 @@ ERESULT CJumpPage::OnElementCreate(IEinkuiIterator* npIterator)
 }
 
 ULONG CJumpPage::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃEUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨EUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -60,7 +60,7 @@ ULONG CJumpPage::InitOnCreate(
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ¸¸ÀàµÄ·½·¨
+		//é¦–å…ˆè°ƒç”¨çˆ¶ç±»çš„æ–¹æ³•
 		leResult = 	CXuiElement::InitOnCreate(npParent, npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
@@ -99,7 +99,7 @@ ULONG CJumpPage::InitOnCreate(
 	return leResult;
 }
 
-//ÉèÖÃµ±Ç°Ò³Âë
+//è®¾ç½®å½“å‰é¡µç 
 void CJumpPage::SetCurrentPage(int niPage, int niMaxPage)
 {
 	if (niPage <= 0)
@@ -118,7 +118,7 @@ void CJumpPage::SetCurrentPage(int niPage, int niMaxPage)
 	//FLOAT lfPosX = mpIterator->GetSizeX()- mpIteratorCurrentPage->GetSizeX() - 60;
 	//mpIteratorCurrentPage->SetPosition(lfPosX, mpIteratorCurrentPage->GetPositionY());
 
-	//ÉèÖÃÒ³Âë·¶Î§
+	//è®¾ç½®é¡µç èŒƒå›´
 	mpIteratorPageMaxText->SetPosition(mpIteratorPageMax->GetPositionX() + mpIteratorPageMax->GetSizeX() + 10.0f, mpIteratorPageMaxText->GetPositionY()-4.0f);
 	swprintf_s(lszString, MAX_PATH, L"(1-%d)", niMaxPage);
 	CExMessage::SendMessageWithText(mpIteratorPageMaxText, mpIterator, EACT_LABEL_SET_TEXT, lszString, NULL, 0);
@@ -146,7 +146,7 @@ void CJumpPage::ExitModal()
 	
 }
 
-//ÏûÏ¢´¦Àíº¯Êı
+//æ¶ˆæ¯å¤„ç†å‡½æ•°
 ERESULT CJumpPage::ParseMessage(IEinkuiMessage* npMsg)
 {
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
@@ -155,7 +155,7 @@ ERESULT CJumpPage::ParseMessage(IEinkuiMessage* npMsg)
 	{
 	case EMSG_MODAL_ENTER:
 	{
-		//// ´´½¨Òªµ¯³öµÄ¶Ô»°¿ò
+		//// åˆ›å»ºè¦å¼¹å‡ºçš„å¯¹è¯æ¡†
 		//mpIterator->SetVisible(true);
 		luResult = ERESULT_SUCCESS;
 		break;
@@ -167,20 +167,20 @@ ERESULT CJumpPage::ParseMessage(IEinkuiMessage* npMsg)
 
 	if(luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CJumpPage::OnTimer(PSTEMS_TIMER npStatus)
 {
 	mpIterator->SetActive();
 	mpIterator->BringToTop();
 }
 using namespace std;
-//´¦ÀíÊäÈëµÄÊı×Ö
+//å¤„ç†è¾“å…¥çš„æ•°å­—
 void CJumpPage::InputNumber(ULONG nulNumber)
 {
 	wchar_t lszInput[MAX_PATH];
@@ -188,12 +188,12 @@ void CJumpPage::InputNumber(ULONG nulNumber)
 	do 
 	{
 		if(wcslen(mszInputNumber) <= 0 && nulNumber == 0)
-			break; //µÚÒ»¸öÊı×Ö²»ÄÜÊÇ0
+			break; //ç¬¬ä¸€ä¸ªæ•°å­—ä¸èƒ½æ˜¯0
 
 		swprintf_s(lszInput, MAX_PATH, L"%s%d", mszInputNumber, nulNumber);
 		int liNumber = _wtoi(lszInput);
 		if(liNumber > miMaxPage)
-			break; //³¬¹ıÓĞĞ§·¶Î§ÁË
+			break; //è¶…è¿‡æœ‰æ•ˆèŒƒå›´äº†
 
 		wcscpy_s(mszInputNumber, MAX_PATH, lszInput);
 		CExMessage::SendMessageWithText(mpIteratorInput, mpIterator, EACT_LABEL_SET_TEXT, mszInputNumber, NULL, 0);
@@ -211,7 +211,7 @@ void CJumpPage::DeleteNumber()
 		if (wcslen(mszInputNumber) <= 0)
 		{
 			miInputPage = 0;
-			break; //Ã»ÓĞÊı×ÖÁË
+			break; //æ²¡æœ‰æ•°å­—äº†
 		}
 			
 		*(mszInputNumber + wcslen(mszInputNumber) - 1) = UNICODE_NULL;
@@ -224,7 +224,7 @@ void CJumpPage::DeleteNumber()
 	} while (false);
 }
 
-//Çå¿Õµ±Ç°ÊäÈë
+//æ¸…ç©ºå½“å‰è¾“å…¥
 void CJumpPage::ClearNumber()
 {
 	do
@@ -238,7 +238,7 @@ void CJumpPage::ClearNumber()
 	} while (false);
 }
 
-//°´Å¥µ¥»÷ÊÂ¼ş
+//æŒ‰é’®å•å‡»äº‹ä»¶
 ERESULT CJumpPage::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -255,14 +255,14 @@ ERESULT CJumpPage::OnCtlButtonClick(IEinkuiIterator* npSender)
 		}
 		case JP_ID_BT_BACKSPACE:
 		{
-			//É¾³ıÒ»Î»Êı×Ö
+			//åˆ é™¤ä¸€ä½æ•°å­—
 			ClearNumber();
 			mpIteratorBackspace->SetVisible(false);
 			break;
 		}
 		case JP_ID_BT_OK:
 		{
-			//Ìø×ªÖ´ĞĞ
+			//è·³è½¬æ‰§è¡Œ
 			if (miInputPage > 0)
 			{
 				PostMessageToParent(EEVT_ER_PAGE_JUMP, miInputPage);
@@ -283,7 +283,7 @@ ERESULT CJumpPage::OnCtlButtonClick(IEinkuiIterator* npSender)
 		case JP_ID_BT_EIGHT:
 		case JP_ID_BT_NINE:
 		{
-			//ÊäÈëÒ³Âë£¬Èç¹ûÊÇÒ»¸öÊÇ0ÔòºöÂÔ
+			//è¾“å…¥é¡µç ï¼Œå¦‚æœæ˜¯ä¸€ä¸ªæ˜¯0åˆ™å¿½ç•¥
 			InputNumber(llBtnID - 10);
 			if(miInputPage > 0)
 				mpIteratorBackspace->SetVisible(true);
@@ -301,7 +301,7 @@ ERESULT CJumpPage::OnCtlButtonClick(IEinkuiIterator* npSender)
 	return lResult;
 }
 
-//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 ERESULT CJumpPage::OnElementResized(D2D1_SIZE_F nNewSize)
 {
 	/*EI_SIZE ldPaintSize;

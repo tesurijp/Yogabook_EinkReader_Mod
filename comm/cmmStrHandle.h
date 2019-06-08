@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -23,7 +23,7 @@ using std::wstring;
 namespace cmmStrHandle{
 
 //////////////////////////////////////////////////////////////////////////
-// ×Ö·û´®±àÂë×ª»»
+// å­—ç¬¦ä¸²ç¼–ç è½¬æ¢
 
 // wide characters to multi bytes characters by specified code page
 bool RealWideCharToMultibyte(IN const UINT nuiCodePage, IN const wstring& roWStrToConvert, OUT string& roStrConverted);
@@ -51,7 +51,7 @@ bool Utf8ToAnsi(IN const string& roStrToConvert, OUT string& roStrConverted);
 
 
 //////////////////////////////////////////////////////////////////////////
-// ±àÂë¸¨Öú
+// ç¼–ç è¾…åŠ©
 
 // get file code type
 enum FileCodeType
@@ -67,7 +67,7 @@ FileCodeType GetTextFileCodeTypeW(IN const wstring& roWStrFileName);
 
 
 //////////////////////////////////////////////////////////////////////////
-// ×Ö·û×ª×ª»»
+// å­—ç¬¦è½¬è½¬æ¢
 
 // number converts to characters
 bool Int64ToStr(IN const LONGLONG nllIntegerToConvert, OUT string& roStrConverted);
@@ -81,9 +81,9 @@ bool UInt64ToWStr(IN const ULONGLONG nullIntegerToConvert, OUT wstring& roWStrCo
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÎÄ¼şÂ·¾¶²Ù×÷
+// æ–‡ä»¶è·¯å¾„æ“ä½œ
 
-// ÃèÊö£º
-//		»ñÈ¡¸ø¶¨µÄÎÄ¼şÂ·¾¶´æ·ÅÊ±×îÖÕµÄÎ¨Ò»Â·¾¶£¨²»ÓëÒÑ¾­´æÔÚ³åÍ»£©£¨Í¨¹ıÔÚÎÄ¼şÃûºóÃæÀÛ¼ÓÊı×Ö)
+// æè¿°ï¼š
+//		è·å–ç»™å®šçš„æ–‡ä»¶è·¯å¾„å­˜æ”¾æ—¶æœ€ç»ˆçš„å”¯ä¸€è·¯å¾„ï¼ˆä¸ä¸å·²ç»å­˜åœ¨å†²çªï¼‰ï¼ˆé€šè¿‡åœ¨æ–‡ä»¶ååé¢ç´¯åŠ æ•°å­—)
 bool GetUniqueFilePath(IN const wchar_t* nswFilePath, OUT wchar_t* nswUniquePath, IN int niCchBuffer);
 }

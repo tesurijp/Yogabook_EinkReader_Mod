@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -7,42 +7,42 @@
 /*
 	FileName: cmmBaseObject.h
 	Author: Ax
-	Purpose: ¶¨ÒåºÍÊµÏÖÏà¶ÔÍêÉÆµÄC++¶ÔÏóÔ¼ÊøºÍ¹ÜÀí£¬ÌØ±ðÊÇ¶ÔÏóµÄÉúÃüÆÚ¿ØÖÆ£»
-	More words; ±¾ÎÄ¼þÖÐÉæ¼°½Ï¶àµÄÄ£°åÔËÓÃÀý×ÓºÍCÓïÑÔºêµÄÌØÊâÓÃ·¨£¬²¢´øÓÐÏèÊµ×¢ÊÍ£¬±ãÓÚ×÷Õß±¾ÈË½«À´ÔËÓÃºÍ¸´Ï°£¬Ò²ÊÇÆäËû³õÑ§ÕßºÜºÃµÄ²Î¿¼²ÄÁÏ¡£
+	Purpose: å®šä¹‰å’Œå®žçŽ°ç›¸å¯¹å®Œå–„çš„C++å¯¹è±¡çº¦æŸå’Œç®¡ç†ï¼Œç‰¹åˆ«æ˜¯å¯¹è±¡çš„ç”Ÿå‘½æœŸæŽ§åˆ¶ï¼›
+	More words; æœ¬æ–‡ä»¶ä¸­æ¶‰åŠè¾ƒå¤šçš„æ¨¡æ¿è¿ç”¨ä¾‹å­å’ŒCè¯­è¨€å®çš„ç‰¹æ®Šç”¨æ³•ï¼Œå¹¶å¸¦æœ‰ç¿”å®žæ³¨é‡Šï¼Œä¾¿äºŽä½œè€…æœ¬äººå°†æ¥è¿ç”¨å’Œå¤ä¹ ï¼Œä¹Ÿæ˜¯å…¶ä»–åˆå­¦è€…å¾ˆå¥½çš„å‚è€ƒææ–™ã€‚
 	Revision History:
 		Ax Dec.01,2010 Created
 		Ax Mar.16,2011 Corrected the allocation and freeing of objects Derived from 'cmmBaseObject'
 */
 
-// »ù´¡½Ó¿Ú
+// åŸºç¡€æŽ¥å£
 __interface IBaseObject{
 public:
-	// Ôö¼ÓÒýÓÃ£¬·µ»ØÔö¼ÓºóµÄÒýÓÃÊý
+	// å¢žåŠ å¼•ç”¨ï¼Œè¿”å›žå¢žåŠ åŽçš„å¼•ç”¨æ•°
 	virtual int __stdcall AddRefer(void)=NULL;
-	// ÊÍ·Å¶ÔÏó£¬·µ»ØÊÍ·ÅºóµÄÒýÓÃÊý
+	// é‡Šæ”¾å¯¹è±¡ï¼Œè¿”å›žé‡Šæ”¾åŽçš„å¼•ç”¨æ•°
 	virtual int __stdcall Release(void)=NULL;
-	// »ñµÃ¶ÔÏóÃû³Æ
+	// èŽ·å¾—å¯¹è±¡åç§°
 	virtual const wchar_t* __stdcall GetObjectName(void)=NULL;
-	// ¶¯Ì¬ÀàÐÍÈ·ÈÏ£¬nszBuiltInName²»ÄÜÖ±½Ó´«Èë×Ö·û´®£¬±ØÐëÊ¹ÓÃGET_BUILTIN_NAME(XXX)ºêÊéÐ´£¬ÆäÖÐµÄXXXÎª×îÖÕÊµÀý»¯µÄÀàÐÍÃû
+	// åŠ¨æ€ç±»åž‹ç¡®è®¤ï¼ŒnszBuiltInNameä¸èƒ½ç›´æŽ¥ä¼ å…¥å­—ç¬¦ä¸²ï¼Œå¿…é¡»ä½¿ç”¨GET_BUILTIN_NAME(XXX)å®ä¹¦å†™ï¼Œå…¶ä¸­çš„XXXä¸ºæœ€ç»ˆå®žä¾‹åŒ–çš„ç±»åž‹å
 	virtual bool IsKindOf(const wchar_t* nszBuiltInName)=NULL;
 };
 
 
-// »ù´¡½Ó¿ÚÊµÏÖ¸¨ÖúÄ£°å£»×¢ÒâÕâ¸öÄ£°åÖÐµÄ²ÎÊýCInterfaceDerivedFromÓ¦¸ÃÊÇÒ»¸öÅÉÉúÖ®IBaseObjectµÄÐé»ùÀà»òÕßÆäËûµÄ²»ÓÉcmmBaseObjectÄ£°åÅÉÉúµÄÀà£»
-// Èç¹ûÐèÒªÅÉÉúÒ»¸ö±¾ÉíÓÖcmmBaseObjectÅÉÉúµÄÀà£¬²»ÄÜÖØ¸´Ê¹ÓÃ±¾Ä£°å£¬¿¼ÂÇµ½¿ÉÄÜÐèÒªÖ§³ÖÀàÐÍÊ¶±ð£¬ÇëÊ¹ÓÃÏÂÃæµÄºêDEFINE_DERIVED_TYPECAST£¬ËÑË÷Õâ¸öºêÏÂÎÄÓÐÏêÏ¸µÄ½éÉÜ
-// ¸ü¶àÐÅÏ¢£¬²Î¿¼Ê¾Àý¹¤³Ì
+// åŸºç¡€æŽ¥å£å®žçŽ°è¾…åŠ©æ¨¡æ¿ï¼›æ³¨æ„è¿™ä¸ªæ¨¡æ¿ä¸­çš„å‚æ•°CInterfaceDerivedFromåº”è¯¥æ˜¯ä¸€ä¸ªæ´¾ç”Ÿä¹‹IBaseObjectçš„è™šåŸºç±»æˆ–è€…å…¶ä»–çš„ä¸ç”±cmmBaseObjectæ¨¡æ¿æ´¾ç”Ÿçš„ç±»ï¼›
+// å¦‚æžœéœ€è¦æ´¾ç”Ÿä¸€ä¸ªæœ¬èº«åˆcmmBaseObjectæ´¾ç”Ÿçš„ç±»ï¼Œä¸èƒ½é‡å¤ä½¿ç”¨æœ¬æ¨¡æ¿ï¼Œè€ƒè™‘åˆ°å¯èƒ½éœ€è¦æ”¯æŒç±»åž‹è¯†åˆ«ï¼Œè¯·ä½¿ç”¨ä¸‹é¢çš„å®DEFINE_DERIVED_TYPECASTï¼Œæœç´¢è¿™ä¸ªå®ä¸‹æ–‡æœ‰è¯¦ç»†çš„ä»‹ç»
+// æ›´å¤šä¿¡æ¯ï¼Œå‚è€ƒç¤ºä¾‹å·¥ç¨‹
 template<class CClassDeriveTo,class CInterfaceDerivedFrom,const wchar_t* Name>
 class cmmBaseObject:public CInterfaceDerivedFrom{
 protected:
-	// ³õÊ¼»¯º¯Êý£¬¿ÉÒÔÊµÏÖ¸÷ÖÖ²»Í¬²ÎÊýµÄ³õÊ¼»¯º¯Êý£¬×¢Òâ£¬ÅÉÉúÀàÖØÔØInitOnCreateº¯Êýºó£¬Ò»¶¨Òªµ÷ÓÃ»ùÀàµÄInitOnCreateº¯Êý
-	// ·µ»Ø0±íÊ¾³É¹¦£»·µ»ØÖµ×î¸ßÎ»Îª1±íÊ¾·¢ÉúÑÏÖØ´íÎó£¬Ó¦¸ÃÖÕÖ¹³õÊ¼»¯¹ý³Ì£¬·µ»ØµÄ¾ÍÊÇ´íÎóÂë£»·µ»ØÆäËûÖµ±íÊ¾ÆäËû·Ç´íÎó·µ»ØÂë
+	// åˆå§‹åŒ–å‡½æ•°ï¼Œå¯ä»¥å®žçŽ°å„ç§ä¸åŒå‚æ•°çš„åˆå§‹åŒ–å‡½æ•°ï¼Œæ³¨æ„ï¼Œæ´¾ç”Ÿç±»é‡è½½InitOnCreateå‡½æ•°åŽï¼Œä¸€å®šè¦è°ƒç”¨åŸºç±»çš„InitOnCreateå‡½æ•°
+	// è¿”å›ž0è¡¨ç¤ºæˆåŠŸï¼›è¿”å›žå€¼æœ€é«˜ä½ä¸º1è¡¨ç¤ºå‘ç”Ÿä¸¥é‡é”™è¯¯ï¼Œåº”è¯¥ç»ˆæ­¢åˆå§‹åŒ–è¿‡ç¨‹ï¼Œè¿”å›žçš„å°±æ˜¯é”™è¯¯ç ï¼›è¿”å›žå…¶ä»–å€¼è¡¨ç¤ºå…¶ä»–éžé”™è¯¯è¿”å›žç 
 	ULONG InitOnCreate(void){
-		return 0;	// ±¾´¦ÊÇ×îµ×²ãµÄ»ùÀà£¬ÎÞÊµ¼Ê²Ù×÷
+		return 0;	// æœ¬å¤„æ˜¯æœ€åº•å±‚çš„åŸºç±»ï¼Œæ— å®žé™…æ“ä½œ
 	}
 
 public:
-	// ¹¹Ôìº¯Êý½öÓÃÓÚ¸øÄÚ²¿±äÁ¿¸³Óè³õÖµ£¬¶ÔÓÚ¸ü¶àµÄ½øÒ»²½²Ù×÷£¬Èç£º×ÊÔ´ÉêÇë£¬Æô¶¯¹ý³ÌµÈ¶¼Ó¦¸ÃÍ¨¹ýÖØÔØInitOnCreateº¯ÊýÊµÏÖ
-	// ²»ÒªÊ¹ÓÃÆäËûµÄ´ø²ÎÊýµÄ¹¹Ôìº¯Êý
+	// æž„é€ å‡½æ•°ä»…ç”¨äºŽç»™å†…éƒ¨å˜é‡èµ‹äºˆåˆå€¼ï¼Œå¯¹äºŽæ›´å¤šçš„è¿›ä¸€æ­¥æ“ä½œï¼Œå¦‚ï¼šèµ„æºç”³è¯·ï¼Œå¯åŠ¨è¿‡ç¨‹ç­‰éƒ½åº”è¯¥é€šè¿‡é‡è½½InitOnCreateå‡½æ•°å®žçŽ°
+	// ä¸è¦ä½¿ç”¨å…¶ä»–çš„å¸¦å‚æ•°çš„æž„é€ å‡½æ•°
 	cmmBaseObject(){
 		miReferenceCount=1;
 		muFlags = 0;
@@ -55,44 +55,44 @@ public:
 	}
 
 
-	/*/ Õâ¶Î×¢ÊÍµÄ´úÂë£¬ÊµÏÖÁË·Ö½âÆÕÍ¨new ´´½¨¶ÔÏóµÄ¹ý³Ì£¬¼´·ÖÅäÄÚ´æºÍÏÔÊ¾µ÷ÓÃ¹¹Ôìº¯Êý£¬»¹Éæ¼°ÁËplacement newµÄµ÷ÓÃ£»
-	// ¾­¹ý²âÊÔÊÇÕýÈ·µÄ£¬×¢ÊÍµôµÄÔ­ÒòÊÇÓÉ¸ü¼òµ¥µÄÐ´·¨£¬¼´ÏÂÃæÃ»ÓÐ×¢ÊÍµÄµ÷ÓÃ
-	//// ´´½¨¶ÔÏó£¬¾ßÌåÓÃ·¨²Î¿¼±¾ÎÄ¼þÍ·²¿µÄËµÃ÷£»Ò²¿ÉÒÔÊµÏÖÐèÒª²ÎÊýµÄ´´½¨¹¤¾ßº¯Êý£¬Ê¹ÓÃÏÂÃæµÄºê¾Í¿ÉÒÔ×öµ½
+	/*/ è¿™æ®µæ³¨é‡Šçš„ä»£ç ï¼Œå®žçŽ°äº†åˆ†è§£æ™®é€šnew åˆ›å»ºå¯¹è±¡çš„è¿‡ç¨‹ï¼Œå³åˆ†é…å†…å­˜å’Œæ˜¾ç¤ºè°ƒç”¨æž„é€ å‡½æ•°ï¼Œè¿˜æ¶‰åŠäº†placement newçš„è°ƒç”¨ï¼›
+	// ç»è¿‡æµ‹è¯•æ˜¯æ­£ç¡®çš„ï¼Œæ³¨é‡ŠæŽ‰çš„åŽŸå› æ˜¯ç”±æ›´ç®€å•çš„å†™æ³•ï¼Œå³ä¸‹é¢æ²¡æœ‰æ³¨é‡Šçš„è°ƒç”¨
+	//// åˆ›å»ºå¯¹è±¡ï¼Œå…·ä½“ç”¨æ³•å‚è€ƒæœ¬æ–‡ä»¶å¤´éƒ¨çš„è¯´æ˜Žï¼›ä¹Ÿå¯ä»¥å®žçŽ°éœ€è¦å‚æ•°çš„åˆ›å»ºå·¥å…·å‡½æ•°ï¼Œä½¿ç”¨ä¸‹é¢çš„å®å°±å¯ä»¥åšåˆ°
 	static CClassDeriveTo* CreateInstance(void){
-		// ÏÂÃæµÄÓï¾äÊÇµ÷ÓÃC++µÄÄ¬ÈÏµÄoperator new£¬½ö½ö·ÖÅäÄÚ´æ£¬×¢Òâ£¬C++Ä¬ÈÏµÄoperator newÓënew operatorµÄÇø±ð£¬¿ÉÒÔ²Î¿¼C++ primer ÒÔ¼°More effective C++µÄÏà¹Ø½éÉÜ
-		// ¼òµ¥µÄËµ¾ÍÊÇ operator new ½ö½ö·ÖÅäÄÚ´æ¶ø²»µ÷ÓÃ¹¹Ôìº¯Êý£¬¶ønew operator£¨Ò²ÊÇÎÒÃÇÆÕÍ¨Ð´·¨ new ClassA(xx);)ÄÚ²¿»áÈ¥µ÷ÓÃÇ°ÃæµÄ¡®operator new¡¯¶øºóµ÷ÓÃ¶ÔÓ¦µÄ¹¹Ôìº¯Êý£»
-		// ³ýÁËÉÏÃæµÄÁ½ÖÖnewÍâ£¬C++»¹ÓÐÒ»ÖÖ½Ð×öplacement new£¬Õâ¸öº¯Êý²»ÊÇ·ÖÅäº¯Êý£¬ËüÄ¬ÈÏÊÇÍê³É¶ÔÒ»¸ö¸ø¶¨ÄÚ´æµÄ³õÊ¼»¯£¬Ò²¾ÍÊÇµ÷ÓÃ¶ÔÓ¦ÀàµÄ¹¹Ôìº¯Êý£¬µ±È»£¬Ò²¿ÉÒÔ¸ÄÐ´Ëü¶øÊµÏÖ·ÖÅä
-		// ÔÚ±¾Ä£°åÀàÖÐ¾ÍÖØÔØÁËÕâ¸öplancement new¼ûº¯Êývoid* __cdecl operator new(size_t nSize,void* npObj)£¬µ«ÎÒÃÇÖ±½Ó·µ»ØÁË³öÈëµÄnpObj¶ÔÏó£¬ÕâÊÇ·ûºÏC++¹æÔòµÄÊµÏÖ
+		// ä¸‹é¢çš„è¯­å¥æ˜¯è°ƒç”¨C++çš„é»˜è®¤çš„operator newï¼Œä»…ä»…åˆ†é…å†…å­˜ï¼Œæ³¨æ„ï¼ŒC++é»˜è®¤çš„operator newä¸Žnew operatorçš„åŒºåˆ«ï¼Œå¯ä»¥å‚è€ƒC++ primer ä»¥åŠMore effective C++çš„ç›¸å…³ä»‹ç»
+		// ç®€å•çš„è¯´å°±æ˜¯ operator new ä»…ä»…åˆ†é…å†…å­˜è€Œä¸è°ƒç”¨æž„é€ å‡½æ•°ï¼Œè€Œnew operatorï¼ˆä¹Ÿæ˜¯æˆ‘ä»¬æ™®é€šå†™æ³• new ClassA(xx);)å†…éƒ¨ä¼šåŽ»è°ƒç”¨å‰é¢çš„â€˜operator newâ€™è€ŒåŽè°ƒç”¨å¯¹åº”çš„æž„é€ å‡½æ•°ï¼›
+		// é™¤äº†ä¸Šé¢çš„ä¸¤ç§newå¤–ï¼ŒC++è¿˜æœ‰ä¸€ç§å«åšplacement newï¼Œè¿™ä¸ªå‡½æ•°ä¸æ˜¯åˆ†é…å‡½æ•°ï¼Œå®ƒé»˜è®¤æ˜¯å®Œæˆå¯¹ä¸€ä¸ªç»™å®šå†…å­˜çš„åˆå§‹åŒ–ï¼Œä¹Ÿå°±æ˜¯è°ƒç”¨å¯¹åº”ç±»çš„æž„é€ å‡½æ•°ï¼Œå½“ç„¶ï¼Œä¹Ÿå¯ä»¥æ”¹å†™å®ƒè€Œå®žçŽ°åˆ†é…
+		// åœ¨æœ¬æ¨¡æ¿ç±»ä¸­å°±é‡è½½äº†è¿™ä¸ªplancement newè§å‡½æ•°void* __cdecl operator new(size_t nSize,void* npObj)ï¼Œä½†æˆ‘ä»¬ç›´æŽ¥è¿”å›žäº†å‡ºå…¥çš„npObjå¯¹è±¡ï¼Œè¿™æ˜¯ç¬¦åˆC++è§„åˆ™çš„å®žçŽ°
 		CClassDeriveTo* lpObj = (CClassDeriveTo*)operator new(sizeof(CClassDeriveTo),false);
 		if(lpObj != NULL)
 		{
-			// µ÷ÓÃplacement new´Ó¶ø´¥·¢¹¹Ôìº¯Êý£¬ÔÚRelease buildingµÄÇé¿öÏÂ£¬²¢²»»áÈ¥µ÷ÓÃÎÒÃÇÊµÏÖµÄÄÚÁªµÄvoid* __cdecl operator new(size_t nSize,void* npObj)£¬¶øÖ±½Óµ÷ÓÃ¹¹Ôìº¯Êý
-			// »òÕßÖ´ÐÐÄÚÁªµÄ¹¹Ôìº¯Êý´úÂë
+			// è°ƒç”¨placement newä»Žè€Œè§¦å‘æž„é€ å‡½æ•°ï¼Œåœ¨Release buildingçš„æƒ…å†µä¸‹ï¼Œå¹¶ä¸ä¼šåŽ»è°ƒç”¨æˆ‘ä»¬å®žçŽ°çš„å†…è”çš„void* __cdecl operator new(size_t nSize,void* npObj)ï¼Œè€Œç›´æŽ¥è°ƒç”¨æž„é€ å‡½æ•°
+			// æˆ–è€…æ‰§è¡Œå†…è”çš„æž„é€ å‡½æ•°ä»£ç 
 			new (lpObj)CClassDeriveTo();
-			// ÉèÖÃ±êÖ¾±íÊ¾Õâ¸ö¶ÔÏóµÄÄÚ´æÐèÒª±»ÊÍ·Å
+			// è®¾ç½®æ ‡å¿—è¡¨ç¤ºè¿™ä¸ªå¯¹è±¡çš„å†…å­˜éœ€è¦è¢«é‡Šæ”¾
 			lpObj->SetDeleteRequired();
 		}
-		// ·µ»Ø¹¹ÔìÍê±ÏµÄ¶ÔÏó
+		// è¿”å›žæž„é€ å®Œæ¯•çš„å¯¹è±¡
 		return lpObj;
 	}
-	// ½öÎªÁËÅäºÏplacement new¶øÌá¹©µÄÄ¬ÈÏ¹¹Ôìº¯Êý£¬Release BuildingÖÐÎÞÈÎºÎ´æÔÚ
+	// ä»…ä¸ºäº†é…åˆplacement newè€Œæä¾›çš„é»˜è®¤æž„é€ å‡½æ•°ï¼ŒRelease Buildingä¸­æ— ä»»ä½•å­˜åœ¨
 	void* __cdecl operator new(size_t nSize,void* npObj){
 		return npObj;
 	}
-	// ·ÀÖ¹±àÒëÆ÷³öÏÖ¾¯¸æ£¬ÊµÏÖÓëÉÏÒ»¸öº¯ÊýÅä¶ÔµÄÎö¹¹º¯Êý£¬²¢²»»áµ÷ÓÃËü
+	// é˜²æ­¢ç¼–è¯‘å™¨å‡ºçŽ°è­¦å‘Šï¼Œå®žçŽ°ä¸Žä¸Šä¸€ä¸ªå‡½æ•°é…å¯¹çš„æžæž„å‡½æ•°ï¼Œå¹¶ä¸ä¼šè°ƒç”¨å®ƒ
 	void __cdecl operator delete(void* nObj,void* npObj){
 	}*/
 
-	// ´´½¨¶ÔÏó£¬¾ßÌåÓÃ·¨²Î¿¼±¾ÎÄ¼þÍ·²¿µÄËµÃ÷£»Ò²¿ÉÒÔÊµÏÖÐèÒª²ÎÊýµÄ½¨Ôì¹¤¾ßº¯Êý£¬Ê¹ÓÃÏÂÃæµÄºêDEFINE_CUMSTOMIZE_CREATE¾Í¿ÉÒÔ×öµ½
-	// Õâ¶ùÊµÏÖµÄ´úÂëÓëÊ¹ÓÃDEFINE_CUMSTOMIZE_CREATE(CClassDeriveTo,(),())ÊÇÒ»ÑùµÄ£¬Èç¹ûÐÞ¸ÄÁËÕâ¸öµØ·½µÄ´úÂë!!!ÇëÎñ±Ø!!!¶ÔDEFINE_CUMSTOMIZE_CREATE×öµÈ¼ÛÐÞ¸Ä
+	// åˆ›å»ºå¯¹è±¡ï¼Œå…·ä½“ç”¨æ³•å‚è€ƒæœ¬æ–‡ä»¶å¤´éƒ¨çš„è¯´æ˜Žï¼›ä¹Ÿå¯ä»¥å®žçŽ°éœ€è¦å‚æ•°çš„å»ºé€ å·¥å…·å‡½æ•°ï¼Œä½¿ç”¨ä¸‹é¢çš„å®DEFINE_CUMSTOMIZE_CREATEå°±å¯ä»¥åšåˆ°
+	// è¿™å„¿å®žçŽ°çš„ä»£ç ä¸Žä½¿ç”¨DEFINE_CUMSTOMIZE_CREATE(CClassDeriveTo,(),())æ˜¯ä¸€æ ·çš„ï¼Œå¦‚æžœä¿®æ”¹äº†è¿™ä¸ªåœ°æ–¹çš„ä»£ç !!!è¯·åŠ¡å¿…!!!å¯¹DEFINE_CUMSTOMIZE_CREATEåšç­‰ä»·ä¿®æ”¹
 	static CClassDeriveTo* CreateInstance(){
-		// µ÷ÓÃC++Ä¬ÈÏµÄnew operator¶ø²»ÊÇoperator new²Ù×÷£¬ËüÊ×ÏÈµ¼ÖÂÎÒÃÇÖØÔØµÄvoid* __cdecl operator new(size_t nSize,bool nbDummy)±»µ÷ÓÃ£¬¶øºó»áÈ¥µ÷ÓÃÄ¬ÈÏµÄ¹¹Ôìº¯Êý
+		// è°ƒç”¨C++é»˜è®¤çš„new operatorè€Œä¸æ˜¯operator newæ“ä½œï¼Œå®ƒé¦–å…ˆå¯¼è‡´æˆ‘ä»¬é‡è½½çš„void* __cdecl operator new(size_t nSize,bool nbDummy)è¢«è°ƒç”¨ï¼Œè€ŒåŽä¼šåŽ»è°ƒç”¨é»˜è®¤çš„æž„é€ å‡½æ•°
 		CClassDeriveTo* lpObj = new (false)CClassDeriveTo;
 		if(lpObj != NULL)
 		{
-			// ÉèÖÃ±êÖ¾±íÊ¾Õâ¸ö¶ÔÏóµÄÄÚ´æÐèÒª±»ÊÍ·Å
+			// è®¾ç½®æ ‡å¿—è¡¨ç¤ºè¿™ä¸ªå¯¹è±¡çš„å†…å­˜éœ€è¦è¢«é‡Šæ”¾
 			lpObj->SetDeleteRequired();
-			// µ÷ÓÃ³õÊ¼»¯º¯Êý£¬¼ì²é·µ»ØÖµ£¬Èç¹ûÊ§°Ü£¬ÊÍ·Åµô¸Ã¶ÔÏó
+			// è°ƒç”¨åˆå§‹åŒ–å‡½æ•°ï¼Œæ£€æŸ¥è¿”å›žå€¼ï¼Œå¦‚æžœå¤±è´¥ï¼Œé‡Šæ”¾æŽ‰è¯¥å¯¹è±¡
 			if((lpObj->InitOnCreate()&0x80000000)!=0)
 			{
 				lpObj->Release();
@@ -101,72 +101,72 @@ public:
 			else
 				lpObj->CompleteCreation();
 		}
-		// ·µ»Ø¹¹ÔìÍê±ÏµÄ¶ÔÏó
+		// è¿”å›žæž„é€ å®Œæ¯•çš„å¯¹è±¡
 		return lpObj;
 	}
 
-	// ½¨Á¢Íê³Éº¯Êý£¬Ìá¹©Ò»¸öÔÚÅÉÉúÀà½¨Á¢Íê³ÉÖ®¼Êµ÷ÓÃ»ùÀà·½·¨µÄ»ú»á£¬Èç¹û´ÓÄ³¸öÅÉÉúÀà¼ÌÐøÅÉÉúÐÂÀà£¬²¢ÇÒÏ£ÍûÖØÔØÕâ¸ö·½·¨£¬Çë!!!×¢Òâ!!!£¬Ò»¶¨ÒªÔÚÍË³öÖ®Ç°µÄ×îºóÊ±¿Ìµ÷ÓÃ»ùÀàµÄÏàÍ¬·½·¨
-	// ±¾Ä£°åµÄµÚÒ»´ÎÅÉÉúµÄÀà¿ÉÒÔ²»µ÷ÓÃ±¾Ä£°åÊµÀý»¯µÄCompleteCreationº¯Êý£¬ÒòÎªËüÃ»ÓÐÒâÒå
+	// å»ºç«‹å®Œæˆå‡½æ•°ï¼Œæä¾›ä¸€ä¸ªåœ¨æ´¾ç”Ÿç±»å»ºç«‹å®Œæˆä¹‹é™…è°ƒç”¨åŸºç±»æ–¹æ³•çš„æœºä¼šï¼Œå¦‚æžœä»ŽæŸä¸ªæ´¾ç”Ÿç±»ç»§ç»­æ´¾ç”Ÿæ–°ç±»ï¼Œå¹¶ä¸”å¸Œæœ›é‡è½½è¿™ä¸ªæ–¹æ³•ï¼Œè¯·!!!æ³¨æ„!!!ï¼Œä¸€å®šè¦åœ¨é€€å‡ºä¹‹å‰çš„æœ€åŽæ—¶åˆ»è°ƒç”¨åŸºç±»çš„ç›¸åŒæ–¹æ³•
+	// æœ¬æ¨¡æ¿çš„ç¬¬ä¸€æ¬¡æ´¾ç”Ÿçš„ç±»å¯ä»¥ä¸è°ƒç”¨æœ¬æ¨¡æ¿å®žä¾‹åŒ–çš„CompleteCreationå‡½æ•°ï¼Œå› ä¸ºå®ƒæ²¡æœ‰æ„ä¹‰
 	void CompleteCreation(void){
 	}
 
-	// ÏÂÃæÖØÔØnewºÍdeleteµÄÄ¿µÄÊÇ½ûÓÃÄ¬ÈÏµÄnewºÍdelete·½·¨£¬Ê¹ÓÃ±¾Ä£°åÀàÊµÏÖµÄÅÉÉúÀà£¬ÔÚ¶¯Ì¬·ÖÅäÊ±£¬±ØÐëÊ¹ÓÃ³ÉÔ±·½·¨CreateInstance;
-	// ±¾Ä£°åÀàµÄ¿Í»§´úÂë!!!¾ø¶Ô²»Òª!!!Ê¹ÓÃC++µÄ newÀ´´´½¨¶ÔÏó£¬ËäÈ»¿ÉÒÔÍ¨¹ý¡®new (false)ClassA¡¯´´½¨¶ÔÏó£¬µ«ÕâÑù»áµ¼ÖÂRelease·½·¨ÒÅÂ©ÄÚ´æÊÍ·Å£»
-	// Èç¹ûÄ³¸öÅÉÉúÀàÐèÒª×Ô¶¨ÒåÄÚ´æ·ÖÅäµÄ·½·¨£¬ÇëÖØÔØÏÂÃæµÄÁ½¸öº¯Êý
+	// ä¸‹é¢é‡è½½newå’Œdeleteçš„ç›®çš„æ˜¯ç¦ç”¨é»˜è®¤çš„newå’Œdeleteæ–¹æ³•ï¼Œä½¿ç”¨æœ¬æ¨¡æ¿ç±»å®žçŽ°çš„æ´¾ç”Ÿç±»ï¼Œåœ¨åŠ¨æ€åˆ†é…æ—¶ï¼Œå¿…é¡»ä½¿ç”¨æˆå‘˜æ–¹æ³•CreateInstance;
+	// æœ¬æ¨¡æ¿ç±»çš„å®¢æˆ·ä»£ç !!!ç»å¯¹ä¸è¦!!!ä½¿ç”¨C++çš„ newæ¥åˆ›å»ºå¯¹è±¡ï¼Œè™½ç„¶å¯ä»¥é€šè¿‡â€˜new (false)ClassAâ€™åˆ›å»ºå¯¹è±¡ï¼Œä½†è¿™æ ·ä¼šå¯¼è‡´Releaseæ–¹æ³•é—æ¼å†…å­˜é‡Šæ”¾ï¼›
+	// å¦‚æžœæŸä¸ªæ´¾ç”Ÿç±»éœ€è¦è‡ªå®šä¹‰å†…å­˜åˆ†é…çš„æ–¹æ³•ï¼Œè¯·é‡è½½ä¸‹é¢çš„ä¸¤ä¸ªå‡½æ•°
 	void* __cdecl operator new(size_t nSize,bool nbDummy){
 		return ::operator new(nSize);
 	}
-	// ÊµÏÖÓëÉÏÒ»¸öº¯ÊýÅä¶ÔµÄÉ¾³ýº¯Êý£¬µ«²»µ÷ÓÃËü
+	// å®žçŽ°ä¸Žä¸Šä¸€ä¸ªå‡½æ•°é…å¯¹çš„åˆ é™¤å‡½æ•°ï¼Œä½†ä¸è°ƒç”¨å®ƒ
 	void __cdecl operator delete(void* npObj,bool nbDummy){
-		// Ö±½Óµ÷ÓÃC++Ä¬ÈÏÎö¹»º¯Êý
+		// ç›´æŽ¥è°ƒç”¨C++é»˜è®¤æžå¤Ÿå‡½æ•°
 		::operator delete(npObj);
 	}
-	// Ìá¹©Ä¬ÈÏÉ¾³ýº¯Êý
+	// æä¾›é»˜è®¤åˆ é™¤å‡½æ•°
 	void __cdecl operator delete(void* npObj){
-		// Ö±½Óµ÷ÓÃC++Ä¬ÈÏÎö¹»º¯Êý
+		// ç›´æŽ¥è°ƒç”¨C++é»˜è®¤æžå¤Ÿå‡½æ•°
 		::operator delete(npObj);
 	}
 
-	// Ôö¼ÓÒýÓÃ£»Èç¹û²»ÊÇ¶¯Ì¬´´½¨µÄ¶ÔÏó£¨¼´Ç¶Èë±ðµÄ¶ÔÏóÖÐµÄ×Ó¶ÔÏó£¬»òÕß³ÌÐòÕ»ÉÏµÄ¾Ö²¿±äÁ¿¶ÔÏó£©£¬²»ÄÜ¹·Í¨¹ýAddRef¸Ä±äÉúÃüÆÚ£¬²»ÍÆ¼ö½«Ëü´«µÝµ½×÷ÓÃÓòÖ®ÍâµÄÇøÓòÈ¥£¬ÒòÎªËüµÄÉúÃüÆÚ½öÓÉËÞÖ÷µÄÉúÃüÆÚ¾ö¶¨£»
+	// å¢žåŠ å¼•ç”¨ï¼›å¦‚æžœä¸æ˜¯åŠ¨æ€åˆ›å»ºçš„å¯¹è±¡ï¼ˆå³åµŒå…¥åˆ«çš„å¯¹è±¡ä¸­çš„å­å¯¹è±¡ï¼Œæˆ–è€…ç¨‹åºæ ˆä¸Šçš„å±€éƒ¨å˜é‡å¯¹è±¡ï¼‰ï¼Œä¸èƒ½ç‹—é€šè¿‡AddRefæ”¹å˜ç”Ÿå‘½æœŸï¼Œä¸æŽ¨èå°†å®ƒä¼ é€’åˆ°ä½œç”¨åŸŸä¹‹å¤–çš„åŒºåŸŸåŽ»ï¼Œå› ä¸ºå®ƒçš„ç”Ÿå‘½æœŸä»…ç”±å®¿ä¸»çš„ç”Ÿå‘½æœŸå†³å®šï¼›
 	virtual int __stdcall AddRefer(void){
 		return InterlockedIncrement(&miReferenceCount);
 	}
 
-	// ÊÍ·Å¶ÔÏó
+	// é‡Šæ”¾å¯¹è±¡
 	virtual int __stdcall Release(void){
 		int liReval = InterlockedDecrement(&miReferenceCount);
 
 		if(liReval == 0 && (muFlags&1)!=0)
 		{
 			delete this;
-			// ÏÂÃæµÄ´úÂë¿ÉÒÔ·ÖÁ½²½Ö´ÐÐ¶ÔÏóÊÍ·Å
-			////// µ÷ÓÃÎö¹¹º¯Êý
+			// ä¸‹é¢çš„ä»£ç å¯ä»¥åˆ†ä¸¤æ­¥æ‰§è¡Œå¯¹è±¡é‡Šæ”¾
+			////// è°ƒç”¨æžæž„å‡½æ•°
 			//((CClassDeriveTo*)this)->~CClassDeriveTo();
-			////// ÏµÍ³Ä¬ÈÏÄÚ´æÊÍ·Åº¯Êý£¬½«²»ÔÙµ÷ÓÃÎö¹»º¯ÊýÁË
+			////// ç³»ç»Ÿé»˜è®¤å†…å­˜é‡Šæ”¾å‡½æ•°ï¼Œå°†ä¸å†è°ƒç”¨æžå¤Ÿå‡½æ•°äº†
 			//operator delete(this,false);
 		}
 		return liReval;
 	}
 
-	// »ñµÃ¶ÔÏóÃû³Æ
+	// èŽ·å¾—å¯¹è±¡åç§°
 	virtual const wchar_t* __stdcall GetObjectName(void){
 		return Name;
 	}
 
-	// ¶¯Ì¬ÀàÐÍÈ·ÈÏ£¬nszBuiltInName²»ÄÜÖ±½Ó´«Èë×Ö·û´®£¬±ØÐëÊ¹ÓÃGET_BUILTIN_NAME(XXX)ºêÊéÐ´£¬ÆäÖÐµÄXXXÎª×îÖÕÊµÀý»¯µÄÀàÐÍÃû
+	// åŠ¨æ€ç±»åž‹ç¡®è®¤ï¼ŒnszBuiltInNameä¸èƒ½ç›´æŽ¥ä¼ å…¥å­—ç¬¦ä¸²ï¼Œå¿…é¡»ä½¿ç”¨GET_BUILTIN_NAME(XXX)å®ä¹¦å†™ï¼Œå…¶ä¸­çš„XXXä¸ºæœ€ç»ˆå®žä¾‹åŒ–çš„ç±»åž‹å
 	virtual bool IsKindOf(const wchar_t* nszBuiltInName){
 		return nszBuiltInName==Name;
 	}
 
-	// ÉèÖÃÎªÐèÒªÊÍ·ÅµÄÄÚ´æÀàÐÍ
+	// è®¾ç½®ä¸ºéœ€è¦é‡Šæ”¾çš„å†…å­˜ç±»åž‹
 	void SetDeleteRequired(void){
 		muFlags |= 1;
 	}
 
-	// ÉèÖÃÎ»±êÖ¾£¬Õâ¸öº¯ÊýÊÇÌá¹©¸øÅÉÉúÀà»òÕßÍâ²¿µ÷ÓÃµÄ£»ÅÉÉúÀàÒ²¿ÉÒÔÖØÔØÕâ¸öº¯ÊýÒÔÌá¹©¸ø×Ô¼ºµÄÅÉÉúÀàºÍÓÃ»§Ê¹ÓÃ
+	// è®¾ç½®ä½æ ‡å¿—ï¼Œè¿™ä¸ªå‡½æ•°æ˜¯æä¾›ç»™æ´¾ç”Ÿç±»æˆ–è€…å¤–éƒ¨è°ƒç”¨çš„ï¼›æ´¾ç”Ÿç±»ä¹Ÿå¯ä»¥é‡è½½è¿™ä¸ªå‡½æ•°ä»¥æä¾›ç»™è‡ªå·±çš„æ´¾ç”Ÿç±»å’Œç”¨æˆ·ä½¿ç”¨
  	bool SetFlags(
- 		int niIndex,		// ±êÖ¾µÄÐòºÅ£¬´Ó0¿ªÊ¼£»Èç¹ûÅÉÉúÀàÖØÔØÕâ¸öº¯Êý£¬²¢ÇÒ¸ÃÅÉÉúÀàÓÐ2¸ö²»Ï£Íû±»ºóÐøÀàºÍÓÃ»§ÐÞ¸ÄµÄ±êÖ¾£¬ÄÇÃ´ËüµÄº¯Êýµ÷ÓÃÊ±µÄniIndex=0±íÊ¾µÄÊÇËüµÄ»ùÀàµÄ2
- 		bool nbSet=true		// ÉèÖÃ»òÕßÇå³ý±êÖ¾
+ 		int niIndex,		// æ ‡å¿—çš„åºå·ï¼Œä»Ž0å¼€å§‹ï¼›å¦‚æžœæ´¾ç”Ÿç±»é‡è½½è¿™ä¸ªå‡½æ•°ï¼Œå¹¶ä¸”è¯¥æ´¾ç”Ÿç±»æœ‰2ä¸ªä¸å¸Œæœ›è¢«åŽç»­ç±»å’Œç”¨æˆ·ä¿®æ”¹çš„æ ‡å¿—ï¼Œé‚£ä¹ˆå®ƒçš„å‡½æ•°è°ƒç”¨æ—¶çš„niIndex=0è¡¨ç¤ºçš„æ˜¯å®ƒçš„åŸºç±»çš„2
+ 		bool nbSet=true		// è®¾ç½®æˆ–è€…æ¸…é™¤æ ‡å¿—
  		) {
 		niIndex+=1;
 
@@ -179,25 +179,25 @@ public:
 			muFlags &= (~(1<<niIndex));
 
 		return true;
-		// ÏÂÃæ¹©ÅÉÉúÀàÖØÔØ²Î¿¼£¬¼ÙÉè¸ÃÅÉÉúÀàÐèÒª2¸öÎ»±êÖ¾
+		// ä¸‹é¢ä¾›æ´¾ç”Ÿç±»é‡è½½å‚è€ƒï¼Œå‡è®¾è¯¥æ´¾ç”Ÿç±»éœ€è¦2ä¸ªä½æ ‡å¿—
 		// return ::SetFlags(niIndex+2,nbSet);
 	}
 
-	// »ñÈ¡±êÖ¾
+	// èŽ·å–æ ‡å¿—
 	bool TestFlag(int niIndex){
 		niIndex+=1;
 		if(niIndex > 31)
 			return false;
 
 		return (muFlags & (1<<niIndex))!=0;
-		// ÏÂÃæ¹©ÅÉÉúÀàÖØÔØ²Î¿¼£¬¼ÙÉè¸ÃÅÉÉúÀàÐèÒª2¸öÎ»±êÖ¾
+		// ä¸‹é¢ä¾›æ´¾ç”Ÿç±»é‡è½½å‚è€ƒï¼Œå‡è®¾è¯¥æ´¾ç”Ÿç±»éœ€è¦2ä¸ªä½æ ‡å¿—
 		// return ::TestFlag(niIndex+2,nbSet);
 	}
 
 protected:
 	LONG miReferenceCount;
 private:
-	ULONG muFlags;	// ×îµÍÎ»±íÊ¾±¾¶ÔÏóÊÇ·ñÎªnew·ÖÅä£¬´ÎµÍ2Î»±íÊ¾µ÷ÓÃ¹¹Ôìº¯ÊýµÄÊ±ºò£¬¹¹Ôìº¯ÊýÖ´ÐÐµÄÖ´ÐÐ½á¹û
+	ULONG muFlags;	// æœ€ä½Žä½è¡¨ç¤ºæœ¬å¯¹è±¡æ˜¯å¦ä¸ºnewåˆ†é…ï¼Œæ¬¡ä½Ž2ä½è¡¨ç¤ºè°ƒç”¨æž„é€ å‡½æ•°çš„æ—¶å€™ï¼Œæž„é€ å‡½æ•°æ‰§è¡Œçš„æ‰§è¡Œç»“æžœ
 
 };
 
@@ -205,83 +205,83 @@ private:
 #define DEFINE_BUILTIN_NAME(_X) extern const wchar_t glszBN##_X[]=L#_X;
 #define GET_BUILTIN_NAME(_X) glszBN##_X
 
-// ÏÂÃæµÄºê¡®DEFINE_CUMSTOMIZE_CREATE¡¯ÓÃÓÚÊµÏÖ×Ô¶¨ÒåµÄ´´½¨¹¤¾ßº¯Êý£¬ÓÃ·¨Èç£ºDEFINE_CUMSTOMIZE_CREATE(CClassX,(int niA,void* npB),(niA,npB))£»Çë²Î¿¼Ïà¹ØÀý³Ì
+// ä¸‹é¢çš„å®â€˜DEFINE_CUMSTOMIZE_CREATEâ€™ç”¨äºŽå®žçŽ°è‡ªå®šä¹‰çš„åˆ›å»ºå·¥å…·å‡½æ•°ï¼Œç”¨æ³•å¦‚ï¼šDEFINE_CUMSTOMIZE_CREATE(CClassX,(int niA,void* npB),(niA,npB))ï¼›è¯·å‚è€ƒç›¸å…³ä¾‹ç¨‹
 #define DEFINE_CUMSTOMIZE_CREATE(_X,_Y,_Z)	static _X* CreateInstance##_Y{_X* p = new  (false)##_X();if(p!=NULL)\
 {p->SetDeleteRequired();if((p->InitOnCreate##_Z&0x80000000)!=0){p->Release();p=NULL;}else p->CompleteCreation();}return p;}
-	// ½ÓÉÏ£¬ÉÏÃæµÄºêÓÃÓÚÊµÏÖÒ»¸östaticº¯Êý£¬C++µÄ¹æÔòÊÇÅÉÉúÀàÖ»Òª¶¨ÒåÁËÓë»ùÀàÍ¬ÃûµÄ·ÇÐéÄâº¯Êý£¬»ùÀàµÄËùÓÐÍ¬ÃûµÄÐéÄâº¯Êý¶¼²»»á±©Â¶¸øÍâ²¿£¬ÓëÕâ¶ùµÄÒâÒå¾ÍÊÇ
-	// Èç¹ûÄãÓÃÉÏÃæµÄºêÊµÏÖÁËÒ»¸ö×Ô¼ºÌØ¶¨µÄCreateInstance(ÈÎÒâ²ÎÊý)£¬ÄÇÃ´Èç¹ûÄãÅÉÉúÀàÒ²Ï£ÍûÔÊÐíÓÃ»§Ê¹ÓÃÔ­Ê¼µÄCreateInstance(void)£¬ÄÇ£¬ÇëÔÚ´úÂëÖÐ¼ÓÈëDEFINE_CUMSTOMIZE_CREATE(ÅÉÉúÀàÃû,(bool nbTest),(nbTest))
+	// æŽ¥ä¸Šï¼Œä¸Šé¢çš„å®ç”¨äºŽå®žçŽ°ä¸€ä¸ªstaticå‡½æ•°ï¼ŒC++çš„è§„åˆ™æ˜¯æ´¾ç”Ÿç±»åªè¦å®šä¹‰äº†ä¸ŽåŸºç±»åŒåçš„éžè™šæ‹Ÿå‡½æ•°ï¼ŒåŸºç±»çš„æ‰€æœ‰åŒåçš„è™šæ‹Ÿå‡½æ•°éƒ½ä¸ä¼šæš´éœ²ç»™å¤–éƒ¨ï¼Œä¸Žè¿™å„¿çš„æ„ä¹‰å°±æ˜¯
+	// å¦‚æžœä½ ç”¨ä¸Šé¢çš„å®å®žçŽ°äº†ä¸€ä¸ªè‡ªå·±ç‰¹å®šçš„CreateInstance(ä»»æ„å‚æ•°)ï¼Œé‚£ä¹ˆå¦‚æžœä½ æ´¾ç”Ÿç±»ä¹Ÿå¸Œæœ›å…è®¸ç”¨æˆ·ä½¿ç”¨åŽŸå§‹çš„CreateInstance(void)ï¼Œé‚£ï¼Œè¯·åœ¨ä»£ç ä¸­åŠ å…¥DEFINE_CUMSTOMIZE_CREATE(æ´¾ç”Ÿç±»å,(bool nbTest),(nbTest))
 
-	// ÔÚÎÒÐ´ÉÏÃæµÄºêµÄÇ°Ò»Ìì£¬ÎÒ·¸ÁË¸öÐ¡´íÎó£¬ÎÒ´íÎóµØÊÔÍ¼Ê¹ÓÃ##_XÎªÁË½«ÊäÈë_XÕ¹¿ªÎªÔ­ÎÄ£¬ÆäÊµÖ±½ÓÐ´_X¾ÍÊÇÕ¹¿ªÔ­ÎÄ£¬Ê¹ÓÃ##µÄÄ¿µÄÊÇÍ¬ÆäËû×Ö·ûÏà»¥ÏÎ½ÓÊ±ÓÃÀ´Çø·ÖºÍÕ¹¿ªµÄ£»
-	// ÒòÎªÊ¹ÓÃ##_XËùÒÔÎÒÓöµ½ÁËÎÊÌâ£¬¡®##_X¡¯²»ÄÜ¸úÔÚ¿Õ¸ñºóÃæ£¬ÎªÁËÔÚ¿Õ¸ñºóÌí¼Ó_X×Ö·û´®£¬Ö»ÄÜÀûÓÃºêµÚ¶þ´ÎÕ¹¿ªµÄ°ì·¨
+	// åœ¨æˆ‘å†™ä¸Šé¢çš„å®çš„å‰ä¸€å¤©ï¼Œæˆ‘çŠ¯äº†ä¸ªå°é”™è¯¯ï¼Œæˆ‘é”™è¯¯åœ°è¯•å›¾ä½¿ç”¨##_Xä¸ºäº†å°†è¾“å…¥_Xå±•å¼€ä¸ºåŽŸæ–‡ï¼Œå…¶å®žç›´æŽ¥å†™_Xå°±æ˜¯å±•å¼€åŽŸæ–‡ï¼Œä½¿ç”¨##çš„ç›®çš„æ˜¯åŒå…¶ä»–å­—ç¬¦ç›¸äº’è¡”æŽ¥æ—¶ç”¨æ¥åŒºåˆ†å’Œå±•å¼€çš„ï¼›
+	// å› ä¸ºä½¿ç”¨##_Xæ‰€ä»¥æˆ‘é‡åˆ°äº†é—®é¢˜ï¼Œâ€˜##_Xâ€™ä¸èƒ½è·Ÿåœ¨ç©ºæ ¼åŽé¢ï¼Œä¸ºäº†åœ¨ç©ºæ ¼åŽæ·»åŠ _Xå­—ç¬¦ä¸²ï¼Œåªèƒ½åˆ©ç”¨å®ç¬¬äºŒæ¬¡å±•å¼€çš„åŠžæ³•
 	//#define __CMM_CC1(_X)
 	//#define __CMM_CC2(_X) __CMM_CC1(_X) 
 	//#define DEFINE_CUMSTOMIZE_CREATE(_X,_Y,_Z)	static __CMM_CC2(_X)##_X* CreateInstance##_Y{##_X* p = new  (false)##_X##_Z;if(p!=NULL)\
 	//{p->SetDeleteRequired();if(p->GetConstructorResult()==1){p->Release();p=NULL;}}return p;}
-	// ÕâÊÇÒ»¸öÀûÓÃºêµÄÖð´ÎÕ¹¿ª±àÐ´Ô¤´¦Àí´úÂëµÄºÃË¼Â·£¬ËäÈ»ÊÇ´íÎó£¬µ«ÖµµÃ²Î¿¼
+	// è¿™æ˜¯ä¸€ä¸ªåˆ©ç”¨å®çš„é€æ¬¡å±•å¼€ç¼–å†™é¢„å¤„ç†ä»£ç çš„å¥½æ€è·¯ï¼Œè™½ç„¶æ˜¯é”™è¯¯ï¼Œä½†å€¼å¾—å‚è€ƒ
 
-// ÖØÔØÀàÐÍÊ¶±ðºê£¬_XÌîÐ´ÅÉÉúÀàÃû£¬_YÌîÐ´»ùÀàÃû£¬Õâ¸öº¯ÊýÊµÏÖµÄÔ­ÀíÊÇ£¬µ±ÊäÈëµÄÃû³Æ²»ÊÇÎÒÃÇ×ÔÉíÊ±£¬ÎÒÃÇÐèÒªÑ¯ÎÊ»ùÀàÊÇ·ñÊÇËüµÄÃû×Ö
-// ¸ü¶à°ïÖú¼ûÏÂÎÄ
+// é‡è½½ç±»åž‹è¯†åˆ«å®ï¼Œ_Xå¡«å†™æ´¾ç”Ÿç±»åï¼Œ_Yå¡«å†™åŸºç±»åï¼Œè¿™ä¸ªå‡½æ•°å®žçŽ°çš„åŽŸç†æ˜¯ï¼Œå½“è¾“å…¥çš„åç§°ä¸æ˜¯æˆ‘ä»¬è‡ªèº«æ—¶ï¼Œæˆ‘ä»¬éœ€è¦è¯¢é—®åŸºç±»æ˜¯å¦æ˜¯å®ƒçš„åå­—
+// æ›´å¤šå¸®åŠ©è§ä¸‹æ–‡
 #define DEFINE_DERIVED_TYPECAST(_X,_Y) virtual bool IsKindOf(const wchar_t* s){if(s!=GET_BUILTIN_NAME(_X))return _Y::IsKindOf(s);return true;}virtual const wchar_t* __stdcall GetObjectName(void){return GET_BUILTIN_NAME(_X);}
-// Õ¹¿ªµÄÑù×ÓµÈ¼ÛÓÚ
-#if 0	// ÏÂÃæÕâ¶ÎÊÇÑÝÊ¾£¬²»²ÎÓë±àÒë
+// å±•å¼€çš„æ ·å­ç­‰ä»·äºŽ
+#if 0	// ä¸‹é¢è¿™æ®µæ˜¯æ¼”ç¤ºï¼Œä¸å‚ä¸Žç¼–è¯‘
 virtual bool IsKindOf(const wchar_t* nszBuiltInName){
 	if(nszBuiltInName!=Name)
 		return CClassDerivedFrom::IsKindOf(nszBuiltInName);
 	return true;
 }
 
-// ´Ó»ù´¡½Ó¿ÚÊµÏÖÀàÅÉÉúÐÂÀàÓÃ·½·¨
+// ä»ŽåŸºç¡€æŽ¥å£å®žçŽ°ç±»æ´¾ç”Ÿæ–°ç±»ç”¨æ–¹æ³•
 DECLARE_BUILTIN_NAME(CNewDerivedClass)
-class CNewDerivedClass:public CExistBaseClass		// CExistBaseClass±ØÐëÊÇÒ»¸öÓÃcmmBaseObjectÅÉÉúµÄ»ù´¡Àà
+class CNewDerivedClass:public CExistBaseClass		// CExistBaseClasså¿…é¡»æ˜¯ä¸€ä¸ªç”¨cmmBaseObjectæ´¾ç”Ÿçš„åŸºç¡€ç±»
 {
 public:
 	//////////////////////////////////////////////////////////////////////////
-	// ¿ÉÊµÏÖ¹¹Ôìº¯Êý
+	// å¯å®žçŽ°æž„é€ å‡½æ•°
 	//////////////////////////////////////////////////////////////////////////
 	CNewDerivedClass(){}
 
 	//////////////////////////////////////////////////////////////////////////
-	// ¿ÉÊµÏÖÖØÔØº¯Êý
+	// å¯å®žçŽ°é‡è½½å‡½æ•°
 	//////////////////////////////////////////////////////////////////////////
 	~CNewDerivedClass(){}
 
 	//////////////////////////////////////////////////////////////////////////
-	// ¿ÉÖØÔØ³õÊ¼»¯º¯Êý
+	// å¯é‡è½½åˆå§‹åŒ–å‡½æ•°
 	//////////////////////////////////////////////////////////////////////////
-	// ¶¨Òå×Ô¼ºµÄ³õÊ¼»¯º¯Êý
+	// å®šä¹‰è‡ªå·±çš„åˆå§‹åŒ–å‡½æ•°
 	ULONG InitOnCreate(){
-		// Òªµ÷ÓÃ»ùÀàµÄ³õÊ¼»¯º¯Êý
+		// è¦è°ƒç”¨åŸºç±»çš„åˆå§‹åŒ–å‡½æ•°
 		CExistBaseClass::InitOnCreate();
-		// ÔÚµ÷ÓÃ»ùÀà³õÊ¼»¯ºó£¬ÔÙµ÷ÓÃ×Ô¼ºµÄÆäËû³õÊ¼»¯´úÂë
+		// åœ¨è°ƒç”¨åŸºç±»åˆå§‹åŒ–åŽï¼Œå†è°ƒç”¨è‡ªå·±çš„å…¶ä»–åˆå§‹åŒ–ä»£ç 
 	}
-	// Ò²¿ÉÒÔ´øÓÐ²ÎÊý 
+	// ä¹Ÿå¯ä»¥å¸¦æœ‰å‚æ•° 
 	ULONG InitOnCreate(int niParam){
-		// Ò²¿ÉÒÔÔÚµ÷ÓÃ»ùÀà³õÊ¼»¯Ç°£¬ÏÈµ÷ÓÃ×Ô¼ºµÄÄ³Ð©³õÊ¼»¯´úÂë
+		// ä¹Ÿå¯ä»¥åœ¨è°ƒç”¨åŸºç±»åˆå§‹åŒ–å‰ï¼Œå…ˆè°ƒç”¨è‡ªå·±çš„æŸäº›åˆå§‹åŒ–ä»£ç 
 		...
-		// Òªµ÷ÓÃ»ùÀàµÄ³õÊ¼»¯º¯Êý
+		// è¦è°ƒç”¨åŸºç±»çš„åˆå§‹åŒ–å‡½æ•°
 		CExistBaseClass::InitOnCreate(niParam);
-		// »ùÀà³õÊ¼»¯Ö®ºó£¬ÔÙµ÷ÓÃ×Ô¼ºµÄÊ£ÏÂµÄ³õÊ¼»¯´úÂë
+		// åŸºç±»åˆå§‹åŒ–ä¹‹åŽï¼Œå†è°ƒç”¨è‡ªå·±çš„å‰©ä¸‹çš„åˆå§‹åŒ–ä»£ç 
 		...
 	}
 	//////////////////////////////////////////////////////////////////////////
-	// Ò»¶¨ÒªÖØÔØ´´½¨¹¤¾ßº¯Êý
+	// ä¸€å®šè¦é‡è½½åˆ›å»ºå·¥å…·å‡½æ•°
 	//////////////////////////////////////////////////////////////////////////
-	// ¿ÉÒÔÊÇ²»´øÓÐµ÷ÓÃ²ÎÊýµÄ
+	// å¯ä»¥æ˜¯ä¸å¸¦æœ‰è°ƒç”¨å‚æ•°çš„
 	DEFINE_CUMSTOMIZE_CREATE(CNewDerivedClass,(),())
-	// Ò²¿ÉÒÔÊÇ´øÓÐµ÷ÓÃ²ÎÊýµÄ
+	// ä¹Ÿå¯ä»¥æ˜¯å¸¦æœ‰è°ƒç”¨å‚æ•°çš„
 	DEFINE_CUMSTOMIZE_CREATE(CNewDerivedClass,(int niParam),(niParam))
 
 	//////////////////////////////////////////////////////////////////////////
-	// Ò»¶¨Òª¼ÓÈëÕâÒ»ÐÐ£¬ÕâÊÇÖØÔØÀàÐÍÊ¶±ð
+	// ä¸€å®šè¦åŠ å…¥è¿™ä¸€è¡Œï¼Œè¿™æ˜¯é‡è½½ç±»åž‹è¯†åˆ«
 	DEFINE_DERIVED_TYPECAST(CNewDerivedClass,CExistBaseClass)
 
 };
 
-#endif//ÑÝÊ¾½áÊø
+#endif//æ¼”ç¤ºç»“æŸ
 
 
 
-// ¼òµ¥»¥³â·ÃÎÊ¶ÔÏó£¬ÓÃÀ´¿ØÖÆ¶Ô¶àÏß³Ì¹²ÏíÊý¾ÝµÄ·ÃÎÊ£¬ÄÚºËÌ¬Ê¹ÓÃSpinLock£¬ÓÃ»§Ì¬Ê¹ÓÃCriticalSection
+// ç®€å•äº’æ–¥è®¿é—®å¯¹è±¡ï¼Œç”¨æ¥æŽ§åˆ¶å¯¹å¤šçº¿ç¨‹å…±äº«æ•°æ®çš„è®¿é—®ï¼Œå†…æ ¸æ€ä½¿ç”¨SpinLockï¼Œç”¨æˆ·æ€ä½¿ç”¨CriticalSection
 class CExclusiveAccess{
 public:
 	void Enter(){
@@ -293,7 +293,7 @@ public:
 #else
 		EnterCriticalSection((LPCRITICAL_SECTION)&CriticalSection);
 		//if(mhMutex == NULL)
-		//	RaiseException(0x888888,0,0,0); // ¾ø¶Ô²»ÄÜ¼ÌÐøÖ´ÐÐ£¬ÈÃ³ÌÐò±ÀÀ£
+		//	RaiseException(0x888888,0,0,0); // ç»å¯¹ä¸èƒ½ç»§ç»­æ‰§è¡Œï¼Œè®©ç¨‹åºå´©æºƒ
 
 		//WaitForSingleObject(mhMutex,INFINITE);
 #endif//KERNEL_CODE
@@ -320,7 +320,7 @@ public:
 		SavedIrql = PASSIVE_LEVEL;
 #elif defined(NATIVE_CODE)
 		if(ZwCreateEvent(&mhEvent,SYNCHRONIZE|DELETE|EVENT_MODIFY_STATE,NULL,SynchronizationEvent,TRUE)!=STATUS_SUCCESS)
-			mhEvent = NULL; // ???ÉÐÎ´²âÊÔ
+			mhEvent = NULL; // ???å°šæœªæµ‹è¯•
 
 		#ifdef _DEBUG
 		if(mhEvent == NULL)

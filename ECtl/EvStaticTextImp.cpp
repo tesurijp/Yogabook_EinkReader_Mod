@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -28,15 +28,15 @@ CEvStaticText::~CEvStaticText()
 	CMM_SAFE_DELETE(mpswText);
 }
 
-// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓÐÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+// é”€æ¯å…ƒç´ ï¼Œç”¨äºŽé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+// ä»Žè€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€ŒåŽå†å°†è‡ªå·±ä»Žå…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 ERESULT CEvStaticText::OnElementDestroy()
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
 
 	do
 	{
-		CXuiElement::OnElementDestroy();	//µ÷ÓÃ»ùÀà
+		CXuiElement::OnElementDestroy();	//è°ƒç”¨åŸºç±»
 
 		
 		lResult = ERESULT_SUCCESS;
@@ -47,21 +47,21 @@ ERESULT CEvStaticText::OnElementDestroy()
 }
 
 ULONG CEvStaticText::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàÐÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊýµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓÐÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»åž‹EType
+	IN ULONG nuEID	// å¦‚æžœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æžœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-		//ÉèÖÃ×Ô¼ºµÄÀàÐÍ
+		//è®¾ç½®è‡ªå·±çš„ç±»åž‹
 		mpIterator->ModifyStyles(/*EITR_STYLE_CONTROL*/NULL,EITR_STYLE_MOUSE);
 
 		leResult = ERESULT_SUCCESS;
@@ -72,7 +72,7 @@ ULONG CEvStaticText::InitOnCreate(
 }
 
 
-//×°ÔØÅäÖÃ×ÊÔ´
+//è£…è½½é…ç½®èµ„æº
 ERESULT CEvStaticText::LoadResource()
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -82,7 +82,7 @@ ERESULT CEvStaticText::LoadResource()
 
 	do 
 	{
-		lpValue = mpTemplete->GetSubKey(TF_ID_ST_TEXT); //ÏÔÊ¾ÎÄ×Ö
+		lpValue = mpTemplete->GetSubKey(TF_ID_ST_TEXT); //æ˜¾ç¤ºæ–‡å­—
 		if (lpValue != NULL)
 		{
 			llLen = lpValue->GetValueLength();
@@ -93,14 +93,14 @@ ERESULT CEvStaticText::LoadResource()
 			CMM_SAFE_RELEASE(lpValue);
 		}
 
-		//ÎÄ×ÖÑÕÉ«
+		//æ–‡å­—é¢œè‰²
 		mdwColor = (DWORD)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ST_COLOR,0xFFFFFFFF);
 		mLimit = (STETXT_BMP_INIT::eSIZELIMIT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ST_SIZE_LIMIT,0);
 		mTalign = (STETXT_BMP_INIT::eTEXTALIGN)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ST_TALIGN,0);
 		mPalign = (STETXT_BMP_INIT::ePARAALIGN)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ST_PALIGN,0);
 		mFontWidget = (STETXT_BMP_INIT::eFONTWEIGHT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ST_FONTWIDGET,0);
 
-		//×ÖÌå
+		//å­—ä½“
 		lpValue = mpTemplete->GetSubKey(TF_ID_ST_FONT);
 		if (lpValue != NULL)
 		{
@@ -116,20 +116,20 @@ ERESULT CEvStaticText::LoadResource()
 		CMM_SAFE_RELEASE(lpValue);
 
 		if(mpswFontName !=NULL && mpswFontName[0] == UNICODE_NULL)
-			CMM_SAFE_DELETE(mpswFontName);	//Èç¹ûÃ»ÓÐ¶Áµ½£¬¾ÍÇåµô
+			CMM_SAFE_DELETE(mpswFontName);	//å¦‚æžœæ²¡æœ‰è¯»åˆ°ï¼Œå°±æ¸…æŽ‰
 
 		if(mpswFontName == NULL)
 		{
 			llLen = wcslen(L"Tahoma") + 1;
 			mpswFontName = new wchar_t[llLen];
 			BREAK_ON_NULL(mpswFontName);
-			wcscpy_s(mpswFontName,llLen,L"Tahoma");	//Ä¬ÈÏ×ÖÌå
+			wcscpy_s(mpswFontName,llLen,L"Tahoma");	//é»˜è®¤å­—ä½“
 		}
 
-		//×ÖºÅ
+		//å­—å·
 		mdwFontSize = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ST_FONT_SIZE,15);
 
-		//ÖØÐÂÉú³ÉÍ¼Æ¬
+		//é‡æ–°ç”Ÿæˆå›¾ç‰‡
 		ReCreateBmp();
 
 		leResult = ERESULT_SUCCESS;
@@ -139,11 +139,11 @@ ERESULT CEvStaticText::LoadResource()
 	return leResult;
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíÐéº¯Êý£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊýµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖÐ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®žçŽ°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åŽï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºŽä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›žERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›žå€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvStaticText::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®žçŽ°åŽŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€ŒåŽå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
@@ -151,8 +151,8 @@ ERESULT CEvStaticText::ParseMessage(IEinkuiMessage* npMsg)
 	{
 	case EACT_STATICTEXT_SET_TEXT:
 		{
-			//¸ü»»ÏÔÊ¾ÎÄ×Ö
-			// »ñÈ¡ÊäÈëÊý¾Ý
+			//æ›´æ¢æ˜¾ç¤ºæ–‡å­—
+			// èŽ·å–è¾“å…¥æ•°æ®
 			wchar_t* lpswText = (wchar_t*)npMsg->GetInputData();
 			SetText(lpswText);
 
@@ -160,14 +160,14 @@ ERESULT CEvStaticText::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_STATICTEXT_GET_TEXT:
 		{
-			//»ñÈ¡ÏÔÊ¾ÎÄ×Ö
+			//èŽ·å–æ˜¾ç¤ºæ–‡å­—
 			if(npMsg->GetOutputBufferSize() != sizeof(wchar_t*))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
 				break;
 			}
 
-			// ÉèÖÃÊä³öÊý¾Ý
+			// è®¾ç½®è¾“å‡ºæ•°æ®
 			wchar_t** lpOut = (wchar_t**)npMsg->GetOutputBuffer();
 			*lpOut = mpswText;
 
@@ -175,7 +175,7 @@ ERESULT CEvStaticText::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_STATICTEXT_SET_TEXT_COLOR:
 		{
-			//ÉèÖÃÎÄ×ÖÑÕÉ«
+			//è®¾ç½®æ–‡å­—é¢œè‰²
 			if(npMsg->GetOutputBufferSize() != sizeof(LONG))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -184,7 +184,7 @@ ERESULT CEvStaticText::ParseMessage(IEinkuiMessage* npMsg)
 			LONG * lpValue = (LONG*)npMsg->GetInputData();
 			mdwColor = *lpValue;
 
-			ReCreateBmp();	//ÖØÐÂÉú³ÉÍ¼Æ¬
+			ReCreateBmp();	//é‡æ–°ç”Ÿæˆå›¾ç‰‡
 
 			luResult = ERESULT_SUCCESS;
 
@@ -196,13 +196,13 @@ ERESULT CEvStaticText::ParseMessage(IEinkuiMessage* npMsg)
 
 	if(luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êý£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æŽ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓÐÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºŽçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»Žè€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åŽå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvStaticText::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -212,7 +212,7 @@ ERESULT CEvStaticText::OnElementCreate(IEinkuiIterator* npIterator)
 		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
-		//×°ÔØÒ»Ð©±ØÒªµÄÅäÖÃ×ÊÔ´
+		//è£…è½½ä¸€äº›å¿…è¦çš„é…ç½®èµ„æº
 		LoadResource();
 
 		lResult = ERESULT_SUCCESS;
@@ -221,7 +221,7 @@ ERESULT CEvStaticText::OnElementCreate(IEinkuiIterator* npIterator)
 	return lResult;
 }
 
-//¸ü»»ÏÔÊ¾ÎÄ×Ö
+//æ›´æ¢æ˜¾ç¤ºæ–‡å­—
 bool CEvStaticText::SetText(wchar_t* npswText)
 {
 	bool lbRet = false;
@@ -230,15 +230,15 @@ bool CEvStaticText::SetText(wchar_t* npswText)
 	{
 		BREAK_ON_NULL(npswText);
 
-		//¹Ì¶¨´óÐ¡£¬¾ÍËã¸Ä±äÁË×Ö·û´®£¬¸ÃÔªËØµÄ²Î¿¼´óÐ¡Ò²²»»á±ä»¯
+		//å›ºå®šå¤§å°ï¼Œå°±ç®—æ”¹å˜äº†å­—ç¬¦ä¸²ï¼Œè¯¥å…ƒç´ çš„å‚è€ƒå¤§å°ä¹Ÿä¸ä¼šå˜åŒ–
 
-		CMM_SAFE_DELETE(mpswText);	//Çå³ýÔ­À´µÄ×Ö·û»º³åÇø
+		CMM_SAFE_DELETE(mpswText);	//æ¸…é™¤åŽŸæ¥çš„å­—ç¬¦ç¼“å†²åŒº
 		int liLen = wcslen(npswText)+1;
 		mpswText = new wchar_t[liLen];
 		BREAK_ON_NULL(mpswText);
-		wcscpy_s(mpswText,liLen,npswText);	//CopyÐÂÄÚÈÝ
+		wcscpy_s(mpswText,liLen,npswText);	//Copyæ–°å†…å®¹
 
-		//ÖØÐÂÉú³ÉÍ¼Æ¬
+		//é‡æ–°ç”Ÿæˆå›¾ç‰‡
 		ReCreateBmp();
 
 		lbRet = true;
@@ -248,7 +248,7 @@ bool CEvStaticText::SetText(wchar_t* npswText)
 	return lbRet;
 }
 
-//»æÖÆ
+//ç»˜åˆ¶
 ERESULT CEvStaticText::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -270,7 +270,7 @@ ERESULT CEvStaticText::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	return lResult;
 }
 
-//ÖØÐÂÉú³ÉÍ¼Æ¬
+//é‡æ–°ç”Ÿæˆå›¾ç‰‡
 bool CEvStaticText::ReCreateBmp()
 {
 	bool lbRet = false;
@@ -278,7 +278,7 @@ bool CEvStaticText::ReCreateBmp()
 
 	do 
 	{ 
-		//¹¹½¨½á¹¹Ìå
+		//æž„å»ºç»“æž„ä½“
 		STETXT_BMP_INIT ldInit;
 		ZeroMemory(&ldInit,sizeof(STETXT_BMP_INIT));
 		ldInit.Text = mpswText;
@@ -292,18 +292,18 @@ bool CEvStaticText::ReCreateBmp()
 		ldInit.Palign = mPalign;
 		ldInit.FontWeight = mFontWidget;
 
-		CMM_SAFE_RELEASE(mpBgBitmap);	//È¥µôÔ­À´µÄÍ¼Æ¬
+		CMM_SAFE_RELEASE(mpBgBitmap);	//åŽ»æŽ‰åŽŸæ¥çš„å›¾ç‰‡
 		mpBgBitmap = EinkuiGetSystem()->GetAllocator()->CreateImageByText(ldInit);
 
 		BREAK_ON_NULL(mpBgBitmap);
 
 		if(mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ELEMENT_WIDTH,0)==0)
-			mpIterator->SetSize((FLOAT)mpBgBitmap->GetWidth(),mpIterator->GetSizeY());	//Ã»ÓÐÉèÖÃ¹Ì¶¨´óÐ¡£¬ÄÇ¾ÍÒÔÉú³ÉµÄÎÄ×ÖÍ¼Æ¬´óÐ¡×öÎª×Ô¼ºµÄ´óÐ¡
+			mpIterator->SetSize((FLOAT)mpBgBitmap->GetWidth(),mpIterator->GetSizeY());	//æ²¡æœ‰è®¾ç½®å›ºå®šå¤§å°ï¼Œé‚£å°±ä»¥ç”Ÿæˆçš„æ–‡å­—å›¾ç‰‡å¤§å°åšä¸ºè‡ªå·±çš„å¤§å°
 
 		if(mpTemplete->QuerySubKeyValueAsLONG(TF_ID_ELEMENT_HEIGHT,0)==0)
-			mpIterator->SetSize(mpIterator->GetSizeX(),(FLOAT)mpBgBitmap->GetHeight());	//Ã»ÓÐÉèÖÃ¹Ì¶¨´óÐ¡£¬ÄÇ¾ÍÒÔÉú³ÉµÄÎÄ×ÖÍ¼Æ¬´óÐ¡×öÎª×Ô¼ºµÄ´óÐ¡
+			mpIterator->SetSize(mpIterator->GetSizeX(),(FLOAT)mpBgBitmap->GetHeight());	//æ²¡æœ‰è®¾ç½®å›ºå®šå¤§å°ï¼Œé‚£å°±ä»¥ç”Ÿæˆçš„æ–‡å­—å›¾ç‰‡å¤§å°åšä¸ºè‡ªå·±çš„å¤§å°
 
-		//ÎªÁË±£Ö¤ÎÄ×Ö²»±»À­Éì£¬ÕâÀïÄÄ¸öÖµÐ¡¾ÍÓÃÄÄ¸ö
+		//ä¸ºäº†ä¿è¯æ–‡å­—ä¸è¢«æ‹‰ä¼¸ï¼Œè¿™é‡Œå“ªä¸ªå€¼å°å°±ç”¨å“ªä¸ª
 		mdDrawRect.right = mpIterator->GetSizeX()<(FLOAT)mpBgBitmap->GetWidth()?mpIterator->GetSizeX():(FLOAT)mpBgBitmap->GetWidth();
 		mdDrawRect.bottom = mpIterator->GetSizeY()<(FLOAT)mpBgBitmap->GetHeight()?mpIterator->GetSizeY():(FLOAT)mpBgBitmap->GetHeight();
 

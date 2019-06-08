@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -14,7 +14,7 @@
 #include "SnapShot.h"
 
 /*
-	±¾Àà×÷Îª¶Ô»°¿òÍ¨ÓÃ»ù´¡¿ò¼Ü¶¨ÒåÊ¹ÓÃ£¬¶¨Òå¶Ô»°¿òµÄÍ¨ÓÃ»ù±¾¿Ø¼şºÍĞĞÎª
+	æœ¬ç±»ä½œä¸ºå¯¹è¯æ¡†é€šç”¨åŸºç¡€æ¡†æ¶å®šä¹‰ä½¿ç”¨ï¼Œå®šä¹‰å¯¹è¯æ¡†çš„é€šç”¨åŸºæœ¬æ§ä»¶å’Œè¡Œä¸º
 */
 
 DECLARE_BUILTIN_NAME(Reader_BaseFrame)
@@ -26,41 +26,41 @@ class CReaderBaseFrame:
 
 public:
 	ULONG InitOnCreate(
-		IN IEinkuiIterator* npParent = NULL,	// ¸¸¶ÔÏóÖ¸Õë
-		IN ICfKey* npTemplete = NULL,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-		IN ULONG nuEID = MAXULONG32	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+		IN IEinkuiIterator* npParent = NULL,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+		IN ICfKey* npTemplete = NULL,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+		IN ULONG nuEID = MAXULONG32	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 		);
 
 protected:
 	CReaderBaseFrame(void);
 	~CReaderBaseFrame(void);
 
-	//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+	//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 	virtual ERESULT OnElementCreate(IEinkuiIterator* npIterator);
-	//ÏûÏ¢´¦Àíº¯Êı
+	//æ¶ˆæ¯å¤„ç†å‡½æ•°
 	virtual ERESULT ParseMessage(IEinkuiMessage* npMsg);
-	//¶¨Ê±Æ÷
+	//å®šæ—¶å™¨
 	virtual void OnTimer(
 		PSTEMS_TIMER npStatus
 		);
-	//·şÎñÍ¨ÖªÓ¦ÓÃÇĞ»»µ½Ç°Ì¨»òºóÌ¨
+	//æœåŠ¡é€šçŸ¥åº”ç”¨åˆ‡æ¢åˆ°å‰å°æˆ–åå°
 	ERESULT __stdcall OnActivity(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result);
-	//homebar×´Ì¬±ä»¯Í¨Öª
+	//homebarçŠ¶æ€å˜åŒ–é€šçŸ¥
 	ERESULT __stdcall OnHomebarChanged(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result);
-	//Tp±»resetÁË£¬ĞèÒªÖØĞÂÉèÖÃtp area
+	//Tpè¢«resetäº†ï¼Œéœ€è¦é‡æ–°è®¾ç½®tp area
 	ERESULT __stdcall OnNotifyResetTpArea(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result);
-	//ÊÕµ½µçÔ´±ä»¯ÏûÏ¢
+	//æ”¶åˆ°ç”µæºå˜åŒ–æ¶ˆæ¯
 	ERESULT __stdcall OnPowerChangeMsg(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result);
 
-	//°´Å¥µ¥»÷ÊÂ¼ş
+	//æŒ‰é’®å•å‡»äº‹ä»¶
 	virtual ERESULT OnCtlButtonClick(IEinkuiIterator* npSender);
 
-	//Ëø¶¨ÊäÈë
+	//é”å®šè¾“å…¥
 	void HoldInput(bool nbSet=true);
 
-	//»æÖÆ
+	//ç»˜åˆ¶
 	virtual ERESULT OnPaint(IEinkuiPaintBoard* npPaintBoard);
-	//ÔªËØ²Î¿¼³ß´ç·¢Éú±ä»¯
+	//å…ƒç´ å‚è€ƒå°ºå¯¸å‘ç”Ÿå˜åŒ–
 	virtual ERESULT OnElementResized(D2D1_SIZE_F nNewSize);
 
 	void OnRotated(ULONG nuOrient);
@@ -72,13 +72,13 @@ private:
 	IEinkuiIterator* mpIterBackground;
 	CFileOpenDlg* mpFileOpenDlg;
 	CJumpPage* mpJumpPage;
-	CTipFrame* mpTipFrame;	//ÌáÊ¾ÏÔÊ¾/Òş²Ø¹¦ÄÜÇø
-	//ULONG mulCurrentPageNumber; //µ±Ç°Ò³Âë
+	CTipFrame* mpTipFrame;	//æç¤ºæ˜¾ç¤º/éšè—åŠŸèƒ½åŒº
+	//ULONG mulCurrentPageNumber; //å½“å‰é¡µç 
 	CPreNextButton* mpPreNextButton;
 	CZoomControl* mpZoomControl;
 	CZoomControlTxt* mpZoomControlTxt;
 	CSnapShot* mpSnapShot;
-	cmmVector<wchar_t*> mdHistroyPath; //ÀúÊ·ÎÄ¼ş
+	cmmVector<wchar_t*> mdHistroyPath; //å†å²æ–‡ä»¶
 	IEinkuiIterator* mpIterToast;
 	volatile LONG mlHoldInput;
 	DWORD mdwFontSizeArray[ZCT_FONTSIZE_LEVEL];
@@ -87,50 +87,50 @@ private:
 	ULONG muLastGcTick;
 	ULONGLONG mxLastGcUiNumber;
 	BOOL mbGcMode;
-	bool mbIsTxt; //´ò¿ªµÄÊÇ·ñÊÇtxtÎÄ¼ş
-	wchar_t mszTempFile[MAX_PATH];  //ÎªÁË´ò¿ªĞ§ÂÊ£¬°ÑÎÄ¼ş»º³åµ½programdataÄ¿Â¼ÏÂ
-	wchar_t mszSrcFile[MAX_PATH]; //´ò¿ªÎÄ¼şµÄÊµ¼ÊÂ·¾¶
-	bool mbIsSetPartial; //Èç¹ûÎªfalse,Ôò²»¹Ø±Õpartial
-	ULONG mulPageIndex; //Ò³Âë
+	bool mbIsTxt; //æ‰“å¼€çš„æ˜¯å¦æ˜¯txtæ–‡ä»¶
+	wchar_t mszTempFile[MAX_PATH];  //ä¸ºäº†æ‰“å¼€æ•ˆç‡ï¼ŒæŠŠæ–‡ä»¶ç¼“å†²åˆ°programdataç›®å½•ä¸‹
+	wchar_t mszSrcFile[MAX_PATH]; //æ‰“å¼€æ–‡ä»¶çš„å®é™…è·¯å¾„
+	bool mbIsSetPartial; //å¦‚æœä¸ºfalse,åˆ™ä¸å…³é—­partial
+	ULONG mulPageIndex; //é¡µç 
 
-	//ÉèÖÃ´ò¿ªÎÄ¼ş´°¿ÚµÄÎ»ÖÃ
+	//è®¾ç½®æ‰“å¼€æ–‡ä»¶çª—å£çš„ä½ç½®
 	void SetOpenFilePos(void);
-	//ÉèÖÃÒ³ÂëÌø×ª´°¿ÚµÄÎ»ÖÃ
+	//è®¾ç½®é¡µç è·³è½¬çª—å£çš„ä½ç½®
 	void SetJumpPagePos(void);
-	//ÓÃ»§Ñ¡ÔñÁËÒª´ò¿ªµÄÎÄ¼ş
+	//ç”¨æˆ·é€‰æ‹©äº†è¦æ‰“å¼€çš„æ–‡ä»¶
 	bool OpenFile(wchar_t* npszFilePath);
-	//³õÊ¼»¯
+	//åˆå§‹åŒ–
 	void Init(void);
-	////ÇĞÒ³
+	////åˆ‡é¡µ
 	//void GotoPage(ULONG nulPage);
 	void ShowPageInfo(void);
-	//ÏÔÊ¾toast
+	//æ˜¾ç¤ºtoast
 	void ShowToast(wchar_t* npszKeyName);
-	//ÏÔÊ¾»òÒş²Ø¹¤¾ßÀ¸
+	//æ˜¾ç¤ºæˆ–éšè—å·¥å…·æ 
 	void ShowToolBar(bool nbIsShow);
-	//°ÑÒª´ò¿ªµÄÎÄ¼şcopyµ½ÁÙÊ±Ä¿Â¼
+	//æŠŠè¦æ‰“å¼€çš„æ–‡ä»¶copyåˆ°ä¸´æ—¶ç›®å½•
 	void CopyFileToTemp(IN wchar_t* npszSrc, OUT wchar_t* npszDest, IN LONG nlLen);
-	//»ñÈ¡ÎÄ¼ş´óĞ¡
+	//è·å–æ–‡ä»¶å¤§å°
 	ULONG GetFileSize(wchar_t* npszFilePath);
 
-	static ERESULT __stdcall EinkUpdating(ULONGLONG nxNumber, CReaderBaseFrame* npThis);	// nuNumberÊÇ¸üĞÂĞòºÅ£¬Ã¿´Î¸üĞÂ¼ÓÒ»£¬´ïµ½×î´óÖµºó»Øµ½Áã
+	static ERESULT __stdcall EinkUpdating(ULONGLONG nxNumber, CReaderBaseFrame* npThis);	// nuNumberæ˜¯æ›´æ–°åºå·ï¼Œæ¯æ¬¡æ›´æ–°åŠ ä¸€ï¼Œè¾¾åˆ°æœ€å¤§å€¼åå›åˆ°é›¶
 
 
 };
 
-#define  RBF_HISTROY_MAX 4 //×î´óÀúÊ·¼ÇÂ¼
+#define  RBF_HISTROY_MAX 4 //æœ€å¤§å†å²è®°å½•
 
 
-#define  RbF_REG_PAGE_NUMBER L"PageNumber" //ÉÏ´Î¹Ø±ÕÊ±ÏÔÊ¾µÄÒ³Âë
-#define  RbF_REG_PAGE_CONTENT L"PageContent" //ÉÏ´Î¹Ø±ÕÊ±ÏÔÊ¾µÄÒ³ÂëµÄ¹ØÁªÊı¾İ
-#define  RbF_REG_PAGE_CONTENT2 L"PageContent2" //ÉÏ´Î¹Ø±ÕÊ±ÏÔÊ¾µÄÒ³ÂëµÄ¹ØÁªÊı¾İ
-#define  RbF_REG_DOUBLE_SCREEN L"DoubleScreen" //µ¥ÆÁ»òË«ÆÁ
-#define  RbF_REG_RATIO L"Ratio" //·Å´ó±ÈÀı
-#define  RbF_REG_TXT_FONT_SIZE_INDEX L"TxtFontSizeIndex" //Txt·Å´ó±ÈÀıÊı×éÏÂ±ê
+#define  RbF_REG_PAGE_NUMBER L"PageNumber" //ä¸Šæ¬¡å…³é—­æ—¶æ˜¾ç¤ºçš„é¡µç 
+#define  RbF_REG_PAGE_CONTENT L"PageContent" //ä¸Šæ¬¡å…³é—­æ—¶æ˜¾ç¤ºçš„é¡µç çš„å…³è”æ•°æ®
+#define  RbF_REG_PAGE_CONTENT2 L"PageContent2" //ä¸Šæ¬¡å…³é—­æ—¶æ˜¾ç¤ºçš„é¡µç çš„å…³è”æ•°æ®
+#define  RbF_REG_DOUBLE_SCREEN L"DoubleScreen" //å•å±æˆ–åŒå±
+#define  RbF_REG_RATIO L"Ratio" //æ”¾å¤§æ¯”ä¾‹
+#define  RbF_REG_TXT_FONT_SIZE_INDEX L"TxtFontSizeIndex" //Txtæ”¾å¤§æ¯”ä¾‹æ•°ç»„ä¸‹æ ‡
 
 #define RBF_TIMER_TOAST 1
 #define RBF_TIMER_TSHOW_TOOLBAR 2
-#define RBF_TIMER_ENABL_PARTIAL 3 //¿ªÆôpartial,ÒòÎªÇĞ»»¹ıÀ´µÚÒ»Ö¡Òª¹Ø±Õpartial,·ñÔò¿ÉÄÜ³öÏÖË¢ĞÂ²»Çå³şµÄÇé¿ö
-#define RBF_TIMER_INIT 4 //ÎªÁË½ø³Ì¿ªÆôÊ±¸ü¿ìµÄÏÔÊ¾£¬Ê¹ÓÃ¶¨Ê±Æ÷À´×ö³õÊ¼»¯
-#define RBF_TIMER_EXIT 5 //ÊÕµ½ÇĞ»»µ½ºóÌ¨ÏûÏ¢ºó£¬3Ãë¹Ø±Õ×Ô¼º½ø³Ì
-#define RBF_TIMER_HOLDINPUT 6 //×Ô¶¯½â³ıÊäÈëËø¶¨
+#define RBF_TIMER_ENABL_PARTIAL 3 //å¼€å¯partial,å› ä¸ºåˆ‡æ¢è¿‡æ¥ç¬¬ä¸€å¸§è¦å…³é—­partial,å¦åˆ™å¯èƒ½å‡ºç°åˆ·æ–°ä¸æ¸…æ¥šçš„æƒ…å†µ
+#define RBF_TIMER_INIT 4 //ä¸ºäº†è¿›ç¨‹å¼€å¯æ—¶æ›´å¿«çš„æ˜¾ç¤ºï¼Œä½¿ç”¨å®šæ—¶å™¨æ¥åšåˆå§‹åŒ–
+#define RBF_TIMER_EXIT 5 //æ”¶åˆ°åˆ‡æ¢åˆ°åå°æ¶ˆæ¯åï¼Œ3ç§’å…³é—­è‡ªå·±è¿›ç¨‹
+#define RBF_TIMER_HOLDINPUT 6 //è‡ªåŠ¨è§£é™¤è¾“å…¥é”å®š

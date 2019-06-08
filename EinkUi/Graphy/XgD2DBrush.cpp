@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -30,7 +30,7 @@ CXD2DBrush::CXD2DBrush()
 
 }
 
-// ×ÊÔ´ÊÍ·Å
+// èµ„æºé‡Šæ”¾
 CXD2DBrush::~CXD2DBrush()
 {
 	CMM_SAFE_RELEASE(mpSolidBrush);
@@ -44,11 +44,11 @@ CXD2DBrush::~CXD2DBrush()
 
 }
 
-// ÊµÏÖÕâ¸ö½Ó¿ÚºÜÖØÒª£¬·ñÔò³ÌĞòÔÚÍË³öÊ±£¬»á³öÏÖÊÍ·ÅÎÊÌâ
+// å®ç°è¿™ä¸ªæ¥å£å¾ˆé‡è¦ï¼Œå¦åˆ™ç¨‹åºåœ¨é€€å‡ºæ—¶ï¼Œä¼šå‡ºç°é‡Šæ”¾é—®é¢˜
 int CXD2DBrush::Release()
 {
 	int liCount = cmmBaseObject<CXD2DBrush, IEinkuiBrush, GET_BUILTIN_NAME(CXD2DBrush)>::Release();
-	// Èç¹û·µ»ØÖµÊÇ0£¬±íÊ¾ĞèÒª±»É¾³ı
+	// å¦‚æœè¿”å›å€¼æ˜¯0ï¼Œè¡¨ç¤ºéœ€è¦è¢«åˆ é™¤
 	if(liCount == 0)
 	{
 		CEinkuiSystem::gpXuiSystem->GetBrushList().UnregisteBrush(this);
@@ -83,7 +83,7 @@ ULONG CXD2DBrush::InitOnCreate(XuiBrushType niBrushType, D2D1_GRADIENT_STOP* npG
 	return 0;
 }
 
-// ¶ÔÏó±»Ê¹ÓÃÊ±£¬ĞèÒª´´½¨»­Ë¢×ÊÔ´£¨ÓëÆ½Ì¨Ïà¹Ø×ÊÔ´£©£¬´ËÊ±£¬Í¨¹ıÆ½Ì¨µ÷ÓÃÕß°Ñ²ÎÊınpRenderTarget´«½ø³õÊ¼»¯º¯Êı
+// å¯¹è±¡è¢«ä½¿ç”¨æ—¶ï¼Œéœ€è¦åˆ›å»ºç”»åˆ·èµ„æºï¼ˆä¸å¹³å°ç›¸å…³èµ„æºï¼‰ï¼Œæ­¤æ—¶ï¼Œé€šè¿‡å¹³å°è°ƒç”¨è€…æŠŠå‚æ•°npRenderTargetä¼ è¿›åˆå§‹åŒ–å‡½æ•°
 ULONG CXD2DBrush::InitBrush(ID2D1RenderTarget* npRenderTarget,  ID2D1Factory* npD2D1Factory)
 {
 	ULONG luStatus = 0;
@@ -106,7 +106,7 @@ ULONG CXD2DBrush::InitBrush(ID2D1RenderTarget* npRenderTarget,  ID2D1Factory* np
 				}
 				else
 				{
-					// ¶ÔÓÚÒÑ¾­´´½¨µÄSolidBrush£¬Æä²ÎÊıÓĞ¿ÉÄÜ·¢Éú¸Ä±ä£¬ËùÒÔÖØĞÂµ÷ÓÃÒ»´Î
+					// å¯¹äºå·²ç»åˆ›å»ºçš„SolidBrushï¼Œå…¶å‚æ•°æœ‰å¯èƒ½å‘ç”Ÿæ”¹å˜ï¼Œæ‰€ä»¥é‡æ–°è°ƒç”¨ä¸€æ¬¡
 					mpSolidBrush->SetColor(moSolidBrushColor);
 				}
 
@@ -136,7 +136,7 @@ ULONG CXD2DBrush::InitBrush(ID2D1RenderTarget* npRenderTarget,  ID2D1Factory* np
 				}
 				else
 				{
-					// ¶ÔÓÚÒÑ¾­´´½¨µÄSolidBrush£¬Æä²ÎÊıÓĞ¿ÉÄÜ·¢Éú¸Ä±ä£¬ËùÒÔÖØĞÂµ÷ÓÃÒ»´Î
+					// å¯¹äºå·²ç»åˆ›å»ºçš„SolidBrushï¼Œå…¶å‚æ•°æœ‰å¯èƒ½å‘ç”Ÿæ”¹å˜ï¼Œæ‰€ä»¥é‡æ–°è°ƒç”¨ä¸€æ¬¡
 					mpLinearGradientBrush->SetStartPoint(mdLinearGradientBrushProperties.startPoint);
 					mpLinearGradientBrush->SetEndPoint(mdLinearGradientBrushProperties.endPoint);
 				}
@@ -179,7 +179,7 @@ ULONG CXD2DBrush::InitBrush(ID2D1RenderTarget* npRenderTarget,  ID2D1Factory* np
 				}
 				else
 				{
-					// ¶ÔÓÚÒÑ¾­´´½¨µÄSolidBrush£¬Æä²ÎÊıÓĞ¿ÉÄÜ·¢Éú¸Ä±ä£¬ËùÒÔÖØĞÂµ÷ÓÃÒ»´Î
+					// å¯¹äºå·²ç»åˆ›å»ºçš„SolidBrushï¼Œå…¶å‚æ•°æœ‰å¯èƒ½å‘ç”Ÿæ”¹å˜ï¼Œæ‰€ä»¥é‡æ–°è°ƒç”¨ä¸€æ¬¡
 					mpRadialGradientBrush->SetCenter(mdLinearGradientBrushProperties.startPoint);
 				}
 
@@ -203,7 +203,7 @@ ULONG CXD2DBrush::InitBrush(ID2D1RenderTarget* npRenderTarget,  ID2D1Factory* np
 
 	if (mcStrokeCreate != false)
 	{
-		// ÏßĞÍ¶ÔÏóºÃÏñÒ»¾­´´½¨£¬¾Í²»ÄÜ¸Ä±äÆäÊôĞÔ
+		// çº¿å‹å¯¹è±¡å¥½åƒä¸€ç»åˆ›å»ºï¼Œå°±ä¸èƒ½æ”¹å˜å…¶å±æ€§
 		if (mpStrokeStyle == NULL)
 		{
 			hr = npD2D1Factory->CreateStrokeStyle(
@@ -225,14 +225,14 @@ ULONG CXD2DBrush::InitBrush(ID2D1RenderTarget* npRenderTarget,  ID2D1Factory* np
 	return luStatus;
 }
 
-// ÉèÖÃSOLID»­Ë¢µÄÑÕÉ«
+// è®¾ç½®SOLIDç”»åˆ·çš„é¢œè‰²
 void CXD2DBrush::SetColor(IN D2D1_COLOR_F noColor)
 {
 	moSolidBrushColor = D2D1::ColorF(noColor.r, noColor.g, noColor.b, noColor.a);
 
 }
 
-// ÉèÖÃ½¥±ä»­Ë¢µÄÊôĞÔ
+// è®¾ç½®æ¸å˜ç”»åˆ·çš„å±æ€§
 void CXD2DBrush::SetLinearBrushProperties(
 	const D2D1_GRADIENT_STOP* npGradientStop, 
 	ULONG nuCount, 
@@ -250,22 +250,22 @@ void CXD2DBrush::SetLinearBrushProperties(
 
 }
 
-// ÉèÖÃÏßĞÍ£¬ÓÃD2DµÄ½á¹¹ÌåÀ´ÃèÊö
+// è®¾ç½®çº¿å‹ï¼Œç”¨D2Dçš„ç»“æ„ä½“æ¥æè¿°
 bool CXD2DBrush::SetStrokeType(const D2D1_STROKE_STYLE_PROPERTIES &strokeStyleProperties, const FLOAT *dashes, UINT dashesCount)
 {
 	bool lbStatus = false;
 
 	do 
 	{
-		// Èç¹ûÒÑ¾­ÉèÖÃ¹ıÏßĞÍ£¬Ôò²»¿ÉÒÔÔÙ´ÎÉèÖÃ
+		// å¦‚æœå·²ç»è®¾ç½®è¿‡çº¿å‹ï¼Œåˆ™ä¸å¯ä»¥å†æ¬¡è®¾ç½®
 		BREAK_ON_FALSE(!mcStrokeCreate);
 
 		moStrokeStyleProperties = strokeStyleProperties;
 		lbStatus = true;
 
-		// ÅĞ¶ÏÊÇ·ñÓĞ×Ô¶¨ÒåÏßĞÍ
+		// åˆ¤æ–­æ˜¯å¦æœ‰è‡ªå®šä¹‰çº¿å‹
 		BREAK_ON_NULL(dashes);
-		// Èç¹ûÓĞ£¬ÔòÖØĞÂÉèÖÃ×´Ì¬
+		// å¦‚æœæœ‰ï¼Œåˆ™é‡æ–°è®¾ç½®çŠ¶æ€
 		lbStatus = false;
 		BREAK_ON_FALSE(dashesCount != 0);
 		CMM_SAFE_DELETE(mpDashes);
@@ -287,25 +287,25 @@ bool CXD2DBrush::SetStrokeType(const D2D1_STROKE_STYLE_PROPERTIES &strokeStylePr
 	return lbStatus;
 }
 
-// ÉèÖÃÏßĞÍ¿í¶È
+// è®¾ç½®çº¿å‹å®½åº¦
 void CXD2DBrush::SetStrokeWidth(IN float nfWidth)
 {
 	mfStrokeWidth = nfWidth;
 
 }
 
-// »ñÈ¡ÏßĞÍ¿í¶È
+// è·å–çº¿å‹å®½åº¦
 float CXD2DBrush::GetStrokeWidth()
 {
 	return mfStrokeWidth;
 }
 
-// »ñÈ¡»­Ë¢¶ÔÏó
+// è·å–ç”»åˆ·å¯¹è±¡
 ERESULT CXD2DBrush::GetBrushObject(OUT ID2D1Brush** npBrushObject)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
 
-	// Ê×ÏÈÅĞ¶ÏÊÇÄÄÖÖÀàĞÍµÄ»­Ë¢£¬È»ºó·µ»Ø¶ÔÓ¦µÄ»­Ë¢¾ä±ú
+	// é¦–å…ˆåˆ¤æ–­æ˜¯å“ªç§ç±»å‹çš„ç”»åˆ·ï¼Œç„¶åè¿”å›å¯¹åº”çš„ç”»åˆ·å¥æŸ„
 	
 	switch(miBrushType)
 	{
@@ -353,10 +353,10 @@ ERESULT CXD2DBrush::GetBrushObject(OUT ID2D1Brush** npBrushObject)
 	return luResult;
 }
 
-// »ñÈ¡ÏßĞÍ¶ÔÏó
+// è·å–çº¿å‹å¯¹è±¡
 ERESULT CXD2DBrush::GetStrokeObject(OUT ID2D1StrokeStyle** npStrokeObject)
 {
-	ERESULT luResult = ERESULT_UNSUCCESSFUL;	// Õâ¸öº¯ÊıµÄ·µ»ØÖµ£¬ºÃÏñÃ»É¶ÓÃ´¦
+	ERESULT luResult = ERESULT_UNSUCCESSFUL;	// è¿™ä¸ªå‡½æ•°çš„è¿”å›å€¼ï¼Œå¥½åƒæ²¡å•¥ç”¨å¤„
 
 
 	do 
@@ -384,7 +384,7 @@ void CXD2DBrush::DiscardsBrushResource()
 
 }
 
-// ¸´ÖÆ³öÒ»¸öĞÂµÄ¶ÔÏó
+// å¤åˆ¶å‡ºä¸€ä¸ªæ–°çš„å¯¹è±¡
 IEinkuiBrush* __stdcall CXD2DBrush::DuplicateBrush(void)
 {
 
@@ -419,7 +419,7 @@ IEinkuiBrush* __stdcall CXD2DBrush::DuplicateBrush(void)
 
 		BREAK_ON_NULL(lpNewBrush);
 
-		// ÊÇ·ñĞèÒªÉèÖÃÏßĞÍ
+		// æ˜¯å¦éœ€è¦è®¾ç½®çº¿å‹
 		if (mcStrokeCreate != false)
 		{
 			lpNewBrush->SetStrokeType(moStrokeStyleProperties, mpDashes, muDashCount);

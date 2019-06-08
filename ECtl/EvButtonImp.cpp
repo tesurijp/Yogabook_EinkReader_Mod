@@ -1,4 +1,4 @@
-/* License: COPYING.GPLv3 */
+ï»¿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
 
@@ -13,7 +13,7 @@
 //using namespace D2D1;
 DEFINE_BUILTIN_NAME(Button)
 
-// Ö»ÓÃÓÚ±äÁ¿ÉèÖÃ³õÊ¼Öµ£¬ÈçÖ¸ÕëÉèÎªNULL£¬ËùÓĞ¿ÉÄÜÊ§°ÜµÄÈç·ÖÅäÖ®ÀàµÄÔËËã¶¼Ó¦¸ÃÔÚInitOnCreateÖĞ½øĞĞ
+// åªç”¨äºå˜é‡è®¾ç½®åˆå§‹å€¼ï¼Œå¦‚æŒ‡é’ˆè®¾ä¸ºNULLï¼Œæ‰€æœ‰å¯èƒ½å¤±è´¥çš„å¦‚åˆ†é…ä¹‹ç±»çš„è¿ç®—éƒ½åº”è¯¥åœ¨InitOnCreateä¸­è¿›è¡Œ
 CEvButton::CEvButton()
 {
 	mpszButtonText = mpszNormolTip = mpszCheckedTip = NULL;
@@ -32,7 +32,7 @@ CEvButton::CEvButton()
 	ZeroMemory(mdArrayFrame,sizeof(mdArrayFrame));
 }
 
-// ÓÃÓÚÊÍ·Å³ÉÔ±¶ÔÏó
+// ç”¨äºé‡Šæ”¾æˆå‘˜å¯¹è±¡
 CEvButton::~CEvButton()
 {
 	CMM_SAFE_DELETE(mpszButtonText);
@@ -43,24 +43,24 @@ CEvButton::~CEvButton()
 }
 
 ULONG CEvButton::InitOnCreate(
-	IN IEinkuiIterator* npParent,	// ¸¸¶ÔÏóÖ¸Õë
-	IN ICfKey* npTemplete,		// npTempleteµÄKey ID¾ÍÊÇEID£¬Öµ¾ÍÊÇÀàĞÍEType
-	IN ULONG nuEID	// Èç¹û²»Îª0ºÍMAXULONG32£¬ÔòÖ¸¶¨¸ÃÔªËØµÄEID; ·ñÔò£¬È¡ÉÏÒ»¸ö²ÎÊıµÄÄ£°åÄÚÉèÖÃµÄÖµ×÷ÎªEID£¬Èç¹ûÄ£°åÒ²Ã»ÓĞÉèÖÃEID£¬ÔòÊ¹ÓÃXUIÏµÍ³×Ô¶¯·ÖÅä
+	IN IEinkuiIterator* npParent,	// çˆ¶å¯¹è±¡æŒ‡é’ˆ
+	IN ICfKey* npTemplete,		// npTempleteçš„Key IDå°±æ˜¯EIDï¼Œå€¼å°±æ˜¯ç±»å‹EType
+	IN ULONG nuEID	// å¦‚æœä¸ä¸º0å’ŒMAXULONG32ï¼Œåˆ™æŒ‡å®šè¯¥å…ƒç´ çš„EID; å¦åˆ™ï¼Œå–ä¸Šä¸€ä¸ªå‚æ•°çš„æ¨¡æ¿å†…è®¾ç½®çš„å€¼ä½œä¸ºEIDï¼Œå¦‚æœæ¨¡æ¿ä¹Ÿæ²¡æœ‰è®¾ç½®EIDï¼Œåˆ™ä½¿ç”¨XUIç³»ç»Ÿè‡ªåŠ¨åˆ†é…
 	)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	do 
 	{
-		//Ê×ÏÈµ÷ÓÃ»ùÀà
+		//é¦–å…ˆè°ƒç”¨åŸºç±»
 		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-		//ÉèÖÃ×Ô¼ºµÄÀàĞÍ
+		//è®¾ç½®è‡ªå·±çš„ç±»å‹
 		mpIterator->ModifyStyles(/*EITR_STYLE_CONTROL|*/EITR_STYLE_DRAG);
 
-		//×°ÔØÒ»Ğ©±ØÒªµÄÅäÖÃ×ÊÔ´
+		//è£…è½½ä¸€äº›å¿…è¦çš„é…ç½®èµ„æº
 		LoadResource();
 
 
@@ -71,7 +71,7 @@ ULONG CEvButton::InitOnCreate(
 	return leResult;
 }
 
-//³õÊ¼½¨Á¢£¬µ±Ò»¸öÔªËØ±»½¨Á¢Ê±µ÷ÓÃ£¬×¢Òâ£º×ÓÔªËØ»áÏÈÓÚ¸¸ÔªËØÊÕµ½ÕâÌõÏûÏ¢£¬´Ó¶øÈ·±£¸¸ÔªËØÓĞÒ»¸öÔÚ×ÓÔªËØ³õÊ¼»¯Ö®ºóÍê³ÉÈ«²¿³õÊ¼»¯µÄ»ú»á
+//åˆå§‹å»ºç«‹ï¼Œå½“ä¸€ä¸ªå…ƒç´ è¢«å»ºç«‹æ—¶è°ƒç”¨ï¼Œæ³¨æ„ï¼šå­å…ƒç´ ä¼šå…ˆäºçˆ¶å…ƒç´ æ”¶åˆ°è¿™æ¡æ¶ˆæ¯ï¼Œä»è€Œç¡®ä¿çˆ¶å…ƒç´ æœ‰ä¸€ä¸ªåœ¨å­å…ƒç´ åˆå§‹åŒ–ä¹‹åå®Œæˆå…¨éƒ¨åˆå§‹åŒ–çš„æœºä¼š
 ERESULT CEvButton::OnElementCreate(IEinkuiIterator* npIterator)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -89,15 +89,15 @@ ERESULT CEvButton::OnElementCreate(IEinkuiIterator* npIterator)
 	return lResult;
 }
 
-// Ïú»ÙÔªËØ£¬ÓÃÓÚÍ¨ÖªÒ»¸öÔªËØÏú»Ù£¬×¢Òâ£º¸¸ÔªËØÊ×ÏÈÊÕµ½´ËÏûÏ¢£¬Ó¦¸Ã¼°Ê±µ÷ÓÃÔªËØ¹ÜÀíÆ÷µÄUnregisterElement·½·¨£¬
-// ´Ó¶ø´¥·¢ÔªËØ¹ÜÀíÆ÷ÏòËùÓĞÏÂÒ»²ãÔªËØ·¢ËÍÏú»ÙÏûÏ¢£¬¶øºóÔÙ½«×Ô¼º´ÓÔªËØ¹ÜÀíÆ÷×¢Ïú£¬²¢ÇÒÊÍ·Å×ÔÉí¶ÔÏó
+// é”€æ¯å…ƒç´ ï¼Œç”¨äºé€šçŸ¥ä¸€ä¸ªå…ƒç´ é”€æ¯ï¼Œæ³¨æ„ï¼šçˆ¶å…ƒç´ é¦–å…ˆæ”¶åˆ°æ­¤æ¶ˆæ¯ï¼Œåº”è¯¥åŠæ—¶è°ƒç”¨å…ƒç´ ç®¡ç†å™¨çš„UnregisterElementæ–¹æ³•ï¼Œ
+// ä»è€Œè§¦å‘å…ƒç´ ç®¡ç†å™¨å‘æ‰€æœ‰ä¸‹ä¸€å±‚å…ƒç´ å‘é€é”€æ¯æ¶ˆæ¯ï¼Œè€Œåå†å°†è‡ªå·±ä»å…ƒç´ ç®¡ç†å™¨æ³¨é”€ï¼Œå¹¶ä¸”é‡Šæ”¾è‡ªèº«å¯¹è±¡
 ERESULT CEvButton::OnElementDestroy()
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
 
 	do
 	{
-		CXuiElement::OnElementDestroy();	//µ÷ÓÃ»ùÀà
+		CXuiElement::OnElementDestroy();	//è°ƒç”¨åŸºç±»
 
 		lResult = ERESULT_SUCCESS;
 
@@ -106,23 +106,23 @@ ERESULT CEvButton::OnElementDestroy()
 	return lResult;
 }
 
-//×°ÔØÅäÖÃ×ÊÔ´
+//è£…è½½é…ç½®èµ„æº
 ERESULT CEvButton::LoadResource()
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	ICfKey* lpValue = NULL;
-	LONG llAttibute[16] = {0};	//°´Å¥ÊôĞÔ
+	LONG llAttibute[16] = {0};	//æŒ‰é’®å±æ€§
 	LONG llLen = -1;
 
 	do 
 	{
-		//ÎÄ×ÖÑÕÉ«
+		//æ–‡å­—é¢œè‰²
 		mdwColor = (DWORD)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_COLOR,0xFFFFFFFF);
 
 		mdwDisabledColor = (DWORD)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_DISABLED_COLOR, 0xFF7d7d7d);
 
-		//×ÖÌå
+		//å­—ä½“
 		lpValue = mpTemplete->GetSubKey(TF_ID_BT_FONT);
 		if (lpValue != NULL)
 		{
@@ -138,20 +138,20 @@ ERESULT CEvButton::LoadResource()
 		CMM_SAFE_RELEASE(lpValue);
 
 		if(mpswFontName !=NULL && mpswFontName[0] == UNICODE_NULL)
-			CMM_SAFE_DELETE(mpswFontName);	//Èç¹ûÃ»ÓĞ¶Áµ½£¬¾ÍÇåµô
+			CMM_SAFE_DELETE(mpswFontName);	//å¦‚æœæ²¡æœ‰è¯»åˆ°ï¼Œå°±æ¸…æ‰
 
 		if(mpswFontName == NULL)
 		{
 			llLen = wcslen(L"Tahoma") + 1;
 			mpswFontName = new wchar_t[llLen];
 			BREAK_ON_NULL(mpswFontName);
-			wcscpy_s(mpswFontName,llLen,L"Tahoma");	//Ä¬ÈÏ×ÖÌå
+			wcscpy_s(mpswFontName,llLen,L"Tahoma");	//é»˜è®¤å­—ä½“
 		}
 
-		//×ÖºÅ
+		//å­—å·
 		mdwFontSize = (DWORD)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_FONT_SIZE,15);
 
-		lpValue = mpTemplete->GetSubKey(TF_ID_BT_TEXT); //°´Å¥ÎÄ×Ö
+		lpValue = mpTemplete->GetSubKey(TF_ID_BT_TEXT); //æŒ‰é’®æ–‡å­—
 		if (lpValue != NULL)
 		{
 			llLen = lpValue->GetValueLength();
@@ -188,30 +188,30 @@ ERESULT CEvButton::LoadResource()
 			CMM_SAFE_RELEASE(lpValue);
 		}
 
-		//ÎÄ×Ö¶ÔÆë·½Ê½
+		//æ–‡å­—å¯¹é½æ–¹å¼
 		mlAlignType = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_ALIGN_TYPE,2);
 
-		//ÎÄ×Ö×ó±ß¾à
+		//æ–‡å­—å·¦è¾¹è·
 		mfTextLeft = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_LEFT,1);
 
-		//ÎÄ×ÖÓÒ±ß¾à
+		//æ–‡å­—å³è¾¹è·
 		mfTextRight = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_RIGHT,1);
 
-		//ÎÄ×ÖÉÏ±ß¾à
+		//æ–‡å­—ä¸Šè¾¹è·
 		mfTextTop = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_TOP,1);
 
-		//ÎÄ×ÖÏÂ±ß¾à
+		//æ–‡å­—ä¸‹è¾¹è·
 		mfTextBottom = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_BOTTOM,1);
 		
-		//¸ĞÓ¦Çø¿í
+		//æ„Ÿåº”åŒºå®½
 		mdAcionSize.width = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_ACTION_WIDTH,0);
 
-		//¸ĞÓ¦Çø¸ß
+		//æ„Ÿåº”åŒºé«˜
 		mdAcionSize.height = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_ACTION_HEIGHT,0);
 
 
-		//Ã¿¸ö¶¯»­´ÓµÚ¼¸Ö¡¿ªÊ¼
-		lpValue = mpTemplete->GetSubKey(TF_ID_BT_FRAME); //ËÄÌ¬°´Å¥Ö¡Êı¾İ
+		//æ¯ä¸ªåŠ¨ç”»ä»ç¬¬å‡ å¸§å¼€å§‹
+		lpValue = mpTemplete->GetSubKey(TF_ID_BT_FRAME); //å››æ€æŒ‰é’®å¸§æ•°æ®
 		if (lpValue != NULL)
 		{
 			lpValue->GetValue(llAttibute,lpValue->GetValueLength());
@@ -220,32 +220,32 @@ ERESULT CEvButton::LoadResource()
 			
 			for (int i=ARRAY_INDEX_DISABLE;i<=ARRAY_INDEX_PRESSED;i++)
 			{
-				mdArrayFrame[i].Index = mlPageCountMax;			//´ÓµÚ¼¸Ö¡¿ªÊ¼
-				mdArrayFrame[i].Count = llAttibute[i];		//¹²¼¸Ö¡
+				mdArrayFrame[i].Index = mlPageCountMax;			//ä»ç¬¬å‡ å¸§å¼€å§‹
+				mdArrayFrame[i].Count = llAttibute[i];		//å…±å‡ å¸§
 
 				mlPageCountMax += llAttibute[i];
 			}
 		}
 
-		lpValue = mpTemplete->GetSubKey(TF_ID_BT_CHECKED_FRAME); //CheckedÌ¬Ö¡Êı¾İ
+		lpValue = mpTemplete->GetSubKey(TF_ID_BT_CHECKED_FRAME); //Checkedæ€å¸§æ•°æ®
 		if (lpValue != NULL)
 		{
 			lpValue->GetValue(llAttibute,lpValue->GetValueLength());
 			lpValue->Release();
 
-			mbIsCheckEnable = true; //¿ªÆôCheckedÌ¬
+			mbIsCheckEnable = true; //å¼€å¯Checkedæ€
 
 			for (int i=ARRAY_INDEX_CHECKED_DISABLE;i<=ARRAY_INDEX_CHECKED_PRESSED;i++)
 			{
-				mdArrayFrame[i].Index = mlPageCountMax;			//´ÓµÚ¼¸Ö¡¿ªÊ¼
-				mdArrayFrame[i].Count = llAttibute[i - ARRAY_INDEX_CHECKED_DISABLE];		//¹²¼¸Ö¡
+				mdArrayFrame[i].Index = mlPageCountMax;			//ä»ç¬¬å‡ å¸§å¼€å§‹
+				mdArrayFrame[i].Count = llAttibute[i - ARRAY_INDEX_CHECKED_DISABLE];		//å…±å‡ å¸§
 
 				mlPageCountMax += mdArrayFrame[i].Count;
 			}
 		}
 
 
-		lpValue = mpTemplete->GetSubKey(TF_ID_BT_OTHER_FRAME); //ÆäËü¶¯»­Ö¡Êı¾İ
+		lpValue = mpTemplete->GetSubKey(TF_ID_BT_OTHER_FRAME); //å…¶å®ƒåŠ¨ç”»å¸§æ•°æ®
 		if (lpValue != NULL)
 		{
 			ICfKey* lpSubKey = lpValue->GetSubKey();
@@ -254,15 +254,15 @@ ERESULT CEvButton::LoadResource()
 			for (i=ARRAY_INDEX_OTHER;i < BUTTON_FRAME_ARRAY_MAX,lpSubKey != NULL;i++)
 			{
 				lpSubKey->GetValue(&(mdArrayFrame[i].Count),lpSubKey->GetValueLength());
-				mdArrayFrame[i].Index = mlPageCountMax;			//´ÓµÚ¼¸Ö¡¿ªÊ¼
+				mdArrayFrame[i].Index = mlPageCountMax;			//ä»ç¬¬å‡ å¸§å¼€å§‹
 
 				mlPageCountMax += mdArrayFrame[i].Count;
 
-				lpSubKey = lpSubKey->MoveToNextKey();	//²é¿´ÊÇ·ñ»¹ÓĞÏÂÒ»¸ö¶¯»­Êı¾İ
+				lpSubKey = lpSubKey->MoveToNextKey();	//æŸ¥çœ‹æ˜¯å¦è¿˜æœ‰ä¸‹ä¸€ä¸ªåŠ¨ç”»æ•°æ®
 			}
 
-			//if(i > ARRAY_INDEX_OTHER) //????ÕâÀïÎªÊ²Ã´Òª¿ªÆôCheck×´Ì¬£¬ÏÈÆÁµô Edit by Jaryee
-			//	mbIsCheckEnable = true;	//¿ªÆôCheckedÌ¬
+			//if(i > ARRAY_INDEX_OTHER) //????è¿™é‡Œä¸ºä»€ä¹ˆè¦å¼€å¯CheckçŠ¶æ€ï¼Œå…ˆå±æ‰ Edit by Jaryee
+			//	mbIsCheckEnable = true;	//å¼€å¯Checkedæ€
 
 			CMM_SAFE_RELEASE(lpValue);
 			CMM_SAFE_RELEASE(lpSubKey);
@@ -271,7 +271,7 @@ ERESULT CEvButton::LoadResource()
 		if (mpBgBitmap != NULL)
 		{
 			UINT luiWidth = mpBgBitmap->GetWidth();
-			UINT luiHeight = mpBgBitmap->GetHeight();	//»ñÈ¡±³¾°Í¼¿í¸ß
+			UINT luiHeight = mpBgBitmap->GetHeight();	//è·å–èƒŒæ™¯å›¾å®½é«˜
 
 
 			if(mlPageCountMax > 0)
@@ -279,7 +279,7 @@ ERESULT CEvButton::LoadResource()
 				mdFrameSize.width = (float)luiWidth / mlPageCountMax;
 				mdFrameSize.height = (float)luiHeight;
 
-				mpIterator->SetSize(mdFrameSize.width,mdFrameSize.height); //ÉèÖÃ°´Å¥ÏÔÊ¾´óĞ¡
+				mpIterator->SetSize(mdFrameSize.width,mdFrameSize.height); //è®¾ç½®æŒ‰é’®æ˜¾ç¤ºå¤§å°
 			}
 		}
 
@@ -293,7 +293,7 @@ ERESULT CEvButton::LoadResource()
 	return leResult;
 }
 
-//¶¨Î»ÎÄ×ÖÍ¼Æ¬ÏÔÊ¾Î»ÖÃ
+//å®šä½æ–‡å­—å›¾ç‰‡æ˜¾ç¤ºä½ç½®
 void CEvButton::RelocateText(void)
 {
 	do 
@@ -303,13 +303,13 @@ void CEvButton::RelocateText(void)
 
 		if (mpBgBitmap != NULL)
 		{
-			//if (wcsicmp(mpszButtonText,L"»ªÓï")==0)
+			//if (wcsicmp(mpszButtonText,L"åè¯­")==0)
 			//{
 			//	//break;
 			//}
 			FLOAT lfWidth = mfTextLeft + mfTextRight + mpTextBitmap->GetWidth();
 			FLOAT lfHeight = mfTextTop + mfTextBottom + mpTextBitmap->GetHeight();
-			if(lfWidth > mpIterator->GetSizeX()) //Èç¹û±³¾°Í¼±ÈÎÄ×ÖĞ¡,¾ÍÒªÀ©´ó±³¾°Í¼
+			if(lfWidth > mpIterator->GetSizeX()) //å¦‚æœèƒŒæ™¯å›¾æ¯”æ–‡å­—å°,å°±è¦æ‰©å¤§èƒŒæ™¯å›¾
 				mpIterator->SetSize(lfWidth,mpIterator->GetSizeY());
 			if(lfHeight > mpIterator->GetSizeY())
 				mpIterator->SetSize(mpIterator->GetSizeX(),lfHeight);
@@ -317,15 +317,15 @@ void CEvButton::RelocateText(void)
 
 			if (mlAlignType == 1)
 			{
-				//×ó¶ÔÆë
+				//å·¦å¯¹é½
 			}
 			else if(mlAlignType == 2)
 			{
-				//¾ÓÖĞ¶ÔÆë
+				//å±…ä¸­å¯¹é½
 			}
 			else/* if(mlAlignType == 2)*/
 			{
-				//ÓÒ¶ÔÆë
+				//å³å¯¹é½
 
 			}
 
@@ -355,29 +355,29 @@ void CEvButton::RelocateText(void)
 	} while (false);
 }
 
-// ·Ö½âÏûÏ¢£¬Ìá¹©ÏûÏ¢·Ö½â»òÏûÏ¢ÏìÓ¦µÄ¹¦ÄÜ£¬±¾ÀàµÄÊµÏÖÊÇ½«ÏûÏ¢·Ö½âÎª²»Í¬µÄÇëÇóºó£¬µ÷ÓÃÏàÓ¦µÄ´¦ÀíĞéº¯Êı£¬¶ÔÓÚ²»ÈÏÊ¶µÄÏûÏ¢£¬Ò»ÂÉ·µ»ØERESULT_UNEXPECTED_MESSAGE
-// ±¾º¯ÊıµÄ·µ»ØÖµ»á×Ô¶¯Í¬²½ÉèÖÃµ½npMsgÖ¸ÏòµÄÏûÏ¢¶ÔÏóÖĞ
+// åˆ†è§£æ¶ˆæ¯ï¼Œæä¾›æ¶ˆæ¯åˆ†è§£æˆ–æ¶ˆæ¯å“åº”çš„åŠŸèƒ½ï¼Œæœ¬ç±»çš„å®ç°æ˜¯å°†æ¶ˆæ¯åˆ†è§£ä¸ºä¸åŒçš„è¯·æ±‚åï¼Œè°ƒç”¨ç›¸åº”çš„å¤„ç†è™šå‡½æ•°ï¼Œå¯¹äºä¸è®¤è¯†çš„æ¶ˆæ¯ï¼Œä¸€å¾‹è¿”å›ERESULT_UNEXPECTED_MESSAGE
+// æœ¬å‡½æ•°çš„è¿”å›å€¼ä¼šè‡ªåŠ¨åŒæ­¥è®¾ç½®åˆ°npMsgæŒ‡å‘çš„æ¶ˆæ¯å¯¹è±¡ä¸­
 ERESULT CEvButton::ParseMessage(IEinkuiMessage* npMsg)
 {
-	// ÊµÏÖÔ­Ôò£¬ÓÅÏÈµ÷ÓÃ×ÔÉíµÄ·Ö½â¹¦ÄÜ£¬¶øºó½«²»´¦ÀíµÄÏûÏ¢·¢¸ø»ùÀà
+	// å®ç°åŸåˆ™ï¼Œä¼˜å…ˆè°ƒç”¨è‡ªèº«çš„åˆ†è§£åŠŸèƒ½ï¼Œè€Œåå°†ä¸å¤„ç†çš„æ¶ˆæ¯å‘ç»™åŸºç±»
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
 	switch (npMsg->GetMessageID())
 	{
-	case EACT_BUTTON_SET_CHECKED:	//ÉèÖÃCheck×´Ì¬
+	case EACT_BUTTON_SET_CHECKED:	//è®¾ç½®CheckçŠ¶æ€
 		{
 			if(npMsg->GetInputDataSize() != sizeof(bool))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
 				break;
 			}
-			// »ñÈ¡ÊäÈëÊı¾İ
+			// è·å–è¾“å…¥æ•°æ®
 			bool* lpValue = (bool*)npMsg->GetInputData();
-			luResult = SetChecked(*lpValue);// ·µ»ØÖµ£¬IEinkuiMessage¶ÔÏóµÄ·µ»ØÖµÓÉ±¾º¯ÊıµÄµ÷ÓÃÕßÒÀ¾İ±¾º¯ÊıµÄ½á¹ûÉèÖÃ
+			luResult = SetChecked(*lpValue);// è¿”å›å€¼ï¼ŒIEinkuiMessageå¯¹è±¡çš„è¿”å›å€¼ç”±æœ¬å‡½æ•°çš„è°ƒç”¨è€…ä¾æ®æœ¬å‡½æ•°çš„ç»“æœè®¾ç½®
 			break;
 		}
-	case EACT_BUTTON_GET_CHECKED:	//»ñÈ¡ÊÇ·ñ´¦ÓÚCheck×´Ì¬
+	case EACT_BUTTON_GET_CHECKED:	//è·å–æ˜¯å¦å¤„äºCheckçŠ¶æ€
 		{
 			if(npMsg->GetOutputBufferSize() != sizeof(bool))
 			{
@@ -385,7 +385,7 @@ ERESULT CEvButton::ParseMessage(IEinkuiMessage* npMsg)
 				break;
 			}
 
-			// ÉèÖÃÊä³öÊı¾İ
+			// è®¾ç½®è¾“å‡ºæ•°æ®
 			bool* lpOut = (bool*)npMsg->GetOutputBuffer();
 
 			*lpOut = IsChecked();
@@ -397,22 +397,22 @@ ERESULT CEvButton::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_BUTTON_PLAY_OTHER_ANIMATION:
 		{
-			//²¥·Å×Ô¶¨Òå¶¯»­ÏûÏ¢
+			//æ’­æ”¾è‡ªå®šä¹‰åŠ¨ç”»æ¶ˆæ¯
 			if(npMsg->GetInputDataSize() != sizeof(LONG))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
 				break;
 			}
-			// »ñÈ¡ÊäÈëÊı¾İ
+			// è·å–è¾“å…¥æ•°æ®
 			LONG* lpValue = (LONG*)npMsg->GetInputData();
-			mlOtherIndex = *lpValue;	//²¥·ÅµÄÊÇÄÄ¸ö¶¯»­
-			mlOtherIndex -= 1;	//¶¯»­µÄË³ĞòÊÇ´Ó1¿ªÊ¼£¬ÎÒÃÇµÄÊı×éÊÇ´Ó0¿ªÊ¼
+			mlOtherIndex = *lpValue;	//æ’­æ”¾çš„æ˜¯å“ªä¸ªåŠ¨ç”»
+			mlOtherIndex -= 1;	//åŠ¨ç”»çš„é¡ºåºæ˜¯ä»1å¼€å§‹ï¼Œæˆ‘ä»¬çš„æ•°ç»„æ˜¯ä»0å¼€å§‹
 			if(mlOtherIndex < 0 || mlOtherIndex > (BUTTON_FRAME_ARRAY_MAX - ARRAY_INDEX_OTHER + 1))
 				break;
 
 			if (mdArrayFrame[mlOtherIndex + ARRAY_INDEX_OTHER].Count != 0)
 			{
-				mbIsOther = true;	//ÉèÖÃ²¥·Å¶¯»­
+				mbIsOther = true;	//è®¾ç½®æ’­æ”¾åŠ¨ç”»
 				StartPlayTimer();
 			}
 
@@ -420,8 +420,8 @@ ERESULT CEvButton::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_BUTTON_SETTEXT:
 		{
-			//¸ü»»ÏÔÊ¾ÎÄ×Ö
-			// »ñÈ¡ÊäÈëÊı¾İ
+			//æ›´æ¢æ˜¾ç¤ºæ–‡å­—
+			// è·å–è¾“å…¥æ•°æ®
 			wchar_t* lpswText = (wchar_t*)npMsg->GetInputData();
 			OnChangeText(lpswText);
 
@@ -429,8 +429,8 @@ ERESULT CEvButton::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_BUTTON_CHANGE_PIC:
 		{
-			//¸ü»»±³¾°Í¼Æ¬£¬Ïà¶ÔÂ·¾¶
-			// »ñÈ¡ÊäÈëÊı¾İ
+			//æ›´æ¢èƒŒæ™¯å›¾ç‰‡ï¼Œç›¸å¯¹è·¯å¾„
+			// è·å–è¾“å…¥æ•°æ®
 			wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
 
 			luResult = OnChangeBackGround(lpValue,false);
@@ -439,8 +439,8 @@ ERESULT CEvButton::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_BUTTON_CHANGE_PIC_FULLPATH:
 		{
-			//¸ü»»±³¾°Í¼Æ¬£¬È«Â·¾¶
-			// »ñÈ¡ÊäÈëÊı¾İ
+			//æ›´æ¢èƒŒæ™¯å›¾ç‰‡ï¼Œå…¨è·¯å¾„
+			// è·å–è¾“å…¥æ•°æ®
 			wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
 
 			luResult = OnChangeBackGround(lpValue,true);
@@ -449,14 +449,14 @@ ERESULT CEvButton::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_BUTTON_GETTEXT:
 		{
-			//»ñÈ¡ÏÔÊ¾ÎÄ×Ö
+			//è·å–æ˜¾ç¤ºæ–‡å­—
 			if(npMsg->GetOutputBufferSize() != sizeof(wchar_t*))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
 				break;
 			}
 
-			// ÉèÖÃÊä³öÊı¾İ
+			// è®¾ç½®è¾“å‡ºæ•°æ®
 			wchar_t** lpOut = (wchar_t**)npMsg->GetOutputBuffer();
 			*lpOut = mpszButtonText;
 
@@ -464,7 +464,7 @@ ERESULT CEvButton::ParseMessage(IEinkuiMessage* npMsg)
 		}
 	case EACT_BUTTON_SET_ACTION_RECT:
 		{
-			//ÉèÖÃ¼¤»îÇøÓò
+			//è®¾ç½®æ¿€æ´»åŒºåŸŸ
 			if(npMsg->GetInputDataSize() != sizeof(D2D1_SIZE_F))
 			{
 				luResult = ERESULT_WRONG_PARAMETERS;
@@ -484,13 +484,13 @@ ERESULT CEvButton::ParseMessage(IEinkuiMessage* npMsg)
 
 	if(luResult == ERESULT_NOT_SET)
 	{
-		luResult = CXuiElement::ParseMessage(npMsg); // µ÷ÓÃ»ùÀàµÄÍ¬Ãûº¯Êı£»×¢Òâ£ºÒ»¶¨Òªµ÷ÓÃ×ÔÉíÖ±½Ó»ùÀà
+		luResult = CXuiElement::ParseMessage(npMsg); // è°ƒç”¨åŸºç±»çš„åŒåå‡½æ•°ï¼›æ³¨æ„ï¼šä¸€å®šè¦è°ƒç”¨è‡ªèº«ç›´æ¥åŸºç±»
 	}
 
 	return luResult;
 }
 
-//»æÖÆ
+//ç»˜åˆ¶
 ERESULT CEvButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -501,18 +501,18 @@ ERESULT CEvButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 		
 		if (mpBgBitmap != NULL)
 		{
-			//»æÖÆ±³¾°Í¼
+			//ç»˜åˆ¶èƒŒæ™¯å›¾
 			float lfX = 0;
 			ULONG lulMethod = ESPB_DRAWBMP_LINEAR;
-			LONG llIndex = GetCurrentStatesArrayIndex();		//»ñÈ¡µ±Ç°×´Ì¬Í¼Æ¬ĞÅÏ¢ËùÔÚµÄÊı×éÏÂ±ê
+			LONG llIndex = GetCurrentStatesArrayIndex();		//è·å–å½“å‰çŠ¶æ€å›¾ç‰‡ä¿¡æ¯æ‰€åœ¨çš„æ•°ç»„ä¸‹æ ‡
 
 			if (llIndex != -1)
 			{
-				//????Òª°ÑÕâ²½¼ÆËã·Åµ½½ÓÊÕµ½×Ô¼º²Î¿¼³ß´ç¸Ä±äµÄµØ·½
+				//????è¦æŠŠè¿™æ­¥è®¡ç®—æ”¾åˆ°æ¥æ”¶åˆ°è‡ªå·±å‚è€ƒå°ºå¯¸æ”¹å˜çš„åœ°æ–¹
 				//if((mpBgBitmap->GetExtnedLineX() != 0 && mpBgBitmap->GetExtnedLineY() != 0) && ((mpIterator->GetSizeX() - mdFrameSize.width > 1) || mpIterator->GetSizeY() - mdFrameSize.height > 1))
-				//	lulMethod = ESPB_DRAWBMP_EXTEND;	//Èç¹ûÉèÖÃÁËÑÓÕ¹Ïß²¢ÇÒ²Î¿¼³ß´ç´óÓÚÊµ¼Ê³ß´ç£¬ÄÇ¾ÍÊ¹ÓÃÑÓÕ¹·½Ê½
+				//	lulMethod = ESPB_DRAWBMP_EXTEND;	//å¦‚æœè®¾ç½®äº†å»¶å±•çº¿å¹¶ä¸”å‚è€ƒå°ºå¯¸å¤§äºå®é™…å°ºå¯¸ï¼Œé‚£å°±ä½¿ç”¨å»¶å±•æ–¹å¼
 
-				lfX = (mdArrayFrame[llIndex].Index + mlCurrentPage) * mdFrameSize.width; //´ÓÄÄ¸öÎ»ÖÃ¿ªÊ¼ÏÔÊ¾
+				lfX = (mdArrayFrame[llIndex].Index + mlCurrentPage) * mdFrameSize.width; //ä»å“ªä¸ªä½ç½®å¼€å§‹æ˜¾ç¤º
 
 				npPaintBoard->DrawBitmap(D2D1::RectF(0.0f,0.0f,mpIterator->GetSizeX(),mpIterator->GetSizeY()),
 					D2D1::RectF(lfX,0,lfX + mdFrameSize.width,mdFrameSize.height),
@@ -524,9 +524,9 @@ ERESULT CEvButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 
 		if(mpTextBitmap != NULL)
 		{
-			//»æÖÆÎÄ×Ö
+			//ç»˜åˆ¶æ–‡å­—
 			FLOAT lfValue = mbIsPressed?1.0f:0.0f;
-			lfValue = 0.0f;//einkÏîÄ¿²»ĞèÒªÏòÓÒÏÂÒÆ¶¯
+			lfValue = 0.0f;//einké¡¹ç›®ä¸éœ€è¦å‘å³ä¸‹ç§»åŠ¨
 			npPaintBoard->DrawBitmap(D2D1::RectF(mdTextDestRect.left + lfValue,mdTextDestRect.top + lfValue,mdTextDestRect.right + lfValue,mdTextDestRect.bottom + lfValue),
 									 mpTextBitmap,
 									 ESPB_DRAWBMP_NEAREST
@@ -540,22 +540,22 @@ ERESULT CEvButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	return lResult;
 }
 
-//¶¨Ê±Æ÷
+//å®šæ—¶å™¨
 void CEvButton::OnTimer(PSTEMS_TIMER npStatus)
 {
 	do 
 	{
 		if (npStatus->TimerID == BUTTON_TIMER_ID_PAGE)
 		{
-			//²¥·Å¶¯»­
-			if(mpIterator->IsVisible() == false)	//Èç¹û½øÈëÒş²Ø×´Ì¬£¬¾Í¹Øµô¶¨Ê±Æ÷
+			//æ’­æ”¾åŠ¨ç”»
+			if(mpIterator->IsVisible() == false)	//å¦‚æœè¿›å…¥éšè—çŠ¶æ€ï¼Œå°±å…³æ‰å®šæ—¶å™¨
 			{
 				mpIterator->KillTimer(npStatus->TimerID);
 				mbIsPlayTimer = false;
 				break;
 			}
 
-			LONG llIndex = GetCurrentStatesArrayIndex();		//»ñÈ¡µ±Ç°×´Ì¬Í¼Æ¬ĞÅÏ¢ËùÔÚµÄÊı×éÏÂ±ê
+			LONG llIndex = GetCurrentStatesArrayIndex();		//è·å–å½“å‰çŠ¶æ€å›¾ç‰‡ä¿¡æ¯æ‰€åœ¨çš„æ•°ç»„ä¸‹æ ‡
 
 			if (llIndex != -1)
 			{
@@ -566,14 +566,14 @@ void CEvButton::OnTimer(PSTEMS_TIMER npStatus)
 				}
 				else
 				{
-					mlCurrentPage = 0;	//³¬¹ı×î´óÒ³
+					mlCurrentPage = 0;	//è¶…è¿‡æœ€å¤§é¡µ
 					if(mbIsOther != false)
 					{
 						mbIsOther = false;
 						
-						StartPlayTimer(); //×Ô¶¨Òå¶¯»­Ö»²¥·ÅÒ»´Î
+						StartPlayTimer(); //è‡ªå®šä¹‰åŠ¨ç”»åªæ’­æ”¾ä¸€æ¬¡
 						LONG llOtherIndex = mlOtherIndex+1;
-						PostMessageToParent(EEVT_BUTTON_PLAYED,llOtherIndex); //Í¨Öª¸¸´°¿Ú£¬¶¯»­²¥·ÅÍê³É
+						PostMessageToParent(EEVT_BUTTON_PLAYED,llOtherIndex); //é€šçŸ¥çˆ¶çª—å£ï¼ŒåŠ¨ç”»æ’­æ”¾å®Œæˆ
 					}
 				}
 
@@ -585,14 +585,14 @@ void CEvButton::OnTimer(PSTEMS_TIMER npStatus)
 
 }
 
-//Êó±ê½øÈë»òÀë¿ª
+//é¼ æ ‡è¿›å…¥æˆ–ç¦»å¼€
 void CEvButton::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 {
 	CXuiElement::OnMouseFocus(npState);
 
 	if (npState->State != 0)
 	{
-		//Êó±ê½øÈë
+		//é¼ æ ‡è¿›å…¥
 		if(mbIsMouseFocus == false)
 			mbIsMouseFocus = true;
 
@@ -600,24 +600,24 @@ void CEvButton::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 	}
 	else
 	{
-		//Êó±êÒÆ³ö
+		//é¼ æ ‡ç§»å‡º
 		if(mbIsMouseFocus != false)
 			mbIsMouseFocus = false;
 
-		if(mbIsPressed != false)  //Èç¹ûÊó±êÒÆ×ßÁË£¬¾ÍÈ¥µô°´ÏÂ×´Ì¬
+		if(mbIsPressed != false)  //å¦‚æœé¼ æ ‡ç§»èµ°äº†ï¼Œå°±å»æ‰æŒ‰ä¸‹çŠ¶æ€
 			mbIsPressed = false;
 
 		PostMessageToParent(EEVT_BUTTON_MOUSE_OUT,mpIterator);
 	}
 
 	if(mbIsOther == false)
-		StartPlayTimer(); //Èç¹ûÕıÔÚ²¥·Å×Ô¶¨Òå¶¯»­£¬Ôò²»Ö´ĞĞÏÂÃæ²Ù×÷
+		StartPlayTimer(); //å¦‚æœæ­£åœ¨æ’­æ”¾è‡ªå®šä¹‰åŠ¨ç”»ï¼Œåˆ™ä¸æ‰§è¡Œä¸‹é¢æ“ä½œ
 	
 
 	EinkuiGetSystem()->UpdateView();
 }
 
-//Êó±ê°´ÏÂ
+//é¼ æ ‡æŒ‰ä¸‹
 ERESULT CEvButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -626,34 +626,34 @@ ERESULT CEvButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 	{
 		BREAK_ON_NULL(npInfo);
 		if(mpIterator->IsEnable() == false)
-			break;	//Èç¹ûÊÇ½ûÓÃ×´Ì¬£¬¾Í²»½ÓÊÕÊäÈë
+			break;	//å¦‚æœæ˜¯ç¦ç”¨çŠ¶æ€ï¼Œå°±ä¸æ¥æ”¶è¾“å…¥
 
-		if(MOUSE_LB(npInfo->ActKey) == false)  //Èç¹û²»ÊÇÊó±ê×ó¼ü¾Í²»´¦Àí
+		if(MOUSE_LB(npInfo->ActKey) == false)  //å¦‚æœä¸æ˜¯é¼ æ ‡å·¦é”®å°±ä¸å¤„ç†
 			break;
 
 		if (npInfo->Presssed == false)
 		{
-			//Êó±êÌ§Æğ
+			//é¼ æ ‡æŠ¬èµ·
 			if (mbIsPressed != false)
 			{
-				//µ½ÕâÀï²ÅËãÒ»´ÎClick
+				//åˆ°è¿™é‡Œæ‰ç®—ä¸€æ¬¡Click
 				PostMessageToParent(EEVT_BUTTON_CLICK,CExMessage::DataInvalid);
 
 				mbIsPressed = false;
 
 				if (mbIsCheckEnable != false)
 				{
-					//ÔÊĞíCheck
+					//å…è®¸Check
 					if (mbIsChecked == false)
 					{
-						//Check×´Ì¬
+						//CheckçŠ¶æ€
 						mpIterator->SetToolTip(mpszCheckedTip);
 						mbIsChecked = true;
 						PostMessageToParent(EEVT_BUTTON_CHECKED,CExMessage::DataInvalid);
 					}
 					else
 					{
-						//UnCheck×´Ì¬
+						//UnCheckçŠ¶æ€
 						mpIterator->SetToolTip(mpszNormolTip);
 						mbIsChecked = false;
 						PostMessageToParent(EEVT_BUTTON_UNCHECK,CExMessage::DataInvalid);
@@ -663,7 +663,7 @@ ERESULT CEvButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 		}
 		else
 		{
-			//Êó±ê°´ÏÂ
+			//é¼ æ ‡æŒ‰ä¸‹
 			if (mbIsPressed == false)
 			{
 				mbIsPressed = true;
@@ -680,18 +680,18 @@ ERESULT CEvButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 	return lResult;
 }
 
-//½ûÓÃ»òÆôÓÃ
+//ç¦ç”¨æˆ–å¯ç”¨
 ERESULT CEvButton::OnElementEnable(bool nbIsEnable)
 {
 	StartPlayTimer();
 
-	// ¸Ä±äÎÄ×ÖÑÕÉ«
+	// æ”¹å˜æ–‡å­—é¢œè‰²
 	ReCreateTextBmp();
 
 	return ERROR_SUCCESS;
 }
 
-//ÉèÖÃCheck×´Ì¬
+//è®¾ç½®CheckçŠ¶æ€
 ERESULT CEvButton::SetChecked(bool nbIsChecked)
 {
 	mbIsChecked = nbIsChecked;
@@ -699,33 +699,33 @@ ERESULT CEvButton::SetChecked(bool nbIsChecked)
 	return ERESULT_SUCCESS;
 }
 
-//ÅĞ¶ÏÊÇ·ñ´¦ÓÚCheck×´Ì¬
+//åˆ¤æ–­æ˜¯å¦å¤„äºCheckçŠ¶æ€
 bool CEvButton::IsChecked()
 {
 	return mbIsChecked;
 }
 
-//»ñÈ¡µ±Ç°×´Ì¬ËùÔÚµÄÊı×éÏÂ±ê
+//è·å–å½“å‰çŠ¶æ€æ‰€åœ¨çš„æ•°ç»„ä¸‹æ ‡
 LONG CEvButton::GetCurrentStatesArrayIndex()
 {
 	LONG llIndex = -1;
 
-	//°´Å¥¶¯»­»æÖÆTimer
+	//æŒ‰é’®åŠ¨ç”»ç»˜åˆ¶Timer
 	if (mbIsOther != false)
 	{
-		//×Ô¶¨Òå¶¯»­
+		//è‡ªå®šä¹‰åŠ¨ç”»
 		llIndex = mlOtherIndex + ARRAY_INDEX_OTHER;
 	}
-	else if (mpIterator->IsEnable() == false)		// ½ûÓÃÌ¬
+	else if (mpIterator->IsEnable() == false)		// ç¦ç”¨æ€
 	{
 		if (mbIsChecked == false)
 		{
-			//ÆÕÍ¨½ûÓÃÌ¬
+			//æ™®é€šç¦ç”¨æ€
 			llIndex = ARRAY_INDEX_DISABLE;
 		}
 		else
 		{
-			//Checked½ûÓÃÌ¬
+			//Checkedç¦ç”¨æ€
 			llIndex = ARRAY_INDEX_CHECKED_DISABLE;
 		}
 	}
@@ -733,12 +733,12 @@ LONG CEvButton::GetCurrentStatesArrayIndex()
 	{
 		if (mbIsChecked == false)
 		{
-			//ÆÕÍ¨°´ÏÂÌ¬
+			//æ™®é€šæŒ‰ä¸‹æ€
 			llIndex = ARRAY_INDEX_PRESSED;
 		}
 		else
 		{
-			//Checked°´ÏÂÌ¬
+			//CheckedæŒ‰ä¸‹æ€
 			llIndex = ARRAY_INDEX_CHECKED_PRESSED;
 		}
 	}
@@ -746,12 +746,12 @@ LONG CEvButton::GetCurrentStatesArrayIndex()
 	{
 		if (mbIsChecked == false)
 		{
-			//ÆÕÍ¨½¹µãÌ¬
+			//æ™®é€šç„¦ç‚¹æ€
 			llIndex = ARRAY_INDEX_FOCUS;
 		}
 		else
 		{
-			//Checked½¹µãÌ¬
+			//Checkedç„¦ç‚¹æ€
 			llIndex = ARRAY_INDEX_CHECKED_FOCUS;
 		}
 	}
@@ -759,12 +759,12 @@ LONG CEvButton::GetCurrentStatesArrayIndex()
 	{
 		if (mbIsChecked == false)
 		{
-			//ÆÕÍ¨Õı³£Ì¬
+			//æ™®é€šæ­£å¸¸æ€
 			llIndex = ARRAY_INDEX_NORMAL;
 		}
 		else
 		{
-			//CheckedÕı³£Ì¬
+			//Checkedæ­£å¸¸æ€
 			llIndex = ARRAY_INDEX_CHECKED_NORMAL;
 		}
 	}
@@ -772,7 +772,7 @@ LONG CEvButton::GetCurrentStatesArrayIndex()
 	return llIndex;
 }
 
-//¿ªÆô»ò¹Ø±Õ¶¯»­¶¨Ê±Æ÷
+//å¼€å¯æˆ–å…³é—­åŠ¨ç”»å®šæ—¶å™¨
 void CEvButton::StartPlayTimer()
 {
 	do 
@@ -794,7 +794,7 @@ void CEvButton::StartPlayTimer()
 
 }
 
-//ÇĞ»»ÏÔÊ¾Ö¡,µÚÒ»Ö¡Îª1
+//åˆ‡æ¢æ˜¾ç¤ºå¸§,ç¬¬ä¸€å¸§ä¸º1
 ERESULT CEvButton::OnPlayAnimation(LONG nlIndex)
 {
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
@@ -813,7 +813,7 @@ ERESULT CEvButton::OnPlayAnimation(LONG nlIndex)
 	return lResult;
 }
 
-// Êó±êÂäµã¼ì²â
+// é¼ æ ‡è½ç‚¹æ£€æµ‹
 ERESULT CEvButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -826,24 +826,24 @@ ERESULT CEvButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 
 		if (mdAcionSize.width > 1.0f && mdAcionSize.height > 1.0f)
 		{
-			//Èç¹ûÓĞ¸ĞÓ¦Çø£¬¾ÍÒÔ¸ĞÓ¦ÇøÎªÖ÷
+			//å¦‚æœæœ‰æ„Ÿåº”åŒºï¼Œå°±ä»¥æ„Ÿåº”åŒºä¸ºä¸»
 			if(rPoint.x < 0.0f || rPoint.x >= mdAcionSize.width || rPoint.y < 0.0f || rPoint.y >= mdAcionSize.height)
 				break;
 		}
 		else if (mpBgBitmap != NULL)
 		{
-			//ÓĞ±³¾°Í¼µÄÊ±ºò
+			//æœ‰èƒŒæ™¯å›¾çš„æ—¶å€™
 			if(rPoint.x < 0.0f || (UINT)rPoint.x >= mpIterator->GetSizeX() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpIterator->GetSizeY())
 				break;
 
 			float lfX = 0;
-			LONG llIndex = GetCurrentStatesArrayIndex();		//»ñÈ¡µ±Ç°×´Ì¬Í¼Æ¬ĞÅÏ¢ËùÔÚµÄÊı×éÏÂ±ê
+			LONG llIndex = GetCurrentStatesArrayIndex();		//è·å–å½“å‰çŠ¶æ€å›¾ç‰‡ä¿¡æ¯æ‰€åœ¨çš„æ•°ç»„ä¸‹æ ‡
 			if(llIndex < 0)
 				break;
-			lfX = (mdArrayFrame[llIndex].Index + mlCurrentPage) * mdFrameSize.width;  	//´ÓÄÄ¸öÎ»ÖÃ¿ªÊ¼ÏÔÊ¾
+			lfX = (mdArrayFrame[llIndex].Index + mlCurrentPage) * mdFrameSize.width;  	//ä»å“ªä¸ªä½ç½®å¼€å§‹æ˜¾ç¤º
 
 			D2D1_POINT_2F ldPoint = CExPoint::BigToOldPoint(mdFrameSize,mpIterator->GetSize(),D2D1::Point2(rPoint.x,rPoint.y),ESPB_DRAWBMP_EXTEND,D2D1::Point2((FLOAT)mpBgBitmap->GetExtnedLineX(),(FLOAT)mpBgBitmap->GetExtnedLineY()));
-			//Í¨¹ıÏñËØAlphaÖµ¼ì²â????
+			//é€šè¿‡åƒç´ Alphaå€¼æ£€æµ‹????
 			DWORD luPixel;
 			if(ERESULT_SUCCEEDED(mpBgBitmap->GetPixel(DWORD(lfX+ldPoint.x),(DWORD)ldPoint.y,luPixel)))
 			{
@@ -853,7 +853,7 @@ ERESULT CEvButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 		}
 		else if (mpTextBitmap != NULL)
 		{
-			//Ö»ÓĞÎÄ×ÖµÄÊ±ºò
+			//åªæœ‰æ–‡å­—çš„æ—¶å€™
 			if(rPoint.x < 0.0f || (UINT)rPoint.x >= mpTextBitmap->GetWidth() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpTextBitmap->GetHeight())
 				break;
 		}
@@ -869,7 +869,7 @@ ERESULT CEvButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	return luResult;
 }
 
-//¸Ä±ä°´Å¥ÎÄ×Ö
+//æ”¹å˜æŒ‰é’®æ–‡å­—
 ERESULT CEvButton::OnChangeText(wchar_t* npswText)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
@@ -878,16 +878,16 @@ ERESULT CEvButton::OnChangeText(wchar_t* npswText)
 	{
 		BREAK_ON_NULL(npswText);
 
-		CMM_SAFE_DELETE(mpszButtonText);	//Çå³ıÔ­À´µÄ×Ö·û»º³åÇø
+		CMM_SAFE_DELETE(mpszButtonText);	//æ¸…é™¤åŸæ¥çš„å­—ç¬¦ç¼“å†²åŒº
 		int liLen = wcslen(npswText)+1;
 		mpszButtonText = new wchar_t[liLen];
 		BREAK_ON_NULL(mpszButtonText);
-		wcscpy_s(mpszButtonText,liLen,npswText);	//CopyĞÂÄÚÈİ
+		wcscpy_s(mpszButtonText,liLen,npswText);	//Copyæ–°å†…å®¹
 
-		//Éú³ÉĞÂµÄÎÄ×ÖÍ¼Æ¬
+		//ç”Ÿæˆæ–°çš„æ–‡å­—å›¾ç‰‡
 		ReCreateTextBmp();
 
-		RelocateText(); //ÖØĞÂ¶¨Î»ÎÄ×ÖÎ»ÖÃ
+		RelocateText(); //é‡æ–°å®šä½æ–‡å­—ä½ç½®
 
 		EinkuiGetSystem()->UpdateView();
 
@@ -899,7 +899,7 @@ ERESULT CEvButton::OnChangeText(wchar_t* npswText)
 }
 
 
-//¸ü»»ÏÔÊ¾Í¼Æ¬
+//æ›´æ¢æ˜¾ç¤ºå›¾ç‰‡
 ERESULT CEvButton::OnChangeBackGround(wchar_t* npswPicPath,bool nbIsFullPath)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
@@ -909,8 +909,8 @@ ERESULT CEvButton::OnChangeBackGround(wchar_t* npswPicPath,bool nbIsFullPath)
 		if(npswPicPath == NULL || npswPicPath[0] == UNICODE_NULL)
 			break;
 
-		//????ÏÈ×öÕâÃ´¼òµ¥´¦Àí£¬ÕâÀï»¹ĞèÒªÖØĞÂ¼ÆËãÍ¼Æ¬µÄÏà¹ØĞÅÏ¢
-		CMM_SAFE_RELEASE(mpBgBitmap);	//È¥³ıÔ­À´µÄÍ¼Æ¬
+		//????å…ˆåšè¿™ä¹ˆç®€å•å¤„ç†ï¼Œè¿™é‡Œè¿˜éœ€è¦é‡æ–°è®¡ç®—å›¾ç‰‡çš„ç›¸å…³ä¿¡æ¯
+		CMM_SAFE_RELEASE(mpBgBitmap);	//å»é™¤åŸæ¥çš„å›¾ç‰‡
 
 		mpBgBitmap = EinkuiGetSystem()->GetAllocator()->LoadImageFile(npswPicPath,nbIsFullPath);
 		BREAK_ON_NULL(mpBgBitmap);
@@ -924,10 +924,10 @@ ERESULT CEvButton::OnChangeBackGround(wchar_t* npswPicPath,bool nbIsFullPath)
 	return leResult;
 }
 
-//ÖØĞÂÉú³ÉÎÄ×ÖÍ¼Æ¬
+//é‡æ–°ç”Ÿæˆæ–‡å­—å›¾ç‰‡
 bool CEvButton::ReCreateTextBmp()
 {
-	//¹¹½¨½á¹¹Ìå
+	//æ„å»ºç»“æ„ä½“
 	STETXT_BMP_INIT ldInit;
 	ZeroMemory(&ldInit,sizeof(STETXT_BMP_INIT));
 	ldInit.Text = mpszButtonText;
@@ -939,21 +939,21 @@ bool CEvButton::ReCreateTextBmp()
 	LONG liTextMaxHeight = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_MAXHEIGHT,0);
 	if(liTextMaxWidth > 0)
 	{
-		//ÎªÁËÔö¼Ó...
+		//ä¸ºäº†å¢åŠ ...
 		ldInit.Limit = STETXT_BMP_INIT::EL_FIXEDSIZE;
 		ldInit.Width = liTextMaxWidth;
 		ldInit.Height = liTextMaxHeight;
 	}
 
 
-	CMM_SAFE_RELEASE(mpTextBitmap);	//È¥µôÔ­À´µÄÍ¼Æ¬
+	CMM_SAFE_RELEASE(mpTextBitmap);	//å»æ‰åŸæ¥çš„å›¾ç‰‡
 
 	if(mdwFontSize == 0 || mpswFontName[0] == UNICODE_NULL)
 		return false;
 
 	mpTextBitmap = EinkuiGetSystem()->GetAllocator()->CreateImageByText(ldInit);
 
-	if(NULL == mpBgBitmap && mpTextBitmap != NULL)			// Èç¹ûÃ»ÓĞ±³¾°Í¼£¬ÔòÒÔÎÄ×ÖÍ¼µÄ´óĞ¡×÷Îª¿í¸ß
+	if(NULL == mpBgBitmap && mpTextBitmap != NULL)			// å¦‚æœæ²¡æœ‰èƒŒæ™¯å›¾ï¼Œåˆ™ä»¥æ–‡å­—å›¾çš„å¤§å°ä½œä¸ºå®½é«˜
 	{
 		mpIterator->SetSize((FLOAT)mpTextBitmap->GetWidth(), (FLOAT)mpTextBitmap->GetHeight());
 	}
