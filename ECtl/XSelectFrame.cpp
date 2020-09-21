@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "StdAfx.h"
 #include "cmmBaseObj.h"
 #include "Einkui.h"
@@ -16,7 +12,7 @@ DEFINE_BUILTIN_NAME(System_SelectFrame)
 
 CSelectFrame::CSelectFrame(void)
 {
-	for (int i=0;i<SF_POINT_MAX;i++)
+	for (int i = 0; i < SF_POINT_MAX; i++)
 		mpArrayPoint[i] = NULL;
 
 	mhCursorNesw = NULL;
@@ -46,22 +42,22 @@ ULONG CSelectFrame::InitOnCreate(
 	IN IEinkuiIterator* npParent,	// 父对象指针
 	IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
 	IN ULONG nuEID				// 如果不为0，则指定该元素的EID，否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动那个分配
-	)
+)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 	ICfKey* lpSubKey = NULL;
 
-	do 
+	do
 	{
 		//首先调用基类
-		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
-		if(leResult != ERESULT_SUCCESS)
+		leResult = CXuiElement::InitOnCreate(npParent, npTemplete, nuEID);
+		if (leResult != ERESULT_SUCCESS)
 			break;
 
-		for (int liID=0;liID<SF_POINT_MAX;liID++)
+		for (int liID = 0; liID < SF_POINT_MAX; liID++)
 		{
 
-			CSelectPoint* lpPoint = CSelectPoint::CreateInstance(mpIterator,npTemplete,liID+1);
+			CSelectPoint* lpPoint = CSelectPoint::CreateInstance(mpIterator, npTemplete, liID + 1);
 			BREAK_ON_NULL(lpPoint);
 
 			mpArrayPoint[liID] = lpPoint->GetIterator();
@@ -70,24 +66,24 @@ ULONG CSelectFrame::InitOnCreate(
 		}
 
 		// 创建画刷
-		mpXuiBrush = EinkuiGetSystem()->CreateBrush(XuiSolidBrush, D2D1::ColorF(0.0f,0.0f,0.0f));
+		mpXuiBrush = EinkuiGetSystem()->CreateBrush(XuiSolidBrush, D2D1::ColorF(0.0f, 0.0f, 0.0f));
 		BREAK_ON_NULL(mpXuiBrush);
 
 		mpXuiBrush->SetStrokeWidth(1.0f);
 		mpXuiBrush->SetStrokeType(
 			D2D1::StrokeStyleProperties(
-			D2D1_CAP_STYLE_FLAT,
-			D2D1_CAP_STYLE_FLAT,
-			D2D1_CAP_STYLE_ROUND,
-			D2D1_LINE_JOIN_MITER,
-			10.0f,
-			D2D1_DASH_STYLE_DASH,//D2D1_DASH_STYLE_DASH_DOT_DOT,
-			0.0f),
+				D2D1_CAP_STYLE_FLAT,
+				D2D1_CAP_STYLE_FLAT,
+				D2D1_CAP_STYLE_ROUND,
+				D2D1_LINE_JOIN_MITER,
+				10.0f,
+				D2D1_DASH_STYLE_DASH,//D2D1_DASH_STYLE_DASH_DOT_DOT,
+				0.0f),
 			0,
 			NULL);
 
-		mhCursorNwse = LoadCursor(NULL,IDC_SIZENWSE);
-		mhCursorNesw = LoadCursor(NULL,IDC_SIZENESW);
+		mhCursorNwse = LoadCursor(NULL, IDC_SIZENWSE);
+		mhCursorNesw = LoadCursor(NULL, IDC_SIZENESW);
 
 		leResult = ERESULT_SUCCESS;
 
@@ -108,16 +104,16 @@ ERESULT CSelectFrame::OnElementCreate(IEinkuiIterator* npIterator)
 
 	do
 	{
-		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
+		if (CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
 		//修改鼠标移动要自己身上时的鼠标样式
-		CXuiElement::mhInnerCursor = LoadCursor(NULL,IDC_SIZEALL);
-		mpIterator->ModifyStyles(EITR_STYLE_ALL_DRAG|EITR_STYLE_ALL_KEY);
+		CXuiElement::mhInnerCursor = LoadCursor(NULL, IDC_SIZEALL);
+		mpIterator->ModifyStyles(EITR_STYLE_ALL_DRAG | EITR_STYLE_ALL_KEY);
 
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -133,120 +129,120 @@ ERESULT CSelectFrame::ParseMessage(IEinkuiMessage* npMsg)
 	switch (npMsg->GetMessageID())
 	{
 	case EMSG_SELECTPOINT_BEGIN:
+	{
+		if (mcIsEdit != false)
 		{
-			if (mcIsEdit != false)
+			SetPointVisible(false);
+
+			mdOriginPosition = mpIterator->GetPosition();
+			mdOriginSize = mpIterator->GetSize();
+
+			//判断按键信息
+			if (npMsg->GetInputDataSize() != sizeof(STMS_DRAGGING_ELE))
 			{
-				SetPointVisible(false);
-
-				mdOriginPosition = mpIterator->GetPosition();
-				mdOriginSize = mpIterator->GetSize();
-
-				//判断按键信息
-				if(npMsg->GetInputDataSize() != sizeof(STMS_DRAGGING_ELE))
-				{
-					luResult = ERESULT_WRONG_PARAMETERS;
-					break;
-				}
-				STMS_DRAGGING_ELE* lpInfo = (STMS_DRAGGING_ELE*)npMsg->GetInputData();
-				if ((lpInfo->KeyFlag & MK_SHIFT) != 0)
-					mcProportionalScalingByKey = true;
-
-				// 为父窗口发送开始拖动的消息，不携带任何数据
-				SendMessageToParent(EMSG_SELECTPOINT_BEGIN, CExMessage::DataInvalid, NULL, 0);
+				luResult = ERESULT_WRONG_PARAMETERS;
+				break;
 			}
-			else
-			{
-				SendMessageToParent(EMSG_SELECTFRAME_BEGIN, CExMessage::DataInvalid, NULL, 0);
-			}
+			STMS_DRAGGING_ELE* lpInfo = (STMS_DRAGGING_ELE*)npMsg->GetInputData();
+			if ((lpInfo->KeyFlag & MK_SHIFT) != 0)
+				mcProportionalScalingByKey = true;
 
-			break;
+			// 为父窗口发送开始拖动的消息，不携带任何数据
+			SendMessageToParent(EMSG_SELECTPOINT_BEGIN, CExMessage::DataInvalid, NULL, 0);
 		}
+		else
+		{
+			SendMessageToParent(EMSG_SELECTFRAME_BEGIN, CExMessage::DataInvalid, NULL, 0);
+		}
+
+		break;
+	}
 	case EMSG_SELECTPOINT_MOVING:
+	{
+		// 移动某个点，带动选择框进行缩放翻转
+		if (npMsg->GetInputDataSize() != sizeof(D2D1_SIZE_F))
 		{
-			// 移动某个点，带动选择框进行缩放翻转
-			if(npMsg->GetInputDataSize() != sizeof(D2D1_SIZE_F))
-			{
-				luResult = ERESULT_WRONG_PARAMETERS;
-				break;
-			}
-
-			D2D1_SIZE_F* lpInfo = ((D2D1_SIZE_F*)npMsg->GetInputData());
-			if (mcIsEdit != false)
-			{
-				luResult = OnPointDrag(npMsg->GetMessageSender(),lpInfo);
-			}
-			else
-			{
-				// 不允许编辑，则所有锚点都处于移动状态	
-				SendMessageToParent(EMSG_SELECTFRAME_MOVING, *lpInfo,NULL,0);			
-			}
+			luResult = ERESULT_WRONG_PARAMETERS;
 			break;
 		}
-	case EMSG_SELECTFPOINT_MOVED:
+
+		D2D1_SIZE_F* lpInfo = ((D2D1_SIZE_F*)npMsg->GetInputData());
+		if (mcIsEdit != false)
 		{
-			// 每完成一次拖动，重置该标志
-			mcProportionalScaling = false;
-			mcProportionalScalingByKey = false;
-
-			// 重置翻转状态
-			mcLastHTurn = false;
-			mcLastVTurn = false;
-
-			SetPointVisible(true);
-			mpIterator->SetVisible(true);
-
-			Relocation();
-
-			if (mcIsEdit != false)
-			{
-				// 为父窗口发送拖动结束的消息，不携带任何数据
-				SendMessageToParent(EMSG_SELECTFPOINT_MOVED, CExMessage::DataInvalid, NULL, 0);
-			}
-			else
-			{
-				SendMessageToParent(EMSG_SELECTFRAME_DRAGED, CExMessage::DataInvalid, NULL, 0);
-			}
-			break;
+			luResult = OnPointDrag(npMsg->GetMessageSender(), lpInfo);
 		}
-		// 处理归一化命令
-	case EMSG_SELECTFRAME_REGULAR:
+		else
 		{
-			// 等待父窗口的命令，如果是任意比缩放，才重置锚点
-			//if (mcProportionalScaling == false)
-			//	EinkuiGetSystem()->GetElementManager()->ResetDragBegin(mpArrayPoint[miActivePoint-1]);
-			break;
-		}
-	case EMSG_SET_PROPORTIONAL_SCALING:
-		{
-			// 是否执行等比例缩放
-			if(npMsg->GetInputDataSize() != sizeof(bool))
-			{
-				luResult = ERESULT_WRONG_PARAMETERS;
-				break;
-			}
-
-			bool* lpInfo = ((bool*)npMsg->GetInputData());
-			mcProportionalScaling ^= *lpInfo;
-			break;
-		}
-	case EMSG_SET_EDIT_STATUS:
-		{
-			if(npMsg->GetInputDataSize() != sizeof(bool))
-			{
-				luResult = ERESULT_WRONG_PARAMETERS;
-				break;
-			}
-
-			bool* lpInfo = ((bool*)npMsg->GetInputData());
-			mcIsEdit = *lpInfo;
+			// 不允许编辑，则所有锚点都处于移动状态	
+			SendMessageToParent(EMSG_SELECTFRAME_MOVING, *lpInfo, NULL, 0);
 		}
 		break;
+	}
+	case EMSG_SELECTFPOINT_MOVED:
+	{
+		// 每完成一次拖动，重置该标志
+		mcProportionalScaling = false;
+		mcProportionalScalingByKey = false;
+
+		// 重置翻转状态
+		mcLastHTurn = false;
+		mcLastVTurn = false;
+
+		SetPointVisible(true);
+		mpIterator->SetVisible(true);
+
+		Relocation();
+
+		if (mcIsEdit != false)
+		{
+			// 为父窗口发送拖动结束的消息，不携带任何数据
+			SendMessageToParent(EMSG_SELECTFPOINT_MOVED, CExMessage::DataInvalid, NULL, 0);
+		}
+		else
+		{
+			SendMessageToParent(EMSG_SELECTFRAME_DRAGED, CExMessage::DataInvalid, NULL, 0);
+		}
+		break;
+	}
+	// 处理归一化命令
+	case EMSG_SELECTFRAME_REGULAR:
+	{
+		// 等待父窗口的命令，如果是任意比缩放，才重置锚点
+		//if (mcProportionalScaling == false)
+		//	EinkuiGetSystem()->GetElementManager()->ResetDragBegin(mpArrayPoint[miActivePoint-1]);
+		break;
+	}
+	case EMSG_SET_PROPORTIONAL_SCALING:
+	{
+		// 是否执行等比例缩放
+		if (npMsg->GetInputDataSize() != sizeof(bool))
+		{
+			luResult = ERESULT_WRONG_PARAMETERS;
+			break;
+		}
+
+		bool* lpInfo = ((bool*)npMsg->GetInputData());
+		mcProportionalScaling ^= *lpInfo;
+		break;
+	}
+	case EMSG_SET_EDIT_STATUS:
+	{
+		if (npMsg->GetInputDataSize() != sizeof(bool))
+		{
+			luResult = ERESULT_WRONG_PARAMETERS;
+			break;
+		}
+
+		bool* lpInfo = ((bool*)npMsg->GetInputData());
+		mcIsEdit = *lpInfo;
+	}
+	break;
 	default:
 		luResult = ERESULT_NOT_SET;
 		break;
 	}
 
-	if(luResult == ERESULT_NOT_SET)
+	if (luResult == ERESULT_NOT_SET)
 	{
 		luResult = CXuiElement::ParseMessage(npMsg); // 调用基类的同名函数；注意：一定要调用自身直接基类
 	}
@@ -259,38 +255,38 @@ ERESULT CSelectFrame::OnKeyPressed(const STEMS_KEY_PRESSED* npInfo)
 {
 	ERESULT luResult;
 
-	luResult = SendMessageToParent(EMSG_SELECTFRAME_KEYBOARD,*npInfo,NULL,0);
-	if(luResult == ERESULT_KEY_ACCEPTED)
+	luResult = SendMessageToParent(EMSG_SELECTFRAME_KEYBOARD, *npInfo, NULL, 0);
+	if (luResult == ERESULT_KEY_ACCEPTED)
 		return luResult;
 
-	if(false != npInfo->IsPressDown)		// 只处理按下
+	if (false != npInfo->IsPressDown)		// 只处理按下
 	{
-		D2D1_POINT_2F ldOffset = {0.0f,0.0f};
+		D2D1_POINT_2F ldOffset = { 0.0f,0.0f };
 
 		luResult = ERESULT_SUCCESS;
 
 		switch (npInfo->VirtualKeyCode)
 		{
 		case VK_LEFT:
-				ldOffset.x = -1.0f;
+			ldOffset.x = -1.0f;
 			break;
 		case VK_RIGHT:
-				ldOffset.x = 1.0f;
+			ldOffset.x = 1.0f;
 			break;
 		case VK_UP:
-				ldOffset.y = -1.0f;
+			ldOffset.y = -1.0f;
 			break;
 		case VK_DOWN:
-				ldOffset.y = 1.0f;
+			ldOffset.y = 1.0f;
 			break;
 		default:
 			luResult = ERESULT_KEY_UNEXPECTED;
 		}
 
-		if(luResult == ERESULT_SUCCESS)
+		if (luResult == ERESULT_SUCCESS)
 		{
 			SendMessageToParent(EMSG_SELECTFRAME_BEGIN, CExMessage::DataInvalid, NULL, 0);
-			SendMessageToParent(EMSG_SELECTFRAME_MOVING,ldOffset,NULL,0);
+			SendMessageToParent(EMSG_SELECTFRAME_MOVING, ldOffset, NULL, 0);
 			SendMessageToParent(EMSG_SELECTFRAME_DRAGED, CExMessage::DataInvalid, NULL, 0);
 		}
 	}
@@ -313,28 +309,28 @@ ERESULT CSelectFrame::OnElementResized(D2D1_SIZE_F nNewSize)
 // 设置对应点的鼠标状态
 void CSelectFrame::SetCursor(D2D1_POINT_2F ndPoint, D2D1_RECT_F ndNormalRect, int niIndex)
 {
-	float lfHalfWidth = mpArrayPoint[0]->GetSizeX()/2;
-	float lfHalfHeight = mpArrayPoint[0]->GetSizeY()/2;
+	float lfHalfWidth = mpArrayPoint[0]->GetSizeX() / 2;
+	float lfHalfHeight = mpArrayPoint[0]->GetSizeY() / 2;
 	float lfWidth = mpArrayPoint[0]->GetSizeX();
 	float lfHeight = mpArrayPoint[0]->GetSizeY();
 
-	HCURSOR lhCursorNwse = LoadCursor(NULL,IDC_SIZENWSE);
-	HCURSOR lhCursorNesw = LoadCursor(NULL,IDC_SIZENESW);
+	HCURSOR lhCursorNwse = LoadCursor(NULL, IDC_SIZENWSE);
+	HCURSOR lhCursorNesw = LoadCursor(NULL, IDC_SIZENESW);
 
 	// 是否是1，5点
-	if (ndPoint.x == (ndNormalRect.left-lfHalfWidth) && ndPoint.y == (ndNormalRect.top-lfHalfHeight) ||
-		ndPoint.x == (ndNormalRect.right - lfHalfWidth) && ndPoint.y ==(ndNormalRect.bottom - lfHalfHeight)
+	if (ndPoint.x == (ndNormalRect.left - lfHalfWidth) && ndPoint.y == (ndNormalRect.top - lfHalfHeight) ||
+		ndPoint.x == (ndNormalRect.right - lfHalfWidth) && ndPoint.y == (ndNormalRect.bottom - lfHalfHeight)
 		)
 	{
-		CExMessage::SendMessage(mpArrayPoint[niIndex],mpIterator,EMSG_SELECTPOINT_RESET_CURSOR,lhCursorNwse);
+		CExMessage::SendMessage(mpArrayPoint[niIndex], mpIterator, EMSG_SELECTPOINT_RESET_CURSOR, lhCursorNwse);
 	}
 
 	// 是否是3，7点
-	if (ndPoint.x == ndNormalRect.right -lfHalfWidth && ndPoint.y == (ndNormalRect.top-lfHalfHeight) ||
-		ndPoint.x == ndNormalRect.left-lfHalfWidth && ndPoint.y == (ndNormalRect.bottom-lfHalfHeight)
+	if (ndPoint.x == ndNormalRect.right - lfHalfWidth && ndPoint.y == (ndNormalRect.top - lfHalfHeight) ||
+		ndPoint.x == ndNormalRect.left - lfHalfWidth && ndPoint.y == (ndNormalRect.bottom - lfHalfHeight)
 		)
 	{
-		CExMessage::SendMessage(mpArrayPoint[niIndex],mpIterator,EMSG_SELECTPOINT_RESET_CURSOR,lhCursorNesw);
+		CExMessage::SendMessage(mpArrayPoint[niIndex], mpIterator, EMSG_SELECTPOINT_RESET_CURSOR, lhCursorNesw);
 	}
 
 	if (lhCursorNwse != NULL)
@@ -342,7 +338,7 @@ void CSelectFrame::SetCursor(D2D1_POINT_2F ndPoint, D2D1_RECT_F ndNormalRect, in
 
 	if (lhCursorNesw != NULL)
 		DestroyCursor(lhCursorNesw);
-	
+
 }
 
 //调整八个点的位置
@@ -421,42 +417,42 @@ ERESULT CSelectFrame::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	{
 		BREAK_ON_NULL(npPaintBoard);
 
- 		if (mpBgBitmap != NULL)
- 		{
- 			npPaintBoard->DrawBitmap(D2D1::RectF(0,0,mpIterator->GetSizeX(),mpIterator->GetSizeY()),
- 				mpBgBitmap, 
+		if (mpBgBitmap != NULL)
+		{
+			npPaintBoard->DrawBitmap(D2D1::RectF(0, 0, mpIterator->GetSizeX(), mpIterator->GetSizeY()),
+				mpBgBitmap,
 				ESPB_DRAWBMP_LINEAR
- 				);
- 		}
+			);
+		}
 
 		//画选择框的虚线
-		float lfHalfWidth = mpArrayPoint[0]->GetSizeX()/2;
-		float lfHalfHeight = mpArrayPoint[0]->GetSizeY()/2;
+		float lfHalfWidth = mpArrayPoint[0]->GetSizeX() / 2;
+		float lfHalfHeight = mpArrayPoint[0]->GetSizeY() / 2;
 
-		for (ULONG liLoop = 0; liLoop < SF_POINT_MAX-1; liLoop++)
+		for (ULONG liLoop = 0; liLoop < SF_POINT_MAX - 1; liLoop++)
 		{
 			npPaintBoard->DrawLine(
 				D2D1::Point2F(
-					CExFloat::HalfPixel(mpArrayPoint[liLoop]->GetPosition().x + lfHalfWidth), 
+					CExFloat::HalfPixel(mpArrayPoint[liLoop]->GetPosition().x + lfHalfWidth),
 					CExFloat::HalfPixel(mpArrayPoint[liLoop]->GetPosition().y + lfHalfHeight)),
 				D2D1::Point2F(
-					CExFloat::HalfPixel(mpArrayPoint[liLoop+1]->GetPosition().x + lfHalfWidth), 
-					CExFloat::HalfPixel(mpArrayPoint[liLoop+1]->GetPosition().y + lfHalfHeight)),
+					CExFloat::HalfPixel(mpArrayPoint[liLoop + 1]->GetPosition().x + lfHalfWidth),
+					CExFloat::HalfPixel(mpArrayPoint[liLoop + 1]->GetPosition().y + lfHalfHeight)),
 				mpXuiBrush);
 		}
 
 		npPaintBoard->DrawLine(
 			D2D1::Point2F
-				(CExFloat::HalfPixel(mpArrayPoint[7]->GetPosition().x + lfHalfWidth), 
+			(CExFloat::HalfPixel(mpArrayPoint[7]->GetPosition().x + lfHalfWidth),
 				CExFloat::HalfPixel(mpArrayPoint[7]->GetPosition().y + lfHalfHeight)),
 			D2D1::Point2F
-				(CExFloat::HalfPixel(mpArrayPoint[0]->GetPosition().x + lfHalfWidth), 
+			(CExFloat::HalfPixel(mpArrayPoint[0]->GetPosition().x + lfHalfWidth),
 				CExFloat::HalfPixel(mpArrayPoint[0]->GetPosition().y + lfHalfHeight)),
 			mpXuiBrush);
 
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -466,7 +462,7 @@ ERESULT CSelectFrame::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
 
-	do 
+	do
 	{
 		if (rPoint.x < 0.0f || (UINT)rPoint.x >= mpIterator->GetSizeX() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpIterator->GetSizeY())
 			break;
@@ -474,47 +470,47 @@ ERESULT CSelectFrame::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 		luResult = ERESULT_MOUSE_OWNERSHIP;
 
 	} while (false);
-	
+
 	return luResult;
 
 	// 检测八个点所围成的矩形区域
 
 	// 顶部矩形框
 	D2D1_RECT_F ldTopRect = D2D1::RectF(
-		mpArrayPoint[0]->GetPositionX(), 
-		mpArrayPoint[0]->GetPositionY(), 
-		mpArrayPoint[0]->GetPositionX() + mpIterator->GetSizeX(), 
+		mpArrayPoint[0]->GetPositionX(),
+		mpArrayPoint[0]->GetPositionY(),
+		mpArrayPoint[0]->GetPositionX() + mpIterator->GetSizeX(),
 		mpArrayPoint[0]->GetSizeY()
-		);
+	);
 	if (CExRect::PtInRect(rPoint, ldTopRect))
 		return ERESULT_MOUSE_OWNERSHIP;
 
 	// 右边矩形框
 	D2D1_RECT_F ldRightRect = D2D1::RectF(
-		mpArrayPoint[2]->GetPositionX(), 
-		mpArrayPoint[2]->GetPositionY(), 
-		mpArrayPoint[2]->GetPositionX() + mpArrayPoint[2]->GetSizeX(), 
+		mpArrayPoint[2]->GetPositionX(),
+		mpArrayPoint[2]->GetPositionY(),
+		mpArrayPoint[2]->GetPositionX() + mpArrayPoint[2]->GetSizeX(),
 		mpIterator->GetSizeY() + mpArrayPoint[2]->GetSizeY()
-		);
+	);
 	if (CExRect::PtInRect(rPoint, ldRightRect))
 		return ERESULT_MOUSE_OWNERSHIP;
 
 	// 底部矩形框
 	D2D1_RECT_F ldBottomRect = D2D1::RectF(
-		mpArrayPoint[6]->GetPositionX(), 
-		mpArrayPoint[6]->GetPositionY(), 
-		mpArrayPoint[6]->GetPositionX() + mpIterator->GetSizeX(), 
+		mpArrayPoint[6]->GetPositionX(),
+		mpArrayPoint[6]->GetPositionY(),
+		mpArrayPoint[6]->GetPositionX() + mpIterator->GetSizeX(),
 		mpArrayPoint[6]->GetPositionY() + mpArrayPoint[6]->GetSizeY());
 	if (CExRect::PtInRect(rPoint, ldBottomRect))
 		return ERESULT_MOUSE_OWNERSHIP;
 
 	// 左边矩形框
 	D2D1_RECT_F ldLeftRect = D2D1::RectF(
-		mpArrayPoint[0]->GetPositionX(), 
-		mpArrayPoint[0]->GetPositionY(), 
-		mpArrayPoint[0]->GetPositionX() + mpArrayPoint[0]->GetSizeX(), 
+		mpArrayPoint[0]->GetPositionX(),
+		mpArrayPoint[0]->GetPositionY(),
+		mpArrayPoint[0]->GetPositionX() + mpArrayPoint[0]->GetSizeX(),
 		mpIterator->GetSizeY() + mpArrayPoint[0]->GetSizeY()
-		);
+	);
 	if (CExRect::PtInRect(rPoint, ldLeftRect))
 		return ERESULT_MOUSE_OWNERSHIP;
 
@@ -525,7 +521,7 @@ ERESULT CSelectFrame::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 //禁用或启用
 ERESULT CSelectFrame::OnElementEnable(bool nbIsEnable)
 {
-	for (int i=0;i<SF_POINT_MAX;i++)
+	for (int i = 0; i < SF_POINT_MAX; i++)
 	{
 		mpArrayPoint[i]->SetVisible(nbIsEnable);	//如果是禁用就不显示八个点
 	}
@@ -537,14 +533,14 @@ ERESULT CSelectFrame::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
 		BREAK_ON_NULL(npInfo);
 		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//只有左键可以拖动
 			break;
 
-		SendMessageToParent(EMSG_SELECTFRAME_MOVING,npInfo->Offset,NULL,0);
-		
+		SendMessageToParent(EMSG_SELECTFRAME_MOVING, npInfo->Offset, NULL, 0);
+
 		leResult = ERESULT_SUCCESS;
 
 	} while (false);
@@ -557,18 +553,18 @@ ERESULT CSelectFrame::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
-		if(mpIterator->IsEnable() == false)
+		if (mpIterator->IsEnable() == false)
 			break;	//如果是禁用状态就不能拖动
 
 		BREAK_ON_NULL(npInfo);
 		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//只有左键可以拖动
 			break;
-		
-		if(npInfo->DragOn != mpIterator) //只有在自己上面才可以
+
+		if (npInfo->DragOn != mpIterator) //只有在自己上面才可以
 			break;
-	
+
 		SendMessageToParent(EMSG_SELECTFRAME_BEGIN, CExMessage::DataInvalid, NULL, 0);
 
 		leResult = ERESULT_SUCCESS;
@@ -583,7 +579,7 @@ ERESULT CSelectFrame::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
 		BREAK_ON_NULL(npInfo);
 
@@ -602,7 +598,7 @@ ERESULT CSelectFrame::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 }
 
 //处理八个点拖动
-ERESULT CSelectFrame::OnPointDrag(IEinkuiIterator* npDragItem,D2D1_SIZE_F* npOffset)
+ERESULT CSelectFrame::OnPointDrag(IEinkuiIterator* npDragItem, D2D1_SIZE_F* npOffset)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
@@ -614,7 +610,7 @@ ERESULT CSelectFrame::OnPointDrag(IEinkuiIterator* npDragItem,D2D1_SIZE_F* npOff
 	float lfSizeX = 0.0f;
 	float lfSizeY = 0.0f;
 
-	do 
+	do
 	{
 
 		// 先假定不需要翻转
@@ -627,66 +623,66 @@ ERESULT CSelectFrame::OnPointDrag(IEinkuiIterator* npDragItem,D2D1_SIZE_F* npOff
 		BREAK_ON_NULL(npOffset);
 
 		// 计算不同锚点所对应的位置偏移和大小变化量
-		switch(npDragItem->GetID())
-		//switch(miActivePoint)
+		switch (npDragItem->GetID())
+			//switch(miActivePoint)
 		{
-		// 左上点
-		case XuiLeftTop:	
-			{
-				// 计算位置偏移量
-				ldPositionOffset = D2D1::Point2F(npOffset->width, npOffset->height);
-				ldSizeVariation = D2D1::SizeF(-npOffset->width, -npOffset->height);
-				break;
-			}
+			// 左上点
+		case XuiLeftTop:
+		{
+			// 计算位置偏移量
+			ldPositionOffset = D2D1::Point2F(npOffset->width, npOffset->height);
+			ldSizeVariation = D2D1::SizeF(-npOffset->width, -npOffset->height);
+			break;
+		}
 		// 中上点
-		case XuiMidTop:	
-			{
-				ldPositionOffset = D2D1::Point2F(0, npOffset->height);
-				ldSizeVariation = D2D1::SizeF(0, -npOffset->height);		// 不允许左右缩放
-				break;
-			}
+		case XuiMidTop:
+		{
+			ldPositionOffset = D2D1::Point2F(0, npOffset->height);
+			ldSizeVariation = D2D1::SizeF(0, -npOffset->height);		// 不允许左右缩放
+			break;
+		}
 		// 右上点
-		case XuiRightTop: 
-			{
-				ldPositionOffset = D2D1::Point2F(0, npOffset->height);
-				ldSizeVariation = D2D1::SizeF(npOffset->width, -npOffset->height);
-				break;
-			}
+		case XuiRightTop:
+		{
+			ldPositionOffset = D2D1::Point2F(0, npOffset->height);
+			ldSizeVariation = D2D1::SizeF(npOffset->width, -npOffset->height);
+			break;
+		}
 		// 右中点
-		case XuiRightMid: 
-			{
-				ldPositionOffset = D2D1::Point2F(0, 0);
-				ldSizeVariation = D2D1::SizeF(npOffset->width, 0);	// 不允许上下缩放
-				break;
-			}
+		case XuiRightMid:
+		{
+			ldPositionOffset = D2D1::Point2F(0, 0);
+			ldSizeVariation = D2D1::SizeF(npOffset->width, 0);	// 不允许上下缩放
+			break;
+		}
 		// 右下点
-		case XuiRightBottom: 
-			{
-				ldPositionOffset = D2D1::Point2F(0, 0);
-				ldSizeVariation = D2D1::SizeF(npOffset->width, npOffset->height);
-				break;
-			}
+		case XuiRightBottom:
+		{
+			ldPositionOffset = D2D1::Point2F(0, 0);
+			ldSizeVariation = D2D1::SizeF(npOffset->width, npOffset->height);
+			break;
+		}
 		// 中下点
-		case XuiMidBottom:	
-			{
-				ldPositionOffset = D2D1::Point2F(0, 0);
-				ldSizeVariation = D2D1::SizeF(0, npOffset->height);	// 不允许左右缩放
-				break;
-			}
+		case XuiMidBottom:
+		{
+			ldPositionOffset = D2D1::Point2F(0, 0);
+			ldSizeVariation = D2D1::SizeF(0, npOffset->height);	// 不允许左右缩放
+			break;
+		}
 		// 左下点
-		case XuiLeftBottom:	
-			{
-				ldPositionOffset = D2D1::Point2F(npOffset->width, 0);
-				ldSizeVariation = D2D1::SizeF(-npOffset->width, npOffset->height);
-				break;
-			}
+		case XuiLeftBottom:
+		{
+			ldPositionOffset = D2D1::Point2F(npOffset->width, 0);
+			ldSizeVariation = D2D1::SizeF(-npOffset->width, npOffset->height);
+			break;
+		}
 		// 左中点
 		case XuiLeftMid:
-			{
-				ldPositionOffset = D2D1::Point2F(npOffset->width, 0);
-				ldSizeVariation = D2D1::SizeF(-npOffset->width, 0);	// 不允许上下缩放
-				break;
-			}
+		{
+			ldPositionOffset = D2D1::Point2F(npOffset->width, 0);
+			ldSizeVariation = D2D1::SizeF(-npOffset->width, 0);	// 不允许上下缩放
+			break;
+		}
 
 		}
 
@@ -697,7 +693,7 @@ ERESULT CSelectFrame::OnPointDrag(IEinkuiIterator* npDragItem,D2D1_SIZE_F* npOff
 		// 如果size=0,则本次拖动不处理
 		if (lfSizeX == 0 || lfSizeY == 0)
 			return ERESULT_SUCCESS;
-		
+
 		// 这里有个效率问题
 		// 1，设计上，当翻转后，需要归一化矩形，此时会重新设置拖动的锚点；如果不这样操作，则翻转后的拖动每次都会进入判断翻转的流程，从而增加了运算量；
 		// 2，等比缩放的情况下，如果归一化后，计算斜率时运算将及其复杂，所以不归一化；
@@ -712,7 +708,7 @@ ERESULT CSelectFrame::OnPointDrag(IEinkuiIterator* npDragItem,D2D1_SIZE_F* npOff
 		// 处理等比缩放逻辑，根据缩放后的结果，计算出position偏移和size变化量
 		if (mcProportionalScaling != false || mcProportionalScalingByKey != false)
 		{
-			OnProportionalScaling(npDragItem, ldPositionSize);			
+			OnProportionalScaling(npDragItem, ldPositionSize);
 		}
 		else
 		{
@@ -720,7 +716,7 @@ ERESULT CSelectFrame::OnPointDrag(IEinkuiIterator* npDragItem,D2D1_SIZE_F* npOff
 		}
 
 		// 向父窗口报告移动状态{位置偏移量，大小该变量，水平翻转，垂直翻转}
-		SendMessageToParent(EMSG_SELECTPOINT_CHANGE_POSITION_SIZE, ldPositionSize,NULL,0);
+		SendMessageToParent(EMSG_SELECTPOINT_CHANGE_POSITION_SIZE, ldPositionSize, NULL, 0);
 
 		leResult = ERESULT_SUCCESS;
 
@@ -742,7 +738,7 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 
 
 	// 判断有无翻转
-	do 
+	do
 	{
 		// 判断是否垂直翻转
 		if (lfSizeY < 0)
@@ -762,83 +758,83 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 			break;
 
 		// 如果有翻转，则针对每个点，单独处理
-		switch(npDragItem->GetID())
+		switch (npDragItem->GetID())
 		{
 			// 左上点
-		case XuiLeftTop:	
-			{
-				if (mcHTurn != false)
-					noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
-				if (mcVTurn != false)
-					noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
+		case XuiLeftTop:
+		{
+			if (mcHTurn != false)
+				noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
+			if (mcVTurn != false)
+				noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
 
-				break;
-			}
-			// 中上点
-		case XuiMidTop:	
-			{
-				if (mcVTurn != false)
-					noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
+			break;
+		}
+		// 中上点
+		case XuiMidTop:
+		{
+			if (mcVTurn != false)
+				noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
 
-				break;
-			}
-			// 右上点
-		case XuiRightTop: 
-			{
-				if (mcHTurn != false)
-					noChangePositionSize.mdPositionOffset.x = lfSizeX;
+			break;
+		}
+		// 右上点
+		case XuiRightTop:
+		{
+			if (mcHTurn != false)
+				noChangePositionSize.mdPositionOffset.x = lfSizeX;
 
-				if (mcVTurn != false)
-					noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
+			if (mcVTurn != false)
+				noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
 
-				break;
-			}
-			// 右中点
-		case XuiRightMid: 
-			{
-				if (mcHTurn != false)
-					noChangePositionSize.mdPositionOffset.x = lfSizeX;					
+			break;
+		}
+		// 右中点
+		case XuiRightMid:
+		{
+			if (mcHTurn != false)
+				noChangePositionSize.mdPositionOffset.x = lfSizeX;
 
-				break;
-			}
-			// 右下点
-		case XuiRightBottom: 
-			{
-				if (mcHTurn != false)
-					noChangePositionSize.mdPositionOffset.x = lfSizeX;
+			break;
+		}
+		// 右下点
+		case XuiRightBottom:
+		{
+			if (mcHTurn != false)
+				noChangePositionSize.mdPositionOffset.x = lfSizeX;
 
-				if (mcVTurn != false)
-					noChangePositionSize.mdPositionOffset.y = lfSizeY;
+			if (mcVTurn != false)
+				noChangePositionSize.mdPositionOffset.y = lfSizeY;
 
-				break;
-			}
-			// 中下点
-		case XuiMidBottom:	
-			{
-				if (mcVTurn != false)
-					noChangePositionSize.mdPositionOffset.y = lfSizeY;
+			break;
+		}
+		// 中下点
+		case XuiMidBottom:
+		{
+			if (mcVTurn != false)
+				noChangePositionSize.mdPositionOffset.y = lfSizeY;
 
-				break;
-			}
-			// 左下点
-		case XuiLeftBottom:	
-			{
-				if (mcHTurn != false)
-					noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
+			break;
+		}
+		// 左下点
+		case XuiLeftBottom:
+		{
+			if (mcHTurn != false)
+				noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
 
-				if (mcVTurn != false)
-					noChangePositionSize.mdPositionOffset.y = lfSizeY;
+			if (mcVTurn != false)
+				noChangePositionSize.mdPositionOffset.y = lfSizeY;
 
-				break;
-			}
-			// 左中点
+			break;
+		}
+		// 左中点
 		case XuiLeftMid:
-			{
-				if (mcHTurn != false)
-					noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
+		{
+			if (mcHTurn != false)
+				noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
 
-				break;
-			}
+			break;
+		}
 
 		}// end switch
 
@@ -851,8 +847,8 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 		// 翻转之后的大小
 		D2D1_SIZE_F ldAfterTurnedSize;
 
-		ldAfterTurnedSize.width= lfSizeX>0 ? lfSizeX : -lfSizeX;
-		ldAfterTurnedSize.height = lfSizeY>0 ? lfSizeY : -lfSizeY;
+		ldAfterTurnedSize.width = lfSizeX > 0 ? lfSizeX : -lfSizeX;
+		ldAfterTurnedSize.height = lfSizeY > 0 ? lfSizeY : -lfSizeY;
 
 		// 翻转前后的变化量 = 翻转后的大小 - 原始大小
 		noChangePositionSize.mdSizeVariation.width = ldAfterTurnedSize.width - mdOriginSize.width;
@@ -863,7 +859,7 @@ ERESULT CSelectFrame::OnNormalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_
 	// 根据当前状态与上一次的翻转状态，判断实际是否发生翻转
 	if (mcLastHTurn != mcHTurn)
 	{
-		noChangePositionSize.mcHTurn = true;		
+		noChangePositionSize.mcHTurn = true;
 		mcLastHTurn = mcHTurn;
 	}
 	else
@@ -910,12 +906,12 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 
 	{
 		// 计算基准斜率,由原始矩形的数据确定，由于起始点始终是(0.0f, 0.0f)，所以斜率就是宽度和高度的比值
-		lfBaseLineSlope = mdOriginSize.width/mdOriginSize.height;
+		lfBaseLineSlope = mdOriginSize.width / mdOriginSize.height;
 
 		// 计算当前斜率，为当前宽度与高度的比值
-		lfCurLineSlope = lfBeforeScaledWidth/lfBeforeScaledHeight;
+		lfCurLineSlope = lfBeforeScaledWidth / lfBeforeScaledHeight;
 		// 取绝对值，考虑的翻转的情况
-		lfCurLineSlope = lfCurLineSlope>0 ?lfCurLineSlope:-lfCurLineSlope;
+		lfCurLineSlope = lfCurLineSlope > 0 ? lfCurLineSlope : -lfCurLineSlope;
 	}
 
 
@@ -943,13 +939,13 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 		if (lfCurLineSlope >= lfBaseLineSlope)
 		{
 			// 取X轴的缩放比例，保持与X轴对齐
-			lfSizeX = (fabs(lfSizeX + mdOriginSize.width)-mdOriginSize.width);
-			noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfSizeX, lfSizeX/lfBaseLineSlope);
+			lfSizeX = (fabs(lfSizeX + mdOriginSize.width) - mdOriginSize.width);
+			noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfSizeX, lfSizeX / lfBaseLineSlope);
 		}
 		else
 		{
 			// 取Y轴的缩放比例
-			lfSizeY = (fabs(lfSizeY + mdOriginSize.height)-mdOriginSize.height);		
+			lfSizeY = (fabs(lfSizeY + mdOriginSize.height) - mdOriginSize.height);
 			noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfSizeY*lfBaseLineSlope, lfSizeY);
 		}
 	}
@@ -961,237 +957,237 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 	lfSizeVarX = noChangePositionSize.mdSizeVariation.width;
 	lfSizeVarY = noChangePositionSize.mdSizeVariation.height;
 
-	do 
+	do
 	{
 
 
-		switch(npDragItem->GetID())
+		switch (npDragItem->GetID())
 		{
 			// 左上点
-		case XuiLeftTop:	
+		case XuiLeftTop:
+		{
+			if (mcHTurn != false)
 			{
-				if (mcHTurn != false)
-				{
-					noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
-					noChangePositionSize.mdPositionOffset.y = -lfSizeVarY;
-				}
-				if (mcVTurn != false)
-				{
-					noChangePositionSize.mdPositionOffset.x = -lfSizeVarX;
-					noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
-				}
-
-				if (mcHTurn != false && mcVTurn != false)
-				{
-					noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
-					noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
-				}
-
-				if (mcVTurn == false && mcHTurn == false)
-				{
-					noChangePositionSize.mdPositionOffset = D2D1::Point2F(-lfSizeVarX, -lfSizeVarY);
-				}
-
-				break;
+				noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
+				noChangePositionSize.mdPositionOffset.y = -lfSizeVarY;
 			}
-			// 中上点
-		case XuiMidTop:	
+			if (mcVTurn != false)
 			{
-				float lfWidthOffset = (lfSizeY/mdOriginSize.height)*mdOriginSize.width;
+				noChangePositionSize.mdPositionOffset.x = -lfSizeVarX;
+				noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
+			}
 
-				if (mcVTurn != false)
+			if (mcHTurn != false && mcVTurn != false)
+			{
+				noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
+				noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
+			}
+
+			if (mcVTurn == false && mcHTurn == false)
+			{
+				noChangePositionSize.mdPositionOffset = D2D1::Point2F(-lfSizeVarX, -lfSizeVarY);
+			}
+
+			break;
+		}
+		// 中上点
+		case XuiMidTop:
+		{
+			float lfWidthOffset = (lfSizeY / mdOriginSize.height)*mdOriginSize.width;
+
+			if (mcVTurn != false)
+			{
+				// 这里的计算逻辑很变态，画图以辅助理解20120701
+				float xTmp = 0.0f;
+				if (mdOriginSize.width / 2 + lfWidthOffset / 2 < 0)
 				{
-					// 这里的计算逻辑很变态，画图以辅助理解20120701
-					float xTmp = 0.0f;				
-					if (mdOriginSize.width/2+lfWidthOffset/2 < 0)
-					{
-						xTmp = mdOriginSize.width + lfWidthOffset/2;		
-					}
-					else
-					{
-						xTmp = -lfWidthOffset/2;
-					}
-
-					noChangePositionSize.mdPositionOffset = D2D1::Point2F(xTmp, mdOriginSize.height);
+					xTmp = mdOriginSize.width + lfWidthOffset / 2;
 				}
 				else
 				{
-					noChangePositionSize.mdPositionOffset = D2D1::Point2F(-lfWidthOffset/2, noChangePositionSize.mdPositionOffset.y);
+					xTmp = -lfWidthOffset / 2;
 				}
-	
-				noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfWidthOffset, lfSizeY);				
-				break;
+
+				noChangePositionSize.mdPositionOffset = D2D1::Point2F(xTmp, mdOriginSize.height);
 			}
-			// 右上点
-		case XuiRightTop: 
+			else
 			{
-				if (mcHTurn != false)
-				{
-					noChangePositionSize.mdPositionOffset.x = -(mdOriginSize.width + lfSizeVarX);		
-					noChangePositionSize.mdPositionOffset.y = -lfSizeVarY;
-				}
-
-				if (mcVTurn != false)
-				{
-					noChangePositionSize.mdPositionOffset.x = 0.0f;
-					noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
-				}
-
-				if (mcHTurn != false && mcVTurn != false)
-				{
-					noChangePositionSize.mdPositionOffset.x = -(mdOriginSize.width + lfSizeVarX);
-					noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
-				}
-
-				if(mcHTurn == false && mcVTurn == false)
-				{
-					noChangePositionSize.mdPositionOffset = D2D1::Point2F(0, -lfSizeVarY);
-				}
-
-				break;
+				noChangePositionSize.mdPositionOffset = D2D1::Point2F(-lfWidthOffset / 2, noChangePositionSize.mdPositionOffset.y);
 			}
-			// 右中点
-		case XuiRightMid: 
+
+			noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfWidthOffset, lfSizeY);
+			break;
+		}
+		// 右上点
+		case XuiRightTop:
+		{
+			if (mcHTurn != false)
 			{
-				float lfHeightOffset = (lfSizeX/mdOriginSize.width)*mdOriginSize.height;
-				if (mcHTurn != false)
+				noChangePositionSize.mdPositionOffset.x = -(mdOriginSize.width + lfSizeVarX);
+				noChangePositionSize.mdPositionOffset.y = -lfSizeVarY;
+			}
+
+			if (mcVTurn != false)
+			{
+				noChangePositionSize.mdPositionOffset.x = 0.0f;
+				noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
+			}
+
+			if (mcHTurn != false && mcVTurn != false)
+			{
+				noChangePositionSize.mdPositionOffset.x = -(mdOriginSize.width + lfSizeVarX);
+				noChangePositionSize.mdPositionOffset.y = mdOriginSize.height;
+			}
+
+			if (mcHTurn == false && mcVTurn == false)
+			{
+				noChangePositionSize.mdPositionOffset = D2D1::Point2F(0, -lfSizeVarY);
+			}
+
+			break;
+		}
+		// 右中点
+		case XuiRightMid:
+		{
+			float lfHeightOffset = (lfSizeX / mdOriginSize.width)*mdOriginSize.height;
+			if (mcHTurn != false)
+			{
+				float xTmp = 0.0f;
+				if (mdOriginSize.height / 2 + lfHeightOffset / 2 < 0)
 				{
-					float xTmp = 0.0f;				
-					if (mdOriginSize.height/2+lfHeightOffset/2 < 0)
-					{
-						xTmp = mdOriginSize.height + lfHeightOffset/2;		
-					}
-					else
-					{
-						xTmp = -lfHeightOffset/2;
-					}
-					noChangePositionSize.mdPositionOffset = D2D1::Point2F(lfBeforeScaledWidth, xTmp);	
+					xTmp = mdOriginSize.height + lfHeightOffset / 2;
 				}
 				else
 				{
-					noChangePositionSize.mdPositionOffset = D2D1::Point2F(0.0f, -lfHeightOffset/2);
+					xTmp = -lfHeightOffset / 2;
 				}
-				
-				noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfSizeX, lfHeightOffset);				
+				noChangePositionSize.mdPositionOffset = D2D1::Point2F(lfBeforeScaledWidth, xTmp);
+			}
+			else
+			{
+				noChangePositionSize.mdPositionOffset = D2D1::Point2F(0.0f, -lfHeightOffset / 2);
+			}
+
+			noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfSizeX, lfHeightOffset);
+			break;
+		}
+		// 右下点
+		case XuiRightBottom:
+		{
+
+			if (mcHTurn != false && mcVTurn != false)
+			{
+				noChangePositionSize.mdPositionOffset.x = -(mdOriginSize.width + lfSizeVarX);
+				noChangePositionSize.mdPositionOffset.y = -(mdOriginSize.height + lfSizeVarY);
 				break;
 			}
-			// 右下点
-		case XuiRightBottom: 
+
+			if (mcHTurn != false)
 			{
-
-				if (mcHTurn != false && mcVTurn != false)
-				{
-					noChangePositionSize.mdPositionOffset.x = -(mdOriginSize.width + lfSizeVarX);
-					noChangePositionSize.mdPositionOffset.y = -(mdOriginSize.height + lfSizeVarY);
-					break;
-				}
-
-				if (mcHTurn != false)
-				{
-					noChangePositionSize.mdPositionOffset.x = -(mdOriginSize.width + lfSizeVarX);
-					noChangePositionSize.mdPositionOffset.y = 0;
-				}
-
-				if (mcVTurn != false)
-				{
-					noChangePositionSize.mdPositionOffset.x = 0;
-					noChangePositionSize.mdPositionOffset.y = -(mdOriginSize.height + lfSizeVarY);
-				}
-
-				if(mcHTurn == false && mcVTurn == false)
-				{
-					noChangePositionSize.mdPositionOffset = D2D1::Point2F(0, 0);
-				}
-				
-				break;
+				noChangePositionSize.mdPositionOffset.x = -(mdOriginSize.width + lfSizeVarX);
+				noChangePositionSize.mdPositionOffset.y = 0;
 			}
-			// 中下点
-		case XuiMidBottom:	
+
+			if (mcVTurn != false)
 			{
-				float lfWidthOffset = (lfSizeY/mdOriginSize.height)*mdOriginSize.width;
-				if (mcVTurn != false)
+				noChangePositionSize.mdPositionOffset.x = 0;
+				noChangePositionSize.mdPositionOffset.y = -(mdOriginSize.height + lfSizeVarY);
+			}
+
+			if (mcHTurn == false && mcVTurn == false)
+			{
+				noChangePositionSize.mdPositionOffset = D2D1::Point2F(0, 0);
+			}
+
+			break;
+		}
+		// 中下点
+		case XuiMidBottom:
+		{
+			float lfWidthOffset = (lfSizeY / mdOriginSize.height)*mdOriginSize.width;
+			if (mcVTurn != false)
+			{
+
+				float xTmp = 0.0f;
+				if (mdOriginSize.width / 2 + lfWidthOffset / 2 < 0)
 				{
-
-					float xTmp = 0.0f;				
-					if (mdOriginSize.width/2+lfWidthOffset/2 < 0)
-					{
-						xTmp = mdOriginSize.width + lfWidthOffset/2;		
-					}
-					else
-					{
-						xTmp = -lfWidthOffset/2;
-					}
-
-					noChangePositionSize.mdPositionOffset = D2D1::Point2F(xTmp, lfBeforeScaledHeight);
+					xTmp = mdOriginSize.width + lfWidthOffset / 2;
 				}
 				else
 				{
-					noChangePositionSize.mdPositionOffset = D2D1::Point2F(-lfWidthOffset/2, noChangePositionSize.mdPositionOffset.y);
+					xTmp = -lfWidthOffset / 2;
 				}
 
-				//noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfWidthOffset, fabs(lfHeight) - mdOriginSize.height);	
-				noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfWidthOffset, lfSizeY);	
-
-				break;
+				noChangePositionSize.mdPositionOffset = D2D1::Point2F(xTmp, lfBeforeScaledHeight);
 			}
-			// 左下点
-		case XuiLeftBottom:	
+			else
 			{
-
-				if (mcHTurn != false)
-				{
-					noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
-					noChangePositionSize.mdPositionOffset.y = 0.0f;
-				}
-
-				if (mcVTurn != false)
-				{
-					noChangePositionSize.mdPositionOffset.x = -lfSizeVarX;
-					noChangePositionSize.mdPositionOffset.y = -(mdOriginSize.height + lfSizeVarY);
-
-				}
-
-				if (mcHTurn != false && mcVTurn != false)
-				{
-					noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
-					noChangePositionSize.mdPositionOffset.y = -(mdOriginSize.height + lfSizeVarY);
-				}
-
-				if(mcHTurn == false && mcVTurn == false)
-				{
-					noChangePositionSize.mdPositionOffset = D2D1::Point2F(-lfSizeVarX, 0);	
-				}
-				
-				break;
+				noChangePositionSize.mdPositionOffset = D2D1::Point2F(-lfWidthOffset / 2, noChangePositionSize.mdPositionOffset.y);
 			}
-			// 左中点
+
+			//noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfWidthOffset, fabs(lfHeight) - mdOriginSize.height);	
+			noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfWidthOffset, lfSizeY);
+
+			break;
+		}
+		// 左下点
+		case XuiLeftBottom:
+		{
+
+			if (mcHTurn != false)
+			{
+				noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
+				noChangePositionSize.mdPositionOffset.y = 0.0f;
+			}
+
+			if (mcVTurn != false)
+			{
+				noChangePositionSize.mdPositionOffset.x = -lfSizeVarX;
+				noChangePositionSize.mdPositionOffset.y = -(mdOriginSize.height + lfSizeVarY);
+
+			}
+
+			if (mcHTurn != false && mcVTurn != false)
+			{
+				noChangePositionSize.mdPositionOffset.x = mdOriginSize.width;
+				noChangePositionSize.mdPositionOffset.y = -(mdOriginSize.height + lfSizeVarY);
+			}
+
+			if (mcHTurn == false && mcVTurn == false)
+			{
+				noChangePositionSize.mdPositionOffset = D2D1::Point2F(-lfSizeVarX, 0);
+			}
+
+			break;
+		}
+		// 左中点
 		case XuiLeftMid:
+		{
+			float lfHeightOffset = (lfSizeX / mdOriginSize.width)*mdOriginSize.height;
+
+			if (mcHTurn != false)
 			{
-				float lfHeightOffset = (lfSizeX/mdOriginSize.width)*mdOriginSize.height;
-
-				if (mcHTurn != false)
+				float xTmp = 0.0f;
+				if (mdOriginSize.height / 2 + lfHeightOffset / 2 < 0)
 				{
-					float xTmp = 0.0f;				
-					if (mdOriginSize.height/2+lfHeightOffset/2 < 0)
-					{
-						xTmp = mdOriginSize.height + lfHeightOffset/2;		
-					}
-					else
-					{
-						xTmp = -lfHeightOffset/2;
-					}
-
-					noChangePositionSize.mdPositionOffset = D2D1::Point2F(mdOriginSize.width, xTmp);
+					xTmp = mdOriginSize.height + lfHeightOffset / 2;
 				}
 				else
 				{
-					noChangePositionSize.mdPositionOffset = D2D1::Point2F(noChangePositionSize.mdPositionOffset.x, -lfHeightOffset/2);
+					xTmp = -lfHeightOffset / 2;
 				}
 
-				noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfSizeX, lfHeightOffset);	
-
-				break;
+				noChangePositionSize.mdPositionOffset = D2D1::Point2F(mdOriginSize.width, xTmp);
 			}
+			else
+			{
+				noChangePositionSize.mdPositionOffset = D2D1::Point2F(noChangePositionSize.mdPositionOffset.x, -lfHeightOffset / 2);
+			}
+
+			noChangePositionSize.mdSizeVariation = D2D1::SizeF(lfSizeX, lfHeightOffset);
+
+			break;
+		}
 		}
 
 	} while (false);
@@ -1210,8 +1206,8 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 		// 翻转之后的大小
 		D2D1_SIZE_F ldAfterTurnedSize;
 
-		ldAfterTurnedSize.width= lfAfterScaledWidth>0 ? lfAfterScaledWidth : -lfAfterScaledWidth;
-		ldAfterTurnedSize.height = lfAfterScaledHeight>0 ? lfAfterScaledHeight : -lfAfterScaledHeight;
+		ldAfterTurnedSize.width = lfAfterScaledWidth > 0 ? lfAfterScaledWidth : -lfAfterScaledWidth;
+		ldAfterTurnedSize.height = lfAfterScaledHeight > 0 ? lfAfterScaledHeight : -lfAfterScaledHeight;
 
 		// 翻转前后的变化量 = 翻转后的大小 - 原始大小
 		noChangePositionSize.mdSizeVariation.width = ldAfterTurnedSize.width - mdOriginSize.width;
@@ -1222,7 +1218,7 @@ ERESULT CSelectFrame::OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_C
 	// 根据当前状态与上一次的翻转状态，判断实际是否发生翻转
 	if (mcLastHTurn != mcHTurn)
 	{
-		noChangePositionSize.mcHTurn = true;		
+		noChangePositionSize.mcHTurn = true;
 		mcLastHTurn = mcHTurn;
 	}
 	else

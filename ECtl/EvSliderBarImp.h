@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef _EVSLIDERBARIMP_H_
 #define _EVSLIDERBARIMP_H_
 
@@ -11,9 +7,9 @@
 // 如果实现的是相同接口的类别，就可以直接从某个实例化类派生新类。
 DECLARE_BUILTIN_NAME(SliderBar)
 class CEvSliderBar :
-	public CXuiElement<CEvSliderBar ,GET_BUILTIN_NAME(SliderBar)>
+	public CXuiElement<CEvSliderBar, GET_BUILTIN_NAME(SliderBar)>
 {
-friend CXuiElement<CEvSliderBar ,GET_BUILTIN_NAME(SliderBar)>;
+	friend CXuiElement<CEvSliderBar, GET_BUILTIN_NAME(SliderBar)>;
 public:
 
 	// 派生本类及派生本函数时，请特别注意!!! 一定要首先调用基类的方法
@@ -21,8 +17,8 @@ public:
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent,	// 父对象指针
 		IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		);
+		IN ULONG nuEID = MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 protected:
 	CEvSliderBar();
@@ -43,7 +39,7 @@ protected:
 
 	// 鼠标落点检测
 	virtual ERESULT OnMouseOwnerTest(const D2D1_POINT_2F& rPoint);
-	
+
 	//鼠标按下
 	virtual ERESULT OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo);
 	//绘制消息
@@ -74,7 +70,7 @@ private:
 	IEinkuiIterator * mpBarPicture;
 	IEinkuiIterator * mpLeftBarPicture;
 public:
-	bool SetRange(FLOAT nMin,FLOAT nMax);
+	bool SetRange(FLOAT nMin, FLOAT nMax);
 	bool SetPos(FLOAT nPost);
 	bool SetDeltaSize(FLOAT nfSize);
 };

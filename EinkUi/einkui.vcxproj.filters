@@ -54,9 +54,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\EResult.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\comm\cmmBaseObj.h">
       <Filter>Comm</Filter>
     </ClInclude>
@@ -131,9 +128,6 @@
     </ClInclude>
     <ClInclude Include="XsMsgImp.h">
       <Filter>Message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\CfgIface.h">
-      <Filter>Comm</Filter>
     </ClInclude>
     <ClInclude Include="..\comm\ConfigFile.h">
       <Filter>Comm</Filter>

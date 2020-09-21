@@ -1,19 +1,15 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #pragma once
 
 typedef CXuiMessage* PElMessage;
-typedef cmmFastList<PElMessage ,128,64> CEsMessageFastList;
+typedef cmmFastList<PElMessage, 128, 64> CEsMessageFastList;
 
-class CXuiMessageQueue : protected CEsMessageFastList{
+class CXuiMessageQueue : protected CEsMessageFastList {
 	friend CXelManager;
 public:
-	CXuiMessageQueue(){
+	CXuiMessageQueue() {
 		miHistroy = 0;
 	};
-	~CXuiMessageQueue(){};
+	~CXuiMessageQueue() {};
 
 	// 插入本队列前部
 	bool Push_Front(IEinkuiMessage* npMsg);
@@ -43,7 +39,7 @@ public:
 	IEinkuiMessage* GetMessage(
 		IN ULONG nuMsgID,
 		IN IEinkuiIterator* npItr	// 消息的发送目标是此对象及其子对象
-		);
+	);
 
 	//// 清除指定要求的全部消息
 	//int RemoveMessages(
@@ -57,7 +53,7 @@ public:
 	int RemoveTimerMessage(
 		const IEinkuiIterator* npTarget,	// null for all targets
 		unsigned long nuTimerID		// 0 for all timer-message sending to the target
-		);
+	);
 
 
 private:

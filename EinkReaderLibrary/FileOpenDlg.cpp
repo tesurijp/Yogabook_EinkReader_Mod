@@ -3,6 +3,8 @@
 
 
 #include "StdAfx.h"
+#include <vector>
+#include <algorithm>
 #include "ElementImp.h"
 #include "FileOpenDlg.h"
 #include "MsgDefine.h"
@@ -10,6 +12,12 @@
 #include <Shlobj.h>
 #include <Shlwapi.h>
 #include <Shellapi.h>
+
+#include "util.h"
+
+using std::vector;
+
+namespace util = EInkReaderUtil;
 
 DEFINE_BUILTIN_NAME(FileOpenDlg)
 
@@ -76,14 +84,20 @@ ULONG CFileOpenDlg::InitOnCreate(
 
 		//创建list对象
 		lpSubKey = mpTemplete->OpenKey(L"ListItem");
-		D2D1_POINT_2F ldPos = {0.0f,189};
+		D2D1_POINT_2F ldPos = {20.0f,90.0f};
 		for (int i=0;i<FP_LIST_MAX;i++)
 		{
 			CFileListItem* lpListItem = CFileListItem::CreateInstance(mpIterator, lpSubKey);
 			lpListItem->GetIterator()->SetPosition(ldPos);
 			lpListItem->GetIterator()->SetVisible(false);
-			ldPos.y += 140.0f;
+			ldPos.y += 160.0f;
 			mdList.Insert(i, lpListItem);
+
+			if (i==3)
+			{
+				ldPos.x = 500.0f;
+				ldPos.y = 90.0f;
+			}
 		}
 		CMM_SAFE_RELEASE(lpSubKey);
 		
@@ -123,17 +137,13 @@ ULONG CFileOpenDlg::InitOnCreate(
 //清理原来的路径数据
 void CFileOpenDlg::ClearFilePath(void)
 {
-	while (mdFolderPathList.Size() > 0)
-	{
-		delete mdFolderPathList.GetEntry(0);
-		mdFolderPathList.RemoveByIndex(0);
-	}
+	m_FolderPathList.clear();
 }
 
 //初始化list,默认显示几个常用文件夹及盘符
 void CFileOpenDlg::InitList(void)
 {
-	wchar_t* lpszPath = NULL;
+	wchar_t* lpszPath = nullptr;
 	CFileListItem* lpListItem = NULL;
 
 	do 
@@ -145,23 +155,27 @@ void CFileOpenDlg::InitList(void)
 		}
 
 		//桌面
-		lpszPath = new wchar_t[MAX_PATH];
+		wchar_t* lpszPath = new wchar_t[MAX_PATH];
 		SHGetSpecialFolderPath(NULL, lpszPath, CSIDL_DESKTOP, FALSE);
-		mdFolderPathList.Insert(mdFolderPathList.Size(), lpszPath);
+		m_FolderPathList.push_back(lpszPath);
 
 		//我的文档
-		lpszPath = new wchar_t[MAX_PATH];
-		SHGetSpecialFolderPath(NULL, lpszPath, CSIDL_MYDOCUMENTS, FALSE);
-		mdFolderPathList.Insert(mdFolderPathList.Size(), lpszPath);
+		wchar_t* lpszDocPath = new wchar_t[MAX_PATH];
+		SHGetSpecialFolderPath(NULL, lpszDocPath, CSIDL_MYDOCUMENTS, FALSE);
+		m_FolderPathList.push_back(lpszDocPath);
 
 		//下载
 		wchar_t* lpszDownPath = new wchar_t[MAX_PATH];
-		wcscpy_s(lpszDownPath, MAX_PATH, lpszPath);
+
+		wcscpy_s(lpszDownPath, MAX_PATH, lpszDocPath);
 		*(wcsrchr(lpszDownPath, L'\\') + 1) = UNICODE_NULL;
 		wcscat_s(lpszDownPath, MAX_PATH, L"Downloads");
-		mdFolderPathList.Insert(mdFolderPathList.Size(), lpszDownPath);
+		m_FolderPathList.push_back(lpszDownPath);
 
-		mpIteratorImBack->SetVisible(false);
+		//mpIteratorImBack->SetVisible(false);
+		LONG llIndex = 1;
+		CExMessage::SendMessage(mpIteratorImBack, mpIterator, EACT_PICTUREFRAME_SET_INDEX, llIndex, NULL, 0);
+
 		mpIteratorPath->SetVisible(false);
 		mpIteratorPre->SetEnable(false);
 		mpIteratorNext->SetEnable(false);
@@ -172,20 +186,23 @@ void CFileOpenDlg::InitList(void)
 		wchar_t lszDrive[MAX_PATH] = { 0 };
 		int i = 0;
 		GetLogicalDriveStrings(MAX_PATH, lszDrive);
-		while (lszDrive[i] != UNICODE_NULL)
+		while (i < MAX_PATH && lszDrive[i] != UNICODE_NULL)
 		{
-			lpszPath = new wchar_t[MAX_PATH];
-			lpszPath[0] = lszDrive[i];
-			lpszPath[1] = L':';
-			lpszPath[2] = UNICODE_NULL;
-			mdFolderPathList.Insert(mdFolderPathList.Size(), lpszPath);
+			wchar_t* lpszPatht = new wchar_t[MAX_PATH];
+			lpszPatht[0] = lszDrive[i];
+			lpszPatht[1] = L':';
+			lpszPatht[2] = UNICODE_NULL;
+			m_FolderPathList.push_back(lpszPatht);
 
 			i += 4;
+
+			delete[] lpszPatht;
+			lpszPatht = nullptr;
 		}
 
 		//计算最大页码
-		mulMaxPage = mdFolderPathList.Size() / FP_LIST_MAX;
-		if (mulMaxPage*FP_LIST_MAX < (ULONG)mdFolderPathList.Size())
+		mulMaxPage = m_FolderPathList.size() / FP_LIST_MAX;
+		if (mulMaxPage*FP_LIST_MAX < (ULONG)m_FolderPathList.size())
 			mulMaxPage++; //页码计算使用进1法
 
 		mpIteratorPre->SetEnable(false);
@@ -198,32 +215,43 @@ void CFileOpenDlg::InitList(void)
 		//打开第一页
 		SetPage(1);
 
+		delete[] lpszPath;
+		lpszPath = nullptr;
+
+		delete[] lpszDocPath;
+		lpszDocPath = nullptr;
+
+		delete[] lpszDownPath;
+		lpszDownPath = nullptr;
+
 	} while (false);
 }
 
-void CFileOpenDlg::DoModal(bool nbIsEnableCancel)
+wstring CFileOpenDlg::DoModal(bool* npbIsSuccess)
 {
-	do 
-	{
-		mpIteratorClose->SetEnable(nbIsEnableCancel);
+	mpbIsSucess = npbIsSuccess;
 
-		mpIterator->SetActive();
-		mpIterator->BringToTop();
-		EinkuiGetSystem()->UpdateView(true);
-		EinkuiGetSystem()->DoModal(mpIterator);
-		
+	mpIterator->SetActive();
+	mpIterator->BringToTop();
+	EinkuiGetSystem()->EnablePaintboard(false);
+	EinkuiGetSystem()->UpdateView(true);
+	EinkuiGetSystem()->DoModal(mpIterator);
 
-		mpIterator->Close();
-		//mpIterator->Release();
+	wstring result = m_selectedFile;
 
-	} while (false);
+	mpIterator->Close();
+
+	return result;
 }
 
 void CFileOpenDlg::ExitModal()
 {
-	
 	EinkuiGetSystem()->ExitModal(mpIterator,0);
-	
+}
+
+const wstring & CFileOpenDlg::SelectedFile()
+{
+	return m_selectedFile;
 }
 
 //消息处理函数
@@ -236,7 +264,6 @@ ERESULT CFileOpenDlg::ParseMessage(IEinkuiMessage* npMsg)
 	case EMSG_MODAL_ENTER:
 	{
 		//// 创建要弹出的对话框
-		//mpIterator->SetVisible(true);
 		luResult = ERESULT_SUCCESS;
 		break;
 	}
@@ -254,62 +281,6 @@ ERESULT CFileOpenDlg::ParseMessage(IEinkuiMessage* npMsg)
 		luResult = CExMessage::GetInputData(npMsg, lulID);
 		if (luResult != ERESULT_SUCCESS)
 			break;
-
-		if (lulID == FP_ID_GROUP_FILE)
-		{
-			mpIteratorPage->SetVisible(true);
-			mpIteratorPre->SetVisible(true);
-			mpIteratorNext->SetVisible(true);
-
-			SetPage(mulCurrentPage);
-
-			if (mdFolderLevel.Size() >= 1 && mszCurrentPath[0] != UNICODE_NULL)
-			{
-				//只有在非最顶层才显示
-				mpIteratorPath->SetVisible(true);
-				mpIteratorImBack->SetVisible(true);
-			}
-		}
-		else if (lulID == FP_ID_GROUP_HISTORY)
-		{
-			wchar_t lszString[MAX_PATH] = { 0 };
-			mpIteratorPath->SetVisible(false);
-			mpIteratorImBack->SetVisible(false);
-
-			do
-			{
-				//显示页码
-				swprintf_s(lszString, MAX_PATH, L"%d/%d", 1, 1);
-				CExMessage::SendMessageWithText(mpIteratorPage, mpIterator, EACT_LABEL_SET_TEXT, lszString, NULL, 0);
-				mpIteratorPage->SetVisible(false);
-				mpIteratorPre->SetVisible(false);
-				mpIteratorNext->SetVisible(false); //历史记录只显示一页，不允许翻页
-
-				//设置list对象
-				int liBegin = (mulCurrentPage - 1) * FP_LIST_MAX;
-				int i = 0, k = 0;
-				for (i = 0, k = 0; i < mpdHistroyPath->Size() && k < FP_LIST_MAX; i++, k++)
-				{
-					if (GetFileAttributes(mpdHistroyPath->GetEntry(i)) == INVALID_FILE_ATTRIBUTES)
-					{
-						//如果文件不存在了，就不显示这一项了
-						k--;
-						continue;
-					}
-
-					CFileListItem* lpItem = mdList.GetEntry(k);
-					lpItem->SetPath(mpdHistroyPath->GetEntry(i),NULL);
-					lpItem->GetIterator()->SetVisible(true);
-				}
-
-				for (int j = k; j < FP_LIST_MAX; j++)
-				{
-					//没有那么多项了，把后面的隐藏
-					mdList.GetEntry(j)->GetIterator()->SetVisible(false);
-				}
-
-			} while (false);
-		}
 
 		break;
 	}
@@ -333,19 +304,11 @@ void CFileOpenDlg::ListClick(wchar_t* npszFilePath)
 	{
 		BREAK_ON_NULL(npszFilePath);
 
-		//首先尝试获取文件属性
-		if ((GetFileAttributes(npszFilePath)&FILE_ATTRIBUTE_DIRECTORY) == false)
+		if (!util::IsPathDirectory(npszFilePath)) // 选中了文件，记录文件名并退出。
 		{
-			//是文件，通知父窗口并隐藏自己
-			bool lbRet = false;
-			mpIterator->SetVisible(false);
-			CExMessage::SendMessageWithText(mpIterator->GetParent(), mpIterator, EEVT_ER_OPEN_FILE_PATH, npszFilePath,&lbRet,sizeof(lbRet));
-			if (lbRet != false)
-				ExitModal(); //说明文件打开成功了，那就退出自己
-			else
-				mpIterator->SetTimer(FP_TIMER_ID_SHOW, 1, 3000, NULL);
-				
-				//mpIteratorClose->SetEnable(false); //打开文件失败,禁用取消按钮
+			m_selectedFile = npszFilePath;
+			*mpbIsSucess = true;
+			ExitModal();
 		}
 		else
 		{
@@ -357,96 +320,107 @@ void CFileOpenDlg::ListClick(wchar_t* npszFilePath)
 }
 
 //获取目录下指定文件及目录
-DWORD CFileOpenDlg::GetFolderPath(wchar_t* npszPath, wchar_t* npszName)
+DWORD CFileOpenDlg::FillSubDirAndRelatedFiles(wchar_t* npszPath, const vector<const wchar_t*>& relatedExtList)
 {
-	DWORD ldwCount = 0;
+	if (!npszPath) return 0;
 
-	do
+	wchar_t lszFindPath[MAX_PATH] = { 0 };
+	wcscpy_s(lszFindPath, MAX_PATH, npszPath);
+	//wsprintfW(lszFindPath, L"%s\\*", npszPath);
+	swprintf_s(lszFindPath, MAX_PATH, L"%s\\*", npszPath);
+	WIN32_FIND_DATA FindFileData;
+	ZeroMemory(&FindFileData, sizeof(WIN32_FIND_DATA));
+	HANDLE hFindFile = FindFirstFile(lszFindPath, &FindFileData);
+
+	if (hFindFile == INVALID_HANDLE_VALUE)
+		return 0;
+
+	BOOL haveNextFile = true;
+
+	vector<wstring> dirList;
+	vector<wstring> fileList;
+
+	while (haveNextFile)
 	{
-		BREAK_ON_NULL(npszPath);
-
-		wchar_t lszFindPath[MAX_PATH] = { 0 };
-		wcscpy_s(lszFindPath, MAX_PATH, npszPath);
-		if (npszName == NULL)
-			wcscat_s(lszFindPath, MAX_PATH, L"\\*.*");
-		else
-			wcscat_s(lszFindPath, MAX_PATH, npszName);
-
-		WIN32_FIND_DATA FindFileData;
-		ZeroMemory(&FindFileData, sizeof(WIN32_FIND_DATA));
-		HANDLE hFindFile = FindFirstFile(lszFindPath, &FindFileData);
-
-		if (hFindFile == INVALID_HANDLE_VALUE)
-			break;
-
-		BOOL bContinue = true;
-
-		while (bContinue != false)
+		//是.或者..
+		if (wcscmp(FindFileData.cFileName, L".") == 0 || wcscmp(FindFileData.cFileName, L"..") == 0)
 		{
-			//bIsDots为真表示是.或..
-			bool lbIsDots = (wcscmp(FindFileData.cFileName, L".") == 0 || wcscmp(FindFileData.cFileName, L"..") == 0);
+			haveNextFile = FindNextFile(hFindFile, &FindFileData);
+			continue;
+		}
 
-			while (lbIsDots == false)
+		if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)  // 加入目录
+		{
+			wstring result = npszPath;
+			result += L"\\";
+			result += FindFileData.cFileName;
+			// 忽略隐藏目录和系统目录
+			if ((GetFileAttributes(result.c_str())&FILE_ATTRIBUTE_HIDDEN) == 0 && (GetFileAttributes(result.c_str())&FILE_ATTRIBUTE_SYSTEM) == 0)
 			{
-				if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
-				{
-					//是目录
-					wchar_t* lpPath = new wchar_t[MAX_PATH];
-					wcscpy_s(lpPath, MAX_PATH, npszPath);
-					wcscat_s(lpPath, MAX_PATH, L"\\");
-					wcscat_s(lpPath, MAX_PATH, FindFileData.cFileName);
-					//判断一下，如果是隐藏或系统文件夹，就不展示了
-					if ((GetFileAttributes(lpPath)&FILE_ATTRIBUTE_HIDDEN) == 0 && (GetFileAttributes(lpPath)&FILE_ATTRIBUTE_SYSTEM) == 0)
-						mdFolderPathList.Insert(mdFolderPathList.Size(), lpPath);
-				}
-				else
-				{
-					//是文件,npszName=null表明只想要目录的数量
-					if (npszName != NULL)
-					{
-						wchar_t* lpPath = new wchar_t[MAX_PATH];
-						wcscpy_s(lpPath, MAX_PATH, npszPath);
-						wcscat_s(lpPath, MAX_PATH, L"\\");
-						wcscat_s(lpPath, MAX_PATH, FindFileData.cFileName);
-						mdFolderPathList.Insert(mdFolderPathList.Size(), lpPath);
-					}
-
-				}
-
-				break;
+				dirList.push_back(result);
 			}
+		}
+		else
+		{
+			wstring currentExtName = util::GetFileExtention(FindFileData.cFileName, util::NameCaseOption::ToLower);
+			if (std::any_of(relatedExtList.begin(), relatedExtList.end(), [currentExtName](const wchar_t* ext) {
+				return currentExtName == ext;
+			}))
+			{
+				wstring result = npszPath;
+				result += L"\\";
+				result += FindFileData.cFileName;
 
-			//寻找下一文件
-			bContinue = FindNextFile(hFindFile, &FindFileData);
+				if ((GetFileAttributes(result.c_str())&FILE_ATTRIBUTE_HIDDEN) == 0 && (GetFileAttributes(result.c_str())&FILE_ATTRIBUTE_SYSTEM) == 0)
+				{
+					fileList.push_back(result);
+				}
+			}
 
 		}
 
-		FindClose(hFindFile);
+		haveNextFile = FindNextFile(hFindFile, &FindFileData);
+	}
 
-	} while (false);
+	FindClose(hFindFile);
+	for (const wstring& dirName : dirList)
+	{
+		m_FolderPathList.push_back(dirName);
+	}
 
-	return ldwCount;
+	for (const wstring& fileName: fileList)
+	{
+		m_FolderPathList.push_back(fileName);
+	}
+	return dirList.size() + fileList.size();
 }
 
 //进入文件夹
 void CFileOpenDlg::EnterFolder(wchar_t* npszPath, bool nbIsBack)
 {
+	const vector<const wchar_t*> kNotableExtentionList{
+		L".pdf",
+		L".epub",
+		L".mobi",
+		L".txt",
+		L".doc",
+		L".docx",
+		L".xls",
+		L".xlsx",
+		L".ppt",
+		L".pptx",
+		L".vsd",
+		L".vsdx",
+	};
+
 	do 
 	{
 		BREAK_ON_NULL(npszPath);
 
 		wcscpy_s(mszCurrentPath, MAX_PATH, npszPath);
-		mpIteratorImBack->SetEnable(true);
 
-		//清空原来的列表
 		ClearFilePath();
-
-		//遍历所有子文件夹e
-		GetFolderPath(npszPath, NULL);
-		GetFolderPath(npszPath, L"\\*.pdf");
-		GetFolderPath(npszPath, L"\\*.epub");
-		GetFolderPath(npszPath, L"\\*.mobi");
-		GetFolderPath(npszPath, L"\\*.txt");
+		FillSubDirAndRelatedFiles(npszPath, kNotableExtentionList);
 
 		wchar_t lszDisplayName[MAX_PATH] = { 0 };
 		wchar_t* lpszFolderPath = npszPath;
@@ -491,11 +465,14 @@ void CFileOpenDlg::EnterFolder(wchar_t* npszPath, bool nbIsBack)
 		CExMessage::SendMessageWithText(mpIteratorPath, mpIterator, EACT_LABEL_SET_TEXT, mszDisplayPath, NULL, 0);
 
 		mpIteratorPath->SetVisible(true);
-		mpIteratorImBack->SetVisible(true);
+		//mpIteratorImBack->SetVisible(true);
+		LONG llIndex = 2;
+		CExMessage::SendMessage(mpIteratorImBack, mpIterator, EACT_PICTUREFRAME_SET_INDEX, llIndex, NULL, 0);
+		
 
 		//计算最大页码
-		mulMaxPage = mdFolderPathList.Size() / FP_LIST_MAX;
-		if (mulMaxPage*FP_LIST_MAX < (ULONG)mdFolderPathList.Size())
+		mulMaxPage = m_FolderPathList.size() / FP_LIST_MAX;
+		if (mulMaxPage*FP_LIST_MAX < (ULONG)m_FolderPathList.size())
 			mulMaxPage++; //页码计算使用进1法
 
 		mpIteratorPre->SetEnable(false);
@@ -620,15 +597,13 @@ ERESULT CFileOpenDlg::OnElementResized(D2D1_SIZE_F nNewSize)
 }
 
 //设置历史记录
-void CFileOpenDlg::SetHistoryList(cmmVector<wchar_t*>* npdHistroyPath)
+void CFileOpenDlg::SetHistoryList(wchar_t* npHistroyPath)
 {
-	mpdHistroyPath = npdHistroyPath;
-
-	if (mpdHistroyPath != NULL && mpdHistroyPath->Size() > 0)
+	if (npHistroyPath != NULL)
 	{
 		//如果之前已经打开过文件，就打开那个文件所在的目录
 		wchar_t lszPath[MAX_PATH] = { 0 };
-		wcscpy_s(lszPath, MAX_PATH, mpdHistroyPath->GetEntry(0));
+		wcscpy_s(lszPath, MAX_PATH, npHistroyPath);
 
 		*(wcsrchr(lszPath, L'\\')) = UNICODE_NULL;
 		if (GetFileAttributes(lszPath) != INVALID_FILE_ATTRIBUTES)
@@ -694,6 +669,90 @@ bool CFileOpenDlg::GetDisplayName(GUID niCSIDL, OUT wchar_t* npszName, IN int ni
 	return lbRet;
 }
 
+//************************************
+// Method:    GetFileType
+// FullName:  CFileOpenDlg::GetFileType
+// Access:    private 
+// Qualifier: 获取当前文件的类型(office文件转pdf文件使用)
+// Author:    xiezm2
+// Returns:   CFileOpenDlg::eFileType
+// Parameter: wstring strFilePath
+//************************************
+CFileOpenDlg::eFileType CFileOpenDlg::GetFileType(wstring strFilePath) {
+	eFileType eFile = e_File_UnKnown;
+	std::wstring file_exten;
+	size_t pos = strFilePath.rfind(L'.');
+	if (pos == std::wstring::npos)
+		return eFile;
+	file_exten = strFilePath.substr(pos, std::wstring::npos);
+	transform(file_exten.begin(), file_exten.end(), file_exten.begin(), tolower);
+	if (0 == file_exten.compare(L".pdf")) {
+		eFile = e_File_Pdf;
+	}
+	else if (0 == file_exten.compare(L".epub")) {
+		eFile = e_File_Epub;
+	}
+	else if (0 == file_exten.compare(L".mobi")) {
+		eFile = e_File_Mobi;
+	}
+	else if (0 == file_exten.compare(L".txt")) {
+		eFile = e_File_Txt;
+	}
+	else if (0 == file_exten.compare(L".docx")) {
+		eFile = e_File_Word;
+	}
+	else if (0 == file_exten.compare(L".doc")) {
+		eFile = e_File_Word;
+	}
+	else if (0 == file_exten.compare(L".rtf")) {
+		eFile = e_File_Word;
+	}
+	else if (0 == file_exten.compare(L".xlsx")) {
+		eFile = e_File_Excel;
+	}
+	else if (0 == file_exten.compare(L".xls")) {
+		eFile = e_File_Excel;
+	}
+	else if (0 == file_exten.compare(L".csv")) {
+		eFile = e_File_Excel;
+	}
+	else if (0 == file_exten.compare(L".pptx")) {
+		eFile = e_File_PowerPoint;
+	}
+	else if (0 == file_exten.compare(L".ppt")) {
+		eFile = e_File_PowerPoint;
+	}
+	else if (0 == file_exten.compare(L".vsdx")) {
+		eFile = e_File_Visio;
+	}
+	else if (0 == file_exten.compare(L".vsd")) {
+		eFile = e_File_Visio;
+	}
+
+	return eFile;
+}
+
+static wstring GetFullPath(const wstring& path)
+{
+	const int bufferSize = 2048;
+	std::unique_ptr<wchar_t[]> buffer = std::make_unique<wchar_t[]>(bufferSize);
+
+	GetFullPathNameW(path.c_str(), bufferSize, buffer.get(), nullptr);
+
+	return buffer.get();
+}
+
+long GetFileSize(const wstring& path)
+{
+	FILE* f = nullptr;
+	_wfopen_s(&f, path.c_str(), L"rb");
+	if (f == nullptr) return 0;
+	fseek(f, 0, SEEK_END);
+	long result = ftell(f);
+	fclose(f);
+	return result;
+}
+
 //根据页码设置显示
 void CFileOpenDlg::SetPage(ULONG nulPage)
 {
@@ -718,12 +777,12 @@ void CFileOpenDlg::SetPage(ULONG nulPage)
 		//设置list对象
 		int liBegin = (mulCurrentPage - 1) * FP_LIST_MAX;
 		
-		for (i= liBegin,k=0;i<mdFolderPathList.Size() && k<FP_LIST_MAX;i++,k++)
+		for (i= liBegin,k=0;i<m_FolderPathList.size() && k<FP_LIST_MAX;i++,k++)
 		{
 			CFileListItem* lpItem = mdList.GetEntry(k);
 
 			wchar_t lszDisplayName[MAX_PATH] = { 0 };
-			wchar_t* lpszFolderPath = mdFolderPathList.GetEntry(i);
+			const wchar_t* lpszFolderPath = m_FolderPathList[i].c_str();
 			if (mdFolderLevel.Size() <= 0 && wcslen(lpszFolderPath) > 3)
 			{
 				//获取显示名称
@@ -737,7 +796,11 @@ void CFileOpenDlg::SetPage(ULONG nulPage)
 					GetDisplayName(FOLDERID_Downloads, lszDisplayName, MAX_PATH);
 			}
 
-			lpItem->SetPath(mdFolderPathList.GetEntry(i), lszDisplayName[0] == UNICODE_NULL ? NULL : lszDisplayName);
+			auto buffer = std::make_unique<wchar_t[]>(MAX_PATH);
+			wcscpy_s(buffer.get(), MAX_PATH, m_FolderPathList[i].c_str());
+
+			lpItem->SetPath(buffer.get(), lszDisplayName[0] == UNICODE_NULL ? NULL : lszDisplayName);
+			m_FolderPathList[i] = buffer.get();
 			//lpItem->SetPath(mdFolderPathList.GetEntry(i));
 			lpItem->GetIterator()->SetVisible(true);
 		}

@@ -94,18 +94,36 @@ public:
 		PPAGE_PDF_CONTEXT contextPtr
 	);
 
+	IEdAnnotManager_ptr GetAnnotManager(void) {
+		return NULL;
+	}
+
+	bool32 GetSelectedText(
+		IN ED_RECTF_PTR selBox,
+		OUT char16_ptr textBuf,
+		IN int32Eink bufSize
+	);
+
+	virtual IEdStructuredTextPage_ptr GetStructuredTextPage(void);	// 返回的对象需要调用release释放
+
 protected:
 	// 内部变量
-	int32Eink mPageNo;	// begin from zero to count-1
+	//int32Eink mPageNo;	// begin from zero to count-1
 	int32Eink incomplete;
 	CSmtDocument* documentObject;
+	//int reparsPoint;
+	PAGE_PDF_CONTEXT rawContext;
 
 	CSmtPage();
 	~CSmtPage();
 //	fz_pixmap* DrawBitmap(float32 scalRatio, bool32 cleanUp);
 	//bool32 GetBox(pdf_obj *boxName, ED_RECTF& boxRect);//PDF_NAME_MediaBox,PDF_NAME_CropBox,PDF_NAME_ArtBox,PDF_NAME_BleedBox,PDF_NAME_TrimBox
 	//void MakeupMatrix(int32Eink w,int32Eink h,fz_matrix& matrix);
-
+	void SavePageContext(PPAGE_PDF_CONTEXT context) {
+		rawContext.pageIndex = context->pageIndex;
+		rawContext.pageContext = context->pageContext;
+		rawContext.pageContext2 = context->pageContext2;
+	}
 
 	DEFINE_CUMSTOMIZE_CREATE(CSmtPage, (int32Eink pageNo,CSmtDocument* docObj), (pageNo, docObj))
 

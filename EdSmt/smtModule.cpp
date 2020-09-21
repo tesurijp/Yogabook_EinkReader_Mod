@@ -81,9 +81,9 @@ const char16_ptr CSmtModule::GetTypeName(int32Eink index)
 
 	switch (index)
 	{
-	case 0:
-		typeString = L"PDF";
-		break;
+	//case 0:
+	//    typeString = L"PDF";
+	//	  break;
 	case 1:
 		typeString = L"EPUB";
 		break;
@@ -104,8 +104,7 @@ const char16_ptr CSmtModule::GetTypeName(int32Eink index)
 // ´ò¿ªÎÄµµ
 ED_ERR CSmtModule::OpenDocument(
 	IN char16* pathName,
-	OUT IEdDocument_ptr* documentPtrPtr,
-	IN int32Eink asType // -1 not indicated
+	OUT IEdDocument_ptr* documentPtrPtr
 )
 {
 	if (pathName == NULL || pathName[0] == 0 || documentPtrPtr == NULL)

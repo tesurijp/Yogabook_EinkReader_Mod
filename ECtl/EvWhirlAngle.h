@@ -1,20 +1,16 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #pragma once
 
 DECLARE_BUILTIN_NAME(WhirlAngle)
-class CEvWhirlAngleImp:
+class CEvWhirlAngleImp :
 	public CXuiElement<CEvWhirlAngleImp, GET_BUILTIN_NAME(WhirlAngle)>
 {
-	friend CXuiElement<CEvWhirlAngleImp,GET_BUILTIN_NAME(WhirlAngle)>;
+	friend CXuiElement<CEvWhirlAngleImp, GET_BUILTIN_NAME(WhirlAngle)>;
 public:
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent = NULL,	// 父对象指针
 		IN ICfKey* npTemplete = NULL,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		);
+		IN ULONG nuEID = MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 protected:
 	CEvWhirlAngleImp(void);
@@ -49,38 +45,38 @@ protected:
 	//		更改图片帧数
 	void SetPicIndex(
 		IN size_t niIndex			// 索引
-		);
+	);
 
 	// 描述：
 	//		通过当前位置，计算旋转了的弧度值
 	double GetRadian(
 		IN D2D1_POINT_2F nfCrtPoint
-		);
+	);
 
 	// 描述：
 	//		获取两点之间的距离
 	double GetDistance(
 		IN D2D1_POINT_2F ndfPointA,
 		IN D2D1_POINT_2F ndfPointB
-		);
+	);
 
 	// 描述：
 	//		更新旋转点位置
 	void UpdateDotPosition(
 		IN double ndbRadian
-		);
+	);
 
 	// 描述：
 	//		弧度转换成角度
 	double RadianToAngle(
 		IN double ndbRandian
-		);
+	);
 
 	// 描述：
 	//		角度转换成弧度
 	double AngleToRadian(
 		IN double ndbAngle
-		);
+	);
 
 private:
 	void LoadResource();

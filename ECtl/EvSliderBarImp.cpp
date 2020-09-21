@@ -197,7 +197,17 @@ ERESULT CEvSliderBar::ParseMessage(IEinkuiMessage* npMsg)
 					lfPosition = mpDragButton->GetPositionY() - mBarRect.top ;		
 				else
 					lfPosition = mpDragButton->GetPositionX() - mBarRect.left ;
+
+				if (mpLeftBarPicture)
+				{
+					if (mnVertical)
+						mpLeftBarPicture->SetSize(mpLeftBarPicture->GetSizeX(), lfPosition);
+					else
+						mpLeftBarPicture->SetSize(lfPosition, mpLeftBarPicture->GetSizeY());
+				}
+
 				lfPosition *= mfDestPixelPerScrollPix;
+
 
 				CExMessage::PostMessage(mpIterator->GetParent(),mpIterator, EACT_SLIDERBAR_DRAG_END, lfPosition);
 				break;

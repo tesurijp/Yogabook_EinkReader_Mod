@@ -1,6 +1,5 @@
 ﻿/* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
-
 #include "stdafx.h"
 
 #include "CommonHeader.h"
@@ -26,8 +25,8 @@ HMODULE __stdcall CXelFactoryMgr::LoadDll(const wchar_t* nswDllPath)
 {
 
 	HMODULE lpDllHandle;
-	
-	lpDllHandle = LoadLibrary(nswDllPath);
+	OutputDebugString(nswDllPath);
+	lpDllHandle = LoadLibraryEx(nswDllPath, NULL, LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
 	if (lpDllHandle == NULL )
 		return NULL;
 
@@ -44,7 +43,7 @@ BOOL __stdcall CXelFactoryMgr::UnLoadDll(HMODULE nhDllHandle)
 	if(NULL == FreeLibrary(nhDllHandle))
 		return FALSE;
 
-	CXelDataMgr::SingleInstance()->ModLoadedList(NULL, nhDllHandle, NULL, FALSE);
+	//CXelDataMgr::SingleInstance()->ModLoadedList(NULL, nhDllHandle, NULL, FALSE); //niu 无用代码
 	
 	return TRUE;
 

@@ -49,13 +49,13 @@ protected:
 	//是文件夹的处理
 	void ProcFolder(wchar_t* npszPath, wchar_t* npszDisplayName);
 	//获取目录下指定文件及目录个数
-	DWORD GetFolderCount(wchar_t* npszPath, wchar_t* npszName = NULL);
+	DWORD GetFolderCount(wchar_t* npszPath);
 
 private:
 	wchar_t* mpszFilePath;
 
 	IEinkuiIterator* mpIterFolderIcon;
-	IEinkuiIterator* mpIterPdfIcon;
+	//IEinkuiIterator* mpIterPdfIcon;
 	IEinkuiIterator* mpIterName;
 	IEinkuiIterator* mpIterAttrib;
 	IEinkuiIterator* mpIterBt;

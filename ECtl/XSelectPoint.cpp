@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "StdAfx.h"
 #include "cmmBaseObj.h"
 #include "Einkui.h"
@@ -33,19 +29,19 @@ ULONG CSelectPoint::InitOnCreate(
 	IN IEinkuiIterator* npParent,	// 父对象指针
 	IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
 	IN ULONG nuEID				// 如果不为0，则指定该元素的EID，否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动那个分配
-	)
+)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 	ICfKey* lpSubKey = NULL;
 
-	do 
+	do
 	{
 		//首先调用基类
-		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
-		if(leResult != ERESULT_SUCCESS)
+		leResult = CXuiElement::InitOnCreate(npParent, npTemplete, nuEID);
+		if (leResult != ERESULT_SUCCESS)
 			break;
 
-		mpXuiBrush = EinkuiGetSystem()->CreateBrush(XuiSolidBrush, D2D1::ColorF(0.0f,0.0f,0.0f));
+		mpXuiBrush = EinkuiGetSystem()->CreateBrush(XuiSolidBrush, D2D1::ColorF(0.0f, 0.0f, 0.0f));
 		BREAK_ON_NULL(mpXuiBrush);
 		mpFillBrush = EinkuiGetSystem()->CreateBrush(XuiSolidBrush, D2D1::ColorF(0.0f, 0.0f, 0.0f));
 		BREAK_ON_NULL(mpFillBrush);
@@ -71,24 +67,24 @@ ERESULT CSelectPoint::OnElementCreate(IEinkuiIterator* npIterator)
 
 	do
 	{
-		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
+		if (CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
 		// 这里元素ID不能为0
-		if(mpIterator->GetID() == 1 || mpIterator->GetID() == 5)
-			CXuiElement::mhInnerCursor = LoadCursor(NULL,IDC_SIZENWSE);
-		else if(mpIterator->GetID() == 3 || mpIterator->GetID() == 7)
-			CXuiElement::mhInnerCursor = LoadCursor(NULL,IDC_SIZENESW);
-		else if(mpIterator->GetID() == 2 || mpIterator->GetID() == 6)
-			CXuiElement::mhInnerCursor = LoadCursor(NULL,IDC_SIZENS);
-		else if(mpIterator->GetID() == 4 || mpIterator->GetID() == 8)
-			CXuiElement::mhInnerCursor = LoadCursor(NULL,IDC_SIZEWE);
+		if (mpIterator->GetID() == 1 || mpIterator->GetID() == 5)
+			CXuiElement::mhInnerCursor = LoadCursor(NULL, IDC_SIZENWSE);
+		else if (mpIterator->GetID() == 3 || mpIterator->GetID() == 7)
+			CXuiElement::mhInnerCursor = LoadCursor(NULL, IDC_SIZENESW);
+		else if (mpIterator->GetID() == 2 || mpIterator->GetID() == 6)
+			CXuiElement::mhInnerCursor = LoadCursor(NULL, IDC_SIZENS);
+		else if (mpIterator->GetID() == 4 || mpIterator->GetID() == 8)
+			CXuiElement::mhInnerCursor = LoadCursor(NULL, IDC_SIZEWE);
 
 		mpIterator->ModifyStyles(EITR_STYLE_ALL_DRAG);
 
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -96,8 +92,8 @@ ERESULT CSelectPoint::OnElementCreate(IEinkuiIterator* npIterator)
 //修改鼠标样式
 void CSelectPoint::SetCursor(HCURSOR nhInnerCursor)
 {
-// 	if(CXuiElement::mhInnerCursor != NULL)
-// 		CloseHandle(CXuiElement::mhInnerCursor);
+	// 	if(CXuiElement::mhInnerCursor != NULL)
+	// 		CloseHandle(CXuiElement::mhInnerCursor);
 
 	CXuiElement::mhInnerCursor = nhInnerCursor;
 }
@@ -112,24 +108,24 @@ ERESULT CSelectPoint::ParseMessage(IEinkuiMessage* npMsg)
 	switch (npMsg->GetMessageID())
 	{
 	case EMSG_SELECTPOINT_RESET_CURSOR:
+	{
+		if (npMsg->GetInputDataSize() != sizeof(HCURSOR))
 		{
-			if(npMsg->GetInputDataSize() != sizeof(HCURSOR))
-			{
-				luResult = ERESULT_WRONG_PARAMETERS;
-				break;
-			}
-
-			HCURSOR* lpVoid = (HCURSOR *)npMsg->GetInputData();
-			SetCursor(*lpVoid);
-
+			luResult = ERESULT_WRONG_PARAMETERS;
 			break;
 		}
+
+		HCURSOR* lpVoid = (HCURSOR *)npMsg->GetInputData();
+		SetCursor(*lpVoid);
+
+		break;
+	}
 	default:
 		luResult = ERESULT_NOT_SET;
 		break;
 	}
 
-	if(luResult == ERESULT_NOT_SET)
+	if (luResult == ERESULT_NOT_SET)
 	{
 		luResult = CXuiElement::ParseMessage(npMsg); // 调用基类的同名函数；注意：一定要调用自身直接基类
 	}
@@ -143,7 +139,7 @@ ERESULT CSelectPoint::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 	if (mpIterator->IsVisible() == false || mpIterator->IsEnable() == false)
 		return ERESULT_SUCCESS; //隐藏或禁用时不检测
 
-	if(rPoint.x < 0 || rPoint.x > mpIterator->GetSizeX() || rPoint.y < 0 || rPoint.y > mpIterator->GetSizeY())
+	if (rPoint.x < 0 || rPoint.x > mpIterator->GetSizeX() || rPoint.y < 0 || rPoint.y > mpIterator->GetSizeY())
 		return ERESULT_SUCCESS;
 	else
 		return ERESULT_MOUSE_OWNERSHIP;
@@ -154,12 +150,12 @@ ERESULT CSelectPoint::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 {
 
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
-	
-	do 
+
+	do
 	{
 		BREAK_ON_NULL(mpXuiBrush);
 		mpXuiBrush->SetStrokeWidth(1.0f);
-		
+
 		//npPaintBoard->FillRect(D2D1::RectF(0.5f, 0.5f, CExFloat::UnderHalf(mfWidth),CExFloat::UnderHalf(mfHeight)), mpFillBrush);
 		//npPaintBoard->DrawRect(D2D1::RectF(0.5f, 0.5f, CExFloat::UnderHalf(mfWidth),CExFloat::UnderHalf(mfHeight)), mpXuiBrush);
 		npPaintBoard->FillEllipse(D2D1::RectF(25.0f, 25.0f, CExFloat::UnderHalf(55.0f), CExFloat::UnderHalf(55.0f)), mpFillBrush);
@@ -175,13 +171,13 @@ ERESULT CSelectPoint::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
 		BREAK_ON_NULL(npInfo);
 		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//只有左键可以拖动
 			break;
 
-		SendMessageToParent(EMSG_SELECTPOINT_MOVING,npInfo->Offset,NULL,0);
+		SendMessageToParent(EMSG_SELECTPOINT_MOVING, npInfo->Offset, NULL, 0);
 
 		leResult = ERESULT_SUCCESS;
 
@@ -195,17 +191,17 @@ ERESULT CSelectPoint::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
 		BREAK_ON_NULL(npInfo);
 		if ((npInfo->ActKey&MK_LBUTTON) == 0)	//只有左键可以拖动
 			break;
 
-		if(npInfo->DragOn != mpIterator) //只有在自己上面才可以
+		if (npInfo->DragOn != mpIterator) //只有在自己上面才可以
 			break;
 
 		//通知父窗口，开始拖动
-		SendMessageToParent(EMSG_SELECTPOINT_BEGIN,*npInfo,NULL,0);
+		SendMessageToParent(EMSG_SELECTPOINT_BEGIN, *npInfo, NULL, 0);
 
 		leResult = ERESULT_SUCCESS;
 
@@ -219,7 +215,7 @@ ERESULT CSelectPoint::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
 		BREAK_ON_NULL(npInfo);
 
@@ -227,7 +223,7 @@ ERESULT CSelectPoint::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 			break;
 
 		//通知父窗口，自己移动完成
-		SendMessageToParent(EMSG_SELECTFPOINT_MOVED,CExMessage::DataInvalid,NULL,0);
+		SendMessageToParent(EMSG_SELECTFPOINT_MOVED, CExMessage::DataInvalid, NULL, 0);
 
 		leResult = ERESULT_SUCCESS;
 

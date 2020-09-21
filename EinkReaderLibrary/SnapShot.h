@@ -26,6 +26,7 @@ public:
 	// 模态显示该对话框
 	void DoModal();
 	void ExitModal();
+	void SetToolBarHeight(int nTopH, int nBottomH);
 
 protected:
 	CSnapShot(void);
@@ -54,6 +55,9 @@ private:
 
 	D2D1_POINT_2F mdDropBeginPos;
 	D2D1_SIZE_F mdBeginSize; //拖动前选择框大小
+
+	int mnToolBarTopHeight = 0;
+	int mnToolBarBottomHeight = 0;
 
 	//设置两个按钮位置
 	void SetButtonPos();

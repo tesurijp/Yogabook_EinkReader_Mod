@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{200e450b-d2e2-4e07-a6d3-4854d21c00f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{94d05178-fa8c-4c5f-9b8d-c67a20547676}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\mupdf\helpers\pkcs7-check.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\mupdf\helpers\pkcs7-openssl.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\source\helpers\pkcs7\pkcs7-check.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\helpers\pkcs7\pkcs7-openssl.c">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

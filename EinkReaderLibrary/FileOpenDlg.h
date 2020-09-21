@@ -3,6 +3,8 @@
 
 
 #pragma once
+#include <vector>
+#include <string>
 #include "FileListItem.h"
 #include "cmmstruct.h"
 
@@ -10,9 +12,27 @@
 
 DECLARE_BUILTIN_NAME(FileOpenDlg)
 
+using std::vector;
+using std::wstring;
+
+
+class COfficeConvertDlg;
 class CFileOpenDlg:
 	public CXuiElement<CFileOpenDlg,GET_BUILTIN_NAME(FileOpenDlg)>
 {
+public:
+	enum eFileType
+	{
+		e_File_UnKnown = 0,
+		e_File_Pdf,
+		e_File_Epub,
+		e_File_Mobi,
+		e_File_Txt,
+		e_File_Word,
+		e_File_Excel,
+		e_File_PowerPoint,
+		e_File_Visio
+	};
 public:
 	// 如果将构造函数设定为protected，就需要加这句话; 否则，不需要下面这句
 	friend CXuiElement<CFileOpenDlg,GET_BUILTIN_NAME(FileOpenDlg)>;
@@ -37,11 +57,13 @@ public:
 	~CFileOpenDlg(void);
 
 	// 模态显示该对话框
-	void DoModal(bool nbIsEnableCancel = true);
+	wstring DoModal(bool* npbIsSuccess);
 	//设置历史记录
-	void SetHistoryList(cmmVector<wchar_t*>* npdHistroyPath);
+	void SetHistoryList(wchar_t* npHistroyPath);
 
 	void ExitModal();
+
+	const wstring& SelectedFile();
 
 protected:
 	
@@ -69,11 +91,15 @@ private:
 	wchar_t mszCurrentPath[MAX_PATH]; //当前路径
 	wchar_t mszDisplayPath[MAX_PATH]; //用于在上方显示路径
 
-	cmmVector<wchar_t*> mdFolderPathList; //存放某个文件夹里面所有子文件夹
+	vector<wstring> m_FolderPathList; //存放某个文件夹里面所有子文件夹
 
-	cmmVector<wchar_t*>* mpdHistroyPath; //历史文件
+	//cmmVector<wchar_t*>* mpdHistroyPath; //历史文件
 	cmmVector<ULONG> mdFolderLevel;//用于存放上次进入目录时的页码
 
+	bool* mpbIsSucess;
+	COfficeConvertDlg *m_pDemoDlg = nullptr;
+
+private:
 	//初始化list,默认显示几个常用文件夹及盘符
 	void InitList(void);
 	//list项被点击
@@ -81,7 +107,7 @@ private:
 	//进入文件夹
 	void EnterFolder(wchar_t* npszPath,bool nbIsBack = false);
 	//获取目录下指定文件及目录
-	DWORD GetFolderPath(wchar_t* npszPath, wchar_t* npszName);
+	DWORD FillSubDirAndRelatedFiles(wchar_t* npszPath, const vector<const wchar_t*>& relatedExtList);
 
 	//跳转到指定页面
 	void SetPage(ULONG nulPage);
@@ -93,18 +119,21 @@ private:
 	void ClearFilePath(void);
 	//获取特殊目录的多语言字符串
 	bool GetDisplayName(GUID niCSIDL, OUT wchar_t* npszName, IN int niLen);
+
+	eFileType GetFileType(wstring strFilePath);
+	bool m_bCanConvertToPDF = true; // true打开pdf转换逻辑，false关闭pdf转换逻辑
+
+	wstring m_selectedFile;
 };
 
-#define FP_LIST_MAX 4	//LIST一页最多几个对象
+#define FP_LIST_MAX 8	//LIST一页最多几个对象
 
 #define FP_ID_BT_OPEN 1
-#define FP_ID_BT_CLOSE 1
+#define FP_ID_BT_CLOSE 7
 #define FP_ID_BT_PRE 3
 #define FP_ID_BT_NEXT 4
 #define FP_ID_BT_Back 11
 
-#define FP_ID_GROUP_FILE 1  //文件
-#define FP_ID_GROUP_HISTORY 2 //历史记录
 
 #define FP_TIMER_ID_SHOW 1
 

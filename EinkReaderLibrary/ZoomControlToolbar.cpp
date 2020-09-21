@@ -9,24 +9,17 @@
 #include "cmmStrHandle.h"
 #include "cmmPath.h"
 #include "MsgDefine.h"
+#include "ToolbarBottom.h"
 
 DEFINE_BUILTIN_NAME(ZoomControlToolbar)
-
-float defaultRatios[] = {1.0f,1.26f,1.90f,2.54f,3.18f,4.78f,6.38f,9.58f,12.78f,19.18f,25.58f,35.18f,41.18f,68.18f,83.18f,115.18f,179.18f,0.0f};
-
-
-
 
 CZoomControlToolbar::CZoomControlToolbar(void)
 {
 	mpIterBili = NULL;
 
 	mlCurrentZoomLevel = 0;
-	mfZoom.Insert(-1, 1.0f);
-	//miMaxRatioInx = 0;
-	miFatRatioInx = 0;
+	mfZoom.Insert(-1, 1.0);
 }
-
 
 CZoomControlToolbar::~CZoomControlToolbar(void)
 {
@@ -69,7 +62,6 @@ ULONG CZoomControlToolbar::InitOnCreate(
 		if(leResult != ERESULT_SUCCESS)
 			break;
 
-
 		//获取对像句柄
 		mpIterBili = mpIterator->GetSubElementByID(110);
 		BREAK_ON_NULL(mpIterBili);
@@ -80,10 +72,11 @@ ULONG CZoomControlToolbar::InitOnCreate(
 		mpIterBtSub = mpIterator->GetSubElementByID(ZC_BT_SUB);
 		BREAK_ON_NULL(mpIterBtSub);
 
-		mpIterBtDefault = mpIterator->GetSubElementByID(ZC_BT_DEFAULT);
-		BREAK_ON_NULL(mpIterBtDefault);
+		mpIterBtAutoZoom = mpIterator->GetSubElementByID(ZC_BT_AUTO_ZOOM);
+		BREAK_ON_NULL(mpIterBtAutoZoom);
 
-		initData();
+		mpIterBtResetZoom = mpIterator->GetSubElementByID(ZC_BT_RESET_ZOOM);
+		BREAK_ON_NULL(mpIterBtResetZoom);
 
 		leResult = ERESULT_SUCCESS;
 
@@ -99,63 +92,59 @@ ULONG CZoomControlToolbar::InitOnCreate(
 void CZoomControlToolbar::SetString(ULONG nulLevel)
 {
 	wchar_t lszString[MAX_PATH] = { 0 };
-	swprintf_s(lszString, MAX_PATH, L"%d%s", int(mfZoom[nulLevel] * 100),L"%");
+	swprintf_s(lszString, MAX_PATH, L"%d%s", int(100 + nulLevel*10), L"%");
+
+	CExMessage::SendMessageWithText(mpIterBili, mpIterator, EACT_LABEL_SET_TEXT, lszString, NULL, 0);
+}
+
+//设置显示比例
+void CZoomControlToolbar::SetRatioString(double ratio)
+{
+	wchar_t lszString[MAX_PATH] = { 0 };
+	swprintf_s(lszString, MAX_PATH, L"%d%s", int(ratio * 100.0), L"%");
 	CExMessage::SendMessageWithText(mpIterBili, mpIterator, EACT_LABEL_SET_TEXT, lszString, NULL, 0);
 }
 
 //按钮单击事件
 ERESULT CZoomControlToolbar::OnCtlButtonClick(IEinkuiIterator* npSender)
 {
-
 	ERESULT lResult = ERESULT_UNSUCCESSFUL;
 
 	do
 	{
+		CExMessage::PostMessage(EinkuiGetSystem()->GetCurrentWidget()->GetHomePage(), mpIterator, EEVT_RESET_HIDE_TIME, true);
+
 		ULONG llBtnID = npSender->GetID();
 		switch (llBtnID)
 		{
 		case ZC_BT_DEFAULT:
+		case ZC_BT_RESET_ZOOM:
 		{
 			//恢复为100%显示
-			SendMessageToParent(EEVT_ER_SET_ZOOM, mfZoom[miFatRatioInx],NULL,0);
+			PostMessageToParent(EEVT_ER_ENTER_ZOOM, false);
 			initData();
-
 			break;
 		}
 		case ZC_BT_ADD:
 		{
 			//放大
 			SetLevel(true);
-
 			break;
 		}
 		case ZC_BT_SUB:
 		{
 			//缩小
 			SetLevel(false);
-
 			break;
 		}
-		case ZC_BT_CLOSE:
+		case ZC_BT_AUTO_ZOOM:
 		{
-			//退出缩放模式
-			PostMessageToParent(EEVT_ER_ENTER_ZOOM, false);
-			initData();
-
+			SendMessageToParent(EEVT_ER_AUTO_ZOOM, NULL, NULL, NULL);
 			break;
 		}
-		case ZC_BT_SNAP:
-		{
-			//截屏
-			PostMessageToParent(EEVT_ER_ENTER_SNAPSHOT, false);
-
-			break;
-		}
-
 		default:
 			break;
 		}
-
 
 		lResult = ERESULT_SUCCESS;
 	} while (false);
@@ -166,59 +155,68 @@ ERESULT CZoomControlToolbar::OnCtlButtonClick(IEinkuiIterator* npSender)
 //初始化自己
 void CZoomControlToolbar::initData(void)
 {
-	mlCurrentZoomLevel = miFatRatioInx;
+	mlCurrentZoomLevel = 0;
 	mpIterBtSub->SetEnable(true);
 	mpIterBtAdd->SetEnable(true);
 	SetString(mlCurrentZoomLevel);
-
-	//置灰
-	mpIterBtDefault->SetEnable(false);
 }
 
-void CZoomControlToolbar::SetFatRatio(float fatRatio)
+void CZoomControlToolbar::SetFatRatio(double fatRatio)
 {
-	//mfFatRatio = fatRatio;
+	mfFatRatio = 1.0;
 	bool fatSaved = false;
 	mfZoom.Clear();
-	for (int i=0;defaultRatios[i]>0.0f;i++)
+	//100%，120%，140%，160%
+	mfZoom.Insert(-1, mfFatRatio);
+	for(int i=11;i<=40;i+=1)
+		mfZoom.Insert(-1, mfFatRatio*i*0.1);
+}
+
+//进入缩放状态,默认120%显示
+// [zhuhl5@20200116:ZoomRecovery]
+// Modified function params for initiating zoom level.
+void CZoomControlToolbar::EnterZoomStatus(int scaleLevel /*= 0*/)
+{
+	mlCurrentZoomLevel = 1;
+	if (scaleLevel >= 1)
 	{
-		/*if (defaultRatios[i] > fatRatio*4.0f)
-			break;*/
-
-		if (i > miFatRatioInx + 4)
-			break; //撑满屏幕后，再放大4次
-
-		if (fatSaved == false && CExFloat::Equal(defaultRatios[i], fatRatio, 0.1f))	// 相差不大，直接替换
-		{
-			mfZoom.Insert(-1, fatRatio);
-			miFatRatioInx = i;
-			fatSaved = true;
-		}
-		else
-			mfZoom.Insert(-1, defaultRatios[i]);
-
-		if (fatSaved == false && defaultRatios[i] < fatRatio && defaultRatios[i + 1] > fatRatio) 
-		{ 
-			fatSaved = true;
-
-			//判断一下，是离前面的近，还是离后面的近
-			if ((fatRatio - mfZoom.GetEntry(i)) > (defaultRatios[i + 1] - fatRatio))
-			{
-				miFatRatioInx = i + 1;
-				mfZoom.Insert(-1, fatRatio);
-
-				i++; //否则会增加一个倍数相近的
-			}
-			else
-			{
-				miFatRatioInx = i;
-				mfZoom.GetEntry(i) = fatRatio;
-			}
-		}
-		//miMaxRatioInx = i;
+		mlCurrentZoomLevel = scaleLevel; //默认120%
 	}
-	SendMessageToParent(EEVT_ER_SET_ZOOM, mfZoom[miFatRatioInx], NULL, 0);
-	initData();
+	RECT ldRect;
+	mpIterBtAdd->SetEnable(true);
+	mpIterBtSub->SetEnable(true);
+	CExMessage::SendMessage(mpIterator->GetParent()->GetParent(), mpIterator, EEVT_ER_SET_ZOOM, mfZoom[mlCurrentZoomLevel], &ldRect, sizeof(RECT));
+
+	// Add zoom level notification, for recording
+	CExMessage::SendMessage(mpIterator->GetParent()->GetParent(), mpIterator, EEVT_ER_SET_ZOOMLEVEL, mlCurrentZoomLevel);
+}
+
+//按照自适应缩放比例，对应到合适的缩放等级
+float CZoomControlToolbar::AjustAutoZoomLevel(float ratio)
+{
+	wchar_t* lszString = L"Auto";
+	CExMessage::SendMessageWithText(mpIterBili, mpIterator, EACT_LABEL_SET_TEXT, lszString, NULL, 0);
+
+	mlCurrentZoomLevel = -1;
+	for (int i = 0; i < mfZoom.Size(); ++i)
+	{
+		if (ratio >= mfZoom[i])
+			++mlCurrentZoomLevel;
+		else
+			break;
+	}
+
+	if (mlCurrentZoomLevel >= mfZoom.Size() - 1)
+		mpIterBtAdd->SetEnable(false);
+	else
+		mpIterBtAdd->SetEnable(true);
+
+	return mfZoom[mlCurrentZoomLevel];
+}
+
+void CZoomControlToolbar::EnableAutoZoomButton(bool enable)
+{
+	mpIterBtAutoZoom->SetEnable(enable);
 }
 
 //设置放大级别
@@ -230,7 +228,11 @@ void CZoomControlToolbar::SetLevel(bool nbIsAdd)
 		{
 			//降低
 			if (mlCurrentZoomLevel <= 0)
+			{
+				PostMessageToParent(EEVT_ER_ENTER_ZOOM, false);
+				initData();
 				break; //已经是最低了
+			}
 
 			if (--mlCurrentZoomLevel <= 0)
 				mpIterBtSub->SetEnable(false);
@@ -249,13 +251,16 @@ void CZoomControlToolbar::SetLevel(bool nbIsAdd)
 			mpIterBtSub->SetEnable(true);
 		}
 
-		SendMessageToParent(EEVT_ER_SET_ZOOM, mfZoom[mlCurrentZoomLevel],NULL,0);
-		SetString(mlCurrentZoomLevel);
-
-		if (mlCurrentZoomLevel == miFatRatioInx)
-			mpIterBtDefault->SetEnable(false);// CExMessage::SendMessageWithText(mpIterBtDefault, mpIterator, EACT_BUTTON_CHANGE_PIC, L".\\Pic\\zoom100%_ic_disable.png");
-		else
-			mpIterBtDefault->SetEnable(true);
+		RECT ldRect;
+		CExMessage::SendMessage(mpIterator->GetParent()->GetParent(), mpIterator, EEVT_ER_SET_ZOOM, mfZoom[mlCurrentZoomLevel], &ldRect, sizeof(RECT));
+		// Add zoom level notification, for recording
+		CExMessage::SendMessage(mpIterator->GetParent()->GetParent(), mpIterator, EEVT_ER_SET_ZOOMLEVEL, mlCurrentZoomLevel);
+		
+		if (mlCurrentZoomLevel <= 0)
+		{
+			PostMessageToParent(EEVT_ER_ENTER_ZOOM, false);
+			initData();
+		}
 
 	} while (false);
 }
@@ -269,8 +274,7 @@ ERESULT CZoomControlToolbar::ParseMessage(IEinkuiMessage* npMsg)
 	{
 	case EMSG_MODAL_ENTER:
 	{
-		//// 创建要弹出的对话框
-		//mpIterator->SetVisible(true);
+		// 创建要弹出的对话框
 		luResult = ERESULT_SUCCESS;
 		break;
 	}
@@ -292,21 +296,16 @@ void CZoomControlToolbar::OnTimer(
 	PSTEMS_TIMER npStatus
 	)
 {
-
 }
 
 //元素参考尺寸发生变化
 ERESULT CZoomControlToolbar::OnElementResized(D2D1_SIZE_F nNewSize)
 {
-	
 	return ERESULT_SUCCESS;
 }
-
 
 //通知元素【显示/隐藏】发生改变
 ERESULT CZoomControlToolbar::OnElementShow(bool nbIsShow)
 {
-	//EiSetHomebarStatus(nbIsShow == false ? GI_HOMEBAR_SHOW : GI_HOMEBAR_HIDE);
-
 	return ERESULT_SUCCESS;
 }

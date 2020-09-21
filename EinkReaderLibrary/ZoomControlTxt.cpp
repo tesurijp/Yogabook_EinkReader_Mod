@@ -243,18 +243,18 @@ ERESULT CZoomControlTxt::OnElementShow(bool nbIsShow)
 
 
 // 鼠标落点检测
-ERESULT CZoomControlTxt::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
-{
-	ERESULT luResult = ERESULT_SUCCESS;
-
-	if (!(rPoint.x < 0.0f || rPoint.x >= mpIterator->GetSizeX()
-		|| rPoint.y < 0.0f || rPoint.y >= mpIterator->GetSizeY()))
-	{
-		luResult = ERESULT_MOUSE_OWNERSHIP;
-	}
-
-	return luResult;
-}
+//ERESULT CZoomControlTxt::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
+//{
+//	ERESULT luResult = ERESULT_SUCCESS;
+//
+//	if (!(rPoint.x < 0.0f || rPoint.x >= mpIterator->GetSizeX()
+//		|| rPoint.y < 0.0f || rPoint.y >= mpIterator->GetSizeY()))
+//	{
+//		luResult = ERESULT_MOUSE_OWNERSHIP;
+//	}
+//
+//	return luResult;
+//}
 
 //鼠标按下
 ERESULT CZoomControlTxt::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)

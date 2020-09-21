@@ -764,7 +764,6 @@ void CEvLabelImp::CalculateTextRect(void)
 	HRESULT hr;
 	DWRITE_TEXT_METRICS ldMetrics;
 
-	LONG llValue;
 	int i;
 	int alt;
 	cmmVector<wchar_t> loAlter;

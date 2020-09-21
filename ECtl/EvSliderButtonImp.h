@@ -55,6 +55,9 @@ public:
 
 	//Ω˚”√ªÚ∆Ù”√
 	virtual ERESULT OnElementEnable(bool nbIsEnable);
+
+private:
+	DWORD mdwClickTicount;
 };
 
 #endif//_EVPICTUREFRAMEIMP_H_

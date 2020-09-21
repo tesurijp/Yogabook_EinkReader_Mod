@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef _ELEITERATORIMP_H_
 #define _ELEITERATORIMP_H_
 #include <d2d1.h>
@@ -12,11 +8,11 @@
 
 class CXuiIterator;
 
-class CEoSubItrNode{
+class CEoSubItrNode {
 public:
 	ULONG muID;
 	CXuiIterator* mpIterator;
-	void operator=(const class CEoSubItrNode& src){
+	void operator=(const class CEoSubItrNode& src) {
 		muID = src.muID;
 		mpIterator = src.mpIterator;
 	}
@@ -25,7 +21,7 @@ public:
 class CEoSubItrNodeCriterion	// 默认的判断准则
 {
 public:
-	bool operator () (const CEoSubItrNode& Obj1,const CEoSubItrNode& Obj2)const // 一定要用内联函数
+	bool operator () (const CEoSubItrNode& Obj1, const CEoSubItrNode& Obj2)const // 一定要用内联函数
 	{
 		// 当对象Ob1小于对象Obj2时，返回True，否则返回false
 		return (Obj1.muID < Obj2.muID);
@@ -33,26 +29,26 @@ public:
 };
 
 // 按照ID排序的迭代器队列
-typedef cmmSequence<CEoSubItrNode,CEoSubItrNodeCriterion> TSubItrSequence;
+typedef cmmSequence<CEoSubItrNode, CEoSubItrNodeCriterion> TSubItrSequence;
 
 
 // 用于按照TabOrder或ZOrder排列子元素迭代器的数据结构
 typedef cmmVector<CXuiIterator*>  TElIteratorVector;
 
 
-class CXuiHotkeyEntry{
+class CXuiHotkeyEntry {
 public:
-	enum ExKey{
-		eControl=1,
-		eShit=2,
-		eAlt=4
+	enum ExKey {
+		eControl = 1,
+		eShit = 2,
+		eAlt = 4
 	};
 	ULONG muHotKeyID;		//注册时提供的ID
 	USHORT msuVkCode;	// 快捷键的普通按键
 	UCHAR mcuExKey;
 	IEinkuiIterator* mpApplicant;
 
-	void operator=(const class CXuiHotkeyEntry& src){
+	void operator=(const class CXuiHotkeyEntry& src) {
 		muHotKeyID = src.muHotKeyID;
 		msuVkCode = src.msuVkCode;
 		mcuExKey = src.mcuExKey;
@@ -63,7 +59,7 @@ public:
 class CXuiHotkeyEntryCriterion	// 默认的判断准则
 {
 public:
-	bool operator () (const CXuiHotkeyEntry& Obj1,const CXuiHotkeyEntry& Obj2)const // 一定要用内联函数
+	bool operator () (const CXuiHotkeyEntry& Obj1, const CXuiHotkeyEntry& Obj2)const // 一定要用内联函数
 	{
 		// 当对象Ob1小于对象Obj2时，返回True，否则返回false
 		return (Obj1.msuVkCode < Obj2.msuVkCode || (Obj1.msuVkCode == Obj2.msuVkCode && Obj1.mcuExKey < Obj2.mcuExKey));
@@ -71,12 +67,12 @@ public:
 };
 
 
-typedef cmmSequence<CXuiHotkeyEntry,CXuiHotkeyEntryCriterion,0,8> THotKeyTable;
+typedef cmmSequence<CXuiHotkeyEntry, CXuiHotkeyEntryCriterion, 0, 8> THotKeyTable;
 
 
 
 // 迭代器扩展包
-class CXuiIteratorExtension{
+class CXuiIteratorExtension {
 public:
 	TSubItrSequence moIDOrder;	// 按照ID排序的线性表
 	TElIteratorVector moZOrder;	// 按照元素的层叠关系排列的链表
@@ -108,25 +104,25 @@ public:
 
 
 DECLARE_BUILTIN_NAME(CXuiIterator)
-class CXuiIterator: public cmmBaseObject<CXuiIterator,IEinkuiIterator,GET_BUILTIN_NAME(CXuiIterator)>
+class CXuiIterator : public cmmBaseObject<CXuiIterator, IEinkuiIterator, GET_BUILTIN_NAME(CXuiIterator)>
 {
 	friend class CXelManager;
 	friend class CEinkuiSystem;
 public:
-	DEFINE_CUMSTOMIZE_CREATE(CXuiIterator,(),())
+	DEFINE_CUMSTOMIZE_CREATE(CXuiIterator, (), ())
 
-	// 启动Iterator，准备接受消息，调用这个方法后，Element首先会收到EMSG_CREATE消息，这个方法通常在Element的实例化函数退出前调用
-	virtual void __stdcall Start(void);
+		// 启动Iterator，准备接受消息，调用这个方法后，Element首先会收到EMSG_CREATE消息，这个方法通常在Element的实例化函数退出前调用
+		virtual void __stdcall Start(void);
 
 	// 关闭一个元素
 	virtual void __stdcall Close(void);
 
 	// 重载增加引用接口，禁用它
-	virtual int __stdcall AddRefer(void){
+	virtual int __stdcall AddRefer(void) {
 		return 1;
 	}
 	// 重载释放接口，禁用它
-	virtual int __stdcall Release(void){
+	virtual int __stdcall Release(void) {
 		return 1;
 	}
 
@@ -151,7 +147,7 @@ public:
 	// 通过ZOder的排列次序获得子节点，返回的接口需要释放
 	virtual IEinkuiIterator* __stdcall  GetSubElementByZOder(
 		int niPos	// zero base index value to indicate the position in z-order array
-		);
+	);
 
 	// 通过ID获得子节点，返回的接口需要释放
 	virtual IEinkuiIterator* __stdcall  GetSubElementByID(ULONG nuEid);
@@ -182,7 +178,7 @@ public:
 	virtual void __stdcall SetStyles(ULONG nuStyles);
 
 	// 修改Style，前一个参数是希望增加的Style，后一个参数是希望移除的Style，当前后两个参数中包括相同Style时，该Style不会被移除 
-	virtual void __stdcall ModifyStyles(ULONG nuSet,ULONG nuClear=0);
+	virtual void __stdcall ModifyStyles(ULONG nuSet, ULONG nuClear = 0);
 
 	// 读取Style
 	virtual ULONG __stdcall GetStyles(void);
@@ -193,18 +189,18 @@ public:
 		IN ULONG nuRepeat,// 需要重复触发的次数，MAXULONG32表示永远重复
 		IN ULONG nuDuration,	// 触发周期
 		IN void* npContext//上下文，将随着定时器消息发送给申请者
-		);
+	);
 
 	// 销毁定时器
 	virtual ERESULT __stdcall KillTimer(
 		IN ULONG nuID	  // 定时器ID
-		);
+	);
 
 	// Hook目标，当前仅支持单层次的Hook，即，一个元素在同一时刻仅被一个元素Hook；试图Hook一个已经被Hook的元素时，将会返回失败ERESULT_ACCESS_CONFLICT
 	virtual ERESULT __stdcall SetHook(
 		IN IEinkuiIterator* npHooker,	// Hook请求者，一旦设置了Hook，本对象的所有消息，都会先发送给Hooker处理，Hooker可以修改任意的消息，也可以阻止消息发送给本对象
 		IN bool nbSet		// true to set ,false to remove
-		);
+	);
 
 	// 获得Hooker，获取本元素被谁Hook
 	virtual IEinkuiIterator* __stdcall GetHooker(void);
@@ -215,7 +211,7 @@ public:
 	virtual ERESULT __stdcall SetEnhancer(
 		IN IEinkuiIterator* npEnhancer,
 		IN bool nbEnable		// true 启用，false 取消
-		);
+	);
 
 	// 获得增效器
 	virtual IEinkuiIterator* __stdcall GetEnhancer(void);
@@ -236,7 +232,7 @@ public:
 	virtual FLOAT __stdcall GetAlpha(void);
 
 	// 设置平面坐标
-	virtual void __stdcall SetPosition(FLOAT nfX,FLOAT nfY);
+	virtual void __stdcall SetPosition(FLOAT nfX, FLOAT nfY);
 	virtual void __stdcall SetPosition(const D2D1_POINT_2F& rPosition);
 
 	// 读取平面坐标
@@ -248,22 +244,22 @@ public:
 	// 设置可视区域
 	virtual void __stdcall SetVisibleRegion(
 		IN const D2D1_RECT_F& rRegion		// 基于相对坐标的可视区域，此区域之外不会显示本元素及子元素的内容；如果rRegion.left > region.right 表示取消可视区设置
-		);
+	);
 
 	// 获取可视区域，返回false表示没有设置可是区域
 	virtual bool __stdcall GetVisibleRegion(
 		OUT D2D1_RECT_F& rRegion	// 返回可视区域，如果没有设置可视区域，则不会修改这个对象
-		);
+	);
 
 	// 设置平面转角
 	virtual void __stdcall SetRotation(
 		FLOAT nfAngle,			// 角度单位 -359 -> +359度
 		D2D1_POINT_2F ndCenter
-		);
+	);
 	// 设置平面转角，以元素中心为旋转中心
 	virtual void __stdcall SetRotation(
 		FLOAT nfAngle			// 角度单位 -359 -> +359度
-		);
+	);
 
 	// 读取平面转角
 	virtual FLOAT __stdcall GetRotationAngle(void);
@@ -271,7 +267,7 @@ public:
 	virtual FLOAT __stdcall GetRotation(D2D1_POINT_2F& rCenter);
 
 	// 设置参考尺寸
-	virtual void __stdcall SetSize(FLOAT nfCx,FLOAT nfCy);
+	virtual void __stdcall SetSize(FLOAT nfCx, FLOAT nfCy);
 	virtual void __stdcall SetSize(const D2D1_SIZE_F& rSize);
 
 	// 读取参考尺寸
@@ -310,10 +306,10 @@ public:
 	virtual void __stdcall SetIMECompositionWindow(D2D1_POINT_2F ndPosition);
 
 	// 从局部地址到世界地址
-	virtual bool __stdcall LocalToWorld(const D2D1_POINT_2F& crLocalPoint,D2D1_POINT_2F& rWorldPoint);
+	virtual bool __stdcall LocalToWorld(const D2D1_POINT_2F& crLocalPoint, D2D1_POINT_2F& rWorldPoint);
 
 	// 从世界地址转换为局部地址
-	virtual bool __stdcall WorldToLocal(const D2D1_POINT_2F& crWorldPoint,D2D1_POINT_2F& rLocalPoint);
+	virtual bool __stdcall WorldToLocal(const D2D1_POINT_2F& crWorldPoint, D2D1_POINT_2F& rLocalPoint);
 
 	// 对子元素建立绘制层，绘制层是一个改变子元素绘制时叠放次序的方法，通常的子元素按照从属关系排列为树形结构，绘制时也是按照树形结构先根遍历执行；
 	//		引入绘制层技术后，子元素将在不同层上逐次绘制，同一个层的子元素，仍然按照从属关系的树形结构先根遍历；
@@ -329,7 +325,7 @@ public:
 	// 删除绘制层次设定
 	virtual ERESULT __stdcall DeletePaintLevel(void
 		//bool nbClearAll=true		// 清除掉所有子元素的绘制层次设定
-		);
+	);
 
 	// 设定自身的绘制层次
 	virtual ERESULT __stdcall SetPaintLevel(LONG nlLevel);
@@ -338,14 +334,14 @@ public:
 	virtual LONG __stdcall GetPaintLevel(void);
 
 
-	void SaveWorldMatrix(const D2D1::Matrix3x2F& rWorld){
+	void SaveWorldMatrix(const D2D1::Matrix3x2F& rWorld) {
 
-		if(	mdWorldMatrix._11 == rWorld._11 &&
+		if (mdWorldMatrix._11 == rWorld._11 &&
 			mdWorldMatrix._12 == rWorld._12 &&
 			mdWorldMatrix._21 == rWorld._21 &&
 			mdWorldMatrix._22 == rWorld._22 &&
 			mdWorldMatrix._31 == rWorld._31 &&
-			mdWorldMatrix._32 == rWorld._32 )
+			mdWorldMatrix._32 == rWorld._32)
 			return;
 
 		mdWorldMatrix = rWorld;
@@ -353,35 +349,35 @@ public:
 	}
 
 	// 获取最后一次绘制时用的World Matrix
-	const D2D1::Matrix3x2F& GetWorldMatrix(void){
+	const D2D1::Matrix3x2F& GetWorldMatrix(void) {
 		return mdWorldMatrix;
 	}
 
 	// 供LaunchWidget方法调用，用于设定这个页是不是Widget的主页，其他目的不要使用
-	void SetWidgetHomeFlag(bool nbSet){
-		SetFlags(EITR_FLAG_WIDGET_HOME,nbSet);
+	void SetWidgetHomeFlag(bool nbSet) {
+		SetFlags(EITR_FLAG_WIDGET_HOME, nbSet);
 	}
-	bool IsWidgetHome(void){
+	bool IsWidgetHome(void) {
 		return TestFlag(EITR_FLAG_WIDGET_HOME);
 	}
 
 	// 检查初始化标志
-	bool HasInitialized(void){
+	bool HasInitialized(void) {
 		return TestFlag(EITR_FLAG_INIT);
 	}
 
 	// 检查Style，执行‘与’运算和相等比较，检查是否设置了对应的Style组合
-	bool CheckStyle(ULONG nuStyle){
-		return ((muStyle&nuStyle)==nuStyle);
+	bool CheckStyle(ULONG nuStyle) {
+		return ((muStyle&nuStyle) == nuStyle);
 	}
 
 	// 设置为已被删除
-	void SetAsDeleted(void){
-		SetFlags(EITR_FLAG_DELETED,true);
+	void SetAsDeleted(void) {
+		SetFlags(EITR_FLAG_DELETED, true);
 	}
 
 	// 是否已经被删除
-	bool IsDeleted(void){
+	bool IsDeleted(void) {
 		return TestFlag(EITR_FLAG_DELETED);
 	}
 
@@ -400,9 +396,9 @@ private:
 	LONG mlZOrder;
 	ULONG muStyle;
 	D2D1_POINT_2F mdPosition;
-//	D2D1_POINT_2F mdCenter;
+	//	D2D1_POINT_2F mdCenter;
 	D2D1_SIZE_F mdSize;
-//	FLOAT mfRotation;
+	//	FLOAT mfRotation;
 	FLOAT mfAlpha;
 	D2D1::Matrix3x2F mdWorldMatrix;	// 最后一次绘制时用的World Matrix
 	D2D1::Matrix3x2F mdWMInverted;	// 上面的矩阵mdWorldMatrix的逆阵
@@ -412,70 +408,70 @@ private:
 	IXsWidget* mpWidget;
 	//IEinkuiIterator* mpEnhancer;	// 挂接的增效器，同一个元素在同一时刻只能有一个增效器在工作；并且，通常增效器都是对其父元素发生作用
 
-	
+
 	CXuiIterator();
 	~CXuiIterator();
 
 	// 实际增加引用接口
-	virtual int __stdcall KAddRefer(void){
+	virtual int __stdcall KAddRefer(void) {
 		return cmmBaseObject::AddRefer();
 	}
 	// 实际释放接口
-	virtual int __stdcall KRelease(void){
+	virtual int __stdcall KRelease(void) {
 		return cmmBaseObject::Release();
 	}
-	
+
 
 	// 设置标志，共有31位可用；设为私有，派生类不能调用
 	bool SetFlags(
 		int niIndex,		// 标志的序号，从0开始；如果派生类重载这个函数，并且该派生类有2个不希望被后续类和用户修改的标志，那么它的函数调用时的niIndex=0表示的是它的基类的2
-		bool nbSet=true		// 设置或者清除标志
-		){
-			return false;
+		bool nbSet = true		// 设置或者清除标志
+	) {
+		return false;
 	}
 
 	// 获取标志，设为私有，派生类不能调用
-	bool TestFlag(int niIndex){
+	bool TestFlag(int niIndex) {
 		return false;
 	}
 
 	// 添加一个子节点
 	ERESULT AddSubElement(
 		CXuiIterator* npSubElement
-		);
+	);
 
 	// 删除一个子节点
 	void RemoveSubElement(
 		CXuiIterator* npSubElement
-		);
+	);
 
 	// 将某个子元素调整到ZOder最高层
 	void BringSubElementToTop(
 		CXuiIterator* npSubElement
-		);
+	);
 
 	// 将元素插入到ZOrder中
 	void InsertToZOder(
 		CXuiIterator* npSubElement
-		);
+	);
 
 	// 在子节点中查找携带目标的迭代器
 	CXuiIterator* SeekIteratorInChild(IXsElement* npElement);
 
 	// 供元素管理器用，增加引用接口
-	int ProtectedAddRefer(void){
-		return cmmBaseObject<CXuiIterator,IEinkuiIterator,GET_BUILTIN_NAME(CXuiIterator)>::AddRefer();
+	int ProtectedAddRefer(void) {
+		return cmmBaseObject<CXuiIterator, IEinkuiIterator, GET_BUILTIN_NAME(CXuiIterator)>::AddRefer();
 	}
 	// 供元素管理器用，释放接口
-	int ProtectedRelease(void){
-		return cmmBaseObject<CXuiIterator,IEinkuiIterator,GET_BUILTIN_NAME(CXuiIterator)>::Release();
+	int ProtectedRelease(void) {
+		return cmmBaseObject<CXuiIterator, IEinkuiIterator, GET_BUILTIN_NAME(CXuiIterator)>::Release();
 	}
 
 	// 调整TabOrder和ZOrder，初始化之际有Element管理器调用
 	void UpdateOrder(void);
 
 	// 调整子元素在ZOrder的顺序
-	bool MoveOnZOrder(bool nbUp,CXuiIterator* npChild);
+	bool MoveOnZOrder(bool nbUp, CXuiIterator* npChild);
 
 	// 获得下一个EITR_STYLE_KEYBOARD的元素，不会进入Iterator临界区
 	CXuiIterator* GetNextKeyBoardAccepter(CXuiIterator* npCurrent);
@@ -494,18 +490,18 @@ private:
 		IN bool nbControlKey,	// 是否需要Control组合
 		IN bool nbShiftKey,		// 是否需要Shift组合
 		IN bool nbAltKey		// 是否需要Alt组合
-		);
+	);
 
 	// 注销快捷键
 	bool UnregisterHotKey(
 		IN IEinkuiIterator* npApplicant,	// 注册者
 		IN ULONG UnuKeyNumber
-		);
+	);
 
 	// 检查是否具有符合的HotKey
 	bool DetectHotKey(
 		CXuiHotkeyEntry& rToDetect
-		);
+	);
 
 	// 销毁元素，用于通知一个元素销毁，注意：父元素首先收到此消息，应该及时调用元素管理器的UnregisterElement方法，
 	// 从而触发元素管理器向所有下一层元素发送销毁消息，而后再将自己从元素管理器注销，并且释放自身对象

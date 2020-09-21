@@ -5,6 +5,7 @@
 #include "windows.h"
 #include "smtPage.h"
 #include "smtDocument.h"
+#include "EngineOverride.h"
 
 //////////////////////////////////////////////////////////////////////////
 // Bitmap类
@@ -105,11 +106,11 @@ CSmtPage::~CSmtPage()
 // 返回0表示成功；返回值最高位为1表示发生严重错误，应该终止初始化过程，返回的就是错误码；返回其他值表示其他非错误返回码
 ULONG CSmtPage::InitOnCreate(int32Eink pageNo, CSmtDocument* docObj)
 {
-	mPageNo = pageNo;
+	rawContext.pageIndex = pageNo;
 	documentObject = docObj;
 	documentObject->AddRefer();
 
-	if(documentObject != NULL && mPageNo < documentObject->GetPageCount())
+	if(documentObject != NULL && rawContext.pageIndex < documentObject->GetPageCount())
 		return EDERR_SUCCESS;
 
 	return EDERR_FIALED_LOAD_PAGE;
@@ -120,11 +121,11 @@ bool32 CSmtPage::GetMediaBox(
 )
 {
 
-	BaseEngine *engine = documentObject->GetEngine();
+	auto engine = documentObject->GetEngine();
 	if (!engine || mediaBox == NULL)
 		return false;
 
-	RectD mediaBoxF = engine->Transform(engine->PageMediabox(ENGINE_INDEX(mPageNo)), ENGINE_INDEX(mPageNo), 1.0, 0);
+	RectD mediaBoxF = engine->GetRawEngineObj()->Transform(engine->GetRawEngineObj()->PageMediabox(ENGINE_INDEX(rawContext.pageIndex)), ENGINE_INDEX(rawContext.pageIndex), 1.0, 0);
 	RectI mediaBoxI = mediaBoxF.Round();
 
 	mediaBox->left =	(float)mediaBoxI.x;
@@ -154,11 +155,11 @@ IEdBitmap_ptr CSmtPage::Render(
 	IN bool32 cleanUp
 )
 {
-	BaseEngine *engine = documentObject->GetEngine();
+	auto engine = documentObject->GetEngine();
 	if (!engine)
 		return NULL;
 
-	RenderedBitmap* engineBitmap = engine->RenderBitmap(ENGINE_INDEX(mPageNo), scalRatio, 0,NULL);
+	RenderedBitmap* engineBitmap = engine->GetRawEngineObj()->RenderBitmap(ENGINE_INDEX(rawContext.pageIndex), scalRatio, 0,NULL);
 	if (engineBitmap == NULL)
 		return NULL;
 
@@ -167,14 +168,31 @@ IEdBitmap_ptr CSmtPage::Render(
 
 int32Eink CSmtPage::GetPageIndex(void)
 {
-	return mPageNo;
+	auto engine = documentObject->GetEngine();
+	if (!engine)
+		return NULL;
+
+	engine->ReQueryPageIndex(&rawContext);
+
+	return rawContext.pageIndex;
 }
 
 bool32 CSmtPage::GetPageContext(PPAGE_PDF_CONTEXT contextPtr)
 {
-	contextPtr->pageIndex = mPageNo;
-	contextPtr->pageContext = contextPtr->pageContext2 = 0;
+	contextPtr->pageIndex = rawContext.pageIndex;
+	contextPtr->pageContext = rawContext.pageContext;
+	contextPtr->pageContext2 = rawContext.pageContext2;
 
 	return true;
+}
+
+bool32 CSmtPage::GetSelectedText(IN ED_RECTF_PTR selBox, OUT char16_ptr textBuf, IN int32Eink bufSize)
+{
+	return false;
+}
+
+IEdStructuredTextPage_ptr CSmtPage::GetStructuredTextPage(void)
+{
+	return NULL;
 }
 

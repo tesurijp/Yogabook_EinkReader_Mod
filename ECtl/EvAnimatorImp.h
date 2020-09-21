@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef _EVANIMATOR_H_
 #define _EVANIMATOR_H_
 
@@ -12,9 +8,9 @@
 // 如果实现的是相同接口的类别，就可以直接从某个实例化类派生新类。
 DECLARE_BUILTIN_NAME(Animator)
 class CEvAnimatorImp :
-	public CXuiElement<CEvAnimatorImp ,GET_BUILTIN_NAME(Animator)>
+	public CXuiElement<CEvAnimatorImp, GET_BUILTIN_NAME(Animator)>
 {
-friend CXuiElement<CEvAnimatorImp ,GET_BUILTIN_NAME(Animator)>;
+	friend CXuiElement<CEvAnimatorImp, GET_BUILTIN_NAME(Animator)>;
 public:
 
 	// 派生本类及派生本函数时，请特别注意!!! 一定要首先调用基类的方法
@@ -22,8 +18,8 @@ public:
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent,	// 父对象指针
 		IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		);
+		IN ULONG nuEID = MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 protected:
 	//CEdxDialMask moMask;

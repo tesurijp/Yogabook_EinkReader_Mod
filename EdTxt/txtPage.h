@@ -96,9 +96,21 @@ public:
 		PPAGE_PDF_CONTEXT contextPtr
 	);
 
+	IEdAnnotManager_ptr GetAnnotManager(void) {
+		return NULL;
+	}
+
+	bool32 GetSelectedText(
+		IN ED_RECTF_PTR selBox,
+		OUT char16_ptr textBuf,
+		IN int32Eink bufSize
+	);
+
+	virtual IEdStructuredTextPage_ptr GetStructuredTextPage(void);	// 返回的对象需要调用release释放
+
 protected:
 	// 内部变量
-	int32 mPageIndexOpenning;
+	//int32 mPageIndexOpenning;
 	int32 incomplete;
 	wchar_t* mCharPtr;
 	uint32 mCharLength;

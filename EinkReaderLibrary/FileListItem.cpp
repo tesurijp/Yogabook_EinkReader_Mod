@@ -3,14 +3,21 @@
 
 
 #include "StdAfx.h"
+#include <unordered_map>
 #include "FileListItem.h"
 #include "XCtl.h"
 #include "stdio.h"
 #include "cmmStrHandle.h"
 #include "cmmPath.h"
 #include "MsgDefine.h"
+#include "util.h"
+#include <algorithm>
 
 DEFINE_BUILTIN_NAME(FileListItem)
+
+namespace util = EInkReaderUtil;
+
+using std::unordered_map;
 
 CFileListItem::CFileListItem(void)
 {
@@ -84,8 +91,8 @@ ULONG CFileListItem::InitOnCreate(
 		mpIterFolderIcon = mpIterator->GetSubElementByID(1);
 		BREAK_ON_NULL(mpIterFolderIcon);
 
-		mpIterPdfIcon = mpIterator->GetSubElementByID(5);
-		BREAK_ON_NULL(mpIterPdfIcon);
+		/*mpIterPdfIcon = mpIterator->GetSubElementByID(5);
+		BREAK_ON_NULL(mpIterPdfIcon)*/;
 
 		mpIterName = mpIterator->GetSubElementByID(2);
 		BREAK_ON_NULL(mpIterName);
@@ -110,27 +117,54 @@ ULONG CFileListItem::InitOnCreate(
 //设置路径
 void CFileListItem::SetPath(wchar_t* npszPath, wchar_t* npszDisplayName)
 {
+	const unordered_map<wstring, wstring> kIconMap{
+		{L".txt", LR"###(.\Pic\txt.png)###"},
+		{L".epub", LR"###(.\Pic\epub.png)###"},
+		{L".mobi", LR"###(.\Pic\mobi.png)###"},
+		{L".pdf", LR"###(.\Pic\pdf.png)###"},
+		{L".doc", LR"###(.\Pic\doc.png)###"},
+		{L".docx", LR"###(.\Pic\docx.png)###"},
+		{L".xls", LR"###(.\Pic\xls.png)###"},
+		{L".xlsx", LR"###(.\Pic\xlsx.png)###"},
+		{L".ppt", LR"###(.\Pic\ppt.png)###"},
+		{L".pptx", LR"###(.\Pic\pptx.png)###"},
+		{L".vsd", LR"###(.\Pic\vsd.png)###"},
+		{L".vsdx", LR"###(.\Pic\vsdx.png)###"},
+	};
+
+	const wchar_t* kFolderIconPath = LR"###(.\Pic\ic_toolbar_folder_normal.png)###";
+	const wchar_t* kUnknownFileIconPath = LR"###(.\Pic\common_file.png)###";
+
 	do 
 	{
 		BREAK_ON_NULL(npszPath);
+
+		wchar_t lpszPicPath[MAX_PATH] = { 0 };
 
 		//首先尝试获取文件属性
 		if ((GetFileAttributes(npszPath)&FILE_ATTRIBUTE_DIRECTORY) == false)
 		{
 			//是文件
-			mpIterFolderIcon->SetVisible(false);
-			mpIterPdfIcon->SetVisible(true);
+			wstring&& extName = util::GetFileExtention(npszPath, util::NameCaseOption::ToLower);
+			auto iter = kIconMap.find(extName);
+			wstring iconPath;
 
+			if (iter == kIconMap.end())
+				iconPath = kUnknownFileIconPath;
+			else
+				iconPath = iter->second;
+
+			wcscpy_s(lpszPicPath, MAX_PATH, iconPath.c_str());
 			ProcFile(npszPath);
 		}
 		else
 		{
 			//是文件夹
-			mpIterFolderIcon->SetVisible(true);
-			mpIterPdfIcon->SetVisible(false);
-
+			wcscpy_s(lpszPicPath, MAX_PATH, kFolderIconPath);
 			ProcFolder(npszPath, npszDisplayName);
 		}
+
+		CExMessage::SendMessageWithText(mpIterFolderIcon, mpIterator, EACT_PICTUREFRAME_CHANGE_PIC, lpszPicPath);
 
 		wcscpy_s(mpszFilePath, MAX_PATH, npszPath);
 
@@ -149,9 +183,13 @@ void CFileListItem::ProcFile(wchar_t* npszPath)
 		FileTimeToSystemTime(&ldData.ftLastWriteTime,&ldSystime);
 
 		wchar_t lszString[MAX_PATH] = { 0 };
-		swprintf_s(lszString, MAX_PATH, L"%04d/%02d/%02d  %02d:%02d",
+		/*swprintf_s(lszString, MAX_PATH, L"%04d/%02d/%02d  %02d:%02d",
 			ldSystime.wYear, ldSystime.wMonth, ldSystime.wDay,
-			ldSystime.wHour, ldSystime.wMinute);
+			ldSystime.wHour, ldSystime.wMinute);*/
+
+		swprintf_s(lszString, MAX_PATH, L"%02d/%02d",
+			ldSystime.wMonth, ldSystime.wDay);
+
 		CExMessage::SendMessageWithText(mpIterAttrib, mpIterator, EACT_LABEL_SET_TEXT, lszString, NULL, 0);
 
 		wchar_t* lpszFileName = wcsrchr(npszPath, L'\\')+1;
@@ -161,67 +199,86 @@ void CFileListItem::ProcFile(wchar_t* npszPath)
 }
 
 //获取目录下指定文件及目录个数
-DWORD CFileListItem::GetFolderCount(wchar_t* npszPath, wchar_t* npszName)
+DWORD CFileListItem::GetFolderCount(wchar_t* npszPath)
 {
 	DWORD ldwCount = 0;
 
-	do
+	const vector<const wchar_t*> relatedExtList{
+		L".pdf",
+		L".epub",
+		L".mobi",
+		L".txt",
+		L".doc",
+		L".docx",
+		L".xls",
+		L".xlsx",
+		L".ppt",
+		L".pptx",
+		L".vsd",
+		L".vsdx",
+	};
+
+	if (!npszPath) return 0;
+
+	wchar_t lszFindPath[MAX_PATH] = { 0 };
+	wcscpy_s(lszFindPath, MAX_PATH, npszPath);
+	swprintf_s(lszFindPath, MAX_PATH, L"%s\\*", npszPath);
+	WIN32_FIND_DATA FindFileData;
+	ZeroMemory(&FindFileData, sizeof(WIN32_FIND_DATA));
+	HANDLE hFindFile = FindFirstFile(lszFindPath, &FindFileData);
+
+	if (hFindFile == INVALID_HANDLE_VALUE)
+		return 0;
+
+	BOOL haveNextFile = true;
+
+	vector<wstring> dirList;
+	vector<wstring> fileList;
+
+	while (haveNextFile)
 	{
-		BREAK_ON_NULL(npszPath);
-
-		wchar_t lszFindPath[MAX_PATH] = { 0 };
-		wcscpy_s(lszFindPath, MAX_PATH, npszPath);
-		if (npszName == NULL)
-			wcscat_s(lszFindPath, MAX_PATH, L"\\*.*");
-		else
-			wcscat_s(lszFindPath, MAX_PATH, npszName);
-
-		WIN32_FIND_DATA FindFileData;
-		ZeroMemory(&FindFileData, sizeof(WIN32_FIND_DATA));
-		HANDLE hFindFile = FindFirstFile(lszFindPath, &FindFileData);
-
-		if (hFindFile == INVALID_HANDLE_VALUE)
-			break;
-
-		BOOL bContinue = true;
-
-		while (bContinue != false)
+		//是.或者..
+		if (wcscmp(FindFileData.cFileName, L".") == 0 || wcscmp(FindFileData.cFileName, L"..") == 0)
 		{
-			//bIsDots为真表示是.或..
-			bool lbIsDots = (wcscmp(FindFileData.cFileName, L".") == 0 || wcscmp(FindFileData.cFileName, L"..") == 0);
+			haveNextFile = FindNextFile(hFindFile, &FindFileData);
+			continue;
+		}
 
-			if (lbIsDots == false)
+		if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)  // 加入目录
+		{
+			wstring result = npszPath;
+			result += L"\\";
+			result += FindFileData.cFileName;
+			// 忽略隐藏目录和系统目录
+			if ((GetFileAttributes(result.c_str())&FILE_ATTRIBUTE_HIDDEN) == 0 && (GetFileAttributes(result.c_str())&FILE_ATTRIBUTE_SYSTEM) == 0)
 			{
-				if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
-				{
-					//是目录
-					wchar_t* lpPath = new wchar_t[MAX_PATH];
-					wcscpy_s(lpPath, MAX_PATH, npszPath);
-					wcscat_s(lpPath, MAX_PATH, L"\\");
-					wcscat_s(lpPath, MAX_PATH, FindFileData.cFileName);
-					//判断一下，如果是隐藏或系统文件夹，就不展示了
-					if ((GetFileAttributes(lpPath)&FILE_ATTRIBUTE_HIDDEN) == 0 && (GetFileAttributes(lpPath)&FILE_ATTRIBUTE_SYSTEM) == 0)
-						if (npszName == NULL)
-							ldwCount++;
-				}
-				else
-				{
-					//是文件,npszName=null表明只想要目录的数量
-					if (npszName != NULL)
-						ldwCount++;
+				ldwCount += 1;
+			}
+		}
+		else
+		{
+			wstring currentExtName = util::GetFileExtention(FindFileData.cFileName, util::NameCaseOption::ToLower);
+			if (std::any_of(relatedExtList.begin(), relatedExtList.end(), [currentExtName](const wchar_t* ext) {
+				return currentExtName == ext;
+			}))
+			{
+				wstring result = npszPath;
+				result += L"\\";
+				result += FindFileData.cFileName;
 
+				if ((GetFileAttributes(result.c_str())&FILE_ATTRIBUTE_HIDDEN) == 0 && (GetFileAttributes(result.c_str())&FILE_ATTRIBUTE_SYSTEM) == 0)
+				{
+					ldwCount += 1;//fileList.push_back(result);
 				}
 			}
 
-			//寻找下一文件
-			bContinue = FindNextFile(hFindFile, &FindFileData);
-
 		}
 
-		FindClose(hFindFile);
+		haveNextFile = FindNextFile(hFindFile, &FindFileData);
+	}
 
-	} while (false);
-
+	FindClose(hFindFile);
+	
 	return ldwCount;
 }
 
@@ -239,16 +296,29 @@ void CFileListItem::ProcFolder(wchar_t* npszPath, wchar_t* npszDisplayName)
 		FileTimeToSystemTime(&ldData.ftLastWriteTime, &ldSystime);
 
 		//获取文件数目，只计算目录及pdf文件
-		DWORD ldwCount = GetFolderCount(npszPath, NULL);
-		ldwCount += GetFolderCount(npszPath, L"\\*.pdf");
-		ldwCount += GetFolderCount(npszPath, L"\\*.epub");
-		ldwCount += GetFolderCount(npszPath, L"\\*.mobi");
-		ldwCount += GetFolderCount(npszPath, L"\\*.txt");
+		DWORD ldwCount = GetFolderCount(npszPath);
+		//ldwCount += GetFolderCount(npszPath, L"\\*.pdf");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.epub");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.mobi");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.txt");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.docx");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.doc");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.rtf");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.xlsx");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.csv");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.pptx");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.rtf");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.ppt");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.vsdx");
+		//ldwCount += GetFolderCount(npszPath, L"\\*.vsd");
 
 		wchar_t lszString[MAX_PATH] = { 0 };
-		swprintf_s(lszString, MAX_PATH, L"%d %s | %04d/%02d/%02d  %02d:%02d", ldwCount, mpszItem,
+		/*swprintf_s(lszString, MAX_PATH, L"%d %s | %04d/%02d/%02d  %02d:%02d", ldwCount, mpszItem,
 			ldSystime.wYear, ldSystime.wMonth, ldSystime.wDay,
-			ldSystime.wHour, ldSystime.wMinute);
+			ldSystime.wHour, ldSystime.wMinute);*/
+
+		swprintf_s(lszString, MAX_PATH, L"%d %s", ldwCount, mpszItem);
+
 		CExMessage::SendMessageWithText(mpIterAttrib, mpIterator, EACT_LABEL_SET_TEXT, lszString, NULL, 0);
 
 		wchar_t* lpszFileName = wcsrchr(npszPath, L'\\');

@@ -79,6 +79,28 @@ void CEdViewCtl::Move(const ED_POINT& offset)
 		mFocusOn.y -= offset.y / (imageExtSize.y);
 }
 
+void CEdViewCtl::MoveTo(const ED_POINT& postion)
+{
+	// 计算目标图像大小
+	ED_SIZEF imageExtSize;
+
+	if (mImageReal.x > 0 && mImageReal.y > 0)
+	{
+		imageExtSize.x = (float)mImageReal.x;
+		imageExtSize.y = (float)mImageReal.y;
+	}
+	else
+	{
+		imageExtSize.x = mImageInit.x*mRealRatio + mGap;
+		imageExtSize.y = mImageInit.y*mRealRatio;
+	}
+
+	if ((float32)mViewPort.x < imageExtSize.x)
+		mFocusOn.x = (float32)postion.x / imageExtSize.x;
+	if ((float32)mViewPort.y < imageExtSize.y)
+		mFocusOn.y = (float32)postion.y / imageExtSize.y;
+}
+
 float32 CEdViewCtl::GetRealRatio()
 {
 	if (Calculate() == false)
@@ -103,13 +125,14 @@ float32 CEdViewCtl::GetFatRatio()
 	return mFatRatio;
 }
 
-bool CEdViewCtl::GetViewMapArea(ED_RECT& destArea, ED_RECT& srcArea, UCHAR* edgeImpact)
+//srcPageSize整个页面实际大小
+bool CEdViewCtl::GetViewMapArea(ED_RECT& destArea, ED_RECT& srcArea, ED_SIZEF& imageExtSize, UCHAR* edgeImpact)
 {
 	if (Calculate() == false)
 		return false;
 
 	// 计算目标图像大小
-	ED_SIZEF imageExtSize;
+	//ED_SIZEF imageExtSize;
 
 	if (mImageReal.x > 0 && mImageReal.y > 0)
 	{
@@ -208,17 +231,20 @@ bool CEdViewCtl::GetViewMapArea(ED_RECT& destArea, ED_RECT& srcArea, UCHAR* edge
 		srcArea.bottom = srcArea.top + mViewPort.y;
 	}
 
+	mVisibleRectOnSource = srcArea;
+	mVisibleRectOnView = destArea;
+
 	if (edgeImpact != NULL)
 	{
 		*edgeImpact = 0;
 
-		if (srcArea.left > 0)
+		if (srcArea.left > 1)
 			*edgeImpact |= 1;
-		if (srcArea.right < CExFloat::ToLong(imageExtSize.x))
+		if (srcArea.right < CExFloat::ToLong(imageExtSize.x) - 1)
 			*edgeImpact |= 2;
-		if (srcArea.top > 0)
+		if (srcArea.top > 1)
 			*edgeImpact |= 4;
-		if (srcArea.bottom < CExFloat::ToLong(imageExtSize.y))
+		if (srcArea.bottom < CExFloat::ToLong(imageExtSize.y) - 1)
 			*edgeImpact |= 8;
 	}
 
@@ -286,4 +312,142 @@ bool32 CEdViewCtl::Calculate(void)
 	}
 
 	return true;
+}
+
+//显示坐标转换为文档坐标
+bool CEdViewCtl::ViewToImageInit(int viewX, int viewY, ED_POINT& ptInInit)
+{
+	if (viewX < mVisibleRectOnView.left || viewX >= mVisibleRectOnView.right || viewY < mVisibleRectOnView.top || viewY >= mVisibleRectOnView.bottom)
+		return false;
+
+	//float32 xOff = (float)(viewX - mVisibleRectOnView.left) / mRealRatio + mVisibleRectOnSource.left;
+	//float32 yOff = (float)(viewY - mVisibleRectOnView.top) / mRealRatio + mVisibleRectOnSource.top;
+
+	//ptInInit.x = CExFloat::ToLong(xOff);
+	//ptInInit.y = CExFloat::ToLong(yOff);
+
+	float32 xOff = (float)(viewX - mVisibleRectOnView.left + mVisibleRectOnSource.left);
+	float32 yOff = (float)(viewY - mVisibleRectOnView.top + mVisibleRectOnSource.top);
+
+	ptInInit.x = CExFloat::ToLong(xOff / mRealRatio);
+	ptInInit.y = CExFloat::ToLong(yOff / mRealRatio);
+
+	return true;
+}
+
+//显示坐标转换为文档坐标
+bool CEdViewCtl::ViewToImageInit(int viewX, int viewY, ED_POINTF& ptInInit)
+{
+	if (viewX < mVisibleRectOnView.left || viewX >= mVisibleRectOnView.right || viewY < mVisibleRectOnView.top || viewY >= mVisibleRectOnView.bottom)
+		return false;
+
+	//float32 xOff = (float)(viewX - mVisibleRectOnView.left) / mRealRatio + mVisibleRectOnSource.left;
+	//float32 yOff = (float)(viewY - mVisibleRectOnView.top) / mRealRatio + mVisibleRectOnSource.top;
+
+	//ptInInit.x = CExFloat::ToLong(xOff);
+	//ptInInit.y = CExFloat::ToLong(yOff);
+
+	float32 xOff = (float)(viewX - mVisibleRectOnView.left + mVisibleRectOnSource.left);
+	float32 yOff = (float)(viewY - mVisibleRectOnView.top + mVisibleRectOnSource.top);
+
+	ptInInit.x = round(xOff / mRealRatio);
+	ptInInit.y = round(yOff / mRealRatio);
+
+	return true;
+}
+
+void CEdViewCtl::ImageInitToView(IN ED_RECTF& rectInit, OUT ED_RECTF& rectView)
+{
+	ED_RECTF off;
+
+	off.left = rectInit.left * mRealRatio;
+	off.right = rectInit.right * mRealRatio;
+	off.top = rectInit.top * mRealRatio;
+	off.bottom = rectInit.bottom * mRealRatio;
+
+	rectView.left = off.left + mVisibleRectOnView.left - mVisibleRectOnSource.left;
+	rectView.right = off.right + mVisibleRectOnView.left - mVisibleRectOnSource.left;
+	rectView.top = off.top + mVisibleRectOnView.top - mVisibleRectOnSource.top;
+	rectView.bottom = off.bottom + mVisibleRectOnView.top - mVisibleRectOnSource.top;
+}
+
+//文档坐标转换为显示坐标
+bool CEdViewCtl::ImageToViewInit(int imageX, int imageY, ED_POINT& ptInInit)
+{
+	//if (imageX < mVisibleRectOnSource.left || imageX >= mVisibleRectOnSource.right || imageY < mVisibleRectOnSource.top || imageY >= mVisibleRectOnSource.bottom)
+	//	return false;
+
+	//float32 xOff = (float)(imageX - mVisibleRectOnSource.left) * mRealRatio + mVisibleRectOnView.left;
+	//float32 yOff = (float)(imageY - mVisibleRectOnSource.top) * mRealRatio + mVisibleRectOnView.top;
+
+	//ptInInit.x = CExFloat::ToLong(xOff);
+	//ptInInit.y = CExFloat::ToLong(yOff);
+
+	float32 xOff = imageX * mRealRatio + mVisibleRectOnView.left - mVisibleRectOnSource.left;
+	float32 yOff = imageY * mRealRatio + mVisibleRectOnView.top - mVisibleRectOnSource.top;
+
+	ptInInit.x = CExFloat::ToLong(xOff);
+	ptInInit.y = CExFloat::ToLong(yOff);
+
+	return true;
+}
+
+//文档坐标转换为显示坐标
+bool CEdViewCtl::ImageToViewInit(int imageX, int imageY, ED_POINTF& ptInInit)
+{
+	//if (imageX < mVisibleRectOnSource.left || imageX >= mVisibleRectOnSource.right || imageY < mVisibleRectOnSource.top || imageY >= mVisibleRectOnSource.bottom)
+	//	return false;
+
+	//float32 xOff = (float)(imageX - mVisibleRectOnSource.left) * mRealRatio + mVisibleRectOnView.left;
+	//float32 yOff = (float)(imageY - mVisibleRectOnSource.top) * mRealRatio + mVisibleRectOnView.top;
+
+	//ptInInit.x = CExFloat::ToLong(xOff);
+	//ptInInit.y = CExFloat::ToLong(yOff);
+
+	float32 xOff = imageX * mRealRatio + mVisibleRectOnView.left - mVisibleRectOnSource.left;
+	float32 yOff = imageY * mRealRatio + mVisibleRectOnView.top - mVisibleRectOnSource.top;
+
+	ptInInit.x = xOff;
+	ptInInit.y = yOff;
+
+	return true;
+}
+
+bool CEdViewCtl::IsInPage2(ED_POINT& ptInInit, ED_POINT& ptInPage, bool nbView)
+{
+	ptInPage = ptInInit;
+
+	//这里计算的是双页模式下中线的绝对位置，而不是相对屏幕的位置，所以需要使用真实大小计算
+	int32 centerX = CExFloat::ToLong((mImageReal.x / 2) / mRealRatio);
+	// 此处没有判断mGap的影响，当mGap不等于0时，需要重新调整代码
+	if (nbView != false)
+		ptInPage.x += centerX;
+	else if (ptInInit.x >= centerX)
+	{
+		ptInPage.x -= centerX;
+		return true;
+	}
+
+	ptInPage.x = ptInInit.x;
+	return false;
+}
+
+bool CEdViewCtl::IsInPage2(ED_POINTF& ptInInit, ED_POINTF& ptInPage, bool nbView)
+{
+	ptInPage = ptInInit;
+
+	//这里计算的是双页模式下中线的绝对位置，而不是相对屏幕的位置，所以需要使用真实大小计算
+	int32 centerX = CExFloat::ToLong((mImageReal.x / 2) / mRealRatio);
+	// 此处没有判断mGap的影响，当mGap不等于0时，需要重新调整代码
+
+	if(nbView != false)
+		ptInPage.x += centerX;
+	else if (ptInInit.x >= centerX)
+	{
+		ptInPage.x -= centerX;
+		return true;
+	}
+
+	ptInPage.x = ptInInit.x;
+	return false;
 }

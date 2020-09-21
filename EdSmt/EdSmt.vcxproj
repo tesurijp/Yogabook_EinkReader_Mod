@@ -1,9 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="niuLenovoRemoteDebug|Win32">
+      <Configuration>niuLenovoRemoteDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="niuLenovoRemoteDebug|x64">
+      <Configuration>niuLenovoRemoteDebug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="NiuRemoteDebug|Win32">
+      <Configuration>NiuRemoteDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="NiuRemoteDebug|x64">
+      <Configuration>NiuRemoteDebug</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
@@ -30,46 +46,70 @@
     <ProjectGuid>{C7B6DCD0-438B-4290-BAF3-9CE1040834A0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>EdPdf</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ProjectName>EdSmt</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RemoteDebug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='NiuRemoteDebug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='niuLenovoRemoteDebug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RemoteDebug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='NiuRemoteDebug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='niuLenovoRemoteDebug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -83,6 +123,12 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='RemoteDebug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='NiuRemoteDebug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='niuLenovoRemoteDebug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -90,6 +136,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='RemoteDebug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='NiuRemoteDebug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='niuLenovoRemoteDebug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -102,17 +154,39 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RemoteDebug|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='NiuRemoteDebug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='niuLenovoRemoteDebug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(Configuration)_$(Platform)\$(TargetName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RemoteDebug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(Configuration)_$(Platform)\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='NiuRemoteDebug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(Configuration)_$(Platform)\$(TargetName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='niuLenovoRemoteDebug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(Configuration)_$(Platform)\$(TargetName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(Configuration)_$(Platform)\$(TargetName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -140,6 +214,32 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='NiuRemoteDebug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;EDPDF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='niuLenovoRemoteDebug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;EDPDF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>
@@ -153,7 +253,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>..\bin\EdSmt.dll</OutputFile>
+      <OutputFile>..\bin\$(Configuration)_$(Platform)\$(TargetName)$(TargetExt)</OutputFile>
       <ModuleDefinitionFile>edsmt.def</ModuleDefinitionFile>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -165,6 +265,7 @@
       </StackReserveSize>
       <HeapReserveSize>
       </HeapReserveSize>
+      <ProgramDatabaseFile>$(SolutionDir)bin\$(Configuration)_$(Platform)_pdb\$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
     <PostBuildEvent>
       <Command>copy ..\sumatrapdf\dbg64\libmupdf.dll ..\bin</Command>
@@ -183,7 +284,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>\\192.168.1.179\EinkSdk\EdSmt.dll</OutputFile>
+      <OutputFile>..\bin\$(Configuration)_$(Platform)\$(TargetName)$(TargetExt)</OutputFile>
       <ModuleDefinitionFile>edsmt.def</ModuleDefinitionFile>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -194,6 +295,67 @@
       <StackReserveSize>16777216</StackReserveSize>
       <HeapReserveSize>
       </HeapReserveSize>
+      <ProgramDatabaseFile>$(SolutionDir)bin\$(Configuration)_$(Platform)_pdb\$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\sumatrapdf\dbg64\libmupdf.dll ..\bin</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='NiuRemoteDebug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_INTTYPE_CONFLICT;_DEBUG;_WINDOWS;_USRDLL;EDPDF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\comm;..\inc;..\sumatrapdf\src;..\sumatrapdf\src\utils;..\sumatrapdf\mupdf\include;..\sumatrapdf\ext\zlib;..\sumatrapdf\src\mui;..\sumatrapdf\ext\libdjvu;..\sumatrapdf\ext\CHMLib\src</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>..\bin\$(Configuration)_$(Platform)\$(TargetName)$(TargetExt)</OutputFile>
+      <ModuleDefinitionFile>edsmt.def</ModuleDefinitionFile>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>comctl32.lib;gdiplus.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\$(TargetName).lib</ImportLibrary>
+      <StackReserveSize>16777216</StackReserveSize>
+      <HeapReserveSize>
+      </HeapReserveSize>
+      <ProgramDatabaseFile>$(SolutionDir)bin\$(Configuration)_$(Platform)_pdb\$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\sumatrapdf\dbg64\libmupdf.dll ..\bin</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='niuLenovoRemoteDebug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_INTTYPE_CONFLICT;_DEBUG;_WINDOWS;_USRDLL;EDPDF_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\comm;..\inc;..\sumatrapdf\src;..\sumatrapdf\src\utils;..\sumatrapdf\mupdf\include;..\sumatrapdf\ext\zlib;..\sumatrapdf\src\mui;..\sumatrapdf\ext\libdjvu;..\sumatrapdf\ext\CHMLib\src</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>..\bin\$(Configuration)_$(Platform)\$(TargetName)$(TargetExt)</OutputFile>
+      <ModuleDefinitionFile>edsmt.def</ModuleDefinitionFile>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>comctl32.lib;gdiplus.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\$(TargetName).lib</ImportLibrary>
+      <StackReserveSize>16777216</StackReserveSize>
+      <HeapReserveSize>
+      </HeapReserveSize>
+      <ProgramDatabaseFile>$(SolutionDir)bin\$(Configuration)_$(Platform)_pdb\$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
     <PostBuildEvent>
       <Command>copy ..\sumatrapdf\dbg64\libmupdf.dll ..\bin</Command>
@@ -234,30 +396,37 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>edsmt.def</ModuleDefinitionFile>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>comctl32.lib;gdiplus.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\bin\EdSmt.dll</OutputFile>
+      <OutputFile>..\bin\$(Configuration)_$(Platform)\$(TargetName)$(TargetExt)</OutputFile>
       <StackReserveSize>
       </StackReserveSize>
+      <ProgramDatabaseFile>$(SolutionDir)bin\$(Configuration)_$(Platform)_pdb\$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
     <PostBuildEvent>
       <Command>copy ..\sumatrapdf\rel64\libmupdf.dll ..\bin</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\comm\cmmPath.h" />
     <ClInclude Include="..\comm\GdipStart.h" />
     <ClInclude Include="..\inc\EdDoc.h" />
     <ClInclude Include="..\sumatrapdf\src\ChmDoc.h" />
     <ClInclude Include="..\sumatrapdf\src\DjVuEngine.h" />
     <ClInclude Include="..\sumatrapdf\src\EbookDoc.h" />
     <ClInclude Include="..\sumatrapdf\src\EbookFormatter.h" />
-    <ClInclude Include="..\sumatrapdf\src\ImagesEngine.h" />
+    <ClInclude Include="..\sumatrapdf\src\ImagesEngine.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\sumatrapdf\src\MobiDoc.h" />
     <ClInclude Include="..\sumatrapdf\src\mui\MiniMui.h" />
     <ClInclude Include="..\sumatrapdf\src\mui\TextRender.h" />
-    <ClInclude Include="..\sumatrapdf\src\PdfCreator.h" />
-    <ClInclude Include="..\sumatrapdf\src\PsEngine.h" />
+    <ClInclude Include="..\sumatrapdf\src\PdfCreator.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\sumatrapdf\src\PsEngine.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\sumatrapdf\src\utils\PalmDbReader.h" />
     <ClInclude Include="EngineOverride.h" />
     <ClInclude Include="smtDocument.h" />
@@ -265,27 +434,42 @@
     <ClInclude Include="smtModule.h" />
     <ClInclude Include="smtPage.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Thumb.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\comm\cmmPath.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='RemoteDebug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\comm\GdipStart.cpp" />
     <ClCompile Include="..\sumatrapdf\src\ChmDoc.cpp" />
     <ClCompile Include="..\sumatrapdf\src\DjVuEngine.cpp" />
     <ClCompile Include="..\sumatrapdf\src\EbookDoc.cpp" />
     <ClCompile Include="..\sumatrapdf\src\EbookFormatter.cpp" />
-    <ClCompile Include="..\sumatrapdf\src\ImagesEngine.cpp" />
+    <ClCompile Include="..\sumatrapdf\src\ImagesEngine.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\sumatrapdf\src\MobiDoc.cpp" />
     <ClCompile Include="..\sumatrapdf\src\mui\MiniMui.cpp" />
     <ClCompile Include="..\sumatrapdf\src\mui\TextRender.cpp" />
-    <ClCompile Include="..\sumatrapdf\src\MuPDF_Exports.cpp" />
-    <ClCompile Include="..\sumatrapdf\src\PdfCreator.cpp" />
-    <ClCompile Include="..\sumatrapdf\src\PsEngine.cpp" />
+    <ClCompile Include="..\sumatrapdf\src\MuPDF_Exports.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\PdfCreator.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\sumatrapdf\src\PsEngine.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\sumatrapdf\src\utils\PalmDbReader.cpp" />
     <ClCompile Include="EngineOverride.cpp" />
     <ClCompile Include="HtmlFmtOverride.cpp" />
-    <ClCompile Include="PdfEngineOverride.cpp" />
+    <ClCompile Include="PdfEngineOverride.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="smtDocument.cpp" />
     <ClCompile Include="smtModule.cpp" />
     <ClCompile Include="smtPage.cpp" />
+    <ClCompile Include="Thumb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="EdSmt.rc" />

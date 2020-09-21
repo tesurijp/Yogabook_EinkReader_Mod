@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 #include "CommonHeader.h"
 
@@ -75,28 +71,28 @@ ERESULT CXsWidget::InitOnCreate(
 	IN const wchar_t* nswModulePathName,	// 该Widget的模块文件的路径名，即实现此Widget的DLL名称
 	IN const wchar_t* nswInstanceName,	// 本次运行的实例名，实例名不能相同，如果存在相同的实例名，系统将会返回失败
 	IN ICfKey* npInstanceConfig	// 本运行实例的专属配置
-	)
+)
 {
-	int liPathLen = (int)wcslen(nswModulePathName)+1;
-	int liInsLen = (int)wcslen(nswInstanceName)+1;
-	int liTotal = liPathLen+liInsLen+1;
+	int liPathLen = (int)wcslen(nswModulePathName) + 1;
+	int liInsLen = (int)wcslen(nswInstanceName) + 1;
+	int liTotal = liPathLen + liInsLen + 1;
 
 	mswModulePath = new wchar_t[liTotal];
-	if(mswModulePath == NULL)
+	if (mswModulePath == NULL)
 		return ERESULT_INSUFFICIENT_RESOURCES;
 
-	RtlCopyMemory(mswModulePath,nswModulePathName,liPathLen*sizeof(wchar_t));
-	mswModuleName = wcsrchr(mswModulePath,L'\\');
-	if(mswModuleName == NULL)
+	RtlCopyMemory(mswModulePath, nswModulePathName, liPathLen * sizeof(wchar_t));
+	mswModuleName = wcsrchr(mswModulePath, L'\\');
+	if (mswModuleName == NULL)
 		return ERESULT_UNSUCCESSFUL;
 
-	*mswModuleName++ =UNICODE_NULL;
+	*mswModuleName++ = UNICODE_NULL;
 
 	mswInstance = mswModulePath + liPathLen;
-	RtlCopyMemory(mswInstance,nswInstanceName,liInsLen*sizeof(wchar_t));
+	RtlCopyMemory(mswInstance, nswInstanceName, liInsLen * sizeof(wchar_t));
 
 	mpInstanceConfig = npInstanceConfig;
-	if(mpInstanceConfig != NULL)
+	if (mpInstanceConfig != NULL)
 		mpInstanceConfig->AddRefer();
 
 	return ERESULT_SUCCESS;
@@ -111,15 +107,15 @@ ICfKey* __stdcall CXsWidget::GetInstanceConfig(void)
 }
 
 //获取微件用来存放临时文件的目录,同一个的微件的不同实例得到的是不同的文件夹路径
-bool __stdcall CXsWidget::GetInstanceTempPath(OUT wchar_t* npswPath,IN LONG nlBufferLen)
+bool __stdcall CXsWidget::GetInstanceTempPath(OUT wchar_t* npswPath, IN LONG nlBufferLen)
 {
 	bool lbRet = false;
-	wchar_t lswTempPath[MAX_PATH] = {0};
+	wchar_t lswTempPath[MAX_PATH] = { 0 };
 
-	do 
+	do
 	{
 		BREAK_ON_NULL(npswPath);
-		if(nlBufferLen <= 0)
+		if (nlBufferLen <= 0)
 			break;
 
 		CFilePathName loDest;
@@ -127,13 +123,13 @@ bool __stdcall CXsWidget::GetInstanceTempPath(OUT wchar_t* npswPath,IN LONG nlBu
 		loDest.AssurePath();
 		loDest.Transform(L".\\MagWriter\\Temp\\");
 
-		wcscpy_s(lswTempPath,MAX_PATH,loDest.GetPathName());
-		wcscat_s(lswTempPath,MAX_PATH,mswInstance);
+		wcscpy_s(lswTempPath, MAX_PATH, loDest.GetPathName());
+		wcscat_s(lswTempPath, MAX_PATH, mswInstance);
 
-		wcscpy_s(npswPath,nlBufferLen,lswTempPath);
+		wcscpy_s(npswPath, nlBufferLen, lswTempPath);
 
 		//创建这个目录
-		SHCreateDirectory(NULL,lswTempPath);
+		SHCreateDirectory(NULL, lswTempPath);
 
 		lbRet = true;
 
@@ -156,8 +152,8 @@ void __stdcall CXsWidget::Close(void)
 	mpHomePage->SetVisible(false);
 
 	// 将HomePage移到Root下，防止SystemWidget对它重复删除
-	EinkuiGetSystem()->GetElementManager()->SetParentElement(EinkuiGetSystem()->GetElementManager()->GetRootElement(),mpHomePage);
+	EinkuiGetSystem()->GetElementManager()->SetParentElement(EinkuiGetSystem()->GetElementManager()->GetRootElement(), mpHomePage);
 
 	// 请求系统将本Widget关闭
-	CExMessage::PostMessage(NULL,NULL,EMSG_CLOSE_WIDGET,this);
+	CExMessage::PostMessage(NULL, NULL, EMSG_CLOSE_WIDGET, this);
 }

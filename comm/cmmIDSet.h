@@ -1,9 +1,8 @@
 /* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
 
-
 #pragma once
-
+#include "cmmstruct.h"
 #include "time.h"
 
 
@@ -136,9 +135,12 @@ public:
 
 		liIndex = moSet.Find(loNode);
 
-		if(liIndex < 0)
-			return Default;
-
+		if (liIndex < 0)
+		{
+			DataType ldBridge = Default;
+			return ldBridge;
+		}
+			
 		return moSet[liIndex].mdUserData;
 	}
 
@@ -191,5 +193,67 @@ protected:
 	cmmSequence<CIdsPaireNode<DataType>,CIdsPaireNodeCriterion<DataType>,InitSize,Increment> moSet;
 	IDGenerator loIDGenerator;
 };
+
+
+template<typename DataType, int InitSize = 16, int Increment = 16>
+class cmmIdMappedSequence
+{
+protected:
+	cmmSequence <CIdsPaireNode<DataType>, CIdsPaireNodeCriterion<DataType>, InitSize, Increment> mPaires;
+
+public:
+	bool SaveItem(ULONG id, DataType& data) {
+		CIdsPaireNode<DataType> pair;
+
+		pair.ID = id;
+		pair.mdUserData = data;
+
+		return (mPaires.Insert(pair) >= 0);
+	}
+
+	bool HasItem(ULONG id) {
+		CIdsPaireNode<DataType> pair;
+		pair.ID = id;
+
+		auto index = mPaires.Find(pair);
+		if (index < 0)
+			return false;
+		return true;
+	}
+
+	bool GetItem(ULONG id,DataType& data) {
+		CIdsPaireNode<DataType> pair;
+		pair.ID = id;
+
+		auto index = mPaires.Find(pair);
+		if (index < 0)
+			return false;
+
+		data = mPaires[index].mdUserData;
+		return true;
+	}
+
+	bool DeleteItem(ULONG id) {
+		CIdsPaireNode<DataType> pair;
+		pair.ID = id;
+
+		autu index = mPaires.Find(pair);
+		if (index < 0)
+			return false;
+
+		return mPaires.RemoveByIndex(include);
+	}
+
+	void Clear(void) {
+		mPaires.Clear();
+	}
+
+	//获取数据数量
+	int Size(void) {
+		return mPaires.Size();
+	}
+
+};
+
 
 

@@ -28,6 +28,7 @@ EXPORTS
 	EiCheckDpyReady
 	EiSetHandwritingRect
 	EiSetPartialUpdate
+	EiSetScenario
 	EiGetScenario
 	EiSetLaptopMode
 	EiSetKeyboardDownSounds
@@ -53,7 +54,7 @@ EXPORTS
 	EiResetTpArea
 	EiSetPrivacyStatus
 	EiGetPrivacyStatus
-	EiRunExeForCurrentUset
+	EiRunExeForCurrentUser
 	EiSetCCoverOri
 	EiSetPowerStatus
 	EiIsShowOOBE
@@ -64,3 +65,12 @@ EXPORTS
 	EiChangeApp
 	Ei5182StatusChanged
 	EiGetUserDiskList
+    EiIsShowUpdateOOBE
+	EiBackToKeyboard
+	EiTconBoolSetting
+	EiRecordAppData
+	EiIsFileCertificateValidation
+	EiDrawCoverImage
+	EiStoreCoverImage
+	EiGetDeviceStatus
+	EiSetSmartInfoStatus

@@ -29,9 +29,6 @@
     <Filter Include="ScrollBar">
       <UniqueIdentifier>{db7eedfa-483c-4b96-9f46-1aa876563437}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CtlFactImp\mapList">
-      <UniqueIdentifier>{5d9b7c07-a9fd-4970-aa2c-6e54ce02f63d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Edit">
       <UniqueIdentifier>{a5b11bfd-f0bd-4686-9f29-110e11d82fb0}</UniqueIdentifier>
     </Filter>
@@ -120,12 +117,6 @@
     <ClInclude Include="EvStaticTextImp.h">
       <Filter>StaticText</Filter>
     </ClInclude>
-    <ClInclude Include="mapDefine.h">
-      <Filter>CtlFactImp\mapList</Filter>
-    </ClInclude>
-    <ClInclude Include="mapList.h">
-      <Filter>CtlFactImp\mapList</Filter>
-    </ClInclude>
     <ClInclude Include="EvSliderBarImp.h">
       <Filter>SliderBar</Filter>
     </ClInclude>
@@ -159,9 +150,6 @@
     <ClInclude Include="EvComboBoxImp.h">
       <Filter>ComboBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\ToolBarDef.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EvWhirlAngle.h">
       <Filter>WhirlAngle</Filter>
     </ClInclude>
@@ -188,12 +176,6 @@
     </ClInclude>
     <ClInclude Include="XSelectPoint.h">
       <Filter>SelectFrame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\XCtl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\CfgIface.h">
-      <Filter>Comm</Filter>
     </ClInclude>
     <ClInclude Include="EvAnimatorImp.h">
       <Filter>Animator</Filter>
@@ -229,9 +211,6 @@
     </ClCompile>
     <ClCompile Include="EvStaticTextImp.cpp">
       <Filter>StaticText</Filter>
-    </ClCompile>
-    <ClCompile Include="mapList.cpp">
-      <Filter>CtlFactImp\mapList</Filter>
     </ClCompile>
     <ClCompile Include="EvSliderBarImp.cpp">
       <Filter>SliderBar</Filter>

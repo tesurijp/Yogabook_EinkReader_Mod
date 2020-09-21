@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 #include "cmmBaseObj.h"
 #include "Einkui.h"
@@ -18,7 +14,7 @@ CEvButton::CEvButton()
 {
 	mpszButtonText = mpszNormolTip = mpszCheckedTip = NULL;
 	mpTextBitmap = NULL;
-	mbIsMouseFocus = false;	
+	mbIsMouseFocus = false;
 	mbIsKeyboardFocus = false;
 	mbIsPressed = false;
 	mbIsChecked = false;
@@ -29,7 +25,7 @@ CEvButton::CEvButton()
 	mdFrameSize.width = mdFrameSize.height = 0.0f;
 	mbIsPlayTimer = false;
 	mfTextTop = mfTextLeft = mfTextRight = mfTextBottom = 0.0f;
-	ZeroMemory(mdArrayFrame,sizeof(mdArrayFrame));
+	ZeroMemory(mdArrayFrame, sizeof(mdArrayFrame));
 }
 
 // 用于释放成员对象
@@ -46,15 +42,15 @@ ULONG CEvButton::InitOnCreate(
 	IN IEinkuiIterator* npParent,	// 父对象指针
 	IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
 	IN ULONG nuEID	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-	)
+)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
 		//首先调用基类
-		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
-		if(leResult != ERESULT_SUCCESS)
+		leResult = CXuiElement::InitOnCreate(npParent, npTemplete, nuEID);
+		if (leResult != ERESULT_SUCCESS)
 			break;
 
 		//设置自己的类型
@@ -78,13 +74,13 @@ ERESULT CEvButton::OnElementCreate(IEinkuiIterator* npIterator)
 
 	do
 	{
-		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
+		if (CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
 		StartPlayTimer();
 
 		lResult = ERESULT_SUCCESS;
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -101,7 +97,7 @@ ERESULT CEvButton::OnElementDestroy()
 
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -112,13 +108,13 @@ ERESULT CEvButton::LoadResource()
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
 	ICfKey* lpValue = NULL;
-	LONG llAttibute[16] = {0};	//按钮属性
+	LONG llAttibute[16] = { 0 };	//按钮属性
 	LONG llLen = -1;
 
-	do 
+	do
 	{
 		//文字颜色
-		mdwColor = (DWORD)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_COLOR,0xFFFFFFFF);
+		mdwColor = (DWORD)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_COLOR, 0xFFFFFFFF);
 
 		mdwDisabledColor = (DWORD)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_DISABLED_COLOR, 0xFF7d7d7d);
 
@@ -127,29 +123,29 @@ ERESULT CEvButton::LoadResource()
 		if (lpValue != NULL)
 		{
 			llLen = lpValue->GetValueLength();
-			if(llLen <= 0)
+			if (llLen <= 0)
 				break;
 
 			mpswFontName = new wchar_t[llLen];
 			BREAK_ON_NULL(mpswFontName);
 
-			lpValue->GetValue(mpswFontName,lpValue->GetValueLength());
+			lpValue->GetValue(mpswFontName, lpValue->GetValueLength());
 		}
 		CMM_SAFE_RELEASE(lpValue);
 
-		if(mpswFontName !=NULL && mpswFontName[0] == UNICODE_NULL)
+		if (mpswFontName != NULL && mpswFontName[0] == UNICODE_NULL)
 			CMM_SAFE_DELETE(mpswFontName);	//如果没有读到，就清掉
 
-		if(mpswFontName == NULL)
+		if (mpswFontName == NULL)
 		{
 			llLen = wcslen(L"Tahoma") + 1;
 			mpswFontName = new wchar_t[llLen];
 			BREAK_ON_NULL(mpswFontName);
-			wcscpy_s(mpswFontName,llLen,L"Tahoma");	//默认字体
+			wcscpy_s(mpswFontName, llLen, L"Tahoma");	//默认字体
 		}
 
 		//字号
-		mdwFontSize = (DWORD)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_FONT_SIZE,15);
+		mdwFontSize = (DWORD)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_FONT_SIZE, 15);
 
 		lpValue = mpTemplete->GetSubKey(TF_ID_BT_TEXT); //按钮文字
 		if (lpValue != NULL)
@@ -158,10 +154,10 @@ ERESULT CEvButton::LoadResource()
 			mpszButtonText = new wchar_t[llLen];
 			BREAK_ON_NULL(mpszButtonText);
 
-			lpValue->GetValue(mpszButtonText,lpValue->GetValueLength());
+			lpValue->GetValue(mpszButtonText, lpValue->GetValueLength());
 			CMM_SAFE_RELEASE(lpValue);
 
-			if(mpszButtonText[0] != UNICODE_NULL)
+			if (mpszButtonText[0] != UNICODE_NULL)
 				ReCreateTextBmp();
 		}
 
@@ -172,7 +168,7 @@ ERESULT CEvButton::LoadResource()
 			mpszNormolTip = new wchar_t[llLen];
 			BREAK_ON_NULL(mpszNormolTip);
 
-			lpValue->GetValue(mpszNormolTip,lpValue->GetValueLength());
+			lpValue->GetValue(mpszNormolTip, lpValue->GetValueLength());
 			CMM_SAFE_RELEASE(lpValue);
 			mpIterator->SetToolTip(mpszNormolTip);
 		}
@@ -184,41 +180,41 @@ ERESULT CEvButton::LoadResource()
 			mpszCheckedTip = new wchar_t[llLen];
 			BREAK_ON_NULL(mpszCheckedTip);
 
-			lpValue->GetValue(mpszCheckedTip,lpValue->GetValueLength());
+			lpValue->GetValue(mpszCheckedTip, lpValue->GetValueLength());
 			CMM_SAFE_RELEASE(lpValue);
 		}
 
 		//文字对齐方式
-		mlAlignType = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_ALIGN_TYPE,2);
+		mlAlignType = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_ALIGN_TYPE, 2);
 
 		//文字左边距
-		mfTextLeft = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_LEFT,1);
+		mfTextLeft = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_LEFT, 1);
 
 		//文字右边距
-		mfTextRight = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_RIGHT,1);
+		mfTextRight = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_RIGHT, 1);
 
 		//文字上边距
-		mfTextTop = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_TOP,1);
+		mfTextTop = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_TOP, 1);
 
 		//文字下边距
-		mfTextBottom = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_BOTTOM,1);
-		
+		mfTextBottom = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_BOTTOM, 1);
+
 		//感应区宽
-		mdAcionSize.width = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_ACTION_WIDTH,0);
+		mdAcionSize.width = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_ACTION_WIDTH, 0);
 
 		//感应区高
-		mdAcionSize.height = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_ACTION_HEIGHT,0);
+		mdAcionSize.height = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_ACTION_HEIGHT, 0);
 
 
 		//每个动画从第几帧开始
 		lpValue = mpTemplete->GetSubKey(TF_ID_BT_FRAME); //四态按钮帧数据
 		if (lpValue != NULL)
 		{
-			lpValue->GetValue(llAttibute,lpValue->GetValueLength());
+			lpValue->GetValue(llAttibute, lpValue->GetValueLength());
 			lpValue->Release();
 
-			
-			for (int i=ARRAY_INDEX_DISABLE;i<=ARRAY_INDEX_PRESSED;i++)
+			// [CheckMarx Fix by zhuhl5, [TRY]]
+			for (int i = ARRAY_INDEX_DISABLE; i < ARRAY_INDEX_PRESSED + 1; i++)
 			{
 				mdArrayFrame[i].Index = mlPageCountMax;			//从第几帧开始
 				mdArrayFrame[i].Count = llAttibute[i];		//共几帧
@@ -230,12 +226,13 @@ ERESULT CEvButton::LoadResource()
 		lpValue = mpTemplete->GetSubKey(TF_ID_BT_CHECKED_FRAME); //Checked态帧数据
 		if (lpValue != NULL)
 		{
-			lpValue->GetValue(llAttibute,lpValue->GetValueLength());
+			lpValue->GetValue(llAttibute, lpValue->GetValueLength());
 			lpValue->Release();
 
 			mbIsCheckEnable = true; //开启Checked态
 
-			for (int i=ARRAY_INDEX_CHECKED_DISABLE;i<=ARRAY_INDEX_CHECKED_PRESSED;i++)
+			// [CheckMarx Fix by zhuhl5, [TRY]]
+			for (int i = ARRAY_INDEX_CHECKED_DISABLE; i < ARRAY_INDEX_CHECKED_PRESSED + 1; i++)
 			{
 				mdArrayFrame[i].Index = mlPageCountMax;			//从第几帧开始
 				mdArrayFrame[i].Count = llAttibute[i - ARRAY_INDEX_CHECKED_DISABLE];		//共几帧
@@ -251,9 +248,9 @@ ERESULT CEvButton::LoadResource()
 			ICfKey* lpSubKey = lpValue->GetSubKey();
 
 			int i = 0;
-			for (i=ARRAY_INDEX_OTHER;i < BUTTON_FRAME_ARRAY_MAX,lpSubKey != NULL;i++)
+			for (i = ARRAY_INDEX_OTHER; i < BUTTON_FRAME_ARRAY_MAX, lpSubKey != NULL; i++)
 			{
-				lpSubKey->GetValue(&(mdArrayFrame[i].Count),lpSubKey->GetValueLength());
+				lpSubKey->GetValue(&(mdArrayFrame[i].Count), lpSubKey->GetValueLength());
 				mdArrayFrame[i].Index = mlPageCountMax;			//从第几帧开始
 
 				mlPageCountMax += mdArrayFrame[i].Count;
@@ -274,12 +271,12 @@ ERESULT CEvButton::LoadResource()
 			UINT luiHeight = mpBgBitmap->GetHeight();	//获取背景图宽高
 
 
-			if(mlPageCountMax > 0)
+			if (mlPageCountMax > 0)
 			{
 				mdFrameSize.width = (float)luiWidth / mlPageCountMax;
 				mdFrameSize.height = (float)luiHeight;
 
-				mpIterator->SetSize(mdFrameSize.width,mdFrameSize.height); //设置按钮显示大小
+				mpIterator->SetSize(mdFrameSize.width, mdFrameSize.height); //设置按钮显示大小
 			}
 		}
 
@@ -288,7 +285,7 @@ ERESULT CEvButton::LoadResource()
 		leResult = ERESULT_SUCCESS;
 
 	} while (false);
-	
+
 
 	return leResult;
 }
@@ -296,9 +293,9 @@ ERESULT CEvButton::LoadResource()
 //定位文字图片显示位置
 void CEvButton::RelocateText(void)
 {
-	do 
+	do
 	{
-		if(mpTextBitmap == NULL)
+		if (mpTextBitmap == NULL)
 			break;
 
 		if (mpBgBitmap != NULL)
@@ -309,17 +306,17 @@ void CEvButton::RelocateText(void)
 			//}
 			FLOAT lfWidth = mfTextLeft + mfTextRight + mpTextBitmap->GetWidth();
 			FLOAT lfHeight = mfTextTop + mfTextBottom + mpTextBitmap->GetHeight();
-			if(lfWidth > mpIterator->GetSizeX()) //如果背景图比文字小,就要扩大背景图
-				mpIterator->SetSize(lfWidth,mpIterator->GetSizeY());
-			if(lfHeight > mpIterator->GetSizeY())
-				mpIterator->SetSize(mpIterator->GetSizeX(),lfHeight);
+			if (lfWidth > mpIterator->GetSizeX()) //如果背景图比文字小,就要扩大背景图
+				mpIterator->SetSize(lfWidth, mpIterator->GetSizeY());
+			if (lfHeight > mpIterator->GetSizeY())
+				mpIterator->SetSize(mpIterator->GetSizeX(), lfHeight);
 
 
 			if (mlAlignType == 1)
 			{
 				//左对齐
 			}
-			else if(mlAlignType == 2)
+			else if (mlAlignType == 2)
 			{
 				//居中对齐
 			}
@@ -330,16 +327,16 @@ void CEvButton::RelocateText(void)
 			}
 
 
-			if(mlAlignType == 1)
+			if (mlAlignType == 1)
 				mdTextDestRect.left = mfTextLeft;
-			else if(mlAlignType == 2)
+			else if (mlAlignType == 2)
 				mdTextDestRect.left = CExFloat::Round((mpIterator->GetSizeX() - mpTextBitmap->GetWidth()) / 2.0f);
 			else
-				mdTextDestRect.left = mpIterator->GetSizeX()- mfTextRight - mpTextBitmap->GetWidth();
+				mdTextDestRect.left = mpIterator->GetSizeX() - mfTextRight - mpTextBitmap->GetWidth();
 
 			mdTextDestRect.right = mdTextDestRect.left + mpTextBitmap->GetWidth();
-			if(mfTextTop - 1.0f < 0.5f)
-				mdTextDestRect.top = CExFloat::Round((mpIterator->GetSizeY() - mpTextBitmap->GetHeight() ) / 2.0f);
+			if (mfTextTop - 1.0f < 0.5f)
+				mdTextDestRect.top = CExFloat::Round((mpIterator->GetSizeY() - mpTextBitmap->GetHeight()) / 2.0f);
 			else
 				mdTextDestRect.top = mfTextTop;
 
@@ -366,123 +363,123 @@ ERESULT CEvButton::ParseMessage(IEinkuiMessage* npMsg)
 	switch (npMsg->GetMessageID())
 	{
 	case EACT_BUTTON_SET_CHECKED:	//设置Check状态
+	{
+		if (npMsg->GetInputDataSize() != sizeof(bool))
 		{
-			if(npMsg->GetInputDataSize() != sizeof(bool))
-			{
-				luResult = ERESULT_WRONG_PARAMETERS;
-				break;
-			}
-			// 获取输入数据
-			bool* lpValue = (bool*)npMsg->GetInputData();
-			luResult = SetChecked(*lpValue);// 返回值，IEinkuiMessage对象的返回值由本函数的调用者依据本函数的结果设置
+			luResult = ERESULT_WRONG_PARAMETERS;
 			break;
 		}
+		// 获取输入数据
+		bool* lpValue = (bool*)npMsg->GetInputData();
+		luResult = SetChecked(*lpValue);// 返回值，IEinkuiMessage对象的返回值由本函数的调用者依据本函数的结果设置
+		break;
+	}
 	case EACT_BUTTON_GET_CHECKED:	//获取是否处于Check状态
+	{
+		if (npMsg->GetOutputBufferSize() != sizeof(bool))
 		{
-			if(npMsg->GetOutputBufferSize() != sizeof(bool))
-			{
-				luResult = ERESULT_WRONG_PARAMETERS;
-				break;
-			}
-
-			// 设置输出数据
-			bool* lpOut = (bool*)npMsg->GetOutputBuffer();
-
-			*lpOut = IsChecked();
-
-			npMsg->SetOutputDataSize(sizeof(bool));
-
-			luResult = ERESULT_SUCCESS;
+			luResult = ERESULT_WRONG_PARAMETERS;
 			break;
 		}
+
+		// 设置输出数据
+		bool* lpOut = (bool*)npMsg->GetOutputBuffer();
+
+		*lpOut = IsChecked();
+
+		npMsg->SetOutputDataSize(sizeof(bool));
+
+		luResult = ERESULT_SUCCESS;
+		break;
+	}
 	case EACT_BUTTON_PLAY_OTHER_ANIMATION:
+	{
+		//播放自定义动画消息
+		if (npMsg->GetInputDataSize() != sizeof(LONG))
 		{
-			//播放自定义动画消息
-			if(npMsg->GetInputDataSize() != sizeof(LONG))
-			{
-				luResult = ERESULT_WRONG_PARAMETERS;
-				break;
-			}
-			// 获取输入数据
-			LONG* lpValue = (LONG*)npMsg->GetInputData();
-			mlOtherIndex = *lpValue;	//播放的是哪个动画
-			mlOtherIndex -= 1;	//动画的顺序是从1开始，我们的数组是从0开始
-			if(mlOtherIndex < 0 || mlOtherIndex > (BUTTON_FRAME_ARRAY_MAX - ARRAY_INDEX_OTHER + 1))
-				break;
-
-			if (mdArrayFrame[mlOtherIndex + ARRAY_INDEX_OTHER].Count != 0)
-			{
-				mbIsOther = true;	//设置播放动画
-				StartPlayTimer();
-			}
-
+			luResult = ERESULT_WRONG_PARAMETERS;
 			break;
 		}
+		// 获取输入数据
+		LONG* lpValue = (LONG*)npMsg->GetInputData();
+		mlOtherIndex = *lpValue;	//播放的是哪个动画
+		mlOtherIndex -= 1;	//动画的顺序是从1开始，我们的数组是从0开始
+		if (mlOtherIndex < 0 || mlOtherIndex >(BUTTON_FRAME_ARRAY_MAX - ARRAY_INDEX_OTHER + 1))
+			break;
+
+		if (mdArrayFrame[mlOtherIndex + ARRAY_INDEX_OTHER].Count != 0)
+		{
+			mbIsOther = true;	//设置播放动画
+			StartPlayTimer();
+		}
+
+		break;
+	}
 	case EACT_BUTTON_SETTEXT:
-		{
-			//更换显示文字
-			// 获取输入数据
-			wchar_t* lpswText = (wchar_t*)npMsg->GetInputData();
-			OnChangeText(lpswText);
+	{
+		//更换显示文字
+		// 获取输入数据
+		wchar_t* lpswText = (wchar_t*)npMsg->GetInputData();
+		OnChangeText(lpswText);
 
-			break;
-		}
+		break;
+	}
 	case EACT_BUTTON_CHANGE_PIC:
-		{
-			//更换背景图片，相对路径
-			// 获取输入数据
-			wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
+	{
+		//更换背景图片，相对路径
+		// 获取输入数据
+		wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
 
-			luResult = OnChangeBackGround(lpValue,false);
+		luResult = OnChangeBackGround(lpValue, false);
 
-			break;
-		}
+		break;
+	}
 	case EACT_BUTTON_CHANGE_PIC_FULLPATH:
-		{
-			//更换背景图片，全路径
-			// 获取输入数据
-			wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
+	{
+		//更换背景图片，全路径
+		// 获取输入数据
+		wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
 
-			luResult = OnChangeBackGround(lpValue,true);
+		luResult = OnChangeBackGround(lpValue, true);
 
-			break;
-		}
+		break;
+	}
 	case EACT_BUTTON_GETTEXT:
+	{
+		//获取显示文字
+		if (npMsg->GetOutputBufferSize() != sizeof(wchar_t*))
 		{
-			//获取显示文字
-			if(npMsg->GetOutputBufferSize() != sizeof(wchar_t*))
-			{
-				luResult = ERESULT_WRONG_PARAMETERS;
-				break;
-			}
-
-			// 设置输出数据
-			wchar_t** lpOut = (wchar_t**)npMsg->GetOutputBuffer();
-			*lpOut = mpszButtonText;
-
+			luResult = ERESULT_WRONG_PARAMETERS;
 			break;
 		}
+
+		// 设置输出数据
+		wchar_t** lpOut = (wchar_t**)npMsg->GetOutputBuffer();
+		*lpOut = mpszButtonText;
+
+		break;
+	}
 	case EACT_BUTTON_SET_ACTION_RECT:
+	{
+		//设置激活区域
+		if (npMsg->GetInputDataSize() != sizeof(D2D1_SIZE_F))
 		{
-			//设置激活区域
-			if(npMsg->GetInputDataSize() != sizeof(D2D1_SIZE_F))
-			{
-				luResult = ERESULT_WRONG_PARAMETERS;
-				break;
-			}
-			D2D1_SIZE_F* lpSize = (D2D1_SIZE_F*)npMsg->GetInputData();
-			BREAK_ON_NULL(lpSize);
-
-			mdAcionSize = *lpSize;
-
+			luResult = ERESULT_WRONG_PARAMETERS;
 			break;
 		}
+		D2D1_SIZE_F* lpSize = (D2D1_SIZE_F*)npMsg->GetInputData();
+		BREAK_ON_NULL(lpSize);
+
+		mdAcionSize = *lpSize;
+
+		break;
+	}
 	default:
 		luResult = ERESULT_NOT_SET;
 		break;
 	}
 
-	if(luResult == ERESULT_NOT_SET)
+	if (luResult == ERESULT_NOT_SET)
 	{
 		luResult = CXuiElement::ParseMessage(npMsg); // 调用基类的同名函数；注意：一定要调用自身直接基类
 	}
@@ -498,7 +495,7 @@ ERESULT CEvButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	do
 	{
 		BREAK_ON_NULL(npPaintBoard);
-		
+
 		if (mpBgBitmap != NULL)
 		{
 			//绘制背景图
@@ -514,28 +511,28 @@ ERESULT CEvButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 
 				lfX = (mdArrayFrame[llIndex].Index + mlCurrentPage) * mdFrameSize.width; //从哪个位置开始显示
 
-				npPaintBoard->DrawBitmap(D2D1::RectF(0.0f,0.0f,mpIterator->GetSizeX(),mpIterator->GetSizeY()),
-					D2D1::RectF(lfX,0,lfX + mdFrameSize.width,mdFrameSize.height),
+				npPaintBoard->DrawBitmap(D2D1::RectF(0.0f, 0.0f, mpIterator->GetSizeX(), mpIterator->GetSizeY()),
+					D2D1::RectF(lfX, 0, lfX + mdFrameSize.width, mdFrameSize.height),
 					mpBgBitmap,
 					ESPB_DRAWBMP_EXTEND
-					);
+				);
 			}
 		}
 
-		if(mpTextBitmap != NULL)
+		if (mpTextBitmap != NULL)
 		{
 			//绘制文字
-			FLOAT lfValue = mbIsPressed?1.0f:0.0f;
+			FLOAT lfValue = mbIsPressed ? 1.0f : 0.0f;
 			lfValue = 0.0f;//eink项目不需要向右下移动
-			npPaintBoard->DrawBitmap(D2D1::RectF(mdTextDestRect.left + lfValue,mdTextDestRect.top + lfValue,mdTextDestRect.right + lfValue,mdTextDestRect.bottom + lfValue),
-									 mpTextBitmap,
-									 ESPB_DRAWBMP_NEAREST
-									);
+			npPaintBoard->DrawBitmap(D2D1::RectF(mdTextDestRect.left + lfValue, mdTextDestRect.top + lfValue, mdTextDestRect.right + lfValue, mdTextDestRect.bottom + lfValue),
+				mpTextBitmap,
+				ESPB_DRAWBMP_NEAREST
+			);
 		}
-				
+
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -543,12 +540,12 @@ ERESULT CEvButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 //定时器
 void CEvButton::OnTimer(PSTEMS_TIMER npStatus)
 {
-	do 
+	do
 	{
 		if (npStatus->TimerID == BUTTON_TIMER_ID_PAGE)
 		{
 			//播放动画
-			if(mpIterator->IsVisible() == false)	//如果进入隐藏状态，就关掉定时器
+			if (mpIterator->IsVisible() == false)	//如果进入隐藏状态，就关掉定时器
 			{
 				mpIterator->KillTimer(npStatus->TimerID);
 				mbIsPlayTimer = false;
@@ -559,21 +556,21 @@ void CEvButton::OnTimer(PSTEMS_TIMER npStatus)
 
 			if (llIndex != -1)
 			{
-				
-				if (mlCurrentPage < mdArrayFrame[llIndex].Count-1)
+
+				if (mlCurrentPage < mdArrayFrame[llIndex].Count - 1)
 				{
 					mlCurrentPage++;
 				}
 				else
 				{
 					mlCurrentPage = 0;	//超过最大页
-					if(mbIsOther != false)
+					if (mbIsOther != false)
 					{
 						mbIsOther = false;
-						
+
 						StartPlayTimer(); //自定义动画只播放一次
-						LONG llOtherIndex = mlOtherIndex+1;
-						PostMessageToParent(EEVT_BUTTON_PLAYED,llOtherIndex); //通知父窗口，动画播放完成
+						LONG llOtherIndex = mlOtherIndex + 1;
+						PostMessageToParent(EEVT_BUTTON_PLAYED, llOtherIndex); //通知父窗口，动画播放完成
 					}
 				}
 
@@ -593,26 +590,26 @@ void CEvButton::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 	if (npState->State != 0)
 	{
 		//鼠标进入
-		if(mbIsMouseFocus == false)
+		if (mbIsMouseFocus == false)
 			mbIsMouseFocus = true;
 
-		PostMessageToParent(EEVT_BUTTON_MOUSE_IN,mpIterator);
+		PostMessageToParent(EEVT_BUTTON_MOUSE_IN, mpIterator);
 	}
 	else
 	{
 		//鼠标移出
-		if(mbIsMouseFocus != false)
+		if (mbIsMouseFocus != false)
 			mbIsMouseFocus = false;
 
-		if(mbIsPressed != false)  //如果鼠标移走了，就去掉按下状态
+		if (mbIsPressed != false)  //如果鼠标移走了，就去掉按下状态
 			mbIsPressed = false;
 
-		PostMessageToParent(EEVT_BUTTON_MOUSE_OUT,mpIterator);
+		PostMessageToParent(EEVT_BUTTON_MOUSE_OUT, mpIterator);
 	}
 
-	if(mbIsOther == false)
+	if (mbIsOther == false)
 		StartPlayTimer(); //如果正在播放自定义动画，则不执行下面操作
-	
+
 
 	EinkuiGetSystem()->UpdateView();
 }
@@ -625,10 +622,10 @@ ERESULT CEvButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 	do
 	{
 		BREAK_ON_NULL(npInfo);
-		if(mpIterator->IsEnable() == false)
+		if (mpIterator->IsEnable() == false)
 			break;	//如果是禁用状态，就不接收输入
 
-		if(MOUSE_LB(npInfo->ActKey) == false)  //如果不是鼠标左键就不处理
+		if (MOUSE_LB(npInfo->ActKey) == false)  //如果不是鼠标左键就不处理
 			break;
 
 		if (npInfo->Presssed == false)
@@ -637,7 +634,7 @@ ERESULT CEvButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 			if (mbIsPressed != false)
 			{
 				//到这里才算一次Click
-				PostMessageToParent(EEVT_BUTTON_CLICK,CExMessage::DataInvalid);
+				PostMessageToParent(EEVT_BUTTON_CLICK, CExMessage::DataInvalid);
 
 				mbIsPressed = false;
 
@@ -649,14 +646,14 @@ ERESULT CEvButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 						//Check状态
 						mpIterator->SetToolTip(mpszCheckedTip);
 						mbIsChecked = true;
-						PostMessageToParent(EEVT_BUTTON_CHECKED,CExMessage::DataInvalid);
+						PostMessageToParent(EEVT_BUTTON_CHECKED, CExMessage::DataInvalid);
 					}
 					else
 					{
 						//UnCheck状态
 						mpIterator->SetToolTip(mpszNormolTip);
 						mbIsChecked = false;
-						PostMessageToParent(EEVT_BUTTON_UNCHECK,CExMessage::DataInvalid);
+						PostMessageToParent(EEVT_BUTTON_UNCHECK, CExMessage::DataInvalid);
 					}
 				}
 			}
@@ -675,7 +672,7 @@ ERESULT CEvButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -775,18 +772,18 @@ LONG CEvButton::GetCurrentStatesArrayIndex()
 //开启或关闭动画定时器
 void CEvButton::StartPlayTimer()
 {
-	do 
+	do
 	{
 		LONG llIndex = GetCurrentStatesArrayIndex();
 		mlCurrentPage = 0;
-		if(mdArrayFrame[llIndex].Count <= 1 && mbIsPlayTimer != false)
+		if (mdArrayFrame[llIndex].Count <= 1 && mbIsPlayTimer != false)
 		{
 			mpIterator->KillTimer(BUTTON_TIMER_ID_PAGE);
 			mbIsPlayTimer = false;
 		}
-		else if(mdArrayFrame[llIndex].Count > 1 && mbIsPlayTimer == false && mpIterator->IsVisible() != false)
+		else if (mdArrayFrame[llIndex].Count > 1 && mbIsPlayTimer == false && mpIterator->IsVisible() != false)
 		{
-			mpIterator->SetTimer(BUTTON_TIMER_ID_PAGE,MAXULONG32,100,NULL);
+			mpIterator->SetTimer(BUTTON_TIMER_ID_PAGE, MAXULONG32, 100, NULL);
 			mbIsPlayTimer = true;
 		}
 
@@ -801,14 +798,14 @@ ERESULT CEvButton::OnPlayAnimation(LONG nlIndex)
 
 	do
 	{
-		if(nlIndex <= 0 || nlIndex > mlPageCountMax)
+		if (nlIndex <= 0 || nlIndex > mlPageCountMax)
 			break;
 
 		mlCurrentPage = nlIndex - 1;
 
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -818,43 +815,43 @@ ERESULT CEvButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
 
-	do 
+	do
 	{
-		if(mpIterator->IsVisible() == false || mpIterator->IsEnable() == false)
+		if (mpIterator->IsVisible() == false || mpIterator->IsEnable() == false)
 			break;
 
 
 		if (mdAcionSize.width > 1.0f && mdAcionSize.height > 1.0f)
 		{
 			//如果有感应区，就以感应区为主
-			if(rPoint.x < 0.0f || rPoint.x >= mdAcionSize.width || rPoint.y < 0.0f || rPoint.y >= mdAcionSize.height)
+			if (rPoint.x < 0.0f || rPoint.x >= mdAcionSize.width || rPoint.y < 0.0f || rPoint.y >= mdAcionSize.height)
 				break;
 		}
 		else if (mpBgBitmap != NULL)
 		{
 			//有背景图的时候
-			if(rPoint.x < 0.0f || (UINT)rPoint.x >= mpIterator->GetSizeX() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpIterator->GetSizeY())
+			if (rPoint.x < 0.0f || (UINT)rPoint.x >= mpIterator->GetSizeX() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpIterator->GetSizeY())
 				break;
 
 			float lfX = 0;
 			LONG llIndex = GetCurrentStatesArrayIndex();		//获取当前状态图片信息所在的数组下标
-			if(llIndex < 0)
+			if (llIndex < 0)
 				break;
 			lfX = (mdArrayFrame[llIndex].Index + mlCurrentPage) * mdFrameSize.width;  	//从哪个位置开始显示
 
-			D2D1_POINT_2F ldPoint = CExPoint::BigToOldPoint(mdFrameSize,mpIterator->GetSize(),D2D1::Point2(rPoint.x,rPoint.y),ESPB_DRAWBMP_EXTEND,D2D1::Point2((FLOAT)mpBgBitmap->GetExtnedLineX(),(FLOAT)mpBgBitmap->GetExtnedLineY()));
+			D2D1_POINT_2F ldPoint = CExPoint::BigToOldPoint(mdFrameSize, mpIterator->GetSize(), D2D1::Point2(rPoint.x, rPoint.y), ESPB_DRAWBMP_EXTEND, D2D1::Point2((FLOAT)mpBgBitmap->GetExtnedLineX(), (FLOAT)mpBgBitmap->GetExtnedLineY()));
 			//通过像素Alpha值检测????
 			DWORD luPixel;
-			if(ERESULT_SUCCEEDED(mpBgBitmap->GetPixel(DWORD(lfX+ldPoint.x),(DWORD)ldPoint.y,luPixel)))
+			if (ERESULT_SUCCEEDED(mpBgBitmap->GetPixel(DWORD(lfX + ldPoint.x), (DWORD)ldPoint.y, luPixel)))
 			{
-				if(luPixel != 1)
+				if (luPixel != 1)
 					break;
 			}
 		}
 		else if (mpTextBitmap != NULL)
 		{
 			//只有文字的时候
-			if(rPoint.x < 0.0f || (UINT)rPoint.x >= mpTextBitmap->GetWidth() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpTextBitmap->GetHeight())
+			if (rPoint.x < 0.0f || (UINT)rPoint.x >= mpTextBitmap->GetWidth() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpTextBitmap->GetHeight())
 				break;
 		}
 		else
@@ -874,15 +871,15 @@ ERESULT CEvButton::OnChangeText(wchar_t* npswText)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
 
-	do 
+	do
 	{
 		BREAK_ON_NULL(npswText);
 
 		CMM_SAFE_DELETE(mpszButtonText);	//清除原来的字符缓冲区
-		int liLen = wcslen(npswText)+1;
+		int liLen = wcslen(npswText) + 1;
 		mpszButtonText = new wchar_t[liLen];
 		BREAK_ON_NULL(mpszButtonText);
-		wcscpy_s(mpszButtonText,liLen,npswText);	//Copy新内容
+		wcscpy_s(mpszButtonText, liLen, npswText);	//Copy新内容
 
 		//生成新的文字图片
 		ReCreateTextBmp();
@@ -900,19 +897,19 @@ ERESULT CEvButton::OnChangeText(wchar_t* npswText)
 
 
 //更换显示图片
-ERESULT CEvButton::OnChangeBackGround(wchar_t* npswPicPath,bool nbIsFullPath)
+ERESULT CEvButton::OnChangeBackGround(wchar_t* npswPicPath, bool nbIsFullPath)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
-		if(npswPicPath == NULL || npswPicPath[0] == UNICODE_NULL)
+		if (npswPicPath == NULL || npswPicPath[0] == UNICODE_NULL)
 			break;
 
 		//????先做这么简单处理，这里还需要重新计算图片的相关信息
 		CMM_SAFE_RELEASE(mpBgBitmap);	//去除原来的图片
 
-		mpBgBitmap = EinkuiGetSystem()->GetAllocator()->LoadImageFile(npswPicPath,nbIsFullPath);
+		mpBgBitmap = EinkuiGetSystem()->GetAllocator()->LoadImageFile(npswPicPath, nbIsFullPath);
 		BREAK_ON_NULL(mpBgBitmap);
 
 		EinkuiGetSystem()->UpdateView();
@@ -929,15 +926,15 @@ bool CEvButton::ReCreateTextBmp()
 {
 	//构建结构体
 	STETXT_BMP_INIT ldInit;
-	ZeroMemory(&ldInit,sizeof(STETXT_BMP_INIT));
+	ZeroMemory(&ldInit, sizeof(STETXT_BMP_INIT));
 	ldInit.Text = mpszButtonText;
 	ldInit.FontName = mpswFontName;
 	ldInit.FontSize = mdwFontSize;
-	ldInit.TextColor = false != mpIterator->IsEnable()? mdwColor : mdwDisabledColor;
+	ldInit.TextColor = false != mpIterator->IsEnable() ? mdwColor : mdwDisabledColor;
 
-	LONG liTextMaxWidth = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_MAXWIDTH,0);
-	LONG liTextMaxHeight = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_MAXHEIGHT,0);
-	if(liTextMaxWidth > 0)
+	LONG liTextMaxWidth = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_MAXWIDTH, 0);
+	LONG liTextMaxHeight = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_BT_TEXT_MAXHEIGHT, 0);
+	if (liTextMaxWidth > 0)
 	{
 		//为了增加...
 		ldInit.Limit = STETXT_BMP_INIT::EL_FIXEDSIZE;
@@ -948,15 +945,15 @@ bool CEvButton::ReCreateTextBmp()
 
 	CMM_SAFE_RELEASE(mpTextBitmap);	//去掉原来的图片
 
-	if(mdwFontSize == 0 || mpswFontName[0] == UNICODE_NULL)
+	if (mdwFontSize == 0 || mpswFontName[0] == UNICODE_NULL)
 		return false;
 
 	mpTextBitmap = EinkuiGetSystem()->GetAllocator()->CreateImageByText(ldInit);
 
-	if(NULL == mpBgBitmap && mpTextBitmap != NULL)			// 如果没有背景图，则以文字图的大小作为宽高
+	if (NULL == mpBgBitmap && mpTextBitmap != NULL)			// 如果没有背景图，则以文字图的大小作为宽高
 	{
 		mpIterator->SetSize((FLOAT)mpTextBitmap->GetWidth(), (FLOAT)mpTextBitmap->GetHeight());
 	}
 
-	return mpTextBitmap==NULL?false:true;
+	return mpTextBitmap == NULL ? false : true;
 }

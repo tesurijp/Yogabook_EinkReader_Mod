@@ -25,13 +25,22 @@ public:
 
 	DEFINE_CUMSTOMIZE_CREATE(CtxtDocument, (const char16_ptr pathName), (pathName))
 
-	bool32 LoadAllPage(PEDDOC_CALLBACK callBackFun, void_ptr contextPtr);
+	bool32 LoadAllPage(PEDDOC_CALLBACK callBackFun, void_ptr contextPtr, PPAGE_PDF_CONTEXT initPage);
 	int32 GetMetaData(char* keyName, char* dataBuf, int32 bufSize);
 	int32 GetDocType(void);
 	int32 GetPageCount(void);
 	IEdPage_ptr GetPage(int32 pageIndex);
 	IEdPage_ptr GetPage(PPAGE_PDF_CONTEXT contextPtr);	// contextPtr==NULL for the first page of this doc
 	IEdPage_ptr GetPage(IEdPage_ptr currentPage,int32 pagesOff);
+	bool32 LoadAllThumbnails(PEDDOC_THUMBNAILS_CALLBACK callBack, void_ptr contextPtr, const wchar_t* nphumbnailPathName);
+	bool32 GetThumbanilsPath(wchar_t* npszPathBuffer, int niLen);
+	bool32 GetThumbnailPathName(int32Eink pageIndex, char16 pathName[256], bool* hasAnnot);
+	int32Eink GetAnnotPageCount(void) {
+		return 0;
+	}
+	bool32 SaveAllChanges(const char16_ptr pathName) {
+		return false;
+	}
 
 	//////////////////////////////////////////////////////////////////////////
 	// following functions just work on a txt document.
@@ -86,10 +95,14 @@ protected:
 	volatile int32 mUpdateForSize;
 	volatile int32 mUpdateForFont;
 	PageControl_Vector mAllPages;
+	uint32 mAheadPageLoaded;
 	char16	mFontName[256];
 	float mFontSize;
 	Gdiplus::PointF mViewPort;
 	CExclusiveAccess mThreadDataLock;
+	volatile int32 mArranging; // 排版中
+	uint32 mCrtPageBegin;	// 仅在排版时，用于判断当前页码
+	uint32 mCrtPageNumber;	// 仅在排版时，用于判断当前页码
 
 	volatile CTxdArrangeThread* mpArrangeThread;
 	volatile LONG mThreadNumber;

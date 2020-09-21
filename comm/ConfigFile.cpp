@@ -1,7 +1,5 @@
 /* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
-
-
 #ifdef KERNEL_CODE
 #include "ntddk.h"
 #else
@@ -11,7 +9,7 @@
 
 
 #include "ConfigFile.h"
-
+#include <stdio.h>
 
 #ifndef KERNEL_CODE
 #define COPYSTR_S(_D,_L,_S) wcscpy_s(_D,_L,_S)
@@ -62,16 +60,30 @@ CConfigFile::CConfigFile()
 CConfigFile::~CConfigFile()
 {
 	CMMASSERT(miReferenceCount<=0);
-	while(moUnusedKeyInterface.Size()>0)
-	{
-		CCfKeyInterface* lpKey = moUnusedKeyInterface.Top();
-		moUnusedKeyInterface.Pop();
+	//while(moUnusedKeyInterface.Size()>0)
+	//{
+	//	CCfKeyInterface* lpKey = moUnusedKeyInterface.Top();
+	//	moUnusedKeyInterface.Pop();
 
-		if(lpKey!=NULL)
-			delete lpKey;
-	}
+	//	if(lpKey!=NULL)
+	//		delete lpKey;
+	//}
 	if(mpRootInterface != NULL)
 		mpRootInterface->Release();
+
+	for (int i=0; i < moKeyOpened.Size();i++)
+	{
+		if (moKeyOpened[i].Interface != NULL)
+			moKeyOpened[i].Interface->Release();
+	}
+	//while(moUnusedKeyInterface.Size() > 0)
+	//{
+	//	CCfKeyInterface* lpPointer = moUnusedKeyInterface.Top();
+
+	//	if (lpPointer)
+	//		delete lpPointer;
+	//}
+
 	// 释放内存
 	if(mpRoot != NULL)
 		RemoveKey((PCFKEY_NODE)mpRoot);
@@ -194,7 +206,7 @@ ULONG CConfigFile::InitOnCreate(
 							break;
 
 						// 复制当前文件头
-						RtlCopyMemory(&mdFileHead,&lpHead->ShortHead,sizeof(mdFileHead));
+						memcpy_s(&mdFileHead, sizeof(mdFileHead),&lpHead->ShortHead,sizeof(mdFileHead));
 
 						lbLoadOk = true;
 					}
@@ -255,7 +267,7 @@ ULONG CConfigFile::InitOnCreate(
 		delete lpHead;
 
 	if(lpBuffer != NULL)
-		delete lpBuffer;
+		delete[] lpBuffer;
 
 	if(lhFile != NULL)
 	{
@@ -325,7 +337,7 @@ bool CConfigFile::SaveFile(
 			break;
 
 		RtlZeroMemory(lpHead,sizeof(CF_FILE_HEAD));
-		RtlCopyMemory(&lpHead->ShortHead,&mdFileHead,sizeof(mdFileHead));
+		memcpy_s(&lpHead->ShortHead, sizeof(lpHead->ShortHead),&mdFileHead,sizeof(mdFileHead));
 		lpHead->ShortHead.Version = CF_VERSION;
 
 		// 设定一个错误的顺序值，作为正在修改文件的标志
@@ -410,7 +422,7 @@ bool CConfigFile::SaveFile(
 		delete lpHead;
 
 	if(lpBuffer != NULL)
-		delete lpBuffer;
+		delete[] lpBuffer;
 
 	if( lhFile != NULL)
 	{
@@ -516,7 +528,7 @@ PCFKEY_NODE CConfigFile::AllocateNode(
 			lpBranch->NameLength = (UCHAR)niNameLen;
 			if(niNameLen > 0 )
 			{
-				RtlCopyMemory(lpBranch->Name,nszName,niNameLen*sizeof(wchar_t));
+				memcpy_s(lpBranch->Name, lpBranch->NameLength * sizeof(wchar_t),nszName,niNameLen*sizeof(wchar_t));
 				lpBranch->Name[niNameLen] = UNICODE_NULL;
 			}
 
@@ -524,7 +536,7 @@ PCFKEY_NODE CConfigFile::AllocateNode(
 			lpBranch->ValueLength = (USHORT)niValuelen;
 			if(lpBranch->ValueLength > 0)
 			{
-				RtlCopyMemory(&lpBranch->Name[lpBranch->NameLength]+1,npValueBuf,lpBranch->ValueLength);
+				memcpy_s(&lpBranch->Name[lpBranch->NameLength]+1, lpBranch->ValueLength,npValueBuf,lpBranch->ValueLength);
 			}
 
 			// 成功返回
@@ -560,7 +572,7 @@ PCFKEY_NODE CConfigFile::AllocateNode(
 			lpLeaf->NameLength = (UCHAR)niNameLen;
 			if(niNameLen > 0 )
 			{
-				RtlCopyMemory(lpLeaf->Name,nszName,niNameLen*sizeof(wchar_t));
+				memcpy_s(lpLeaf->Name,lpLeaf->NameLength * sizeof(wchar_t), nszName, niNameLen * sizeof(wchar_t));
 				lpLeaf->Name[niNameLen] = UNICODE_NULL;
 			}
 
@@ -568,7 +580,7 @@ PCFKEY_NODE CConfigFile::AllocateNode(
 			lpLeaf->ValueLength = (USHORT)niValuelen;
 			if(lpLeaf->ValueLength > 0)
 			{
-				RtlCopyMemory(&lpLeaf->Name[lpLeaf->NameLength]+1,npValueBuf,niValuelen);
+				memcpy_s(&lpLeaf->Name[lpLeaf->NameLength]+1, lpLeaf->ValueLength,npValueBuf,niValuelen);
 			}
 
 			// 成功返回
@@ -623,9 +635,9 @@ PCFKEY_NODE CConfigFile::LoadKey(PCF_KEY_ENTRY& nrKeyEntry,const PCF_KEY_ENTRY n
 			if(lpBranch == NULL)
 				break;
 
-			lpBranch->mpSubKeys = new TCFKEYSEQUENCE;
-			if(lpBranch->mpSubKeys == NULL)
-				 break;
+			//lpBranch->mpSubKeys = new TCFKEYSEQUENCE;	// AllocateNode函数内已经分配了这个对象
+			//if(lpBranch->mpSubKeys == NULL)
+			//	 break;
 
 			// 循环读入每一个子节点，并将子节点的Hash值与子节点一同插入索引表中
 			int liSubCount = nrKeyEntry->SubEntryCount;
@@ -713,13 +725,13 @@ int CConfigFile::SaveKey(PCFKEY_NODE npKey,PCF_KEY_ENTRY& nrKeyEntry)
 
 				// 填入名称
 				nrKeyEntry->NameLength = lpBranch->NameLength;
-				RtlCopyMemory((wchar_t*)(nrKeyEntry+1),lpBranch->Name,lpBranch->NameLength*sizeof(wchar_t));
+				memcpy_s((wchar_t*)(nrKeyEntry+1), nrKeyEntry->NameLength* sizeof(wchar_t),lpBranch->Name,lpBranch->NameLength*sizeof(wchar_t));
 
 				// 填入数据
 				nrKeyEntry->ValueSize = lpBranch->ValueLength;
 				if(lpBranch->ValueLength > 0)
 				{
-					RtlCopyMemory((UCHAR*)((wchar_t*)(nrKeyEntry+1)+nrKeyEntry->NameLength),&lpBranch->Name[lpBranch->NameLength]+1,lpBranch->ValueLength);
+					memcpy_s((UCHAR*)((wchar_t*)(nrKeyEntry+1)+nrKeyEntry->NameLength), nrKeyEntry->ValueSize,&lpBranch->Name[lpBranch->NameLength]+1,lpBranch->ValueLength);
 				}
 
 				// 填入Hash表
@@ -768,13 +780,13 @@ int CConfigFile::SaveKey(PCFKEY_NODE npKey,PCF_KEY_ENTRY& nrKeyEntry)
 
 				// 填入名称
 				nrKeyEntry->NameLength = lpLeaf->NameLength;
-				RtlCopyMemory((wchar_t*)(nrKeyEntry+1),lpLeaf->Name,lpLeaf->NameLength*sizeof(wchar_t));
+				memcpy_s((wchar_t*)(nrKeyEntry+1), nrKeyEntry->NameLength * sizeof(wchar_t),lpLeaf->Name,lpLeaf->NameLength*sizeof(wchar_t));
 
 				// 填入数据
 				nrKeyEntry->ValueSize = lpLeaf->ValueLength;
 				if(lpLeaf->ValueLength > 0)
 				{
-					RtlCopyMemory((UCHAR*)((wchar_t*)(nrKeyEntry+1)+nrKeyEntry->NameLength),&lpLeaf->Name[lpLeaf->NameLength]+1,lpLeaf->ValueLength);
+					memcpy_s((UCHAR*)((wchar_t*)(nrKeyEntry+1)+nrKeyEntry->NameLength), nrKeyEntry->ValueSize,&lpLeaf->Name[lpLeaf->NameLength]+1,lpLeaf->ValueLength);
 				}
 
 				// 输入数据后移，指向下一条记录
@@ -813,7 +825,7 @@ bool CConfigFile::RemoveKey(PCFKEY_NODE npKey)
 	}
 
 	// 释放内存
-	delete npKey;
+	delete[] npKey;
 	
 	return true;
 }
@@ -877,14 +889,14 @@ CCfKeyInterface* CConfigFile::AllocateKeyInterface(PCFKEY_NODE npKeyNode)
 {
 	CCfKeyInterface* lpInterface;
 
-	if(moUnusedKeyInterface.Size() > 0 )
-	{
-		lpInterface = moUnusedKeyInterface.Top();
-		moUnusedKeyInterface.Pop();
+	//if(moUnusedKeyInterface.Size() > 0 )
+	//{
+	//	lpInterface = moUnusedKeyInterface.Top();
+	//	moUnusedKeyInterface.Pop();
 
-		lpInterface->Reuse(this);
-	}
-	else
+	//	lpInterface->Reuse(this);
+	//}
+	//else
 	{
 		lpInterface = CCfKeyInterface::CreateInstance(this);
 	}
@@ -965,9 +977,9 @@ int CConfigFile::ReleaseKeyInterface(CCfKeyInterface* npKeyInterface)
 		{
 			moExclusive.Enter();
 
-			if(moUnusedKeyInterface.Size() < CF_LOOKASIDE_UNUSEDKEY_COUNT)
-				moUnusedKeyInterface.Push(npKeyInterface);
-			else
+			//if(moUnusedKeyInterface.Size() < CF_LOOKASIDE_UNUSEDKEY_COUNT)
+			//	moUnusedKeyInterface.Push(npKeyInterface);
+			//else
 				delete npKeyInterface;
 
 			moExclusive.Leave();
@@ -1280,7 +1292,7 @@ bool __stdcall CCfKeyInterface::SetParentKey(
 	bool lbHasName = false;
 	bool lbResult = false;
 	CCfKeyInterface* lpNewParent;
-	ULONG luID;
+	ULONG luID = 0;
 
 	if(GetName(lswName,MAX_PATH)>0)
 	{
@@ -1600,7 +1612,7 @@ ULONG CCfKeyInterface::GetID(
 	OUT int* npPos		// 在相同的ID的键值中的先后位置
 	)
 {
-	ULONG luID;
+	ULONG luID = 0;
 
 	mpConfigFile->moExclusive.Enter();
 
@@ -1708,7 +1720,8 @@ bool __stdcall CCfKeyInterface::Rename(
 
 			for (i=0;i< 1000;i++)
 			{
-				wsprintf(lswName,L"%s%d",nszName,i);
+				//wsprintf(lswName,L"%s%d",nszName,i);
+				swprintf_s(lswName,L"%s%d",MAX_PATH, nszName, i);
 				if(mpParentsKey->FindSubKey(lswName,-1) < 0)
 				{
 					nszName = lswName;
@@ -1787,13 +1800,14 @@ bool CCfKeyInterface::SetValue(
 		{
 			if(CFKEY_HAS_CHILD(BaseNode)!=false)
 			{
-				RtlCopyMemory(&Branch->Name[Branch->NameLength]+1,npValueBuf,niValuelen);
 				Branch->ValueLength = (USHORT)niValuelen;
+				memcpy_s(&Branch->Name[Branch->NameLength] + 1, Branch->ValueLength, npValueBuf, niValuelen);
+				
 			}
 			else
 			{
-				RtlCopyMemory(&Leaf->Name[Leaf->NameLength]+1,npValueBuf,niValuelen);
 				Leaf->ValueLength = (USHORT)niValuelen;
+				memcpy_s(&Leaf->Name[Branch->NameLength] + 1, Leaf->ValueLength, npValueBuf, niValuelen);
 			}
 			CFKEY_SET_VALUETYPE(BaseNode->Flag,nuValueType);
 			lbReval = true;
@@ -1869,11 +1883,11 @@ int CCfKeyInterface::GetValue(
 		{
 			if(CFKEY_HAS_CHILD(BaseNode)!=false)
 			{
-				RtlCopyMemory(npValueBuf,&Branch->Name[Branch->NameLength]+1,Branch->ValueLength);
+				memcpy_s(npValueBuf, niBufLen, &Branch->Name[Branch->NameLength] + 1, Branch->ValueLength);
 			}
 			else
 			{
-				RtlCopyMemory(npValueBuf,&Leaf->Name[Leaf->NameLength]+1,Leaf->ValueLength);
+				memcpy_s(npValueBuf, niBufLen, &Leaf->Name[Leaf->NameLength] + 1, Leaf->ValueLength);
 			}
 			liSize = BaseNode->ValueLength;
 		}

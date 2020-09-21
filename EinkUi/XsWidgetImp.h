@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #pragma once
 
 
@@ -9,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////
 // Widget运行态
 DECLARE_BUILTIN_NAME(CXsWidget)
-class CXsWidget: public cmmBaseObject<CXsWidget,IXsWidget,GET_BUILTIN_NAME(CXsWidget)>
+class CXsWidget : public cmmBaseObject<CXsWidget, IXsWidget, GET_BUILTIN_NAME(CXsWidget)>
 {
 	friend class CEinkuiSystem;
 	friend class CXelManager;
@@ -32,7 +28,7 @@ public:
 
 	//获取微件用来存放临时文件的目录,返回的地址不包含\\结尾,同一个的微件的不同实例得到的是不同的文件夹路径
 	//npswPath为输出缓冲区，nlBufferLen为缓冲区长度，BY TCHAR
-	virtual bool __stdcall GetInstanceTempPath(OUT wchar_t* npswPath,IN LONG nlBufferLen);
+	virtual bool __stdcall GetInstanceTempPath(OUT wchar_t* npswPath, IN LONG nlBufferLen);
 
 	// 获得微件实例的Home Page
 	virtual IEinkuiIterator* __stdcall GetHomePage(void);
@@ -49,23 +45,23 @@ private:
 	wchar_t* mswInstance;
 	bool mbValid;
 
-	DEFINE_CUMSTOMIZE_CREATE(CXsWidget,(const wchar_t* nswModulePathName,const wchar_t* nswInstanceName,ICfKey* npInstanceConfig),(nswModulePathName, nswInstanceName,npInstanceConfig))
+	DEFINE_CUMSTOMIZE_CREATE(CXsWidget, (const wchar_t* nswModulePathName, const wchar_t* nswInstanceName, ICfKey* npInstanceConfig), (nswModulePathName, nswInstanceName, npInstanceConfig))
 
-	ERESULT InitOnCreate(
-		IN const wchar_t* nswModulePathName,	// 该Widget的模块文件的路径名，即实现此Widget的DLL名称
-		IN const wchar_t* nswInstanceName,	// 本次运行的实例名，实例名不能相同，如果存在相同的实例名，系统将会返回失败
-		IN ICfKey* npInstanceConfig	// 本运行实例的专属配置
+		ERESULT InitOnCreate(
+			IN const wchar_t* nswModulePathName,	// 该Widget的模块文件的路径名，即实现此Widget的DLL名称
+			IN const wchar_t* nswInstanceName,	// 本次运行的实例名，实例名不能相同，如果存在相同的实例名，系统将会返回失败
+			IN ICfKey* npInstanceConfig	// 本运行实例的专属配置
 		);
 
 	void SetHomePage(IEinkuiIterator* npHomePage);
 
 	void SetFactory(IElementFactory* npFactory);
 
-	bool IsValid(void){
+	bool IsValid(void) {
 		return mbValid;
 	}
 
-	void SetInvalid(void){
+	void SetInvalid(void) {
 		mbValid = false;
 	}
 

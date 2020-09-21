@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 
 #include "CommonHeader.h"
@@ -39,17 +35,17 @@ CXuiMessage::~CXuiMessage()
 
 void CXuiMessage::FreeInputBuffer()
 {
-	if(mpInputData == NULL && miInputDataSize==0)
+	if (mpInputData == NULL && miInputDataSize == 0)
 		return;
 
 	// 根据消息标志位判断是否需要释放缓冲区
 	if (cmmBaseObject::TestFlag(ELMSG_FLAG_INPUT_ALLOCATED) != false && mpInputData != NULL && mpInputData != mbufInputBuffer)
-		delete mpInputData;
+		delete mpInputData;//delete mpInputData;	//hy 20190723
 
 	mpInputData = NULL;
 	miInputDataSize = 0;
 
-	cmmBaseObject::SetFlags(ELMSG_FLAG_INPUT_ALLOCATED,false);
+	cmmBaseObject::SetFlags(ELMSG_FLAG_INPUT_ALLOCATED, false);
 	//cmmBaseObject<CXuiMessage,IEinkuiMessage,GET_BUILTIN_NAME(CXuiMessage)>::SetFlags(ELMSG_FLAG_INPUT_COPIED,false);
 }
 
@@ -68,7 +64,7 @@ void CXuiMessage::Reuse()
 	mpSender = NULL;
 	miOutputBufferSize = 0;
 
-	cmmBaseObject<CXuiMessage,IEinkuiMessage,GET_BUILTIN_NAME(CXuiMessage)>::Reuse();
+	cmmBaseObject<CXuiMessage, IEinkuiMessage, GET_BUILTIN_NAME(CXuiMessage)>::Reuse();
 }
 
 
@@ -78,9 +74,9 @@ int __stdcall CXuiMessage::Release(void)
 	static CXuiMessage* glMsg = NULL;
 	if (glMsg == this)
 		glMsg->Release();
-	int liCount = cmmBaseObject<CXuiMessage,IEinkuiMessage,GET_BUILTIN_NAME(CXuiMessage)>::Release();
+	int liCount = cmmBaseObject<CXuiMessage, IEinkuiMessage, GET_BUILTIN_NAME(CXuiMessage)>::Release();
 	// 如果返回值是1，则表示，除元素管理器的一次引用外，已经没有别人引用这个元素了，就通知元素管理器准备释放
-	if(liCount == 1)
+	if (liCount == 1)
 	{
 		// 通知元素管理器
 		CEinkuiSystem::gpXuiSystem->GetElementManagerObject()->ReleaseMessage(this);
@@ -100,7 +96,7 @@ IEinkuiIterator* __stdcall CXuiMessage::GetDestination(void)
 ERESULT __stdcall CXuiMessage::SetDestination(IEinkuiIterator* npMsgDestItr)
 {
 	if (npMsgDestItr != NULL)
-	{	
+	{
 		mpMsgDestItr = npMsgDestItr;
 		return ERESULT_SUCCESS;
 	}
@@ -156,18 +152,18 @@ ERESULT __stdcall CXuiMessage::SetInputData(
 	const void* npBuffer,
 	int niSize,
 	bool nbVolatile	// true:此缓冲区是易失的，需要复制数据到内部缓冲; false 此缓冲区是非易失的，在消息发送和返回的过程中有效
-	)
+)
 {
 	ERESULT luResult;
 
-	if (niSize < 0 || npBuffer == NULL && niSize!= 0)
+	if (niSize < 0 || npBuffer == NULL && niSize != 0)
 		return ERESULT_UNSUCCESSFUL;
 
 	FreeInputBuffer();
 
-	if(nbVolatile != false && npBuffer != NULL)
+	if (nbVolatile != false && npBuffer != NULL)
 	{
-		luResult = CopyInputData(npBuffer,niSize);
+		luResult = CopyInputData(npBuffer, niSize);
 	}
 	else
 	{
@@ -177,14 +173,14 @@ ERESULT __stdcall CXuiMessage::SetInputData(
 
 		luResult = ERESULT_SUCCESS;
 	}
-	
+
 	return ERESULT_SUCCESS;
 }
 
 // 获得Input数据指针，注意，获得的指针仅在持有消息，并且没有发生改变时有效，一旦将消息发送出去，或者调用了消息的设定值的方法，都将导致该指针失效
 // 注意，此方法获得的指针并不一定同前一次调用SetInputData设定的指针相同
 const void* __stdcall CXuiMessage::GetInputData(void)
-{	
+{
 	return mpInputData;
 }
 
@@ -196,7 +192,7 @@ int __stdcall CXuiMessage::GetInputDataSize(void)
 
 // 设置Output缓冲区，大多数的消息无需Output Buffer，如果需要消息返回大量数据的，应该Send这条消息，而不是Post它；如果确实需要Post这条消息，那么请参考下面的设置反馈消息的方法;
 // 如果选择Post这条消息，请千万保证设定的Output缓冲区不被修改和释放，以免消息的接受方对该缓冲区访问产生错误。
-ERESULT __stdcall CXuiMessage::SetOutputBuffer(void* npBuffer,int niSize)
+ERESULT __stdcall CXuiMessage::SetOutputBuffer(void* npBuffer, int niSize)
 {
 	if (niSize <= 0)
 		return ERESULT_UNSUCCESSFUL;
@@ -239,7 +235,7 @@ int CXuiMessage::GetOutputDataSize(void)
 ERESULT __stdcall CXuiMessage::SetResponseMessage(
 	IN IEinkuiIterator* npReceiver,	// 接受反馈消息的目标
 	IN void* npContext	// 设置上下文，供调用者设置和使用，当该消息被反馈时，传递给接收者
-	)
+)
 {
 	return ERESULT_UNSUCCESSFUL;//???尚未实现
 }
@@ -249,25 +245,26 @@ ERESULT __stdcall CXuiMessage::SetResponseMessage(
 ERESULT CXuiMessage::CopyInputData(
 	const void* npBuffer,
 	int niSize
-	)
+)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
 
-	if(npBuffer != NULL)
+	if (npBuffer != NULL)
 	{
-		if(niSize < ELMSG_BUILDIN_BUFSIZE)
+		if (niSize < ELMSG_BUILDIN_BUFSIZE)
 		{
 			mpInputData = mbufInputBuffer;
 		}
 		else
 		{
 			mpInputData = new char[niSize];
-			cmmBaseObject::SetFlags(ELMSG_FLAG_INPUT_ALLOCATED,true);
+			cmmBaseObject::SetFlags(ELMSG_FLAG_INPUT_ALLOCATED, true);
 		}
 
-		if(mpInputData != NULL)
+		if (mpInputData != NULL)
 		{
-			memcpy(mpInputData, npBuffer, niSize);
+    		// CheckMarx fix by zhuhl5
+			memcpy_s(mpInputData, niSize, npBuffer, niSize);
 
 			miInputDataSize = niSize;
 

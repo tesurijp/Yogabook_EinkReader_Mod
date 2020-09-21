@@ -18,7 +18,7 @@ DEFINE_BUILTIN_NAME(SliderButton)
 CEvSliderButton::CEvSliderButton()
 {
 	mnMoveStyle = ES_SLIDER_BUTTON_STYLE_HOR;
-
+	mdwClickTicount = 0;
 }
 CEvSliderButton::~CEvSliderButton()
 {
@@ -76,7 +76,7 @@ ERESULT CEvSliderButton::ParseMessage(IEinkuiMessage* npMsg)
 			D2D1_RECT_F * lpRect = (D2D1_RECT_F*)npMsg->GetInputData();
 			if(lpRect)
 			{
-				RtlCopyMemory(&mRectSlider,lpRect,sizeof(D2D1_RECT_F));
+				memcpy_s(&mRectSlider, sizeof(D2D1_RECT_F), lpRect, sizeof(D2D1_RECT_F));
 				luResult = ERESULT_SUCCESS;
 			}
 			break;
@@ -94,56 +94,70 @@ ERESULT CEvSliderButton::ParseMessage(IEinkuiMessage* npMsg)
 ERESULT CEvSliderButton::OnDragging(const STMS_DRAGGING_ELE* npInfo)
 {
 	//
-	if(mnMoveStyle == ES_SLIDER_BUTTON_STYLE_VER)
-	{		
-		FLOAT lfy = npInfo->Offset.y + mDragStartPoint.y;		
-		//计算位置，不能超出范围
-		if(lfy < mRectSlider.top)
-			lfy = mRectSlider.top;
-		FLOAT lfMaxY = mRectSlider.top + ((mRectSlider.bottom - mRectSlider.top) - mpIterator->GetSizeY());
-		if(lfy > lfMaxY)
-			lfy = lfMaxY;
-
-		mpIterator->SetPosition(mpIterator->GetPositionX(),lfy);
-	}
-	else if(mnMoveStyle == ES_SLIDER_BUTTON_STYLE_HOR)
+	do 
 	{
-		FLOAT lfx = npInfo->Offset.x + mDragStartPoint.x;		
-		//计算位置，不能超出范围
-		if(lfx < mRectSlider.left)
-			lfx = mRectSlider.left;
-		//int n = mpIterator->GetSizeX();
-		FLOAT lfMaxX = mRectSlider.left + ((mRectSlider.right - mRectSlider.left) - mpIterator->GetSizeX());
-		if(lfx > lfMaxX)
-			lfx =  lfMaxX;
-		mpIterator->SetPosition(lfx,mpIterator->GetPositionY());
-	}
-	else if(mnMoveStyle == ES_SLIDER_BUTTON_STYLE_ANYWAY)
-	{
-		FLOAT lfy = npInfo->Offset.y + mDragStartPoint.y;		
-		//计算位置，不能超出Y范围
-		if(lfy < mRectSlider.top)
-			lfy = mRectSlider.top;
-		if(lfy > ((mRectSlider.bottom - mRectSlider.top) - mpIterator->GetSizeY()) )
-			lfy = ((mRectSlider.bottom - mRectSlider.top) - mpIterator->GetSizeY());
+		if (GetTickCount() - mdwClickTicount > 800)
+		{
+			if (mdwClickTicount == 0)
+			{
+				mdwClickTicount = GetTickCount();
+				break;
+			}
+			mdwClickTicount = GetTickCount();
+				
 
-		FLOAT lfx = npInfo->Offset.x + mDragStartPoint.x;		
-		//计算位置，不能超出X范围
-		if(lfx < mRectSlider.left)
-			lfx = mRectSlider.left;
-		if(lfx > ((mRectSlider.right - mRectSlider.left) - mpIterator->GetSizeX()) )
-			lfx = ((mRectSlider.right - mRectSlider.left) - mpIterator->GetSizeX());
+			if (mnMoveStyle == ES_SLIDER_BUTTON_STYLE_VER)
+			{
+				FLOAT lfy = npInfo->Offset.y + mDragStartPoint.y;
+				//计算位置，不能超出范围
+				if (lfy < mRectSlider.top)
+					lfy = mRectSlider.top;
+				FLOAT lfMaxY = mRectSlider.top + ((mRectSlider.bottom - mRectSlider.top) - mpIterator->GetSizeY());
+				if (lfy > lfMaxY)
+					lfy = lfMaxY;
 
-		mpIterator->SetPosition(lfx,lfy);
-	}
-	
-	//
-// 	EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(mpIterator->GetParent(),
-// 		EACT_SLIDERBUTTON_DRAGING,
-// 		(LPVOID)npInfo,
-// 		sizeof(STMS_DRAGGING_ELE),NULL,0);
+				mpIterator->SetPosition(mpIterator->GetPositionX(), lfy);
+			}
+			else if (mnMoveStyle == ES_SLIDER_BUTTON_STYLE_HOR)
+			{
+				FLOAT lfx = npInfo->Offset.x + mDragStartPoint.x;
+				//计算位置，不能超出范围
+				if (lfx < mRectSlider.left)
+					lfx = mRectSlider.left;
+				//int n = mpIterator->GetSizeX();
+				FLOAT lfMaxX = mRectSlider.left + ((mRectSlider.right - mRectSlider.left) - mpIterator->GetSizeX());
+				if (lfx > lfMaxX)
+					lfx = lfMaxX;
+				mpIterator->SetPosition(lfx, mpIterator->GetPositionY());
+			}
+			else if (mnMoveStyle == ES_SLIDER_BUTTON_STYLE_ANYWAY)
+			{
+				FLOAT lfy = npInfo->Offset.y + mDragStartPoint.y;
+				//计算位置，不能超出Y范围
+				if (lfy < mRectSlider.top)
+					lfy = mRectSlider.top;
+				if (lfy > ((mRectSlider.bottom - mRectSlider.top) - mpIterator->GetSizeY()))
+					lfy = ((mRectSlider.bottom - mRectSlider.top) - mpIterator->GetSizeY());
 
-	CExMessage::PostMessage(mpIterator->GetParent(),mpIterator,EACT_SLIDERBUTTON_DRAGING,npInfo,EMSG_POSTTYPE_REDUCE);
+				FLOAT lfx = npInfo->Offset.x + mDragStartPoint.x;
+				//计算位置，不能超出X范围
+				if (lfx < mRectSlider.left)
+					lfx = mRectSlider.left;
+				if (lfx > ((mRectSlider.right - mRectSlider.left) - mpIterator->GetSizeX()))
+					lfx = ((mRectSlider.right - mRectSlider.left) - mpIterator->GetSizeX());
+
+				mpIterator->SetPosition(lfx, lfy);
+			}
+
+			//
+			// 	EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(mpIterator->GetParent(),
+			// 		EACT_SLIDERBUTTON_DRAGING,
+			// 		(LPVOID)npInfo,
+			// 		sizeof(STMS_DRAGGING_ELE),NULL,0);
+
+			CExMessage::PostMessage(mpIterator->GetParent(), mpIterator, EACT_SLIDERBUTTON_DRAGING, npInfo, EMSG_POSTTYPE_REDUCE);
+		}
+	} while (false);
 
 	return ERESULT_SUCCESS;
 }
@@ -153,7 +167,7 @@ ERESULT CEvSliderButton::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 {
 	mDragStartPoint.x = mpIterator->GetPositionX();
 	mDragStartPoint.y = mpIterator->GetPositionY();
-
+	mdwClickTicount = 0;
 	CExMessage::SendMessage(mpIterator->GetParent(),mpIterator,EACT_SLIDERBUTTON_DRAG_START,CExMessage::DataInvalid);
 	return ERESULT_SUCCESS;
 }
@@ -161,6 +175,49 @@ ERESULT CEvSliderButton::OnDragBegin(const STMS_DRAGGING_ELE* npInfo)
 //拖拽结束
 ERESULT CEvSliderButton::OnDragEnd(const STMS_DRAGGING_ELE* npInfo)
 {
+	if (mnMoveStyle == ES_SLIDER_BUTTON_STYLE_VER)
+	{
+		FLOAT lfy = npInfo->Offset.y + mDragStartPoint.y;
+		//计算位置，不能超出范围
+		if (lfy < mRectSlider.top)
+			lfy = mRectSlider.top;
+		FLOAT lfMaxY = mRectSlider.top + ((mRectSlider.bottom - mRectSlider.top) - mpIterator->GetSizeY());
+		if (lfy > lfMaxY)
+			lfy = lfMaxY;
+
+		mpIterator->SetPosition(mpIterator->GetPositionX(), lfy);
+	}
+	else if (mnMoveStyle == ES_SLIDER_BUTTON_STYLE_HOR)
+	{
+		FLOAT lfx = npInfo->Offset.x + mDragStartPoint.x;
+		//计算位置，不能超出范围
+		if (lfx < mRectSlider.left)
+			lfx = mRectSlider.left;
+		//int n = mpIterator->GetSizeX();
+		FLOAT lfMaxX = mRectSlider.left + ((mRectSlider.right - mRectSlider.left) - mpIterator->GetSizeX());
+		if (lfx > lfMaxX)
+			lfx = lfMaxX;
+		mpIterator->SetPosition(lfx, mpIterator->GetPositionY());
+	}
+	else if (mnMoveStyle == ES_SLIDER_BUTTON_STYLE_ANYWAY)
+	{
+		FLOAT lfy = npInfo->Offset.y + mDragStartPoint.y;
+		//计算位置，不能超出Y范围
+		if (lfy < mRectSlider.top)
+			lfy = mRectSlider.top;
+		if (lfy > ((mRectSlider.bottom - mRectSlider.top) - mpIterator->GetSizeY()))
+			lfy = ((mRectSlider.bottom - mRectSlider.top) - mpIterator->GetSizeY());
+
+		FLOAT lfx = npInfo->Offset.x + mDragStartPoint.x;
+		//计算位置，不能超出X范围
+		if (lfx < mRectSlider.left)
+			lfx = mRectSlider.left;
+		if (lfx > ((mRectSlider.right - mRectSlider.left) - mpIterator->GetSizeX()))
+			lfx = ((mRectSlider.right - mRectSlider.left) - mpIterator->GetSizeX());
+
+		mpIterator->SetPosition(lfx, lfy);
+	}
+
 	CExMessage::SendMessage(mpIterator->GetParent(),mpIterator,EACT_SLIDERBUTTON_DRAG_END,CExMessage::DataInvalid);
 	return ERESULT_SUCCESS;
 }

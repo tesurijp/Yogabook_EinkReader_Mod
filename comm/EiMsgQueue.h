@@ -9,6 +9,12 @@
 
 #pragma pack(4)
 
+#include <vector>
+#include <map>
+#include <Windows.h>
+
+#define RECIVE_DATA_BUFFER_LENGTH 1024*1024*3
+
 typedef struct _EI_MSGQUE_HEAD {
 	ULONG HeadSize;
 	volatile ULONG BufSize;
@@ -49,11 +55,8 @@ public:
 
 	// 从共享内存建立队列，返回ERROR_SUCCESS，或者错误码
 	ULONG CreateQueue(
-		const wchar_t* nusMutexName,
-		const wchar_t* nusSemaphoreName,
 		void* npBuffer,
-		ULONG nuBufferSize,
-		BOOL nbListener	// TURE: 监听者
+		ULONG nuBufferSize
 	);
 
 	// 增加一条消息，返回ERROR_SUCCESS，或者错误码
@@ -71,28 +74,20 @@ public:
 	// 撤回一类消息，将队列中此类消息全部撤回
 	// 如果调用此函数，需要CEiMsgMessage实现bool IsTypeOf(const CEiMsgMessage& nrRefTo)函数，改函数返回true表示同类，返回false表示非同类
 	// 当一个消息被撤回时，会调用CEiMsgMessage的Recall()函数，请在该函数内实现对消息撤回操作
-	void Recall(
-		const CEiMsgMessage& nrMsg	
-	);
+	void Recall(const CEiMsgMessage& nrMsg);
+	void Recall(const ULONG& nuMsgId);
 
 	// 获取消息数
 	ULONG GetCount(void);
 
 	// 关闭
 	void RealseQueue(void);
-
-	// 获得当前未取走的最早一条消息已发出时间，单位为毫秒
-	ULONGLONG GetMaxElapsedTimeOfMsg(void);
-
 };
 
 template<class CEiMsgMessage>
 ULONG CEiMsgQueue<CEiMsgMessage>::CreateQueue(
-	const wchar_t* nusMutexName,
-	const wchar_t* nusSemaphoreName,
 	void* npBuffer,
-	ULONG nuBufferSize,
-	BOOL nbListener	// TURE: 监听者
+	ULONG nuBufferSize
 )
 {
 	ULONG luResult = ERROR_SUCCESS;
@@ -100,70 +95,31 @@ ULONG CEiMsgQueue<CEiMsgMessage>::CreateQueue(
 	if (nuBufferSize < sizeof(EI_MSGQUE_HEAD) || npBuffer == NULL)
 		return ERROR_NOT_ENOUGH_MEMORY;
 
-	if (nbListener != FALSE)
-	{	// 监听者
-		// 建立消息旗语
-		//需要设置权限，否则服务创建的对象，普通进程无法打开
-		SECURITY_DESCRIPTOR lsd;
-		InitializeSecurityDescriptor(&lsd, SECURITY_DESCRIPTOR_REVISION);
-		SetSecurityDescriptorDacl(&lsd, TRUE, (PACL)NULL, FALSE);
-		SECURITY_ATTRIBUTES	lsa;
-		lsa.nLength = sizeof(SECURITY_ATTRIBUTES);
-		lsa.bInheritHandle = TRUE;
-		lsa.lpSecurityDescriptor = &lsd;
+	// 建立消息旗语
+	mhNewArrived = CreateSemaphore(NULL, 0, 10000, NULL);
+	if (mhNewArrived == NULL)
+		return ERROR_OPEN_FAILED;
 
-		mhNewArrived = CreateSemaphore(&lsa, 0, 10000, nusSemaphoreName);
-		if (mhNewArrived == NULL)
-			return ERROR_OPEN_FAILED;
+	// 建立互斥对象
+	mhMutex = CreateMutex(NULL, TRUE, NULL);
+	if (mhMutex == NULL)
+		return ERROR_OPEN_FAILED;
 
-		// 建立互斥对象
-		mhMutex = CreateMutex(&lsa, TRUE, nusMutexName);
-		if (mhMutex == NULL)
-			return ERROR_OPEN_FAILED;
+	// 初始化消息队列共享内存
+	mpQueueHead = (PEI_MSGQUE_HEAD)npBuffer;
+	mpMsgBuffer = (CEiMsgMessage*)(mpQueueHead + 1);
 
-		// 初始化消息队列共享内存
-		mpQueueHead = (PEI_MSGQUE_HEAD)npBuffer;
-		mpMsgBuffer = (CEiMsgMessage*)(mpQueueHead + 1);
+	mpQueueHead->HeadSize = sizeof(EI_MSGQUE_HEAD);
+	mpQueueHead->BufSize = nuBufferSize - sizeof(EI_MSGQUE_HEAD);
+	mpQueueHead->MsgSize = sizeof(CEiMsgMessage);
+	mpQueueHead->MsgCapacity = mpQueueHead->BufSize / mpQueueHead->MsgSize;
+	mpQueueHead->FirstMsg = 0;
+	mpQueueHead->LastMsg = 0;
+	mpQueueHead->MsgCount = 0;
 
-		mpQueueHead->HeadSize = sizeof(EI_MSGQUE_HEAD);
-		mpQueueHead->BufSize = nuBufferSize - sizeof(EI_MSGQUE_HEAD);
-		mpQueueHead->MsgSize = sizeof(CEiMsgMessage);
-		mpQueueHead->MsgCapacity = mpQueueHead->BufSize / mpQueueHead->MsgSize;
-		mpQueueHead->FirstMsg = 0;
-		mpQueueHead->LastMsg = 0;
-		mpQueueHead->MsgCount = 0;
+	luResult = ERROR_SUCCESS;
 
-		luResult = ERROR_SUCCESS;
-
-		ReleaseMutex(mhMutex);
-
-	}
-	else
-	{	// 非监听者
-		// 连接旗语对象
-		mhNewArrived = OpenSemaphore(SEMAPHORE_ALL_ACCESS, FALSE, nusSemaphoreName);
-		if (mhNewArrived == NULL)
-			return ERROR_OPEN_FAILED;
-
-		// 连接互斥对象
-		mhMutex = OpenMutex(MUTEX_ALL_ACCESS, FALSE, nusMutexName);
-		if (mhMutex == NULL)
-			return ERROR_OPEN_FAILED;
-		
-		if (WaitForSingleObject(mhMutex, INFINITE) != WAIT_OBJECT_0)
-			return ERROR_NOT_READY;
-
-		// 从共享内存中装入数据
-		if (((PEI_MSGQUE_HEAD)npBuffer)->MsgSize == sizeof(CEiMsgMessage) &&
-			((PEI_MSGQUE_HEAD)npBuffer)->HeadSize == sizeof(EI_MSGQUE_HEAD))
-		{
-			mpQueueHead = (PEI_MSGQUE_HEAD)npBuffer;
-			mpMsgBuffer = (CEiMsgMessage*)(mpQueueHead + 1);
-			luResult = ERROR_SUCCESS;
-		}
-
-		ReleaseMutex(mhMutex);
-	}
+	ReleaseMutex(mhMutex);
 
 	return luResult;
 }
@@ -248,9 +204,7 @@ ULONG CEiMsgQueue<CEiMsgMessage>::Pop(
 // 如果调用此函数，需要CEiMsgMessage实现bool IsTypeOf(const CEiMsgMessage& nrRefTo)函数，改函数返回true表示同类，返回false表示非同类
 // 当一个消息被撤回时，会调用CEiMsgMessage的Recall()函数，请在该函数内实现对消息撤回操作
 template<class CEiMsgMessage>
-void CEiMsgQueue<CEiMsgMessage>::Recall(
-	const CEiMsgMessage& nrMsg
-)
+void CEiMsgQueue<CEiMsgMessage>::Recall(const CEiMsgMessage& nrMsg)
 {
 	ULONG luIndex, luCount;
 	if (WaitForSingleObject(mhMutex, INFINITE) != WAIT_OBJECT_0)
@@ -279,37 +233,36 @@ void CEiMsgQueue<CEiMsgMessage>::Recall(
 	ReleaseMutex(mhMutex);
 }
 
-// 获得当前未取走的最早一条消息已发出时间，单位为毫秒
+// 撤回一类消息，将队列中此类消息全部撤回
 template<class CEiMsgMessage>
-ULONGLONG CEiMsgQueue<CEiMsgMessage>::GetMaxElapsedTimeOfMsg(void)
+void CEiMsgQueue<CEiMsgMessage>::Recall(const ULONG& nuMsgId)
 {
-	ULONGLONG TickCount = 0;
-
-	if (mbStop != FALSE)
-		return 0;
-
+	ULONG luIndex, luCount;
 	if (WaitForSingleObject(mhMutex, INFINITE) != WAIT_OBJECT_0)
-		return 0;
+		return;
 
 	do
 	{
-		if(mpQueueHead == NULL || mpMsgBuffer == NULL)
-			break;
-
 		if (mpQueueHead->MsgCount == 0 || mpQueueHead->FirstMsg >= mpQueueHead->MsgCapacity)
+		{
 			break;
+		}
 
-		CEiMsgMessage& nrMsg = mpMsgBuffer[mpQueueHead->FirstMsg];
+		luIndex = mpQueueHead->FirstMsg;
+		luCount = mpQueueHead->MsgCount;
 
-		TickCount = nrMsg.GetElapsedTick();
+		while (luCount > 0)
+		{
+			if (mpMsgBuffer[luIndex].IsTypeOf(nuMsgId) != false)
+				mpMsgBuffer[luIndex].Recall();
 
+			luIndex = ((luIndex + 1) % mpQueueHead->MsgCapacity);
+			luCount--;
+		}
 	} while (false);
 
 	ReleaseMutex(mhMutex);
-
-	return TickCount;
 }
-
 
 // 获取消息数
 template<class CEiMsgMessage>
@@ -343,33 +296,64 @@ void CEiMsgQueue<CEiMsgMessage>::RealseQueue(void)
 }
 
 
-
-
 // 监听类，初始化后，自动建立一个监听线程，当有消息到来时，会调用初始化时设立的回调函数
 template<class CEiMsgMessage>
 class CEiMsgQueueListener
 {
 typedef void (__stdcall *PEI_MSG_LISTENER)(CEiMsgMessage& nrMsg,void* npContext);
+typedef void (__stdcall *PEI_RECIVE_LISTENER)(const char* npData, ULONG nSize, void* npContext);
+
+typedef struct _READ_THREAD_INFO
+{
+	CEiMsgQueueListener<CEiMsgMessage>* mpListener;
+	HANDLE mhNamedPip;
+	HANDLE mhThread;
+	BOOL mbAlive;
+}READ_THREAD_INFO;
+
 private:
+	wchar_t musPipeName[MAX_PATH];
+	ULONG muReadBufferLenth;
+
+	PEI_RECIVE_LISTENER mpReciveCallBack;
 	PEI_MSG_LISTENER mpCallBack;
 	void* mpContext;
 	HANDLE mhListenerThread;
+	HANDLE mhDispatchThread;
+	std::vector<READ_THREAD_INFO*> mvReadThread;
+	std::map<ULONG, ULONGLONG> mmTickCountReciveFromApp;
+
 	CEiMsgQueue<CEiMsgMessage> moQueue;
-	
-	static ULONG WINAPI Listener(CEiMsgQueueListener<CEiMsgMessage>* npThis);
+
+	static ULONG WINAPI ListenThread(CEiMsgQueueListener<CEiMsgMessage>* npThis);
+	static ULONG WINAPI DispatchThread(CEiMsgQueueListener<CEiMsgMessage>* npThis);
+	static ULONG WINAPI ReadPipeThread(READ_THREAD_INFO* npThread);
 
 public:
 	CEiMsgQueueListener() {
+		_wcsnset_s(musPipeName, MAX_PATH, 0, MAX_PATH);
+		muReadBufferLenth = RECIVE_DATA_BUFFER_LENGTH;
 		mhListenerThread = NULL;
+		mhDispatchThread = NULL;
+		mvReadThread.clear();
 	}
-	~CEiMsgQueueListener(){}
+
+	~CEiMsgQueueListener() {
+		for (auto threadInfo : mvReadThread)
+		{
+			CancelIoEx(threadInfo->mhNamedPip, NULL);
+			CloseHandle(threadInfo->mhNamedPip);
+			WaitForSingleObject(threadInfo->mhThread, INFINITE);
+			delete threadInfo;
+		}
+	}
 
 	// 监听初始化
 	ULONG CreateListener(
-		const wchar_t* nusMutexName, 
-		const wchar_t* nusSemaphoreName,
+		const wchar_t* nusPipeName,
 		void* npBuffer,
 		ULONG nuBufferSize,
+		PEI_RECIVE_LISTENER npReciveCallBack,
 		PEI_MSG_LISTENER npCallBack,
 		void* npContext
 	);
@@ -385,43 +369,172 @@ public:
 	// 召回发送给自身监听线程的一类消息，将队列中此类消息全部撤回
 	// 如果调用此函数，需要CEiMsgMessage实现bool IsTypeOf(const CEiMsgMessage& nrRefTo)函数，改函数返回true表示同类，返回false表示非同类
 	// 当一个消息被撤回时，会调用CEiMsgMessage的Recall()函数，请在该函数内实现对消息撤回操作
-	void Recall(
-		const CEiMsgMessage& nrMsg
-	)
+	void Recall(const CEiMsgMessage& nrMsg)
 	{
 		moQueue.Recall(nrMsg);
 	}
 
+	void Recall(const ULONG& nuMsgId)
+	{
+		moQueue.Recall(nuMsgId);
+	}
 
+	// 监听连接命名管道
+	ULONG DoListen();
+
+	// 创建读数据命名管道
+	ULONG CreateReadPipe(HANDLE &nhPipe);
+
+	// 从命名管道读数据
+	ULONG ReadPipe(READ_THREAD_INFO*);
+
+	// 更新从APP接收消息的时间戳
+	void UpdateTickCountWithAppId(ULONG nuAppId)
+	{
+		mmTickCountReciveFromApp[nuAppId] = GetTickCount64();
+	}
+
+	// 获得当前未取走的最早一条消息已发出时间，单位为毫秒
+	ULONGLONG GetMaxElapsedTimeOfMsg(ULONG nuAppId) {
+		auto itr = mmTickCountReciveFromApp.find(nuAppId);
+		if (itr != mmTickCountReciveFromApp.end())
+			return GetTickCount64() - mmTickCountReciveFromApp[nuAppId];
+		else
+			return 0;
+	}
 };
 
 template<class CEiMsgMessage>
 ULONG CEiMsgQueueListener<CEiMsgMessage>::CreateListener(
-	const wchar_t* nusMutexName,
-	const wchar_t* nusSemaphoreName,
+	const wchar_t* nusPipeName,
 	void* npBuffer,
 	ULONG nuBufferSize,
+	PEI_RECIVE_LISTENER npReciveCallBack,
 	PEI_MSG_LISTENER npCallBack,
 	void* npContext
 	)
 {
-	ULONG luResult = moQueue.CreateQueue(nusMutexName, nusSemaphoreName, npBuffer, nuBufferSize, TRUE);
+	wcscpy_s(musPipeName, MAX_PATH, nusPipeName);
+	
+	ULONG luResult = moQueue.CreateQueue(npBuffer, nuBufferSize);
 	if (luResult != ERROR_SUCCESS)
 		return luResult;
 
 	// 启动监听线程
+	mpReciveCallBack = npReciveCallBack;
 	mpCallBack = npCallBack;
 	mpContext = npContext;
 
-	mhListenerThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Listener, (LPVOID)this, 0, NULL);
+	mhListenerThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ListenThread, (LPVOID)this, 0, NULL);
 	if (mhListenerThread == NULL)
+		return GetLastError();
+
+	mhDispatchThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)DispatchThread, (LPVOID)this, 0, NULL);
+	if (mhDispatchThread == NULL)
 		return GetLastError();
 
 	return ERROR_SUCCESS;
 }
 
 template<class CEiMsgMessage>
-ULONG WINAPI CEiMsgQueueListener<CEiMsgMessage>::Listener(CEiMsgQueueListener<CEiMsgMessage>* npThis)
+ULONG WINAPI CEiMsgQueueListener<CEiMsgMessage>::ListenThread(CEiMsgQueueListener<CEiMsgMessage>* npThis)
+{
+	return npThis->DoListen();
+}
+
+template<class CEiMsgMessage>
+ULONG CEiMsgQueueListener<CEiMsgMessage>::DoListen()
+{
+	try
+	{
+		while (TRUE)
+		{
+			//创建命名管道等待client端连接
+			HANDLE hPipe = INVALID_HANDLE_VALUE;
+			if (CreateReadPipe(hPipe) == ERROR_SUCCESS)
+			{
+				if (ConnectNamedPipe(hPipe, NULL))
+				{
+					//移除不再活跃的接收数据线程
+					auto itr = mvReadThread.begin();
+					while (itr != mvReadThread.end())
+					{
+						if (!(*itr)->mbAlive)
+						{
+							CloseHandle((*itr)->mhNamedPip);
+							itr = mvReadThread.erase(itr);
+						}
+						else
+							itr++;
+					}
+
+					READ_THREAD_INFO* pReadThread = new READ_THREAD_INFO();
+					pReadThread->mpListener = this;
+					pReadThread->mhNamedPip = hPipe;
+
+
+					HANDLE hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ReadPipeThread, (LPVOID)pReadThread, 0, NULL);
+					if (hThread != NULL)
+					{
+						pReadThread->mhThread = hThread;
+						pReadThread->mbAlive = TRUE;
+
+						mvReadThread.push_back(pReadThread);
+					}
+					else
+					{
+						delete pReadThread;
+						CloseHandle(hPipe);
+					}
+				}
+				else
+				{
+					CloseHandle(hPipe);
+				}
+			}
+		}
+	}
+	catch (...)
+	{
+		OutputDebugString(L"CEiMsgQueueListener -- DoListen exception\n");
+		//Log exception
+	}
+
+	return ERROR_SUCCESS;
+}
+
+template<class CEiMsgMessage>
+ULONG CEiMsgQueueListener<CEiMsgMessage>::CreateReadPipe(HANDLE &nhPipe)
+{
+	//需要设置权限，否则服务创建的对象，普通进程无法打开
+	SECURITY_DESCRIPTOR lsd;
+	InitializeSecurityDescriptor(&lsd, SECURITY_DESCRIPTOR_REVISION);
+	SetSecurityDescriptorDacl(&lsd, TRUE, (PACL)NULL, FALSE);
+	SECURITY_ATTRIBUTES	lsa;
+	lsa.nLength = sizeof(SECURITY_ATTRIBUTES);
+	lsa.bInheritHandle = TRUE;
+	lsa.lpSecurityDescriptor = &lsd;
+
+	nhPipe = CreateNamedPipe(
+		musPipeName,
+		PIPE_ACCESS_INBOUND,
+		PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT | PIPE_REJECT_REMOTE_CLIENTS,
+		PIPE_UNLIMITED_INSTANCES,
+		0,
+		muReadBufferLenth,
+		NMPWAIT_USE_DEFAULT_WAIT,
+		&lsa);
+
+	if (INVALID_HANDLE_VALUE == nhPipe)
+	{
+		return GetLastError();
+	}
+
+	return ERROR_SUCCESS;
+}
+
+template<class CEiMsgMessage>
+ULONG WINAPI CEiMsgQueueListener<CEiMsgMessage>::DispatchThread(CEiMsgQueueListener<CEiMsgMessage>* npThis)
 {
 	ULONG luResult;
 	CEiMsgMessage loMsg;
@@ -446,6 +559,47 @@ ULONG WINAPI CEiMsgQueueListener<CEiMsgMessage>::Listener(CEiMsgQueueListener<CE
 	return ERROR_SUCCESS;
 }
 
+template<class CEiMsgMessage>
+ULONG WINAPI CEiMsgQueueListener<CEiMsgMessage>::ReadPipeThread(READ_THREAD_INFO* npThread)
+{
+	return npThread->mpListener->ReadPipe(npThread);
+}
+
+template<class CEiMsgMessage>
+ULONG CEiMsgQueueListener<CEiMsgMessage>::ReadPipe(READ_THREAD_INFO* npThread)
+{
+	char* pBuffer = new char[muReadBufferLenth];
+	DWORD dwNumOfBytes;
+
+	BOOL fSuccess = FALSE;
+	do
+	{
+		dwNumOfBytes = 0;
+
+		fSuccess = ReadFile(
+			npThread->mhNamedPip,    // pipe handle 
+			pBuffer,    // buffer to receive reply 
+			muReadBufferLenth,  // size of buffer
+			&dwNumOfBytes,  // number of bytes read 
+			NULL);    // not overlapped 
+
+		if (!fSuccess)
+		{
+			delete[] pBuffer;
+			pBuffer = NULL;
+			
+			break;
+		}
+
+		mpReciveCallBack(pBuffer, dwNumOfBytes, mpContext);
+
+	} while (fSuccess);
+
+	npThread->mbAlive = FALSE;
+
+	return ERROR_SUCCESS;
+}
+
 // 停止监听
 template<class CEiMsgMessage>
 ULONG CEiMsgQueueListener<CEiMsgMessage>::Stop(void)
@@ -455,47 +609,130 @@ ULONG CEiMsgQueueListener<CEiMsgMessage>::Stop(void)
 	return ERROR_SUCCESS;
 }
 
-
 // 消息连接器，用于连接到消息通道，而后就可以给消息通道发送消息了
 template<class CEiMsgMessage>
 class CEiMsgQueueConnector
 {
 private:
-	CEiMsgQueue<CEiMsgMessage> moQueue;
+	HANDLE mhPipe;
+	ULONGLONG mluLastSendTickCount;
 
 public:
 	CEiMsgQueueConnector() {
+		mhPipe = INVALID_HANDLE_VALUE;
+		mluLastSendTickCount = GetTickCount64();
 	}
 	~CEiMsgQueueConnector() {
+		if (mhPipe != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(mhPipe);
+		}
+	}
+
+	HANDLE GetPipeHandle() {
+		return mhPipe;
 	}
 
 	// 连接器初始化
-	ULONG CreateConnector(
-		const wchar_t* nusMutexName,
-		const wchar_t* nusSemaphoreName,
-		void* npBuffer,
-		ULONG nuBufferSize
-	) {
-		return moQueue.CreateQueue(nusMutexName, nusSemaphoreName, npBuffer, nuBufferSize, FALSE);
-	}
-
-	// 插入一条消息
-	ULONG PostMsg(const CEiMsgMessage& ncrMsg) {
-		return moQueue.Push(ncrMsg);
-	}
-
-	// 撤回一类消息，将队列中此类消息全部撤回
-	// 如果调用此函数，需要CEiMsgMessage实现bool IsTypeOf(const CEiMsgMessage& nrRefTo)函数，改函数返回true表示同类，返回false表示非同类
-	// 当一个消息被撤回时，会调用CEiMsgMessage的Recall()函数，请在该函数内实现对消息撤回操作
-	void Recall(
-		const CEiMsgMessage& nrMsg
-	)
+	ULONG CreateConnector(const wchar_t* nusPipeName)
 	{
-		moQueue.Recall(nrMsg);
+		WORD wTryTimes = 0;
+		do
+		{
+			if (WaitNamedPipe(nusPipeName, INFINITE))
+			{
+				mhPipe = CreateFile(
+					nusPipeName,
+					GENERIC_WRITE,
+					0,
+					NULL,
+					OPEN_EXISTING,
+					0,
+					NULL);
+
+				if (mhPipe != INVALID_HANDLE_VALUE)
+				{
+					DWORD dwMode = PIPE_READMODE_MESSAGE;
+					BOOL fSuccess = SetNamedPipeHandleState(
+						mhPipe,    // pipe handle 
+						&dwMode,  // new pipe mode 
+						NULL,     // don't set maximum bytes 
+						NULL);    // don't set maximum time 
+
+					if (fSuccess)
+					{
+						break;
+					}
+				}
+			}
+			wTryTimes++;
+
+			if (wTryTimes > 2)
+			{
+				return GetLastError();
+			}
+
+		} while (TRUE);
+
+		return ERROR_SUCCESS;
+	}
+
+	// 发送一条消息
+	ULONG PostMsg(const CEiMsgMessage& ncrMsg, const ULONG& nuMsgLen) {
+		mluLastSendTickCount = GetTickCount64();
+
+		if (mhPipe != INVALID_HANDLE_VALUE)
+		{
+			DWORD cbWritten = 0;
+			BOOL fSuccess = WriteFile(
+				mhPipe,                 // pipe handle
+				(LPVOID)&ncrMsg,        // message
+				nuMsgLen,  // message length
+				&cbWritten,             // bytes written
+				NULL);
+
+			if (!fSuccess)
+			{
+				return GetLastError();
+			}
+		}
+		else
+		{
+			return ERROR_INVALID_HANDLE;
+		}
+
+		return ERROR_SUCCESS;
+	}
+
+	// 发送一条消息
+	ULONG PostMsg(const char* nsData, DWORD dwDataLength) {
+		mluLastSendTickCount = GetTickCount64();
+
+		if (mhPipe != INVALID_HANDLE_VALUE)
+		{
+			DWORD cbWritten;
+			BOOL fSuccess = WriteFile(
+				mhPipe,         // pipe handle
+				(LPVOID)nsData, // message
+				dwDataLength,   // message length
+				&cbWritten,     // bytes written
+				NULL);
+
+			if (!fSuccess)
+			{
+				return GetLastError();
+			}
+		}
+		else
+		{
+			return ERROR_INVALID_HANDLE;
+		}
+
+		return ERROR_SUCCESS;
 	}
 
 	// 获得当前未取走的最早一条消息已发出时间，单位为毫秒
 	ULONGLONG GetMaxElapsedTimeOfMsg(void){
-		return moQueue.GetMaxElapsedTimeOfMsg();
+		return GetTickCount64() - mluLastSendTickCount;
 	}
 };

@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #pragma once
 
 
@@ -11,16 +7,16 @@ DECLARE_BUILTIN_NAME(System_SelectPoint)
 #define SF_POINT_MAX 8	//最大点个数
 
 class CSelectPoint :
-	public CXuiElement<CSelectPoint,GET_BUILTIN_NAME(System_SelectPoint)>
+	public CXuiElement<CSelectPoint, GET_BUILTIN_NAME(System_SelectPoint)>
 {
-	friend CXuiElement<CSelectPoint,GET_BUILTIN_NAME(System_SelectPoint)>;
+	friend CXuiElement<CSelectPoint, GET_BUILTIN_NAME(System_SelectPoint)>;
 
 public:
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent = NULL,	// 父对象指针
 		IN ICfKey* npTemplete = NULL,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=0					// 如果不为0，则指定该元素的EID，否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动那个分配
-		) ;
+		IN ULONG nuEID = 0					// 如果不为0，则指定该元素的EID，否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动那个分配
+	);
 
 protected:
 	CSelectPoint(void);

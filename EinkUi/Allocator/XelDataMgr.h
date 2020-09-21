@@ -63,7 +63,7 @@ public:
 		if(mswDllPath == NULL)
 			return false;
 
-		RtlCopyMemory(mswDllPath,nswDllPath,liSize*sizeof(wchar_t));
+		memcpy_s(mswDllPath, liSize * sizeof(wchar_t), nswDllPath, liSize * sizeof(wchar_t));
 
 		return true;
 	}

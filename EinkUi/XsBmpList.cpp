@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 
 #include "CommonHeader.h"
@@ -9,7 +5,7 @@
 #include "XsBmpList.h"
 
 
-int gliCount=0; // ??? for test
+int gliCount = 0; // ??? for test
 
 void CXsBmpList::RegisteBitmap(IEinkuiBitmap* npBmpIntf)
 {
@@ -36,7 +32,7 @@ void CXsBmpList::ReleaseDeviceResource(void)
 
 	TEBitmapTree::iterator itr;
 
-	for(itr = moBitmaps.Begin();itr != moBitmaps.End();itr++)
+	for (itr = moBitmaps.Begin(); itr != moBitmaps.End(); itr++)
 	{
 		if ((*itr) != NULL)
 		{

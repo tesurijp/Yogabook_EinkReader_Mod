@@ -417,13 +417,13 @@ FLOAT __stdcall CEinkuiSystem::GetDpiY(void)
 }
 
 // 启用画板，当主程序装载完成后，调用这个函数启用画板；在此之前画板并不会绘制出实际图像，以避免启动不完整时，Eink屏幕多次闪动
-ERESULT __stdcall CEinkuiSystem::EnablePaintboard(void)
+ERESULT __stdcall CEinkuiSystem::EnablePaintboard(bool nbIsDisable)
 {
 	ERESULT luResult = ERESULT_NOT_INITIALIZED;
 
 	if (mpXuiGraphics != NULL)
 	{
-		mpXuiGraphics->StopPainting(false);
+		mpXuiGraphics->StopPainting(nbIsDisable);
 		luResult = ERESULT_SUCCESS;
 	}
 

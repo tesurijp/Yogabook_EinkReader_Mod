@@ -11,6 +11,12 @@
 
 DECLARE_BUILTIN_NAME(ZoomControlToolbar)
 
+#define ZC_BT_AUTO_ZOOM 106
+#define ZC_BT_DEFAULT 107
+#define ZC_BT_ADD 109
+#define ZC_BT_SUB 108
+#define ZC_BT_RESET_ZOOM 111
+
 #define ZC_MAX_ZOOM 64 //最多可以放大几级，0是100%
 
 class CZoomControlToolbar:
@@ -29,7 +35,14 @@ public:
 	void initData(void);
 
 	// 设置当前的Fat放大倍率
-	void SetFatRatio(float fatRatio);
+	void SetFatRatio(double fatRatio);
+	//进入缩放状态
+	void EnterZoomStatus(int scaleLevel = 0);
+	//按照自适应缩放比例，对应到合适的缩放等级
+	float AjustAutoZoomLevel(float ratio);
+	void EnableAutoZoomButton(bool enable);
+	//设置显示比例
+	void SetRatioString(double ratio);
 
 protected:
 	CZoomControlToolbar(void);
@@ -55,20 +68,15 @@ private:
 	IEinkuiIterator* mpIterBtAdd;
 	IEinkuiIterator* mpIterBtSub;
 	int mlCurrentZoomLevel; //当前放大级别，默认0级
-//	float mfZoom[ZC_MAX_ZOOM];
-	cmmVector<float> mfZoom;
-	int miFatRatioInx;
-	//int miMaxRatioInx;
-	IEinkuiIterator* mpIterBtDefault;
+	cmmVector<double> mfZoom;
+
+	double mfFatRatio;
+
+	IEinkuiIterator* mpIterBtAutoZoom;	//自适应
+	IEinkuiIterator* mpIterBtResetZoom;	//恢复缩放
 
 	//设置放大级别
 	void SetLevel(bool nbIsAdd);
 	//设置显示比例
 	void SetString(ULONG nulLevel);
 };
-
-#define ZC_BT_CLOSE 106
-#define ZC_BT_DEFAULT 107
-#define ZC_BT_ADD 109
-#define ZC_BT_SUB 108
-#define ZC_BT_SNAP 111

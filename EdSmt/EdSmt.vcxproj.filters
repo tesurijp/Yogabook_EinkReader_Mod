@@ -75,6 +75,12 @@
     <ClInclude Include="EngineOverride.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Thumb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm\cmmPath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="smtDocument.cpp">
@@ -132,6 +138,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PdfEngineOverride.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Thumb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm\cmmPath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

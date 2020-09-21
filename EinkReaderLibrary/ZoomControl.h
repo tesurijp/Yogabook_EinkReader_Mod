@@ -82,8 +82,5 @@ private:
 
 #define ZC_TIMER_ID_HIDE 1
 
-#define ZC_BT_UP 101
-#define ZC_BT_DOWN 102
-#define ZC_BT_LEFT 103
-#define ZC_BT_RIGHT 104
+
 

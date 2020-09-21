@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef		__EVTOOLPANEIMP_H__
 #define		__EVTOOLPANEIMP_H__
 

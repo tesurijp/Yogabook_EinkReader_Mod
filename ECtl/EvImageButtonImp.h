@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef		__EVIMAGEBUTTONIMP_H__
 #define		__EVIMAGEBUTTONIMP_H__
 
@@ -15,7 +11,7 @@
 
 DECLARE_BUILTIN_NAME(ImageButton)
 
-class CEvImageButton:
+class CEvImageButton :
 	public CXuiElement<CEvImageButton, GET_BUILTIN_NAME(ImageButton)>
 {
 	friend CXuiElement<CEvImageButton, GET_BUILTIN_NAME(ImageButton)>;
@@ -46,8 +42,8 @@ public:
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent = NULL,	// 父对象指针
 		IN ICfKey* npTemplete = NULL,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		) ;
+		IN ULONG nuEID = MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 protected:
 	// 只用于变量设置初始值，如指针设为NULL，所有可能失败的如分配之类的运算都应该在InitOnCreate中进行
@@ -104,12 +100,12 @@ private:
 
 	CEvPictureFrame*	mpLeftPicture;
 	CEvPictureFrame*	mpRightPicture;
-		
+
 	IEinkuiBitmap*			mpBitmapSelectOrOver;		//选中或者滑过的背景
 	bool				mbIsMouseFocus;				//是否拥有鼠标焦点
 	bool				mbIsKeyboardFocus;			//是否拥有键盘焦点
 	bool				mbIsPressed;				//是否被按下
-	
+
 
 	int					mnStyle;					//ImageButton风格  0:uncheckable   1:checkable 
 

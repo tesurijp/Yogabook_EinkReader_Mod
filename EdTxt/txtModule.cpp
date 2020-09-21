@@ -70,8 +70,7 @@ const char16_ptr CEdtxtModule::GetTypeName(int32 index)
 // ´ò¿ªÎÄµµ
 ED_ERR CEdtxtModule::OpenDocument(
 	IN char16* pathName,
-	OUT IEdDocument_ptr* documentPtrPtr,
-	IN int32 asType // -1 not indicated
+	OUT IEdDocument_ptr* documentPtrPtr
 )
 {
 	if (pathName == NULL || pathName[0] == 0 || documentPtrPtr == NULL)

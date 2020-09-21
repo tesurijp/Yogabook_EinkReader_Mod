@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef		__EVCOMBOBOXIMP_H__
 #define		__EVCOMBOBOXIMP_H__
 
@@ -17,18 +13,18 @@
 
 
 DECLARE_BUILTIN_NAME(ComboBox)
-class CEvComboBox:
-	public CXuiElement<CEvComboBox ,GET_BUILTIN_NAME(ComboBox)>
+class CEvComboBox :
+	public CXuiElement<CEvComboBox, GET_BUILTIN_NAME(ComboBox)>
 {
-	friend CXuiElement<CEvComboBox ,GET_BUILTIN_NAME(ComboBox)>;
+	friend CXuiElement<CEvComboBox, GET_BUILTIN_NAME(ComboBox)>;
 
 public:
 
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent = NULL,	// 父对象指针
 		IN ICfKey* npTemplete = NULL,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		) ;
+		IN ULONG nuEID = MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 protected:
 	// 只用于变量设置初始值，如指针设为NULL，所有可能失败的如分配之类的运算都应该在InitOnCreate中进行
@@ -72,7 +68,7 @@ private:
 	bool SetItemEnable(int nID);
 	bool SetItemDisable(int nID);
 
-	
+
 
 private:
 
@@ -80,7 +76,7 @@ private:
 
 public:
 
-	struct ComboMenuItem 
+	struct ComboMenuItem
 	{
 		int			mnID;
 		wchar_t	mpText[BUF_SIZE];
@@ -94,7 +90,7 @@ private:
 	CEvEditImp*			mpCurrentItemEdit;			//组合框中当前项（编辑模式）
 	CEvButton*			mpCurrentItemButton;		//组合框中当前项（非编辑模式）
 	CEvImageButton*		mpDropDownButton;			//组合框中的下拉按钮
-	
+
 	//wchar_t*			mpCurItem;					//当前选中项的文本
 
 	//ULONG				mpNumItem;					//项的个数
@@ -108,7 +104,7 @@ private:
 
 	cmmVector<ComboMenuItem>	mpVecComboMenuItem;
 
-	COMBOBOX_MSG			mMsgInfo;	
+	COMBOBOX_MSG			mMsgInfo;
 
 	//控件消息
 	TOOLBAR_MSG			mToolbarMsgInfo;

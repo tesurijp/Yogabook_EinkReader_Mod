@@ -1,14 +1,10 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #pragma once
 
 
 //////////////////////////////////////////////////////////////////////////
 // 元素管理器代理元素，它接受所有发送给元素管理器的消息
 DECLARE_BUILTIN_NAME(CEleMgrProxy)
-class CEleMgrProxy: public cmmBaseObject<CEleMgrProxy,IXsElement,GET_BUILTIN_NAME(CEleMgrProxy)>
+class CEleMgrProxy : public cmmBaseObject<CEleMgrProxy, IXsElement, GET_BUILTIN_NAME(CEleMgrProxy)>
 {
 public:
 	// 获得本元素的元素类型
@@ -29,7 +25,7 @@ public:
 	}
 
 	// 获得Z Order，-1 未设置
-	virtual LONG __stdcall GetZOrder(void){
+	virtual LONG __stdcall GetZOrder(void) {
 		return 0;
 	}
 

@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
 #include "cmmstruct.h"
@@ -15,10 +11,10 @@
 
 #include "FactoryImp.h"
 
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-					 )
+BOOL APIENTRY DllMain(HMODULE hModule,
+	DWORD  ul_reason_for_call,
+	LPVOID lpReserved
+)
 {
 	switch (ul_reason_for_call)
 	{

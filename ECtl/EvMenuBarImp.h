@@ -1,21 +1,17 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #pragma once
 
 DECLARE_BUILTIN_NAME(MenuBar)
 
-class CEvMenuBar:
+class CEvMenuBar :
 	public CXuiElement<CEvMenuBar, GET_BUILTIN_NAME(MenuBar)>
 {
-	friend CXuiElement<CEvMenuBar,GET_BUILTIN_NAME(MenuBar)>;
+	friend CXuiElement<CEvMenuBar, GET_BUILTIN_NAME(MenuBar)>;
 public:
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent = NULL,	// 父对象指针
 		IN ICfKey* npTemplete = NULL,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		);
+		IN ULONG nuEID = MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 protected:
 	CEvMenuBar(void);

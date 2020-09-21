@@ -9,14 +9,26 @@
 #include "cmmStrHandle.h"
 #include "cmmPath.h"
 #include "MsgDefine.h"
+#include "ReaderBaseFrame.h"
+
 
 DEFINE_BUILTIN_NAME(ToolbarH)
 
 CToolbarH::CToolbarH(void)
 {
 	mpIterBackground = NULL;
+	mpIterBtThumbnail = NULL;
 	mbIsTwoScreen = false;
-	mbIsTxt = false;
+	//mbIsLCDClose = true;
+	miDocType = -1;
+	mpMenuTxt = NULL;
+	mpMenuPdf = NULL;
+	mpMenuEpubMobi = NULL;
+	miCurrentPageInkCount = 0;
+	mdwAttrib = 0;
+	mbIsHScreen = false;
+	mpEditToolbar = NULL;
+	mulScreenOritent = 10;
 }
 
 
@@ -44,6 +56,7 @@ ERESULT CToolbarH::OnElementCreate(IEinkuiIterator* npIterator)
 
 	return lResult;
 }
+
 
 // 鼠标落点检测
 ERESULT CToolbarH::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
@@ -77,34 +90,25 @@ ULONG CToolbarH::InitOnCreate(
 
 
 		//获取对像句柄
-		mpIterPage = mpIterator->GetSubElementByID(7);
-		BREAK_ON_NULL(mpIterPage);
-		
-		mpIterFileName = mpIterator->GetSubElementByID(6);
-		BREAK_ON_NULL(mpIterFileName);
-
 		mpIterBtFileOpen = mpIterator->GetSubElementByID(TBH_BT_OPEN_FILE);
 		BREAK_ON_NULL(mpIterBtFileOpen);
 
+		mpIterBtThumbnail = mpIterator->GetSubElementByID(TBH_BT_THUMBNAIL);
+		BREAK_ON_NULL(mpIterBtThumbnail);
+
+
 		mpIterBackground = mpIterator->GetSubElementByID(1);
 		BREAK_ON_NULL(mpIterBackground);
+		//mpIterBackground->SetVisible(false);
 		
-		mpIterBtTwo = mpIterator->GetSubElementByID(TBH_BT_TWO);
-		BREAK_ON_NULL(mpIterBtTwo);
-		mpIterBtTwo->SetVisible(false);
+		mpIterBtMore = mpIterator->GetSubElementByID(TBH_BT_MORE);
+		BREAK_ON_NULL(mpIterBtMore);
 
-		mpIterBtJump = mpIterator->GetSubElementByID(TBH_BT_JUMP);
-		BREAK_ON_NULL(mpIterBtJump);
-
-		mpIterBtSnap = mpIterator->GetSubElementByID(TBH_BT_SNAPSHOT);
-		BREAK_ON_NULL(mpIterBtSnap);
-
-		mpIterBtSuofang = mpIterator->GetSubElementByID(TBH_BT_ZOOM);
-		BREAK_ON_NULL(mpIterBtSuofang);
-
-		mpIterBtOne = mpIterator->GetSubElementByID(TBH_BT_ONE_PIC);
-		BREAK_ON_NULL(mpIterBtOne);
-		mpIterBtOne->SetVisible(false);
+		//编辑工具栏
+		lpSubKey = mpTemplete->OpenKey(L"EditToolbar");
+		mpEditToolbar = CEditToolbar::CreateInstance(mpIterator, lpSubKey);
+		CMM_SAFE_RELEASE(lpSubKey);
+		BREAK_ON_NULL(mpEditToolbar);
 
 		leResult = ERESULT_SUCCESS;
 
@@ -114,6 +118,209 @@ ULONG CToolbarH::InitOnCreate(
 
 	// 向系统注册需要收到的消息
 	return leResult;
+}
+
+//txt的更多菜单
+void CToolbarH::ShowTxtMoreMenu()
+{
+	if (mpMenuTxt != NULL)
+	{
+		mpMenuTxt->ExitModal();
+		mpMenuTxt = NULL;
+	}
+
+	ICfKey* lpSubKey = mpTemplete->OpenKey(L"MenuTxt");
+	mpMenuTxt = CMenuTxt::CreateInstance(mpIterator, lpSubKey);
+	EI_SIZE ldPaintSize;
+	EinkuiGetSystem()->GetPaintboardSize(&ldPaintSize);
+	mpMenuTxt->GetIterator()->SetSize(float(ldPaintSize.w), float(ldPaintSize.h));
+	mpMenuTxt->SetTxtFontSizeIndex(mdwTxtFontSizeIndex);
+	mpMenuTxt->SetScreenOritent(mulScreenOritent);
+	//mpMenuTxt->SetLCDButton(mbIsLCDClose);
+	mpMenuTxt->DoModal();
+
+	CMM_SAFE_RELEASE(lpSubKey);
+	mpMenuTxt = NULL;
+}
+
+//pdf的更多菜单
+void CToolbarH::ShowPDFMoreMenu()
+{
+	if (mpMenuPdf != NULL)
+	{
+		mpMenuPdf->ExitModal();
+		mpMenuPdf = NULL;
+	}
+
+	ICfKey* lpSubKey = mpTemplete->OpenKey(L"MenuPDF");
+	mpMenuPdf = CMenuPdf::CreateInstance(mpIterator, lpSubKey);
+	EI_SIZE ldPaintSize;
+	EinkuiGetSystem()->GetPaintboardSize(&ldPaintSize);
+	mpMenuPdf->GetIterator()->SetSize(float(ldPaintSize.w), float(ldPaintSize.h));
+
+	auto zoomStatus = ((CReaderBaseFrame*)GetIterator()->GetParent()->GetElementObject())->GetZoomStatus();
+	mpMenuPdf->SetPageTwo(mbIsTwoScreen, mbIsHScreen && (zoomStatus != ZoomStatus::AUTO_ZOOM));
+
+	mpMenuPdf->SetScreenOritent(mulScreenOritent);
+	mpMenuPdf->SetCurrentPageInkCount(miCurrentPageInkCount);
+	//mpMenuPdf->SetLCDButton(mbIsLCDClose);
+
+	//弹出菜单时就关闭输入
+	CExMessage::SendMessage(EinkuiGetSystem()->GetCurrentWidget()->GetHomePage(), mpIterator, EEVT_HIDE_HIGHLIGHT, CExMessage::DataInvalid);
+
+	ULONG lulOldMode = PEN_MODE_NONE;
+	CExMessage::SendMessage(EinkuiGetSystem()->GetCurrentWidget()->GetHomePage(), mpIterator, EEVT_PEN_MODE, PEN_MODE_NONE,&lulOldMode,sizeof(ULONG));
+	mpMenuPdf->DoModal();
+	if(lulOldMode != PEN_MODE_NONE)
+		CExMessage::SendMessage(EinkuiGetSystem()->GetCurrentWidget()->GetHomePage(), mpIterator, EEVT_PEN_MODE, lulOldMode);
+
+	CMM_SAFE_RELEASE(lpSubKey);
+	mpMenuPdf = NULL;
+}
+
+//epub/mobi的更多菜单
+void CToolbarH::ShowEpubMobiMoreMenu()
+{
+	if (mpMenuEpubMobi != NULL)
+	{
+		mpMenuEpubMobi->ExitModal();
+		mpMenuEpubMobi = NULL;
+	}
+
+	ICfKey* lpSubKey = mpTemplete->OpenKey(L"MenuEpub");
+	mpMenuEpubMobi = CMenuEpubMobi::CreateInstance(mpIterator, lpSubKey);
+	EI_SIZE ldPaintSize;
+	EinkuiGetSystem()->GetPaintboardSize(&ldPaintSize);
+	mpMenuEpubMobi->GetIterator()->SetSize(float(ldPaintSize.w), float(ldPaintSize.h));
+	mpMenuEpubMobi->SetPageTwo(mbIsTwoScreen, mbIsHScreen);
+	mpMenuEpubMobi->SetScreenOritent(mulScreenOritent);
+	//mpMenuEpubMobi->SetLCDButton(mbIsLCDClose);
+	mpMenuEpubMobi->DoModal();
+
+	CMM_SAFE_RELEASE(lpSubKey);
+	mpMenuEpubMobi = NULL;
+
+}
+
+void CToolbarH::HideMoreMenu()
+{
+	if (mpMenuEpubMobi != nullptr)
+	{
+		mpMenuEpubMobi->ExitModal();
+		mpMenuEpubMobi = nullptr;
+	}
+
+	if (mpMenuPdf != nullptr)
+	{
+		mpMenuPdf->ExitModal();
+		mpMenuPdf = nullptr;
+	}
+
+	if (mpMenuTxt != nullptr)
+	{
+		mpMenuTxt->ExitModal();
+		mpMenuTxt = nullptr;
+	}
+}
+
+//设置笔状态按钮选中
+void CToolbarH::SetPenStatusSelect(ULONG nulID)
+{
+	if(mpEditToolbar != NULL && nulID != PEN_MODE_NONE)
+		mpEditToolbar->SetSelect(nulID);
+}
+
+//文档加载完成
+void CToolbarH::DocmentLoadComplete(void)
+{
+	
+}
+
+//缩略图加载完成
+void CToolbarH::ThumbnailsLoadComplete(void)
+{
+	if (mpIterBtThumbnail != NULL)
+		mpIterBtThumbnail->SetVisible(miDocType == DOC_TYPE_TXT ? false : true);
+}
+
+//bool CToolbarH::GetBCoverState()
+//{
+//	bool BCoverisLightorNot = mbIsLCDClose;
+//	return BCoverisLightorNot;
+//}
+//根据注册表中BCoverState的值设定是否关闭B面
+//void CToolbarH::SetBCoverState()
+//{
+//	UpdateBCoverState();
+//	EiCloseBCover(!mbIsLCDClose);
+//}
+
+//void CToolbarH::UpdateBCoverState()
+//{
+//	BOOL dwState = true;
+//	DWORD dwresult = 1;
+//	DWORD dwSize = sizeof(DWORD);
+//	HKEY lhKey = NULL;
+//	DWORD ldwRet = RegOpenKeyEx(HKEY_CURRENT_USER, L"Software\\Lenovo\\Eink-PdfReader", NULL, KEY_READ | KEY_WOW64_64KEY, &lhKey);
+//	if (ldwRet == ERROR_SUCCESS)
+//	{
+//		ldwRet = RegQueryValueEx(lhKey, L"BCoverState", NULL, NULL, (LPBYTE)&dwresult, &dwSize);
+//		if (dwresult == 0)
+//		{
+//			dwState = false;
+//		}
+//	}
+//	RegCloseKey(lhKey);
+//	mbIsLCDClose = dwState;
+//}
+
+//设置当前打开的文件类型
+void CToolbarH::SetDoctype(int niType)
+{
+	if(mpIterBtThumbnail != NULL)
+		mpIterBtThumbnail->SetVisible(false);
+
+	if (miDocType != niType)
+	{
+		miDocType = niType;
+
+		if (mpEditToolbar != NULL)
+		{
+			mpEditToolbar->GetIterator()->SetVisible(miDocType == DOC_TYPE_PDF ? true : false);
+			if (miDocType == DOC_TYPE_PDF)
+			{
+				if ((mdwAttrib&FILE_ATTRIBUTE_READONLY) != false)
+				{
+					mpEditToolbar->GetIterator()->SetVisible(false);
+				}				
+			}
+			
+
+		}
+		
+		Relocation();
+	}
+
+	if (mpEditToolbar != NULL && mpEditToolbar->GetIterator()->IsVisible() != false)
+	{
+		mpEditToolbar->init();
+	}
+
+}
+
+//设置文件属性
+void CToolbarH::SetFileAttrib(DWORD ndwAttrib)
+{
+	if (mdwAttrib != ndwAttrib)
+		miDocType = -1;
+
+	mdwAttrib = ndwAttrib;
+}
+
+//获取文件属性
+DWORD CToolbarH::GetFileAttrib(void)
+{
+	return mdwAttrib;
 }
 
 //按钮单击事件
@@ -131,57 +338,75 @@ ERESULT CToolbarH::OnCtlButtonClick(IEinkuiIterator* npSender)
 			//打开文件对话框
 			PostMessageToParent(EEVT_ER_OPEN_FILE, CExMessage::DataInvalid);
 
-			mpIterator->SetVisible(false);
+			//mpIterator->SetVisible(false);
 			break;
 		}
-		case TBH_BT_JUMP:
+		case TBH_BT_THUMBNAIL:
 		{
-			//打开页码对话框
-			PostMessageToParent(EEVT_ER_OPEN_PAGE_JUMP, CExMessage::DataInvalid);
+			//打开文件对话框
+			PostMessageToParent(EEVT_ENTER_THUMBNAIL_DLG, CExMessage::DataInvalid);
 
-			mpIterator->SetVisible(false);
+			//mpIterator->SetVisible(false);
 			break;
 		}
-		case TBH_BT_TWO:
+		case TBH_BT_MORE:
 		{
-			//双屏显示
-			PostMessageToParent(EEVT_ER_TWO_SCREEN, true);
+			//更多菜单
+			if (miDocType == DOC_TYPE_PDF)
+			{
+				if((mdwAttrib&FILE_ATTRIBUTE_READONLY) == false)
+					ShowPDFMoreMenu();
+				else
+					ShowEpubMobiMoreMenu(); //如果文件是只读的，菜单就和epub mobi一样
+			}
+			else if (miDocType == DOC_TYPE_EPUB || miDocType == DOC_TYPE_MOBI)
+				ShowEpubMobiMoreMenu();
+			else if (miDocType == DOC_TYPE_TXT)
+				ShowTxtMoreMenu();
+
+			EinkuiGetSystem()->UpdateView(true);
 			
 
-			SetDuopageButton(true);
-// 			mpIterBtTwo->SetVisible(false);
-// 			mpIterBtOne->SetVisible(true);
-
+			//mpIterator->SetVisible(false);
 			break;
 		}
-		case TBH_BT_ONE_PIC:
-		{
-			//单屏显示
-			PostMessageToParent(EEVT_ER_TWO_SCREEN, false);
+		//case TBH_BT_TWO:
+		//{
+		//	//双屏显示
+		//	PostMessageToParent(EEVT_ER_TWO_SCREEN, true);
+		//	
 
-			SetDuopageButton(false);
-			//mpIterBtTwo->SetVisible(true);
-			//mpIterBtOne->SetVisible(false);
+		//	SetDuopageButton(true);
+		//	break;
+		//}
+		//case TBH_BT_ONE_PIC:
+		//{
+		//	//单屏显示
+		//	PostMessageToParent(EEVT_ER_TWO_SCREEN, false);
 
-			break;
-		}
-		case TBH_BT_ZOOM:
-		{
-			//缩放
-			PostMessageToParent(EEVT_ER_ENTER_ZOOM, true);
+		//	SetDuopageButton(false);
+		//	//mpIterBtTwo->SetVisible(true);
+		//	//mpIterBtOne->SetVisible(false);
 
-			mpIterator->SetVisible(false);
+		//	break;
+		//}
+		//case TBH_BT_ZOOM:
+		//{
+		//	//缩放
+		//	PostMessageToParent(EEVT_ER_ENTER_ZOOM, true);
 
-			break;
-		}
-		case TBH_BT_SNAPSHOT:
-		{
-			//截屏
-			PostMessageToParent(EEVT_ER_ENTER_SNAPSHOT, CExMessage::DataInvalid);
+		//	mpIterator->SetVisible(false);
 
-			mpIterator->SetVisible(false);
-			break;
-		}
+		//	break;
+		//}
+		//case TBH_BT_SNAPSHOT:
+		//{
+		//	//截屏
+		//	PostMessageToParent(EEVT_ER_ENTER_SNAPSHOT, CExMessage::DataInvalid);
+
+		//	mpIterator->SetVisible(false);
+		//	break;
+		//}
 		default:
 			break;
 		}
@@ -193,6 +418,11 @@ ERESULT CToolbarH::OnCtlButtonClick(IEinkuiIterator* npSender)
 	return lResult;
 }
 
+//设置txt字号
+void CToolbarH::SetTxtFontSizeIndex(DWORD ndwIndex)
+{
+	mdwTxtFontSizeIndex = ndwIndex;
+}
 
 //消息处理函数
 ERESULT CToolbarH::ParseMessage(IEinkuiMessage* npMsg)
@@ -207,6 +437,58 @@ ERESULT CToolbarH::ParseMessage(IEinkuiMessage* npMsg)
 		//mpIterator->SetVisible(true);
 		luResult = ERESULT_SUCCESS;
 		break;
+	}
+	case EEVT_ER_ENTER_SNAPSHOT:	
+	{
+		//截屏
+		//PostMessageToParent(EEVT_SHOW_TOOLBAR, false);
+		PostMessageToParent(EEVT_ER_ENTER_SNAPSHOT, CExMessage::DataInvalid);
+		//PostMessageToParent(EEVT_SHOW_TOOLBAR, true);
+
+		break;
+	}
+	case EEVT_ER_SET_TXT_ZOOM:
+	{
+		//设置txt放大
+		luResult = CExMessage::GetInputData(npMsg, mdwTxtFontSizeIndex);
+		if (luResult != ERESULT_SUCCESS)
+			break;
+
+		PostMessageToParent(EEVT_ER_SET_TXT_ZOOM, mdwTxtFontSizeIndex);
+	}
+	case EEVT_ER_TWO_SCREEN:
+	{
+		//单双页
+		luResult = CExMessage::GetInputData(npMsg, mbIsTwoScreen);
+		if (luResult != ERESULT_SUCCESS)
+			break;
+
+		PostMessageToParent(EEVT_ER_TWO_SCREEN, mbIsTwoScreen);
+
+		break;
+	}
+	case EEVT_CLOSE_B_SCREEN:
+	{
+		//关闭或亮起B面
+		//luResult = CExMessage::GetInputData(npMsg, mbIsLCDClose);
+		//if (luResult != ERESULT_SUCCESS)
+		//	break;
+
+		//PostMessageToParent(EEVT_CLOSE_B_SCREEN, mbIsLCDClose);
+
+		break;
+	}
+	case EEVT_SET_SCREEN_STATUS:
+	{
+		//屏幕方向
+		luResult = CExMessage::GetInputData(npMsg, mulScreenOritent);
+		if (luResult != ERESULT_SUCCESS)
+			break;
+
+		PostMessageToParent(EEVT_SET_SCREEN_STATUS, mulScreenOritent);
+
+		break;
+
 	}
 	default:
 		luResult = ERESULT_NOT_SET;
@@ -229,32 +511,44 @@ void CToolbarH::OnTimer(
 
 }
 
-//元素参考尺寸发生变化
-ERESULT CToolbarH::OnElementResized(D2D1_SIZE_F nNewSize)
+//重新定位元素位置
+void CToolbarH::Relocation(void)
 {
-	//CExMessage::SendMessage(mpIterBtFull, mpIterator, EACT_BUTTON_SET_ACTION_RECT, nNewSize);
-	////mpIterLineOne->SetSize(nNewSize.width, mpIterLineOne->GetSize().height);
-
-	//mpIterBtOk->SetPosition(nNewSize.width - 85, mpIterBtOk->GetPositionY());
 	if (mpIterBackground != NULL)
 	{
 		EI_SIZE ldPaintSize;
-		D2D1_SIZE_F ldActionSize;
 
 		EinkuiGetSystem()->GetPaintboardSize(&ldPaintSize);
+		CExMessage::SendMessageWithText(mpIterBackground, mpIterator, EACT_PICTUREFRAME_CHANGE_PIC, L".\\Pic\\toolbar_h.png");
+		mpIterBackground->SetSize((float)ldPaintSize.w, 80.0f);
+
+		D2D1_POINT_2F ldPos;
+		ldPos.y = 0.0f;
+
+		if (mpMenuPdf != NULL)
+			mpMenuPdf->GetIterator()->SetSize(float(ldPaintSize.w), float(ldPaintSize.h));
+		if (mpMenuTxt != NULL)
+			mpMenuTxt->GetIterator()->SetSize(float(ldPaintSize.w), float(ldPaintSize.h));
+		if (mpMenuEpubMobi != NULL)
+			mpMenuEpubMobi->GetIterator()->SetSize(float(ldPaintSize.w), float(ldPaintSize.h));
+
 		if (ldPaintSize.w > ldPaintSize.h)
 		{
 			//横屏
-			CExMessage::SendMessageWithText(mpIterBackground, mpIterator, EACT_PICTUREFRAME_CHANGE_PIC, L".\\Pic\\toolbar_h.png");
-			mpIterBackground->SetSize(1764.0f, 52.0f);
-			D2D1_POINT_2F ldPos;
-			ldPos.y = 0.0f;
+			mbIsHScreen = true;
 
-			//缩放
-			ldPos.x = 1664.0f;
-			mpIterBtSuofang->SetPosition(ldPos);
+			//更多按钮
+			if (miDocType == DOC_TYPE_PDF && (mdwAttrib&FILE_ATTRIBUTE_READONLY) == false)
+				ldPos.x = 1290.0f;
+			else
+				ldPos.x = ldPaintSize.w - mpIterBtMore->GetSizeX() - 120.0f;
 
-			ldPos.x = 1564.0f;
+			mpIterBtMore->SetPosition(ldPos);
+			mpEditToolbar->GetIterator()->SetPosition(630.0f, mpEditToolbar->GetIterator()->GetPositionY());
+
+
+
+			/*ldPos.x = 1564.0f;
 			mpIterBtSnap->SetPosition(ldPos);
 
 			ldPos.x = 1464.0f;
@@ -263,138 +557,123 @@ ERESULT CToolbarH::OnElementResized(D2D1_SIZE_F nNewSize)
 			ldPos.x = 1364.0f;
 			mpIterBtTwo->SetPosition(ldPos);
 			if(mbIsTxt == false && mbIsTwoScreen == false)
-				mpIterBtTwo->SetVisible(true);
+			mpIterBtTwo->SetVisible(true);
 
 			mpIterBtOne->SetPosition(ldPos);
 			if (mbIsTxt == false && mbIsTwoScreen != false)
-				mpIterBtOne->SetVisible(true);
-			
+			mpIterBtOne->SetVisible(true);
+
 			CExMessage::SendMessage(mpIterFileName, mpIterator, EACT_LABEL_SET_MAX_WIDTH, 900);
 
-			ldActionSize.width = 1360.0f; 
-			ldActionSize.height = 52.0f;
-			CExMessage::SendMessage(mpIterBtFileOpen, mpIterator, EACT_BUTTON_SET_ACTION_RECT, ldActionSize);
-			
+			ldActionSize.width = 100.0f;
+			ldActionSize.height = 80.0f;
+			CExMessage::SendMessage(mpIterBtFileOpen, mpIterator, EACT_BUTTON_SET_ACTION_RECT, ldActionSize);*/
+
 		}
 		else
 		{
 			//坚屏
-			CExMessage::SendMessageWithText(mpIterBackground, mpIterator, EACT_PICTUREFRAME_CHANGE_PIC, L".\\Pic\\toolbar_v.png");
-			mpIterBackground->SetSize(924.0f, 52.0f);
-			//缩放
-			D2D1_POINT_2F ldPos;
-			ldPos.y = 0.0f;
-			ldPos.x = 824.0f;
-			mpIterBtSuofang->SetPosition(ldPos);
+			mbIsHScreen = false;
+			
+			//更多按钮
+			if (miDocType == DOC_TYPE_PDF && (mdwAttrib&FILE_ATTRIBUTE_READONLY) == false)
+				ldPos.x = 865.0f;
+			else
+				ldPos.x = ldPaintSize.w - mpIterBtMore->GetSizeX() - 120.0f;
 
-			ldPos.x = 724.0f;
-			mpIterBtSnap->SetPosition(ldPos);
+			mpIterBtMore->SetPosition(ldPos);
+			mpEditToolbar->GetIterator()->SetPosition(230.0f, mpEditToolbar->GetIterator()->GetPositionY());
 
-			ldPos.x = 624.0f;
-			mpIterBtJump->SetPosition(ldPos);
-
-			mpIterBtTwo->SetVisible(false);
-			mpIterBtOne->SetVisible(false);
-
-			CExMessage::SendMessage(mpIterFileName, mpIterator, EACT_LABEL_SET_MAX_WIDTH, 300);
-
-			ldActionSize.width = 620.0f;
-			ldActionSize.height = 52.0f;
-			CExMessage::SendMessage(mpIterBtFileOpen, mpIterator, EACT_BUTTON_SET_ACTION_RECT, ldActionSize);
 		}
 
-		mpIterPage->SetPosition(mpIterFileName->GetPositionX() + mpIterFileName->GetSizeX() + 20.0f, mpIterPage->GetPositionY());
+		//mpIterPage->SetPosition(mpIterFileName->GetPositionX() + mpIterFileName->GetSizeX() + 20.0f, mpIterPage->GetPositionY());
 	}
+}
+
+//元素参考尺寸发生变化
+ERESULT CToolbarH::OnElementResized(D2D1_SIZE_F nNewSize)
+{
+	//CExMessage::SendMessage(mpIterBtFull, mpIterator, EACT_BUTTON_SET_ACTION_RECT, nNewSize);
+	////mpIterLineOne->SetSize(nNewSize.width, mpIterLineOne->GetSize().height);
+
+	//mpIterBtOk->SetPosition(nNewSize.width - 85, mpIterBtOk->GetPositionY());
+	Relocation();
 
 	return ERESULT_SUCCESS;
 }
 
-
-//设置文件名称
-void CToolbarH::SetFileName(wchar_t* npszString)
+// 设置笔迹初始化数据
+void CToolbarH::SetPenData(DWORD ndwPenWidthIndex, DWORD ndwPenColorIndex)
 {
-	do 
-	{
-		BREAK_ON_NULL(npszString);
-
-		if (npszString[wcslen(npszString) - 1] == 't')
-		{
-			//如果是txt文件，修改为对应的缩放按钮图标
-			CExMessage::SendMessageWithText(mpIterBtSuofang, mpIterator, EACT_BUTTON_CHANGE_PIC, L".\\Pic\\suofang_txt.png");
-
-			//txt只支持单屏
-			SetDuopageButton(false);
-			PostMessageToParent(EEVT_ER_TWO_SCREEN, false);
-			mpIterBtTwo->SetVisible(false);
-			mpIterBtOne->SetVisible(false);
-
-			mbIsTxt = true;
-		}
-		else
-		{
-			CExMessage::SendMessageWithText(mpIterBtSuofang, mpIterator, EACT_BUTTON_CHANGE_PIC, L".\\Pic\\suofang.png");
-
-			SetDuopageButton(mbIsTwoScreen);
-			/*mpIterBtTwo->SetVisible(true);
-			mpIterBtOne->SetVisible(true);*/
-
-			mbIsTxt = false;
-		}
-
-		CExMessage::SendMessageWithText(mpIterFileName, mpIterator, EACT_LABEL_SET_TEXT, npszString);
-
-		mpIterPage->SetPosition(mpIterFileName->GetPositionX() + mpIterFileName->GetSizeX() + 20.0f, mpIterPage->GetPositionY());
-
-	} while (false);
+	if (mpEditToolbar != NULL)
+		mpEditToolbar->SetData(ndwPenWidthIndex, ndwPenColorIndex);
 }
 
-//设置页码字符串
-void CToolbarH::SetPage(wchar_t* npszString)
+//更新页面状态
+void CToolbarH::UpdatePageStatus(PAGE_STATUS ndStatus)
 {
-	do
-	{
-		BREAK_ON_NULL(npszString);
-		CExMessage::PostMessageWithText(mpIterPage, mpIterator, EACT_LABEL_SET_TEXT, npszString);
+	miCurrentPageInkCount = ndStatus.InkCount;
 
-	} while (false);
+	SetUndoRedoStatus(ndStatus.UndoCount > 0 ? true : false, ndStatus.RedoCount > 0 ? true : false);
+}
+
+
+//设置redo,undo按钮状态
+void CToolbarH::SetUndoRedoStatus(bool nbUndoEnable, bool nbRedoEnable)
+{
+	if (mpEditToolbar != NULL)
+		mpEditToolbar->SetUndoRedoStatus(nbUndoEnable, nbRedoEnable);
+}
+
+//设置当前页面标注数量
+void CToolbarH::SetCurrentPageInkCount(int niCount)
+{
+	miCurrentPageInkCount = niCount;
 }
 
 //获取当前双页显示状态
 bool CToolbarH::GetDuopageStatus(void)
 {
-	return mbIsTwoScreen;
+	bool lbRet = mbIsTwoScreen;
+	EI_SIZE ldPaintSize;
+	EinkuiGetSystem()->GetPaintboardSize(&ldPaintSize);
+
+	if (miDocType == DOC_TYPE_TXT || ldPaintSize.w < ldPaintSize.h)
+		lbRet = false; //txt没有双屏,坚屏时没有双屏
+
+	return lbRet;
 }
 
 void CToolbarH::SetDuopageButton(bool nbSingle)
 {
-	do 
-	{
-		mbIsTwoScreen = nbSingle;
+	mbIsTwoScreen = nbSingle;
+}
 
-		EI_SIZE ldPaintSize;
-		EinkuiGetSystem()->GetPaintboardSize(&ldPaintSize);
-		if (ldPaintSize.w < ldPaintSize.h)
-			break; //是坚屏模式
-
-		if (nbSingle != false)
-		{
-			mpIterBtTwo->SetVisible(false);
-			mpIterBtOne->SetVisible(true);
-		}
-		else
-		{
-			mpIterBtTwo->SetVisible(true);
-			mpIterBtOne->SetVisible(false);
-		}
-
-	} while (false);
-	
+//设置屏幕方向按钮状态
+void CToolbarH::SetScreenOriButton(ULONG nulScreenOri)
+{
+	mulScreenOritent = nulScreenOri;
 }
 
 //通知元素【显示/隐藏】发生改变
 ERESULT CToolbarH::OnElementShow(bool nbIsShow)
 {
 	//EiSetHomebarStatus(nbIsShow == false ? GI_HOMEBAR_SHOW : GI_HOMEBAR_HIDE);
+	if (nbIsShow != false)
+	{
+		mpIterator->BringToTop();
+	}
+	else
+	{
+		if (mpMenuEpubMobi != NULL)
+			mpMenuEpubMobi->ExitModal();
+		if (mpMenuPdf != NULL)
+			mpMenuPdf->ExitModal();
+		if (mpMenuTxt != NULL)
+			mpMenuTxt->ExitModal();
+	}
+	if (mpEditToolbar != NULL)
+		mpEditToolbar->ToolbarShow(nbIsShow);
 
 	return ERESULT_SUCCESS;
 }

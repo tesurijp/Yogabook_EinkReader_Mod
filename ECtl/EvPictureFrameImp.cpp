@@ -182,6 +182,14 @@ ERESULT CEvPictureFrame::ParseMessage(IEinkuiMessage* npMsg)
 
 				luResult = OnChangePic(lpValue,false);
 
+				if (mpBgBitmap != NULL && npMsg->GetOutputBufferSize() == sizeof(D2D1_SIZE_F))
+				{
+					//如果发送者想要得到帧大小
+					D2D1_SIZE_F* lpOut = (D2D1_SIZE_F*)npMsg->GetOutputBuffer();
+					*lpOut = mdFrameSize;
+					npMsg->SetOutputDataSize(sizeof(D2D1_SIZE_F));
+				}
+
 				break;
 			}
 		case EACT_PICTUREFRAME_CHANGE_PIC_FULLPATH:	
@@ -190,6 +198,15 @@ ERESULT CEvPictureFrame::ParseMessage(IEinkuiMessage* npMsg)
 				wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
 
 				luResult = OnChangePic(lpValue,true);
+
+				if (mpBgBitmap != NULL && npMsg->GetOutputBufferSize() == sizeof(D2D1_SIZE_F))
+				{
+					//如果发送者想要得到帧大小
+					D2D1_SIZE_F* lpOut = (D2D1_SIZE_F*)npMsg->GetOutputBuffer();
+					(*lpOut).width = mpBgBitmap->GetWidth();
+					(*lpOut).height = mpBgBitmap->GetHeight();
+					npMsg->SetOutputDataSize(sizeof(D2D1_SIZE_F));
+				}
 
 				break;
 			}

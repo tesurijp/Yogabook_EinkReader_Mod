@@ -19,15 +19,29 @@
 
 __interface IEdModule; // 模块
 __interface IEdDocument; // 文档
-__interface IEdPage;		// 页
-__interface IEdComment;  // 注释
+__interface IEdPage;	// 页
 __interface IEdBitmap;	// 位图
+__interface IEdAnnotManager;	// 注释管理器，每页都有自己的注释管理器
+__interface IEdAnnot;				// 标注，这是基础接口，通过内部的接口来转换成实际类型的接口
+__interface IEdInkAnnot;			// 墨迹注释
+__interface IEdStextAnnot;		// 高亮/删除/下划线注释
+__interface IEdTextAnnot;			// 文字标签注释
+__interface IEdStructuredTextPage;	// 结构文本页，用于处理structured text信息 		
+__interface IEdStextQuadList;		// 结构文本的结构信息
+__interface IEdAnnotList;			// Annot列表对象
 
 typedef IEdModule* IEdModule_ptr;
 typedef IEdDocument* IEdDocument_ptr;
 typedef IEdPage* IEdPage_ptr;
-typedef IEdComment* IEdComment_ptr;
+typedef IEdAnnotManager* IEdAnnotManager_ptr;
+typedef IEdAnnot* IEdAnnot_ptr;
+typedef IEdInkAnnot* IEdInkAnnot_ptr;
+typedef IEdStextAnnot* IEdStextAnnot_ptr;
+typedef IEdTextAnnot* IEdTextAnnot_ptr;
 typedef IEdBitmap* IEdBitmap_ptr;
+typedef IEdStextQuadList* IEdStextQuadList_ptr;
+typedef IEdStructuredTextPage* IEdStructuredTextPage_ptr;
+typedef IEdAnnotList* IEdAnnotList_ptr;
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -70,6 +84,11 @@ typedef void(__stdcall *PEDDOC_CALLBACK)(uint32Eink loadingStep, uint32Eink page
 //typedef ERESULT(__stdcall IBaseObject::*PXUI_CALLBACK)(ULONG nuFlag, LPVOID npContext);
 //typedef ERESULT(__stdcall *PXUI_CUSTOM_DRAW_CALLBACK)(unsigned char* npPixels, ULONG nuWidth, ULONG nuHeight, bool nbRefresh);//nbRefresh设置，则必须提交数据
 
+typedef void(__stdcall *PEDDOC_THUMBNAILS_CALLBACK)(uint32Eink pageNum,void_ptr npContext);
+// pageNum:
+//		the page number that it's thumbnail have rendered.
+// this routine will be called as many as the page count of the current document;
+
 
 //////////////////////////////////////////////////////////////////////////
 // 常数定义
@@ -98,9 +117,17 @@ typedef uint32Eink ED_ERR;
 #define EDERR_FIALED_LOAD_PAGE	EDERR_MAKE_ERR(111)
 #define EDERR_THREAD_ERROR		EDERR_MAKE_ERR(115)
 #define EDERR_NOTENOUGH_MEMORY	EDERR_MAKE_ERR(120)
+#define EDERR_3RDPART_FAILED	EDERR_MAKE_ERR(130)
 
 
 
+
+#define		EDPDF_ANNOT_NONE	0
+#define		EDPDF_ANNOT_INK		1
+#define		EDPDF_ANNOT_UNDERL		2
+#define		EDPDF_ANNOT_DELETE		3
+#define		EDPDF_ANNOT_HIGHLIGHT	4
+#define		EDPDF_ANNOT_TEXT		5
 
 
 
@@ -110,6 +137,13 @@ typedef uint32Eink ED_ERR;
 
 #define ERR_SUCCESS(_X) (_X<=0x7fffffff)
 #define ERR_FAILED(_X) (_X>0x7fffffff)
+
+
+#define ANN_SIGN_TYPE(_X)	(_X>>(64-8))
+#define ANN_SIGN_PAGE(_X)	((_X>>(64-8-16))&0xFFFF)
+#define ANN_SIGN_ALT(_X)	((_X>>(64-8-16-16))&0xFFFF)
+#define ANN_SIGN_CHECKSUM(_X)	(_X&0xFFFFFF)
+#define ANN_MAKE(_T,_P,_A,_C) (((ULONGLONG)_T<<(64-8))|((ULONGLONG)_P<<(64-8-16))|((ULONGLONG)_A<<(64-8-16-16))|(_C&0xFFFFFF))
 
 //////////////////////////////////////////////////////////////////////////
 // 结构体定义，此处定义的结构体用于跨模块交换数据
@@ -150,8 +184,29 @@ typedef struct _ED_SIZEF {
 #define ED_SIZE_CLEAN(_X) (_X.x=0,_X.y = 0)
 #define ED_SIZEF_CLEAN(_X) (_X.x=0.0f,_X.y = 0.0f)
 
-typedef _ED_SIZEF ED_POINT;
-typedef _ED_SIZEF ED_POINTF;
+typedef _ED_SIZE ED_POINT,*ED_POINT_PTR;
+typedef _ED_SIZEF ED_POINTF,* ED_POINTF_PTR;
+
+typedef struct _ED_LINE {
+	int32Eink x1;
+	int32Eink x2;
+	int32Eink y1;
+	int32Eink y2;
+}ED_LINE, *ED_LINE_PTR;
+typedef struct _ED_LINEF {
+	float32 x1;
+	float32 x2;
+	float32 y1;
+	float32 y2;
+}ED_LINEF, *ED_LINEF_PTR;
+
+
+typedef struct _ED_COLOR {
+	int32Eink r;
+	int32Eink g;
+	int32Eink b;
+	int32Eink a;
+}ED_COLOR,* PED_COLOR;
 
 typedef struct _PAGE_PDF_CONTEXT {
 	ULONG pageIndex;	
@@ -159,7 +214,10 @@ typedef struct _PAGE_PDF_CONTEXT {
 	ULONG pageContext2;
 }PAGE_PDF_CONTEXT, *PPAGE_PDF_CONTEXT;
 
+
 #pragma pack()
+
+
 //////////////////////////////////////////////////////////////////////////
 // 结构体定义结束
 //////////////////////////////////////////////////////////////////////////
@@ -180,8 +238,7 @@ __interface IEdModule :public IBaseObject
 	// 打开文档
 	virtual ED_ERR OpenDocument(
 		IN char16_ptr pathName,
-		OUT IEdDocument_ptr* documentPtrPtr,
-		IN int32Eink asType=-1	// -1 not indicated
+		OUT IEdDocument_ptr* documentPtrPtr
 	) = NULL;
 
 };
@@ -190,13 +247,19 @@ __interface IEdModule :public IBaseObject
 // 文档对象
 __interface IEdDocument :public IBaseObject
 {
-	virtual bool32 LoadAllPage(PEDDOC_CALLBACK callBackFun, void_ptr contextPtr)=NULL;
+	virtual bool32 LoadAllPage(PEDDOC_CALLBACK callBackFun, void_ptr contextPtr, PPAGE_PDF_CONTEXT initPage)=NULL;
+	virtual bool32 LoadAllThumbnails(PEDDOC_THUMBNAILS_CALLBACK callBack, void_ptr contextPtr,const wchar_t* nphumbnailPathName =NULL) = NULL;
+	virtual bool32 GetThumbanilsPath(wchar_t* npszPathBuffer, int niLen) = NULL;
 	virtual int32Eink GetMetaData(char* keyName,char* dataBuf, int32Eink bufSize)=NULL;
 	virtual int32Eink GetDocType(void) = NULL;
 	virtual int32Eink GetPageCount(void) = NULL;
 	virtual IEdPage_ptr GetPage(int32Eink pageIndex) = NULL;
 	virtual IEdPage_ptr GetPage(PPAGE_PDF_CONTEXT contextPtr) = NULL;	// contextPtr==NULL for the first page of this doc
 	virtual IEdPage_ptr GetPage(IEdPage_ptr currentPage, int32Eink pagesOff) = NULL;
+	virtual bool32 GetThumbnailPathName(int32Eink pageIndex, char16 pathName[256],bool* hasAnnot=NULL)=NULL;
+	virtual int32Eink GetAnnotPageCount(void) = NULL;
+
+	virtual bool32 SaveAllChanges(const char16_ptr pathName = NULL) = NULL;
 
 	//////////////////////////////////////////////////////////////////////////
 	// following functions just work on a txt document.
@@ -271,6 +334,15 @@ __interface IEdPage :public IBaseObject
 		PPAGE_PDF_CONTEXT contextPtr
 	) = NULL;
 
+	virtual IEdAnnotManager_ptr GetAnnotManager(void) = NULL;	// 获得的这个对象不用释放，会自动随着page对象一同销毁
+
+	virtual bool32 GetSelectedText(
+		IN ED_RECTF_PTR selBox,
+		OUT char16_ptr textBuf,
+		IN int32Eink bufSize
+	) = NULL;
+
+	virtual IEdStructuredTextPage_ptr GetStructuredTextPage(void) = NULL;	// 返回的对象需要调用release释放
 };
 
 // 位图类型
@@ -281,6 +353,162 @@ __interface IEdBitmap :public IBaseObject
 	virtual int32Eink GetHeight() = NULL;
 };
 
+
+__interface IEdAnnotManager
+{
+	// 从存档数据装入一个Annotation
+	virtual IEdAnnot_ptr LoadAnnotFromArchive(buf_ptr buf, uint32Eink bufSize) = NULL;
+
+	// 新建文本笔记
+	virtual IEdAnnot_ptr AddTextAnnot(
+		IN ED_POINT position,
+		IN char16_ptr text
+	) = NULL;
+
+	// 新建墨水笔记，返回对象需要释放
+	virtual IEdAnnot_ptr AddInkAnnot(
+		IN ED_POINTF* stroke,
+		IN int32Eink pointCount,
+		IN ED_COLOR* color=NULL,
+		IN float32 border=1.0f
+	) = NULL;
+
+	// 新建Highlight笔记，返回对象需要释放
+	virtual IEdAnnot_ptr AddHighLightAnnot(
+		IN IEdStextQuadList_ptr stext,
+		IN ED_COLOR* color = NULL,
+		IN int32Eink clrN = 3
+	);
+
+	// 新建删除现笔记，返回对象需要释放
+	virtual IEdAnnot_ptr AddDeleteLineAnnot(
+		IN IEdStextQuadList_ptr stext,
+		IN ED_COLOR* color = NULL,
+		IN int32Eink clrN = 3
+	);
+
+	// 新建下划线笔记，返回对象需要释放
+	virtual IEdAnnot_ptr AddUnderLineAnnot(
+		IN IEdStextQuadList_ptr stext,
+		IN ED_COLOR* color = NULL,
+		IN int32Eink clrN = 3
+	);
+
+	// 通过签名查找一个Annot，返回对象需要释放
+	virtual IEdAnnot_ptr GetAnnotBySignature(ULONGLONG signature) = NULL;
+	virtual ULONGLONG GetSignature(IEdAnnot_ptr annot) = NULL;
+
+	// 获取第一个笔记，返回对象需要释放
+	virtual IEdAnnot_ptr GetFirstAnnot(void) = NULL;
+
+	// 获取下一个笔记，返回对象需要释放
+	virtual IEdAnnot_ptr GetNextAnnot(IEdAnnot_ptr crt) = NULL;
+
+	// 获取所有对象的列表，当annotList==NULL时，返回需要的List单元数,当缓冲区不足时返回-1；成功返回获得的IEdAnnot_ptr对象数
+	virtual int32Eink GetAllAnnot(IEdAnnot_ptr* annotList,int bufSize) = NULL;
+
+	// 检测一笔画接触到的一系列Ink笔记对象（相交），当annotList==NULL时，返回需要的缓冲区长度,当缓冲区不足时返回-1
+	virtual int32Eink DetectInkAnnot(
+		IN ED_POINTF* stroke,
+		IN int32Eink pointCount,
+		OUT	IEdAnnot_ptr* annotList,	// 用于返回所有相交对象的缓冲区，建议一次性分配大的缓冲区，比如 IEdAnnot_ptr buf[256];返回对象需要释放
+		IN int32Eink bufSize					// 上述缓冲区的单元数，不是字节数
+	) = NULL;
+
+	// 删除一个Annotation，调用此函数后，IEdAnnot_ptr annot，仍然需要释放
+	virtual void RemoveAnnot(
+		IEdAnnot_ptr annot
+	) = NULL;
+};
+
+__interface IEdAnnot :public IBaseObject
+{
+	virtual uint32Eink GetType() = NULL;	// EDPDF_ANNOT_INK ,EDPDF_ANNOT_UNDERL, EDPDF_ANNOT_DELETE,EDPDF_ANNOT_HIGHLIGHT, EDPDF_ANNOT_TEXT
+	virtual char* GetTypeName() = NULL;		// "ink" "text" "highlight" "underline" "deleteline" or "Identity"
+
+	virtual IEdTextAnnot_ptr ConvertToTextAnnot(void) = NULL;	// 返回值无需释放
+	virtual IEdInkAnnot_ptr ConvertToInkAnnot(void) = NULL;		// 返回值无需释放
+	virtual IEdStextAnnot_ptr ConvertToStextAnnot(void) = NULL;	// 返回值无需释放
+
+	// 当buf==NULL时，返回需要的缓冲区字节数，缓冲区不足返回-1
+	virtual uint32Eink SaveToAchive(buf_ptr buf, uint32Eink bufSize) = NULL;	// 将此对象保存到存档，供将来从存档恢复存到到Page(通过调用IEdPage的方法 LoadAnnotFromArchive)
+};
+
+__interface IEdTextAnnot :public IEdAnnot
+{
+	virtual const char16_ptr GetText(void) = NULL;
+
+	virtual ED_POINT GetPosition(void) = NULL;
+
+	virtual ED_RECT GetRect(void) = NULL;
+};
+
+__interface IEdInkAnnot :public IEdAnnot
+{
+	virtual void SetColor(ED_COLOR clr) = NULL;		// 设置线条颜色
+	virtual ED_COLOR GetColor(void) = NULL;
+
+	virtual void SetBorder(int32Eink border) = NULL;	// 设置线条宽度 1 ~ N
+	virtual int32Eink GetBorder(void) = NULL;
+};
+
+__interface IEdStextAnnot :public IEdAnnot
+{
+	virtual void SetColor(ED_COLOR clr) = NULL;		// 设置线条颜色
+	virtual ED_COLOR GetColor(void) = NULL;
+
+	virtual IEdStextQuadList_ptr GetQuadsList(void) = NULL; // 获得分块列表
+};
+
+__interface IEdStructuredTextPage :public IBaseObject	// 选择，用于处理structured text信息 
+{
+	// 探测文本选中情况
+	virtual bool DetectSelectedText(
+		IN const ED_POINTF* aPoint,
+		IN const ED_POINTF* bPoint,
+		OUT IEdStextQuadList_ptr* stext,	// 返回结构化文本对象，需要释放
+		OUT IEdAnnotList_ptr* impactedAnnot=NULL,// 返回碰撞的已有Annot对象列表，需要释放
+		IN bool32 includeImpacted = false	// 将碰撞的annot区域也加入选区
+	) = NULL;	// 返回的对象需要释放
+
+	// 复制目标区域文本，返回值是复制的字符数，不包含结尾0
+	virtual int32Eink CopyText(
+		IN ED_RECTF_PTR selBox,
+		OUT char16_ptr textBuf,	// 传入NULL，函数返回实际的字符数，不含结尾0
+		IN int32Eink bufSize
+	) = NULL;
+
+};
+
+__interface IEdStextQuadList :public IBaseObject
+{
+	// 获得A点（上止点）
+	virtual void GetAPoint(
+		OUT ED_POINTF* pt
+		) = NULL;
+
+	// 获得B点（下止点）
+	virtual void GetBPoint(
+		OUT ED_POINTF* pt
+		) = NULL;
+
+	// 获得分块总数
+	virtual int32Eink GetQuadCount(void) = NULL;
+
+	// 获得一个分块的位置
+	virtual void GetQuadBound(
+		IN int32Eink index,
+		OUT ED_RECTF_PTR quad
+		) = NULL;
+
+	virtual const ED_RECTF* GetQuad(IN int32Eink index)=NULL;
+};
+
+__interface IEdAnnotList :public IBaseObject
+{
+	virtual int32Eink GetCount(void) = NULL;
+	virtual IEdAnnot_ptr GetAnnot(int32Eink index) = NULL;	// 返回的对象需要释放
+};
 
 //////////////////////////////////////////////////////////////////////////
 // 接口定义结束

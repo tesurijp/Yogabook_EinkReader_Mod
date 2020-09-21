@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "StdAfx.h"
 #include "Einkui.h"
 
@@ -36,20 +32,20 @@ ULONG CEvPopupMenu::InitOnCreate(
 	IN IEinkuiIterator* npParent,	// 父对象指针
 	IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
 	IN ULONG nuEID	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-	)
+)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
 		//首先调用基类
-		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
-		if(leResult != ERESULT_SUCCESS)
+		leResult = CXuiElement::InitOnCreate(npParent, npTemplete, nuEID);
+		if (leResult != ERESULT_SUCCESS)
 			break;
 		LoadResource();
 
 		leResult = ERESULT_SUCCESS;
-	}while(false);
+	} while (false);
 
 
 	return leResult;
@@ -61,12 +57,12 @@ ERESULT CEvPopupMenu::OnElementCreate(IEinkuiIterator* npIterator)
 
 	do
 	{
-		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
+		if (CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -94,12 +90,12 @@ ERESULT CEvPopupMenu::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	{
 		BREAK_ON_NULL(npPaintBoard);
 
-		if(mpBgBitmap != NULL)
-			npPaintBoard->DrawBitmap(D2D1::RectF(0, 0, (FLOAT)mpIterator->GetSizeX(), (FLOAT)mpIterator->GetSizeY()), mpBgBitmap,ESPB_DRAWBMP_EXTEND);
+		if (mpBgBitmap != NULL)
+			npPaintBoard->DrawBitmap(D2D1::RectF(0, 0, (FLOAT)mpIterator->GetSizeX(), (FLOAT)mpIterator->GetSizeY()), mpBgBitmap, ESPB_DRAWBMP_EXTEND);
 
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -107,12 +103,12 @@ ERESULT CEvPopupMenu::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 void CEvPopupMenu::LoadResource()
 {
 	bool lbResult = false;
-	do 
+	do
 	{
 		// 获取MainID
 		miMainID = (int)this->mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_MAIN_ID, -1);
 		// 如果没有MainId,则不加载
-		if(-1 == miMainID)
+		if (-1 == miMainID)
 			break;
 
 		// 这里为了使得所有创建好的MenuItem项显示出来的宽度都一致，需要寻找最宽的MenuItem，
@@ -122,22 +118,22 @@ void CEvPopupMenu::LoadResource()
 
 		// 初始化ItemInfo结构体
 		InitMenuItemInfo();
-		if(NULL == mpoMenuItemInfo)
+		if (NULL == mpoMenuItemInfo)
 			break;
 
 		// 加载好背景图
 		// ItemBackGround
 		wchar_t* lswBackgGround = (wchar_t*)mpTemplete->QuerySubKeyValueAsBuffer(TF_ID_POPUPMENU_ITEM_BACKGROUND);
-		if(NULL != lswBackgGround && UNICODE_NULL != lswBackgGround[0])
+		if (NULL != lswBackgGround && UNICODE_NULL != lswBackgGround[0])
 		{
 			mpoItemBgBitmap = EinkuiGetSystem()->GetAllocator()->LoadImageFile(
-				lswBackgGround, L'.' == lswBackgGround[0]? false:true);
-			mpTemplete->ReleaseBuffer(lswBackgGround);
+				lswBackgGround, L'.' == lswBackgGround[0] ? false : true);
+			mpTemplete->ReleaseBuffer(&lswBackgGround);
 		}
-		
+
 		// ItemFrameCount 
 		miItemBgFrameCount = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_ITEM_FRAMECOUNT, DEFAULT_ITEM_FRAMECOUNT);
-		if(NULL != mpoItemBgBitmap)
+		if (NULL != mpoItemBgBitmap)
 		{
 			mpoItemBgBitmap->SetExtendLine(mpoItemBgBitmap->GetWidth() / miItemBgFrameCount / 2, mpoItemBgBitmap->GetHeight() / 2);
 		}
@@ -147,31 +143,31 @@ void CEvPopupMenu::LoadResource()
 		ICfKey* lpMenuItemKey = mpTemplete->GetSubKey(TF_ID_POPUPMENU_MENU_ITEM);
 		BREAK_ON_NULL(lpMenuItemKey);
 		CEvMenuItem* lpoMenuItem = NULL;
-		lpMenuItemKey = lpMenuItemKey->MoveToSubKey();	
+		lpMenuItemKey = lpMenuItemKey->MoveToSubKey();
 		while (lpMenuItemKey != NULL)	//循环创建所有子元素
 		{
 			lpoMenuItem = CEvMenuItem::CreateInstance(mpIterator, lpMenuItemKey);
-			if(NULL == lpoMenuItem)			// 遇到创建失败的，则跳出
+			if (NULL == lpoMenuItem)			// 遇到创建失败的，则跳出
 				break;
 
-			lpoMenuItem->GetIterator()->SetSize((FLOAT)lpMenuItemKey->QuerySubKeyValueAsLONG(L"Width",0),(FLOAT)lpMenuItemKey->QuerySubKeyValueAsLONG(L"Height",0));
+			lpoMenuItem->GetIterator()->SetSize((FLOAT)lpMenuItemKey->QuerySubKeyValueAsLONG(L"Width", 0), (FLOAT)lpMenuItemKey->QuerySubKeyValueAsLONG(L"Height", 0));
 			lpoMenuItem->SetBgBitmapPtr(mpoItemBgBitmap, miItemBgFrameCount);
 
 			lpoMenuItem->SetMenuItemInfo(mpoMenuItemInfo);			// 提供菜单项信息，用来加载菜单项资源
 
 			// 将该项加入到向量末尾
-			if(moMenuItemVec.Insert(-1, lpoMenuItem) < 0)
+			if (moMenuItemVec.Insert(-1, lpoMenuItem) < 0)
 				break;
 
 			lpMenuItemKey = lpMenuItemKey->MoveToNextKey();	//打开下一个子元素键
 		}
 
 		ReLayoutMenuItem();
-	
+
 		lbResult = true;
 	} while (false);
 
-	if(false == lbResult)
+	if (false == lbResult)
 	{
 		PrintDebugString(L"PopupMenu_LoadResource 失败。");
 	}
@@ -180,7 +176,7 @@ void CEvPopupMenu::LoadResource()
 // 初始化MenuItemInfo
 void CEvPopupMenu::InitMenuItemInfo()
 {
-	if(NULL == mpTemplete)
+	if (NULL == mpTemplete)
 		return;
 
 	CMM_SAFE_DELETE(mpoMenuItemInfo);
@@ -195,7 +191,7 @@ void CEvPopupMenu::InitMenuItemInfo()
 	mpoMenuItemInfo->LeftIconWidth = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_LEFT_ICON_WIDTH, -1);
 
 	// LeftIconHeight
-	mpoMenuItemInfo->LeftIconHeight= mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_LEFT_ICON_HEIGHT, -1);
+	mpoMenuItemInfo->LeftIconHeight = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_LEFT_ICON_HEIGHT, -1);
 
 	// RightWidth
 	mpoMenuItemInfo->RightWidth = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_RIGHT_WIDTH, DEFAULT_RIGHT_WIDTH);
@@ -210,14 +206,14 @@ void CEvPopupMenu::InitMenuItemInfo()
 	mpoMenuItemInfo->MiddleWidth = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_MIDDLE_WIDTH, DEFAULT_MIDDLE_WIDTH);
 
 	// FontName
-	mpTemplete->QuerySubKeyValue(TF_ID_POPUPMENU_FONT_NAME, mpoMenuItemInfo->FontName, sizeof(mpoMenuItemInfo->FontName)*sizeof(wchar_t));
+	mpTemplete->QuerySubKeyValue(TF_ID_POPUPMENU_FONT_NAME, mpoMenuItemInfo->FontName, sizeof(mpoMenuItemInfo->FontName) * sizeof(wchar_t));
 
 	// FontSize
-	mpoMenuItemInfo->FontSize= mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_FONT_SIZE, DEFAULT_FONT_SIZE);
+	mpoMenuItemInfo->FontSize = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_FONT_SIZE, DEFAULT_FONT_SIZE);
 
 	// FontColor
 	mpoMenuItemInfo->FontColor = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_FONT_COLOR, DEFAULT_FONT_COLOR);
-	
+
 	// FontDisabledColor
 	mpoMenuItemInfo->FontDisableColor = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_FONT_DISABLE_COLOR, DEFAULT_FONT_DISABLE_COLOR);
 
@@ -236,166 +232,166 @@ ERESULT CEvPopupMenu::ParseMessage(IEinkuiMessage* npMsg)
 	switch (npMsg->GetMessageID())
 	{
 	case EACT_POPUPMENU_IS_MANAGER_MENUITEM_ENABLE:
+	{
+		bool* lpbIsSet = NULL;
+		if (ERESULT_SUCCESS != CExMessage::GetInputDataBuffer(npMsg, lpbIsSet))
 		{
-			bool* lpbIsSet = NULL;
-			if(ERESULT_SUCCESS != CExMessage::GetInputDataBuffer(npMsg, lpbIsSet))
-			{
-				luResult = ERESULT_WRONG_PARAMETERS;
-				break;
-			}
-
-			mbIsManagerMenuItemEnable = *lpbIsSet;
-
-			luResult = ERESULT_SUCCESS;
-			
+			luResult = ERESULT_WRONG_PARAMETERS;
 			break;
 		}
-	case EEVT_MENUITEM_CLICK:
-		{
-			this->GetIterator()->PostMessageToParent(npMsg);
 
-			// 当子菜单项被点击时，要隐藏掉自身
-			mpIterator->SetVisible(false);
+		mbIsManagerMenuItemEnable = *lpbIsSet;
 
-			luResult = ERESULT_SUCCESS;
-		}
+		luResult = ERESULT_SUCCESS;
+
 		break;
+	}
+	case EEVT_MENUITEM_CLICK:
+	{
+		this->GetIterator()->PostMessageToParent(npMsg);
+
+		// 当子菜单项被点击时，要隐藏掉自身
+		mpIterator->SetVisible(false);
+
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EEVT_MENUITEM_MOUSE_HOVER:
-		{
-			mpIterator->PostMessageToParent(npMsg);
-			luResult = ERESULT_SUCCESS;
-		}
-		break;
+	{
+		mpIterator->PostMessageToParent(npMsg);
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EEVT_MENUITEM_GET_FOCUS:				// 有子菜单项获得了焦点
-		{
-			IEinkuiIterator* lpIterMenuItem = npMsg->GetMessageSender();
-			// 必须是当前PopupMenu的子项，并且是MenuItem
-			if(NULL != lpIterMenuItem)			
-				OnMenuItemGetFocused(lpIterMenuItem);
+	{
+		IEinkuiIterator* lpIterMenuItem = npMsg->GetMessageSender();
+		// 必须是当前PopupMenu的子项，并且是MenuItem
+		if (NULL != lpIterMenuItem)
+			OnMenuItemGetFocused(lpIterMenuItem);
 
-			luResult = ERESULT_SUCCESS;
-		}
-		break;
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EACT_POPUPMENU_INSERT_MENUITEM_BY_CREATE:			// 插入新的菜单项
+	{
+		if (npMsg->GetInputDataSize() != sizeof(STCTL_POPUPMENU_MENUITEMINFO)
+			|| npMsg->GetInputData() == NULL)
+			break;
+
+		STCTL_POPUPMENU_MENUITEMINFO ldInfo = *(PSTCTL_POPUPMENU_MENUITEMINFO)npMsg->GetInputData();
+		if (false == OnInsertMenuItem(ldInfo))
+			break;
+
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
+
+	case EACT_POPUPMENU_INSERT_MENUITEM_BY_EXIST:
+	{
+		PSTCTL_POPUPMENU_MENUITEMINSERT lpdMenuItemInserted = NULL;
+		if (ERESULT_SUCCESS != CExMessage::GetInputDataBuffer(npMsg, lpdMenuItemInserted))
 		{
-			if(npMsg->GetInputDataSize() != sizeof(STCTL_POPUPMENU_MENUITEMINFO)
-				|| npMsg->GetInputData() == NULL)
-				break;
-
-			STCTL_POPUPMENU_MENUITEMINFO ldInfo = *(PSTCTL_POPUPMENU_MENUITEMINFO)npMsg->GetInputData();
-			if(false == OnInsertMenuItem(ldInfo))
-				break;
-
-			luResult = ERESULT_SUCCESS;
+			luResult = ERESULT_UNSUCCESSFUL;
+			break;
 		}
-		break;
+		BREAK_ON_FALSE(lpdMenuItemInserted->MenuItem->GetElementObject()->GlobleVerification(L"MenuItem"));
 
-	case EACT_POPUPMENU_INSERT_MENUITEM_BY_EXIST:		
-		{
-			PSTCTL_POPUPMENU_MENUITEMINSERT lpdMenuItemInserted = NULL;
-			if(ERESULT_SUCCESS != CExMessage::GetInputDataBuffer(npMsg, lpdMenuItemInserted))
-			{
-				luResult = ERESULT_UNSUCCESSFUL;
-				break;
-			}
-			BREAK_ON_FALSE(lpdMenuItemInserted->MenuItem->GetElementObject()->GlobleVerification(L"MenuItem"));
-				
-			CEvMenuItem* lpoMenuItem = (CEvMenuItem*)lpdMenuItemInserted->MenuItem->GetElementObject();
-			
-			moMenuItemVec.Insert(lpdMenuItemInserted->Index, lpoMenuItem);
+		CEvMenuItem* lpoMenuItem = (CEvMenuItem*)lpdMenuItemInserted->MenuItem->GetElementObject();
 
-			lpoMenuItem->SetBgBitmapPtr(mpoItemBgBitmap, miItemBgFrameCount);
+		moMenuItemVec.Insert(lpdMenuItemInserted->Index, lpoMenuItem);
 
-			lpoMenuItem->SetMenuItemInfo(mpoMenuItemInfo);
+		lpoMenuItem->SetBgBitmapPtr(mpoItemBgBitmap, miItemBgFrameCount);
 
-			// 重新计算PopupMenu布局
-			ReLayoutMenuItem();
+		lpoMenuItem->SetMenuItemInfo(mpoMenuItemInfo);
 
-			luResult = ERESULT_SUCCESS;
-		}
-		break;
+		// 重新计算PopupMenu布局
+		ReLayoutMenuItem();
+
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EACT_POPUPMENU_RELAYOUT_MENUITEM:			// 重新布局
-		{
-			ReLayoutMenuItem();
+	{
+		ReLayoutMenuItem();
 
-			luResult = ERESULT_SUCCESS;
-		}
-		break;
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EACT_POPUPMENU_DELETE_MENUITEM_BY_COMMANDID:
-		{
-			if(npMsg->GetInputDataSize() != sizeof(UINT) || NULL == npMsg->GetInputData())
-				break;
+	{
+		if (npMsg->GetInputDataSize() != sizeof(UINT) || NULL == npMsg->GetInputData())
+			break;
 
-			if(false == DeleteItemByCommandID(*(UINT*)npMsg->GetInputData()))
-				break;
+		if (false == DeleteItemByCommandID(*(UINT*)npMsg->GetInputData()))
+			break;
 
-			luResult = ERESULT_SUCCESS;
-		}
-		break;
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EACT_POPUPMENU_DELETE_MENUITEM_BY_INDEX:
-		{
-			if(npMsg->GetInputDataSize() != sizeof(int) || NULL == npMsg->GetInputData())
-				break;
+	{
+		if (npMsg->GetInputDataSize() != sizeof(int) || NULL == npMsg->GetInputData())
+			break;
 
-			if(false == DeleteItemByIndex(*(int*)npMsg->GetInputData()))
-				break;
+		if (false == DeleteItemByIndex(*(int*)npMsg->GetInputData()))
+			break;
 
-			luResult = ERESULT_SUCCESS;
-		}
-		break;
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EACT_POPUPMENU_GET_MENUITEM_BY_COMMANDID:
-		{
-			if(npMsg->GetInputDataSize() != sizeof(UINT) || NULL == npMsg->GetInputData()
-				|| npMsg->GetOutputBufferSize() != sizeof(IEinkuiIterator*) || npMsg->GetOutputBuffer() == NULL)
-				break;
+	{
+		if (npMsg->GetInputDataSize() != sizeof(UINT) || NULL == npMsg->GetInputData()
+			|| npMsg->GetOutputBufferSize() != sizeof(IEinkuiIterator*) || npMsg->GetOutputBuffer() == NULL)
+			break;
 
-			IEinkuiIterator** lpIter = (IEinkuiIterator**)npMsg->GetOutputBuffer();
-			UINT luCommandID = *(UINT*)npMsg->GetInputData();
-			(*lpIter) = GetItemByCommandID(luCommandID);
-			BREAK_ON_NULL(*lpIter);
+		IEinkuiIterator** lpIter = (IEinkuiIterator**)npMsg->GetOutputBuffer();
+		UINT luCommandID = *(UINT*)npMsg->GetInputData();
+		(*lpIter) = GetItemByCommandID(luCommandID);
+		BREAK_ON_NULL(*lpIter);
 
-			luResult = ERESULT_SUCCESS;
-		}
-		break;
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EACT_POPUPMENU_GET_MENUITEM_BY_INDEX:
-		{
-			if(npMsg->GetInputDataSize() != sizeof(UINT) || NULL == npMsg->GetInputData()				
-				|| npMsg->GetOutputBufferSize() != sizeof(IEinkuiIterator*) || npMsg->GetOutputBuffer() == NULL)
-				break;
+	{
+		if (npMsg->GetInputDataSize() != sizeof(UINT) || NULL == npMsg->GetInputData()
+			|| npMsg->GetOutputBufferSize() != sizeof(IEinkuiIterator*) || npMsg->GetOutputBuffer() == NULL)
+			break;
 
-			IEinkuiIterator** lpIter = (IEinkuiIterator**)npMsg->GetOutputBuffer();
-			UINT luIndex = *(UINT*)npMsg->GetInputData();
-			(*lpIter) = GetItemByIndex(luIndex);
-			BREAK_ON_NULL(*lpIter);
+		IEinkuiIterator** lpIter = (IEinkuiIterator**)npMsg->GetOutputBuffer();
+		UINT luIndex = *(UINT*)npMsg->GetInputData();
+		(*lpIter) = GetItemByIndex(luIndex);
+		BREAK_ON_NULL(*lpIter);
 
-			luResult = ERESULT_SUCCESS;
-		}
-		break;
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EMSG_ELEMENT_ACTIVATED:
+	{
+		//激活状态改变
+		STEMS_ELEMENT_ACTIVATION* lpActive = NULL;
+		luResult = CExMessage::GetInputDataBuffer(npMsg, lpActive);
+		if (luResult != ERESULT_SUCCESS)
+			break;
+
+		if (lpActive->State == 0 && mpIterator->IsVisible() != false)			// 可见状态下失去激活状态，
 		{
-			//激活状态改变
-			STEMS_ELEMENT_ACTIVATION* lpActive = NULL;
-			luResult = CExMessage::GetInputDataBuffer(npMsg,lpActive);
-			if(luResult != ERESULT_SUCCESS)
-				break;
-
-			if (lpActive->State == 0 && mpIterator->IsVisible() != false)			// 可见状态下失去激活状态，
-			{
-				mpIterator->SetVisible(false);
-			}
-
-			luResult = ERESULT_SUCCESS;
+			mpIterator->SetVisible(false);
 		}
-		break;
+
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 
 	default:
@@ -403,7 +399,7 @@ ERESULT CEvPopupMenu::ParseMessage(IEinkuiMessage* npMsg)
 		break;
 	}
 
-	if(luResult == ERESULT_NOT_SET)
+	if (luResult == ERESULT_NOT_SET)
 	{
 		luResult = CXuiElement::ParseMessage(npMsg); // 调用基类的同名函数；注意：一定要调用自身直接基类
 	}
@@ -416,16 +412,16 @@ ERESULT CEvPopupMenu::ParseMessage(IEinkuiMessage* npMsg)
 //		处理当有子菜单项获得焦点
 void CEvPopupMenu::OnMenuItemGetFocused(
 	IN IEinkuiIterator* npIterMenuItem
-	)
+)
 {
 	// 发送消息给所有其他菜单项，失去焦点
 	STEMS_STATE_CHANGE ldStateChange;
 	ldStateChange.Related = npIterMenuItem;
 	ldStateChange.State = 0;
-	for(int i = 0; i < moMenuItemVec.Size(); ++i)
+	for (int i = 0; i < moMenuItemVec.Size(); ++i)
 	{
 		IEinkuiIterator* lpMenuItem = moMenuItemVec.GetEntry(i)->GetIterator();
-		if(NULL != lpMenuItem && npIterMenuItem != lpMenuItem)
+		if (NULL != lpMenuItem && npIterMenuItem != lpMenuItem)
 		{
 			EinkuiGetSystem()->GetElementManager()->SimplePostMessage(
 				lpMenuItem, EMSG_MOUSE_FOCUS, &ldStateChange, sizeof(STEMS_STATE_CHANGE));
@@ -439,7 +435,7 @@ ERESULT CEvPopupMenu::OnElementShow(bool nbIsShow)
 
 	do
 	{
-		if(false != nbIsShow && false != mbIsManagerMenuItemEnable)			// 显示的时候，查看所有子项的可用状态
+		if (false != nbIsShow && false != mbIsManagerMenuItemEnable)			// 显示的时候，查看所有子项的可用状态
 		{
 			//// 通知所有子菜单项
 			//IUnificSetting* lpoUnificSetting = GetUnificSetting();
@@ -451,7 +447,7 @@ ERESULT CEvPopupMenu::OnElementShow(bool nbIsShow)
 		}
 		else							// 隐藏的时候要隐藏级联菜单
 		{
-			for(int i = 0; i < moMenuItemVec.Size(); ++i)
+			for (int i = 0; i < moMenuItemVec.Size(); ++i)
 			{
 				moMenuItemVec.GetEntry(i)->HideCascadeMenu();
 			}
@@ -460,7 +456,7 @@ ERESULT CEvPopupMenu::OnElementShow(bool nbIsShow)
 
 
 		lResult = ERESULT_SUCCESS;
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -471,27 +467,27 @@ ERESULT CEvPopupMenu::OnElementShow(bool nbIsShow)
 //		成功返回对应ID的迭代器，失败返回NULL
 IEinkuiIterator* CEvPopupMenu::GetPopupMenuByMainID(
 	IN UINT niUinqueID
-	)
+)
 {
 	IEinkuiIterator* lpoResult = NULL;
-	do 
+	do
 	{
-		if(niUinqueID == miMainID)
+		if (niUinqueID == miMainID)
 		{
 			lpoResult = mpIterator;
 			break;
 		}
 
-		for(int i = 0; i < moMenuItemVec.Size(); ++i)
+		for (int i = 0; i < moMenuItemVec.Size(); ++i)
 		{
-			if(moMenuItemVec.GetEntry(i)->GetMenuItemType() == CEvMenuItem::ENUM_MENUITEM_TYPE_APPLE_EXTEND
+			if (moMenuItemVec.GetEntry(i)->GetMenuItemType() == CEvMenuItem::ENUM_MENUITEM_TYPE_APPLE_EXTEND
 				|| moMenuItemVec.GetEntry(i)->GetMenuItemType() == CEvMenuItem::ENUM_MENUITEM_TYPE_EXTEND)
 			{
 				CEvPopupMenu* lpoPopupMenu = moMenuItemVec.GetEntry(i)->GetPopupMenu();
-				if(NULL != lpoPopupMenu)
+				if (NULL != lpoPopupMenu)
 				{
 					lpoResult = lpoPopupMenu->GetPopupMenuByMainID(niUinqueID);
-					if(NULL != lpoResult)
+					if (NULL != lpoResult)
 						break;
 				}
 			}
@@ -505,19 +501,19 @@ IEinkuiIterator* CEvPopupMenu::GetPopupMenuByMainID(
 //		插入新的菜单项
 bool CEvPopupMenu::OnInsertMenuItem(
 	IN STCTL_POPUPMENU_MENUITEMINFO ndMenuInfo
-	)
+)
 {
 	bool lbResult = false;
-	do 
+	do
 	{
-		if(ndMenuInfo.Type == (UINT)CEvMenuItem::ENUM_MENUITEM_TYPE_NORMAL)
+		if (ndMenuInfo.Type == (UINT)CEvMenuItem::ENUM_MENUITEM_TYPE_NORMAL)
 		{
 			CEvMenuItem* lpoMenuItem = CEvMenuItem::CreateInstance(mpIterator, NULL, ndMenuInfo.MenuItemId);
 			BREAK_ON_NULL(lpoMenuItem);
 
 			moMenuItemVec.Insert(ndMenuInfo.Index, lpoMenuItem);
 
-			lpoMenuItem->GetIterator()->SetSize((FLOAT)mpTemplete->QuerySubKeyValueAsLONG(L"MenuItem/Width",0),(FLOAT)mpTemplete->QuerySubKeyValueAsLONG(L"MenuItem/Height",0));
+			lpoMenuItem->GetIterator()->SetSize((FLOAT)mpTemplete->QuerySubKeyValueAsLONG(L"MenuItem/Width", 0), (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(L"MenuItem/Height", 0));
 			lpoMenuItem->SetCommandID(ndMenuInfo.UniqueMenuItemId);
 
 			lpoMenuItem->SetBgBitmapPtr(mpoItemBgBitmap, miItemBgFrameCount);
@@ -528,7 +524,7 @@ bool CEvPopupMenu::OnInsertMenuItem(
 
 			CExMessage::SendMessage(lpoMenuItem->GetIterator(), mpIterator, EACT_MENUITEM_CHANGE_TEXT, ndMenuInfo.MenuText);
 
-			if(ndMenuInfo.HotKeyInfo != NULL)
+			if (ndMenuInfo.HotKeyInfo != NULL)
 			{
 				CExMessage::SendMessage(lpoMenuItem->GetIterator(), mpIterator, EACT_MENUITEM_CHANGE_HOTKEY, *ndMenuInfo.HotKeyInfo);
 			}
@@ -555,14 +551,14 @@ void CEvPopupMenu::ReLayoutMenuItem()
 	}
 	int liMaxNameWidth = mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_TEXT_WIDTH, 0);				// 最大名称宽度
 	int liMaxHotKeyWidth = 0;			// 最大热键宽度
-	for(int i = 0; i < this->moMenuItemVec.Size(); ++i)
+	for (int i = 0; i < this->moMenuItemVec.Size(); ++i)
 	{
 		// 获取创建的MenuItem的各部分的最大宽度
-		if(liMaxNameWidth < moMenuItemVec.GetEntry(i)->GetNameAreaWidth())
+		if (liMaxNameWidth < moMenuItemVec.GetEntry(i)->GetNameAreaWidth())
 		{
 			liMaxNameWidth = moMenuItemVec.GetEntry(i)->GetNameAreaWidth();
 		}
-		if(liMaxHotKeyWidth < moMenuItemVec.GetEntry(i)->GetHotKeyAreaWidth())
+		if (liMaxHotKeyWidth < moMenuItemVec.GetEntry(i)->GetHotKeyAreaWidth())
 		{
 			liMaxHotKeyWidth = moMenuItemVec.GetEntry(i)->GetHotKeyAreaWidth();
 		}
@@ -573,13 +569,13 @@ void CEvPopupMenu::ReLayoutMenuItem()
 	ldAlignRect.left = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_ALIGN_LEFT, 0);
 	ldAlignRect.right = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_ALIGN_RIGHT, 0);
 	ldAlignRect.top = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_ALIGN_TOP, 0);
-	ldAlignRect.bottom= (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_ALIGN_BOTTOM, 0);
+	ldAlignRect.bottom = (FLOAT)mpTemplete->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_ALIGN_BOTTOM, 0);
 
 
 	// 设置好MenuItem的信息
 	IEinkuiIterator* lpIter = NULL;
 	float lfItemHeightCount = ldAlignRect.top;
-	for(int i = 0; i < this->moMenuItemVec.Size(); ++i)
+	for (int i = 0; i < this->moMenuItemVec.Size(); ++i)
 	{
 		// 设置好菜单名称和热键区域宽度
 		moMenuItemVec.GetEntry(i)->SetNameAreaWidth(liMaxNameWidth);
@@ -588,7 +584,7 @@ void CEvPopupMenu::ReLayoutMenuItem()
 		// 让菜单项自己更新尺寸
 		moMenuItemVec.GetEntry(i)->UpdateSize();
 
-		if(false != moMenuItemVec.GetEntry(i)->GetIterator()->IsVisible())
+		if (false != moMenuItemVec.GetEntry(i)->GetIterator()->IsVisible())
 		{
 			// 设置好该项的位置
 			moMenuItemVec.GetEntry(i)->GetIterator()->SetPosition(ldAlignRect.left,
@@ -601,35 +597,35 @@ void CEvPopupMenu::ReLayoutMenuItem()
 	// 设置好PopupMenu的大小
 	FLOAT lfWidth = ldAlignRect.left + moMenuItemVec.GetEntry(0)->GetIterator()->GetSizeX() + ldAlignRect.right;
 	FLOAT lfHeight = lfItemHeightCount + ldAlignRect.bottom;
-	mpIterator->SetSize( lfWidth, lfHeight);
+	mpIterator->SetSize(lfWidth, lfHeight);
 }
 
 // 描述：
 //		根据CommandID删除菜单项
 bool CEvPopupMenu::DeleteItemByCommandID(
 	IN UINT niCommandID
-	)
+)
 {
 	bool lbResult = false;
-	do 
+	do
 	{
 		int i = 0;
-		for(; i < moMenuItemVec.Size(); ++i)
+		for (; i < moMenuItemVec.Size(); ++i)
 		{
-			if(moMenuItemVec.GetEntry(i)->GetCommandID() == niCommandID)
+			if (moMenuItemVec.GetEntry(i)->GetCommandID() == niCommandID)
 			{
 				break;
 			}
 		}
 
-		if(i == moMenuItemVec.Size())
+		if (i == moMenuItemVec.Size())
 			break;
 
 		IEinkuiIterator* lpoIter = moMenuItemVec.GetEntry(i)->GetIterator();
-		if(false == moMenuItemVec.RemoveByIndex(i))
+		if (false == moMenuItemVec.RemoveByIndex(i))
 			break;
 
-		if(NULL != lpoIter)
+		if (NULL != lpoIter)
 		{
 			lpoIter->Close();
 		}
@@ -647,26 +643,26 @@ bool CEvPopupMenu::DeleteItemByCommandID(
 //		根据索引删除菜单项,传入-1删除全部。
 bool CEvPopupMenu::DeleteItemByIndex(
 	IN int niIndex
-	)
+)
 {
 	bool lbResult = false;
-	do 
+	do
 	{
-		if(niIndex >= 0 &&
+		if (niIndex >= 0 &&
 			niIndex < moMenuItemVec.Size())
 		{
 			IEinkuiIterator* lpoIter = moMenuItemVec.GetEntry(niIndex)->GetIterator();
-			if(false == moMenuItemVec.RemoveByIndex(niIndex))
+			if (false == moMenuItemVec.RemoveByIndex(niIndex))
 				break;
 
-			if(NULL != lpoIter)
+			if (NULL != lpoIter)
 			{
 				lpoIter->Close();
 			}
 		}
-		else if(-1 == niIndex)
+		else if (-1 == niIndex)
 		{
-			for(int i = 0; i < moMenuItemVec.Size(); ++i)
+			for (int i = 0; i < moMenuItemVec.Size(); ++i)
 			{
 				moMenuItemVec.GetEntry(i)->GetIterator()->Close();
 			}
@@ -686,14 +682,14 @@ bool CEvPopupMenu::DeleteItemByIndex(
 //		根据CommandID获取菜单项
 IEinkuiIterator* CEvPopupMenu::GetItemByCommandID(
 	IN UINT niCommandID
-	)
+)
 {
 	IEinkuiIterator* lpoIter = NULL;
-	do 
+	do
 	{
-		for(int i = 0; i < moMenuItemVec.Size(); ++i)
+		for (int i = 0; i < moMenuItemVec.Size(); ++i)
 		{
-			if(moMenuItemVec.GetEntry(i)->GetCommandID() == niCommandID)
+			if (moMenuItemVec.GetEntry(i)->GetCommandID() == niCommandID)
 			{
 				lpoIter = moMenuItemVec.GetEntry(i)->GetIterator();
 				break;
@@ -710,12 +706,12 @@ IEinkuiIterator* CEvPopupMenu::GetItemByCommandID(
 //		根据索引获取菜单项
 IEinkuiIterator* CEvPopupMenu::GetItemByIndex(
 	IN UINT niIndex
-	)
+)
 {
 	IEinkuiIterator* lpoIter = NULL;
-	do 
+	do
 	{
-		if(niIndex < (UINT)moMenuItemVec.Size())
+		if (niIndex < (UINT)moMenuItemVec.Size())
 			lpoIter = moMenuItemVec.GetEntry(niIndex)->GetIterator();
 
 	} while (false);

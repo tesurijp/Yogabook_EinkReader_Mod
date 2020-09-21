@@ -84,8 +84,7 @@ public:
 	// 打开文档
 	ED_ERR OpenDocument(
 		IN char16_ptr pathName,
-		OUT IEdDocument_ptr* documentPtrPtr,
-		IN int32Eink asType // -1 not indicated
+		OUT IEdDocument_ptr* documentPtrPtr
 	);
 
 	// 获得唯一对象

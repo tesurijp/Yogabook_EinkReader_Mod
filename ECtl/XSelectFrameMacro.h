@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef _LW_SELECTFRAME_MACRO
 #define _LW_SELECTFRAME_MACRO
 

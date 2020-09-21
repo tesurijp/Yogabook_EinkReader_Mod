@@ -16,6 +16,7 @@
 #include "SmCuveImp.h"
 
 #include "ReaderBaseFrame.h"
+#include "MenuBase.h"
 
 
 CFactoryImp* CFactoryImp::gpFactoryInstance=NULL;
@@ -63,9 +64,10 @@ IEinkuiIterator* __stdcall CFactoryImp::CreateElement(
 
 		if (0 == _wcsicmp(lswClsName, L"CVfSlMainFrame"))
 			lpoElement = CReaderBaseFrame::CreateInstance(npParent, npTemplete,nuEID);
-		else
-		if(0 == _wcsicmp(lswClsName, L"Cuve"))
+		else if(0 == _wcsicmp(lswClsName, L"Cuve"))
 			lpoElement = CSmCuveImp::CreateInstance(npParent, npTemplete,nuEID);
+		else if (0 == _wcsicmp(lswClsName, L"MenuBase"))
+			lpoElement = CMenuBase::CreateInstance(npParent, npTemplete, nuEID);
 
 	} while (false);
 
@@ -117,6 +119,7 @@ IConfigFile* __stdcall CFactoryImp::GetTempleteFile(void)
 			wcscpy_s(lpszConfigFileName,CONFIG_FILE_NAME_MAX_LEN,L"Widget");		//拼接文件名 示例：System_chn.set
 			wcscat_s(lpszConfigFileName,CONFIG_FILE_NAME_MAX_LEN,L"_");
 			wcscat_s(lpszConfigFileName,CONFIG_FILE_NAME_MAX_LEN,lpszLanguage);
+			//wcscat_s(lpszConfigFileName, CONFIG_FILE_NAME_MAX_LEN, L"bg");
 			wcscat_s(lpszConfigFileName,CONFIG_FILE_NAME_MAX_LEN,L".set");
 
 			BREAK_ON_FALSE(loConfigFilePath.Transform(lpszConfigFileName));	//拼成全路径

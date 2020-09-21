@@ -17,8 +17,13 @@ typedef cmmVector<ST_PAGE_CONTROL, 1, 1024> PageControl_Vector;
 #pragma pack()
 
 
-typedef void(__stdcall *PEDDOC_THREAD_CALLBACK)(LONG threadNumber, uint32 loadingStep,PST_PAGE_CONTROL pageCtl,void* context);
+typedef void(__stdcall *PEDDOC_THREAD_CALLBACK)(LONG threadNumber, uint32 loadingStep, PST_PAGE_CONTROL pageCtl, void* context);
 
+#define LOADING_STEP_COMPLETE 0xFFFFFFFF
+#define LOADING_STEP_AHEAD_COMPLETE	  0xFFFFFFF0
+#define LOADING_STEP_AHEAD(_X)	(_X&0x80000000)
+#define LOADING_STEP_AHEAD_PREFIX(_X)	(_X|0x80000000)
+#define LOADING_STEP_AHEAD_NUMBER(_X)	(_X&0x7FFFFFFF)
 
 // 排版线程类
 class CTxdArrangeThread {
@@ -26,76 +31,12 @@ public:
 	LONG mThreadNumber;
 	ED_ERR mResult;
 
-	CTxdArrangeThread(const wchar_t* charBuffer,uint32 charStart,uint32 charEnd,const wchar_t* fontName, float fontSize, Gdiplus::RectF* viewPort, PEDDOC_THREAD_CALLBACK callBackFun, void* callBackContext)
-	{
-		mThreadNumber = InterlockedIncrement(&mGlobalThreadNumber);
-		mResult = EDERR_UNSUCCESSFUL;
+	CTxdArrangeThread(const wchar_t* charBuffer, uint32 charStart, uint32 charEnd, bool aheadPages, const wchar_t* fontName, float fontSize, Gdiplus::RectF* viewPort, PEDDOC_THREAD_CALLBACK callBackFun, void* callBackContext);
+	~CTxdArrangeThread();
 
-		mCharBuffer = charBuffer;
-		mCharStart = charStart;
-		mCharEnd = charEnd;
+	void Start(void);
 
-		mViewPortExt = *viewPort;
-		mViewPortExt.Height *= 2.0f;
-		mViewHeight = viewPort->Height;
-
-		mCallBackContext = callBackContext;
-		mCallBackFun = callBackFun;
-		mExitFlag = 0;
-		mPageLoadStep = 0;
-		mThread2 = NULL;
-
-		wcscpy_s(mFontName, 100, fontName);
-		mFontSize = fontSize;
-
-		if (mCallBackFun != NULL)
-			mFocusPageLoaded = CreateEvent(NULL, true, false, NULL);
-		else
-			mFocusPageLoaded = NULL;
-
-		mFontObj = NULL;
-		mGdiObj = NULL;
-
-		mThreadHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)CTxdArrangeThread::ThreadBridge, this, CREATE_SUSPENDED, &mThreadID);
-		if (mThreadHandle == NULL)
-			return;
-
-		mResult = EDERR_SUCCESS;
-	}
-	~CTxdArrangeThread() {
-
-		TerminateThread();
-
-		if (mThread2 != NULL)
-			delete mThread2;
-
-		if(mFocusPageLoaded != NULL)
-			CloseHandle(mFocusPageLoaded);
-
-		if (mThreadHandle != NULL)
-			CloseHandle(mThreadHandle);
-	}
-
-	void Start(void) {
-		ResumeThread(mThreadHandle);
-
-		if (mFocusPageLoaded != NULL)
-		{
-			if (IsDebuggerPresent() != FALSE)
-				WaitForSingleObject(mFocusPageLoaded,INFINITE);
-			else
-				WaitForSingleObject(mFocusPageLoaded, 10 * 1000);	// 10秒超时
-		}
-	}
-
-	void TerminateThread() {	// will wait the thread exit and set a timeout as 10 seconds
-		if (mThread2 != NULL)
-			mThread2->TerminateThread();
-
-		InterlockedExchange(&mExitFlag, 1);
-		if (WaitForSingleObject(mThreadHandle, 10 * 1000) == WAIT_TIMEOUT)
-			::TerminateThread(mThreadHandle, -1);	// 直接中止
-	}
+	void TerminateThread();
 
 private:
 	static volatile LONG mGlobalThreadNumber;
@@ -103,6 +44,7 @@ private:
 	LONG mCloned;
 	PEDDOC_THREAD_CALLBACK mCallBackFun;
 	void* mCallBackContext;
+	bool  mAheadArrange;	// 说明当前时在排版焦点之前页
 	ULONG mThreadID;
 	HANDLE mThreadHandle;
 	HANDLE mFocusPageLoaded;
@@ -124,48 +66,14 @@ private:
 
 	volatile LONG mExitFlag;
 
-	static ULONG WINAPI ThreadBridge(CTxdArrangeThread* thisPointer) {
+	static ULONG WINAPI ThreadBridge(CTxdArrangeThread* thisPointer);
 
-		if (thisPointer->InitGdip() == false)
-			return -1;
+	bool InitGdip(void);
 
-		try {
-			if(thisPointer->mCallBackFun != NULL)
-				thisPointer->ArrangeThreadRoutine();
-			else
-				thisPointer->ArrangeThreadRoutine2();
-		}
-		catch(...)
-		{ }
-
-		thisPointer->UninitGdip();
-
-		return 0;
-	}
-
-	bool InitGdip(void) {
-		mGdiStart.Init();
-
-		mGdiObj = new Gdiplus::Graphics(GetDC(NULL));
-		if (mGdiObj == NULL)
-			return false;
-
-		mFontObj = new Gdiplus::Font(mFontName, mFontSize);
-
-		return mFontObj != NULL;
-	}
-
-	void UninitGdip(void) {
-		if (mFontObj != NULL)
-			delete mFontObj;
-
-		if (mGdiObj != NULL)
-			delete mGdiObj;
-		mGdiStart.UnInit();
-	}
+	void UninitGdip(void);
 
 	void ArrangeThreadRoutine();
-	void ArrangeThreadRoutine2();
+	void ArrangeThreadRoutine4AheadPages();
 
 	ED_ERR ArrangePages(int32 pageRequired,uint32 stringBase, uint32 stringEnd);
 

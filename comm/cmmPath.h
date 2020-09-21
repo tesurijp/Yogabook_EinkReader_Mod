@@ -15,6 +15,12 @@ public:
 	CFilePathName(const wchar_t* nszPathName); // 如果传入的是目录，最后一个字符一定要是L'\\'
 	~CFilePathName(){}
 
+	void SetPathName(const wchar_t* nszPathName) // 如果传入的是目录，最后一个字符一定要是L'\\'
+	{
+		wcscpy_s(mszPathName, MAX_PATH, nszPathName);
+		msiLength = (short)wcslen(mszPathName);
+	}
+
 	// 动态创建对象
 	static CFilePathName* Create(const wchar_t* nszPathName); // 如果传入的是目录，最后一个字符一定要是L'\\'
 
@@ -34,9 +40,29 @@ public:
 
 	// 获得当前用户的AppData\Roaming 目录 例如：C:\Users\UserName\AppData\Roaming
 	bool SetByUserAppData(void);
+	// 获得系统的特定目录，参考CSIDL_LOCAL_APPDATA
+	bool SetBySpecialPath(int csidl);
+
+	// 获得临时目录
+	bool SetByTempPath(void);
+
+	// 向用户询问目录，弹出目录选择对话框
+	bool QueryPathDialog(HWND parentWindow, const wchar_t* wndTitle, const wchar_t* defaultPath=NULL);
+
+	//// 向用户询问文件，弹出文件选择对话框
+	//bool QueryFileDialog((HWND parentWindow, const wchar_t* wndTitle, const wchar_t* defaultPath = NULL);
+
+	// 建立本路径需要的全部目录，如果不是'\\'结尾，最后一个内容被当作文件不会建立
+	bool CreatePath(void);
 
 	// 设置为目录，如果结尾没有'\\'就加上
 	void AssurePath(void);
+
+	// 去掉目录结尾的'\\'
+	void RemoveDirectoryTail(void);
+
+	// 去掉文件扩展名
+	bool RemoveExtName(void);
 
 	// 通过下面两个函数，可以直接修改内容；缓冲区可容纳的字符数为MAX_PATH
 	wchar_t* LockBuffer(){	// 此函数可以被多次调用以获得缓冲区指针，如果改变了Buf的内容，必须调用UnlockBuffer才能使对象回复有效
@@ -62,9 +88,9 @@ public:
 	const wchar_t* GetExtName(void)const;
 
 	// 复制
-	__inline void operator=(const class CFilePathName& src);
+	void operator=(const class CFilePathName& src);
 	// 从字符串赋值
-	__inline void operator=(const wchar_t* nswSrc);
+	void operator=(const wchar_t* nswSrc);
 
 	// 只复制全部目录，结果会保留'\\'
 	bool CopyPath(const class CFilePathName& src);
@@ -88,6 +114,8 @@ public:
 private:
 	short msiLength;
 	wchar_t mszPathName[MAX_PATH];
+
+	bool CreateDirectoryRecursion(const CFilePathName& path);
 };
 
 

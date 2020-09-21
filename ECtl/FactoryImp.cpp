@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 // ECtl.cpp : Defines the exported functions for the DLL application.
 //
 
@@ -50,7 +46,7 @@
 #include "EvRadioButtonGroupImp.h"
 //#include "EvTimeSpinButtonImp.h"
 
-CFactoryImp* CFactoryImp::gpFactoryInstance=NULL;
+CFactoryImp* CFactoryImp::gpFactoryInstance = NULL;
 DEFINE_BUILTIN_NAME(CFactoryImp)
 
 CFactoryImp::CFactoryImp()
@@ -67,18 +63,18 @@ CFactoryImp::~CFactoryImp()
 // 返回0表示成功；返回值最高位为1表示发生严重错误，应该终止初始化过程，返回的就是错误码；返回其他值表示其他非错误返回码
 ULONG CFactoryImp::InitOnCreate(void)
 {
-	if(gpFactoryInstance != NULL)
+	if (gpFactoryInstance != NULL)
 		return ERESULT_OBJECT_EXISTED;
 
 	gpFactoryInstance = this;
 
 	// 在这里加入映射表元素
-	bool lbStatus = false;	
-	do 
+	bool lbStatus = false;
+	do
 	{
 		lbStatus = moMapList.AddList(L"Button", CMapCallFP<CEvButton>::Custom2Normal(&CEvButton::CreateInstance));
 		BREAK_ON_FALSE(lbStatus);
- 		lbStatus = moMapList.AddList(L"CheckButton", CMapCallFP<CEvCheckButton>::Custom2Normal(&CEvCheckButton::CreateInstance));
+		lbStatus = moMapList.AddList(L"CheckButton", CMapCallFP<CEvCheckButton>::Custom2Normal(&CEvCheckButton::CreateInstance));
 		BREAK_ON_FALSE(lbStatus);
 		lbStatus = moMapList.AddList(L"RadioButtonGroup", CMapCallFP<CEvRadioButtonGroup>::Custom2Normal(&CEvRadioButtonGroup::CreateInstance));
 		BREAK_ON_FALSE(lbStatus);
@@ -110,14 +106,14 @@ ULONG CFactoryImp::InitOnCreate(void)
 		//BREAK_ON_FALSE(lbStatus);
 		lbStatus = moMapList.AddList(L"PopupMenu", CMapCallFP<CEvPopupMenu>::Custom2Normal(&CEvPopupMenu::CreateInstance));
 		BREAK_ON_FALSE(lbStatus);
-// 		lbStatus = moMapList.AddList(L"ToolPane", CMapCallFP<CEvToolPane>::Custom2Normal(&CEvToolPane::CreateInstance));
-// 		BREAK_ON_FALSE(lbStatus);
-		//lbStatus = moMapList.AddList(L"ToolBar", CMapCallFP<CEvToolBar>::Custom2Normal(&CEvToolBar::CreateInstance));
-		//BREAK_ON_FALSE(lbStatus);
-// 		lbStatus = moMapList.AddList(L"ImageButton", CMapCallFP<CEvImageButton>::Custom2Normal(&CEvImageButton::CreateInstance));
-// 		BREAK_ON_FALSE(lbStatus);
- 		lbStatus = moMapList.AddList(L"ComboBox", CMapCallFP<CEvComboBox>::Custom2Normal(&CEvComboBox::CreateInstance));
- 		BREAK_ON_FALSE(lbStatus);
+		// 		lbStatus = moMapList.AddList(L"ToolPane", CMapCallFP<CEvToolPane>::Custom2Normal(&CEvToolPane::CreateInstance));
+		// 		BREAK_ON_FALSE(lbStatus);
+				//lbStatus = moMapList.AddList(L"ToolBar", CMapCallFP<CEvToolBar>::Custom2Normal(&CEvToolBar::CreateInstance));
+				//BREAK_ON_FALSE(lbStatus);
+		// 		lbStatus = moMapList.AddList(L"ImageButton", CMapCallFP<CEvImageButton>::Custom2Normal(&CEvImageButton::CreateInstance));
+		// 		BREAK_ON_FALSE(lbStatus);
+		lbStatus = moMapList.AddList(L"ComboBox", CMapCallFP<CEvComboBox>::Custom2Normal(&CEvComboBox::CreateInstance));
+		BREAK_ON_FALSE(lbStatus);
 		lbStatus = moMapList.AddList(L"WhirlAngle", CMapCallFP<CEvWhirlAngleImp>::Custom2Normal(&CEvWhirlAngleImp::CreateInstance));
 		BREAK_ON_FALSE(lbStatus);
 		//lbStatus = moMapList.AddList(L"SpinButton", CMapCallFP<CEvSpinButton>::Custom2Normal(&CEvSpinButton::CreateInstance));
@@ -139,22 +135,22 @@ IEinkuiIterator* __stdcall CFactoryImp::CreateElement(
 	IN IEinkuiIterator* npParent,		// 父对象指针
 	IN ICfKey* npTemplete,			// npTemplete的Key ID就是EID，值就是类型EType
 	IN ULONG nuEID					// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-	)
+)
 {
 	IXsElement* lpoElement = NULL;
 	IEinkuiIterator* lpXIterator = NULL;
-	wchar_t lswClsName[MAX_PATH] ={0};
+	wchar_t lswClsName[MAX_PATH] = { 0 };
 
-	do 
+	do
 	{
 		BREAK_ON_NULL(npTemplete);
 
 		// 获取要创建的对象类名
-		if(npTemplete->GetValue(lswClsName, MAX_PATH*sizeof(wchar_t)) <= 0)
+		if (npTemplete->GetValue(lswClsName, MAX_PATH * sizeof(wchar_t)) <= 0)
 			break;
 
 		// 在MAPLIST表中查找对应的创建函数
-		AFX_MAPCALL lpfnCreateFunction = moMapList.GetUserData(lswClsName,NULL);
+		AFX_MAPCALL lpfnCreateFunction = moMapList.GetUserData(lswClsName, NULL);
 		BREAK_ON_NULL(lpfnCreateFunction);
 
 		// 用返回的函数指针创建对象
@@ -162,7 +158,7 @@ IEinkuiIterator* __stdcall CFactoryImp::CreateElement(
 
 	} while (false);
 
-	if(lpoElement != NULL)
+	if (lpoElement != NULL)
 		lpXIterator = lpoElement->GetIterator();	//获取Iterator指针
 
 	return lpXIterator;
@@ -174,17 +170,17 @@ IEinkuiIterator* __stdcall CFactoryImp::CreateElement(
 	IN IEinkuiIterator* npParent,		// 父对象指针
 	IN const wchar_t*		nswClassName,	// 类名
 	IN ULONG nuEID					// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-	)
+)
 {
 	IXsElement* lpoElement = NULL;
 	IEinkuiIterator* lpXIterator = NULL;
 
-	do 
+	do
 	{
 		BREAK_ON_NULL(nswClassName);
 
 		// 在MAPLIST表中查找对应的创建函数
-		AFX_MAPCALL lpfnCreateFunction = moMapList.GetUserData(nswClassName,NULL);
+		AFX_MAPCALL lpfnCreateFunction = moMapList.GetUserData(nswClassName, NULL);
 		BREAK_ON_NULL(lpfnCreateFunction);
 
 		// 用返回的函数指针创建对象
@@ -192,7 +188,7 @@ IEinkuiIterator* __stdcall CFactoryImp::CreateElement(
 
 	} while (false);
 
-	if(lpoElement != NULL)
+	if (lpoElement != NULL)
 		lpXIterator = lpoElement->GetIterator();	//获取Iterator指针
 
 	return lpXIterator;
@@ -204,13 +200,13 @@ IConfigFile* __stdcall CFactoryImp::GetTempleteFile(void)
 {
 	const wchar_t* lpszWidgetPath = NULL;
 	const wchar_t* lpszLanguage = NULL;
-	wchar_t lpszConfigFileName[CONFIG_FILE_NAME_MAX_LEN] = {0};
+	wchar_t lpszConfigFileName[CONFIG_FILE_NAME_MAX_LEN] = { 0 };
 
 	IConfigFile* lpIConfigFile = NULL;
 
-	do 
+	do
 	{
-		if(mpConfig == NULL)
+		if (mpConfig == NULL)
 		{
 			lpszWidgetPath = EinkuiGetSystem()->GetCurrentWidget()->GetWidgetDefaultPath();		//获取Widget的安装路径
 			BREAK_ON_NULL(lpszWidgetPath);
@@ -223,13 +219,13 @@ IConfigFile* __stdcall CFactoryImp::GetTempleteFile(void)
 			lpszLanguage = EinkuiGetSystem()->GetCurrentLanguage();		//获取当前系统语言对应的字符串,例如：中文简体对应：chn
 			BREAK_ON_NULL(lpszLanguage);
 
-			wcscpy_s(lpszConfigFileName,CONFIG_FILE_NAME_MAX_LEN,L"Widget_");		//拼接文件名 示例：System_chn.set
-			wcscat_s(lpszConfigFileName,CONFIG_FILE_NAME_MAX_LEN,lpszLanguage);
-			wcscat_s(lpszConfigFileName,CONFIG_FILE_NAME_MAX_LEN,L".set");
+			wcscpy_s(lpszConfigFileName, CONFIG_FILE_NAME_MAX_LEN, L"Widget_");		//拼接文件名 示例：System_chn.set
+			wcscat_s(lpszConfigFileName, CONFIG_FILE_NAME_MAX_LEN, lpszLanguage);
+			wcscat_s(lpszConfigFileName, CONFIG_FILE_NAME_MAX_LEN, L".set");
 
 			BREAK_ON_FALSE(loConfigFilePath.Transform(lpszConfigFileName));	//拼成全路径
 
-			lpIConfigFile = EinkuiGetSystem()->OpenConfigFile(loConfigFilePath.GetPathName(),OPEN_EXISTING);	//打开该配置文件
+			lpIConfigFile = EinkuiGetSystem()->OpenConfigFile(loConfigFilePath.GetPathName(), OPEN_EXISTING);	//打开该配置文件
 
 			BREAK_ON_NULL(lpIConfigFile);
 
@@ -248,10 +244,10 @@ IConfigFile* __stdcall CFactoryImp::GetTempleteFile(void)
 // 获得本DLL唯一的工厂对象
 CFactoryImp* CFactoryImp::GetUniqueObject(void)
 {
-	if(gpFactoryInstance ==NULL)
+	if (gpFactoryInstance == NULL)
 		CFactoryImp::CreateInstance();
 
-	CMMASSERT(gpFactoryInstance !=NULL);
+	CMMASSERT(gpFactoryInstance != NULL);
 
 	return gpFactoryInstance;
 }

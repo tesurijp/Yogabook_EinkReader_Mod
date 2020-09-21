@@ -1,5 +1,5 @@
-/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
+/* Copyright 2019 - present Lenovo */
 #pragma once
 
 // Including SDKDDKVer.h defines the highest available Windows platform.

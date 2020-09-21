@@ -1,3 +1,5 @@
+/* License: COPYING.GPLv3 */
+/* Copyright 2019 - present Lenovo */
 #pragma once
 #include "EiMsgQueue.h"
 #include "EinkIteAPI.h"
@@ -6,6 +8,9 @@
 
 //////////////////////////////////////////////////////////////////////////
 // APP发送给Service的消息定义
+#define EMHOSTID_RESULT  0
+// MsgBuf: none
+
 #define EMHOSTID_REG_APP 1
 // MsgBuf:struct REG_APP_INFO
 
@@ -106,6 +111,7 @@ typedef struct  _EI_MSG_APP_DRAW {
 #define PROTECT_RUN_APP_SETTINGS 1
 #define PROTECT_RUN_APP_KEYBOARD 2
 #define PROTECT_RUN_APP_PROTECT 3
+#define PROTECT_RUN_APP_SMARTINFO 4
 
 //获取ITE绘制是否ready
 #define EMHOSTID_GET_DRAW_READY 25
@@ -119,7 +125,6 @@ typedef struct  _EI_MSG_APP_DRAW {
 #define EMHOSTID_SET_PARTIAL_ENABLE 27
 // MsgBuf: BOOL
 
-//设置FW Partial开关
 #define EMHOSTID_GET_SCENARIO_MODE 28
 // MsgBuf: none
 
@@ -284,7 +289,43 @@ typedef struct  _EI_MSG_APP_DRAW {
 #define EMHOSTID_GET_USER_DIST_LIST 68
 // MsgBuf:none
 
+//#define EMHOSTID_SET_SCENARIO 69
 // MsgBuf:
+
+// 询问是否需要显示单页升级的oobe by xingej1
+#define EMHOSTID_GET_IS_SHOW_UPDATEOOBE 70
+
+// 撤销APP对应的消息
+#define EMHOSTID_RECALL_MSG 71
+
+// APP正常运行状态通知
+#define EMHOSTID_NORMAL_RUN_NOTICE 72
+
+// backto keyboard by xingej1
+#define EMHOSTID_TO_KEYBOARD 73
+
+// zhuhl
+#define EMHOSTID_SETPENMOUSEROTATION 74	// DEPRECATED[20190919, zhuhl5]
+#define EMHOSTID_SETTCONBOOLSETTING 75
+
+//在Service端记录一些App的数据
+#define EMHOSTID_RECORD_APP_DATA 76
+
+//修改分辨率
+#define EMHOSTID_REVERT_RESOLUTION 77
+
+//检查文件是否已经签名
+#define EMHOSTID_CHECK_FILE_ISVALID 78
+
+// 上传封面图
+#define EMHOSTID_STORE_COVER_IMAGE 79
+
+#define EMHOSTID_DRAW_COVER 80
+
+#define EMHOSTID_GET_DEVICE_STATUS 81
+
+#define EMHOSTID_SET_SMARTINFO_MSG 82
+
 //////////////////////////////////////////////////////////////////////////
 // Sevice发送给App的消息定义
 #define EMAPPID_RESULT  1000
@@ -332,11 +373,18 @@ typedef struct  _EI_MSG_APP_DRAW {
 #define EMAPPID_PRIVACY_STATUS_CHANGED 1010
 // MsgBuf: NA
 
+// 检测APP是否在运行状态
+#define EMAPPID_CHECK_APP_ALIVE 1011
+
+// 通知SmartInfo设置的变化
+#define EMAPPID_SMARTINFO_SETTINGS_CHANGE 1012
 
 #pragma pack(4)
 
-//内存映射文件大小
-#define EAC_FILE_SIZE 1024*1024*10
+//service消息缓冲区大小
+#define EAC_SERVICE_BUFFER_SIZE 1024*1024*18
+//app消息缓冲区大小
+#define EAC_APP_BUFFER_SIZE 1024*1024*10
 //给消息分配3M空间
 #define EAC_MSG_BUFFER_SIZE 1024*1024*3
 
@@ -362,7 +410,7 @@ public:
 			ULONG Result;	// 只有调用SendMessage时才有意义
 			ULONGLONG TickSent;	// 消息发送时的TickCount
 			ULONG BufSize;
-			char  MsgBuf[1];
+			char  MsgBuf[1024];
 		}Item;
 		char All[2048];
 	}Data;
@@ -374,12 +422,17 @@ public:
 	~CEiSvrMsgItem() {}
 
 	CEiSvrMsgItem& operator =(const CEiSvrMsgItem& src) {
-		RtlCopyMemory(Data.All, src.Data.All, sizeof(Data.Item) + src.Data.Item.BufSize - 1);
+		memcpy_s(Data.All, 2048, src.Data.All, 2048);
 		return *this;
 	}
 
 	bool IsTypeOf(const CEiSvrMsgItem& nrRefTo) {
 		return Data.Item.MsgId == nrRefTo.Data.Item.MsgId;
+	}
+
+	bool IsTypeOf(const ULONG& MsgId)
+	{
+		return Data.Item.MsgId == MsgId;
 	}
 
 	void Recall() {

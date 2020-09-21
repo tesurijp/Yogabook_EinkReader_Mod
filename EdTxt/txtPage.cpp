@@ -72,7 +72,7 @@ CtxtPage::~CtxtPage()
 // 返回0表示成功；返回值最高位为1表示发生严重错误，应该终止初始化过程，返回的就是错误码；返回其他值表示其他非错误返回码
 ULONG CtxtPage::InitOnCreate(int32 pageNo, wchar_t* charPtr, uint32 charLength, CtxtDocument* docObj)
 {
-	mPageIndexOpenning = pageNo;
+	//mPageIndexOpenning = pageNo;
 	mCharPtr = charPtr;
 	mCharLength = charLength;
 	mDocObj = docObj;
@@ -117,14 +117,19 @@ IEdBitmap_ptr CtxtPage::Render(
 	bin_ptr imageBuf;
 	Bitmap* gdipImage = NULL;
 	Graphics* gdipGraphic = NULL;
+	CGdipStart gdiStart;
+
+	if (mDocObj == NULL)
+		return NULL;
 
 	CtxtBitmap* txtBitmap = CtxtBitmap::CreateInstance(mPageWidth,mPageHeight);
 
-	if (txtBitmap == NULL || mDocObj == NULL)
+	if (txtBitmap == NULL)
 		return NULL;
 
 	try
 	{
+		gdiStart.Init();
 
 		imageBuf = txtBitmap->GetBuffer();
 		THROW_ON_NULL(imageBuf);
@@ -159,6 +164,8 @@ IEdBitmap_ptr CtxtPage::Render(
 	CMM_SAFE_DELETE(gdipGraphic);
 	CMM_SAFE_DELETE(gdipImage);
 
+	gdiStart.UnInit();
+
 	return txtBitmap;
 }
 
@@ -176,3 +183,12 @@ bool32 CtxtPage::GetPageContext(PPAGE_PDF_CONTEXT contextPtr)
 	return true;
 }
 
+bool32 CtxtPage::GetSelectedText(IN ED_RECTF_PTR selBox, OUT char16_ptr textBuf, IN int32Eink bufSize)
+{
+	return true;
+}
+
+IEdStructuredTextPage_ptr CtxtPage::GetStructuredTextPage(void)
+{
+	return NULL;
+}

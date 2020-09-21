@@ -48,7 +48,7 @@ protected:
 	//通知元素【显示/隐藏】发生改变
 	virtual ERESULT OnElementShow(bool nbIsShow);
 	// 鼠标落点检测
-	virtual ERESULT OnMouseOwnerTest(const D2D1_POINT_2F& rPoint);
+	//virtual ERESULT OnMouseOwnerTest(const D2D1_POINT_2F& rPoint);
 	//鼠标移动
 	virtual ERESULT OnMouseMoving(const STEMS_MOUSE_MOVING* npInfo);
 	//鼠标进入或离开

@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 
 
 template<class CBPlusTreeObjectClass,class Criterion,int ObjsInNode> bplustree<CBPlusTreeObjectClass,Criterion,ObjsInNode>::bplustree()

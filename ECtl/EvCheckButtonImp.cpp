@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 #include "cmmBaseObj.h"
 #include "Einkui.h"
@@ -30,15 +26,15 @@ ULONG CEvCheckButton::InitOnCreate(
 	IN IEinkuiIterator* npParent,	// 父对象指针
 	IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
 	IN ULONG nuEID	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-	)
+)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
 		//首先调用基类
-		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
-		if(leResult != ERESULT_SUCCESS)
+		leResult = CXuiElement::InitOnCreate(npParent, npTemplete, nuEID);
+		if (leResult != ERESULT_SUCCESS)
 			break;
 
 		//设置自己的类型
@@ -60,7 +56,7 @@ ERESULT CEvCheckButton::OnElementCreate(IEinkuiIterator* npIterator)
 
 	do
 	{
-		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
+		if (CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
 		//计算文字位置
@@ -68,7 +64,7 @@ ERESULT CEvCheckButton::OnElementCreate(IEinkuiIterator* npIterator)
 		{
 			mdTextDestRect.left = mdFrameSize.width + 5.0f;
 			int liTemp = mpTextBitmap->GetHeight();
-			mdTextDestRect.top = (mdFrameSize.width-mpTextBitmap->GetHeight())/2.0f - 1.0f;
+			mdTextDestRect.top = (mdFrameSize.width - mpTextBitmap->GetHeight()) / 2.0f - 1.0f;
 			mdTextDestRect.right = mdTextDestRect.left + mpTextBitmap->GetWidth();
 			mdTextDestRect.bottom = mdTextDestRect.top + mpTextBitmap->GetHeight();
 
@@ -76,7 +72,7 @@ ERESULT CEvCheckButton::OnElementCreate(IEinkuiIterator* npIterator)
 			mdAcionSize.width = mdTextDestRect.right;
 			mdAcionSize.height = mdTextDestRect.bottom;
 		}
-		
+
 		if (mfTextTop - 1.0f >= 0.5f)
 			mdTextDestRect.top = mfTextTop;
 
@@ -89,7 +85,7 @@ ERESULT CEvCheckButton::OnElementCreate(IEinkuiIterator* npIterator)
 		}
 
 		lResult = ERESULT_SUCCESS;
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -103,7 +99,7 @@ ERESULT CEvCheckButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	do
 	{
 		BREAK_ON_NULL(npPaintBoard);
-		
+
 		if (mpBgBitmap != NULL)
 		{
 			//绘制背景图
@@ -115,27 +111,27 @@ ERESULT CEvCheckButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 			{
 				lfX = (mdArrayFrame[llIndex].Index + mlCurrentPage) * mdFrameSize.width; //从哪个位置开始显示
 
-				npPaintBoard->DrawBitmap(D2D1::RectF(0.0f,0.0f,mpIterator->GetSizeX(),mpIterator->GetSizeY()),
-										 D2D1::RectF(lfX,0,lfX + mdFrameSize.width,mdFrameSize.height),
-										 mpBgBitmap,
-										 ESPB_DRAWBMP_EXTEND
-										);
+				npPaintBoard->DrawBitmap(D2D1::RectF(0.0f, 0.0f, mpIterator->GetSizeX(), mpIterator->GetSizeY()),
+					D2D1::RectF(lfX, 0, lfX + mdFrameSize.width, mdFrameSize.height),
+					mpBgBitmap,
+					ESPB_DRAWBMP_EXTEND
+				);
 			}
 		}
 
-		if(mpTextBitmap != NULL)
+		if (mpTextBitmap != NULL)
 		{
 			//绘制文字
 			FLOAT lfValue = 0.0f;
-			npPaintBoard->DrawBitmap(D2D1::RectF(mdTextDestRect.left + lfValue,mdTextDestRect.top + lfValue,mdTextDestRect.right + lfValue,mdTextDestRect.bottom + lfValue),
+			npPaintBoard->DrawBitmap(D2D1::RectF(mdTextDestRect.left + lfValue, mdTextDestRect.top + lfValue, mdTextDestRect.right + lfValue, mdTextDestRect.bottom + lfValue),
 				mpTextBitmap,
 				ESPB_DRAWBMP_NEAREST
-				);
+			);
 		}
-				
+
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -146,43 +142,43 @@ ERESULT CEvCheckButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
 
-	do 
+	do
 	{
-		if(mpIterator->IsVisible() == false)
+		if (mpIterator->IsVisible() == false)
 			break;
 
 
 		if (mdAcionSize.width > 1.0f && mdAcionSize.height > 1.0f)
 		{
 			//如果有感应区，就以感应区为主
-			if(rPoint.x < 0.0f || rPoint.x >= mdAcionSize.width || rPoint.y < 0.0f || rPoint.y >= mdAcionSize.height)
+			if (rPoint.x < 0.0f || rPoint.x >= mdAcionSize.width || rPoint.y < 0.0f || rPoint.y >= mdAcionSize.height)
 				break;
 		}
 		else if (mpBgBitmap != NULL)
 		{
 			//有背景图的时候
-			if(rPoint.x < 0.0f || (UINT)rPoint.x >= mpIterator->GetSizeX() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpIterator->GetSizeY())
+			if (rPoint.x < 0.0f || (UINT)rPoint.x >= mpIterator->GetSizeX() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpIterator->GetSizeY())
 				break;
 
 			float lfX = 0;
 			LONG llIndex = GetCurrentStatesArrayIndex();		//获取当前状态图片信息所在的数组下标
-			if(llIndex < 0)
+			if (llIndex < 0)
 				break;
 			lfX = (mdArrayFrame[llIndex].Index + mlCurrentPage) * mdFrameSize.width;  	//从哪个位置开始显示
 
-			D2D1_POINT_2F ldPoint = CExPoint::BigToOldPoint(mdFrameSize,mpIterator->GetSize(),D2D1::Point2(rPoint.x,rPoint.y),ESPB_DRAWBMP_EXTEND,D2D1::Point2((FLOAT)mpBgBitmap->GetExtnedLineX(),(FLOAT)mpBgBitmap->GetExtnedLineY()));
+			D2D1_POINT_2F ldPoint = CExPoint::BigToOldPoint(mdFrameSize, mpIterator->GetSize(), D2D1::Point2(rPoint.x, rPoint.y), ESPB_DRAWBMP_EXTEND, D2D1::Point2((FLOAT)mpBgBitmap->GetExtnedLineX(), (FLOAT)mpBgBitmap->GetExtnedLineY()));
 			//通过像素Alpha值检测????
 			DWORD luPixel;
-			if(ERESULT_SUCCEEDED(mpBgBitmap->GetPixel(DWORD(lfX+ldPoint.x),(DWORD)ldPoint.y,luPixel)))
+			if (ERESULT_SUCCEEDED(mpBgBitmap->GetPixel(DWORD(lfX + ldPoint.x), (DWORD)ldPoint.y, luPixel)))
 			{
-				if(luPixel != 1)
+				if (luPixel != 1)
 					break;
 			}
 		}
 		else if (mpTextBitmap != NULL)
 		{
 			//只有文字的时候
-			if(rPoint.x < 0.0f || (UINT)rPoint.x >= mpTextBitmap->GetWidth() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpTextBitmap->GetHeight())
+			if (rPoint.x < 0.0f || (UINT)rPoint.x >= mpTextBitmap->GetWidth() || rPoint.y < 0.0f || (UINT)rPoint.y >= mpTextBitmap->GetHeight())
 				break;
 		}
 		else

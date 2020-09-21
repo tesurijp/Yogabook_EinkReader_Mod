@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 
 #include "stdafx.h"
 
@@ -84,10 +80,10 @@ CEvImageButton::CEvImageButton() :
 	mbDrawShape(true)
 	//mlCurrentPage(0),
 	//mlPageCountMax(0)
-{	
+{
 }
 
-CEvImageButton::~CEvImageButton() 
+CEvImageButton::~CEvImageButton()
 {
 }
 
@@ -95,15 +91,15 @@ ULONG CEvImageButton::InitOnCreate(
 	IN IEinkuiIterator* npParent,	// 父对象指针
 	IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
 	IN ULONG nuEID				// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-	)
+)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
 		//首先调用基类
-		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
-		if(leResult != ERESULT_SUCCESS)
+		leResult = CXuiElement::InitOnCreate(npParent, npTemplete, nuEID);
+		if (leResult != ERESULT_SUCCESS)
 			break;
 
 		//创建ImageButton的子控件
@@ -123,11 +119,11 @@ ULONG CEvImageButton::InitOnCreate(
 		//mpUnificSetting = GetUnificSetting();
 
 		//创建左半部分PictureFrame
-		mpLeftPicture = CEvPictureFrame::CreateInstance(mpIterator, lpDefaultPictureFrameKey, IB_ID_CTRL_LEFT_PICTURE);			
+		mpLeftPicture = CEvPictureFrame::CreateInstance(mpIterator, lpDefaultPictureFrameKey, IB_ID_CTRL_LEFT_PICTURE);
 
 		//创建右半部分PictureFrame
-		mpRightPicture = CEvPictureFrame::CreateInstance(mpIterator, lpDefaultPictureFrameKey, IB_ID_CTRL_RIGHT_PICTURE);			
-		
+		mpRightPicture = CEvPictureFrame::CreateInstance(mpIterator, lpDefaultPictureFrameKey, IB_ID_CTRL_RIGHT_PICTURE);
+
 		//mpLeftPicture->GetIterator()->ModifyStyles(NULL, EITR_STYLE_MOUSE);
 		//mpLeftPicture->GetIterator()->ModifyStyles(NULL, EITR_STYLE_MOUSE);
 		//mpIterator->ModifyStyles(NULL, EITR_STYLE_MOUSE);
@@ -136,15 +132,15 @@ ULONG CEvImageButton::InitOnCreate(
 		ICfKey* lpValue = mpTemplete->GetSubKey(IB_KEY_TIP); //Tip1
 		wchar_t* lpszTip = NULL;
 
-		do 
+		do
 		{
 			BREAK_ON_NULL(lpValue);
 			LONG llLen = lpValue->GetValueLength();
 			lpszTip = new wchar_t[llLen];
 			BREAK_ON_NULL(lpszTip);
 
-			lpValue->GetValue(lpszTip,lpValue->GetValueLength());
-			
+			lpValue->GetValue(lpszTip, lpValue->GetValueLength());
+
 			mpIterator->SetToolTip(lpszTip);
 
 		} while (false);
@@ -167,7 +163,7 @@ ERESULT CEvImageButton::OnElementCreate(IEinkuiIterator* npIterator)
 
 	do
 	{
-		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
+		if (CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
 		SetChildCtrlPara();
@@ -182,9 +178,9 @@ ERESULT CEvImageButton::OnElementCreate(IEinkuiIterator* npIterator)
 				mpIterExpandCtrl->SetVisible(mbShowExpandCtrl);
 			}
 		}
-		
+
 		lResult = ERESULT_SUCCESS;
-	} while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -195,14 +191,14 @@ void CEvImageButton::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 	if (npState->State != 0)
 	{
 		//鼠标进入
-		if(mbIsMouseFocus == false) mbIsMouseFocus = true;
+		if (mbIsMouseFocus == false) mbIsMouseFocus = true;
 	}
 	else
 	{
 		//鼠标移出
-		if(mbIsMouseFocus != false) mbIsMouseFocus = false;
+		if (mbIsMouseFocus != false) mbIsMouseFocus = false;
 
-		if(mbIsPressed != false)  //如果鼠标移走了，就去掉按下状态
+		if (mbIsPressed != false)  //如果鼠标移走了，就去掉按下状态
 			mbIsPressed = false;
 	}
 
@@ -218,16 +214,16 @@ ERESULT CEvImageButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 	{
 		BREAK_ON_NULL(npInfo);
 
-		if(mpIterator->IsEnable() == false)
+		if (mpIterator->IsEnable() == false)
 			break;	//如果是禁用状态，就不接收输入
 
-		if((npInfo->ActKey & MK_LBUTTON) == 0)  //如果不是鼠标左键就不处理
+		if ((npInfo->ActKey & MK_LBUTTON) == 0)  //如果不是鼠标左键就不处理
 			break;
 
-		if ( (npInfo->Presssed == false) && (mbIsPressed == true) )
+		if ((npInfo->Presssed == false) && (mbIsPressed == true))
 		{
 			//鼠标抬起
-			mbIsPressed = false;	
+			mbIsPressed = false;
 
 			if (mnStyle == 1) mbChecked = !mbChecked;		//设置按钮 选中 / 取消选中
 
@@ -265,7 +261,7 @@ ERESULT CEvImageButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 			{
 				//EinkuiGetSystem()->GetElementManager()->SimplePostMessage(
 				//	mpIterator->GetParent()->GetParent(), EEVT_TOOLBARITEM_CLICK, &mMsgInfo, sizeof(TOOLBAR_MSG));
-				CExMessage::PostMessage(mpIterator->GetParent()->GetParent(),mpIterator,EEVT_TOOLBARITEM_CLICK,mMsgInfo,EMSG_POSTTYPE_FAST);
+				CExMessage::PostMessage(mpIterator->GetParent()->GetParent(), mpIterator, EEVT_TOOLBARITEM_CLICK, mMsgInfo, EMSG_POSTTYPE_FAST);
 			}
 
 			if (mMsgInfo.mnMsgParaType == TMPT_BOOL)
@@ -274,10 +270,10 @@ ERESULT CEvImageButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 
 				//EinkuiGetSystem()->GetElementManager()->SimplePostMessage(
 				//	mpIterator->GetParent()->GetParent(), EEVT_TOOLBARITEM_CLICK, &mMsgInfo, sizeof(TOOLBAR_MSG));
-				CExMessage::PostMessage(mpIterator->GetParent()->GetParent(),mpIterator,EEVT_TOOLBARITEM_CLICK,mMsgInfo,EMSG_POSTTYPE_FAST);
+				CExMessage::PostMessage(mpIterator->GetParent()->GetParent(), mpIterator, EEVT_TOOLBARITEM_CLICK, mMsgInfo, EMSG_POSTTYPE_FAST);
 			}
 
-			/*if (mMsgInfo.mnMsgParaType == TMPT_INT)	
+			/*if (mMsgInfo.mnMsgParaType == TMPT_INT)
 			{
 				EinkuiGetSystem()->GetElementManager()->SimplePostMessage(
 					mpIterator->GetParent(), EEVT_TOOLBARITEM_CLICK, &mMsgInfo, sizeof(TOOLBAR_MSG));
@@ -293,7 +289,7 @@ ERESULT CEvImageButton::OnMousePressed(const STEMS_MOUSE_BUTTON* npInfo)
 
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -303,7 +299,7 @@ ERESULT CEvImageButton::OnMouseOwnerTest(const D2D1_POINT_2F& rPoint)
 {
 	ERESULT luResult = ERESULT_SUCCESS;
 
-	if(!(rPoint.x < 0.0f || rPoint.x >= mpIterator->GetSizeX()
+	if (!(rPoint.x < 0.0f || rPoint.x >= mpIterator->GetSizeX()
 		|| rPoint.y < 0.0f || rPoint.y >= mpIterator->GetSizeY()))
 	{
 		luResult = ERESULT_MOUSE_OWNERSHIP;
@@ -329,15 +325,15 @@ ERESULT CEvImageButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 				D2D1::RectF(0.0f, 0.0f, mpIterator->GetSize().width, mpIterator->GetSize().height),
 
 				D2D1::RectF(
-				(FLOAT)(mpBitmapSelectOrOver->GetWidth()) * 2.0f / 4.0f, 
-				0.0f, 
-				(FLOAT)(mpBitmapSelectOrOver->GetWidth()) * 3.0f / 4.0f, 
-				(FLOAT)(mpBitmapSelectOrOver->GetHeight())
+				(FLOAT)(mpBitmapSelectOrOver->GetWidth()) * 2.0f / 4.0f,
+					0.0f,
+					(FLOAT)(mpBitmapSelectOrOver->GetWidth()) * 3.0f / 4.0f,
+					(FLOAT)(mpBitmapSelectOrOver->GetHeight())
 				),
 
 				mpBitmapSelectOrOver,
 				lulMethod
-				);
+			);
 		}
 
 		if (mnStyle == 0)
@@ -349,15 +345,15 @@ ERESULT CEvImageButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 					D2D1::RectF(0.0f, 0.0f, mpIterator->GetSize().width, mpIterator->GetSize().height),
 
 					D2D1::RectF(
-					(FLOAT)(mpBitmapSelectOrOver->GetWidth()) * 3.0f / 4.0f, 
-					0.0f, 
-					(FLOAT)(mpBitmapSelectOrOver->GetWidth()), 
-					(FLOAT)(mpBitmapSelectOrOver->GetHeight())
+					(FLOAT)(mpBitmapSelectOrOver->GetWidth()) * 3.0f / 4.0f,
+						0.0f,
+						(FLOAT)(mpBitmapSelectOrOver->GetWidth()),
+						(FLOAT)(mpBitmapSelectOrOver->GetHeight())
 					),
 
 					mpBitmapSelectOrOver,
 					lulMethod
-					);
+				);
 			}
 		}
 		else if (mnStyle == 1)
@@ -369,19 +365,19 @@ ERESULT CEvImageButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 					D2D1::RectF(0, 0, mpIterator->GetSize().width, mpIterator->GetSize().height),
 
 					D2D1::RectF(
-					(FLOAT)(mpBitmapSelectOrOver->GetWidth()) * 3.0f / 4.0f, 
-					0.0f, 
-					(FLOAT)(mpBitmapSelectOrOver->GetWidth()), 
-					(FLOAT)(mpBitmapSelectOrOver->GetHeight())
+					(FLOAT)(mpBitmapSelectOrOver->GetWidth()) * 3.0f / 4.0f,
+						0.0f,
+						(FLOAT)(mpBitmapSelectOrOver->GetWidth()),
+						(FLOAT)(mpBitmapSelectOrOver->GetHeight())
 					),
 
 					mpBitmapSelectOrOver,
 					lulMethod
-					);
+				);
 			}
 		}
 
-		if ( (mbHasColorFlag != false) && (mbDrawShape != false) )
+		if ((mbHasColorFlag != false) && (mbDrawShape != false))
 		{
 			ID2D1SolidColorBrush *lpBrush;
 			HRESULT hr = npPaintBoard->GetD2dRenderTarget()->CreateSolidColorBrush(
@@ -389,12 +385,12 @@ ERESULT CEvImageButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 				//D2D1::ColorF((float)(GetRValue(mluRGBColor)), (float)(GetGValue(mluRGBColor)), (float)GetBValue(mluRGBColor)), &lpBrush);
 				D2D1::ColorF(RGB(GetBValue(mluRGBColor), GetGValue(mluRGBColor), GetRValue(mluRGBColor)), 1.0f), &lpBrush);
 			npPaintBoard->GetD2dRenderTarget()->FillRectangle(
-				D2D1::RectF(5.0f, 20.0f, 20.0f, 24.0f), lpBrush);	
+				D2D1::RectF(5.0f, 20.0f, 20.0f, 24.0f), lpBrush);
 		}
-	
+
 		lResult = ERESULT_SUCCESS;
-		
-	} while(false);
+
+	} while (false);
 
 	return lResult;
 }
@@ -407,227 +403,227 @@ ERESULT CEvImageButton::ParseMessage(IEinkuiMessage* npMsg)
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
-	do 
+	do
 	{
 		BREAK_ON_NULL(npMsg);
 
 		switch (npMsg->GetMessageID())
 		{
 		case EEVT_MENUITEM_CLICK:			//扩展控件的菜单项被点击
-			{	
-				//if (mpVecExpandMenuItem.Size() != 0)
+		{
+			//if (mpVecExpandMenuItem.Size() != 0)
+			{
+				//读取ID
+				if (npMsg->GetInputDataSize() != sizeof(int) || npMsg->GetInputData() == NULL)
+					luResult = ERESULT_WRONG_PARAMETERS;
+				int lItemID = *(int*)(npMsg->GetInputData());
+
+				wchar_t* pPicPath = NULL;
+				for (int i = 0; i < mpVecExpandMenuItem.Size(); ++i)
 				{
-					//读取ID
-					if(npMsg->GetInputDataSize()!=sizeof(int) || npMsg->GetInputData()==NULL)
-						luResult = ERESULT_WRONG_PARAMETERS;
-					int lItemID = *(int*)(npMsg->GetInputData());
-
-					wchar_t* pPicPath = NULL;
-					for (int i = 0; i < mpVecExpandMenuItem.Size(); ++i)
+					if (mpVecExpandMenuItem[i].id == lItemID)
 					{
-						if (mpVecExpandMenuItem[i].id == lItemID)
+						pPicPath = mpVecExpandMenuItem[i].pPicPath;
+
+						if (pPicPath && (*pPicPath != '\0'))
 						{
-							pPicPath = mpVecExpandMenuItem[i].pPicPath;
-
-							if (pPicPath && (*pPicPath != '\0'))
-							{	
-								//更换按钮左半部分图片
-								if (mpLeftPicture)
-								{
-									EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
-										mpLeftPicture->GetIterator(), EACT_PICTUREFRAME_CHANGE_PIC, pPicPath,
-										(wcslen(pPicPath) + 1) * sizeof(wchar_t), NULL, 0);
-								}
+							//更换按钮左半部分图片
+							if (mpLeftPicture)
+							{
+								EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
+									mpLeftPicture->GetIterator(), EACT_PICTUREFRAME_CHANGE_PIC, pPicPath,
+									(wcslen(pPicPath) + 1) * sizeof(wchar_t), NULL, 0);
 							}
-
-							break;
 						}
+
+						break;
 					}
-
-					//发送toolbar子项点击消息
-					if (mMsgInfo.mnMsgParaType == TMPT_INT)
-					{
-						//mMsgInfo.mpMsgBuf = (int*)(npMsg->GetInputData());
-						mMsgInfo.mlInterge = (LONG)*(int*)(npMsg->GetInputData());
-
-						//EinkuiGetSystem()->GetElementManager()->SimplePostMessage(
-						//	mpIterator->GetParent()->GetParent(), EEVT_TOOLBARITEM_CLICK, &mMsgInfo, sizeof(TOOLBAR_MSG));
-
-						//EinkuiGetSystem()->GetElementManager()->SimplePostMessage(
-						//	mpIterator->GetParent(), EEVT_TOOLBARITEM_CLICK, &mMsgInfo, sizeof(TOOLBAR_MSG));
-
-						CExMessage::PostMessage(mpIterator->GetParent()->GetParent(),mpIterator,EEVT_TOOLBARITEM_CLICK,mMsgInfo,EMSG_POSTTYPE_FAST);
-						CExMessage::PostMessage(mpIterator->GetParent(),mpIterator,EEVT_TOOLBARITEM_CLICK,mMsgInfo,EMSG_POSTTYPE_FAST);
-
-					}
-
-					mbShowExpandCtrl = false;
 				}
 
-				luResult = ERESULT_SUCCESS;
+				//发送toolbar子项点击消息
+				if (mMsgInfo.mnMsgParaType == TMPT_INT)
+				{
+					//mMsgInfo.mpMsgBuf = (int*)(npMsg->GetInputData());
+					mMsgInfo.mlInterge = (LONG)*(int*)(npMsg->GetInputData());
+
+					//EinkuiGetSystem()->GetElementManager()->SimplePostMessage(
+					//	mpIterator->GetParent()->GetParent(), EEVT_TOOLBARITEM_CLICK, &mMsgInfo, sizeof(TOOLBAR_MSG));
+
+					//EinkuiGetSystem()->GetElementManager()->SimplePostMessage(
+					//	mpIterator->GetParent(), EEVT_TOOLBARITEM_CLICK, &mMsgInfo, sizeof(TOOLBAR_MSG));
+
+					CExMessage::PostMessage(mpIterator->GetParent()->GetParent(), mpIterator, EEVT_TOOLBARITEM_CLICK, mMsgInfo, EMSG_POSTTYPE_FAST);
+					CExMessage::PostMessage(mpIterator->GetParent(), mpIterator, EEVT_TOOLBARITEM_CLICK, mMsgInfo, EMSG_POSTTYPE_FAST);
+
+				}
+
+				mbShowExpandCtrl = false;
 			}
-			break;
+
+			luResult = ERESULT_SUCCESS;
+		}
+		break;
 
 		case EMSG_ELEMENT_ACTIVATED:
+		{
+			//激活状态改变
+			STEMS_ELEMENT_ACTIVATION* lpActive;
+			luResult = CExMessage::GetInputDataBuffer(npMsg, lpActive);
+			if (luResult != ERESULT_SUCCESS)
+				break;
+
+			if (lpActive->State == 0 && mpIterExpandCtrl->IsVisible() != false)			// 可见状态下失去激活状态，需要隐藏当前展开的菜单
 			{
-				//激活状态改变
-				STEMS_ELEMENT_ACTIVATION* lpActive;
-				luResult = CExMessage::GetInputDataBuffer(npMsg,lpActive);
-				if(luResult != ERESULT_SUCCESS)
-					break;
-
-				if (lpActive->State == 0 && mpIterExpandCtrl->IsVisible() != false)			// 可见状态下失去激活状态，需要隐藏当前展开的菜单
+				mbShowExpandCtrl = false;
+				if (mpIterExpandCtrl)
 				{
-					mbShowExpandCtrl = false;
-					if (mpIterExpandCtrl)
-					{
-						mpIterExpandCtrl->SetVisible(mbShowExpandCtrl);
-					}
+					mpIterExpandCtrl->SetVisible(mbShowExpandCtrl);
 				}
-
-				luResult = ERESULT_SUCCESS;
 			}
-			break;
+
+			luResult = ERESULT_SUCCESS;
+		}
+		break;
 
 		case EACT_IMAGEBUTTON_SET_COLOR:
+		{
+			if (npMsg->GetInputDataSize() != sizeof(ULONG))
 			{
-				if(npMsg->GetInputDataSize() != sizeof(ULONG))
-				{
-					luResult = ERESULT_WRONG_PARAMETERS;
-					break;
-				}
-				
-				mluRGBColor = *(ULONG*)npMsg->GetInputData();
-				if((mluRGBColor & 0xFF000000) != 0)
-					mbDrawShape = true;
-				else
-					mbDrawShape = false;
-
-				EinkuiGetSystem()->UpdateView();
-
-				luResult = ERESULT_SUCCESS;
+				luResult = ERESULT_WRONG_PARAMETERS;
+				break;
 			}
-			break;
+
+			mluRGBColor = *(ULONG*)npMsg->GetInputData();
+			if ((mluRGBColor & 0xFF000000) != 0)
+				mbDrawShape = true;
+			else
+				mbDrawShape = false;
+
+			EinkuiGetSystem()->UpdateView();
+
+			luResult = ERESULT_SUCCESS;
+		}
+		break;
 
 		case EACT_IMAGEBUTTON_CHANGE_LEFT_IMAGE_BKG:
-			{
-				
-				wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
+		{
 
-				EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
-					mpLeftPicture->GetIterator(), EACT_PICTUREFRAME_CHANGE_PIC, lpValue,
-					(wcslen(lpValue) + 1) * sizeof(wchar_t), NULL, 0);
+			wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
 
-				luResult = ERESULT_SUCCESS;
-			}
-			break;
+			EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
+				mpLeftPicture->GetIterator(), EACT_PICTUREFRAME_CHANGE_PIC, lpValue,
+				(wcslen(lpValue) + 1) * sizeof(wchar_t), NULL, 0);
+
+			luResult = ERESULT_SUCCESS;
+		}
+		break;
 
 		case EACT_IMAGEBUTTON_CHANGE_LEFT_IMAGE_BKG_FULL_PATH:
-			{
-			
-				wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
+		{
 
-				EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
-					mpLeftPicture->GetIterator(), EACT_PICTUREFRAME_CHANGE_PIC_FULLPATH, lpValue,
-					(wcslen(lpValue) + 1) * sizeof(wchar_t), NULL, 0);
+			wchar_t* lpValue = (wchar_t*)npMsg->GetInputData();
 
-				luResult = ERESULT_SUCCESS;
-			}
-			break;
+			EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
+				mpLeftPicture->GetIterator(), EACT_PICTUREFRAME_CHANGE_PIC_FULLPATH, lpValue,
+				(wcslen(lpValue) + 1) * sizeof(wchar_t), NULL, 0);
+
+			luResult = ERESULT_SUCCESS;
+		}
+		break;
 
 		case EACT_IMAGEBUTTON_SET_CHECKED:
+		{
+			if (npMsg->GetInputDataSize() != sizeof(bool))
 			{
-				if(npMsg->GetInputDataSize() != sizeof(bool))
-				{
-					luResult = ERESULT_WRONG_PARAMETERS;
-					break;
-				}
-				// 获取输入数据
-				bool* lpValue = (bool*)npMsg->GetInputData();
-				SetChecked(*lpValue);
-
-				luResult = ERESULT_SUCCESS;
+				luResult = ERESULT_WRONG_PARAMETERS;
+				break;
 			}
-			
-			break;
+			// 获取输入数据
+			bool* lpValue = (bool*)npMsg->GetInputData();
+			SetChecked(*lpValue);
+
+			luResult = ERESULT_SUCCESS;
+		}
+
+		break;
 
 		case EEVT_GET_UNIFIC_SETTING_ID:
+		{
+			if (npMsg->GetOutputBufferSize() != sizeof(int))
 			{
-				if(npMsg->GetOutputBufferSize() != sizeof(int))
-				{
-					luResult = ERESULT_WRONG_PARAMETERS;
-					break;
-				}
-
-				int* lpValue = (int*)npMsg->GetOutputBuffer();
-				*lpValue = mMsgInfo.mnCtrlID;
-
-				//IUnificSetting* pSetting = GetUnificSetting();
-				//if (NULL == pSetting) break;
-				bool lbEnable = true;// pSetting->GetItemEnable(mMsgInfo.mnCtrlID);
-				SetImageButtonEnable(lbEnable);
-
-				luResult = ERESULT_SUCCESS;
+				luResult = ERESULT_WRONG_PARAMETERS;
+				break;
 			}
-			break;
+
+			int* lpValue = (int*)npMsg->GetOutputBuffer();
+			*lpValue = mMsgInfo.mnCtrlID;
+
+			//IUnificSetting* pSetting = GetUnificSetting();
+			//if (NULL == pSetting) break;
+			bool lbEnable = true;// pSetting->GetItemEnable(mMsgInfo.mnCtrlID);
+			SetImageButtonEnable(lbEnable);
+
+			luResult = ERESULT_SUCCESS;
+		}
+		break;
 
 		case EEVT_PANE_ITEM_SET_VALUE:
-			{
-				SetValue();
+		{
+			SetValue();
 
-				luResult = ERESULT_SUCCESS;
-			}
-			break;
+			luResult = ERESULT_SUCCESS;
+		}
+		break;
 
 		case EACT_IMAGEBUTTON_SET_RATIO:
+		{
+			if (npMsg->GetInputDataSize() != sizeof(FLOAT))
 			{
-				if(npMsg->GetInputDataSize() != sizeof(FLOAT))
-				{
-					luResult = ERESULT_WRONG_PARAMETERS;
-					break;
-				}
-				FLOAT* lpValue = (FLOAT*)npMsg->GetInputData();
-
-				mfRadio = *lpValue;
-
-				luResult = ERESULT_SUCCESS;
+				luResult = ERESULT_WRONG_PARAMETERS;
+				break;
 			}
-			break;
+			FLOAT* lpValue = (FLOAT*)npMsg->GetInputData();
+
+			mfRadio = *lpValue;
+
+			luResult = ERESULT_SUCCESS;
+		}
+		break;
 
 		case EACT_IMAGEBUTTON_SET_ITEM_SELECTED:
+		{
+			if (npMsg->GetInputDataSize() != sizeof(int))
 			{
-				if(npMsg->GetInputDataSize() != sizeof(int))
-				{
-					luResult = ERESULT_WRONG_PARAMETERS;
-					break;
-				}
-				int* lpValue = (int*)npMsg->GetInputData();
-
-				SetItemSelected(*lpValue);
-
-				luResult = ERESULT_SUCCESS;
+				luResult = ERESULT_WRONG_PARAMETERS;
+				break;
 			}
-			break;
+			int* lpValue = (int*)npMsg->GetInputData();
+
+			SetItemSelected(*lpValue);
+
+			luResult = ERESULT_SUCCESS;
+		}
+		break;
 
 		case EACT_IMAGEBUTTON_DRAW_SHAPE:
+		{
+			if (npMsg->GetInputDataSize() != sizeof(bool))
 			{
-				if(npMsg->GetInputDataSize() != sizeof(bool))
-				{
-					luResult = ERESULT_WRONG_PARAMETERS;
-					break;
-				}
-				// 获取输入数据
-				bool* lpValue = (bool*)npMsg->GetInputData();
-				mbDrawShape = *lpValue;
+				luResult = ERESULT_WRONG_PARAMETERS;
+				break;
 			}
-			break;
+			// 获取输入数据
+			bool* lpValue = (bool*)npMsg->GetInputData();
+			mbDrawShape = *lpValue;
+		}
+		break;
 
 		default:
 			luResult = ERESULT_NOT_SET;
 			break;
 		}
 
-		if(luResult == ERESULT_NOT_SET)
+		if (luResult == ERESULT_NOT_SET)
 		{
 			luResult = CXuiElement::ParseMessage(npMsg); // 调用基类的同名函数；注意：一定要调用自身直接基类
 		}
@@ -642,8 +638,8 @@ BOOL CEvImageButton::SetChildCtrlPara()
 {
 	if (mpLeftPicture && mpRightPicture)
 	{
-		ICfKey * lpLeftPictureKey		= mpTemplete->GetSubKey(IB_KEY_LEFT_PICTURE);
-		ICfKey * lpRightPictureKey		= mpTemplete->GetSubKey(IB_KEY_RIGHT_PICTURE);
+		ICfKey * lpLeftPictureKey = mpTemplete->GetSubKey(IB_KEY_LEFT_PICTURE);
+		ICfKey * lpRightPictureKey = mpTemplete->GetSubKey(IB_KEY_RIGHT_PICTURE);
 
 		if (lpLeftPictureKey)
 		{
@@ -656,7 +652,7 @@ BOOL CEvImageButton::SetChildCtrlPara()
 			mpLeftPicture->GetIterator()->SetSize((FLOAT)(lWidth), (FLOAT)(lHeight));
 
 			//换背景图
-			wchar_t lpPicBackGround[BUF_SIZE] = {0};
+			wchar_t lpPicBackGround[BUF_SIZE] = { 0 };
 			lpLeftPictureKey->QuerySubKeyValue(IB_KEY_BACKGROUND, lpPicBackGround, BUF_SIZE * sizeof(wchar_t));
 			EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
 				mpLeftPicture->GetIterator(), EACT_PICTUREFRAME_CHANGE_PIC, lpPicBackGround,
@@ -674,7 +670,7 @@ BOOL CEvImageButton::SetChildCtrlPara()
 			mpRightPicture->GetIterator()->SetSize((FLOAT)(lWidth), (FLOAT)(lHeight));
 
 			//换背景图
-			wchar_t lpPicBackGround[BUF_SIZE] = {0};
+			wchar_t lpPicBackGround[BUF_SIZE] = { 0 };
 			lpRightPictureKey->QuerySubKeyValue(IB_KEY_BACKGROUND, lpPicBackGround, BUF_SIZE * sizeof(wchar_t));
 			EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
 				mpRightPicture->GetIterator(), EACT_PICTUREFRAME_CHANGE_PIC, lpPicBackGround,
@@ -682,12 +678,12 @@ BOOL CEvImageButton::SetChildCtrlPara()
 		}
 
 		//背景框
-		wchar_t lpSelectFrame[BUF_SIZE] = {0};
+		wchar_t lpSelectFrame[BUF_SIZE] = { 0 };
 		mpTemplete->QuerySubKeyValue(IB_KEY_SELECT_FRAME, lpSelectFrame, BUF_SIZE * sizeof(wchar_t));
 		mpBitmapSelectOrOver = EinkuiGetSystem()->GetAllocator()->LoadImageFile(lpSelectFrame);
 
 		//配置文件读取控件风格
-		wchar_t lpStyle[BUF_SIZE] = {0};
+		wchar_t lpStyle[BUF_SIZE] = { 0 };
 		mpTemplete->QuerySubKeyValue(IB_KEY_STYLE, lpStyle, BUF_SIZE * sizeof(wchar_t));
 		if (wcscmp(lpStyle, IB_STYLE_UNCHECKABLE) == 0)
 		{
@@ -701,27 +697,27 @@ BOOL CEvImageButton::SetChildCtrlPara()
 		}
 
 		//配置文件读取扩展属性
-		wchar_t lpExpandable[BUF_SIZE] = {0};
+		wchar_t lpExpandable[BUF_SIZE] = { 0 };
 		mpTemplete->QuerySubKeyValue(IB_KEY_EXPANDABLE, lpExpandable, BUF_SIZE * sizeof(wchar_t));
 		if (wcscmp(lpExpandable, IB_STYLE_EXPANDABLE) == 0)
-		{			
+		{
 			//支持扩展
 			mbExpandable = true;
-			
+
 			//读取更换图片路径列表
 			ICfKey* lpExpandMenuItemListKey = mpTemplete->GetSubKey(IB_KEY_MENU_ITEM_LIST);
 			ICfKey* lpItemKey = NULL;
 
 			if (lpExpandMenuItemListKey)
 			{
-				lpItemKey = lpExpandMenuItemListKey->MoveToSubKey();	
+				lpItemKey = lpExpandMenuItemListKey->MoveToSubKey();
 				int nCount = 0;
 				while (lpItemKey != NULL)	//循环读取更换图片路径列表
 				{
 					ExpandMenuItem MenuItem;
 					lpItemKey->QuerySubKeyValue(IB_KEY_MENU_ITEM_ID, &(MenuItem.id), sizeof(int));
 					lpItemKey->QuerySubKeyValue(IB_KEY_MENU_ITEM_PIC_PATH, MenuItem.pPicPath, sizeof(wchar_t) * MAX_PATH);
-						mpVecExpandMenuItem.Insert(nCount++, MenuItem);
+					mpVecExpandMenuItem.Insert(nCount++, MenuItem);
 
 					lpItemKey = lpItemKey->MoveToNextKey();
 				}
@@ -738,7 +734,7 @@ BOOL CEvImageButton::SetChildCtrlPara()
 		if (lpMessageInfoKey)
 		{
 			unsigned int		lnID = 0;
-			wchar_t lpMessageType[BUF_SIZE] = {0};
+			wchar_t lpMessageType[BUF_SIZE] = { 0 };
 
 			lpMessageInfoKey->QuerySubKeyValue(IB_KEY_MESSAGE_INFO_ID, &lnID, sizeof(unsigned int));
 			lpMessageInfoKey->QuerySubKeyValue(IB_KEY_MESSAGE_INFO_MESSAGE_TYPE, lpMessageType, BUF_SIZE * sizeof(wchar_t));
@@ -750,7 +746,7 @@ BOOL CEvImageButton::SetChildCtrlPara()
 
 			if (wcscmp(lpMessageType, IB_KEY_MESSAGE_INFO_MESSAGE_TYPE_NONE) == 0)
 			{
-				mMsgInfo.mnMsgParaType	= TMPT_NONE;
+				mMsgInfo.mnMsgParaType = TMPT_NONE;
 				//mMsgInfo.mpMsgBuf		= NULL;
 			}
 			else if (wcscmp(lpMessageType, IB_KEY_MESSAGE_INFO_MESSAGE_TYPE_BOOL) == 0)
@@ -776,20 +772,20 @@ BOOL CEvImageButton::SetChildCtrlPara()
 		}
 
 		//配置文件读取颜色标记属性
-		wchar_t lpColorFlag[BUF_SIZE] = {0};
+		wchar_t lpColorFlag[BUF_SIZE] = { 0 };
 		mpTemplete->QuerySubKeyValue(IB_KEY_COLOR_FLAG, lpColorFlag, BUF_SIZE * sizeof(wchar_t));
 		if (wcscmp(lpColorFlag, IB_KEY_COLOR_FLAG_true) == 0)
 		{
 			mbHasColorFlag = true;
 		}
-		
+
 
 		return true;
 	}
 	else
 	{
 		return false;
-	}	
+	}
 }
 
 
@@ -841,7 +837,7 @@ bool CEvImageButton::SetValue()
 				pPicPath = mpVecExpandMenuItem[i].pPicPath;
 
 				if (pPicPath && (*pPicPath != '\0'))
-				{	
+				{
 					//更换按钮左半部分图片
 					if (mpLeftPicture)
 					{
@@ -893,11 +889,11 @@ ERESULT CEvImageButton::OnElementResized(D2D1_SIZE_F nNewSize)
 		if (mpLeftPicture)
 			mpLeftPicture->GetIterator()->SetSize
 			(mpIterator->GetSize().width - mpLeftPicture->GetIterator()->GetPositionX() * 2.0f * mfRadio,
-			mpIterator->GetSize().height - mpLeftPicture->GetIterator()->GetPositionY() * 2.0f * mfRadio);
+				mpIterator->GetSize().height - mpLeftPicture->GetIterator()->GetPositionY() * 2.0f * mfRadio);
 
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -924,7 +920,7 @@ bool CEvImageButton::SetItemSelected(int nID)
 				pPicPath = mpVecExpandMenuItem[i].pPicPath;
 
 				if (pPicPath && (*pPicPath != '\0'))
-				{	
+				{
 					//更换按钮左半部分图片
 					if (mpLeftPicture)
 					{

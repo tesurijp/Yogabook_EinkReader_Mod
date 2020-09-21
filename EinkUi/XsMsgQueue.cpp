@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 
 #include "CommonHeader.h"
@@ -51,7 +47,7 @@
 IEinkuiMessage* CXuiMessageQueue::GetMessage(
 	IN ULONG nuMsgID,
 	IN IEinkuiIterator* npItr	// 消息的发送目标是此对象及其子对象
-	)
+)
 {
 	CXuiMessage* lpMsgObj;
 	int liIndex;
@@ -63,15 +59,15 @@ IEinkuiMessage* CXuiMessageQueue::GetMessage(
 
 	__try
 	{
-		if(Size()>0)
+		if (Size() > 0)
 		{
 			liIndex = CEsMessageFastList::Front();
-			while(liIndex > 0)
+			while (liIndex > 0)
 			{
 				liPick = liIndex;
 
 				lpMsgObj = CEsMessageFastList::GetEntry(liPick);
-				if(lpMsgObj->muMsgID == nuMsgID && lpMsgObj->mpMsgDestItr == npItr)
+				if (lpMsgObj->muMsgID == nuMsgID && lpMsgObj->mpMsgDestItr == npItr)
 				{
 					lpGot = lpMsgObj;
 					CEsMessageFastList::Remove(liPick);
@@ -102,10 +98,10 @@ void CXuiMessageQueue::Clear(void)
 
 	__try
 	{
-		while(CEsMessageFastList::Size() > 0)
+		while (CEsMessageFastList::Size() > 0)
 		{
 			liIndex = CEsMessageFastList::Front();
-			if(liIndex >= 0)
+			if (liIndex >= 0)
 			{
 				lpMsg = CEsMessageFastList::GetEntry(liIndex);
 				CEsMessageFastList::Remove(liIndex);
@@ -119,16 +115,16 @@ void CXuiMessageQueue::Clear(void)
 	moLock.Leave();
 }
 
-bool CXuiMessageQueue::Push_Front(IEinkuiMessage* npMsg){
+bool CXuiMessageQueue::Push_Front(IEinkuiMessage* npMsg) {
 	bool lbReval = false;
 
 	moLock.Enter();
 
 	__try
 	{
-		lbReval = Insert(CEsMessageFastList::Front(),dynamic_cast<CXuiMessage*>(npMsg),true)>=0;
+		lbReval = Insert(CEsMessageFastList::Front(), dynamic_cast<CXuiMessage*>(npMsg), true) >= 0;
 
-		if(miHistroy < Size())
+		if (miHistroy < Size())
 		{
 			miHistroy = Size();
 			////Trace_int(27513,miHistroy);//消息队列扩大
@@ -144,16 +140,16 @@ bool CXuiMessageQueue::Push_Front(IEinkuiMessage* npMsg){
 	return lbReval;
 }
 
-bool CXuiMessageQueue::Push_Back(IEinkuiMessage* npMsg){
+bool CXuiMessageQueue::Push_Back(IEinkuiMessage* npMsg) {
 	bool lbReval = false;
 
 	moLock.Enter();
 
 	__try
 	{
-		lbReval = Insert(CEsMessageFastList::Back(),dynamic_cast<CXuiMessage*>(npMsg))>=0;
+		lbReval = Insert(CEsMessageFastList::Back(), dynamic_cast<CXuiMessage*>(npMsg)) >= 0;
 
-		if(miHistroy < Size())
+		if (miHistroy < Size())
 		{
 			miHistroy = Size();
 			////Trace_int(13738,miHistroy);//消息队列扩大
@@ -216,15 +212,15 @@ bool CXuiMessageQueue::Push_Back(IEinkuiMessage* npMsg){
 //}
 //
 
-IEinkuiMessage* CXuiMessageQueue::GetMessage(void){
-	IEinkuiMessage* lpMsg=NULL;
+IEinkuiMessage* CXuiMessageQueue::GetMessage(void) {
+	IEinkuiMessage* lpMsg = NULL;
 	int liIndex;
 
 	moLock.Enter();
 	__try
 	{
 		liIndex = CEsMessageFastList::Front();
-		if(liIndex > 0)
+		if (liIndex > 0)
 		{
 			lpMsg = CEsMessageFastList::GetEntry(liIndex);
 			CEsMessageFastList::Remove(liIndex);
@@ -240,11 +236,11 @@ IEinkuiMessage* CXuiMessageQueue::GetMessage(void){
 }
 
 // 获取对象数
-int CXuiMessageQueue::Size(void){
+int CXuiMessageQueue::Size(void) {
 	int liSize;
 
 	moLock.Enter();
-	liSize =CEsMessageFastList::Size();
+	liSize = CEsMessageFastList::Size();
 	moLock.Leave();
 
 	return liSize;
@@ -311,7 +307,7 @@ int CXuiMessageQueue::Size(void){
 int CXuiMessageQueue::RemoveTimerMessage(
 	const IEinkuiIterator* npTarget,	// null for all targets
 	unsigned long nuTimerID		// 0 for all timer-message sending to the target
-	)
+)
 {
 	CXuiMessage* lpMsgObj;
 	PSTEMS_TIMER lpTimer;
@@ -323,27 +319,27 @@ int CXuiMessageQueue::RemoveTimerMessage(
 
 	__try
 	{
-		if(Size()<=0)
+		if (Size() <= 0)
 			__leave;
 		liIndex = CEsMessageFastList::Front();
-		while(liIndex > 0)
+		while (liIndex > 0)
 		{
 			liPick = liIndex;
 			liIndex = CEsMessageFastList::Next(liIndex);
 
 			lpMsgObj = CEsMessageFastList::GetEntry(liPick);
 
-			if(lpMsgObj->muMsgID!=EMSG_TIMER)
+			if (lpMsgObj->muMsgID != EMSG_TIMER)
 				continue;
 
-			if(npTarget != NULL && lpMsgObj->mpMsgDestItr != npTarget)
+			if (npTarget != NULL && lpMsgObj->mpMsgDestItr != npTarget)
 				continue;
 
-			if(lpMsgObj->GetInputDataSize() == sizeof(STEMS_TIMER) || nuTimerID!=0)	// 如果输入参数不合理，无需进一步判断了，下面删掉就是
+			if (lpMsgObj->GetInputDataSize() == sizeof(STEMS_TIMER) || nuTimerID != 0)	// 如果输入参数不合理，无需进一步判断了，下面删掉就是
 			{
 				lpTimer = (PSTEMS_TIMER)lpMsgObj->GetInputData();
-				if(lpTimer != NULL)
-					if(lpTimer->TimerID != nuTimerID)
+				if (lpTimer != NULL)
+					if (lpTimer->TimerID != nuTimerID)
 						continue;
 			}
 

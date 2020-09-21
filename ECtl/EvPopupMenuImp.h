@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #pragma once
 
 // 存放该PopupMenu下所有MenuItem公共属性信息的结构体
@@ -13,17 +9,17 @@ class CEvMenuItem;
 typedef  cmmVector<CEvMenuItem*, 5, 5>  CMenuItemVec;
 
 DECLARE_BUILTIN_NAME(PopupMenu)
-class CEvPopupMenu:
+class CEvPopupMenu :
 	public CXuiElement<CEvPopupMenu, GET_BUILTIN_NAME(PopupMenu)>
 {
-	friend CXuiElement<CEvPopupMenu,GET_BUILTIN_NAME(PopupMenu)>;
+	friend CXuiElement<CEvPopupMenu, GET_BUILTIN_NAME(PopupMenu)>;
 
 public:
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent = NULL,	// 父对象指针
 		IN ICfKey* npTemplete = NULL,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		);
+		IN ULONG nuEID = MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 	// 描述：
 	//		获取给定MainID的PopupMenu(包括MenuItem所弹出来的PopupMenu)
@@ -31,7 +27,7 @@ public:
 	//		成功返回对应ID的迭代器，失败返回NULL
 	IEinkuiIterator* GetPopupMenuByMainID(
 		IN UINT niUinqueID
-		);
+	);
 
 protected:
 	CEvPopupMenu(void);
@@ -60,41 +56,41 @@ private:
 	//		处理当有子菜单项获得焦点
 	void OnMenuItemGetFocused(
 		IN IEinkuiIterator* npIterMenuItem
-		);
+	);
 
 	// 描述：
 	//		插入新的菜单项
-	 bool OnInsertMenuItem(
-		 IN STCTL_POPUPMENU_MENUITEMINFO ndMenuInfo
-		 );
+	bool OnInsertMenuItem(
+		IN STCTL_POPUPMENU_MENUITEMINFO ndMenuInfo
+	);
 
-	 // 描述：
-	 //		重新计算菜单项的布局
-	 void ReLayoutMenuItem();
+	// 描述：
+	//		重新计算菜单项的布局
+	void ReLayoutMenuItem();
 
-	 // 描述：
-	 //		根据CommandID删除菜单项
-	 bool DeleteItemByCommandID(
-		 IN UINT niCommandID
-		 );
+	// 描述：
+	//		根据CommandID删除菜单项
+	bool DeleteItemByCommandID(
+		IN UINT niCommandID
+	);
 
-	 // 描述：
-	 //		根据CommandID获取菜单项
-	 IEinkuiIterator* GetItemByCommandID(
-		 IN UINT niCommandID
-		 );
+	// 描述：
+	//		根据CommandID获取菜单项
+	IEinkuiIterator* GetItemByCommandID(
+		IN UINT niCommandID
+	);
 
-	 // 描述：
-	 //		根据索引删除菜单项,传入-1删除全部。
-	 bool DeleteItemByIndex(
-		 IN int niIndex
-		 );
+	// 描述：
+	//		根据索引删除菜单项,传入-1删除全部。
+	bool DeleteItemByIndex(
+		IN int niIndex
+	);
 
-	 // 描述：
-	 //		根据索引获取菜单项
-	 IEinkuiIterator* GetItemByIndex(
-		 IN UINT niIndex
-		 );
+	// 描述：
+	//		根据索引获取菜单项
+	IEinkuiIterator* GetItemByIndex(
+		IN UINT niIndex
+	);
 
 private:
 
@@ -103,7 +99,7 @@ private:
 	int miMainID;
 	PST_MENUITEM_INFO mpoMenuItemInfo;
 
-	CMenuItemVec moMenuItemVec;				
+	CMenuItemVec moMenuItemVec;
 
 	int miItemBgFrameCount;
 

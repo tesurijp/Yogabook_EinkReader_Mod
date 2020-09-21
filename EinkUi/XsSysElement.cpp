@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 
 #include "CommonHeader.h"
@@ -19,7 +15,7 @@ const wchar_t* CEleMgrProxy::GetType(void)
 
 bool CEleMgrProxy::GlobleVerification(const wchar_t* nswType)	// 验证此对象是否是nswType指定的类型
 {
-	return (_wcsicmp(nswType,GetObjectName())==0);
+	return (_wcsicmp(nswType, GetObjectName()) == 0);
 }
 
 // 默认消息入口函数，用于接收输入消息

@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef _EVPICTUREFRAMEIMP_H_
 #define _EVPICTUREFRAMEIMP_H_
 
@@ -11,9 +7,9 @@
 // 如果实现的是相同接口的类别，就可以直接从某个实例化类派生新类。
 DECLARE_BUILTIN_NAME(PictureFrame)
 class CEvPictureFrame :
-	public CXuiElement<CEvPictureFrame ,GET_BUILTIN_NAME(PictureFrame)>
+	public CXuiElement<CEvPictureFrame, GET_BUILTIN_NAME(PictureFrame)>
 {
-friend CXuiElement<CEvPictureFrame ,GET_BUILTIN_NAME(PictureFrame)>;
+	friend CXuiElement<CEvPictureFrame, GET_BUILTIN_NAME(PictureFrame)>;
 public:
 
 	// 派生本类及派生本函数时，请特别注意!!! 一定要首先调用基类的方法
@@ -21,8 +17,8 @@ public:
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent,	// 父对象指针
 		IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		);
+		IN ULONG nuEID = MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 protected:
 	CEvPictureFrame();
@@ -45,7 +41,7 @@ protected:
 	//切换显示帧,第一帧为1
 	virtual ERESULT OnChangeIndex(LONG nlIndex = 0);
 	//更换显示图片
-	virtual ERESULT OnChangePic(wchar_t* npswPicPath = NULL,bool nbIsFullPath = false);
+	virtual ERESULT OnChangePic(wchar_t* npswPicPath = NULL, bool nbIsFullPath = false);
 	// 鼠标落点检测
 	virtual ERESULT OnMouseOwnerTest(const D2D1_POINT_2F& rPoint);
 	//定时器
@@ -58,14 +54,19 @@ private:
 	LONG mlCurrentIndex;			 //当前显示第几帧
 	LONG mlMaxFrame;				 //最大帧数
 	D2D1_SIZE_F mdFrameSize;		 //每帧的真实尺寸
+	D2D1_RECT_F mdDrawRect;			 //绘制时的目标矩形
 	ULONG mulMethod;				 //采用什么缩放方式
 	FLOAT mfBeginPos;				 //绘制时的X坐标起始点
 	bool mbIsAutoPlay;				//是否自动播放
 	bool mbIsPlayLoop;				//是否循环播放
 	LONG mlPlayTimerElapse;			//播放动画的定时器时间
+	bool mbIsProportionalScaling;	//是否等比缩放
 
 	//重新计算帧大小,nbResize为真才重新设置大小
 	bool Resize(bool nbResize = true);
+	//等比缩放，ldSizeSrc原始图片大小  ldSizeDest要绘制的区域
+	//返回等比缩放的大小
+	D2D1_RECT_F GetProportionalScaling(D2D1_SIZE_F ndSizeSrc, D2D1_SIZE_F ndSizeDest);
 };
 
 
@@ -73,6 +74,7 @@ private:
 #define TF_ID_PIC_AUTO_PLAY L"AutoPlay"	//1自动播放，0关闭
 #define TF_ID_PIC_PLAY_LOOP L"PlayLoop"	//1循环播放，0关闭
 #define TF_ID_PIC_PLAY_TIMER_ELAPSE L"PlayElapse"	//切换每帧的间隔，ms单位
+#define TF_ID_PIC_PROPORTIONAL_SCAL L"ProportionalScal"	//1等比缩放，0关闭
 
 #define TF_ID_PIC_TIMER_ID_PLAY 1 //定时器ID，播放动画
 

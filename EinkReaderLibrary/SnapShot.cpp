@@ -293,8 +293,8 @@ void CSnapShot::InitSnapRect(D2D1_SIZE_F ndParentSize)
 {
 	if (mpIterSelectFrame != NULL)
 	{
-		mpIterSelectFrame->SetSize(500.0f, 400.0f);
-		mpIterSelectFrame->SetPosition((ndParentSize.width - mpIterSelectFrame->GetSizeX()) / 2.0f, (ndParentSize.height - mpIterSelectFrame->GetSizeY()) / 2.0f);
+		mpIterSelectFrame->SetSize(ndParentSize.width, ndParentSize.height - mnToolBarBottomHeight - mnToolBarTopHeight);
+		mpIterSelectFrame->SetPosition(0, mnToolBarTopHeight);
 		SetButtonPos();
 	}
 }
@@ -336,6 +336,7 @@ void CSnapShot::DoModal()
 	{
 		mpIterator->SetActive();
 		mpIterator->BringToTop();
+		EinkuiGetSystem()->EnablePaintboard(false);
 		EinkuiGetSystem()->UpdateView(true);
 		EinkuiGetSystem()->DoModal(mpIterator);
 
@@ -352,3 +353,9 @@ void CSnapShot::ExitModal()
 
 }
 
+
+void CSnapShot::SetToolBarHeight(int nTopH, int nBottomH)
+{
+	mnToolBarTopHeight = nTopH;
+	mnToolBarBottomHeight = nBottomH;
+}

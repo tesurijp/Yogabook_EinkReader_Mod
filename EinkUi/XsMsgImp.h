@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef _ELMSGIMP_H_
 #define _ELMSGIMP_H_
 /*
@@ -15,16 +11,16 @@
 
 
 DECLARE_BUILTIN_NAME(CXuiMessage)
-class CXuiMessage: public cmmBaseObject<CXuiMessage,IEinkuiMessage,GET_BUILTIN_NAME(CXuiMessage)>
+class CXuiMessage : public cmmBaseObject<CXuiMessage, IEinkuiMessage, GET_BUILTIN_NAME(CXuiMessage)>
 {
 	friend class CXelManager;
 	friend class CXuiMessageQueue;
 public:
 
-	DEFINE_CUMSTOMIZE_CREATE(CXuiMessage,(),())
+	DEFINE_CUMSTOMIZE_CREATE(CXuiMessage, (), ())
 
-	// 释放对象
-	virtual int __stdcall Release(void);
+		// 释放对象
+		virtual int __stdcall Release(void);
 
 	// 获得消息的接收目标的Iterator接口
 	virtual IEinkuiIterator* __stdcall GetDestination(void);
@@ -54,8 +50,8 @@ public:
 	virtual ERESULT __stdcall SetInputData(
 		const void* npBuffer,	// 注意，如果希望传递的参数是一个指针本身，如：lpAnybody，应该如此调用SetInputData(&lpAnybody,sizeof(lpAnybody),ture/false);
 		int niSize,
-		bool nbVolatile=true	// true:此缓冲区是易失的，需要复制数据到内部缓冲; false 此缓冲区是非易失的，在消息发送和返回的过程中有效
-		);
+		bool nbVolatile = true	// true:此缓冲区是易失的，需要复制数据到内部缓冲; false 此缓冲区是非易失的，在消息发送和返回的过程中有效
+	);
 
 	// 获得Input数据指针，注意，获得的指针仅在持有消息，并且没有发生改变时有效，一旦将消息发送出去，或者调用了消息的设定值的方法，都将导致该指针失效
 	// 注意，此方法获得的指针并不一定同前一次调用SetInputData设定的指针相同
@@ -66,7 +62,7 @@ public:
 
 	// 设置Output缓冲区，大多数的消息无需Output Buffer，如果需要消息返回大量数据的，应该Send这条消息，而不是Post它；如果确实需要Post这条消息，那么请参考下面的设置反馈消息的方法;
 	// 如果选择Post这条消息，请千万保证设定的Output缓冲区不被修改和释放，以免消息的接受方对该缓冲区访问产生错误。
-	virtual ERESULT __stdcall SetOutputBuffer(void* npBuffer,int niSize);
+	virtual ERESULT __stdcall SetOutputBuffer(void* npBuffer, int niSize);
 
 	// 获得Output缓冲区指针，注意，获得的指针仅在持有该消息时有效；
 	virtual void* __stdcall GetOutputBuffer(void);
@@ -84,8 +80,8 @@ public:
 	// 设置反馈消息，当消息被目标对象处理完毕后，系统将自动生成一个新的消息返回给发送者，这个新的消息叫做反馈消息
 	virtual ERESULT __stdcall SetResponseMessage(
 		IN IEinkuiIterator* npReceiver,	// 接受反馈消息的目标
-		IN void* npContext=NULL	// 设置上下文，供调用者设置和使用，当该消息被反馈时，传递给接收者
-		);
+		IN void* npContext = NULL	// 设置上下文，供调用者设置和使用，当该消息被反馈时，传递给接收者
+	);
 
 	// 消息接收者用于确定当前消息是否被Send而来，返回true,the message was sent from source element; false, the message was posted by the sender;
 	virtual bool __stdcall IsSent(void);
@@ -100,16 +96,16 @@ protected:
 
 protected:
 	// 消息接收者的迭代器指针
-	IEinkuiIterator* mpMsgDestItr;	
+	IEinkuiIterator* mpMsgDestItr;
 	// 消息发送者
 	IEinkuiIterator* mpSender;
-	
+
 	// 该指针指向消息缓冲区,当主调对象post消息时，需要复制消息的内容	
-	void* mpInputData;	
-	
+	void* mpInputData;
+
 	// 消息缓冲区的大小	
 	int	 miInputDataSize;
-	
+
 	// 消息的outputBuffer缓冲区指针
 	void* mpMsgOutputBuffer;
 	// 消息的outputBuffer缓冲区的大小
@@ -118,8 +114,8 @@ protected:
 	int miOutputDataSize;
 
 	// 当前消息对象的消息ID	
-	ULONG muMsgID;			
-	
+	ULONG muMsgID;
+
 	// 存放某一操作的返回值
 	ERESULT muResult;
 
@@ -133,7 +129,7 @@ protected:
 	__inline ERESULT CopyInputData(
 		const void* npBuffer,
 		int niSize	// 必须大于0
-		);
+	);
 
 	__inline void FreeInputBuffer();
 

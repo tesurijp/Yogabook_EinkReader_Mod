@@ -16,6 +16,9 @@
     <Filter Include="comm">
       <UniqueIdentifier>{f2b3ea55-537a-4e6f-8e04-2294fab943db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="OfficeConvert">
+      <UniqueIdentifier>{1ff6a82e-29e8-404f-b54b-b5b74ac60daa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -60,9 +63,6 @@
     <ClInclude Include="ToolbarH.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FileOpenDlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TipFrame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -78,9 +78,6 @@
     <ClInclude Include="PreNextButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ZoomControl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ZoomControlToolbar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -93,16 +90,94 @@
     <ClInclude Include="ErInputHold.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ZoomControlTxt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZoomControlToolbarTxt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\inc\EdDoc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Loading.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolbarBottom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileHistoryDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileHistoryListItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteHistory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuTxt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditToolbar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuPen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuPdf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuEpubMobi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PageProgress.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RedoUndoManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Highlight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HighlightToolbar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThumbnailDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThumbnailListItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuThumbnail.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileOpenDlg.h">
+      <Filter>OfficeConvert</Filter>
+    </ClInclude>
+    <ClInclude Include="PdfConvert.h">
+      <Filter>OfficeConvert</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>comm</Filter>
+    </ClInclude>
+    <ClInclude Include="FileOpenFailDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CYesNoPromptDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PDFOverwriteDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConvertProgressDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenFileLockedDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AskConvertDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveControlToolbar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -137,9 +212,6 @@
     <ClCompile Include="ToolbarH.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileOpenDlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TipFrame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -155,9 +227,6 @@
     <ClCompile Include="PreNextButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ZoomControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ZoomControlToolbar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -167,13 +236,85 @@
     <ClCompile Include="SnapShot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ZoomControlTxt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ZoomControlToolbarTxt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Loading.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolbarBottom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileHistoryDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileHistoryListItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteHistory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuTxt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditToolbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuPen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuPdf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuEpubMobi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PageProgress.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RedoUndoManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Highlight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HighlightToolbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ThumbnailDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ThumbnailListItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuThumbnail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileOpenDlg.cpp">
+      <Filter>OfficeConvert</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>comm</Filter>
+    </ClCompile>
+    <ClCompile Include="FileOpenFailDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CYesNoPromptDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PDFOverwriteDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConvertProgressDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenFileLockedDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AskConvertDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveControlToolbar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

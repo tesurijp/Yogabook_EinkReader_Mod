@@ -19,6 +19,7 @@ public:
 		mGap = gap;
 	}
 	void Move(const ED_POINT& offset);
+	void MoveTo(const ED_POINT& postion);
 	void AdjustImageRealSize(const ED_SIZE& imageReal) {
 		mImageReal.x = imageReal.x;
 		mImageReal.y = imageReal.y;
@@ -37,7 +38,19 @@ public:
 	float32 GetRealRatio();
 	float32 GetBaseRatio();
 	float32 GetFatRatio();
-	bool GetViewMapArea(ED_RECT& destArea, ED_RECT& srcArea,UCHAR* edgeImpact=NULL); // 如果图像显示完整，返回true；否则返回false
+	bool GetViewMapArea(ED_RECT& destArea, ED_RECT& srcArea, ED_SIZEF& imageExtSize,UCHAR* edgeImpact=NULL); // 如果图像显示完整，返回true；否则返回false
+	
+
+	void ImageInitToView(IN ED_RECTF& rectInit, OUT ED_RECTF& rectView);
+	bool ViewToImageInit(int viewX, int viewY, ED_POINTF& ptInInit);
+	//显示坐标转换为文档坐标
+	bool ViewToImageInit(int viewX, int viewY, ED_POINT& ptInInit);
+	//文档坐标转换为显示坐标
+	bool ImageToViewInit(int imageX, int imageY, ED_POINT& ptInInit);
+	bool ImageToViewInit(int imageX, int imageY, ED_POINTF& ptInInit);
+
+	bool IsInPage2(ED_POINT& ptInInit, ED_POINT& ptInPage,bool nbView = false);	// 当页面处于双页显示时调用，判断点是否处于第二页中，返回ture处于第二页，否则仍然在第一页，ptInPage返回页内的坐标值
+	bool IsInPage2(ED_POINTF& ptInInit, ED_POINTF& ptInPage, bool nbView = false);	// 当页面处于双页显示时调用，判断点是否处于第二页中，返回ture处于第二页，否则仍然在第一页，ptInPage返回页内的坐标值
 
 protected:
 	ED_SIZE mViewPort;	// 视口大小
@@ -52,6 +65,9 @@ protected:
 	bool32 mViewPortModified;
 	bool32 mUserRatioModified;
 	bool32 mImageInitModified;
+
+	ED_RECT mVisibleRectOnView;
+	ED_RECT mVisibleRectOnSource;
 
 	bool32 Calculate(void);
 };

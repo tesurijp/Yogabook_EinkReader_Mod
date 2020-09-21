@@ -13,10 +13,130 @@ using namespace Gdiplus;
 //////////////////////////////////////////////////////////////////////////
 // class CTxdArrangeThread
 //////////////////////////////////////////////////////////////////////////
-
-
 volatile LONG CTxdArrangeThread::mGlobalThreadNumber = 0;
 
+
+CTxdArrangeThread::CTxdArrangeThread(const wchar_t* charBuffer, uint32 charStart, uint32 charEnd, bool aheadPages, const wchar_t* fontName, float fontSize, Gdiplus::RectF* viewPort, PEDDOC_THREAD_CALLBACK callBackFun, void* callBackContext)
+{
+	mThreadNumber = InterlockedIncrement(&mGlobalThreadNumber);
+	mResult = EDERR_UNSUCCESSFUL;
+
+	mCharBuffer = charBuffer;
+	mCharStart = charStart;
+	mCharEnd = charEnd;
+
+	mViewPortExt = *viewPort;
+	mViewPortExt.Height *= 2.0f;
+	mViewHeight = viewPort->Height;
+
+	mCallBackContext = callBackContext;
+	mCallBackFun = callBackFun;
+	mAheadArrange = aheadPages;
+	mExitFlag = 0;
+	mPageLoadStep = 0;
+	mThread2 = NULL;
+
+	wcscpy_s(mFontName, 100, fontName);
+	mFontSize = fontSize;
+
+	if (mAheadArrange == false)
+		mFocusPageLoaded = CreateEvent(NULL, true, false, NULL);
+	else
+		mFocusPageLoaded = NULL;
+
+	mFontObj = NULL;
+	mGdiObj = NULL;
+
+	mThreadHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)CTxdArrangeThread::ThreadBridge, this, CREATE_SUSPENDED, &mThreadID);
+	if (mThreadHandle == NULL)
+		return;
+
+	mResult = EDERR_SUCCESS;
+}
+
+
+CTxdArrangeThread::~CTxdArrangeThread()
+{
+
+	TerminateThread();
+
+	if (mThread2 != NULL)
+		delete mThread2;
+
+	if (mFocusPageLoaded != NULL)
+		CloseHandle(mFocusPageLoaded);
+
+	if (mThreadHandle != NULL)
+		CloseHandle(mThreadHandle);
+}
+
+
+void CTxdArrangeThread::Start(void)
+{
+	ResumeThread(mThreadHandle);
+
+	if (mFocusPageLoaded != NULL)
+	{
+		if (IsDebuggerPresent() != FALSE)
+			WaitForSingleObject(mFocusPageLoaded, INFINITE);
+		else
+			WaitForSingleObject(mFocusPageLoaded, 10 * 1000);	// 10秒超时
+	}
+}
+
+void CTxdArrangeThread::TerminateThread()
+{	// will wait the thread exit and set a timeout as 10 seconds
+	if (mThread2 != NULL)
+		mThread2->TerminateThread();
+
+	InterlockedExchange(&mExitFlag, 1);
+	if (WaitForSingleObject(mThreadHandle, 10 * 1000) == WAIT_TIMEOUT)
+		::TerminateThread(mThreadHandle, -1);	// 直接中止
+}
+
+ULONG WINAPI CTxdArrangeThread::ThreadBridge(CTxdArrangeThread* thisPointer)
+{
+
+	if (thisPointer->InitGdip() == false)
+		return -1;
+
+	try {
+		if (thisPointer->mAheadArrange == false)
+			thisPointer->ArrangeThreadRoutine();
+		else
+			thisPointer->ArrangeThreadRoutine4AheadPages();
+	}
+	catch (...)
+	{
+	}
+
+	thisPointer->UninitGdip();
+
+	return 0;
+}
+
+bool CTxdArrangeThread::InitGdip(void)
+{
+	mGdiStart.Init();
+
+	mGdiObj = new Gdiplus::Graphics(GetDC(NULL));
+	if (mGdiObj == NULL)
+		return false;
+
+	mFontObj = new Gdiplus::Font(mFontName, mFontSize);
+
+	return mFontObj != NULL;
+}
+
+void CTxdArrangeThread::UninitGdip(void)
+{
+	if (mFontObj != NULL)
+		delete mFontObj;
+
+	if (mGdiObj != NULL)
+		delete mGdiObj;
+	mGdiStart.UnInit();
+}
 
 void CTxdArrangeThread::ArrangeThreadRoutine()
 {
@@ -52,7 +172,7 @@ void CTxdArrangeThread::ArrangeThreadRoutine()
 			Gdiplus::RectF rectViewPort;
 			rectViewPort = mViewPortExt;
 			rectViewPort.Height = mViewHeight;
-			mThread2 = new CTxdArrangeThread(mCharBuffer,0,mCharStart,mFontName,mFontSize,&rectViewPort,NULL,NULL);
+			mThread2 = new CTxdArrangeThread(mCharBuffer,0,mCharStart,true,mFontName,mFontSize,&rectViewPort,mCallBackFun,mCallBackContext);
 
 			mThread2->Start();
 		}
@@ -66,25 +186,29 @@ void CTxdArrangeThread::ArrangeThreadRoutine()
 
 		//////////////////////////////////////////////////////////////////////////
 		// 等待第二线程返回，最多等待30分钟
+		//if (mThread2 != NULL)
+		//{
+		//	//niuxiaojia 当前页前面的页码也动态显示
+		//	int liWaitCount = 0;
+		//	while (WaitForSingleObject(mThread2->mThreadHandle, 2 * 1000))
+		//	{
+		//		mCallBackFun(mThreadNumber, 0xCFFFFFFF, (PST_PAGE_CONTROL)&mThread2->mPages, mCallBackContext);
+
+		//		if (liWaitCount++ > 900)
+		//			THROW_FALSE;	// 超时的，则视作失败，所有数据都不使用
+		//	}
+		//}
+		
+
+
 		if (mThread2 != NULL)
 		{
 			if (WaitForSingleObject(mThread2->mThreadHandle, 30 * 60 * 1000) == WAIT_TIMEOUT)
 				THROW_FALSE;	// 超时的，则视作失败，所有数据都不使用
 
-			//////////////////////////////////////////////////////////////////////////////
-			//// 处理所有焦点前页
-			//for (int i = 0; i < mThread2->mPages.Size() && mExitFlag == 0; i++)
-			//{
-			//	try {
-			//			mCallBackFun(mThreadNumber,((uint32)i|0xC0000000),&(mThread2->mPages[i]),mCallBackContext);
-			//	}
-			//	catch (...)
-			//	{
-			//	}
-
 			//}
-			// 改为一次性传过去
-			mCallBackFun(mThreadNumber, 0xCFFFFFFF,(PST_PAGE_CONTROL)&mThread2->mPages, mCallBackContext);
+			// 改为一次性传过去，注意此处的(PST_PAGE_CONTROL)&mThread2->mPages，是借用了这个指针传递了不同类型的数据
+			mCallBackFun(mThreadNumber, LOADING_STEP_AHEAD_COMPLETE,(PST_PAGE_CONTROL)&mThread2->mPages, mCallBackContext);
 
 			//delete mThread2;
 		}
@@ -105,7 +229,7 @@ void CTxdArrangeThread::ArrangeThreadRoutine()
 
 }
 
-void CTxdArrangeThread::ArrangeThreadRoutine2()
+void CTxdArrangeThread::ArrangeThreadRoutine4AheadPages()
 {	// 排版在视觉焦点页之前的页面
 
 	// 首先检查自己所要排版的数据量是否过大，如果太大，则再次分身
@@ -173,14 +297,14 @@ ED_ERR CTxdArrangeThread::ArrangePages(int32 pageRequired, uint32 stringBase, ui
 
 			charCounted += mPageCtl.charCount;
 
-			if (mCallBackFun != NULL)
-			{
-				mCallBackFun(mThreadNumber, ++mPageLoadStep, &mPageCtl, mCallBackContext);
-			}
-			else
+			if (mAheadArrange != false)
 			{
 				mPages.Insert(-1, mPageCtl);
+
+				mCallBackFun(mThreadNumber, LOADING_STEP_AHEAD_PREFIX(++mPageLoadStep), NULL, mCallBackContext);
 			}
+			else
+				mCallBackFun(mThreadNumber, ++mPageLoadStep, &mPageCtl, mCallBackContext);
 
 			mPageCtl.charBegin += mPageCtl.charCount;
 
@@ -270,7 +394,8 @@ uint32 CTxdArrangeThread::FillCharsToPage(uint32 stringBase, uint32 stringEnd, u
 				continue;
 
 			// 如果簇大于1，一般是32个字符，那么进入分析这个簇内部的情况，也许整个簇都是不可见字符; 降低粒度，继续查找
-			return FillCharsToPage(stringBase, stringEnd, clusterCharRanges[j].First, LOW_GRAIN(clusterSize));
+			////return FillCharsToPage(stringBase, stringEnd, clusterCharRanges[j].First, LOW_GRAIN(clusterSize));	//有时会出现全部所有字符都不可见的错误情况，所以需要设置一个合适的截至字符
+			return FillCharsToPage(stringBase, /*stringEnd*/stringBase + clusterCharRanges[j].First + clusterCharRanges[j].Length*10, clusterCharRanges[j].First, LOW_GRAIN(clusterSize));	// 10倍当前测试盒宽度，如果还都判断为不可见，那么就截至，不在向后作为一个单页查找
 		}
 
 		// 如果本测试单元超出视口大小
@@ -280,7 +405,8 @@ uint32 CTxdArrangeThread::FillCharsToPage(uint32 stringBase, uint32 stringEnd, u
 				return clusterCharRanges[j].First;// 就是你了
 
 			// 降低粒度，进一步查找这个单元
-			return FillCharsToPage(stringBase, stringEnd, clusterCharRanges[j].First, LOW_GRAIN(clusterSize));
+			//return FillCharsToPage(stringBase, stringEnd, clusterCharRanges[j].First, LOW_GRAIN(clusterSize));
+			return FillCharsToPage(stringBase, /*stringEnd*/stringBase+clusterCharRanges[j].First + clusterCharRanges[j].Length, clusterCharRanges[j].First, LOW_GRAIN(clusterSize));
 		}
 	}
 

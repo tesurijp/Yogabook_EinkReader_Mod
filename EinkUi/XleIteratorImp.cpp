@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 
 #include "CommonHeader.h"
@@ -12,7 +8,7 @@
 
 
 DEFINE_BUILTIN_NAME(CXuiIterator)
-CXelManager* CXuiIterator::gpElementManager=NULL;
+CXelManager* CXuiIterator::gpElementManager = NULL;
 CExclusiveAccess CXuiIterator::goAttributesLock;
 
 
@@ -40,13 +36,13 @@ CXuiIterator::CXuiIterator()
 	mdWMInverted._31 = 0.0f;
 	mdWMInverted._32 = 0.0f;
 
-	cmmBaseObject::SetFlags(EITR_FLAG_VISIBLE,true);
-	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY,true);
+	cmmBaseObject::SetFlags(EITR_FLAG_VISIBLE, true);
+	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY, true);
 }
 
 CXuiIterator::~CXuiIterator()
 {
-	if(mpExtension!=NULL)
+	if (mpExtension != NULL)
 		delete mpExtension;
 
 	if (cmmBaseObject::TestFlag(EITR_FLAG_HOTKEY) != false)
@@ -78,9 +74,9 @@ ERESULT CXuiIterator::OnElementDestroy()
 void __stdcall CXuiIterator::Start(void)
 {
 	ITR_CHECK();
-	if(cmmBaseObject::TestFlag(EITR_FLAG_INIT)!=false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_INIT) != false)
 		return;	// 已经初始化了
-	
+
 	// 设置初始化完成标志，并且调用元素管理器的方法
 	cmmBaseObject::SetFlags(EITR_FLAG_INIT);
 	gpElementManager->StartMessageReceiver(this);
@@ -105,7 +101,7 @@ IEinkuiIterator* __stdcall CXuiIterator::GetParent(void)
 {
 	ITR_CHECK();
 
-	CMMASSERT(cmmBaseObject::TestFlag(EITR_FLAG_DELETED)==false);
+	CMMASSERT(cmmBaseObject::TestFlag(EITR_FLAG_DELETED) == false);
 
 	return mpParent;
 }
@@ -126,7 +122,7 @@ int __stdcall CXuiIterator::GetSubElementCount(void)
 	ITR_CHECK();
 	gpElementManager->LockIterators();
 
-	if(mpExtension != NULL)
+	if (mpExtension != NULL)
 		liCount = mpExtension->moZOrder.Size();
 	else
 		liCount = 0;
@@ -144,16 +140,16 @@ bool __stdcall CXuiIterator::FindAncestor(const IEinkuiIterator* npIsAncestor)
 
 	ITR_CHECK();
 
-	if(npIsAncestor == this)
+	if (npIsAncestor == this)
 		return true;
 
 	lpItrObj = this->mpParent;
 	gpElementManager->LockIterators();
 
 	// 到达根节点
-	while(lpItrObj != lpItrObj->mpParent)
+	while (lpItrObj != lpItrObj->mpParent)
 	{
-		if(lpItrObj == npIsAncestor)
+		if (lpItrObj == npIsAncestor)
 		{
 			lbIsAncestor = true;
 			break;
@@ -169,14 +165,14 @@ bool __stdcall CXuiIterator::FindAncestor(const IEinkuiIterator* npIsAncestor)
 // 通过ZOder的排列次序获得子节点，返回的接口需要释放
 IEinkuiIterator* __stdcall CXuiIterator::GetSubElementByZOder(
 	int niPos	// zero base index value to indicate the position in z-order array
-	)
+)
 {
 	IEinkuiIterator* lpReturn = NULL;
-	
+
 	ITR_CHECK();
 	gpElementManager->LockIterators();
 
-	if(mpExtension != NULL && mpExtension->moZOrder.Size() > 0 && niPos >= 0 && niPos < mpExtension->moZOrder.Size())
+	if (mpExtension != NULL && mpExtension->moZOrder.Size() > 0 && niPos >= 0 && niPos < mpExtension->moZOrder.Size())
 	{
 		mpExtension->moZOrder[niPos]->AddRefer();
 		lpReturn = mpExtension->moZOrder[niPos];
@@ -195,12 +191,12 @@ IEinkuiIterator* __stdcall CXuiIterator::GetSubElementByID(ULONG nuEid)
 	ITR_CHECK();
 	gpElementManager->LockIterators();
 
-	if(mpExtension != NULL && mpExtension->moIDOrder.Size() > 0)
+	if (mpExtension != NULL && mpExtension->moIDOrder.Size() > 0)
 	{
 		CEoSubItrNode loToFind;
 		loToFind.muID = nuEid;
 		int liIndex = mpExtension->moIDOrder.Find(loToFind);
-		if(liIndex>=0)
+		if (liIndex >= 0)
 		{
 			lpFound = mpExtension->moIDOrder[liIndex].mpIterator;
 			lpFound->AddRefer();
@@ -217,7 +213,7 @@ IEinkuiIterator* __stdcall CXuiIterator::GetSubElementByID(ULONG nuEid)
 ERESULT __stdcall CXuiIterator::SendMessage(IEinkuiMessage* npMsg)
 {
 	ITR_CHECK();
-	return gpElementManager->SendMessage(this,npMsg);
+	return gpElementManager->SendMessage(this, npMsg);
 }
 
 // 给此元素发送一条消息，发送模式是Post
@@ -225,7 +221,7 @@ ERESULT __stdcall CXuiIterator::SendMessage(IEinkuiMessage* npMsg)
 ERESULT __stdcall CXuiIterator::PostMessage(IEinkuiMessage* npMsg)
 {
 	ITR_CHECK();
-	return gpElementManager->PostMessage(this,npMsg);
+	return gpElementManager->PostMessage(this, npMsg);
 }
 
 // 给此元素的父元素发送一条消息，发送的模式是FastPost
@@ -237,12 +233,12 @@ ERESULT __stdcall CXuiIterator::PostMessageToParent(IEinkuiMessage* npMsg)
 
 	ITR_CHECK();
 	lpFarther = GetParent();
-	if(lpFarther == NULL || lpFarther == this)	// 发生错误，或者抵达根部，没有父节点了
+	if (lpFarther == NULL || lpFarther == this)	// 发生错误，或者抵达根部，没有父节点了
 		return ERESULT_ITERATOR_INVALID;
 
 	npMsg->SetMessageSender(this);
 
-	return gpElementManager->PostMessage(lpFarther,npMsg,EMSG_POSTTYPE_FAST);
+	return gpElementManager->PostMessage(lpFarther, npMsg, EMSG_POSTTYPE_FAST);
 }
 
 // 申请定时器，对于永久触发的定时器，需要注销
@@ -251,19 +247,19 @@ ERESULT __stdcall CXuiIterator::SetTimer(
 	IN ULONG nuRepeat,// 需要重复触发的次数，MAXULONG32表示永远重复
 	IN ULONG nuDuration,	// 触发周期
 	IN void* npContext//上下文，将随着定时器消息发送给申请者
-	)
+)
 {
 	ITR_CHECK();
-	return CEinkuiSystem::gpXuiSystem->SetTimer(this,nuID,nuRepeat,nuDuration,npContext);
+	return CEinkuiSystem::gpXuiSystem->SetTimer(this, nuID, nuRepeat, nuDuration, npContext);
 }
 
 // 销毁定时器
 ERESULT __stdcall CXuiIterator::KillTimer(
 	IN ULONG nuID	  // 定时器ID
-	)
+)
 {
 	ITR_CHECK();
-	return CEinkuiSystem::gpXuiSystem->KillTimer(this,nuID);
+	return CEinkuiSystem::gpXuiSystem->KillTimer(this, nuID);
 }
 
 // 设置渲染增效器，增效器用于给某个元素和它的子元素提供特定的渲染，增效器可以选择Direct2D，Direct3D技术完善XUI系统的渲染
@@ -272,33 +268,33 @@ ERESULT __stdcall CXuiIterator::KillTimer(
 ERESULT __stdcall CXuiIterator::SetEnhancer(
 	IN IEinkuiIterator* npEnhancer,
 	IN bool nbEnable		// true 启用，false 取消
-	)
+)
 {
-	ERESULT luResult= ERESULT_SUCCESS;
+	ERESULT luResult = ERESULT_SUCCESS;
 	IEinkuiIterator* lpCrtEnhancer;
 
 	ITR_CHECK();
 	goAttributesLock.Enter();
 
-	if(nbEnable != false)
+	if (nbEnable != false)
 	{
-		if(moAtts.SetAttribute('ehcr',npEnhancer)!=false)
-			cmmBaseObject::SetFlags(EITR_FLAG_ENHANCER,true);
+		if (moAtts.SetAttribute('ehcr', npEnhancer) != false)
+			cmmBaseObject::SetFlags(EITR_FLAG_ENHANCER, true);
 		else
 			luResult = ERESULT_UNSUCCESSFUL;
 	}
 	else
 	{
-		if(moAtts.GetAttribute('ehcr',lpCrtEnhancer)!= false)
+		if (moAtts.GetAttribute('ehcr', lpCrtEnhancer) != false)
 		{
-			if(lpCrtEnhancer != npEnhancer)
+			if (lpCrtEnhancer != npEnhancer)
 				luResult = ERESULT_ACCESS_CONFLICT;
 			else
 			{
 				moAtts.DeleteAttribute('ehcr');
 			}
 		}
-		cmmBaseObject::SetFlags(EITR_FLAG_ENHANCER,false);
+		cmmBaseObject::SetFlags(EITR_FLAG_ENHANCER, false);
 	}
 
 	goAttributesLock.Leave();
@@ -311,14 +307,14 @@ ERESULT __stdcall CXuiIterator::SetEnhancer(
 IEinkuiIterator* __stdcall CXuiIterator::GetEnhancer(void)
 {
 	ITR_CHECK();
-	if(cmmBaseObject::TestFlag(EITR_FLAG_ENHANCER)==false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_ENHANCER) == false)
 		return NULL;
 
 	IEinkuiIterator* lpCrtEnhancer;
 
 	goAttributesLock.Enter();
 
-	if(moAtts.GetAttribute('ehcr',lpCrtEnhancer) == false)
+	if (moAtts.GetAttribute('ehcr', lpCrtEnhancer) == false)
 		lpCrtEnhancer = NULL;
 	goAttributesLock.Leave();
 
@@ -328,18 +324,18 @@ IEinkuiIterator* __stdcall CXuiIterator::GetEnhancer(void)
 // 添加一个子节点
 ERESULT CXuiIterator::AddSubElement(
 	CXuiIterator* npSubElement
-	)
+)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
 	bool lbDirty = false;
 
-	do 
+	do
 	{
 		// 如果没有扩展结构，分配扩展结构
-		if(mpExtension == NULL)
+		if (mpExtension == NULL)
 		{
 			mpExtension = new CXuiIteratorExtension();
-			if(mpExtension == NULL)
+			if (mpExtension == NULL)
 				break;
 		}
 
@@ -350,27 +346,27 @@ ERESULT CXuiIterator::AddSubElement(
 			loAddIn.mpIterator = npSubElement;
 
 			// 如果待注册元素没有EID，那么就为他分配一个
-			if(loAddIn.muID == 0 || loAddIn.muID == MAXULONG32)
+			if (loAddIn.muID == 0 || loAddIn.muID == MAXULONG32)
 			{
-				ULONG i=0;
+				ULONG i = 0;
 				const ULONG luMax = 0x10000;
-				do 
+				do
 				{
 					union {
 						void* p;
 						ULONG d;
 					}ldValue;
 					ldValue.p = npSubElement->mpElement;
-					loAddIn.muID = ((ldValue.d + i++)|0x80000000);	// 最高位置一，是为了防止同将来可能加入的其他指定ID的元素冲突
+					loAddIn.muID = ((ldValue.d + i++) | 0x80000000);	// 最高位置一，是为了防止同将来可能加入的其他指定ID的元素冲突
 
-				} while (mpExtension->moIDOrder.Find(loAddIn)>=0 && i < luMax);	// 循环16K次，如果还不行就放弃
-				if(i >= luMax)
+				} while (mpExtension->moIDOrder.Find(loAddIn) >= 0 && i < luMax);	// 循环16K次，如果还不行就放弃
+				if (i >= luMax)
 					break;	//失败退出
 
 				npSubElement->muEID = loAddIn.muID;
 			}
 
-			if(mpExtension->moIDOrder.Insert(loAddIn) < 0)
+			if (mpExtension->moIDOrder.Insert(loAddIn) < 0)
 				break;
 		}
 		lbDirty = true;
@@ -380,7 +376,7 @@ ERESULT CXuiIterator::AddSubElement(
 		InsertToZOder(npSubElement);
 
 		// 插入到Tab-Order
-		if(mpExtension->moTabOder.Insert(-1,npSubElement)<0)
+		if (mpExtension->moTabOder.Insert(-1, npSubElement) < 0)
 			break;
 
 		// 设置父对象
@@ -394,24 +390,24 @@ ERESULT CXuiIterator::AddSubElement(
 
 	} while (false);
 
-	if(luResult != ERESULT_SUCCESS && lbDirty !=false)
+	if (luResult != ERESULT_SUCCESS && lbDirty != false)
 	{
 		// 释放资源
 		CEoSubItrNode loAddIn;
 		loAddIn.muID = npSubElement->GetID();
 		mpExtension->moIDOrder.Remove(loAddIn);
 
-		for(int i=0;i<mpExtension->moZOrder.Size();i++)
+		for (int i = 0; i < mpExtension->moZOrder.Size(); i++)
 		{
-			if(mpExtension->moZOrder[i] == npSubElement)
+			if (mpExtension->moZOrder[i] == npSubElement)
 			{
 				mpExtension->moZOrder.RemoveByIndex(i);
 				break;
 			}
 		}
-		for(int i=0;i<mpExtension->moTabOder.Size();i++)
+		for (int i = 0; i < mpExtension->moTabOder.Size(); i++)
 		{
-			if(mpExtension->moTabOder[i] == npSubElement)
+			if (mpExtension->moTabOder[i] == npSubElement)
 			{
 				mpExtension->moTabOder.RemoveByIndex(i);
 				break;
@@ -426,16 +422,16 @@ ERESULT CXuiIterator::AddSubElement(
 // 删除一个子节点
 void CXuiIterator::RemoveSubElement(
 	CXuiIterator* npSubElement
-	)
+)
 {
 	CEoSubItrNode loRemove;
 	bool lbFound = false;
 	loRemove.muID = npSubElement->GetID();
 	mpExtension->moIDOrder.Remove(loRemove);
 
-	for(int i=0;i<mpExtension->moZOrder.Size();i++)
+	for (int i = 0; i < mpExtension->moZOrder.Size(); i++)
 	{
-		if(mpExtension->moZOrder[i] == npSubElement)
+		if (mpExtension->moZOrder[i] == npSubElement)
 		{
 			mpExtension->moZOrder.RemoveByIndex(i);
 			lbFound = true;
@@ -443,9 +439,9 @@ void CXuiIterator::RemoveSubElement(
 		}
 	}
 
-	for(int i=0;i<mpExtension->moTabOder.Size();i++)
+	for (int i = 0; i < mpExtension->moTabOder.Size(); i++)
 	{
-		if(mpExtension->moTabOder[i] == npSubElement)
+		if (mpExtension->moTabOder[i] == npSubElement)
 		{
 			mpExtension->moTabOder.RemoveByIndex(i);
 			lbFound = true;
@@ -455,9 +451,9 @@ void CXuiIterator::RemoveSubElement(
 
 	// 指向自身，表示没有父节点了
 	npSubElement->mpParent = npSubElement;
-	
+
 	// 如果确实删掉了一个子节点，那么就减少自身的引用
-	if(lbFound != false)
+	if (lbFound != false)
 		KRelease();
 }
 
@@ -466,21 +462,21 @@ CXuiIterator* CXuiIterator::SeekIteratorInChild(IXsElement* npElement)
 {
 	CXuiIterator* lpIteratorObj = NULL;
 
-	for (int i=0;i<mpExtension->moIDOrder.Size();i++)
+	for (int i = 0; i < mpExtension->moIDOrder.Size(); i++)
 	{
 		CMMASSERT(mpExtension->moIDOrder[i].mpIterator != NULL);
 
-		if(mpExtension->moIDOrder[i].mpIterator->mpElement == npElement)
+		if (mpExtension->moIDOrder[i].mpIterator->mpElement == npElement)
 		{
 			lpIteratorObj = mpExtension->moIDOrder[i].mpIterator;
 			break;
 		}
 
 		// 递归调用，检查它的子节点
-		if(mpExtension->moIDOrder[i].mpIterator->mpExtension != NULL)
+		if (mpExtension->moIDOrder[i].mpIterator->mpExtension != NULL)
 		{
 			lpIteratorObj = mpExtension->moIDOrder[i].mpIterator->SeekIteratorInChild(npElement);
-			if(lpIteratorObj != NULL)
+			if (lpIteratorObj != NULL)
 				break;
 		}
 
@@ -494,44 +490,44 @@ void __stdcall CXuiIterator::Close(void)
 {
 	ITR_CHECK();
 	// 注销控件
-	CExMessage::SendMessage(NULL,this,EMSG_APPLY_DESTROY,CExMessage::DataInvalid,NULL,0);
+	CExMessage::SendMessage(NULL, this, EMSG_APPLY_DESTROY, CExMessage::DataInvalid, NULL, 0);
 }
 
 // Hook目标，当前仅支持单层次的Hook，即，一个元素在同一时刻仅被一个元素Hook；试图Hook一个已经被Hook的元素时，将会返回失败ERESULT_ACCESS_CONFLICT
 ERESULT __stdcall CXuiIterator::SetHook(
 	IN IEinkuiIterator* npHooker,	// Hook请求者，一旦设置了Hook，本对象的所有消息（EMSG_HOOKED_MESSAGE不会被转发），都会先发送给Hooker处理，Hooker可以修改任意的消息，也可以阻止消息发送给本对象
 	IN bool nbSet		// true to set ,false to remove
-	)
+)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
 
 	ITR_CHECK();
-	if(nbSet != FALSE)
+	if (nbSet != FALSE)
 	{
-		if(cmmBaseObject::TestFlag(EITR_FLAG_HOOK)!=false)
+		if (cmmBaseObject::TestFlag(EITR_FLAG_HOOK) != false)
 			return ERESULT_ACCESS_CONFLICT;
 	}
 	else
 	{
-		if(cmmBaseObject::TestFlag(EITR_FLAG_HOOK)==false)
+		if (cmmBaseObject::TestFlag(EITR_FLAG_HOOK) == false)
 			return ERESULT_SUCCESS;
 	}
 
 	goAttributesLock.Enter();
 
-	if(nbSet != FALSE)
+	if (nbSet != FALSE)
 	{
-		if(moAtts.SetAttribute('hook',npHooker)!=false)
+		if (moAtts.SetAttribute('hook', npHooker) != false)
 			luResult = ERESULT_SUCCESS;
 	}
 	else
 	{
-		if(moAtts.DeleteAttribute('hook')!=false)
+		if (moAtts.DeleteAttribute('hook') != false)
 			luResult = ERESULT_SUCCESS;
 	}
 
-	if(luResult == ERESULT_SUCCESS)
-		cmmBaseObject::SetFlags(EITR_FLAG_HOOK,nbSet);
+	if (luResult == ERESULT_SUCCESS)
+		cmmBaseObject::SetFlags(EITR_FLAG_HOOK, nbSet);
 
 	goAttributesLock.Leave();
 
@@ -544,11 +540,11 @@ IEinkuiIterator* __stdcall CXuiIterator::GetHooker(void)
 	IEinkuiIterator* lpHooker;
 
 	ITR_CHECK();
-	if(cmmBaseObject::TestFlag(EITR_FLAG_HOOK)==false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_HOOK) == false)
 		return NULL;
 	goAttributesLock.Enter();
 
-	if(moAtts.GetAttribute('hook',lpHooker) == false)
+	if (moAtts.GetAttribute('hook', lpHooker) == false)
 		lpHooker = NULL;
 	goAttributesLock.Leave();
 
@@ -564,10 +560,10 @@ IEinkuiIterator* __stdcall CXuiIterator::GetHooker(void)
 void __stdcall CXuiIterator::SetVisible(bool nbVisible)
 {
 	ITR_CHECK();
-	cmmBaseObject::SetFlags(EITR_FLAG_VISIBLE,nbVisible);
-	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY,true);
+	cmmBaseObject::SetFlags(EITR_FLAG_VISIBLE, nbVisible);
+	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY, true);
 
-	CExMessage::SendMessage(this,NULL,EMSG_SHOW_HIDE,nbVisible);
+	CExMessage::SendMessage(this, NULL, EMSG_SHOW_HIDE, nbVisible);
 
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
@@ -576,7 +572,7 @@ void __stdcall CXuiIterator::SetVisible(bool nbVisible)
 bool __stdcall CXuiIterator::IsVisible(void)
 {
 	ITR_CHECK();
-	return cmmBaseObject::TestFlag(EITR_FLAG_VISIBLE)&&cmmBaseObject::TestFlag(EITR_FLAG_INIT);
+	return cmmBaseObject::TestFlag(EITR_FLAG_VISIBLE) && cmmBaseObject::TestFlag(EITR_FLAG_INIT);
 }
 
 // 设定整体透明度
@@ -584,8 +580,8 @@ void __stdcall CXuiIterator::SetAlpha(FLOAT nfAlpha)
 {
 	ITR_CHECK();
 	mfAlpha = nfAlpha;
-	cmmBaseObject::SetFlags(EITR_FLAG_ALPHA,nfAlpha>0.99f?false:true);	// 如果大于0.99相当于是完全不透明
-	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY,true);
+	cmmBaseObject::SetFlags(EITR_FLAG_ALPHA, nfAlpha > 0.99f ? false : true);	// 如果大于0.99相当于是完全不透明
+	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY, true);
 
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
@@ -594,28 +590,28 @@ void __stdcall CXuiIterator::SetAlpha(FLOAT nfAlpha)
 FLOAT __stdcall CXuiIterator::GetAlpha(void)
 {
 	ITR_CHECK();
-	if(cmmBaseObject::TestFlag(EITR_FLAG_ALPHA)==false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_ALPHA) == false)
 		return 1.0f;
 
 	return mfAlpha;
 }
 
 // 设置平面坐标
-void __stdcall CXuiIterator::SetPosition(FLOAT nfX,FLOAT nfY)
+void __stdcall CXuiIterator::SetPosition(FLOAT nfX, FLOAT nfY)
 {
 	ITR_CHECK();
 	mdPosition.x = CExFloat::Round(nfX);
 	mdPosition.y = CExFloat::Round(nfY);
-	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY,true);
+	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY, true);
 
-	CExMessage::SendMessage(this,NULL,EMSG_ELEMENT_MOVED,mdPosition);
+	CExMessage::SendMessage(this, NULL, EMSG_ELEMENT_MOVED, mdPosition);
 
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
 void __stdcall CXuiIterator::SetPosition(const D2D1_POINT_2F& rPosition)
 {
 	ITR_CHECK();
-	SetPosition(rPosition.x,rPosition.y);
+	SetPosition(rPosition.x, rPosition.y);
 }
 
 
@@ -650,23 +646,23 @@ void __stdcall CXuiIterator::GetRect(D2D1_RECT_F& rRect)
 // 设置可视区域
 void __stdcall CXuiIterator::SetVisibleRegion(
 	IN const D2D1_RECT_F& rRegion		// 基于相对坐标的可视区域，此区域之外不会显示本元素及子元素的内容；如果rRegion.left > region.right 表示取消可视区设置
-	)
+)
 {
 	ITR_CHECK();
 	// 理论上存在某个Element在我们处理绘制并且恰好在绘制它的时间点调用此函数，这样可能会导致严重故障
-	if(CEinkuiSystem::gpXuiSystem->GetRenderStep() != CEinkuiSystem::eRenderStop)
+	if (CEinkuiSystem::gpXuiSystem->GetRenderStep() != CEinkuiSystem::eRenderStop)
 		return;
 
 	goAttributesLock.Enter();
 
-	if(rRegion.left > rRegion.right || rRegion.top > rRegion.bottom)
+	if (rRegion.left > rRegion.right || rRegion.top > rRegion.bottom)
 	{
 		moAtts.DeleteAttribute('vrgn');
-		cmmBaseObject::SetFlags(EITR_FLAG_VREGION,false);
+		cmmBaseObject::SetFlags(EITR_FLAG_VREGION, false);
 	}
 	else
-		if(moAtts.SetAttribute('vrgn',rRegion,true)!=false)
-			cmmBaseObject::SetFlags(EITR_FLAG_VREGION,true);
+		if (moAtts.SetAttribute('vrgn', rRegion, true) != false)
+			cmmBaseObject::SetFlags(EITR_FLAG_VREGION, true);
 
 	goAttributesLock.Leave();
 
@@ -675,18 +671,18 @@ void __stdcall CXuiIterator::SetVisibleRegion(
 // 获取可视区域，返回false表示没有设置可是区域
 bool __stdcall CXuiIterator::GetVisibleRegion(
 	OUT D2D1_RECT_F& rRegion	// 返回可视区域，如果没有设置可视区域，则不会修改这个对象
-	)
+)
 {
 	bool lbReval;
 
 	ITR_CHECK();
-	if(cmmBaseObject::TestFlag(EITR_FLAG_VREGION)==false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_VREGION) == false)
 		return false;
 
 	goAttributesLock.Enter();
 
-	lbReval = moAtts.GetAttribute('vrgn',rRegion);
-	
+	lbReval = moAtts.GetAttribute('vrgn', rRegion);
+
 	goAttributesLock.Leave();
 
 	return lbReval;
@@ -694,31 +690,31 @@ bool __stdcall CXuiIterator::GetVisibleRegion(
 
 
 // 设置平面转角
-void __stdcall CXuiIterator::SetRotation(FLOAT nfAngle,D2D1_POINT_2F ndCenter)
+void __stdcall CXuiIterator::SetRotation(FLOAT nfAngle, D2D1_POINT_2F ndCenter)
 {
 	// 理论上存在某个Element在我们处理绘制并且恰好在绘制它的时间点调用此函数，这样可能会导致严重故障
-	if(CEinkuiSystem::gpXuiSystem->GetRenderStep() != CEinkuiSystem::eRenderStop)
+	if (CEinkuiSystem::gpXuiSystem->GetRenderStep() != CEinkuiSystem::eRenderStop)
 		return;
 
 	ITR_CHECK();
 	goAttributesLock.Enter();
 
-	if(nfAngle> -1.0f && nfAngle < 1.0)// 如果小于1度相当于是没有旋转
+	if (nfAngle > -1.0f && nfAngle < 1.0)// 如果小于1度相当于是没有旋转
 	{
-		cmmBaseObject::SetFlags(EITR_FLAG_ROTATION,false);
+		cmmBaseObject::SetFlags(EITR_FLAG_ROTATION, false);
 		moAtts.DeleteAttribute('rtal');
 		moAtts.DeleteAttribute('rtcn');
 	}
 	else
 	{
-		cmmBaseObject::SetFlags(EITR_FLAG_ROTATION,true);
-		moAtts.SetAttribute('rtal',nfAngle,true);
-		moAtts.SetAttribute('rtcn',ndCenter,true);
+		cmmBaseObject::SetFlags(EITR_FLAG_ROTATION, true);
+		moAtts.SetAttribute('rtal', nfAngle, true);
+		moAtts.SetAttribute('rtcn', ndCenter, true);
 	}
 
 	goAttributesLock.Leave();
 
-	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY,true);
+	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY, true);
 
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
@@ -726,33 +722,33 @@ void __stdcall CXuiIterator::SetRotation(FLOAT nfAngle,D2D1_POINT_2F ndCenter)
 // 设置平面转角，以元素中心为旋转中心
 void __stdcall CXuiIterator::SetRotation(
 	FLOAT nfAngle			// 角度单位 -359 -> +359度
-	)
+)
 {
 	D2D1_POINT_2F ldCenter;
 
 	ITR_CHECK();
-	ldCenter.x = mdSize.width/2.0f;
-	ldCenter.y = mdSize.height/2.0f;
+	ldCenter.x = mdSize.width / 2.0f;
+	ldCenter.y = mdSize.height / 2.0f;
 
 	goAttributesLock.Enter();
 
-	if(nfAngle> -1.0f && nfAngle < 1.0)// 如果小于1度相当于是没有旋转
+	if (nfAngle > -1.0f && nfAngle < 1.0)// 如果小于1度相当于是没有旋转
 	{
-		cmmBaseObject::SetFlags(EITR_FLAG_ROTATION,false);
+		cmmBaseObject::SetFlags(EITR_FLAG_ROTATION, false);
 
 		moAtts.DeleteAttribute('rtal');
 		moAtts.DeleteAttribute('rtcn');
 	}
 	else
 	{
-		cmmBaseObject::SetFlags(EITR_FLAG_ROTATION,true);
-		moAtts.SetAttribute('rtal',nfAngle,true);
-		moAtts.SetAttribute('rtcn',ldCenter,true);
+		cmmBaseObject::SetFlags(EITR_FLAG_ROTATION, true);
+		moAtts.SetAttribute('rtal', nfAngle, true);
+		moAtts.SetAttribute('rtcn', ldCenter, true);
 	}
 
 	goAttributesLock.Leave();
 
-	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY,true);
+	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY, true);
 
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
@@ -763,12 +759,12 @@ FLOAT __stdcall CXuiIterator::GetRotationAngle(void)
 	FLOAT lfAngle;
 
 	ITR_CHECK();
-	if(cmmBaseObject::TestFlag(EITR_FLAG_ROTATION)==false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_ROTATION) == false)
 		return 0.0f;
 
 	goAttributesLock.Enter();
 
-	if(moAtts.GetAttribute('rtal',lfAngle)==false)
+	if (moAtts.GetAttribute('rtal', lfAngle) == false)
 		lfAngle = 0.0f;
 
 	goAttributesLock.Leave();
@@ -778,13 +774,13 @@ FLOAT __stdcall CXuiIterator::GetRotationAngle(void)
 
 D2D1_POINT_2F __stdcall CXuiIterator::GetRotationCenter(void)
 {
-	D2D1_POINT_2F ldCenter={0.0f,0.0f};
+	D2D1_POINT_2F ldCenter = { 0.0f,0.0f };
 
 	ITR_CHECK();
 	goAttributesLock.Enter();
 
-	if(cmmBaseObject::TestFlag(EITR_FLAG_ROTATION)==false)
-		moAtts.GetAttribute('rtcn',ldCenter);
+	if (cmmBaseObject::TestFlag(EITR_FLAG_ROTATION) == false)
+		moAtts.GetAttribute('rtcn', ldCenter);
 
 	goAttributesLock.Leave();
 
@@ -796,15 +792,15 @@ FLOAT __stdcall CXuiIterator::GetRotation(D2D1_POINT_2F& rCenter)
 	FLOAT lfAngle;
 
 	ITR_CHECK();
-	if(cmmBaseObject::TestFlag(EITR_FLAG_ROTATION)==false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_ROTATION) == false)
 		return 0.0f;
 
 	goAttributesLock.Enter();
 
-	if(moAtts.GetAttribute('rtal',lfAngle)==false)
+	if (moAtts.GetAttribute('rtal', lfAngle) == false)
 		lfAngle = 0.0f;
 
-	moAtts.GetAttribute('rtcn',rCenter);
+	moAtts.GetAttribute('rtcn', rCenter);
 
 	goAttributesLock.Leave();
 
@@ -812,15 +808,15 @@ FLOAT __stdcall CXuiIterator::GetRotation(D2D1_POINT_2F& rCenter)
 }
 
 // 设置参考尺寸
-void __stdcall CXuiIterator::SetSize(FLOAT nfCx,FLOAT nfCy)
+void __stdcall CXuiIterator::SetSize(FLOAT nfCx, FLOAT nfCy)
 {
 	ITR_CHECK();
 	mdSize.width = nfCx;
 	mdSize.height = nfCy;
 
-	CExMessage::SendMessage(this,NULL,EMSG_ELEMENT_RESIZED,mdSize);
+	CExMessage::SendMessage(this, NULL, EMSG_ELEMENT_RESIZED, mdSize);
 
-	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY,true);
+	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY, true);
 
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
@@ -830,9 +826,9 @@ void __stdcall CXuiIterator::SetSize(const D2D1_SIZE_F& rSize)
 	ITR_CHECK();
 	mdSize = rSize;
 
-	CExMessage::SendMessage(this,NULL,EMSG_ELEMENT_RESIZED,mdSize);
+	CExMessage::SendMessage(this, NULL, EMSG_ELEMENT_RESIZED, mdSize);
 
-	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY,true);
+	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY, true);
 
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
@@ -860,10 +856,10 @@ D2D1_SIZE_F __stdcall CXuiIterator::GetSize(void)
 void __stdcall CXuiIterator::SetEnable(bool nbSet)
 {
 	ITR_CHECK();
-	cmmBaseObject::SetFlags(EITR_FLAG_DISABLE,!nbSet);
-	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY,true);
+	cmmBaseObject::SetFlags(EITR_FLAG_DISABLE, !nbSet);
+	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY, true);
 
-	CExMessage::SendMessage(this,NULL,EMSG_ENALBE_DISABLE,nbSet);
+	CExMessage::SendMessage(this, NULL, EMSG_ENALBE_DISABLE, nbSet);
 
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
@@ -879,31 +875,31 @@ void __stdcall CXuiIterator::SetStyles(ULONG nuStyles)
 {
 	ITR_CHECK();
 	// 理论上存在某个Element在我们处理绘制并且恰好在绘制它的时间点调用此函数，这样可能会导致严重故障
-	if(CEinkuiSystem::gpXuiSystem->GetRenderStep() != CEinkuiSystem::eRenderStop)
+	if (CEinkuiSystem::gpXuiSystem->GetRenderStep() != CEinkuiSystem::eRenderStop)
 		return;
 
 	muStyle = nuStyles;
-	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY,true);
+	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY, true);
 
-	if((nuStyles&EITR_STYLE_TOP)!=0)
+	if ((nuStyles&EITR_STYLE_TOP) != 0)
 		mpParent->BringSubElementToTop(this);
 
 	CEinkuiSystem::gpXuiSystem->UpdateView();
 }
 
 // 修改Style，前一个参数是希望增加的Style，后一个参数是希望移除的Style，当前后两个参数中包括相同Style时，该Style不会被移除 
-void __stdcall CXuiIterator::ModifyStyles(ULONG nuSet,ULONG nuClear)
+void __stdcall CXuiIterator::ModifyStyles(ULONG nuSet, ULONG nuClear)
 {
 	ITR_CHECK();
 	// 理论上存在某个Element在我们处理绘制并且恰好在绘制它的时间点调用此函数，这样可能会导致严重故障
-	if(CEinkuiSystem::gpXuiSystem->GetRenderStep() != CEinkuiSystem::eRenderStop)
+	if (CEinkuiSystem::gpXuiSystem->GetRenderStep() != CEinkuiSystem::eRenderStop)
 		return;
 
 	muStyle &= (~nuClear);
 	muStyle |= nuSet;
-	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY,true);
+	cmmBaseObject::SetFlags(EITR_FLAG_DIRTY, true);
 
-	if((nuSet&EITR_STYLE_TOP)!=0)
+	if ((nuSet&EITR_STYLE_TOP) != 0)
 		mpParent->BringSubElementToTop(this);
 
 	CEinkuiSystem::gpXuiSystem->UpdateView();
@@ -920,7 +916,7 @@ ULONG __stdcall CXuiIterator::GetStyles(void)
 ERESULT __stdcall CXuiIterator::SetKeyBoardFocus(void)
 {
 	ITR_CHECK();
-	return CExMessage::SendMessage(NULL,this,EMSG_SET_KEYBOARD_FOCUS,this,NULL,0);
+	return CExMessage::SendMessage(NULL, this, EMSG_SET_KEYBOARD_FOCUS, this, NULL, 0);
 }
 
 // 释放键盘焦点，这将导致Tab Order的下一个键盘接收者获得焦点
@@ -932,14 +928,14 @@ void __stdcall CXuiIterator::ReleaseKeyBoardFocus(bool nbShiftFocus)
 	loRelease.CrtFocus = this;
 	loRelease.ShiftTab = nbShiftFocus;
 
-	CExMessage::SendMessage(NULL,this,EMSG_RELEASE_KEYBOARD_FOCUS,loRelease,NULL,0);
+	CExMessage::SendMessage(NULL, this, EMSG_RELEASE_KEYBOARD_FOCUS, loRelease, NULL, 0);
 }
 
 // 设置元素为活跃，如果本元素不具有EITR_STYLE_POPUP或EITR_STYLE_ACTIVE风格，那么最低的一个具有EITR_STYLE_POPUP或EITR_STYLE_ACTIVE风格的上层元素将被激活
 void __stdcall CXuiIterator::SetActive(void)
 {
 	ITR_CHECK();
-	CExMessage::SendMessage(NULL,this,EMSG_SET_ACTIVE,this,NULL,0);
+	CExMessage::SendMessage(NULL, this, EMSG_SET_ACTIVE, this, NULL, 0);
 }
 
 
@@ -959,7 +955,7 @@ bool __stdcall CXuiIterator::MoveDown(void)
 	ITR_CHECK();
 	gpElementManager->LockIterators();
 
-	lbReval = mpParent->MoveOnZOrder(false,this);
+	lbReval = mpParent->MoveOnZOrder(false, this);
 
 	gpElementManager->UnlockIterators();
 
@@ -974,7 +970,7 @@ bool __stdcall CXuiIterator::MoveUp(void)
 	ITR_CHECK();
 	gpElementManager->LockIterators();
 
-	lbReval = mpParent->MoveOnZOrder(true,this);
+	lbReval = mpParent->MoveOnZOrder(true, this);
 
 	gpElementManager->UnlockIterators();
 
@@ -1007,33 +1003,33 @@ LONG __stdcall CXuiIterator::GetDefaultZOrder(void)
 
 
 // 调整子元素在ZOrder的顺序
-bool CXuiIterator::MoveOnZOrder(bool nbUp,CXuiIterator* npChild)
+bool CXuiIterator::MoveOnZOrder(bool nbUp, CXuiIterator* npChild)
 {
 	int i;
 	CXuiIterator* lpSwap;
 	bool lbResult = false;
 
-	for(i=0;i<mpExtension->moZOrder.Size();i++)
+	for (i = 0; i < mpExtension->moZOrder.Size(); i++)
 	{
-		if(mpExtension->moZOrder[i] == npChild)
+		if (mpExtension->moZOrder[i] == npChild)
 		{
-			if(nbUp != false)
+			if (nbUp != false)
 			{
-				if(i+1 < mpExtension->moZOrder.Size())
+				if (i + 1 < mpExtension->moZOrder.Size())
 				{
 					lpSwap = mpExtension->moZOrder[i];
-					mpExtension->moZOrder[i] = mpExtension->moZOrder[i+1];
-					mpExtension->moZOrder[i+1] = lpSwap;
+					mpExtension->moZOrder[i] = mpExtension->moZOrder[i + 1];
+					mpExtension->moZOrder[i + 1] = lpSwap;
 					lbResult = true;
 				}
 			}
 			else
 			{
-				if(i > 1)
+				if (i > 1)
 				{
 					lpSwap = mpExtension->moZOrder[i];
-					mpExtension->moZOrder[i] = mpExtension->moZOrder[i-1];
-					mpExtension->moZOrder[i-1] = lpSwap;
+					mpExtension->moZOrder[i] = mpExtension->moZOrder[i - 1];
+					mpExtension->moZOrder[i - 1] = lpSwap;
 					lbResult = true;
 				}
 			}
@@ -1048,31 +1044,31 @@ bool CXuiIterator::MoveOnZOrder(bool nbUp,CXuiIterator* npChild)
 // 将某个子元素调整到ZOder最高层
 void CXuiIterator::BringSubElementToTop(
 	CXuiIterator* npSubElement
-	)
+)
 {
 	int i;
 
 	gpElementManager->LockIterators();
 
-	for(i=0;i<mpExtension->moZOrder.Size();i++)
+	for (i = 0; i < mpExtension->moZOrder.Size(); i++)
 	{
-		if(mpExtension->moZOrder[i] == npSubElement)
+		if (mpExtension->moZOrder[i] == npSubElement)
 		{
 			mpExtension->moZOrder.RemoveByIndex(i);
 			break;
 		}
 	}
 
-	for(i=mpExtension->moZOrder.Size()-1;i>=0;i--)
+	for (i = mpExtension->moZOrder.Size() - 1; i >= 0; i--)
 	{
 		// 待查元素不具有Top属性，或者，本元素也具有Top属性
-		if(mpExtension->moZOrder[i]->CheckStyle(EITR_STYLE_TOP)==false || npSubElement->CheckStyle(EITR_STYLE_TOP)!=false)
+		if (mpExtension->moZOrder[i]->CheckStyle(EITR_STYLE_TOP) == false || npSubElement->CheckStyle(EITR_STYLE_TOP) != false)
 		{
 			break;
 		}
 	}
 
-	mpExtension->moZOrder.Insert(i+1,npSubElement);
+	mpExtension->moZOrder.Insert(i + 1, npSubElement);
 
 	gpElementManager->UnlockIterators();
 
@@ -1081,22 +1077,22 @@ void CXuiIterator::BringSubElementToTop(
 // 将元素插入到ZOrder中
 void CXuiIterator::InsertToZOder(
 	CXuiIterator* npSubElement
-	)
+)
 {
 	int i;
 
 	gpElementManager->LockIterators();
 
-	for(i = mpExtension->moZOrder.Size()-1;i>=0;i--)
+	for (i = mpExtension->moZOrder.Size() - 1; i >= 0; i--)
 	{
 		// 待查元素不具有Top属性，或者，本元素也具有Top属性
-		if(mpExtension->moZOrder[i]->mlZOrder <= npSubElement->mlZOrder && (mpExtension->moZOrder[i]->CheckStyle(EITR_STYLE_TOP)==false || npSubElement->CheckStyle(EITR_STYLE_TOP)!=false))
+		if (mpExtension->moZOrder[i]->mlZOrder <= npSubElement->mlZOrder && (mpExtension->moZOrder[i]->CheckStyle(EITR_STYLE_TOP) == false || npSubElement->CheckStyle(EITR_STYLE_TOP) != false))
 		{
 			break;
 		}
 	}
 
-	mpExtension->moZOrder.Insert(i+1,npSubElement);
+	mpExtension->moZOrder.Insert(i + 1, npSubElement);
 
 	gpElementManager->UnlockIterators();
 
@@ -1107,51 +1103,51 @@ void CXuiIterator::InsertToZOder(
 void CXuiIterator::UpdateOrder(void)
 {
 	int liCount;
-	int i,j;
+	int i, j;
 	CXuiIterator* lpSwap;
 	bool lbClean;
 
-	if(mpExtension == NULL)
+	if (mpExtension == NULL)
 		return;
 
 	gpElementManager->LockIterators();
 
 	// 冒泡排序
 	liCount = mpExtension->moTabOder.Size();
-	for (i=0;i<liCount-1;i++)
+	for (i = 0; i < liCount - 1; i++)
 	{
 		lbClean = true;
-		for(j=0;j<liCount-i-1;j++)
+		for (j = 0; j < liCount - i - 1; j++)
 		{
-			if(mpExtension->moTabOder[j]->mlTabOrder > mpExtension->moTabOder[j+1]->mlTabOrder)
+			if (mpExtension->moTabOder[j]->mlTabOrder > mpExtension->moTabOder[j + 1]->mlTabOrder)
 			{
 				lpSwap = mpExtension->moTabOder[j];
-				mpExtension->moTabOder[j] = mpExtension->moTabOder[j+1];
-				mpExtension->moTabOder[j+1] = lpSwap;
+				mpExtension->moTabOder[j] = mpExtension->moTabOder[j + 1];
+				mpExtension->moTabOder[j + 1] = lpSwap;
 				lbClean = false;
 			}
 		}
-		if(lbClean != false)
+		if (lbClean != false)
 			break;
 	}
 
 	// 冒泡排序
 	liCount = mpExtension->moZOrder.Size();
-	for (i=0;i<liCount-1;i++)
+	for (i = 0; i < liCount - 1; i++)
 	{
 		lbClean = true;
-		for(j=0;j<liCount-i-1;j++)
+		for (j = 0; j < liCount - i - 1; j++)
 		{
-			if(mpExtension->moZOrder[j]->mlZOrder > mpExtension->moZOrder[j+1]->mlZOrder && mpExtension->moZOrder[j]->CheckStyle(EITR_STYLE_TOP) == mpExtension->moZOrder[j+1]->CheckStyle(EITR_STYLE_TOP) \
-				|| mpExtension->moZOrder[j]->CheckStyle(EITR_STYLE_TOP)!= false && mpExtension->moZOrder[j+1]->CheckStyle(EITR_STYLE_TOP) == false)
+			if (mpExtension->moZOrder[j]->mlZOrder > mpExtension->moZOrder[j + 1]->mlZOrder && mpExtension->moZOrder[j]->CheckStyle(EITR_STYLE_TOP) == mpExtension->moZOrder[j + 1]->CheckStyle(EITR_STYLE_TOP) \
+				|| mpExtension->moZOrder[j]->CheckStyle(EITR_STYLE_TOP) != false && mpExtension->moZOrder[j + 1]->CheckStyle(EITR_STYLE_TOP) == false)
 			{
 				lpSwap = mpExtension->moZOrder[j];
-				mpExtension->moZOrder[j] = mpExtension->moZOrder[j+1];
-				mpExtension->moZOrder[j+1] = lpSwap;
+				mpExtension->moZOrder[j] = mpExtension->moZOrder[j + 1];
+				mpExtension->moZOrder[j + 1] = lpSwap;
 				lbClean = false;
 			}
 		}
-		if(lbClean != false)
+		if (lbClean != false)
 			break;
 	}
 
@@ -1162,22 +1158,22 @@ void CXuiIterator::UpdateOrder(void)
 CXuiIterator* CXuiIterator::GetNextKeyBoardAccepter(CXuiIterator* npCurrent)
 {
 	int i;
-	int liEnd;
+	int liEnd = 0;//hy 20190723
 	CXuiIterator* lpFound = NULL;
 
-	if(mpExtension == NULL || mpExtension->moTabOder.Size() <= 0)
+	if (mpExtension == NULL || mpExtension->moTabOder.Size() <= 0)
 		return NULL;
 
 	// 定位到当前元素，并且计算环回后的结束地址
-	if(npCurrent != NULL)
+	if (npCurrent != NULL)
 	{
-		for(i=0;i<mpExtension->moTabOder.Size();i++)
-			if(mpExtension->moTabOder[i] == npCurrent)
+		for (i = 0; i < mpExtension->moTabOder.Size(); i++)
+			if (mpExtension->moTabOder[i] == npCurrent)
 			{
 				i++;
 
-				if(CheckStyle(EITR_STYLE_POPUP)!=false)
-					liEnd = i+mpExtension->moTabOder.Size();
+				if (CheckStyle(EITR_STYLE_POPUP) != false)
+					liEnd = i + mpExtension->moTabOder.Size();
 				else
 					liEnd = mpExtension->moTabOder.Size();
 
@@ -1191,16 +1187,16 @@ CXuiIterator* CXuiIterator::GetNextKeyBoardAccepter(CXuiIterator* npCurrent)
 	}
 
 
-	for(;i<liEnd && lpFound == NULL;i++)
+	for (; i < liEnd && lpFound == NULL; i++)
 	{
 		npCurrent = mpExtension->moTabOder[i%mpExtension->moTabOder.Size()];
-		if(npCurrent->CheckStyle(EITR_STYLE_KEYBOARD)!=false)
+		if (npCurrent->CheckStyle(EITR_STYLE_KEYBOARD) != false)
 		{
 			lpFound = npCurrent;
 		}
 		else
-		if(npCurrent->mpExtension != NULL)
-			lpFound = npCurrent->GetNextKeyBoardAccepter(NULL);	// 递归调用，以使得焦点进入某个子控件内部
+			if (npCurrent->mpExtension != NULL)
+				lpFound = npCurrent->GetNextKeyBoardAccepter(NULL);	// 递归调用，以使得焦点进入某个子控件内部
 	}
 
 	return lpFound;
@@ -1209,44 +1205,46 @@ CXuiIterator* CXuiIterator::GetNextKeyBoardAccepter(CXuiIterator* npCurrent)
 //设置ToolTip，鼠标在本对象上悬停，将会自动显示的单行简短文字提示，鼠标一旦移开显示的ToolTip，它自动消失
 void __stdcall CXuiIterator::SetToolTip(const wchar_t* nswTip)
 {
-	ERESULT luResult= ERESULT_SUCCESS;
+	ERESULT luResult = ERESULT_SUCCESS;
 	wchar_t* lswTipText;
 	int liSize;
-	
+
 	ClearTip();
 
-	if(nswTip == NULL)
+	if (nswTip == NULL)
 		return;
 
 	liSize = (int)wcslen(nswTip);
-	if(liSize <= 0)
+	if (liSize <= 0)
 		return;
 
-	lswTipText = new wchar_t[liSize+1];
-	wcscpy_s(lswTipText,liSize+1,nswTip);
+	lswTipText = new wchar_t[liSize + 1];
+	wcscpy_s(lswTipText, liSize + 1, nswTip);
 
 	goAttributesLock.Enter();
 
-	if(moAtts.SetAttribute('tip',lswTipText)!=false)
-		cmmBaseObject::SetFlags(EITR_FLAG_TIP,true);
+	if (moAtts.SetAttribute('tip', lswTipText) != false)
+		cmmBaseObject::SetFlags(EITR_FLAG_TIP, true);
 
 	goAttributesLock.Leave();
+	delete[] lswTipText;//hy 20190723
+	lswTipText = NULL;
 }
 
 void CXuiIterator::ClearTip()
 {
 	wchar_t* lswTipText;
 
-	if(cmmBaseObject::TestFlag(EITR_FLAG_TIP)==false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_TIP) == false)
 		return;
 
 	goAttributesLock.Enter();
 
 	lswTipText = NULL;
-	moAtts.GetAttribute('tip',lswTipText);
+	moAtts.GetAttribute('tip', lswTipText);
 
 	moAtts.DeleteAttribute('tip');
-	cmmBaseObject::SetFlags(EITR_FLAG_TIP,false);
+	cmmBaseObject::SetFlags(EITR_FLAG_TIP, false);
 
 	goAttributesLock.Leave();
 
@@ -1259,12 +1257,12 @@ const wchar_t* CXuiIterator::GetToolTip(void)
 {
 	wchar_t* lswTipText = NULL;
 
-	if(cmmBaseObject::TestFlag(EITR_FLAG_TIP)==false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_TIP) == false)
 		return NULL;
 
 	goAttributesLock.Enter();
 
-	moAtts.GetAttribute('tip',lswTipText);
+	moAtts.GetAttribute('tip', lswTipText);
 
 	goAttributesLock.Leave();
 
@@ -1275,11 +1273,11 @@ const wchar_t* CXuiIterator::GetToolTip(void)
 void __stdcall CXuiIterator::SetIMECompositionWindow(D2D1_POINT_2F ndPosition)
 {
 	ITR_CHECK();
-	if(CheckStyle(EITR_STYLE_DISABLE_IME)==false)
+	if (CheckStyle(EITR_STYLE_DISABLE_IME) == false)
 	{
 		D2D1_POINT_2F ldPoint;
 
-		if(LocalToWorld(ndPosition,ldPoint)==false)
+		if (LocalToWorld(ndPosition, ldPoint) == false)
 			return;
 
 		CEinkuiSystem::gpXuiSystem->GetImeContext()->SetImeCompositionWnd(ldPoint);
@@ -1288,7 +1286,7 @@ void __stdcall CXuiIterator::SetIMECompositionWindow(D2D1_POINT_2F ndPosition)
 
 
 // 从局部地址转换为世界地址
-bool __stdcall CXuiIterator::LocalToWorld(const D2D1_POINT_2F& crLocalPoint,D2D1_POINT_2F& rWorldPoint)
+bool __stdcall CXuiIterator::LocalToWorld(const D2D1_POINT_2F& crLocalPoint, D2D1_POINT_2F& rWorldPoint)
 {
 	ITR_CHECK();
 	rWorldPoint = crLocalPoint * mdWorldMatrix;
@@ -1297,16 +1295,16 @@ bool __stdcall CXuiIterator::LocalToWorld(const D2D1_POINT_2F& crLocalPoint,D2D1
 }
 
 // 从世界地址转换为局部地址
-bool __stdcall CXuiIterator::WorldToLocal(const D2D1_POINT_2F& crWorldPoint,D2D1_POINT_2F& rLocalPoint)
+bool __stdcall CXuiIterator::WorldToLocal(const D2D1_POINT_2F& crWorldPoint, D2D1_POINT_2F& rLocalPoint)
 {
 	ITR_CHECK();
 	// 计算局部坐标
-	if(mbInverted == false)
+	if (mbInverted == false)
 	{
 		mdWMInverted = mdWorldMatrix;
 		mbInverted = mdWMInverted.Invert();
 	}
-	if(mbInverted != false)
+	if (mbInverted != false)
 	{
 		rLocalPoint = crWorldPoint * mdWMInverted;
 
@@ -1325,74 +1323,74 @@ bool CXuiIterator::RegisterHotKey(
 	IN bool nbControlKey,	// 是否需要Control组合
 	IN bool nbShiftKey,		// 是否需要Shift组合
 	IN bool nbAltKey		// 是否需要Alt组合
-	)
+)
 {
-	bool lbOk = false;
+	bool lbOk = true;
 
-	CXuiHotkeyEntry loEntry;
-	THotKeyTable* lpHtKyTable;
+	//CXuiHotkeyEntry loEntry;
+	//THotKeyTable* lpHtKyTable = NULL;
 
-	do 
-	{
-		// 如果没有扩展结构，分配扩展结构
-		goAttributesLock.Enter();
+	//do 
+	//{
+	//	// 如果没有扩展结构，分配扩展结构
+	//	goAttributesLock.Enter();
 
-		if(moAtts.GetAttribute('htky',lpHtKyTable)==false)
-			lpHtKyTable = NULL;
+	//	if(moAtts.GetAttribute('htky',lpHtKyTable)==false)
+	//		lpHtKyTable = NULL;
 
-		goAttributesLock.Leave();
+	//	goAttributesLock.Leave();
 
-		if(lpHtKyTable == NULL)
-		{
-			lpHtKyTable = new THotKeyTable;
-			if(lpHtKyTable == NULL)
-				break;
+	//	if(lpHtKyTable == NULL)
+	//	{
+	//		lpHtKyTable = new THotKeyTable;
+	//		if(lpHtKyTable == NULL)
+	//			break;
 
-			goAttributesLock.Enter();
+	//		goAttributesLock.Enter();
 
-			lbOk = moAtts.SetAttribute('htky',lpHtKyTable);
+	//		lbOk = moAtts.SetAttribute('htky',lpHtKyTable);
 
-			goAttributesLock.Leave();
+	//		goAttributesLock.Leave();
 
-			if(lbOk == false)
-			{
-				delete lpHtKyTable;
-				break;
-			}
+	//		if(lbOk == false)
+	//		{
+	//			delete lpHtKyTable;
+	//			break;
+	//		}
 
-			lbOk = false;
-		}
+	//		lbOk = false;
+	//	}
 
-		// 不再检查相同ID，允许使用相同ID注册
-		//for(i=0;i<lpHtKyTable->Size();i++)
-		//{
-		//	if((*lpHtKyTable)[i].muHotKeyID == nuHotKeyID)
-		//		break;
-		//}
-		//if(i<mpExtension->moHotKey.Size())
-		//	break;
+	//	// 不再检查相同ID，允许使用相同ID注册
+	//	//for(i=0;i<lpHtKyTable->Size();i++)
+	//	//{
+	//	//	if((*lpHtKyTable)[i].muHotKeyID == nuHotKeyID)
+	//	//		break;
+	//	//}
+	//	//if(i<mpExtension->moHotKey.Size())
+	//	//	break;
 
-		loEntry.mpApplicant = npApplicant;
-		loEntry.mcuExKey = 0;
+	//	loEntry.mpApplicant = npApplicant;
+	//	loEntry.mcuExKey = 0;
 
-		if(nbControlKey != false)
-			loEntry.mcuExKey |= CXuiHotkeyEntry::eControl;
-		if(nbShiftKey != false)
-			loEntry.mcuExKey |= CXuiHotkeyEntry::eShit;
-		if(nbAltKey != false)
-			loEntry.mcuExKey |= CXuiHotkeyEntry::eAlt;
+	//	if(nbControlKey != false)
+	//		loEntry.mcuExKey |= CXuiHotkeyEntry::eControl;
+	//	if(nbShiftKey != false)
+	//		loEntry.mcuExKey |= CXuiHotkeyEntry::eShit;
+	//	if(nbAltKey != false)
+	//		loEntry.mcuExKey |= CXuiHotkeyEntry::eAlt;
 
-		loEntry.msuVkCode = (USHORT)nuVkNumber;
-		loEntry.muHotKeyID = nuHotKeyID;
+	//	loEntry.msuVkCode = (USHORT)nuVkNumber;
+	//	loEntry.muHotKeyID = nuHotKeyID;
 
-		if(lpHtKyTable->Insert(loEntry)<0)
-			break;
+	//	if(lpHtKyTable->Insert(loEntry)<0)
+	//		break;
 
-		cmmBaseObject::SetFlags(EITR_FLAG_HOTKEY,true);
+	//	cmmBaseObject::SetFlags(EITR_FLAG_HOTKEY,true);
 
-		lbOk = true;
-		
-	} while (false);
+	//	lbOk = true;
+	//	
+	//} while (false);
 
 	return lbOk;
 }
@@ -1401,7 +1399,7 @@ bool CXuiIterator::RegisterHotKey(
 bool CXuiIterator::UnregisterHotKey(
 	IN IEinkuiIterator* npApplicant,	// 注册者
 	IN ULONG UnuKeyNumber
-	)
+)
 {
 	// 暂不支持
 	return false;
@@ -1410,27 +1408,27 @@ bool CXuiIterator::UnregisterHotKey(
 // 检查是否具有符合的HotKey
 bool CXuiIterator::DetectHotKey(
 	CXuiHotkeyEntry& rToDetect
-	)
+)
 {
 	int liIndex;
 	THotKeyTable* lpHtKyTable;
 
-	if(cmmBaseObject::TestFlag(EITR_FLAG_HOTKEY)==false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_HOTKEY) == false)
 		return false;
 
 	goAttributesLock.Enter();
 
-	if(moAtts.GetAttribute('htky',lpHtKyTable)==false)
+	if (moAtts.GetAttribute('htky', lpHtKyTable) == false)
 		lpHtKyTable = NULL;
 
 	goAttributesLock.Leave();
 
 	// 如果没有扩展结构，分配扩展结构
-	if(lpHtKyTable== NULL)
+	if (lpHtKyTable == NULL)
 		return false;
 
 	liIndex = lpHtKyTable->Find(rToDetect);
-	if(liIndex >= 0)
+	if (liIndex >= 0)
 	{
 		rToDetect = (*lpHtKyTable)[liIndex];
 
@@ -1444,9 +1442,9 @@ bool CXuiIterator::DetectHotKey(
 // 获得下一绘制层
 LONG CXuiIterator::GetNextPaintLevel(LONG nlCrtLevel)
 {
-	if(cmmBaseObject::TestFlag(EITR_FLAG_PAINTLEVEL_HOST)==false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_PAINTLEVEL_HOST) == false)
 	{
-		if(nlCrtLevel == -1)
+		if (nlCrtLevel == -1)
 			return 0;
 		return nlCrtLevel;
 	}
@@ -1454,13 +1452,13 @@ LONG CXuiIterator::GetNextPaintLevel(LONG nlCrtLevel)
 
 	goAttributesLock.Enter();
 
-	if(moAtts.GetAttribute('plvc',llLevelCount)==false)
+	if (moAtts.GetAttribute('plvc', llLevelCount) == false)
 		llLevelCount = 1;
 	goAttributesLock.Leave();
 
-	if(nlCrtLevel+1 >= llLevelCount)
+	if (nlCrtLevel + 1 >= llLevelCount)
 		return nlCrtLevel;
-	return nlCrtLevel+1;
+	return nlCrtLevel + 1;
 }
 
 
@@ -1473,19 +1471,19 @@ ERESULT __stdcall CXuiIterator::CreatePaintLevel(LONG nlLevelCount)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
 
-	if(cmmBaseObject::TestFlag(EITR_FLAG_PAINTLEVEL_HOST)!=false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_PAINTLEVEL_HOST) != false)
 		return luResult;	// 已经建立了绘制层次
 
 	goAttributesLock.Enter();
 
-	if(moAtts.SetAttribute('plvc',nlLevelCount)!=false)
+	if (moAtts.SetAttribute('plvc', nlLevelCount) != false)
 		luResult = ERESULT_SUCCESS;
 
 	goAttributesLock.Leave();
 
-	if(luResult == ERESULT_SUCCESS)
-		cmmBaseObject::SetFlags(EITR_FLAG_PAINTLEVEL_HOST,true);
-		
+	if (luResult == ERESULT_SUCCESS)
+		cmmBaseObject::SetFlags(EITR_FLAG_PAINTLEVEL_HOST, true);
+
 	return luResult;
 }
 
@@ -1494,12 +1492,12 @@ LONG __stdcall CXuiIterator::GetPaintLevelCount(void)
 {
 	LONG llLevelCount = 0;
 
-	if(cmmBaseObject::TestFlag(EITR_FLAG_PAINTLEVEL_HOST)==false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_PAINTLEVEL_HOST) == false)
 		return 0;
 
 	goAttributesLock.Enter();
-	
-	moAtts.GetAttribute('plvc',llLevelCount);
+
+	moAtts.GetAttribute('plvc', llLevelCount);
 
 	goAttributesLock.Leave();
 
@@ -1509,21 +1507,21 @@ LONG __stdcall CXuiIterator::GetPaintLevelCount(void)
 // 删除绘制层次设定
 ERESULT __stdcall CXuiIterator::DeletePaintLevel(void
 	//bool nbClearAll=true		// 清除掉所有子元素的绘制层次设定
-	)
+)
 {
 	ERESULT luResult = ERESULT_UNSUCCESSFUL;
 
-	if(cmmBaseObject::TestFlag(EITR_FLAG_PAINTLEVEL_HOST)==false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_PAINTLEVEL_HOST) == false)
 		return true;
 
 	goAttributesLock.Enter();
 
-	if(moAtts.DeleteAttribute('plvc')!=false)
+	if (moAtts.DeleteAttribute('plvc') != false)
 		luResult = ERESULT_SUCCESS;
 
 	goAttributesLock.Leave();
 
-	cmmBaseObject::SetFlags(EITR_FLAG_PAINTLEVEL_HOST,false);
+	cmmBaseObject::SetFlags(EITR_FLAG_PAINTLEVEL_HOST, false);
 
 	return luResult;
 }
@@ -1535,13 +1533,13 @@ ERESULT __stdcall CXuiIterator::SetPaintLevel(LONG nlLevel)
 
 	goAttributesLock.Enter();
 
-	if(moAtts.SetAttribute('plvn',nlLevel)!=false)
+	if (moAtts.SetAttribute('plvn', nlLevel) != false)
 		luResult = ERESULT_SUCCESS;
 
 	goAttributesLock.Leave();
 
-	if(luResult == ERESULT_SUCCESS)
-		cmmBaseObject::SetFlags(EITR_FLAG_CRT_PAINTLEVEL,true);
+	if (luResult == ERESULT_SUCCESS)
+		cmmBaseObject::SetFlags(EITR_FLAG_CRT_PAINTLEVEL, true);
 
 	return luResult;
 }
@@ -1551,14 +1549,14 @@ LONG __stdcall CXuiIterator::GetPaintLevel(void)
 {
 	LONG llLevel = -1;
 
-	if(cmmBaseObject::TestFlag(EITR_FLAG_CRT_PAINTLEVEL)!=false)
+	if (cmmBaseObject::TestFlag(EITR_FLAG_CRT_PAINTLEVEL) != false)
 	{
 		goAttributesLock.Enter();
 
-		moAtts.GetAttribute('plvn',llLevel);
+		moAtts.GetAttribute('plvn', llLevel);
 
 		goAttributesLock.Leave();
 	}
-	
+
 	return llLevel;
 }

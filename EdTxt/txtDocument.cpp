@@ -25,10 +25,14 @@ CtxtDocument::CtxtDocument()
 	mUpdateForFont = false;
 	mPageLoadCallbackFun = NULL;
 	//mArrageAgain = false;
-	mThreadNumber = 0;
+	//mThreadNumber = 0;
 	mpArrangeThread = NULL;
 	/*mPreFocusPage.charBegin = */mRearrangePage.charBegin = MAXULONG32;
 	SetFont(L"Arial", 12);
+	mAheadPageLoaded = 0;
+	mArranging = 0;
+	mCrtPageBegin = 0;
+	mCrtPageNumber = 0;
 }
 
 CtxtDocument::~CtxtDocument()
@@ -189,8 +193,11 @@ ED_ERR CtxtDocument::UnpackU8(void)
 	auto crtWideChar = mpTextBuffer;
 	auto endWideChar = crtWideChar + wideCharCount;
 
+
+	nextChar = mpTxtMappedBase;
 	// skip BOM
-	nextChar = mpTxtMappedBase+3;
+	if (mBom != u8NoBOM)
+		nextChar += 3;
 
 	while (nextChar < endChar)
 	{
@@ -431,7 +438,7 @@ ED_ERR CtxtDocument::UnpackBigEnding16(void)
 	return EDERR_SUCCESS;
 }
 
-bool32 CtxtDocument::LoadAllPage(PEDDOC_CALLBACK callBackFun, void_ptr contextPtr)
+bool32 CtxtDocument::LoadAllPage(PEDDOC_CALLBACK callBackFun, void_ptr contextPtr, PPAGE_PDF_CONTEXT initPage)
 {
 	mPageLoadCallbackFun = callBackFun;
 	mPageLoadCallbackContext = contextPtr;
@@ -563,6 +570,9 @@ IEdPage_ptr CtxtDocument::GetPage(IEdPage_ptr currentPage, int32 pagesOff)
 
 	currentPage->GetPageContext(&pageContext);
 
+	if (pageContext.pageIndex < 0)
+		return NULL;
+
 	mThreadDataLock.Enter();
 
 	pageIndex = (int32)pageContext.pageIndex;
@@ -596,6 +606,21 @@ IEdPage_ptr CtxtDocument::GetPage(IEdPage_ptr currentPage, int32 pagesOff)
 }
 
 
+bool32 CtxtDocument::LoadAllThumbnails(PEDDOC_THUMBNAILS_CALLBACK /*callBack*/, void_ptr /*contextPtr*/, const wchar_t* /*orgFilePathName*/)
+{
+	return false;
+}
+
+bool32 CtxtDocument::GetThumbanilsPath(wchar_t* npszPathBuffer, int niLen)
+{
+	return false;
+}
+
+bool32 CtxtDocument::GetThumbnailPathName(int32Eink pageIndex, char16 pathName[256], bool* /*hasAnnot*/)
+{
+	return false;
+}
+
 IEdPage_ptr CtxtDocument::Rearrange(IEdPage_ptr currentPage)
 {
 	PAGE_PDF_CONTEXT context = { 0,0,0 };
@@ -625,18 +650,20 @@ IEdPage_ptr CtxtDocument::Rearrange(PPAGE_PDF_CONTEXT contextPtr)
 	viewPort.Height = mViewPort.Y;
 
 
+	InterlockedExchange(&mArranging, 1);
+
 	// 释放前一个线程对象
 	CTxdArrangeThread* lpThreadObj = (CTxdArrangeThread*)InterlockedExchangePointer((void**)&mpArrangeThread, NULL);
 	if (lpThreadObj != NULL)
 		delete lpThreadObj;
 
-	lpThreadObj = new CTxdArrangeThread(mpTextBuffer, contextPtr->pageContext, mTextCharCount, mFontName, (float)mFontSize, &viewPort, (PEDDOC_THREAD_CALLBACK)CtxtDocument::PageArrangedCallBack, (void*)this);
+	lpThreadObj = new CTxdArrangeThread(mpTextBuffer, contextPtr->pageContext, mTextCharCount, false, mFontName, (float)mFontSize, &viewPort, (PEDDOC_THREAD_CALLBACK)CtxtDocument::PageArrangedCallBack, (void*)this);
 	if (lpThreadObj == NULL)
 		return NULL;
 
 	InterlockedExchangePointer((void**)&mpArrangeThread, lpThreadObj);
 
-	mThreadNumber = lpThreadObj->mThreadNumber;
+	//mThreadNumber = lpThreadObj->mThreadNumber;
 
 	//清空当前页面
 	mThreadDataLock.Enter();
@@ -675,27 +702,32 @@ int32Eink CtxtDocument::GetPageIndex(CtxtPage* pageObj)
 	uint32 pageBegin = (uint32)(pageObj->mCharPtr - mpTextBuffer);
 	int32Eink pageIndex = -1;
 
-	mThreadDataLock.Enter();
-
-	if (pageObj->mPageIndexOpenning >= 0 && pageObj->mPageIndexOpenning < mAllPages.Size() \
-		&& mAllPages[pageObj->mPageIndexOpenning].charBegin == pageBegin)
+	if (mCrtPageBegin == pageBegin)
 	{
-		pageIndex = pageObj->mPageIndexOpenning;
+		pageIndex = mCrtPageNumber;
 	}
 	else
 	{
+		CSectionAutoLock lock(mThreadDataLock);
+
 		for (int i = 0; i < mAllPages.Size(); i++)
 		{
 			if (mAllPages[i].charBegin == pageBegin)
 			{
+				if (mArranging != 0)
+				{
+					mCrtPageNumber = i;
+					mCrtPageBegin = pageBegin;
+				}
+
 				pageIndex = i;
-				pageObj->mPageIndexOpenning = i;
+
 				break;
 			}
 		}
+
 	}
 
-	mThreadDataLock.Leave();
 
 	return pageIndex;
 }
@@ -751,28 +783,47 @@ CtxtDocument::BOM CtxtDocument::GetBomInfor()
 
 void __stdcall CtxtDocument::PageArrangedCallBack(LONG threadNumber, uint32 loadingStep, PST_PAGE_CONTROL pageCtl, CtxtDocument* thisDoc)
 {
-	if (thisDoc->mThreadNumber != threadNumber)
-		return;
+// 	if (thisDoc->mThreadNumber != threadNumber)
+// 		return;
+
+	uint32 pageCount = 0;
 
 	thisDoc->mThreadDataLock.Enter();
 
-	if (loadingStep > 0 && loadingStep < MAXULONG32)
+	if (loadingStep != LOADING_STEP_COMPLETE)
 	{
-		if (loadingStep == 0xCFFFFFFF)
+		if (LOADING_STEP_AHEAD(loadingStep) != 0)
 		{
-			// 特殊用法，直接复制整个向量
-			PageControl_Vector* pageVector = (PageControl_Vector*)pageCtl;
+			if (loadingStep == LOADING_STEP_AHEAD_COMPLETE)
+			{
+				// 借用了这个指针pageCtl传递了不同类型的数据，此处复制整个向量内的数据
+				PageControl_Vector* pageVector = (PageControl_Vector*)pageCtl;
 
-			thisDoc->mAllPages.Insert(0, *pageVector);
+				thisDoc->mAllPages.Insert(0, *pageVector);
+
+				thisDoc->mAheadPageLoaded = 0;	// 前页已经全部装入，不再需要临时计算的总页数
+			}
+			else
+			{
+				thisDoc->mAheadPageLoaded = LOADING_STEP_AHEAD_NUMBER(loadingStep);
+			}
+
+			loadingStep = 1;
 		}
 		else
-		if ((loadingStep&0xC0000000)!=0)
-			thisDoc->mAllPages.Insert((loadingStep&(~0xC0000000)), *pageCtl);
-		else
-			thisDoc->mAllPages.Insert(-1, *pageCtl);
+		{
+			if(pageCtl != NULL)
+				thisDoc->mAllPages.Insert(-1, *pageCtl);
+		}
+	}
+	else
+	{
+		thisDoc->mCrtPageBegin = 0;
+		thisDoc->mCrtPageNumber = 0;
+		InterlockedExchange(&thisDoc->mArranging, 0);
 	}
 
-	uint32 pageCount = thisDoc->mAllPages.Size();
+	pageCount = thisDoc->mAllPages.Size() + thisDoc->mAheadPageLoaded;
 
 	thisDoc->mThreadDataLock.Leave();
 

@@ -1,5 +1,5 @@
-/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
+/* Copyright 2019 - present Lenovo */
 #include "stdafx.h"
 #include "EiAppCenter.h"
 #include "EinkIteAPI.h"
@@ -7,19 +7,17 @@
 #include <Objbase.h>
 #include "cmmBaseObj.h"
 #include <Shlobj.h>
+#include "InstallDriver.h"
 
 CEiAppCenter::CEiAppCenter()
 {
 	muAppID = 0;
-	mhFile = NULL;
-	muFileLength = 0;
-	mhFileMap = NULL;
-	mpMappedBase = NULL;
 
-	mhServerFile = NULL;
-	muServerFileLength = 0;
-	mhServerFileMap = NULL;
-	mpServerMappedBase = NULL;
+	muSendBufferLength = 0;
+	mSendBuffer = NULL;
+
+	muReciveBufferLength = 0;
+	mpReciveBuffer = NULL;
 
 	mhWnd = NULL;
 }
@@ -29,21 +27,11 @@ CEiAppCenter::~CEiAppCenter()
 	//停止消息通道
 	moAppListener.Stop();
 
-	UnmapViewOfFile(mpServerMappedBase);
-	UnmapViewOfFile(mpMappedBase);
-
-	SAFE_CLOSE_HANDLE(mhFileMap);
-	SAFE_CLOSE_HANDLE(mhFile);
-
-	SAFE_CLOSE_HANDLE(mhServerFileMap);
-	SAFE_CLOSE_HANDLE(mhServerFile);
-
-	//删除自己的文件
-	DeleteFile(mdRegAppInfo.mszAppFilePath);
+	ReleaseAppBuffer();
 }
 
 //获取GUID字符串
-void CEiAppCenter::GetGUIDString(const wchar_t* npszBuffer,int niLen)
+void CEiAppCenter::GetGUIDString(wchar_t* npszBuffer, int niLen)
 {
 	GUID ldGuid;
 	HRESULT lhResult = S_FALSE;
@@ -53,121 +41,27 @@ void CEiAppCenter::GetGUIDString(const wchar_t* npszBuffer,int niLen)
 		Sleep(1);
 	}
 
-	StringFromGUID2(ldGuid, (LPOLESTR)npszBuffer,niLen);
-}
-
-//打开自己的内存映射文件
-bool CEiAppCenter::OpenJasonFile(const wchar_t* nszFileName)
-{
-	bool lbResult = false;
-	ULONG luLengthHi;
-
-
-	try
-	{
-
-		// 映射文件进内存
-		//需要设置权限，否则服务创建的对象，普通进程无法打开
-		SECURITY_DESCRIPTOR lsd;
-		InitializeSecurityDescriptor(&lsd, SECURITY_DESCRIPTOR_REVISION);
-		SetSecurityDescriptorDacl(&lsd, TRUE, (PACL)NULL, FALSE);
-		SECURITY_ATTRIBUTES	lsa;
-		lsa.nLength = sizeof(SECURITY_ATTRIBUTES);
-		lsa.bInheritHandle = TRUE;
-		lsa.lpSecurityDescriptor = &lsd;
-
-		mhFile = CreateFile(nszFileName, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, &lsa, CREATE_ALWAYS, NULL, NULL);
-		if (mhFile == INVALID_HANDLE_VALUE)
-			THROW_INVALID;
-
-		//指定文件大小
-		mhFileMap = CreateFileMapping(mhFile, NULL, PAGE_READWRITE, 0, EAC_FILE_SIZE, NULL);
-		if (mhFileMap == INVALID_HANDLE_VALUE)
-			THROW_INVALID;
-
-		muFileLength = GetFileSize(mhFile, &luLengthHi);
-
-		mpMappedBase = (const char*)MapViewOfFile(mhFileMap, FILE_MAP_READ | FILE_MAP_WRITE, 0, 0, 0);
-		THROW_ON_NULL(mpMappedBase);
-
-		lbResult = true;
-	}
-	catch (...)
-	{
-
-	}
-
-	return lbResult;
-}
-
-//打开服务的内存映射文件
-bool CEiAppCenter::OpenServerJasonFile(const wchar_t* nszFileName)
-{
-	bool lbResult = false;
-	ULONG luLengthHi;
-
-
-	try
-	{
-		// 映射文件进内存
-		mhServerFile = CreateFile(nszFileName, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, NULL, NULL);
-		if (mhServerFile == INVALID_HANDLE_VALUE)
-			THROW_INVALID;
-
-		muServerFileLength = GetFileSize(mhServerFile, &luLengthHi);
-
-		//指定文件大小
-		mhServerFileMap = CreateFileMapping(mhServerFile, NULL, PAGE_READWRITE, 0, muServerFileLength, NULL);
-		if (mhServerFileMap == INVALID_HANDLE_VALUE)
-			THROW_INVALID;
-		
-		mpServerMappedBase = (const char*)MapViewOfFile(mhServerFileMap, FILE_MAP_READ | FILE_MAP_WRITE, 0, 0, 0);
-		THROW_ON_NULL(mpServerMappedBase);
-
-		lbResult = true;
-	}
-	catch (...)
-	{
-
-	}
-
-	return lbResult;
+	StringFromGUID2(ldGuid, (LPOLESTR)npszBuffer, niLen);
 }
 
 // 初始化执行体
 ULONG CEiAppCenter::Initialize(TRSP_SYSTEM_INFO_DATA& rSystemInfoData)
 {
 	ULONG luResult;
-	
 
-	// 初始化
-	// 打开App监听
-	//生成唯一字符串
+	//生成管道名称
 	wchar_t lszTempBuffer[MAX_PATH] = { 0 };
 	GetGUIDString(lszTempBuffer, MAX_PATH);
-	swprintf_s(mdRegAppInfo.mszAppMutex, APP_NAME_MAX, L"Global\\%s", lszTempBuffer);
+	swprintf_s(mdRegAppInfo.mszAppFilePath, MAX_PATH, L"\\\\.\\pipe\\%s.eink", lszTempBuffer);
 
-	GetGUIDString(lszTempBuffer, MAX_PATH);
-	swprintf_s(mdRegAppInfo.mszAppSemaphore, APP_NAME_MAX, L"Global\\%s", lszTempBuffer);
-
-	//生成内存映射文件名
-	GetGUIDString(lszTempBuffer, MAX_PATH);
-	//获取TEMP目录路径
-	wchar_t lszTempPath[MAX_PATH] = { 0 };
-	SHGetSpecialFolderPath(NULL, lszTempPath, CSIDL_COMMON_APPDATA, FALSE);
-
-	swprintf_s(mdRegAppInfo.mszAppFilePath, MAX_PATH, L"%s\\EinkSrv\\%s.eink", lszTempPath,lszTempBuffer);
-	OpenJasonFile(mdRegAppInfo.mszAppFilePath);
-
-	//打开和Server通讯用的文件
-	swprintf_s(lszTempPath, MAX_PATH, L"%s\\EinkSrv\\FC80C0D8-FC99-4772-BCB0-ACC862F34AAC.eink", lszTempPath);
-	OpenServerJasonFile(lszTempPath);
+	//创建缓存
+	CreateAppBuffer();
 
 	luResult = moAppListener.CreateListener(
-		mdRegAppInfo.mszAppMutex,
-		mdRegAppInfo.mszAppSemaphore,
-		(LPVOID)mpMappedBase,				// 内存映射文件的第一段
-		muFileLength,			// 第一段的长度
+		mdRegAppInfo.mszAppFilePath, //管道名称
+		(LPVOID)mpReciveBuffer,
+		muReciveBufferLength,
+		AppReciveCallBack,
 		AppCenterCallBack,
 		this
 	);
@@ -176,13 +70,12 @@ ULONG CEiAppCenter::Initialize(TRSP_SYSTEM_INFO_DATA& rSystemInfoData)
 		return luResult;
 
 	// 打开对Host的消息连接
-	luResult = moConnectToHost.CreateConnector(
-		L"Global\\LN_EI_HOST_MUTEX",
-		L"Global\\LN_EI_HOST_SEMAPHORE", \
-		(LPVOID)mpServerMappedBase,
-		muServerFileLength
-	);
+	wchar_t lszPipeName[MAX_PATH] = { 0 };
+	luResult = GetRegSZ(L"PipeName", lszPipeName);
+	if (luResult != ERROR_SUCCESS)
+		return luResult;
 
+	luResult = moConnectToHost.CreateConnector(lszPipeName);
 	if (luResult != ERROR_SUCCESS)
 		return luResult;
 
@@ -208,9 +101,24 @@ ULONG CEiAppCenter::Initialize(TRSP_SYSTEM_INFO_DATA& rSystemInfoData)
 void CEiAppCenter::Release(void)
 {
 	// 关闭所有对App的连接
-	
+
 	// 关闭Service的监听
 	moAppListener.Stop();
+}
+
+// 接收数据回调入口函数
+void __stdcall CEiAppCenter::AppReciveCallBack(const char* npData, ULONG nSize, void* npContext)
+{
+	CEiAppCenter* lpThis = (CEiAppCenter*)npContext;
+	lpThis->AppPushReciveDataToQueue(npData, nSize);
+}
+
+// 接收数据预处理函数
+void CEiAppCenter::AppPushReciveDataToQueue(const char* npData, ULONG nSize)
+{
+	DWORD dwMsgBufferSize = sizeof(CEiSvrMsgItem);
+	CEiSvrMsgItem* pMsg = (CEiSvrMsgItem*)npData;
+	moAppListener.PostMsgToListener(*pMsg);
 }
 
 // 回调入口函数
@@ -268,20 +176,80 @@ void CEiAppCenter::AppDispatch(CEiSvrMsgItem& nrMsg)
 		//隐私开关状态发生变化
 		PrivacyStatusChanged(nrMsg);
 		break;
-	// 添加更多响应函数调用
+	case EMAPPID_CHECK_APP_ALIVE:
+		CheckAppAlive(nrMsg);
+		break;
+	case EMAPPID_SMARTINFO_SETTINGS_CHANGE:
+		SmartInfoSettingChange(nrMsg);
+		break;
 	default:
 		break;
 	}
 }
 
-// 发送消息给Service，并等待
+// 发送消息给Service，不等待
 ULONG CEiAppCenter::PostMessageToService(CEiSvrMsgItem& nrMsg)
 {
-	moConnectToHost.PostMsg(nrMsg);
-	return ERROR_SUCCESS;
+	ULONG uMsgLen = sizeof(nrMsg.Data.Item) + nrMsg.Data.Item.BufSize - 1;
+	return moConnectToHost.PostMsg(nrMsg, uMsgLen);
 }
 
 // 发送消息给Service，不等待
+ULONG CEiAppCenter::PostMessageToService(CEiSvrMsgItem& nrMsg, EI_BUFFER* npBuffer)
+{
+	ULONG uMsgLen = sizeof(nrMsg.Data.Item) + nrMsg.Data.Item.BufSize - 1;
+	memcpy_s(mSendBuffer, uMsgLen, &nrMsg, uMsgLen);
+
+	ULONG uBufferLen = sizeof(EI_BUFFER) + npBuffer->ulBufferSize - 1;
+	memcpy_s(mSendBuffer + uMsgLen, uBufferLen, npBuffer, uBufferLen);
+
+	moConnectToHost.PostMsg(mSendBuffer, uMsgLen + uBufferLen);
+
+	return ERROR_SUCCESS;
+}
+
+//检查服务状态
+bool CEiAppCenter::ProtectService(void)
+{
+	HANDLE lhEventHandle = NULL;
+
+	do
+	{
+		//如果安装程序启动了，就退出
+		lhEventHandle = OpenEvent(READ_CONTROL, FALSE, MUTEX_EVENT_INSTALL);
+		if (lhEventHandle != NULL)
+		{
+			CloseHandle(lhEventHandle);
+			break;
+		}
+
+		//检查服务是否还正常
+		lhEventHandle = OpenEvent(READ_CONTROL, FALSE, MUTEX_EVENT_SERVICE);
+		if (lhEventHandle == NULL)
+		{
+			//启动服务
+			CInstallDriver InstallDriver;
+			InstallDriver.ManageDriver(L"EinkSvr",
+				L"EinkSvr",
+				SC_MANAGER_ALL_ACCESS | SERVICE_ALL_ACCESS,
+				SERVICE_WIN32_OWN_PROCESS,
+				SERVICE_AUTO_START,
+				DRIVER_FUNC_START);
+
+			Sleep(1000 * 10);
+		}
+		else
+		{
+			CloseHandle(lhEventHandle);
+			lhEventHandle = NULL;
+		}
+
+	} while (false);
+
+	return 0;
+}
+
+// 发送消息给Service，并等待
 ULONG CEiAppCenter::SendMessageToService(CEiSvrMsgItem& nrMsg)
 {
 	ULONG luResult = ERROR_NOT_READY;
@@ -295,7 +263,7 @@ ULONG CEiAppCenter::SendMessageToService(CEiSvrMsgItem& nrMsg)
 
 	PostMessageToService(nrMsg);
 
-	DWORD ldwObject = WaitForSingleObject(nrMsg.Data.Item.WaitHandle, 1000*30);	// 等待大约30秒
+	DWORD ldwObject = WaitForSingleObject(nrMsg.Data.Item.WaitHandle, 1000 * 30);	// 等待大约30秒
 	if (ldwObject == WAIT_OBJECT_0)
 	{
 		luResult = nrMsg.Data.Item.Result;
@@ -304,6 +272,39 @@ ULONG CEiAppCenter::SendMessageToService(CEiSvrMsgItem& nrMsg)
 	else
 	{
 		luResult = ERROR_TIMEOUT;
+
+		//如果请求超时了，就检查一下服务状态
+		ProtectService();
+	}
+
+	return luResult;
+}
+
+// 发送消息和绘制内容给Service，并等待
+ULONG CEiAppCenter::SendMessageToService(CEiSvrMsgItem& nrMsg, EI_BUFFER* npBuffer)
+{
+	ULONG luResult = ERROR_NOT_READY;
+
+	nrMsg.Data.Item.WaitHandle = CreateEvent(NULL, FALSE, FALSE, NULL);
+	if (nrMsg.Data.Item.WaitHandle == NULL)
+		return ERROR_NOT_ENOUGH_MEMORY;
+
+	nrMsg.Data.Item.OrgItem = &nrMsg;
+
+	PostMessageToService(nrMsg, npBuffer);
+
+	DWORD ldwObject = WaitForSingleObject(nrMsg.Data.Item.WaitHandle, 1000 * 30);	// 等待大约30秒
+	if (ldwObject == WAIT_OBJECT_0)
+	{
+		luResult = nrMsg.Data.Item.Result;
+		CloseHandle(nrMsg.Data.Item.WaitHandle);
+	}
+	else
+	{
+		luResult = ERROR_TIMEOUT;
+
+		//如果请求超时了，就检查一下服务状态
+		ProtectService();
 	}
 
 	return luResult;
@@ -312,7 +313,13 @@ ULONG CEiAppCenter::SendMessageToService(CEiSvrMsgItem& nrMsg)
 // 撤回一类消息，将队列中此类消息全部撤回
 void CEiAppCenter::RecallMessage(const CEiSvrMsgItem& nrMsg)
 {
-	moConnectToHost.Recall(nrMsg);
+	//moConnectToHost.Recall(nrMsg);
+
+	ULONG rcMsgId;
+	memcpy_s(&rcMsgId, sizeof(ULONG), nrMsg.Data.Item.MsgBuf, sizeof(ULONG));
+	
+	ULONG uMsgLen = sizeof(nrMsg.Data.Item) + nrMsg.Data.Item.BufSize - 1;
+	moConnectToHost.PostMsg(nrMsg, uMsgLen);
 }
 
 
@@ -324,7 +331,7 @@ void CEiAppCenter::MsgBack(CEiSvrMsgItem& nrMsg)
 {
 	// 只有回到本进程才能访问对应的内存
 	CEiSvrMsgItem* lpOrgMsg = nrMsg.Data.Item.OrgItem;
-	
+
 	if (lpOrgMsg == NULL || lpOrgMsg->Data.Item.WaitHandle == NULL)
 		return;
 
@@ -334,7 +341,7 @@ void CEiAppCenter::MsgBack(CEiSvrMsgItem& nrMsg)
 	// 复制返回数据
 	if (nrMsg.Data.Item.BufSize > 0)
 	{
-		RtlCopyMemory(lpOrgMsg->Data.Item.MsgBuf, nrMsg.Data.Item.MsgBuf, nrMsg.Data.Item.BufSize);
+		memcpy_s(lpOrgMsg->Data.Item.MsgBuf, nrMsg.Data.Item.BufSize, nrMsg.Data.Item.MsgBuf, nrMsg.Data.Item.BufSize);
 		lpOrgMsg->Data.Item.BufSize = nrMsg.Data.Item.BufSize;
 	}
 
@@ -349,10 +356,10 @@ BYTE* CEiAppCenter::GetBufferBase(ULONG& rulBufferSize)
 
 	do
 	{
-		if(mpMappedBase == NULL)
+		if (mpReciveBuffer == NULL)
 			break;
-		lpRetBuffer = (BYTE*)mpMappedBase + EAC_MSG_BUFFER_SIZE;
-		rulBufferSize = EAC_FILE_SIZE - EAC_MSG_BUFFER_SIZE;
+		lpRetBuffer = (BYTE*)mpReciveBuffer + EAC_MSG_BUFFER_SIZE;
+		rulBufferSize = EAC_APP_BUFFER_SIZE - EAC_MSG_BUFFER_SIZE;
 	} while (false);
 
 	return lpRetBuffer;
@@ -365,7 +372,7 @@ VOID CALLBACK WinMsgMemFreeCallback(
 	_In_ LRESULT   lResult
 )
 {
-	HeapFree(GetProcessHeap(), 0,(void*)dwData);
+	HeapFree(GetProcessHeap(), 0, (void*)dwData);
 }
 
 
@@ -377,18 +384,18 @@ void SendWinMsgWithData(
 	int			  iSize
 )
 {
-	void* lpData = HeapAlloc(GetProcessHeap(), 0,iSize);
+	void* lpData = HeapAlloc(GetProcessHeap(), 0, iSize);
 	if (lpData == NULL)
 		return;
-	RtlCopyMemory(lpData, pData, iSize);
+	memcpy_s(lpData, iSize, pData, iSize);
 
-	SendMessageCallback(hWnd, Msg, wParam,(LPARAM)lpData, WinMsgMemFreeCallback, (ULONG_PTR)lpData);
+	SendMessageCallback(hWnd, Msg, wParam, (LPARAM)lpData, WinMsgMemFreeCallback, (ULONG_PTR)lpData);
 }
 
 // 手指输入消息
 void CEiAppCenter::InputMsg(CEiSvrMsgItem& nrMsg)
 {
-	do 
+	do
 	{
 		BREAK_ON_NULL(mhWnd);
 
@@ -398,7 +405,7 @@ void CEiAppCenter::InputMsg(CEiSvrMsgItem& nrMsg)
 		//重置系统sleep计时
 		SetThreadExecutionState(ES_DISPLAY_REQUIRED | ES_SYSTEM_REQUIRED);
 
-		SendWinMsgWithData(mhWnd, WM_EI_TOUCH, 1,lpInput,sizeof(EI_TOUCHINPUT_POINT));
+		SendWinMsgWithData(mhWnd, WM_EI_TOUCH, 1, lpInput, sizeof(EI_TOUCHINPUT_POINT));
 
 	} while (false);
 }
@@ -415,8 +422,8 @@ void CEiAppCenter::ReDraw(CEiSvrMsgItem& nrMsg)
 	do
 	{
 		BREAK_ON_NULL(mhWnd);
-		
-		SendWinMsgWithData(mhWnd,WM_EI_DRAW,0,nrMsg.Data.Item.MsgBuf,sizeof(EI_RECT));
+
+		SendWinMsgWithData(mhWnd, WM_EI_DRAW, 0, nrMsg.Data.Item.MsgBuf, sizeof(EI_RECT));
 
 	} while (false);
 }
@@ -533,5 +540,109 @@ void CEiAppCenter::PrivacyStatusChanged(CEiSvrMsgItem& nrMsg)
 		memcpy_s(&ldwStatus, nrMsg.Data.Item.BufSize, nrMsg.Data.Item.MsgBuf, nrMsg.Data.Item.BufSize);
 		PostMessage(mhWnd, WM_EI_PRIVACY_CHANGE, (WPARAM)ldwStatus, 0);
 
+	} while (false);
+}
+
+// 创建缓存
+void CEiAppCenter::CreateAppBuffer()
+{
+	if (muSendBufferLength == 0)
+	{
+		muSendBufferLength = 1024 * 1024 * 3;
+		mSendBuffer = new char[muSendBufferLength];
+	}
+
+	if (muReciveBufferLength == 0)
+	{
+		muReciveBufferLength = EAC_APP_BUFFER_SIZE;
+		mpReciveBuffer = new char[muReciveBufferLength];
+	}
+}
+
+// 释放缓存
+void CEiAppCenter::ReleaseAppBuffer()
+{
+	if (muSendBufferLength > 0)
+	{
+		muSendBufferLength = 0;
+		delete[] mSendBuffer;
+	}
+
+	if (muReciveBufferLength > 0)
+	{
+		muReciveBufferLength = 0;
+		delete[] mpReciveBuffer;
+	}
+}
+
+// 回应Service端的检测
+void CEiAppCenter::CheckAppAlive(CEiSvrMsgItem& nrMsg)
+{
+	if (nrMsg.Data.Item.WaitHandle == NULL || nrMsg.Data.Item.OrgItem == NULL)
+		return;
+	if (nrMsg.Data.Item.AppId == 0)
+		return;
+
+	// 返回结果给App
+	CEiSvrMsgItem loMsgBack;
+	loMsgBack.Data.Item.AppId = nrMsg.Data.Item.AppId;
+	loMsgBack.Data.Item.OrgItem = nrMsg.Data.Item.OrgItem;
+	loMsgBack.Data.Item.MsgId = EMHOSTID_RESULT;
+	loMsgBack.Data.Item.Result = ERROR_SUCCESS;
+	loMsgBack.Data.Item.BufSize = 0;
+
+	PostMessageToService(loMsgBack);
+}
+
+// 检查发消息间隔时间是否足够长，超过20秒发送运行正常的消息
+void CEiAppCenter::CheckAndSendNormalRunMsg()
+{
+	if (moConnectToHost.GetMaxElapsedTimeOfMsg() > 1000 * 15)
+	{
+		CEiSvrMsgItem loMsg;
+		loMsg.Data.Item.AppId = muAppID;
+		loMsg.Data.Item.MsgId = EMHOSTID_NORMAL_RUN_NOTICE;
+		loMsg.Data.Item.BufSize = 0;
+
+		PostMessageToService(loMsg);
+	}
+}
+
+LSTATUS CEiAppCenter::GetRegSZ(LPCWSTR lpValueName, wchar_t* value)
+{
+	HKEY h_reg = 0;
+	LSTATUS status = ERROR_SUCCESS;
+	do
+	{
+		status = RegOpenKeyW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Lenovo\\EinkSDK", &h_reg);
+		if (status != ERROR_SUCCESS)
+			break;
+
+		DWORD data_type = REG_DWORD;
+		DWORD data_size = 0;
+		status = RegQueryValueExW(h_reg, lpValueName, 0, &data_type, nullptr, &data_size);
+		if (status == ERROR_SUCCESS && data_size > 0)
+		{
+			LPBYTE buf = new BYTE[data_size];
+			status = RegQueryValueExW(h_reg, lpValueName, 0, &data_type, buf, &data_size);
+			memcpy_s((char*)value, data_size, buf, data_size);
+			delete[] buf;
+		}
+
+	} while (false);
+
+	if (h_reg != 0)
+		RegCloseKey(h_reg);
+
+	return status;
+}
+
+// smartinfo设置发生了变化
+void CEiAppCenter::SmartInfoSettingChange(CEiSvrMsgItem& nrMsg)
+{
+	do
+	{
+		BREAK_ON_NULL(mhWnd);
+		SendWinMsgWithData(mhWnd, WM_EI_SMARTINFO_SETTING_CHANGE, 0, nrMsg.Data.Item.MsgBuf, nrMsg.Data.Item.BufSize);
 	} while (false);
 }

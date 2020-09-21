@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 
 #include "CommonHeader.h"
@@ -35,10 +31,10 @@ void CXsBrushList::ReleaseDeviceResource(void)
 
 	TEBrushTree::iterator itr;
 
-	for(itr = moBrushes.Begin();itr != moBrushes.End();itr++)
+	for (itr = moBrushes.Begin(); itr != moBrushes.End(); itr++)
 	{
- 		if((*itr)!=NULL)
- 			(*itr)->DiscardsBrushResource();
+		if ((*itr) != NULL)
+			(*itr)->DiscardsBrushResource();
 	}
 
 	moLock.Leave();

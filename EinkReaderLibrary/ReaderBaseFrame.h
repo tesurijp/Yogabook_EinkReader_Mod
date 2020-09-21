@@ -3,21 +3,34 @@
 
 
 #pragma once
+#include <tuple>
 #include "ToolbarH.h"
 #include "PdfPicture.h"
 #include "FileOpenDlg.h"
 #include "TipFrame.h"
 #include "JumpPage.h"
 #include "PreNextButton.h"
-#include "ZoomControl.h"
-#include "ZoomControltxt.h"
 #include "SnapShot.h"
+#include "ToolbarBottom.h"
+#include "FileHistoryDlg.h"
+#include "Highlight.h"
+#include "ThumbnailDlg.h"
+#include "FileOpenFailDlg.h"
+
+#include "CYesNoPromptDlg.h"
+#include "PDFOverwriteDlg.h"
+#include "ConvertProgressDlg.h"
+#include "AskConvertDlg.h"
 
 /*
 	本类作为对话框通用基础框架定义使用，定义对话框的通用基本控件和行为
 */
 
 DECLARE_BUILTIN_NAME(Reader_BaseFrame)
+
+#define ZCT_FONTSIZE_LEVEL 5 //5级倍数
+
+using std::tuple;
 
 class CReaderBaseFrame:
 	public CXuiElement<CReaderBaseFrame,GET_BUILTIN_NAME(Reader_BaseFrame)>
@@ -30,6 +43,8 @@ public:
 		IN ICfKey* npTemplete = NULL,		// npTemplete的Key ID就是EID，值就是类型EType
 		IN ULONG nuEID = MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
 		);
+
+	ZoomStatus GetZoomStatus();
 
 protected:
 	CReaderBaseFrame(void);
@@ -51,6 +66,16 @@ protected:
 	ERESULT __stdcall OnNotifyResetTpArea(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result);
 	//收到电源变化消息
 	ERESULT __stdcall OnPowerChangeMsg(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result);
+	//接收windows输入消息
+	ERESULT __stdcall OnInputChangeMsg(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result);
+	//机器形态变化通知
+	ERESULT __stdcall OnModeChanged(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result);
+	//打开文件的指令消息
+	ERESULT __stdcall OnOpenOfficeFile(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result);
+	// Open Office Docs with 'TimeStamp' method. [zhuhl5@20200121]
+	ERESULT __stdcall OnOpenOfficeFileWithTS(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& Result);
+
+	void InternalOpenOfficeFile(uint64_t timeStamp);
 
 	//按钮单击事件
 	virtual ERESULT OnCtlButtonClick(IEinkuiIterator* npSender);
@@ -65,24 +90,45 @@ protected:
 
 	void OnRotated(ULONG nuOrient);
 	static bool CopyFileThread(LPVOID npData);
+	bool GetAskConvertStatus();
+	bool showAskDlg();
+
 private:
 	CLoadingView* mpLoadingView;
 	CToolbarH* mpToolbarH;
 	CPdfPicture* mpPdfPicture;
 	IEinkuiIterator* mpIterBackground;
-	CFileOpenDlg* mpFileOpenDlg;
+	COfficeConvertDlg *m_pDemoDlg = nullptr;
+	CFileOpenFailDlg* m_fileOpenFailDlg = nullptr;
+
+	CYesNoPromptDlg* promptDlg;
+	CPDFOverwriteDlg* pdfOverwriteDlg;
+	CConvertProgressDlg* convertProgressDlg;
+	CAskConvertDlg* askConvertDlg;
+	
+	CFileHistoryDlg* mpFileHistoryDlg;
 	CJumpPage* mpJumpPage;
 	CTipFrame* mpTipFrame;	//提示显示/隐藏功能区
+	CToolbarBottom* mpToolbarBottom; //底部工具栏
+	CHighlight* mpHighlight; //高亮选择界面
+	CThumbnailDlg* mpThumbnailDlg; //缩略图界面
 	//ULONG mulCurrentPageNumber; //当前页码
 	CPreNextButton* mpPreNextButton;
-	CZoomControl* mpZoomControl;
-	CZoomControlTxt* mpZoomControlTxt;
 	CSnapShot* mpSnapShot;
-	cmmVector<wchar_t*> mdHistroyPath; //历史文件
+	cmmVector<HISTORY_FILE_ATTRIB*> mdHistroyPath; //历史文件
+	wstring m_cmdLineOpenFileName;
 	IEinkuiIterator* mpIterToast;
 	volatile LONG mlHoldInput;
 	DWORD mdwFontSizeArray[ZCT_FONTSIZE_LEVEL];
+	float mfArrayPenWidthArray[5]; //笔宽
+	BYTE mfArrayFwPenWidthArray[5]; //FW画线笔宽
+	BYTE mfArrayFwFingerWidthArray[5]; //FW画线手指画线宽
+
 	DWORD mdwFontsizeIndex;
+	DWORD mdwPenWidthIndex;
+	DWORD mdwPenColorIndex;
+	ULONG mulPenMode; //当前状态，笔/橡皮/选择
+	bool mbIsHand; //为真表示手指可用于画线
 
 	ULONG muLastGcTick;
 	ULONGLONG mxLastGcUiNumber;
@@ -92,13 +138,20 @@ private:
 	wchar_t mszSrcFile[MAX_PATH]; //打开文件的实际路径
 	bool mbIsSetPartial; //如果为false,则不关闭partial
 	ULONG mulPageIndex; //页码
+	ULONG mulPageCount; //总页数
+	//HANDLE mhFile;
+	bool mbIsLoadingSuccess; //文件加载是否完成
+	bool mbIsScreenAuto; //为真表示自动旋转
+	bool lockvertical;
+	bool enableCapacitivepen; //是否开启电容笔顶部按钮功能响应
 
-	//设置打开文件窗口的位置
-	void SetOpenFilePos(void);
+	ZoomStatus mZoomStatus = ZoomStatus::NONE;
+	MoveForward mMoveForward;
+
 	//设置页码跳转窗口的位置
 	void SetJumpPagePos(void);
-	//用户选择了要打开的文件
-	bool OpenFile(wchar_t* npszFilePath);
+	//用户选择了要打开的文件,npFileAttrib!=NULL表示是历史记录中的文件
+	bool OpenFile(wchar_t* npszFilePath, HISTORY_FILE_ATTRIB* npFileAttrib);
 	//初始化
 	void Init(void);
 	////切页
@@ -115,10 +168,27 @@ private:
 
 	static ERESULT __stdcall EinkUpdating(ULONGLONG nxNumber, CReaderBaseFrame* npThis);	// nuNumber是更新序号，每次更新加一，达到最大值后回到零
 
+	tuple<bool, wstring, bool> ConvertAndOpenOfficeFile(const wchar_t* filePath);
 
+	//重置隐藏定时器
+	void ResetHideTime(bool lbIsOpen = true);
+	//检查历史文件状态，如果不存在的文件就清掉
+	void CheckHistoryList(void);
+	//显示文件打开页面
+	void ShowFileOpenDlg(void);
+	//设置笔宽
+	void SetHandWriteWidth();
+	//清除缩略图文件
+	void ClearThumbnail(const wchar_t* npszPath);
+	// 显示打开失败对话框
+	void ShowFileOpenFailDialog(const wchar_t* resourceName);
+	// 将子元素居中
+	void PlaceChildInCenter(IEinkuiIterator* childIterator);
+	//自动缩放
+	void PageAutoZoom();
 };
 
-#define  RBF_HISTROY_MAX 4 //最大历史记录
+#define  RBF_HISTROY_MAX 12 //最大历史记录
 
 
 #define  RbF_REG_PAGE_NUMBER L"PageNumber" //上次关闭时显示的页码
@@ -127,6 +197,12 @@ private:
 #define  RbF_REG_DOUBLE_SCREEN L"DoubleScreen" //单屏或双屏
 #define  RbF_REG_RATIO L"Ratio" //放大比例
 #define  RbF_REG_TXT_FONT_SIZE_INDEX L"TxtFontSizeIndex" //Txt放大比例数组下标
+#define  RbF_REG_PEN_WIDTH_INDEX L"PenWidthIndex" //笔宽度数组下标
+#define  RbF_REG_PEN_COLOR_INDEX L"PenColorIndex" //笔颜色
+#define  RbF_REG_LOG L"LogFile" //日志开关
+#define  RbF_REG_ONCE L"Once" //0或没有表示第一次打开
+#define  RbF_REG_SCREEN_ORI L"Screen_ori" //屏幕方向10=随系统，11=横向 12=纵向
+#define  RbF_REG_B_COVER L"BCoverState" //开启还是关闭B面屏
 
 #define RBF_TIMER_TOAST 1
 #define RBF_TIMER_TSHOW_TOOLBAR 2
@@ -134,3 +210,19 @@ private:
 #define RBF_TIMER_INIT 4 //为了进程开启时更快的显示，使用定时器来做初始化
 #define RBF_TIMER_EXIT 5 //收到切换到后台消息后，3秒关闭自己进程
 #define RBF_TIMER_HOLDINPUT 6 //自动解除输入锁定
+#define RBF_TIMER_ACTIVITY 7 //后台切换到前台
+
+
+//文件打开历史记录
+#define RBF_REG_HISTORY_PATH L"historyPath" 
+#define RBF_REG_HISTORY_THUMBNAIL_PATH L"historyThumbanilPath" 
+#define RBF_REG_HISTORY_MODIFY L"historyModify" 
+#define RBF_REG_HISTORY_PROGRESS L"historyProgress" 
+#define RBF_REG_HISTORY_TIMESTAMP L"historyTimestamp" 
+
+// Scaling data name[zhuhl5@20200116]
+#define RBF_REG_HISTORY_AUTO_ZOOM L"historyAutoZoom" 
+#define RBF_REG_HISTORY_SCALING L"historyScaling" 
+#define RBF_REG_HISTORY_SCALINGLEVEL L"historyScalingLevel" 
+#define RBF_REG_HISTORY_SCALINGPOSX L"historyScalingPosX"
+#define RBF_REG_HISTORY_SCALINGPOSY L"historyScalingPosY"

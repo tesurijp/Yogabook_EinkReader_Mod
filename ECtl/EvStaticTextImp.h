@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef _EVSTATICTEXTIMP_H_
 #define _EVSTATICTEXTIMP_H_
 
@@ -11,17 +7,17 @@
 // 如果实现的是相同接口的类别，就可以直接从某个实例化类派生新类。
 DECLARE_BUILTIN_NAME(StaticText)
 class CEvStaticText :
-	public CXuiElement<CEvStaticText ,GET_BUILTIN_NAME(StaticText)>
+	public CXuiElement<CEvStaticText, GET_BUILTIN_NAME(StaticText)>
 {
-friend CXuiElement<CEvStaticText ,GET_BUILTIN_NAME(StaticText)>;
+	friend CXuiElement<CEvStaticText, GET_BUILTIN_NAME(StaticText)>;
 public:
 	// 派生本类及派生本函数时，请特别注意!!! 一定要首先调用基类的方法
 	// 本函数仅用于建立子元素对象、初始化自身数据（位置、大小、背景图等）
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent,	// 父对象指针
 		IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		);
+		IN ULONG nuEID = MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 protected:
 	CEvStaticText();

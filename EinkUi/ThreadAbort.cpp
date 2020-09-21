@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 #include "threadabort.h"
 
@@ -13,7 +9,7 @@ __declspec (noreturn) void CThreadAbort::Throw()
 
 void CThreadAbort::Dummy() throw (...)
 {
-	volatile int i=0;
+	volatile int i = 0;
 	if (i)
 		Throw();
 }
@@ -35,10 +31,10 @@ bool CThreadAbort::PullOut(HANDLE nhThread)
 #if defined(_AMD64_)
 			ctx.Rip = (DWORD64)(void*)Throw;
 #elif defined(_X86_)
-			ctx.Eip = (DWORD) (DWORD_PTR) Throw;
+			ctx.Eip = (DWORD)(DWORD_PTR)Throw;
 
 #else
-	#error can't using in platform other than AMD64 and x86
+#error can't using in platform other than AMD64 and x86
 #endif
 			if (SetThreadContext(nhThread, &ctx))
 				ok = true;

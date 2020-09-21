@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 #include <d2d1.h>
 #include <dwrite.h>
@@ -52,8 +48,8 @@ public:
 	HICON GetIconHandle();
 	int GetIconSize();
 
-	// nwIconIdx >= 0£¬ËµÃ÷ÎªÍ¼±êË÷Òı
-	// nwIconIdx <0£¬ ËµÃ÷Æä¾ø¶ÔÖµÎªÍ¼±ê×ÊÔ´ID
+	// nwIconIdx >= 0ï¼Œè¯´æ˜ä¸ºå›¾æ ‡ç´¢å¼•
+	// nwIconIdx <0ï¼Œ è¯´æ˜å…¶ç»å¯¹å€¼ä¸ºå›¾æ ‡èµ„æºID
 	BOOL GetSizedIcon(wchar_t *npPeFile, int nwIconIdx, int cx, int cy);
 
 };
@@ -95,7 +91,7 @@ BOOL CHICon::GetSizedIcon(wchar_t *npPeFile, int niIconIdx, int niXSize, int niY
 {
 	BOOL fResult = FALSE;
 
-	wchar_t wsRealFilePath[MAX_PATH+1] = L"";
+	wchar_t wsRealFilePath[MAX_PATH + 1] = { 0 };
 	ExpandEnvironmentStrings(npPeFile, wsRealFilePath, MAX_PATH);
 
 	naPredefinedSize[0].cx = niXSize;
@@ -283,7 +279,7 @@ ULONG CElBitmap::InitOnCreate(IN const wchar_t *npText, IN DWORD dwTextColor, IN
 			return ERESULT_BMP_GETMETRICS;
 
 		m_hResult = EuiGetSystem()->GetWICFactory()->CreateBitmap(static_cast<UINT>(dtm.width+1),
-			static_cast<UINT>(dtm.height + 1), // È¡Õû
+			static_cast<UINT>(dtm.height + 1), // å–æ•´
 			GUID_WICPixelFormat32bppPBGRA,
 			WICBitmapCacheOnLoad,
 			&m_pWICBitmap);
@@ -308,7 +304,7 @@ ULONG CElBitmap::InitOnCreate(IN const wchar_t *npText, IN DWORD dwTextColor, IN
 
 		D2D1_SIZE_F renderTargetSize = lpBitmapRT->GetSize();
 		lpBitmapRT->BeginDraw();
-		// ÕâĞĞ´úÂëÓÃÓÚ²âÊÔÉú³ÉÍ¼Æ¬µÄ³ß´çÊÇ·ñÕıÈ·
+		// è¿™è¡Œä»£ç ç”¨äºæµ‹è¯•ç”Ÿæˆå›¾ç‰‡çš„å°ºå¯¸æ˜¯å¦æ­£ç¡®
 		// lpBitmapRT->DrawRectangle(D2D1::RectF(0, 0, renderTargetSize.width, renderTargetSize.height), lpBlackBrush);
 		lpBitmapRT->DrawText(npText, 
 			wcslen(npText),
@@ -337,7 +333,7 @@ int __stdcall CElBitmap::Release(void)
 {
 
 	int liCount = cmmBaseObject<CElBitmap, ILwBitmap, GET_BUILTIN_NAME(CElBitmap)>::Release();
-	// Èç¹û·µ»ØÖµÊÇ0£¬±íÊ¾ĞèÒª±»É¾³ı
+	// å¦‚æœè¿”å›å€¼æ˜¯0ï¼Œè¡¨ç¤ºéœ€è¦è¢«åˆ é™¤
 	if(liCount == 0)
 	{
 		CLwuiSystem::gpEuiSystem->GetBitmapList().UnregisteBitmap(this);
@@ -353,7 +349,7 @@ ULONG CElBitmap::Load(IN const wchar_t* npFileName) {
 
 	ULONG ulResult = ERESULT_UNSUCCESSFUL;
 	//////////////////////////////////////////////////////////////////////////
-	// ´ÓÎÄ¼ş´´½¨IWICBitmapDecoder½Ó¿Ú
+	// ä»æ–‡ä»¶åˆ›å»ºIWICBitmapDecoderæ¥å£
 	SafeRelease(m_pIDecoderFrame);
 	m_hResult = EuiGetSystem()->GetWICFactory()->CreateDecoderFromFilename(
 		npFileName, 
@@ -364,12 +360,12 @@ ULONG CElBitmap::Load(IN const wchar_t* npFileName) {
 
 	if(SUCCEEDED(m_hResult)) {
 		//////////////////////////////////////////////////////////////////////////
-		// ´ÓIWICBitmapDecoderÖĞ»ñÈ¡µÚÒ»Ö¡
+		// ä»IWICBitmapDecoderä¸­è·å–ç¬¬ä¸€å¸§
 		SafeRelease(m_pIDecoderFrame);
 		m_hResult = m_pIDecoder->GetFrame(0, &m_pIDecoderFrame);
 		if(SUCCEEDED(m_hResult)) {
 			//////////////////////////////////////////////////////////////////////////
-			// ½«IWICBitmapDecoder×ª»»ÎªIWICBitmap½Ó¿Ú
+			// å°†IWICBitmapDecoderè½¬æ¢ä¸ºIWICBitmapæ¥å£
 			SafeRelease(m_pWICBitmap);
 			m_hResult = EuiGetSystem()->GetWICFactory()->CreateBitmapFromSource(
 				m_pIDecoderFrame,
@@ -377,7 +373,7 @@ ULONG CElBitmap::Load(IN const wchar_t* npFileName) {
 				&m_pWICBitmap);
 			if(SUCCEEDED(m_hResult)) {
 				//////////////////////////////////////////////////////////////////////////
-				// »ñÈ¡IWICBitmapLock¶ÔÏó£¬È¡Î»Í¼¿í¸ßĞÅÏ¢
+				// è·å–IWICBitmapLockå¯¹è±¡ï¼Œå–ä½å›¾å®½é«˜ä¿¡æ¯
 				m_hResult = m_pWICBitmap->GetSize(&m_nWidth, &m_nHeight);
 				if(SUCCEEDED(m_hResult)) {
 					ulResult = GenTransparentInfo();
@@ -421,9 +417,9 @@ ERESULT CElBitmap::GenTransparentInfo() {
 			BYTE *pBuf = NULL;
 			m_hResult = pLocker->GetDataPointer(&nSize, &pBuf);
 			if(SUCCEEDED(m_hResult)) {
-				// Ê¹ÓÃÏÂÃæ·½·¨ÅĞ¶ÏÃ¿¸öµãµÄÍ¸Ã÷¶È
-				// ±ÜÃâÃ¿´ÎÔÚÑ­»·ÄÚÅĞ¶ÏGUIDÓ°ÏìÍ¼ĞÎ¼ÓÔØĞ§ÂÊ
-				// µ«´úÂë¿´ÆğÀ´±È½ÏÈßÓà
+				// ä½¿ç”¨ä¸‹é¢æ–¹æ³•åˆ¤æ–­æ¯ä¸ªç‚¹çš„é€æ˜åº¦
+				// é¿å…æ¯æ¬¡åœ¨å¾ªç¯å†…åˆ¤æ–­GUIDå½±å“å›¾å½¢åŠ è½½æ•ˆç‡
+				// ä½†ä»£ç çœ‹èµ·æ¥æ¯”è¾ƒå†—ä½™
 				if(IsEqualGUID(GUID_WICPixelFormat32bppBGRA, pf)) {
 					for(UINT n=0; n< m_nWidth*m_nHeight; n++) {
 						mpTransparentInfo->SetBit(n, (pBuf[n*4 + 3] > TRANSPARENT_THRESHOLD_VALUE) ? true : false);
@@ -620,7 +616,7 @@ ERESULT CElBitmap::CreateD2DObjFromBmpSource(IN ID2D1RenderTarget *npRT, IN IWIC
 	return ulResult;
 }
 
-// ¹©ÏµÍ³ÄÚ²¿µ÷ÓÃ£¬·ÏÆúDirect2DµÄÉè±¸Ïà¹Ø×ÊÔ´
+// ä¾›ç³»ç»Ÿå†…éƒ¨è°ƒç”¨ï¼ŒåºŸå¼ƒDirect2Dçš„è®¾å¤‡ç›¸å…³èµ„æº
 void __stdcall CElBitmap::Discards2DResource(void)
 {
 	CMM_SAFE_RELEASE(mpBitmap2D);
@@ -662,19 +658,19 @@ ERESULT __stdcall CElBitmap::Scale(UINT npWidth, UINT npHeight) {
 	return ulResult;
 }
 
-//ÉèÖÃÑÓÕ¹Ïß
+//è®¾ç½®å»¶å±•çº¿
 void __stdcall CElBitmap::SetExtendLine(IN LONG nlX,IN LONG nlY)
 {
 	m_lExtendLineX = nlX;
 	m_lExtendLineY = nlY;
 }
 
-//»ñÈ¡ºáÏòÑÓÕ¹Ïß
+//è·å–æ¨ªå‘å»¶å±•çº¿
 LONG __stdcall CElBitmap::GetExtnedLineX(void)
 {
 	return m_lExtendLineX;
 }
-//»ñÈ¡×İÏòÑÓÕ¹Ïß
+//è·å–çºµå‘å»¶å±•çº¿
 LONG __stdcall CElBitmap::GetExtnedLineY(void)
 {
 	return m_lExtendLineY;

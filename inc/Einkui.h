@@ -726,7 +726,7 @@ __interface IEinkuiSystem:public IBaseObject
 	virtual FLOAT __stdcall GetDpiY(void)=NULL;
 
 	// 启用画板，当主程序装载完成后，调用这个函数启用画板；在此之前画板并不会绘制出实际图像，以避免启动不完整时，Eink屏幕多次闪动
-	virtual ERESULT __stdcall EnablePaintboard(void) = NULL;
+	virtual ERESULT __stdcall EnablePaintboard(bool nbIsDisable = false) = NULL;
 
 	// 重置画板，当屏幕旋转发生时，调用本函数促使系统重置画板
 	virtual void __stdcall ResetPaintboard(void) = NULL;

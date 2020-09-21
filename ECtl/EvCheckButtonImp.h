@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef _EVCHECKBUTTONIMP_H_
 #define _EVCHECKBUTTONIMP_H_
 
@@ -15,21 +11,21 @@ DECLARE_BUILTIN_NAME(CheckButton)
 class CEvCheckButton : public CEvButton
 {
 public:
-	
+
 	// 派生本类及派生本函数时，请特别注意!!! 一定要首先调用基类的方法
 	// 本函数仅用于建立子元素对象、初始化自身数据（位置、大小、背景图等）
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent,	// 父对象指针
 		IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		);
+		IN ULONG nuEID = MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 	// 重载实例化接口
-	DEFINE_CUMSTOMIZE_CREATE(CEvCheckButton,(IEinkuiIterator* npParent,ICfKey* npTemplete, ULONG nuEID=MAXULONG32), (npParent, npTemplete, nuEID))
+	DEFINE_CUMSTOMIZE_CREATE(CEvCheckButton, (IEinkuiIterator* npParent, ICfKey* npTemplete, ULONG nuEID = MAXULONG32), (npParent, npTemplete, nuEID))
 
-	//////////////////////////////////////////////////////////////////////////
-	// 一定要加入这一行，这是重载类型识别
-	DEFINE_DERIVED_TYPECAST(CheckButton,CEvButton)
+		//////////////////////////////////////////////////////////////////////////
+		// 一定要加入这一行，这是重载类型识别
+		DEFINE_DERIVED_TYPECAST(CheckButton, CEvButton)
 
 protected:
 	// 只用于变量设置初始值，如指针设为NULL，所有可能失败的如分配之类的运算都应该在InitOnCreate中进行
@@ -45,7 +41,7 @@ protected:
 	//定位文字图片显示位置
 	virtual void RelocateText(void);
 private:
-	
+
 };
 
 #endif//_EVCHECKBUTTONIMP_H_

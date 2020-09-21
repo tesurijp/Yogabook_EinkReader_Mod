@@ -157,6 +157,7 @@ void CLoadingView::DoModal(volatile LONG* nplStep, HANDLE nWaitHandle)
 		mpIterator->SetVisible(true);
 		mpIterator->SetActive();
 		mpIterator->BringToTop();
+		EinkuiGetSystem()->EnablePaintboard(false);
 		EinkuiGetSystem()->UpdateView(true);
 		mpIterator->SetTimer(LOAD_TIMER_MOVE, MAXULONG32, 1000, NULL);
 

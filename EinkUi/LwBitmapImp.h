@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef _ELBITMAPIMP_H
 #define _ELBITMAPIMP_H
 

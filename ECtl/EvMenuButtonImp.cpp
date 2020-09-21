@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "StdAfx.h"
 #include "Einkui.h"
 
@@ -20,7 +16,7 @@ CEvMenuButton::CEvMenuButton(void)
 	mpoPopupMenu = NULL;
 	mpoButton = NULL;
 
-	
+
 }
 
 
@@ -32,19 +28,19 @@ ULONG CEvMenuButton::InitOnCreate(
 	IN IEinkuiIterator* npParent,	// 父对象指针ss
 	IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
 	IN ULONG nuEID	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-	)
+)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
 		//首先调用基类
-		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
-		if(leResult != ERESULT_SUCCESS)
+		leResult = CXuiElement::InitOnCreate(npParent, npTemplete, nuEID);
+		if (leResult != ERESULT_SUCCESS)
 			break;
 
 		leResult = ERESULT_SUCCESS;
-	}while(false);
+	} while (false);
 
 
 	return leResult;
@@ -56,13 +52,13 @@ ERESULT CEvMenuButton::OnElementCreate(IEinkuiIterator* npIterator)
 
 	do
 	{
-		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
+		if (CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
 		LoadResource();
 
 		// 设置按钮响应区域
-		if(NULL != mpoButton)
+		if (NULL != mpoButton)
 		{
 			D2D1_SIZE_F ldfSize;
 			ldfSize = mpoButton->GetIterator()->GetSize();
@@ -71,7 +67,7 @@ ERESULT CEvMenuButton::OnElementCreate(IEinkuiIterator* npIterator)
 
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -92,13 +88,13 @@ ERESULT CEvMenuButton::OnPaint(IEinkuiPaintBoard* npPaintBoard)
 	{
 		BREAK_ON_NULL(npPaintBoard);
 
-		if(mpBgBitmap != NULL)
-			npPaintBoard->DrawBitmap(D2D1::RectF(0,0,(FLOAT)mpBgBitmap->GetWidth(),(FLOAT)mpBgBitmap->GetHeight()),
-			mpBgBitmap,ESPB_DRAWBMP_LINEAR);
+		if (mpBgBitmap != NULL)
+			npPaintBoard->DrawBitmap(D2D1::RectF(0, 0, (FLOAT)mpBgBitmap->GetWidth(), (FLOAT)mpBgBitmap->GetHeight()),
+				mpBgBitmap, ESPB_DRAWBMP_LINEAR);
 
 		lResult = ERESULT_SUCCESS;
 
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -107,10 +103,10 @@ void CEvMenuButton::LoadResource()
 {
 	// 创建Button
 	ICfKey* lpBtnKey = mpTemplete->GetSubKey(TF_ID_MENUBUTTON_BUTTON);
-	if(NULL != lpBtnKey && NULL == mpoButton)
+	if (NULL != lpBtnKey && NULL == mpoButton)
 	{
 		mpoButton = CEvButton::CreateInstance(mpIterator, lpBtnKey, ID_OF_MENUBUTTON_BUTTON);
-		if(NULL != mpoButton)			// 设置该MenuButton大小即为按钮的大小
+		if (NULL != mpoButton)			// 设置该MenuButton大小即为按钮的大小
 		{
 			mpIterator->SetSize(mpoButton->GetIterator()->GetSize());
 		}
@@ -130,91 +126,91 @@ ERESULT CEvMenuButton::ParseMessage(IEinkuiMessage* npMsg)
 	switch (npMsg->GetMessageID())
 	{
 	case EEVT_BUTTON_CLICK:					// 按钮被按下
-		{
-			OnBtnClick();
+	{
+		OnBtnClick();
 
-			luResult = ERESULT_SUCCESS;
-		}
-		break;
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EEVT_MENUITEM_MOUSE_HOVER:
-		{
-			mpIterator->PostMessageToParent(npMsg);
-			luResult = ERESULT_SUCCESS;
-		}
-		break;
+	{
+		mpIterator->PostMessageToParent(npMsg);
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EEVT_MENUITEM_CLICK:					// 有子对象的菜单项被点击
-		{
-			this->GetIterator()->PostMessageToParent(npMsg);
+	{
+		this->GetIterator()->PostMessageToParent(npMsg);
 
-			BREAK_ON_NULL(mpoButton);
-			// 有子菜单项被点击时，取消按钮的Checked状态
-			bool lbIsCheck = false;
-			luResult = CExMessage::PostMessage(mpoButton->GetIterator(), mpIterator, EACT_BUTTON_SET_CHECKED, lbIsCheck);
-		}
-		break;
+		BREAK_ON_NULL(mpoButton);
+		// 有子菜单项被点击时，取消按钮的Checked状态
+		bool lbIsCheck = false;
+		luResult = CExMessage::PostMessage(mpoButton->GetIterator(), mpIterator, EACT_BUTTON_SET_CHECKED, lbIsCheck);
+	}
+	break;
 
 	case EEVT_MENUBUTTON_SET_SUBMENU_VISIBLE:
-		{
-			if(npMsg->GetInputDataSize() != sizeof(bool))
-				break;
+	{
+		if (npMsg->GetInputDataSize() != sizeof(bool))
+			break;
 
-			bool lbIsVisible = *(bool*)npMsg->GetInputData();
-			if(NULL != mpoPopupMenu)
-				mpoPopupMenu->GetIterator()->SetVisible(lbIsVisible);
-			bool lbIsChecked = false;
-			if(false != lbIsVisible)
-			{
-				lbIsChecked = true;
-			}
-			if(NULL != mpoButton)
-			{
-				// 发送消息给按钮，使之进入Checked状态
-				luResult = CExMessage::PostMessage(mpoButton->GetIterator(), mpIterator, EACT_BUTTON_SET_CHECKED, lbIsChecked);
-			}
-			else
-				luResult = ERESULT_SUCCESS;
+		bool lbIsVisible = *(bool*)npMsg->GetInputData();
+		if (NULL != mpoPopupMenu)
+			mpoPopupMenu->GetIterator()->SetVisible(lbIsVisible);
+		bool lbIsChecked = false;
+		if (false != lbIsVisible)
+		{
+			lbIsChecked = true;
 		}
-		break;
+		if (NULL != mpoButton)
+		{
+			// 发送消息给按钮，使之进入Checked状态
+			luResult = CExMessage::PostMessage(mpoButton->GetIterator(), mpIterator, EACT_BUTTON_SET_CHECKED, lbIsChecked);
+		}
+		else
+			luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EEVT_BUTTON_MOUSE_IN:
 	case EEVT_BUTTON_MOUSE_OUT:
-		{
-			STEMS_STATE_CHANGE ldStrteChange;
-			ldStrteChange.State = npMsg->GetMessageID() == EEVT_BUTTON_MOUSE_IN? 1 : 0;
-			ldStrteChange.Related = npMsg->GetMessageSender();
-			OnMouseFocus(&ldStrteChange);
+	{
+		STEMS_STATE_CHANGE ldStrteChange;
+		ldStrteChange.State = npMsg->GetMessageID() == EEVT_BUTTON_MOUSE_IN ? 1 : 0;
+		ldStrteChange.Related = npMsg->GetMessageSender();
+		OnMouseFocus(&ldStrteChange);
 
-			luResult = ERESULT_SUCCESS;
-		}
-		break;
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	case EEVT_MENUBUTTON_INSERT_MENUITEM:
-		{
-			if(npMsg->GetInputDataSize() != sizeof(STCTL_MENUBUTTON_INSERT_MENUITEM)
-				|| npMsg->GetInputData() == NULL)
-				break;
+	{
+		if (npMsg->GetInputDataSize() != sizeof(STCTL_MENUBUTTON_INSERT_MENUITEM)
+			|| npMsg->GetInputData() == NULL)
+			break;
 
-			STCTL_MENUBUTTON_INSERT_MENUITEM ldInfo = *(PSTCTL_MENUBUTTON_INSERT_MENUITEM)npMsg->GetInputData();
-			IEinkuiIterator* lpoIterPopupMenu = GetPopupMenuByUniqueID(ldInfo.UniquePopupMenuId);
-			if(NULL == lpoIterPopupMenu)
-				break;
+		STCTL_MENUBUTTON_INSERT_MENUITEM ldInfo = *(PSTCTL_MENUBUTTON_INSERT_MENUITEM)npMsg->GetInputData();
+		IEinkuiIterator* lpoIterPopupMenu = GetPopupMenuByUniqueID(ldInfo.UniquePopupMenuId);
+		if (NULL == lpoIterPopupMenu)
+			break;
 
-			if(ERESULT_SUCCESS != CExMessage::PostMessage(lpoIterPopupMenu, mpIterator,
-				EACT_POPUPMENU_INSERT_MENUITEM_BY_CREATE, ldInfo.PopupMenuInfo))
-				break;
+		if (ERESULT_SUCCESS != CExMessage::PostMessage(lpoIterPopupMenu, mpIterator,
+			EACT_POPUPMENU_INSERT_MENUITEM_BY_CREATE, ldInfo.PopupMenuInfo))
+			break;
 
-			luResult = ERESULT_SUCCESS;
-		}
-		break;
+		luResult = ERESULT_SUCCESS;
+	}
+	break;
 
 	default:
 		luResult = ERESULT_NOT_SET;
 		break;
 	}
 
-	if(luResult == ERESULT_NOT_SET)
+	if (luResult == ERESULT_NOT_SET)
 	{
 		luResult = CXuiElement::ParseMessage(npMsg); // 调用基类的同名函数；注意：一定要调用自身直接基类
 		//luResult = ERESULT_UNEXPECTED_MESSAGE;	// 这儿没有基类，派生本类时，删除本句；
@@ -225,32 +221,32 @@ ERESULT CEvMenuButton::ParseMessage(IEinkuiMessage* npMsg)
 
 void CEvMenuButton::LoadSubPopupMenu()
 {
-	if(-1 == miPopupMenuID)
+	if (-1 == miPopupMenuID)
 		return;
 
 	// 查找子菜单模板，并创建
 	ICfKey* lpoPopupMenuKey = mpTemplete->GetParentsKey();
-	while(NULL != lpoPopupMenuKey->GetParentsKey())
+	while (NULL != lpoPopupMenuKey->GetParentsKey())
 		lpoPopupMenuKey = lpoPopupMenuKey->GetParentsKey();
 	lpoPopupMenuKey = lpoPopupMenuKey->GetSubKey(L"PopupMenu");
-	if(NULL == lpoPopupMenuKey)
+	if (NULL == lpoPopupMenuKey)
 		return;
 
 	// 找寻出ID为miPopupMenuID的子菜单
 	lpoPopupMenuKey = lpoPopupMenuKey->MoveToSubKey();
-	while(NULL != lpoPopupMenuKey)
+	while (NULL != lpoPopupMenuKey)
 	{
-		if(miPopupMenuID == lpoPopupMenuKey->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_MAIN_ID, -1))
+		if (miPopupMenuID == lpoPopupMenuKey->QuerySubKeyValueAsLONG(TF_ID_POPUPMENU_MAIN_ID, -1))
 			break;
 		else
 			lpoPopupMenuKey = lpoPopupMenuKey->MoveToNextKey();
 	}
 
-	if(NULL == lpoPopupMenuKey)
+	if (NULL == lpoPopupMenuKey)
 		return;
 
 	mpoPopupMenu = CEvPopupMenu::CreateInstance(mpIterator, lpoPopupMenuKey, ID_OF_MENUBUTTON_POPUPMENU);
-	if(NULL == mpoPopupMenu)
+	if (NULL == mpoPopupMenu)
 		return;
 
 	mpoPopupMenu->GetIterator()->SetVisible(false);
@@ -264,9 +260,9 @@ void CEvMenuButton::OnBtnClick()
 
 	// 由隐藏状态到显示状态
 	bool lbIsShow = false;
-	if(NULL != mpoPopupMenu)
+	if (NULL != mpoPopupMenu)
 	{
-		if(false == mpoPopupMenu->GetIterator()->IsVisible())	
+		if (false == mpoPopupMenu->GetIterator()->IsVisible())
 		{
 			mpoPopupMenu->GetIterator()->SetVisible(true);
 			lbIsShow = true;
@@ -284,18 +280,18 @@ void CEvMenuButton::OnBtnClick()
 //禁用或启用
 ERESULT CEvMenuButton::OnElementEnable(bool nbIsEnable)
 {
-	if(false == nbIsEnable)
+	if (false == nbIsEnable)
 	{
-		if(NULL != mpoButton)
+		if (NULL != mpoButton)
 			mpoButton->GetIterator()->SetEnable(false);
-		if(NULL != mpoPopupMenu)
+		if (NULL != mpoPopupMenu)
 			mpoPopupMenu->GetIterator()->SetEnable(false);
 	}
 	else
 	{
-		if(NULL != mpoButton)
+		if (NULL != mpoButton)
 			mpoButton->GetIterator()->SetEnable(true);
-		if(NULL != mpoPopupMenu)
+		if (NULL != mpoPopupMenu)
 			mpoPopupMenu->GetIterator()->SetEnable(true);
 	}
 
@@ -304,10 +300,10 @@ ERESULT CEvMenuButton::OnElementEnable(bool nbIsEnable)
 
 void CEvMenuButton::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 {
-	if(0 != npState->State)	// 进入
+	if (0 != npState->State)	// 进入
 	{
 		// 如果当前子菜单已经显示，则不需要处理
-		if(NULL != mpoPopupMenu && false != mpoPopupMenu->GetIterator()->IsVisible())
+		if (NULL != mpoPopupMenu && false != mpoPopupMenu->GetIterator()->IsVisible())
 		{
 			return;
 		}
@@ -318,11 +314,11 @@ void CEvMenuButton::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 
 
 		// 如果已经有菜单弹出，则鼠标移入该菜单按钮时应该弹出菜单，同时发送消息给父窗口，隐藏之前弹出的菜单
-		if(false != lbIsShow)
+		if (false != lbIsShow)
 		{
 			// 发送消息给父窗口，隐藏之前的菜单
 			this->PostMessageToParent(EACT_MENUBAR_HIDE_LAST_SUBMENU, CExMessage::DataInvalid);
-			if(NULL != mpoPopupMenu)
+			if (NULL != mpoPopupMenu)
 			{
 				// 发送消息给按钮，使之进入Checked状态
 				bool lbIsChecked = true;
@@ -340,7 +336,7 @@ void CEvMenuButton::OnMouseFocus(PSTEMS_STATE_CHANGE npState)
 //		设置好弹出菜单的位置
 void CEvMenuButton::SetPopupMenuPosition()
 {
-	if(NULL == mpoPopupMenu)
+	if (NULL == mpoPopupMenu)
 		return;
 
 	// 计算要弹出子菜单的位置（按钮的左下角向右，或者按钮的右下角向左）
@@ -349,7 +345,7 @@ void CEvMenuButton::SetPopupMenuPosition()
 	// 看右下角是否有足够空间
 	//EinkuiGetSystem()->GetElementManager()->GetDesktop()->GetSize();
 
-	if(NULL != mpoButton)
+	if (NULL != mpoButton)
 		mpoPopupMenu->GetIterator()->SetPosition(mpoButton->GetIterator()->GetPositionX() - 6, mpoButton->GetIterator()->GetSizeY());
 }
 
@@ -357,10 +353,10 @@ void CEvMenuButton::SetPopupMenuPosition()
 //		获取该MenuButton下指定UniqueID的PopupMenu（包括子孙的）
 IEinkuiIterator* CEvMenuButton::GetPopupMenuByUniqueID(
 	IN UINT niUniqueID
-	)
+)
 {
 	IEinkuiIterator* lpoResult = NULL;
-	do 
+	do
 	{
 		BREAK_ON_NULL(mpoPopupMenu);
 		lpoResult = mpoPopupMenu->GetPopupMenuByMainID(niUniqueID);

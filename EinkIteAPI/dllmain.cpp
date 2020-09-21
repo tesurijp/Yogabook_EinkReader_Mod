@@ -1,7 +1,9 @@
-/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
+/* Copyright 2019 - present Lenovo */
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
+#include "tconcmd.h"
+#include "itetcon.h"
 #include "einkiteapi.h"
 #include "EinkInternal.h"
 #include "EiAppCenter.h"
@@ -14,6 +16,8 @@ CEiAppCenter gloCenter;
 CBufferMgr glAppBufferMgr;
 //APP屏幕显示方向,自己记下来，省得每次找服务获取
 DWORD gldwOrientation = GIR_NONE;
+//发送正常运行消息的线程
+HANDLE ghNoticeNormalRunThread = 0;
 
 // Eui服务核心消息接收数据交换区
 #pragma data_seg("MSGBUF")
@@ -26,10 +30,10 @@ char gldAppExBuffer[EI_EXBUF_SIZE] = { 0 }; // 调试用，采用内存映射文件后删除,现
 
 
 
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-					 )
+BOOL APIENTRY DllMain(HMODULE hModule,
+	DWORD  ul_reason_for_call,
+	LPVOID lpReserved
+)
 {
 	switch (ul_reason_for_call)
 	{
@@ -45,11 +49,11 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 // 获取DLL的共享内存段
 LPVOID EixGetSharedData(ULONG nuIndex)
 {
-	if(nuIndex == 0)
+	if (nuIndex == 0)
 		return gldHostExBuffer;
 	if (nuIndex == 1)
 		return gldAppExBuffer;
-	
+
 	return NULL;
 }
 
@@ -78,10 +82,10 @@ void EiPostMessage(
 //		non-zero: error code
 DWORD EiAppStart(
 	HWND hInforWindow	// 用于接收本系统消息的Windows窗口句柄
-	){
+) {
 	ULONG luResult = ERROR_NOT_READY;
 
-	do 
+	do
 	{
 		// 启动系统连接器
 		//Sleep(1000 * 20);
@@ -89,6 +93,13 @@ DWORD EiAppStart(
 		if (luResult != ERROR_SUCCESS || gldSysData.uiWidth == 0 || gldSysData.uiHeight == 0)
 			break;
 		gloCenter.SetHwnd(hInforWindow);
+
+		// 帮助service端检查app是否处于活跃状态
+		/*
+		luResult = CreateNormalRunNoticeTimer(hInforWindow);
+		if (luResult != ERROR_SUCCESS)
+			break;
+		*/
 
 		//Sleep(1000 * 10);
 		glhAppWindow = hInforWindow;
@@ -107,11 +118,10 @@ DWORD EiAppStart(
 		luResult = ERROR_SUCCESS;
 
 	} while (false);
-	
+
 
 	return luResult;
 }
-
 
 // 获得Eink的基本信息
 // 返回： 返回零，表示成功；返回非零，表示错误码；
@@ -122,7 +132,7 @@ DWORD EiGetSystemInfo(PEI_SYSTEM_INFO pstSystemInfo)
 {
 	ULONG luResult = ERROR_NOT_READY;
 
-	do 
+	do
 	{
 		//给服务发送获取消息
 		CEiSvrMsgItem loMsg;
@@ -182,14 +192,14 @@ DWORD EiGetAppContext(PEI_APP_CONTEXT pstAppContext)
 EI_BUFFER* EiGetDrawBuffer(
 	BOOL bInit,		// 是否将缓存清零
 	BOOL bCopy		// 是否将当前Eink屏内容复制到缓存
-	){
+) {
 	EI_BUFFER* lpBuffer = NULL;
 
-	do 
+	do
 	{
 		//获取buffer
 		lpBuffer = glAppBufferMgr.GetBuffer();
-		if(lpBuffer == NULL)
+		if (lpBuffer == NULL)
 			break;
 
 		if (bInit != FALSE)
@@ -198,16 +208,21 @@ EI_BUFFER* EiGetDrawBuffer(
 			ZeroMemory(lpBuffer->Buf, lpBuffer->ulBufferSize);
 		}
 
+		//设置宽高
+		ULONG lulWidth = lpBuffer->ulWidth;
+		ULONG lulHeight = lpBuffer->ulHeight;
 		if (gldwOrientation == GIR_90 || gldwOrientation == GIR_270)
 		{
-			//如果是坚屏就切换一下宽高
-			ULONG lulTemp = lpBuffer->ulWidth;
-			lpBuffer->ulWidth = lpBuffer->ulHeight;
-			lpBuffer->ulHeight = lulTemp;
+			lpBuffer->ulWidth = min(lulWidth, lulHeight);
+			lpBuffer->ulHeight = max(lulWidth, lulHeight);
 		}
-
+		else
+		{
+			lpBuffer->ulWidth = max(lulWidth, lulHeight);
+			lpBuffer->ulHeight = min(lulWidth, lulHeight);
+		}
 	} while (false);
-	
+
 	return lpBuffer;
 }
 
@@ -215,7 +230,7 @@ EI_BUFFER* EiGetDrawBuffer(
 // 没有提交给系统绘制的绘制缓存，当不在使用时，需要调用本函数释放它
 void EiReleaseDrawBuffer(
 	EI_BUFFER* pstBuffer		// 指向绘制缓存
-	)
+)
 {
 	glAppBufferMgr.FreeBuffer(pstBuffer);
 
@@ -235,7 +250,7 @@ DWORD EiSendDrawRequest(
 
 	do
 	{
-		if(pstArea != NULL)
+		if (pstArea != NULL)
 			ldUpdate = *pstArea;
 
 		if (ldUpdate.w == 0) ldUpdate.w = gldSysData.uiWidth;
@@ -254,7 +269,7 @@ DWORD EiSendDrawRequest(
 		loMsg.Data.Item.BufSize = luMsgBufSize;
 		//先把当前存在的切换命令都清除
 		//gloCenter.RecallMessage(loMsg);
-		luResult = gloCenter.SendMessageToService(loMsg);
+		luResult = gloCenter.SendMessageToService(loMsg, pstBuffer);
 		if (luResult != ERROR_SUCCESS)
 			break;
 
@@ -263,7 +278,6 @@ DWORD EiSendDrawRequest(
 	return luResult;
 }
 
-
 // 绘制内容到Eink屏
 // 将缓存中的内容绘制到Eink屏幕上，调用此函数后，传入的绘制缓存会被自动释放，应用不能继续使用这块缓存
 // 参数x,y,w,h表示需要更新的区域；无论是全屏绘制还是局部绘制，绘制缓存中的内容始终对应的是整个屏幕
@@ -271,9 +285,32 @@ DWORD EiSendDrawRequest(
 DWORD EiDraw(
 	EI_RECT* pstArea,	// indicates the area to draw
 	EI_BUFFER* pstBuffer		// 指向绘制缓存
-	)
+)
 {
 	return EiSendDrawRequest(pstArea, pstBuffer, EMHOSTID_DRAW);
+}
+
+// 上传封面图
+DWORD EiStoreCoverImage(
+	EI_RECT* pstArea,	// indicates the area to draw
+	EI_BUFFER* pstBuffer		// 指向绘制缓存
+)
+{
+	return EiSendDrawRequest(pstArea, pstBuffer, EMHOSTID_STORE_COVER_IMAGE);
+}
+
+// 通知service绘制封面
+DWORD EiDrawCoverImage(BOOL bCleanup)
+{
+	CEiSvrMsgItem loMsg;
+	loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+	loMsg.Data.Item.MsgId = EMHOSTID_DRAW_COVER;
+
+	ULONG luMsgBufSize = (ULONG)sizeof(BOOL);
+	memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &bCleanup, luMsgBufSize);
+	loMsg.Data.Item.BufSize = luMsgBufSize;
+
+	return gloCenter.SendMessageToService(loMsg);
 }
 
 // 清除Eink屏幕
@@ -299,7 +336,7 @@ void EiCleanupScreen(
 //    并且，此处的Buffer的每一个字节的最低位表示该像素是否被显示出来
 DWORD EiSwitcherDraw(
 	EI_BUFFER* pstBuffer		// image buffer 
-	)
+)
 {
 	EI_RECT ldDummy = { 0,0,0,0 };
 
@@ -372,7 +409,7 @@ DWORD EiSetShutdownCover(
 // 消息给APP，从而就能够将绘制操作集中在一个地方进行（WM_EI_DRAW处理过程）
 void EiInvalidPanel(
 	EI_RECT* pstArea	// indicates the area to update
-	)
+)
 {
 	// 发送绘制消息给服务，由服务来决定是否重绘
 	CEiSvrMsgItem loMsg;
@@ -396,7 +433,7 @@ void EiInvalidPanel(
 //		non-zero: error code
 DWORD EiSetHandWritingMode(
 	DWORD eMode // 进入或退出手写模式，参考GIHW_AUTO
-	){
+) {
 
 	DWORD luResult = ERROR_SUCCESS;
 
@@ -443,7 +480,7 @@ DWORD EiSetHandwritingPen(
 //		non-zero: error code
 DWORD EiSetScreenOrient(
 	DWORD eOrientation // refer to GIR_NONE
-	)
+)
 {
 	DWORD luResult = ERROR_NOT_READY;
 
@@ -472,9 +509,16 @@ DWORD EiSetScreenOrient(
 
 // 停止服务
 // 当一个应用实例需要退出时，调用这个函数
-void EiEnd(void){
+void EiEnd(void) {
 	do
 	{
+		// 停止发送运行状态正常的消息
+		if (ghNoticeNormalRunThread != 0)
+		{
+			CloseHandle(ghNoticeNormalRunThread);
+			ghNoticeNormalRunThread = 0;
+		}
+
 		// 注销App
 		CEiSvrMsgItem loMsg;
 		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
@@ -502,6 +546,16 @@ DWORD EiRunAPP(
 		if (npszFilePath == NULL)
 			break;
 
+		//撤销当前存在的 EMHOSTID_RUN_APP 命令
+		CEiSvrMsgItem loRecallMsg;
+		loRecallMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loRecallMsg.Data.Item.MsgId = EMHOSTID_RECALL_MSG;
+		ULONG luRecallMsgId = EMHOSTID_RUN_APP;
+		memcpy_s(loRecallMsg.Data.Item.MsgBuf, sizeof(ULONG), &luRecallMsgId, sizeof(ULONG));
+		loRecallMsg.Data.Item.BufSize = sizeof(ULONG);
+
+		gloCenter.RecallMessage(loRecallMsg);
+
 		// 注册App
 		CEiSvrMsgItem loMsg;
 		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
@@ -514,11 +568,9 @@ DWORD EiRunAPP(
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &ldRunInfo, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
 
-		//先把当前存在的切换命令都清除
-		gloCenter.RecallMessage(loMsg);
-
 		//发送命令
 		luResult = gloCenter.SendMessageToService(loMsg);
+
 		if (luResult != ERROR_SUCCESS)
 			break;
 
@@ -532,7 +584,7 @@ DWORD EiRunAPP(
 void EiPhysicalToDisplay(
 	IN EI_POINT* pstPointP,
 	OUT EI_POINT* pstPointD
-	)
+)
 {
 	// 获取当前屏幕显示方向，而后以此计算坐标转换 to ???ax			
 	pstPointD->x = pstPointP->x;
@@ -553,7 +605,7 @@ void EiDisplayToPhysical(
 
 // 设置FW模式
 DWORD EiSetWaveformMode(
-	DWORD dwMode 
+	DWORD dwMode
 ) {
 
 	DWORD luResult = ERROR_NOT_READY;
@@ -583,7 +635,7 @@ DWORD EiSetWaveformMode(
 // 返回： 返回非零，表示成功；返回零，表示失败；
 DWORD EiSetKeyboardImg(
 	const wchar_t* npszFilePath	// 目标文件名
-){
+) {
 	DWORD luResult = 0;
 
 	do
@@ -728,6 +780,17 @@ DWORD EiSetPartialUpdate(
 	return luResult;
 }
 
+DWORD EiSetScenario(DWORD dwScenario)
+{
+	CEiSvrMsgItem msg;
+	msg.Data.Item.AppId = GetCurrentProcessId();
+	msg.Data.Item.MsgId = EMHOSTID_SET_SCENARIO;
+	msg.Data.Item.BufSize = sizeof(DWORD);
+	memcpy_s(msg.Data.Item.MsgBuf, sizeof(DWORD), &dwScenario, sizeof(DWORD));
+	auto result = gloCenter.SendMessageToService(msg);
+	return result;
+}
+
 // Get scenario
 //
 // 返回： 返回零，表示成功；返回非零，表示错误码；
@@ -768,6 +831,17 @@ DWORD EiSetLaptopMode(
 
 	do
 	{
+		//撤销当前存在的 EMHOSTID_LAPTOP_MODE_CHANGED 命令
+		CEiSvrMsgItem loRecallMsg;
+		loRecallMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loRecallMsg.Data.Item.MsgId = EMHOSTID_RECALL_MSG;
+		ULONG luRecallMsgId = EMHOSTID_LAPTOP_MODE_CHANGED;
+		memcpy_s(loRecallMsg.Data.Item.MsgBuf, sizeof(ULONG), &luRecallMsgId, sizeof(ULONG));
+		loRecallMsg.Data.Item.BufSize = sizeof(ULONG);
+
+		gloCenter.RecallMessage(loRecallMsg);
+
+		//发送 EMHOSTID_LAPTOP_MODE_CHANGED 命令
 		CEiSvrMsgItem loMsg;
 		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
 		loMsg.Data.Item.MsgId = EMHOSTID_LAPTOP_MODE_CHANGED;
@@ -775,7 +849,6 @@ DWORD EiSetLaptopMode(
 		ULONG luMsgBufSize = sizeof(ULONG);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &nulMode, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-		gloCenter.RecallMessage(loMsg);
 
 		luResult = gloCenter.SendMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
@@ -796,6 +869,17 @@ DWORD EiSetKeyboardDownSounds(
 
 	do
 	{
+		//撤销当前存在的 EMHOSTID_SET_KEYBOARD_DOWN 命令
+		CEiSvrMsgItem loRecallMsg;
+		loRecallMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loRecallMsg.Data.Item.MsgId = EMHOSTID_RECALL_MSG;
+		ULONG luRecallMsgId = EMHOSTID_LAPTOP_MODE_CHANGED;
+		memcpy_s(loRecallMsg.Data.Item.MsgBuf, sizeof(ULONG), &luRecallMsgId, sizeof(ULONG));
+		loRecallMsg.Data.Item.BufSize = sizeof(ULONG);
+
+		gloCenter.RecallMessage(loRecallMsg);
+
+		//发送 EMHOSTID_SET_KEYBOARD_DOWN 命令
 		CEiSvrMsgItem loMsg;
 		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_KEYBOARD_DOWN;
@@ -803,8 +887,6 @@ DWORD EiSetKeyboardDownSounds(
 		ULONG luMsgBufSize = sizeof(bool);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &nbIsSet, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-		//先把当前存在的切换命令都清除
-		gloCenter.RecallMessage(loMsg);
 
 		luResult = gloCenter.SendMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
@@ -826,6 +908,17 @@ DWORD EiSetKeyboardUpSounds(
 
 	do
 	{
+		//撤销当前存在的 EMHOSTID_SET_KEYBOARD_UP 命令
+		CEiSvrMsgItem loRecallMsg;
+		loRecallMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loRecallMsg.Data.Item.MsgId = EMHOSTID_RECALL_MSG;
+		ULONG luRecallMsgId = EMHOSTID_SET_KEYBOARD_UP;
+		memcpy_s(loRecallMsg.Data.Item.MsgBuf, sizeof(ULONG), &luRecallMsgId, sizeof(ULONG));
+		loRecallMsg.Data.Item.BufSize = sizeof(ULONG);
+
+		gloCenter.RecallMessage(loRecallMsg);
+
+		//发送 EMHOSTID_SET_KEYBOARD_UP 命令
 		CEiSvrMsgItem loMsg;
 		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_KEYBOARD_UP;
@@ -833,8 +926,7 @@ DWORD EiSetKeyboardUpSounds(
 		ULONG luMsgBufSize = sizeof(bool);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &nbIsSet, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-		//先把当前存在的切换命令都清除
-		gloCenter.RecallMessage(loMsg);
+
 		luResult = gloCenter.PostMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
 			break;
@@ -937,13 +1029,22 @@ DWORD EiGetKeySoundsVolume(void)
 
 	do
 	{
+		//撤销当前存在的 EMHOSTID_GET_KEYBOARD_VOLUME 命令
+		CEiSvrMsgItem loRecallMsg;
+		loRecallMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loRecallMsg.Data.Item.MsgId = EMHOSTID_RECALL_MSG;
+		ULONG luRecallMsgId = EMHOSTID_GET_KEYBOARD_VOLUME;
+		memcpy_s(loRecallMsg.Data.Item.MsgBuf, sizeof(ULONG), &luRecallMsgId, sizeof(ULONG));
+		loRecallMsg.Data.Item.BufSize = sizeof(ULONG);
+
+		gloCenter.RecallMessage(loRecallMsg);
+
 		//给服务发送获取消息
 		CEiSvrMsgItem loMsg;
 		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
 		loMsg.Data.Item.MsgId = EMHOSTID_GET_KEYBOARD_VOLUME;
 		loMsg.Data.Item.BufSize = 0;
-		//先把当前存在的切换命令都清除
-		gloCenter.RecallMessage(loMsg);
+
 		luResult = gloCenter.SendMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
 			return 0;
@@ -963,6 +1064,17 @@ void EiSetKeySoundsVolume(LONG nlVolume)//(0-100)
 
 	do
 	{
+		//撤销当前存在的 EMHOSTID_SET_KEYBOARD_VOLUME 命令
+		CEiSvrMsgItem loRecallMsg;
+		loRecallMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loRecallMsg.Data.Item.MsgId = EMHOSTID_RECALL_MSG;
+		ULONG luRecallMsgId = EMHOSTID_SET_KEYBOARD_VOLUME;
+		memcpy_s(loRecallMsg.Data.Item.MsgBuf, sizeof(ULONG), &luRecallMsgId, sizeof(ULONG));
+		loRecallMsg.Data.Item.BufSize = sizeof(ULONG);
+
+		gloCenter.RecallMessage(loRecallMsg);
+
+		//发送 EMHOSTID_SET_KEYBOARD_VOLUME 命令
 		CEiSvrMsgItem loMsg;
 		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_KEYBOARD_VOLUME;
@@ -970,8 +1082,7 @@ void EiSetKeySoundsVolume(LONG nlVolume)//(0-100)
 		ULONG luMsgBufSize = sizeof(nlVolume);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &nlVolume, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-		//先把当前存在的切换命令都清除
-		gloCenter.RecallMessage(loMsg);
+
 		luResult = gloCenter.SendMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
 			break;
@@ -1075,6 +1186,17 @@ DWORD EiSetOrientation(
 
 	do
 	{
+		//撤销当前存在的 EMHOSTID_ORIENTATION_CHANGED 命令
+		CEiSvrMsgItem loRecallMsg;
+		loRecallMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loRecallMsg.Data.Item.MsgId = EMHOSTID_RECALL_MSG;
+		ULONG luRecallMsgId = EMHOSTID_ORIENTATION_CHANGED;
+		memcpy_s(loRecallMsg.Data.Item.MsgBuf, sizeof(ULONG), &luRecallMsgId, sizeof(ULONG));
+		loRecallMsg.Data.Item.BufSize = sizeof(ULONG);
+
+		gloCenter.RecallMessage(loRecallMsg);
+
+		//发送 EMHOSTID_ORIENTATION_CHANGED 命令
 		CEiSvrMsgItem loMsg;
 		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
 		loMsg.Data.Item.MsgId = EMHOSTID_ORIENTATION_CHANGED;
@@ -1082,7 +1204,6 @@ DWORD EiSetOrientation(
 		DWORD luMsgBufSize = sizeof(DWORD);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &ndwOrientation, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-		gloCenter.RecallMessage(loMsg);
 
 		luResult = gloCenter.PostMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
@@ -1099,7 +1220,7 @@ void EiSetBCover(
 	char* npszPath	// 模式
 )
 {
-	do 
+	do
 	{
 		if (npszPath == NULL)
 			break;
@@ -1108,7 +1229,7 @@ void EiSetBCover(
 		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
 		loMsg.Data.Item.MsgId = EMHOSTID_SET_BCOVER_PATH;
 
-		ULONG luMsgBufSize = sizeof(char) * (strlen(npszPath)+1);
+		ULONG luMsgBufSize = ULONG(sizeof(char) * (strlen(npszPath) + 1));
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, npszPath, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
 
@@ -1116,7 +1237,7 @@ void EiSetBCover(
 		gloCenter.SendMessageToService(loMsg);
 
 	} while (false);
-	
+
 }
 
 // 通知系统B面进入或退出双击模式
@@ -1224,6 +1345,31 @@ DWORD EiCloseBCover(
 	return luResult;
 }
 
+// 通过Service记录数据
+// 返回： 返回非零，表示成功；返回零，表示失败
+DWORD EiRecordAppData(AppData& appData)
+{
+	DWORD luResult = 0;
+
+	do
+	{
+		CEiSvrMsgItem loMsg;
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loMsg.Data.Item.MsgId = EMHOSTID_RECORD_APP_DATA;
+
+		ULONG luMsgBufSize = (ULONG)sizeof(AppData);
+		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &appData, luMsgBufSize);
+		loMsg.Data.Item.BufSize = luMsgBufSize;
+
+		luResult = gloCenter.SendMessageToService(loMsg);
+		if (luResult != ERROR_SUCCESS)
+			break;
+
+	} while (false);
+
+	return luResult;
+}
+
 // 通知服务播放键盘声音，为了试音
 // 返回： 返回非零，表示成功；返回零，表示失败；
 DWORD EiPlayKeyboardSound(
@@ -1234,6 +1380,17 @@ DWORD EiPlayKeyboardSound(
 
 	do
 	{
+		//撤销当前存在的 EMHOSTID_PLAY_KEYBOARD_SOUND 命令
+		CEiSvrMsgItem loRecallMsg;
+		loRecallMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loRecallMsg.Data.Item.MsgId = EMHOSTID_RECALL_MSG;
+		ULONG luRecallMsgId = EMHOSTID_PLAY_KEYBOARD_SOUND;
+		memcpy_s(loRecallMsg.Data.Item.MsgBuf, sizeof(ULONG), &luRecallMsgId, sizeof(ULONG));
+		loRecallMsg.Data.Item.BufSize = sizeof(ULONG);
+
+		gloCenter.RecallMessage(loRecallMsg);
+
+		//发送 EMHOSTID_PLAY_KEYBOARD_SOUND 命令
 		CEiSvrMsgItem loMsg;
 		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
 		loMsg.Data.Item.MsgId = EMHOSTID_PLAY_KEYBOARD_SOUND;
@@ -1241,8 +1398,6 @@ DWORD EiPlayKeyboardSound(
 		ULONG luMsgBufSize = (ULONG)sizeof(ULONG);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &nlType, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-		//先把当前存在的切换命令都清除
-		gloCenter.RecallMessage(loMsg);
 
 		luResult = gloCenter.SendMessageToService(loMsg);
 		if (luResult != ERROR_SUCCESS)
@@ -1448,7 +1603,7 @@ DWORD EiSetPrivacyStatus(DWORD& rdwStatus)
 
 // 通知系统启动一个当前用户下的应用，例如打开某个文件夹或某个网页
 // 返回： 返回非零，表示成功；返回零，表示失败；
-DWORD EiRunExeForCurrentUset(
+DWORD EiRunExeForCurrentUser(
 	const wchar_t* npszFilePath,	// 目标文件名
 	const wchar_t* npszCommandLine
 )
@@ -1460,7 +1615,17 @@ DWORD EiRunExeForCurrentUset(
 		if (npszFilePath == NULL)
 			break;
 
-		// 注册App
+		//撤销当前存在的 EMHOSTID_RECALL_MSG 命令
+		CEiSvrMsgItem loRecallMsg;
+		loRecallMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loRecallMsg.Data.Item.MsgId = EMHOSTID_RECALL_MSG;
+		ULONG luRecallMsgId = EMHOSTID_RUN_EXE_FOR_CURRENT_USER;
+		memcpy_s(loRecallMsg.Data.Item.MsgBuf, sizeof(ULONG), &luRecallMsgId, sizeof(ULONG));
+		loRecallMsg.Data.Item.BufSize = sizeof(ULONG);
+
+		gloCenter.RecallMessage(loRecallMsg);
+
+		//发送 注册App 命令
 		CEiSvrMsgItem loMsg;
 		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
 		loMsg.Data.Item.MsgId = EMHOSTID_RUN_EXE_FOR_CURRENT_USER;
@@ -1472,9 +1637,6 @@ DWORD EiRunExeForCurrentUset(
 		ULONG luMsgBufSize = sizeof(EI_MSG_RUN_APP);
 		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &ldRunInfo, luMsgBufSize);
 		loMsg.Data.Item.BufSize = luMsgBufSize;
-
-		//先把当前存在的切换命令都清除
-		gloCenter.RecallMessage(loMsg);
 
 		//发送命令
 		luResult = gloCenter.SendMessageToService(loMsg);
@@ -1568,7 +1730,31 @@ ULONG EiIsShowOOBE(
 
 	return luResult;
 }
+ULONG EiIsShowUpdateOOBE(
+	bool& rbFlag
+)
+{
+	ULONG luResult = ERROR_NOT_READY;
 
+	do
+	{
+		//给服务发送获取消息
+		CEiSvrMsgItem loMsg;
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loMsg.Data.Item.MsgId = EMHOSTID_GET_IS_SHOW_UPDATEOOBE;
+		loMsg.Data.Item.BufSize = 0;
+
+		luResult = gloCenter.SendMessageToService(loMsg);
+		if (luResult != ERROR_SUCCESS)
+			return 0;
+
+		//获取值
+		rbFlag = *(bool*)loMsg.Data.Item.MsgBuf;
+
+	} while (false);
+
+	return luResult;
+}
 // 询问8951是否处于sleep状态
 // 返回： 返回非零，表示成功；返回零，表示失败；
 ULONG Ei8951IsSleep(
@@ -1619,6 +1805,32 @@ ULONG EiGetUserLagID(
 
 		//获取值
 		rdwLagID = *(DWORD*)loMsg.Data.Item.MsgBuf;
+
+	} while (false);
+
+	return luResult;
+}
+
+DWORD EiSetSmartInfoStatus(SmartInfoOptionMsgBody &SIOMB)
+{
+	ULONG luResult = 0;
+
+	do
+	{
+		//给服务发送获取消息
+		CEiSvrMsgItem loMsg;
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loMsg.Data.Item.MsgId = EMHOSTID_SET_SMARTINFO_MSG;
+		ULONG luMsgBufSize = sizeof(SmartInfoOptionMsgBody);
+		loMsg.Data.Item.BufSize = luMsgBufSize;
+
+		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &SIOMB, luMsgBufSize);
+
+		luResult = gloCenter.SendMessageToService(loMsg);
+		if (luResult != ERROR_SUCCESS)
+			return luResult;
+
+		luResult = ERROR_SUCCESS;
 
 	} while (false);
 
@@ -1764,3 +1976,142 @@ DWORD EiGetUserDiskList(
 
 	return luResult;
 }
+
+// 发送活跃消息的定时器回调方法
+VOID WINAPI NormalRunNoticeCallBack(HWND hwnd, UINT message, UINT idTimer, DWORD dwTime)
+{
+	while (true)
+	{
+		Sleep(1000 * 10);
+		gloCenter.CheckAndSendNormalRunMsg();
+	}
+}
+
+DWORD EiIsFileCertificateValidation(FileCVCheckVaule& checkvalue)
+{
+	ULONG luResult = 0;
+
+	do
+	{
+		//给服务发送获取消息
+		CEiSvrMsgItem loMsg;
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loMsg.Data.Item.MsgId = EMHOSTID_CHECK_FILE_ISVALID;
+		ULONG luMsgBufSize = sizeof(FileCVCheckVaule);
+		loMsg.Data.Item.BufSize = luMsgBufSize;
+
+		memcpy_s(loMsg.Data.Item.MsgBuf, luMsgBufSize, &checkvalue, luMsgBufSize);
+
+		luResult = gloCenter.SendMessageToService(loMsg);
+		if (luResult != ERROR_SUCCESS)
+			return 0;
+
+		memcpy_s(&checkvalue, sizeof(FileCVCheckVaule), loMsg.Data.Item.MsgBuf, sizeof(FileCVCheckVaule));
+		//将带返回值的消息返回给结构体
+
+	} while (false);
+
+	return luResult;
+}
+
+// 创建发送正常运行消息的定时器
+ULONG CreateNormalRunNoticeTimer(HWND hwnd)
+{
+	if (hwnd == NULL)
+		return ERROR_INVALID_HANDLE;
+
+	if (ghNoticeNormalRunThread != 0)
+	{
+		CloseHandle(ghNoticeNormalRunThread);
+		ghNoticeNormalRunThread = 0;
+	}
+
+	int count = 0;
+	while (true)
+	{
+		DWORD lpThreadId;
+		ghNoticeNormalRunThread = CreateThread(
+			NULL,
+			0,
+			(LPTHREAD_START_ROUTINE)NormalRunNoticeCallBack,
+			NULL,
+			0,
+			&lpThreadId
+		);
+
+		if (ghNoticeNormalRunThread == 0)
+		{
+			if (++count > 5)
+				return ERROR_BAD_UNIT;
+			Sleep(100);
+			continue;
+		}
+		break;
+	}
+
+	return ERROR_SUCCESS;
+}
+
+// zhuhl5
+DWORD EiTconBoolSetting(APITconBoolValues& values)
+{
+	DWORD luResult = 0;
+	do {
+		CEiSvrMsgItem msg;
+		msg.Data.Item.AppId = GetCurrentProcessId();
+		msg.Data.Item.MsgId = EMHOSTID_SETTCONBOOLSETTING;
+		msg.Data.Item.BufSize = sizeof(values);
+		memcpy_s(msg.Data.Item.MsgBuf, msg.Data.Item.BufSize, &values, msg.Data.Item.BufSize);
+
+		luResult = gloCenter.PostMessageToService(msg);
+	} while (false);
+	return luResult;
+}
+
+//xingej1
+void EiBackToKeyboard(void)
+{
+	DWORD luResult = 0;
+	do
+	{
+		CEiSvrMsgItem loMsg;
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loMsg.Data.Item.MsgId = EMHOSTID_TO_KEYBOARD;
+
+		ULONG luMsgBufSize = 0;
+
+		luResult = gloCenter.PostMessageToService(loMsg);
+		if (luResult != ERROR_SUCCESS)
+			break;
+
+	} while (false);
+}
+
+// 获取当前设备状态（包括电池，联网etc）
+DWORD EiGetDeviceStatus(PEinkDeviceStatus pstEinkDeviceStatus)
+{
+	ULONG luResult = ERROR_NOT_READY;
+
+	do
+	{
+		//给服务发送获取消息
+		CEiSvrMsgItem loMsg;
+		loMsg.Data.Item.AppId = GetCurrentProcessId(); // AppID直接取自身进程ID
+		loMsg.Data.Item.MsgId = EMHOSTID_GET_DEVICE_STATUS;
+		loMsg.Data.Item.BufSize = 0;
+
+		luResult = gloCenter.SendMessageToService(loMsg);
+		if (luResult != ERROR_SUCCESS)
+			return luResult;
+
+		//获取到显示设备信息
+		memcpy_s(pstEinkDeviceStatus, sizeof(EinkDeviceStatus), loMsg.Data.Item.MsgBuf, sizeof(EinkDeviceStatus));
+
+		luResult = ERROR_SUCCESS;
+
+	} while (false);
+
+	return luResult;
+}
+
+// EOF

@@ -30,8 +30,7 @@ public:
 	// ´ò¿ªÎÄµµ
 	ED_ERR OpenDocument(
 		IN char16_ptr pathName,
-		OUT IEdDocument_ptr* documentPtrPtr,
-		IN int32 asType // -1 not indicated
+		OUT IEdDocument_ptr* documentPtrPtr
 	);
 
 

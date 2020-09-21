@@ -140,6 +140,21 @@ public:
 		IN const cmmVector<CCmmContent, InitSize, Increment>& srcVector
 	);
 
+	int operator = (const cmmVector<CCmmContent, InitSize, Increment>& srcVector) {
+		Clear();
+
+		miSize = srcVector.Size();
+
+		ExpandCapacity(true, miSize);
+
+		for (int i = 0; i < miSize; i++)
+		{
+			mpArray[i] = srcVector[i];
+		}
+
+		return miSize;
+	}
+
 
 protected:
 	int miCapacity;
@@ -173,7 +188,7 @@ bool cmmVector<CCmmContent,InitSize,Increment>::ExpandCapacity(bool nbIncrease, 
 	if(ExpandTo != 0)
 		liNewCap = ((ExpandTo + Increment - 1) / Increment)*Increment;
 
-	CCmmContent* lpNewArray;
+	CCmmContent* lpNewArray = NULL;
 	if(liNewCap > InitSize)
 	{
 		lpNewArray = new CCmmContent[liNewCap];

@@ -356,6 +356,21 @@ protected:
 #endif//KERNEL_CODE
 };
 
+class CSectionAutoLock
+{
+public:
+	CSectionAutoLock(CExclusiveAccess& lock)
+	{
+		mLock = &lock;
+		mLock->Enter();
+	}
+	~CSectionAutoLock()
+	{
+		mLock->Leave();
+	}
+	CExclusiveAccess* mLock;
+};
+
 
 #ifdef FLOW_CONTROL_ASSISTANT
 #error Micro redifinition

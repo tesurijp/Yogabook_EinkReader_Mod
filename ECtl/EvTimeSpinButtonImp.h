@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef		__EV_TIME_SPIN_BUTTON_IMP_H__
 #define		__EV_TIME_SPIN_BUTTON_IMP_H__
 

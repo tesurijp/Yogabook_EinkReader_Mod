@@ -1,5 +1,5 @@
-/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
+/* Copyright 2019 - present Lenovo */
 #pragma once
 
 //读取数据BUFFER大小

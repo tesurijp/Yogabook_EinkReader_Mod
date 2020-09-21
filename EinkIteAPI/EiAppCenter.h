@@ -1,9 +1,9 @@
-/* Copyright 2019 - present Lenovo */
 /* License: COPYING.GPLv3 */
+/* Copyright 2019 - present Lenovo */
 #pragma once
 #include "EiMsgQueue.h"
 #include "SvrMsg.h"
-
+#include "itetcon.h"
 
 // 这是SDK的App程序与Service程序的消息交换中心
 // 调用Initialize初始化后，执行体的内建线程就会启动起来，持续响应Service发送来的消息，其中一部分效益转为Windows消息发送给App主窗口
@@ -25,18 +25,27 @@ public:
 	// 释放
 	void Release(void);
 
+	// 接收数据回调入口函数
+	static void __stdcall AppReciveCallBack(const char* npData, ULONG nSize, void* npContext);
+	// 接收数据预处理函数
+	void AppPushReciveDataToQueue(const char* npData, ULONG nSize);
+
 	// 回调入口函数
 	static void __stdcall AppCenterCallBack(CEiSvrMsgItem& nrMsg, void* npContext);
-
 	// 主分发函数
 	void AppDispatch(CEiSvrMsgItem& nrMsg);
 
 	// 发送消息给Service，并等待
 	ULONG SendMessageToService(CEiSvrMsgItem& nrMsg);
 
+	// 发送消息和绘制内容给Service，并等待
+	ULONG SendMessageToService(CEiSvrMsgItem& nrMsg, EI_BUFFER* npBuffer);
 
 	// 发送消息给Service，不等待
 	ULONG PostMessageToService(CEiSvrMsgItem& nrMsg);
+
+	// 发送消息给Service，不等待
+	ULONG PostMessageToService(CEiSvrMsgItem& nrMsg, EI_BUFFER* npBuffer);
 
 	// 撤回一类消息，将队列中此类消息全部撤回
 	void RecallMessage(const CEiSvrMsgItem& nrMsg);
@@ -70,28 +79,35 @@ public:
 	void KeyboardStyleChangeComplete(CEiSvrMsgItem& nrMsg);
 	// 重新设置tp area
 	void ResetTPArea(CEiSvrMsgItem& nrMsg);
-	//隐私开关状态发生变化
+	// 隐私开关状态发生变化
 	void PrivacyStatusChanged(CEiSvrMsgItem& nrMsg);
+	// 回应Service端的检测
+	void CheckAppAlive(CEiSvrMsgItem& nrMsg);
+	// 检查发消息间隔时间是否足够长，超过20秒发送运行正常的消息
+	void CheckAndSendNormalRunMsg();
+	// smartinfo设置发生了变化
+	void SmartInfoSettingChange(CEiSvrMsgItem& nrMsg);
+
 private:
 	//获取GUID字符串
-	void GetGUIDString(OUT const wchar_t* npszBuffer, int niLen);
-	//打开自己的内存映射文件
-	bool OpenJasonFile(const wchar_t* nszFileName);
-	//打开自己的内存映射文件
-	bool OpenServerJasonFile(const wchar_t* nszFileName);
+	void GetGUIDString(wchar_t* npszBuffer, int niLen);
+	//检查服务状态
+	bool ProtectService(void);
+	// 创建缓存
+	void CreateAppBuffer();
+	// 释放缓存
+	void ReleaseAppBuffer();
+	// 读注册表数据
+	LSTATUS GetRegSZ(LPCWSTR lpValueName, wchar_t* value);
 
+private:
+	// 发送数据缓存
+	DWORD muSendBufferLength;
+	char* mSendBuffer;
 
-	//自己当监听者用
-	HANDLE mhFile;
-	DWORD muFileLength;
-	HANDLE mhFileMap;
-	const char* mpMappedBase;
-
-	//服务器当监听者用
-	HANDLE mhServerFile;
-	DWORD muServerFileLength;
-	HANDLE mhServerFileMap;
-	const char* mpServerMappedBase;
+	// add 接收数据缓存
+	DWORD muReciveBufferLength;
+	char* mpReciveBuffer;
 
 	REG_APP_INFO mdRegAppInfo;
 

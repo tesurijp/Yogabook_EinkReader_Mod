@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef _EVBUTTONIMP_H_
 #define _EVBUTTONIMP_H_
 
@@ -25,9 +21,9 @@
 
 DECLARE_BUILTIN_NAME(Button)
 class CEvButton :
-	public CXuiElement<CEvButton ,GET_BUILTIN_NAME(Button)>
+	public CXuiElement<CEvButton, GET_BUILTIN_NAME(Button)>
 {
-friend CXuiElement<CEvButton ,GET_BUILTIN_NAME(Button)>;
+	friend CXuiElement<CEvButton, GET_BUILTIN_NAME(Button)>;
 public:
 	enum	//存放帧数数组的对应下标
 	{
@@ -54,8 +50,8 @@ public:
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent,	// 父对象指针
 		IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		);
+		IN ULONG nuEID = MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 protected:
 	// 只用于变量设置初始值，如指针设为NULL，所有可能失败的如分配之类的运算都应该在InitOnCreate中进行
@@ -84,7 +80,7 @@ protected:
 	//定时器
 	virtual void OnTimer(
 		PSTEMS_TIMER npStatus
-		);
+	);
 	//指定播放第几帧动画
 	virtual ERESULT OnPlayAnimation(LONG nlIndex = 0);
 
@@ -95,7 +91,7 @@ protected:
 	virtual ERESULT OnChangeText(wchar_t* npswText);
 
 	//更换显示图片
-	virtual ERESULT OnChangeBackGround(wchar_t* npswPicPath = NULL,bool nbIsFullPath = false);
+	virtual ERESULT OnChangeBackGround(wchar_t* npswPicPath = NULL, bool nbIsFullPath = false);
 	//禁用或启用
 	virtual ERESULT OnElementEnable(bool nbIsEnable);
 
@@ -135,7 +131,7 @@ private:
 	DWORD mdwDisabledColor;			 // 禁用时文字的颜色
 	DWORD mdwFontSize;				 //字体大小
 	wchar_t* mpswFontName;			 //字体名称
-	
+
 	bool mbIsPlayTimer;				 //播放动画定时器是否开启
 
 

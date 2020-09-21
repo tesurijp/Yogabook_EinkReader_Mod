@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #pragma once
 
 // 存放该PopupMenu下所有MenuItem公共属性信息的结构体
@@ -33,16 +29,16 @@ class CEvPopupMenu;
 #define MAX_TITTLE_LENGTH  260
 
 DECLARE_BUILTIN_NAME(MenuItem)
-class CEvMenuItem:
+class CEvMenuItem :
 	public CXuiElement<CEvMenuItem, GET_BUILTIN_NAME(MenuItem)>
 {
-	friend CXuiElement<CEvMenuItem,GET_BUILTIN_NAME(MenuItem)>;
+	friend CXuiElement<CEvMenuItem, GET_BUILTIN_NAME(MenuItem)>;
 public:
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent = NULL,	// 父对象指针
 		IN ICfKey* npTemplete = NULL,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		);
+		IN ULONG nuEID = MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 	enum ENUM_MENUITEM_TYPE
 	{
@@ -57,7 +53,7 @@ public:
 	// 获取名称图宽度
 	int GetNameAreaWidth()
 	{
-		if(NULL != mpoTextImage)
+		if (NULL != mpoTextImage)
 			return mpoTextImage->GetWidth();
 		else
 			return -1;
@@ -73,7 +69,7 @@ public:
 	// 获取热键区域宽度
 	int GetHotKeyAreaWidth()
 	{
-		if(NULL != mpoHotKeyImage)
+		if (NULL != mpoHotKeyImage)
 			return mpoHotKeyImage->GetWidth();
 		else
 			return -1;
@@ -81,7 +77,7 @@ public:
 	// 设置热键区域宽度
 	void SetHotKeyAreaWidth(
 		int niHotKeyAreaWidth
-		)
+	)
 	{
 		miHotKeyAreaWidth = niHotKeyAreaWidth;
 	}
@@ -89,10 +85,10 @@ public:
 	// 更新尺寸
 	void UpdateSize()
 	{
-		if(NULL == mpoMenuItemInfo)
+		if (NULL == mpoMenuItemInfo)
 			return;
 
-		float lfWidthCount = (FLOAT)(mpoMenuItemInfo->LeftWidth + miNameAreaWidth + 
+		float lfWidthCount = (FLOAT)(mpoMenuItemInfo->LeftWidth + miNameAreaWidth +
 			mpoMenuItemInfo->MiddleWidth + miHotKeyAreaWidth + mpoMenuItemInfo->RightWidth);
 
 		mpIterator->SetSize(lfWidthCount, (FLOAT)mpoMenuItemInfo->ItemHeight);
@@ -120,14 +116,14 @@ public:
 	//		获取当前菜单项的弹出菜单
 	CEvPopupMenu* GetPopupMenu()
 	{
-		if(NULL == mpoSubPopupMenu)
+		if (NULL == mpoSubPopupMenu)
 		{
 			LoadSubPopupMenu();
 		}
 
-		if(NULL != mpoSubPopupMenu 
-			&&(meMemuItemType == ENUM_MENUITEM_TYPE_APPLE_EXTEND 
-			|| meMemuItemType == ENUM_MENUITEM_TYPE_EXTEND)
+		if (NULL != mpoSubPopupMenu
+			&& (meMemuItemType == ENUM_MENUITEM_TYPE_APPLE_EXTEND
+				|| meMemuItemType == ENUM_MENUITEM_TYPE_EXTEND)
 			)
 			return mpoSubPopupMenu;
 		else
@@ -145,7 +141,7 @@ public:
 	//		设置当前才当想的CommandID
 	void SetCommandID(
 		IN UINT niCommandID
-		)
+	)
 	{
 		miCommandID = niCommandID;
 	}
@@ -155,7 +151,7 @@ public:
 	void SetBgBitmapPtr(
 		IN IEinkuiBitmap* niBitmap,
 		IN int niFrameCount
-		)
+	)
 	{
 		CMM_SAFE_RELEASE(mpoItemBgBmp);
 		mpoItemBgBmp = niBitmap;
@@ -191,7 +187,7 @@ protected:
 	//定时器
 	virtual void OnTimer(
 		PSTEMS_TIMER npStatus
-		);
+	);
 
 	// 鼠标落点检测
 	ERESULT OnMouseOwnerTest(const D2D1_POINT_2F& rPoint);
@@ -218,7 +214,7 @@ private:
 	//		注意：若传入空指针或者指向空字符的指针，则会清空文字图片和热键图片，返回高度为0
 	long LoadTextImage(
 		IN wchar_t* nswMenuName					// 菜单文本
-		);
+	);
 
 	// 描述：
 	//		加载菜单项热键图片，调用这个函数后初始化两个参数mpoHotKeyImage poFocusHotKeyImage
@@ -235,7 +231,7 @@ protected:
 	wchar_t mswMenuTittle[MAX_TITTLE_LENGTH];
 	wchar_t mswHotKey[MAX_HOTKEY_LENGTH];
 	PST_MENUITEM_INFO mpoMenuItemInfo;
-	
+
 	IEinkuiBitmap* mpoHotKeyImage;		// 快捷键图
 	IEinkuiBitmap* mpoFocusHotKeyImage;	// 焦点态快捷键图
 	IEinkuiBitmap* mpoFocusTextImage;	// 焦点态菜单名称图
@@ -253,13 +249,13 @@ protected:
 
 	bool mbIsChecked;				// 是否Checked态
 	bool mbIsShowExtendMenu;		// 是否显示扩展菜单
-	
+
 	int miExtendMenuID;				// 弹出菜单ID
 
 	CEvPopupMenu* mpoSubPopupMenu;
 	bool mbIsSubMenuShow;
 
-	LONG miDuration;			
+	LONG miDuration;
 
 	bool mbIsFocused;
 

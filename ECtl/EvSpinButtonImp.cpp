@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 #include "cmmstruct.h"
 #include "Einkui.h"
@@ -36,12 +32,12 @@ DEFINE_BUILTIN_NAME(SpinButton)
 
 
 // 只用于变量设置初始值，如指针设为NULL，所有可能失败的如分配之类的运算都应该在InitOnCreate中进行
-CEvSpinButton::CEvSpinButton() : 
+CEvSpinButton::CEvSpinButton() :
 	mpEdit(NULL),
 	mpBtnUpArrow(NULL),
 	mpBtnDownArrow(NULL),
 	mpBkg(NULL)
-{	
+{
 	miMinValue = SPINBUTTON_MIN_VALUE;
 	miMaxValue = SPINBUTTON_MAX_VALUE;
 }
@@ -52,15 +48,15 @@ ULONG CEvSpinButton::InitOnCreate(
 	IN IEinkuiIterator* npParent,	// 父对象指针
 	IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
 	IN ULONG nuEID				// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-	)
+)
 {
 	ERESULT leResult = ERESULT_UNSUCCESSFUL;
 
-	do 
+	do
 	{
 		//首先调用基类
-		leResult = 	CXuiElement::InitOnCreate(npParent,npTemplete,nuEID);
-		if(leResult != ERESULT_SUCCESS)
+		leResult = CXuiElement::InitOnCreate(npParent, npTemplete, nuEID);
+		if (leResult != ERESULT_SUCCESS)
 			break;
 
 		//创建SpinButton的子控件
@@ -75,31 +71,31 @@ ULONG CEvSpinButton::InitOnCreate(
 
 		//创建背景图
 		ICfKey * lpBkgKey = lpSpinButtonKey->GetSubKey(SB_KEY_DEFAULT_PICTURE_FRAME);
-		if(lpBkgKey)
+		if (lpBkgKey)
 		{
-			mpBkg = CEvPictureFrame::CreateInstance(mpIterator, lpBkgKey, SB_ID_CTRL_BACKGROUND);			
+			mpBkg = CEvPictureFrame::CreateInstance(mpIterator, lpBkgKey, SB_ID_CTRL_BACKGROUND);
 		}
 
 		//创建编辑框
 		ICfKey * lpEditKey = lpSpinButtonKey->GetSubKey(SB_KEY_DEFAULT_EDIT);
-		if(lpEditKey)
+		if (lpEditKey)
 		{
-			mpEdit = CEvEditImp::CreateInstance(mpIterator, lpEditKey, SB_ID_CTRL_EDIT);			
+			mpEdit = CEvEditImp::CreateInstance(mpIterator, lpEditKey, SB_ID_CTRL_EDIT);
 		}
 
-		
+
 		//创建上箭头
 		ICfKey * lpButtonUpKey = lpSpinButtonKey->GetSubKey(SB_KEY_DEFAULT_IMAGE_BUTTON_UP);
-		if(lpButtonUpKey)
+		if (lpButtonUpKey)
 		{
-			mpBtnUpArrow = CEvImageButton::CreateInstance(mpIterator, lpButtonUpKey, SB_ID_CTRL_BUTTON_UP);			
+			mpBtnUpArrow = CEvImageButton::CreateInstance(mpIterator, lpButtonUpKey, SB_ID_CTRL_BUTTON_UP);
 		}
 
 		//创建下箭头
 		ICfKey * lpButtonDownKey = lpSpinButtonKey->GetSubKey(SB_KEY_DEFAULT_IMAGE_BUTTON_DOWN);
-		if(lpButtonDownKey)
+		if (lpButtonDownKey)
 		{
-			mpBtnDownArrow = CEvImageButton::CreateInstance(mpIterator, lpButtonDownKey, SB_ID_CTRL_BUTTON_DOWN);			
+			mpBtnDownArrow = CEvImageButton::CreateInstance(mpIterator, lpButtonDownKey, SB_ID_CTRL_BUTTON_DOWN);
 		}
 
 		//mpIterator->ModifyStyles(EITR_STYLE_ALL_MWHEEL|EITR_STYLE_KEYBOARD);
@@ -117,7 +113,7 @@ ERESULT CEvSpinButton::OnElementCreate(IEinkuiIterator* npIterator)
 
 	do
 	{
-		if(CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
+		if (CXuiElement::OnElementCreate(npIterator) != ERESULT_SUCCESS)
 			break;
 
 		SetChildCtrlPara();
@@ -127,7 +123,7 @@ ERESULT CEvSpinButton::OnElementCreate(IEinkuiIterator* npIterator)
 		mpIterator->ModifyStyles(EITR_STYLE_POPUP);
 
 		lResult = ERESULT_SUCCESS;
-	}while(false);
+	} while (false);
 
 	return lResult;
 }
@@ -140,38 +136,38 @@ ERESULT CEvSpinButton::ParseMessage(IEinkuiMessage* npMsg)
 
 	ERESULT luResult = ERESULT_UNEXPECTED_MESSAGE;
 
-	do 
+	do
 	{
 		BREAK_ON_NULL(npMsg);
 
 		switch (npMsg->GetMessageID())
 		{
 		case EEVT_IMAGEBUTTON_CLICK:
+		{
+			IEinkuiIterator* lpIter = npMsg->GetMessageSender();
+			//SetCurrentValueByDisplay();
+			int lnPreValue = GetCurrentValue();
+			if (lpIter == mpBtnUpArrow->GetIterator())
 			{
-				IEinkuiIterator* lpIter = npMsg->GetMessageSender();
-				//SetCurrentValueByDisplay();
-				int lnPreValue = GetCurrentValue();
-				if (lpIter == mpBtnUpArrow->GetIterator())
-				{
-					++lnPreValue;
-				}
-				else if (lpIter == mpBtnDownArrow->GetIterator())
-				{
-					--lnPreValue;
-				}
-
-				if(lnPreValue <= miMaxValue && lnPreValue >= miMinValue)
-				{
-					SetCurrentValue(lnPreValue);
-
-					// 通知父对象（因为主动去设置编辑框的值，不会反馈消息）
-					PostMessageToParent(EEVT_SPINBUTTON_CONTENT_COMPLETION, lnPreValue);
-
-				}
-
-				break;
+				++lnPreValue;
 			}
-			
+			else if (lpIter == mpBtnDownArrow->GetIterator())
+			{
+				--lnPreValue;
+			}
+
+			if (lnPreValue <= miMaxValue && lnPreValue >= miMinValue)
+			{
+				SetCurrentValue(lnPreValue);
+
+				// 通知父对象（因为主动去设置编辑框的值，不会反馈消息）
+				PostMessageToParent(EEVT_SPINBUTTON_CONTENT_COMPLETION, lnPreValue);
+
+			}
+
+			break;
+		}
+
 
 		/*case EEVT_EDIT_CONTENT_MODIFIED:
 			{
@@ -180,96 +176,96 @@ ERESULT CEvSpinButton::ParseMessage(IEinkuiMessage* npMsg)
 			}*/
 
 		case EACT_SPINBUTTON_GET_CURRENT_VALUE:
-			{
-				int* lpValue = (int*)npMsg->GetOutputBuffer();
-				//SetCurrentValueByDisplay();
-				*lpValue = GetCurrentValue();
+		{
+			int* lpValue = (int*)npMsg->GetOutputBuffer();
+			//SetCurrentValueByDisplay();
+			*lpValue = GetCurrentValue();
 
-				break;
-			}
+			break;
+		}
 
 		case EACT_SPINBUTTON_SET_CURRENT_VALUE:
-			{
-				const int* lpValue = (const int*)npMsg->GetInputData();
-				SetCurrentValue(*lpValue);
+		{
+			const int* lpValue = (const int*)npMsg->GetInputData();
+			SetCurrentValue(*lpValue);
 
-				break;
-			}
+			break;
+		}
 
 		case EEVT_EDIT_CONTENT_MODIFIED:
-			{
-				PostMessageToParent(EEVT_SPINBUTTON_CONTENT_MODIFING, CExMessage::DataInvalid);
-				break;
-			}
+		{
+			PostMessageToParent(EEVT_SPINBUTTON_CONTENT_MODIFING, CExMessage::DataInvalid);
+			break;
+		}
 
 		case EEVT_EDIT_CONTENT_COMPLETION:				// 编辑框输入完成
+		{
+			wchar_t* lswContent = (wchar_t*)npMsg->GetInputData();
+			if (NULL != lswContent)
 			{
-				wchar_t* lswContent = (wchar_t*)npMsg->GetInputData();
-				if(NULL != lswContent)
+				int liValue = 0;
+				if (0 == _wcsicmp(lswContent, L"-"))		// 只有一个符号
 				{
-					int liValue = 0;
-					if(0 == _wcsicmp(lswContent, L"-"))		// 只有一个符号
-					{
-						CExMessage::SendMessageWithText(npMsg->GetMessageSender(), mpIterator, EACT_EDIT_SET_TEXT, L"0");
-					}
-					else
-						swscanf_s(lswContent, L"%d", &liValue);
-
-					// 判断是否越界
-					if(liValue < miMinValue || liValue > miMaxValue)
-					{
-						SetCurrentValue(liValue);
-					}
-
-					// 通知父对象
-					PostMessageToParent(EEVT_SPINBUTTON_CONTENT_COMPLETION, liValue);
+					CExMessage::SendMessageWithText(npMsg->GetMessageSender(), mpIterator, EACT_EDIT_SET_TEXT, L"0");
 				}
-				
+				else
+					swscanf_s(lswContent, L"%d", &liValue);
+
+				// 判断是否越界
+				if (liValue < miMinValue || liValue > miMaxValue)
+				{
+					SetCurrentValue(liValue);
+				}
+
+				// 通知父对象
+				PostMessageToParent(EEVT_SPINBUTTON_CONTENT_COMPLETION, liValue);
+			}
+
+			break;
+		}
+
+		case EACT_SPINBUTTON_SET_MIN_VALUE:			// 设置最小值
+		{
+			int* lpiMinValue = NULL;
+			if (ERESULT_SUCCESS != CExMessage::GetInputDataBuffer(npMsg, lpiMinValue))
+			{
+				luResult = ERESULT_WRONG_PARAMETERS;
 				break;
 			}
 
-		case EACT_SPINBUTTON_SET_MIN_VALUE:			// 设置最小值
+			miMinValue = *lpiMinValue;
+			// 如果当前值小于最小值，则设置为最小值
+			if (mnCurrentValue < miMinValue)
 			{
-				int* lpiMinValue = NULL;
-				if(ERESULT_SUCCESS != CExMessage::GetInputDataBuffer(npMsg, lpiMinValue))
-				{
-					luResult = ERESULT_WRONG_PARAMETERS;
-					break;
-				}
-
-				miMinValue = *lpiMinValue;
-				// 如果当前值小于最小值，则设置为最小值
-				if(mnCurrentValue < miMinValue)
-				{
-					SetCurrentValue(miMinValue);
-				}
+				SetCurrentValue(miMinValue);
 			}
-			break;
+		}
+		break;
 
 		case EACT_SPINBUTTON_SET_MAX_VALUE:			// 设置最大值
+		{
+			int* lpiMaxValue = NULL;
+			if (ERESULT_SUCCESS != CExMessage::GetInputDataBuffer(npMsg, lpiMaxValue))
 			{
-				int* lpiMaxValue = NULL;
-				if(ERESULT_SUCCESS != CExMessage::GetInputDataBuffer(npMsg, lpiMaxValue))
-				{
-					luResult = ERESULT_WRONG_PARAMETERS;
-					break;
-				}
-
-				miMaxValue = *lpiMaxValue;
-				// 如果当前值大于最大值，则设置为最大值
-				if(mnCurrentValue > miMaxValue)
-				{
-					SetCurrentValue(miMaxValue);
-				}
+				luResult = ERESULT_WRONG_PARAMETERS;
+				break;
 			}
-			break;
+
+			miMaxValue = *lpiMaxValue;
+			// 如果当前值大于最大值，则设置为最大值
+			if (mnCurrentValue > miMaxValue)
+			{
+				SetCurrentValue(miMaxValue);
+			}
+		}
+		break;
 
 		default:
 			luResult = ERESULT_NOT_SET;
 			break;
 		}
 
-		if(luResult == ERESULT_NOT_SET)
+		if (luResult == ERESULT_NOT_SET)
 		{
 			luResult = CXuiElement::ParseMessage(npMsg); // 调用基类的同名函数；注意：一定要调用自身直接基类
 		}
@@ -346,13 +342,13 @@ BOOL CEvSpinButton::SetChildCtrlPara()
 		//设置只接收数字
 		LONG lMode = 1;
 		EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
-			pIter, EACT_EDIT_NUMBER_ONLY, 
+			pIter, EACT_EDIT_NUMBER_ONLY,
 			&lMode, sizeof(LONG), NULL, 0);
 
 		//设置字数限制
 		LONG lLimit = 4;
 		EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
-			pIter, EACT_EDIT_SET_LENGTH_LIMIT, 
+			pIter, EACT_EDIT_SET_LENGTH_LIMIT,
 			&lLimit, sizeof(LONG), NULL, 0);
 	}
 
@@ -419,28 +415,28 @@ BOOL CEvSpinButton::SetCurrentValue(const int nValue)
 
 	if (nValue > miMaxValue)		lnValue = miMaxValue;
 	if (nValue < miMinValue)		lnValue = miMinValue;
-	
+
 	mnCurrentValue = lnValue;
 
 	// 如果是最大值，则禁用增加按钮
-	if(mnCurrentValue == miMaxValue)
+	if (mnCurrentValue == miMaxValue)
 	{
 		mpBtnUpArrow->GetIterator()->SetEnable(false);
 	}
 	else
 	{
-		if(false == mpBtnUpArrow->GetIterator()->IsEnable())
+		if (false == mpBtnUpArrow->GetIterator()->IsEnable())
 			mpBtnUpArrow->GetIterator()->SetEnable(true);
 	}
 
 	// 如果是最小值，则禁用减小按钮
-	if(mnCurrentValue == miMinValue)
+	if (mnCurrentValue == miMinValue)
 	{
 		mpBtnDownArrow->GetIterator()->SetEnable(false);
 	}
 	else
 	{
-		if(false == mpBtnDownArrow->GetIterator()->IsEnable())
+		if (false == mpBtnDownArrow->GetIterator()->IsEnable())
 			mpBtnDownArrow->GetIterator()->SetEnable(true);
 	}
 
@@ -452,7 +448,7 @@ BOOL CEvSpinButton::SetCurrentValueByDisplay()
 	BOOL lbResult = FALSE;
 
 	wchar_t buf[SPINBUTTON_BUF_SIZE] = { 0 };
-	
+
 	if (mpEdit)
 	{
 		EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
@@ -479,14 +475,14 @@ BOOL CEvSpinButton::UpdateEditView()
 	if (mpEdit)
 	{
 		EinkuiGetSystem()->GetElementManager()->SimpleSendMessage(
-			mpEdit->GetIterator(), EACT_EDIT_SET_TEXT, 
+			mpEdit->GetIterator(), EACT_EDIT_SET_TEXT,
 			buf, SPINBUTTON_BUF_SIZE * sizeof(wchar_t), NULL, 0);
 
 		lbResult = TRUE;
 	}
 
 	return lbResult;
-} 
+}
 
 int	CEvSpinButton::GetCurrentValue()
 {

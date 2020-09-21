@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -31,46 +31,46 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Eui</RootNamespace>
     <ProjectName>EInkui</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RemoteDebug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RemoteDebug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -110,9 +110,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(Configuration)_$(Platform)\$(TargetName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RemoteDebug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(Configuration)_$(Platform)\$(TargetName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -125,6 +129,8 @@
     <ExecutablePath>C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>C:\Program Files\Microsoft DirectX SDK (June 2010)\Include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Lib\x64;C:\Program Files %28x86%29\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)bin\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(Configuration)_$(Platform)\$(TargetName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -194,13 +200,13 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>Einkui.def</ModuleDefinitionFile>
-      <OutputFile>..\bin\$(TargetName)$(TargetExt)</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <BaseAddress>0x25000000</BaseAddress>
       <ImportLibrary>..\lib\$(TargetName).lib</ImportLibrary>
       <AdditionalDependencies>EinkIteAPI_d.lib;Dwmapi.lib;d2d1.lib;dwrite.lib;windowscodecs.lib;dxgi.lib;d3d10_1.lib;D3D10.lib;Winmm.lib;Imm32.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ProgramDatabaseFile>..\bin\$(TargetName).pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(SolutionDir)bin\$(Configuration)_$(Platform)_pdb\$(TargetName).pdb</ProgramDatabaseFile>
       <AdditionalLibraryDirectories>..\lib</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
@@ -222,13 +228,13 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>Einkui.def</ModuleDefinitionFile>
-      <OutputFile>\\192.168.1.179\EinkSDK\$(TargetName)$(TargetExt)</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <BaseAddress>0x25000000</BaseAddress>
       <ImportLibrary>..\lib\$(TargetName).lib</ImportLibrary>
       <AdditionalDependencies>EinkIteAPI_d.lib;Dwmapi.lib;d2d1.lib;dwrite.lib;windowscodecs.lib;dxgi.lib;d3d10_1.lib;D3D10.lib;Winmm.lib;Imm32.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ProgramDatabaseFile>..\bin\$(TargetName).pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(SolutionDir)bin\$(Configuration)_$(Platform)_pdb\$(TargetName).pdb</ProgramDatabaseFile>
       <AdditionalLibraryDirectories>..\lib</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
@@ -279,11 +285,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>..\bin\$(TargetName)$(TargetExt)</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ImportLibrary>..\lib\$(TargetName).lib</ImportLibrary>
       <AdditionalDependencies>EinkIteAPI.lib;Dwmapi.lib;d2d1.lib;dwrite.lib;windowscodecs.lib;dxgi.lib;d3d10_1.lib;D3D10.lib;Winmm.lib;Imm32.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>Einkui.def</ModuleDefinitionFile>
       <AdditionalLibraryDirectories>..\lib</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(SolutionDir)bin\$(Configuration)_$(Platform)_pdb\$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -305,9 +312,7 @@
     <ClInclude Include="..\comm\ElementImp.h" />
     <ClInclude Include="..\comm\XUIx.h" />
     <ClInclude Include="..\comm\Motion.h" />
-    <ClInclude Include="..\Include\CfgIface.h" />
     <ClInclude Include="..\Inc\Einkui.h" />
-    <ClInclude Include="..\include\EResult.h" />
     <ClInclude Include="Allocator\XelAllocator.h" />
     <ClInclude Include="Allocator\XelDataMgr.h" />
     <ClInclude Include="Allocator\XelFactoryMgr.h" />

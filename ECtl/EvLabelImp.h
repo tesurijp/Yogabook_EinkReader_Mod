@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef _EVLABEL_H_
 #define _EVLABEL_H_
 
@@ -13,9 +9,9 @@ __interface IDWriteTextLayout;
 // 如果实现的是相同接口的类别，就可以直接从某个实例化类派生新类。
 DECLARE_BUILTIN_NAME(Label)
 class CEvLabelImp :
-	public CXuiElement<CEvLabelImp ,GET_BUILTIN_NAME(Label)>
+	public CXuiElement<CEvLabelImp, GET_BUILTIN_NAME(Label)>
 {
-friend CXuiElement<CEvLabelImp ,GET_BUILTIN_NAME(Label)>;
+	friend CXuiElement<CEvLabelImp, GET_BUILTIN_NAME(Label)>;
 public:
 
 	// 派生本类及派生本函数时，请特别注意!!! 一定要首先调用基类的方法
@@ -23,8 +19,8 @@ public:
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent,	// 父对象指针
 		IN ICfKey* npTemplete,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		);
+		IN ULONG nuEID = MAXULONG32		// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 protected:
 	HCURSOR mdPreviousCursor;		//在鼠标进入自己前的状态
@@ -82,12 +78,12 @@ protected:
 	virtual ERESULT OnSetText(const wchar_t* nswText);
 
 	//Get Text
-	virtual ERESULT OnGetText(wchar_t* nswTextBuf,LONG nlCharCount);
+	virtual ERESULT OnGetText(wchar_t* nswTextBuf, LONG nlCharCount);
 
 	// 慢刷新
 	void  OnLazyUpdate(
 		PSTEMG_LAZY_UPDATE npLazyUpdate
-		);
+	);
 
 	//准备画笔
 	ERESULT PrepareBrush(IEinkuiPaintBoard* npPaintBoard);
@@ -110,21 +106,21 @@ protected:
 	bool SetFlags(
 		int niIndex,		// 标志的序号，从0开始；如果派生类重载这个函数，并且该派生类有2个不希望被后续类和用户修改的标志，那么它的函数调用时的niIndex=0表示的是它的基类的2
 		bool nbSet		// 设置或者清除标志
-		) {
-			return CXuiElement::SetFlags(niIndex+4,nbSet);
+	) {
+		return CXuiElement::SetFlags(niIndex + 4, nbSet);
 	}
 
 	// 获取标志
-	bool TestFlag(int niIndex){
-		return CXuiElement::TestFlag(niIndex+4);
+	bool TestFlag(int niIndex) {
+		return CXuiElement::TestFlag(niIndex + 4);
 	}
 
 	// 允许输入
 	void EnableInput(LONG nlSet);
 
-	ERESULT SetBrushColor(IEinkuiMessage* npMsg,bool nbFore);
+	ERESULT SetBrushColor(IEinkuiMessage* npMsg, bool nbFore);
 
-	ERESULT GetBrushColor(IEinkuiMessage* npMsg,bool nbFore);
+	ERESULT GetBrushColor(IEinkuiMessage* npMsg, bool nbFore);
 
 	ERESULT GetLayout(IEinkuiMessage* npMsg);
 

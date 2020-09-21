@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifndef		__EVSPINBUTTONIMP_H__
 #define		__EVSPINBUTTONIMP_H__
 
@@ -15,18 +11,18 @@
 
 
 DECLARE_BUILTIN_NAME(SpinButton)
-class CEvSpinButton:
-	public CXuiElement<CEvSpinButton ,GET_BUILTIN_NAME(SpinButton)>
+class CEvSpinButton :
+	public CXuiElement<CEvSpinButton, GET_BUILTIN_NAME(SpinButton)>
 {
-	friend CXuiElement<CEvSpinButton ,GET_BUILTIN_NAME(SpinButton)>;
+	friend CXuiElement<CEvSpinButton, GET_BUILTIN_NAME(SpinButton)>;
 
 public:
 
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent = NULL,	// 父对象指针
 		IN ICfKey* npTemplete = NULL,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
-		) ;
+		IN ULONG nuEID = MAXULONG32	// 如果不为0和MAXULONG32，则指定该元素的EID; 否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动分配
+	);
 
 protected:
 	// 只用于变量设置初始值，如指针设为NULL，所有可能失败的如分配之类的运算都应该在InitOnCreate中进行
@@ -49,7 +45,7 @@ protected:
 public:
 	BOOL	SetCurrentValue(const int nValue);
 	int		GetCurrentValue();
-	
+
 private:
 	BOOL UpdateEditView();
 	BOOL SetCurrentValueByDisplay();

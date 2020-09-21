@@ -2,15 +2,14 @@
 /* Copyright 2019 - present Lenovo */
 
 
-/* Copyright 2015 the SumatraPDF project authors (see AUTHORS file).
-   License: GPLv3 */
-
 /* Copied from EngineManager.h*/
 
 /* 
 modify:
 add the loading progress callback function 
 */
+#pragma once
+#include "EdDoc.h"
 
 enum EngineType {
     Engine_None = 0,
@@ -29,10 +28,43 @@ typedef bool(__stdcall *PEDSMT_THREAD_CALLBACK)(uint32 loadingStep, void* contex
 
 namespace EngineLoad {
 
-	bool IsSupportedFile(const WCHAR *filePath, bool sniff = false);
-	bool CreateEngine(const WCHAR *filePath, BaseEngine ** engineObj, PasswordUI *pwdUI = nullptr, EngineType *typeOut = nullptr, PEDSMT_THREAD_CALLBACK callFun = NULL, void* callContext = NULL);
+	//bool IsSupportedFile(const WCHAR *filePath, bool sniff = false);
+	//bool CreateEngine(const WCHAR *filePath, BaseEngine ** engineObj,  EngineType *typeOut = nullptr, PasswordUI *pwdUI = nullptr,PEDSMT_THREAD_CALLBACK callFun = NULL, void* callContext = NULL, PPAGE_PDF_CONTEXT pageContext=NULL);
+	//bool GetPageContext(BaseEngine* baseEngine, int pageNo, PPAGE_PDF_CONTEXT pageContext);
+	//bool ReQueryPageIndex(BaseEngine* baseEngine, PPAGE_PDF_CONTEXT pageContext);
+
+class CEngineHandle 
+{
+public:
+	CEngineHandle() {
+		mRawEngine = NULL;
+		mEngineType = Engine_None;
+	}
+	~CEngineHandle() {
+		if (mRawEngine != NULL)
+			delete mRawEngine;
+	}
+
+	static bool IsSupportedFile(const WCHAR *filePath, bool sniff = false);
+	EngineType GetEngineType(void) {
+		return mEngineType;
+	}
+	bool CreateEngine(const WCHAR *filePath,PasswordUI *pwdUI = nullptr, PEDSMT_THREAD_CALLBACK callFun = NULL, void* callContext = NULL, PPAGE_PDF_CONTEXT pageContext = NULL);
+	BaseEngine* GetRawEngineObj(void) {
+		return mRawEngine;
+	}
+	bool GetPageContext(int pageNo, PPAGE_PDF_CONTEXT pageContext);
+	bool ReQueryPageIndex(PPAGE_PDF_CONTEXT pageContext);
+
+	int PageCount() const;
+
+	bool RenderThumbnail(const WCHAR *filePath,int pageNo,float scalRatio);
+
+protected:
+	BaseEngine* mRawEngine;
+	EngineType mEngineType;
+};
 
 }
-
 
 

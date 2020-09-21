@@ -121,7 +121,7 @@ BOOL CHICon::GetIconByResId(wchar_t *npPeFile, int nwResId)
 {
 	BOOL fResult = FALSE;
 
-	HINSTANCE hMod = LoadLibraryEx(npPeFile, NULL, LOAD_LIBRARY_AS_IMAGE_RESOURCE);
+	HINSTANCE hMod = LoadLibraryEx(npPeFile, NULL, LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
 	if(hMod != NULL) {
 		for(int i = 0; i< _countof(naPredefinedSize); i++) {
 			if(GetSpecifiedSizedIcon(hMod, nwResId, naPredefinedSize[i].cx)) {
@@ -275,8 +275,9 @@ IEinkuiBitmap* __stdcall CXD2dBitmap::DuplicateBitmap(void)
 
 	} while (false);
 
-	CMM_SAFE_DELETE(lpBitmapBuffer);
-
+	delete[] lpBitmapBuffer;
+	lpBitmapBuffer = NULL;
+	 
 	return lpNewBitmap;
 
 }
@@ -397,7 +398,7 @@ ULONG CXD2dBitmap::InitOnCreate(IN const wchar_t *npFileName)
 	CEinkuiSystem::gpXuiSystem->GetBitmapList().RegisteBitmap(this);
 
 	meBitmapType = CommonBitmap;
-	memcpy(mswFileName, npFileName, (int)wcslen(npFileName)*sizeof(wchar_t));
+	memcpy_s(mswFileName, MAX_PATH * sizeof(wchar_t), npFileName, (int)wcslen(npFileName) * sizeof(wchar_t));
 
 	return InitCommonBitmap(EinkuiGetSystem()->GetWICFactory());
 

@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #ifdef KERNEL_CODE
 #include "ntddk.h"
 #else

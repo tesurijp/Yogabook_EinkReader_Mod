@@ -1321,7 +1321,7 @@ HtmlPage *HtmlFormatter::Next(bool skipEmptyPages)
         // that case and really end parsing
         if (finishedParsing)
             return nullptr;
-        HtmlToken *t = htmlParser->Next();
+		HtmlToken *t = htmlParser->Next(); 
         if (!t || t->IsError())
             break;
 

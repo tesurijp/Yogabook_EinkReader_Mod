@@ -1,14 +1,15 @@
 /* License: COPYING.GPLv3 */
 /* Copyright 2019 - present Lenovo */
-
-
 //////////////////////////////////////////////////////////////////////////
 // 常用文件和目录转换工具函数
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "Windows.h"
 #include "cmmPath.h"
 #include "cmmstruct.h"
 #include "Shlobj.h"
+#include "cmmString.h"
+
+
 
 CFilePathName::CFilePathName()
 {
@@ -23,9 +24,8 @@ CFilePathName::CFilePathName(const class CFilePathName& src)
 
 CFilePathName::CFilePathName(const wchar_t* nszPathName)
 {
-	*this = nszPathName;
+	SetPathName(nszPathName);
 }
-
 
 // 动态拷贝对象
 CFilePathName* CFilePathName::Create(const wchar_t* nszPathName)
@@ -84,41 +84,111 @@ bool CFilePathName::SetByModulePathName(void)
 // 调用该函数后，路径最后带有"\"
 bool CFilePathName::SetByUserAppData(void)
 {
-	bool lbRet = false;
+	return SetBySpecialPath(CSIDL_LOCAL_APPDATA);
+}
 
-	do 
+bool CFilePathName::SetByTempPath(void)
+{
+	msiLength = (short)GetTempPath(MAX_PATH, mszPathName);
+	return msiLength > 0;
+}
+
+int CALLBACK  BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
+{
+	wchar_t* defaultPath = (wchar_t*)lpData;
+	switch (uMsg)
 	{
-		//获取目录
-		if(SHGetSpecialFolderPath(NULL,mszPathName,CSIDL_LOCAL_APPDATA,FALSE) == FALSE)
-			break;
+	case BFFM_INITIALIZED:    //初始化消息
+		::SendMessage(hwnd, BFFM_SETSELECTION, TRUE, (LPARAM)defaultPath);
+		break;
+	case BFFM_SELCHANGED:    //选择路径变化，
+	{
+		TCHAR curr[MAX_PATH];
+		SHGetPathFromIDList((LPCITEMIDLIST)lParam, curr);
+		::SendMessage(hwnd, BFFM_SETSTATUSTEXT, 0, (LPARAM)curr);
+	}
+	break;
+	default:
+		break;
+	}
+	return 0;
+}
 
-		int liLength = (int)wcslen(mszPathName);
-		if(liLength+1 >= MAX_PATH || liLength <= 0)
-		{
-			mszPathName[0] = UNICODE_NULL;
-			msiLength = 0;
-			break;
-		}
+bool CFilePathName::QueryPathDialog(HWND parentWindow, const wchar_t* wndTitle, const wchar_t* defaultPath)
+{
+	BROWSEINFO    bi;
+	ITEMIDLIST    *pidl = NULL;
 
-		msiLength = (short)liLength;
-		mszPathName[msiLength++] = L'\\';
-		mszPathName[msiLength] = UNICODE_NULL;
+	bi.hwndOwner = parentWindow;
+	bi.pidlRoot = NULL;
+	bi.pszDisplayName = mszPathName;
+	bi.lpszTitle = wndTitle;
+	bi.ulFlags = BIF_RETURNONLYFSDIRS;
+	bi.lpfn = BrowseCallbackProc;
+	bi.lParam = (LPARAM)defaultPath;
+	bi.iImage = 0;
 
-		lbRet = true;
+	pidl = (ITEMIDLIST *)SHBrowseForFolder(&bi);
+	if (NULL == pidl)
+		return false;
+	if (!SHGetPathFromIDList(pidl, mszPathName))
+		return false;
 
-	} while (false);
-	
-	return lbRet;
+	int liLength = (int)wcslen(mszPathName);
+	if (liLength + 1 >= MAX_PATH || liLength <= 0)
+	{
+		mszPathName[0] = UNICODE_NULL;
+		msiLength = 0;
+		return false;
+	}
+
+	msiLength = (short)liLength;
+	mszPathName[msiLength++] = L'\\';
+	mszPathName[msiLength] = UNICODE_NULL;
+
+	return true;
+}
+
+
+
+bool CFilePathName::CreatePath(void)
+{
+	CFilePathName dup(*this);
+
+	dup.Transform(L".\\");
+
+	return CreateDirectoryRecursion(dup);
 }
 
 // 设置为目录，如果结尾没有'\\'就加上
 void CFilePathName::AssurePath(void)
 {
-	if(msiLength>0 && mszPathName[msiLength-1]!=L'\\' && msiLength < MAX_PATH)
+	if(msiLength>0 && mszPathName[msiLength-1]!=L'\\' && msiLength < (MAX_PATH-1))
 	{
 		mszPathName[msiLength++] = L'\\';
 		mszPathName[msiLength] = 0;
 	}
+}
+
+void CFilePathName::RemoveDirectoryTail(void)
+{
+	if (msiLength > 0 && mszPathName[msiLength - 1] == L'\\')
+	{
+		mszPathName[--msiLength] = 0;
+	}
+}
+
+bool CFilePathName::RemoveExtName(void)
+{
+	wchar_t* extStart = (wchar_t*)GetExtName();
+
+	if (*extStart == UNICODE_NULL)
+		return false;
+	*(--extStart) = UNICODE_NULL;
+
+	msiLength = (short)(extStart - mszPathName);
+
+	return true;
 }
 
 // 附加目录或者文件名，返回false失败，可能的原因无法转换位置，或者结果超长
@@ -170,7 +240,7 @@ bool CFilePathName::Transform(const wchar_t* nszTransTo,bool nbForceBePath)
 	}
 	if(nbForceBePath != false)
 	{
-		if(j>= MAX_PATH)
+		if(j>= (MAX_PATH-1))
 			return false;
 		if(j >= 0 && mszPathName[j-1]!=L'\\')
 		{
@@ -255,7 +325,7 @@ void CFilePathName::operator=(const class CFilePathName& src)
 {
 	msiLength = src.msiLength;
 	if(msiLength > 0)
-		RtlCopyMemory(mszPathName,src.mszPathName,(msiLength+1)*sizeof(wchar_t));
+		memcpy_s(mszPathName,MAX_PATH * sizeof(wchar_t),src.mszPathName,(msiLength+1)*sizeof(wchar_t));
 }
 
 // 从字符串赋值
@@ -293,7 +363,56 @@ int CFilePathName::ExtNameMatch(const wchar_t* nszFilter)const
 	return -1;
 }
 
+bool CFilePathName::CreateDirectoryRecursion(const CFilePathName& path)
+{
+	CFilePathName upPath = path;
+
+	upPath.RemoveDirectoryTail();
+
+	if (CreateDirectory(upPath.GetPathName(), NULL) == FALSE && GetLastError() != ERROR_ALREADY_EXISTS)
+	{
+		upPath.Transform(L".\\");
+
+		if (CreateDirectoryRecursion(upPath) == false)
+			return false;
+
+		return CreateDirectoryRecursion(path);
+	}
+
+	return true;
+}
+
 // 直接附加字符串
+
+bool CFilePathName::SetBySpecialPath(int csidl)
+{
+	bool lbRet = false;
+
+	do
+	{
+		//获取目录
+		if (SHGetSpecialFolderPath(NULL, mszPathName, csidl, FALSE) == FALSE)
+			break;
+
+		int liLength = (int)wcslen(mszPathName);
+		if (liLength + 1 >= MAX_PATH || liLength <= 0)
+		{
+			mszPathName[0] = UNICODE_NULL;
+			msiLength = 0;
+			break;
+		}
+
+		msiLength = (short)liLength;
+		mszPathName[msiLength++] = L'\\';
+		mszPathName[msiLength] = UNICODE_NULL;
+
+		lbRet = true;
+
+	} while (false);
+
+	return lbRet;
+}
+
 void CFilePathName::operator+=(const class CFilePathName& src)throw(...)
 {
 	if(msiLength+src.msiLength >= MAX_PATH)

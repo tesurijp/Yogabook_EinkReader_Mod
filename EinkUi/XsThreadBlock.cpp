@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #include "stdafx.h"
 
 #include "CommonHeader.h"
@@ -28,19 +24,19 @@ ULONG CXuiThreadBlock::AddBlock()
 ERESULT CXuiThreadBlock::ReadBlockState(ULONG nuID)
 {
 	ERESULT luResult;
-	
+
 	moAccLock.Enter();
-	luResult = moBlocks.GetItem(nuID,ERESULT_OBJECT_NOT_FOUND);
+	luResult = moBlocks.GetItem(nuID, ERESULT_OBJECT_NOT_FOUND);
 	moAccLock.Leave();
 
 	return luResult;
 }
 
 //设定阻点的状况
-void CXuiThreadBlock::SetBlockState(ULONG nuID,ERESULT nuState)
+void CXuiThreadBlock::SetBlockState(ULONG nuID, ERESULT nuState)
 {
 	moAccLock.Enter();
-	moBlocks.UpdateItem(nuID,nuState);
+	moBlocks.UpdateItem(nuID, nuState);
 	moAccLock.Leave();
 }
 
@@ -57,7 +53,7 @@ void CXuiThreadBlock::RemoveBlock(ULONG nuID)
 void CXuiModalStack::AddModal(const CXuiModalState& rModalState)
 {
 	moAccLock.Enter();
-	moStack.Insert(0,rModalState);
+	moStack.Insert(0, rModalState);
 	moAccLock.Leave();
 }
 
@@ -65,7 +61,7 @@ bool CXuiModalStack::GetTopModel(CXuiModalState& rState)
 {
 	bool lbOK = false;
 	moAccLock.Enter();
-	if(moStack.Size() > 0)
+	if (moStack.Size() > 0)
 	{
 		rState = moStack[0];
 		lbOK = true;
@@ -82,7 +78,7 @@ void CXuiModalStack::RemoveModal(IEinkuiIterator* npModelElement)
 	moAccLock.Enter();
 
 	liIndex = FindModal(npModelElement);
-	if(liIndex >= 0)
+	if (liIndex >= 0)
 		moStack.RemoveByIndex(liIndex);
 
 	moAccLock.Leave();
@@ -92,12 +88,12 @@ void CXuiModalStack::RemoveModal(IEinkuiIterator* npModelElement)
 ULONG CXuiModalStack::GetBlockIDOfModal(IEinkuiIterator* npModelElement)
 {
 	int liIndex;
-	ULONG luId=0;
+	ULONG luId = 0;
 
 	moAccLock.Enter();
 
 	liIndex = FindModal(npModelElement);
-	if(liIndex >= 0)
+	if (liIndex >= 0)
 		luId = moStack[liIndex].muBlock;
 
 	moAccLock.Leave();
@@ -107,9 +103,9 @@ ULONG CXuiModalStack::GetBlockIDOfModal(IEinkuiIterator* npModelElement)
 
 int CXuiModalStack::FindModal(IEinkuiIterator* npModelElement)
 {
-	for (int i=0;i<moStack.Size();i++)
+	for (int i = 0; i < moStack.Size(); i++)
 	{
-		if(moStack[i].mpTarget == npModelElement)
+		if (moStack[i].mpTarget == npModelElement)
 		{
 			return i;
 		}

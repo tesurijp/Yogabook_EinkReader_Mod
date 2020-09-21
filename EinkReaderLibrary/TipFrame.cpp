@@ -159,6 +159,7 @@ void CTipFrame::DoModal()
 	{
 		mpIterator->SetActive();
 		mpIterator->BringToTop();
+		EinkuiGetSystem()->EnablePaintboard(false);
 		EinkuiGetSystem()->UpdateView(true);
 		EinkuiGetSystem()->DoModal(mpIterator);
 

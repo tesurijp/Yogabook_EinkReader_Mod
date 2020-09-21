@@ -1,7 +1,3 @@
-/* License: COPYING.GPLv3 */
-/* Copyright 2019 - present Lenovo */
-
-
 #pragma once
 
 
@@ -11,16 +7,16 @@ DECLARE_BUILTIN_NAME(System_SelectFrame)
 #define SF_POINT_MAX 8	//最大点个数
 
 class CSelectFrame :
-	public CXuiElement<CSelectFrame,GET_BUILTIN_NAME(System_SelectFrame)>
+	public CXuiElement<CSelectFrame, GET_BUILTIN_NAME(System_SelectFrame)>
 {
-	friend CXuiElement<CSelectFrame,GET_BUILTIN_NAME(System_SelectFrame)>;
+	friend CXuiElement<CSelectFrame, GET_BUILTIN_NAME(System_SelectFrame)>;
 
 public:
 	ULONG InitOnCreate(
 		IN IEinkuiIterator* npParent = NULL,	// 父对象指针
 		IN ICfKey* npTemplete = NULL,		// npTemplete的Key ID就是EID，值就是类型EType
-		IN ULONG nuEID=0					// 如果不为0，则指定该元素的EID，否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动那个分配
-		) ;
+		IN ULONG nuEID = 0					// 如果不为0，则指定该元素的EID，否则，取上一个参数的模板内设置的值作为EID，如果模板也没有设置EID，则使用XUI系统自动那个分配
+	);
 
 protected:
 	CSelectFrame(void);
@@ -52,7 +48,7 @@ protected:
 	virtual ERESULT OnKeyPressed(const STEMS_KEY_PRESSED* npInfo);
 
 protected:
-	
+
 	// 设置对应点的鼠标状态
 	void SetCursor(D2D1_POINT_2F ndPoint, D2D1_RECT_F ndNormalRect, int niIndex);
 
@@ -63,7 +59,7 @@ protected:
 	void Relocation(void);
 
 	//处理八个点拖动
-	ERESULT OnPointDrag(IEinkuiIterator* npDragItem,D2D1_SIZE_F* npOffset);
+	ERESULT OnPointDrag(IEinkuiIterator* npDragItem, D2D1_SIZE_F* npOffset);
 
 	// 等比缩放
 	ERESULT OnProportionalScaling(IEinkuiIterator* npDragItem, STCTL_CHANGE_POSITION_SIZE& noChangePositionSize);

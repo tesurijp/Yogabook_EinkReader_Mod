@@ -6,12 +6,15 @@
 #ifndef _EDPDFDOC_H_
 #define _EDPDFDOC_H_
 #include "smtmImp.h"
+#include "EngineOverride.h"
+#include "Thumb.h"
 
 
 
 typedef struct _ST_DOC_LOADING_THREAD {
 	char16_ptr pathName;
 	PVOID docObject;
+	PAGE_PDF_CONTEXT pageContext;
 }ST_DOC_LOADING_THREAD,* PST_DOC_LOADING_THREAD;
 
 
@@ -29,15 +32,28 @@ public:
 
 	DEFINE_CUMSTOMIZE_CREATE(CSmtDocument, (const char16_ptr pathName), (pathName))
 
-	BaseEngine* GetEngine(void) { return documentEngine; }
 
-	bool32 LoadAllPage(PEDDOC_CALLBACK callBackFun, void_ptr contextPtr);
+	bool32 LoadAllPage(PEDDOC_CALLBACK callBackFun, void_ptr contextPtr, PPAGE_PDF_CONTEXT initPage);
 	int32Eink GetMetaData(char* keyName, char* dataBuf, int32Eink bufSize);
 	int32Eink GetDocType(void);
 	int32Eink GetPageCount(void);
 	IEdPage_ptr GetPage(int32Eink pageIndex);
 	IEdPage_ptr GetPage(PPAGE_PDF_CONTEXT contextPtr);
 	IEdPage_ptr GetPage(IEdPage_ptr currentPage, int32Eink pagesOff);
+	bool32 LoadAllThumbnails(PEDDOC_THUMBNAILS_CALLBACK callBack, void_ptr contextPtr, const wchar_t* nphumbnailPathName);
+	bool32 GetThumbanilsPath(wchar_t* npszPathBuffer, int niLen);
+	bool32 GetThumbnailPathName(int32Eink pageIndex, char16 pathName[256], bool* hasAnnot);
+	int32Eink GetAnnotPageCount(void) {
+		return 0;
+	}
+
+	bool32 SaveAllChanges(const char16_ptr pathName) {
+		return false;
+	}
+
+	EngineLoad::CEngineHandle* GetEngine(void) {
+		return &documentEngine; 
+	}
 
 	//////////////////////////////////////////////////////////////////////////
 	// following functions just work on a txt document.
@@ -60,16 +76,25 @@ protected:
 	// 内部变量
 	volatile int32Eink documentType;
 	volatile int32Eink pageCount;
-	BaseEngine* volatile documentEngine;
+	//BaseEngine* volatile documentEngine;
 	EngineType engineType;
+	EngineLoad::CEngineHandle documentEngine;
 
 	PEDDOC_CALLBACK mPageLoadCallbackFun;
 	void_ptr mPageLoadCallbackContext;
 
 	ST_DOC_LOADING_THREAD mThreadData;
 	HANDLE mThreadHandle;
-	HANDLE mPageLoadEvent;
+	HANDLE mPageNo1LoadedEvent;
 	volatile LONG mExitThread;
+	HANDLE mOverallLoadedEvent;
+
+	volatile bool mLoadThumb;
+	CExclusiveAccess mDocAccLock;
+	HANDLE mThumbThreadExit;
+	CSmtThumb mThumbCtl;
+
+
 
 
 	//// 当前页

@@ -13,6 +13,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="comm">
+      <UniqueIdentifier>{89bc5ce6-84f6-4064-96b4-2d78da710825}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -45,6 +48,9 @@
     <ClInclude Include="BufferMgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\comm\InstallDriver.h">
+      <Filter>comm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -58,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="BufferMgr.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm\InstallDriver.cpp">
+      <Filter>comm</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
